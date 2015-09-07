@@ -9,7 +9,8 @@ class Double extends Real {
   static const Double hundred = const Double.constant(100.0);
   static const Double thousand = const Double.constant(1000.0);
   static const Double infinity = const Double.constant(double.INFINITY);
-  static const Double negInfinity = const Double.constant(double.NEGATIVE_INFINITY);
+  static const Double negInfinity =
+      const Double.constant(double.NEGATIVE_INFINITY);
   static const Double NaN = const Double.constant(double.NAN);
 
   static const String decimalString = "9753124680";

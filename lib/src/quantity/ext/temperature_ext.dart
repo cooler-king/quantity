@@ -27,11 +27,17 @@ final TemperatureUnits degreesCelsius = Temperature.degreesCelsius;
 
 final double FIVE_NINTHS = 5.0 / 9.0;
 
-final TemperatureUnits degreesFahrenheit =
-    new TemperatureUnits("degrees Fahrenheit", "deg F", null, "degree Fahrenheit", FIVE_NINTHS, false, 459.67);
+final TemperatureUnits degreesFahrenheit = new TemperatureUnits(
+    "degrees Fahrenheit",
+    "deg F",
+    null,
+    "degree Fahrenheit",
+    FIVE_NINTHS,
+    false,
+    459.67);
 
-final TemperatureUnits degreesRankine =
-    new TemperatureUnits("degrees Rankine", "deg R", null, "degree Rankine", FIVE_NINTHS, false, 0.0);
+final TemperatureUnits degreesRankine = new TemperatureUnits("degrees Rankine",
+    "deg R", null, "degree Rankine", FIVE_NINTHS, false, 0.0);
 
 /*
 final TemperatureInterval.TemperatureIntervalUnits INTERVAL_DEGREES_FAHRENHEIT =
@@ -42,4 +48,5 @@ final TemperatureInterval.TemperatureIntervalUnits INTERVAL_DEGREES_RANKINE =
 */
 
 // Constants
-final Temperature planckTemperature = new Temperature(K: 1.416833e32, uncert: 6.0e-5);
+final Temperature planckTemperature =
+    new Temperature(K: 1.416833e32, uncert: 6.0e-5);

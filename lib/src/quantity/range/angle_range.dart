@@ -1,10 +1,9 @@
 part of quantity_range;
 
-/// An immutable angle range with a start angle and an end angle and an
+/// An immutable angle range with a start angle, an end angle and an
 /// implicit direction.
 ///
 class AngleRange extends QuantityRange<Angle> {
-
   /// Contructs an angle range.
   AngleRange(Angle startAngle, Angle endAngle) : super(startAngle, endAngle);
 
@@ -172,11 +171,12 @@ class AngleRange extends QuantityRange<Angle> {
   /// This is a more lenient test than [contains()] in superclass
   /// [QuantityRange].
   ///
-  bool contains360(Angle angle, [bool inclusive = true, double epsilon = 1.0e-10]) {
-    if (contains(angle, inclusive, epsilon) || revolutions.abs() > 0) return true;
+  bool contains360(Angle angle,
+      [bool inclusive = true, double epsilon = 1.0e-10]) {
+    if (contains(angle, inclusive, epsilon) ||
+        revolutions.abs() > 0) return true;
     Angle ang360 = angle.angle360;
-    for (AngleRange range in this.ranges360) {
-      //print("${range.minValue.mks} to ${range.maxValue.mks} contains ${ang360.mks}... ${range.contains(ang360, inclusive)}... epsilson = ${epsilon}");
+    for (var range in this.ranges360) {
       if (range.contains(ang360, inclusive, epsilon)) return true;
     }
     return false;
@@ -191,7 +191,7 @@ class AngleRange extends QuantityRange<Angle> {
   /// ranges were projected onto a single circle is returned.
   ///
   Angle angleClosestTo(Angle angle, [bool strict = false]) {
-    Angle ang = angle != null ? angle : angle0;
+    var ang = angle != null ? angle : angle0;
 
     // Contains?
     if (!strict && contains360(ang)) {
@@ -209,8 +209,10 @@ class AngleRange extends QuantityRange<Angle> {
       num deltaStartRad = 0;
       num deltaEndRad = 0;
       for (var range in ranges) {
-        deltaStartRad = (range.startAngle.mks.toDouble() - angRev0.mks.toDouble()).abs();
-        deltaEndRad = (range.endAngle.mks.toDouble() - angRev0.mks.toDouble()).abs();
+        deltaStartRad =
+            (range.startAngle.mks.toDouble() - angRev0.mks.toDouble()).abs();
+        deltaEndRad =
+            (range.endAngle.mks.toDouble() - angRev0.mks.toDouble()).abs();
         if (deltaStartRad < minDeltaRad) {
           closest = startAngle;
           minDeltaRad = deltaStartRad;
@@ -222,9 +224,12 @@ class AngleRange extends QuantityRange<Angle> {
       }
       return closest;
     } else {
-      num deltaStartRad = (startAngle.mks.toDouble() - ang.mks.toDouble()).abs();
+      num deltaStartRad =
+          (startAngle.mks.toDouble() - ang.mks.toDouble()).abs();
       num deltaEndRad = (endAngle.mks.toDouble() - ang.mks.toDouble()).abs();
-      return (deltaStartRad <= deltaEndRad) ? new Angle(rad: deltaStartRad) : new Angle(rad: deltaEndRad);
+      return (deltaStartRad <= deltaEndRad)
+          ? new Angle(rad: deltaStartRad)
+          : new Angle(rad: deltaEndRad);
     }
   }
 }

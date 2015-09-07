@@ -1,8 +1,7 @@
-/**
- * The quantity extension library includes unit synonyms to enable very terse
- * constructors and expressions, non-SI units, constants, and auxiliary 
- * functions. 
- */
+/// The quantity extension library includes unit synonyms to enable very terse
+/// constructors and expressions, non-SI units, constants, and auxiliary
+/// functions.
+///
 library quantity_ext;
 
 import 'package:quantity/number.dart';

@@ -1,36 +1,45 @@
 part of quantity_core;
 
 class MassFluxDensity extends Quantity {
-
   /// Dimensions for this type of quantity
   static const Dimensions massFluxDensityDimensions =
       const Dimensions.constant(const {"Mass": 1, "Time": -1, "Length": -2});
 
-  /** the standard SI unit **/
+  /// The standard SI unit.
   static final MassFluxDensityUnits kilogramsPerSecondPerSquareMeter =
-      new MassFluxDensityUnits.massTimeArea(Mass.kilograms, Time.seconds, Area.squareMeters);
+      new MassFluxDensityUnits.massTimeArea(
+          Mass.kilograms, Time.seconds, Area.squareMeters);
 
-  MassFluxDensity({dynamic kg_per_s_per_m2, double uncert: 0.0}) : super(
-          kg_per_s_per_m2 != null ? kg_per_s_per_m2 : 0.0, MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
+  MassFluxDensity({dynamic kg_per_s_per_m2, double uncert: 0.0})
+      : super(kg_per_s_per_m2 != null ? kg_per_s_per_m2 : 0.0,
+            MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
 
-  MassFluxDensity._internal(conv) : super._dimensions(conv, MassFluxDensity.massFluxDensityDimensions);
+  MassFluxDensity._internal(conv)
+      : super._dimensions(conv, MassFluxDensity.massFluxDensityDimensions);
 
-  /**
-   * Constructs a MassFluxDensity based on the [value]
-   * and the conversion factor intrinsic to the passed [units].
-   */
-  MassFluxDensity.inUnits(value, MassFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
+  /// Constructs a MassFluxDensity based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  ///
+  MassFluxDensity.inUnits(value, MassFluxDensityUnits units,
+      [double uncert = 0.0])
+      : super(
+            value,
+            units != null
+                ? units
+                : MassFluxDensity.kilogramsPerSecondPerSquareMeter,
+            uncert);
 
-  const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits units, num uncert: 0.0})
-      : super.constant(valueSI, MassFluxDensity.massFluxDensityDimensions, units, uncert);
+  const MassFluxDensity.constant(Number valueSI,
+      {MassFluxDensityUnits units, num uncert: 0.0})
+      : super.constant(
+            valueSI, MassFluxDensity.massFluxDensityDimensions, units, uncert);
 }
 
-/**
- * Units acceptable for use in describing MassFluxDensity quantities.
- */
+/// Units acceptable for use in describing MassFluxDensity quantities.
+///
 class MassFluxDensityUnits extends MassFluxDensity with Units {
-  MassFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  MassFluxDensityUnits(String name, String abbrev1, String abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
@@ -47,9 +56,12 @@ class MassFluxDensityUnits extends MassFluxDensity with Units {
     this.name = "${mu.name} per ${tu.singular} per ${au.singular}";
     this.singular = "${mu.singular} per ${tu.singular} per ${au.singular}";
     this._convToMKS = mu.valueSI / (tu.valueSI * au.valueSI);
-    this._abbrev1 =
-        mu._abbrev1 != null && tu._abbrev1 != null ? "${mu._abbrev1} / ${tu._abbrev1} / ${au._abbrev1}" : null;
-    this._abbrev2 = mu._abbrev2 != null && tu._abbrev2 != null ? "${mu._abbrev2}/${tu._abbrev2}/${au._abbrev2}" : null;
+    this._abbrev1 = mu._abbrev1 != null && tu._abbrev1 != null
+        ? "${mu._abbrev1} / ${tu._abbrev1} / ${au._abbrev1}"
+        : null;
+    this._abbrev2 = mu._abbrev2 != null && tu._abbrev2 != null
+        ? "${mu._abbrev2}/${tu._abbrev2}/${au._abbrev2}"
+        : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
@@ -57,12 +69,16 @@ class MassFluxDensityUnits extends MassFluxDensity with Units {
   /// Returns the Type of the Quantity to which these Units apply
   Type get quantityType => MassFluxDensity;
 
-  /**
-   * Derive new MassFluxDensityUnits using this MassFluxDensityUnits object as the base.
-   */
+  /// Derive new MassFluxDensityUnits using this MassFluxDensityUnits object as the base.
+  ///
   Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new MassFluxDensityUnits("${fullPrefix}${name}", _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null, "${fullPrefix}${singular}", valueSI * conv, false,
+    return new MassFluxDensityUnits(
+        "${fullPrefix}${name}",
+        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
+        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
+        "${fullPrefix}${singular}",
+        valueSI * conv,
+        false,
         this.offset);
   }
 }

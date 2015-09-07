@@ -25,7 +25,9 @@ class Fraction extends Double {
       return super + addend;
     }
 
-    double val = (_denominator != 0) ? (_numerator.toDouble() / _denominator.toDouble()) : double.INFINITY;
+    double val = (_denominator != 0)
+        ? (_numerator.toDouble() / _denominator.toDouble())
+        : double.INFINITY;
 
     if (addend is Imaginary) {
       return new Complex(new Double(val), addend);

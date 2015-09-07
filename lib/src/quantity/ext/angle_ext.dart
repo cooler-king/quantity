@@ -31,7 +31,8 @@ final AngleUnits secondsArc = Angle.secondsArc;
 // non-SI angle units
 
 /// One grad is 0.9 of a degree, exactly
-final AngleUnits grads = new AngleUnits("grads", null, null, null, 0.9 * 1.7453292519943e-2, false);
+final AngleUnits grads =
+    new AngleUnits("grads", null, null, null, 0.9 * 1.7453292519943e-2, false);
 
 /// Synonym for grads
 final AngleUnits grades = grads;
@@ -40,24 +41,28 @@ final AngleUnits grades = grads;
 final AngleUnits gons = grads;
 
 /// One angular mil is 0.05625 of a degree, exactly
-final AngleUnits angularMils = new AngleUnits("mils", null, null, null, 0.05625 * 1.7453292519943e-2, false);
+final AngleUnits angularMils = new AngleUnits(
+    "mils", null, null, null, 0.05625 * 1.7453292519943e-2, false);
 
-final AngleUnits revolutions = new AngleUnits("revolutions", null, "revs", null, twoPi, false);
+final AngleUnits revolutions =
+    new AngleUnits("revolutions", null, "revs", null, twoPi, false);
 
 final AngleUnits cycles = revolutions;
 
-final AngleUnits signs = new AngleUnits("signs", null, null, null, 0.523599, false);
+final AngleUnits signs =
+    new AngleUnits("signs", null, null, null, 0.523599, false);
 
 /// Based on earth's rotation (approximately 15 degrees)
-final AngleUnits hoursTime = new AngleUnits("hours time", "hrs time", "hr", "hour time", 2.6179939e-1, false);
+final AngleUnits hoursTime = new AngleUnits(
+    "hours time", "hrs time", "hr", "hour time", 2.6179939e-1, false);
 
 /// based on earth's rotation
-final AngleUnits minutesTime =
-    new AngleUnits("minutes time", "min time", "min (t)", "minute time", 4.3633231e-3, false);
+final AngleUnits minutesTime = new AngleUnits(
+    "minutes time", "min time", "min (t)", "minute time", 4.3633231e-3, false);
 
 /// Based on earth's rotation
-final AngleUnits secondsTime =
-    new AngleUnits("seconds time", "sec time", "sec (t)", "second time", 7.2722052e-5, false);
+final AngleUnits secondsTime = new AngleUnits(
+    "seconds time", "sec time", "sec (t)", "second time", 7.2722052e-5, false);
 
 // Commonly Used Angles
 final Angle angle0 = new Angle(deg: 0.0);
@@ -88,8 +93,10 @@ final double tan45 = 1.0;
 final double tan60 = tan(angle60);
 
 // Alternative construction
-Angle angleFromHourMinSec(int hour, int minute, double second, [double uncert = 0.0]) {
-  double mks =
-      hoursTime.toMks(hour).toDouble() + minutesTime.toMks(minute).toDouble() + secondsTime.toMks(second).toDouble();
+Angle angleFromHourMinSec(int hour, int minute, double second,
+    [double uncert = 0.0]) {
+  double mks = hoursTime.toMks(hour).toDouble() +
+      minutesTime.toMks(minute).toDouble() +
+      secondsTime.toMks(second).toDouble();
   return new Angle.inUnits(mks, Angle.radians, uncert);
 }

@@ -4,7 +4,6 @@ part of quantity_core;
 /// operation on a Quantity having unexpected or illegal dimensions.
 ///
 class DimensionsException extends QuantityException {
-
   /// Constructs a new DimensionsException with an optional message.
   ///
   DimensionsException([String str = ""]) : super(str);

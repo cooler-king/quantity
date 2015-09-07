@@ -9,6 +9,8 @@ class ImmutableQuantityException extends QuantityException {
   /**
    *  Constructs a new DimensionsException with an optional message (str).
    */
-  ImmutableQuantityException({String str: "An attempt was made to modify an immutable quantity:  ", Quantity q})
+  ImmutableQuantityException(
+      {String str: "An attempt was made to modify an immutable quantity:  ",
+      Quantity q})
       : super(q.toString());
 }

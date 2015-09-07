@@ -6,12 +6,14 @@ import 'package:quantity/quantity_range.dart';
 main() {
   group('AngleRange', () {
     test('constructors', () {
-      AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
+      AngleRange range =
+          new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
       expect(range, isNotNull);
     });
 
     test('endpoint getters', () {
-      AngleRange range = new AngleRange(new Angle(rad: 2.4), new Angle(rad: 0.9));
+      AngleRange range =
+          new AngleRange(new Angle(rad: 2.4), new Angle(rad: 0.9));
       expect(range.startAngle.valueSI == 2.4, true);
       expect(range.endAngle.valueSI == 0.9, true);
 
@@ -37,7 +39,8 @@ main() {
     });
 
     test('revolutions', () {
-      AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
+      AngleRange range =
+          new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
       expect(range.revolutions, 0);
 
       range = new AngleRange(new Angle(deg: 15), new Angle(deg: 470.1));
@@ -57,7 +60,8 @@ main() {
     });
 
     test('clockwise/counterclockwise', () {
-      AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
+      AngleRange range =
+          new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
       expect(range.isClockwise, true);
       expect(range.isCounterclockwise, false);
       expect(range.isAnticlockwise, false);
@@ -69,7 +73,8 @@ main() {
     });
 
     test('ranges360', () {
-      AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
+      AngleRange range =
+          new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
       List<AngleRange> list = range.ranges360;
       expect(list != null, true);
       expect(list.length, 1);
@@ -85,18 +90,19 @@ main() {
 
       range = new AngleRange(new Angle(deg: -25), new Angle(deg: 45));
       list = range.ranges360;
-      print(list[0]);
-      print(list[1]);
       expect(list != null, true);
       expect(list.length, 2);
       expect(list[0].startAngle == new Angle(deg: 0), true);
-      expect(list[0].endAngle.valueSI.toDouble(), closeTo(new Angle(deg: 45).valueSI.toDouble(), 0.00001));
-      expect(list[1].startAngle.valueSI.toDouble(), closeTo(new Angle(deg: 335).valueSI.toDouble(), 0.00001));
+      expect(list[0].endAngle.valueSI.toDouble(),
+          closeTo(new Angle(deg: 45).valueSI.toDouble(), 0.00001));
+      expect(list[1].startAngle.valueSI.toDouble(),
+          closeTo(new Angle(deg: 335).valueSI.toDouble(), 0.00001));
       expect(list[1].endAngle == new Angle(deg: 360), true);
     });
 
     test('contains/contains360', () {
-      AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
+      AngleRange range =
+          new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
       expect(range.contains(new Angle(deg: 55)), true);
       expect(range.contains(new Angle(deg: 155)), false);
       expect(range.contains(new Angle(deg: 15)), true);
@@ -114,9 +120,6 @@ main() {
       expect(range.contains360(new Angle(deg: 70.1), false, 0.0), false);
       expect(range.contains360(new Angle(deg: 380)), true);
       expect(range.contains360(new Angle(deg: -300)), true);
-      print("Inclusive angle range********");
-      print(range.minValue.mks);
-      print(new Angle(deg: 375).mks);
       expect(range.contains360(new Angle(deg: 375), true), true);
       expect(range.contains360(new Angle(deg: 430.1), true), true);
       expect(range.contains360(new Angle(deg: 375), false, 0.0), false);

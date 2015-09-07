@@ -61,7 +61,8 @@ main() {
       expect(mq.dimensions, isNotNull);
       expect(mq.dimensions, Angle.angleDimensions);
 
-      Quantity q = const Quantity.constant(const Double.constant(42.42), null, null, 0.2);
+      Quantity q = const Quantity.constant(
+          const Double.constant(42.42), null, null, 0.2);
       expect(q, isNotNull);
 
       /*

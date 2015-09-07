@@ -31,13 +31,15 @@ part of quantity_core;
 ///   when constructed.
 ///
 class MiscQuantity extends Quantity {
-
   /// This constructor sets the [value], [dim]ensions and relative
   /// [uncert]ainty.
   ///
   ///  [value] may be a num or Number object.
   ///
-  MiscQuantity([Object value = 0.0, Dimensions dim = Scalar.scalarDimensions, double uncert = 0.0])
+  MiscQuantity(
+      [Object value = 0.0,
+      Dimensions dim = Scalar.scalarDimensions,
+      double uncert = 0.0])
       : super._dimensions(value, dim, uncert);
 
   /*
@@ -56,7 +58,8 @@ class MiscQuantity extends Quantity {
   ///
   Number getValue(Units units) {
     if (dimensions != (units as Quantity).dimensions) {
-      throw new DimensionsException("The units provided do not have proper dimensions for this Quantity.");
+      throw new DimensionsException(
+          "The units provided do not have proper dimensions for this Quantity.");
     }
     return super.valueInUnits(units);
   }

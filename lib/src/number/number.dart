@@ -4,7 +4,6 @@ part of number;
    ###Immutable?
  */
 abstract class Number implements Comparable {
-
   //static Map<String, Type> _codeTypeMap;
 
   const Number.constant();

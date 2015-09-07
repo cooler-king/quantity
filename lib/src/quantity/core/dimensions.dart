@@ -78,7 +78,8 @@ class Dimensions {
   ///  Constructs a Dimensions object with a map of base dimension keys to
   ///  base dimension exponents.
   ///
-  Dimensions.fromMap(Map<String, num> typeValuePairs) : _dimensionMap = new Map.from(typeValuePairs);
+  Dimensions.fromMap(Map<String, num> typeValuePairs)
+      : _dimensionMap = new Map.from(typeValuePairs);
 
   /// Creates a new Dimensions object by copying an existing Dimensions object.
   ///
@@ -86,7 +87,8 @@ class Dimensions {
   /// object (which in turn contains only immutable objects of classes
   /// String and num).
   ///
-  Dimensions.copy(Dimensions d2) : _dimensionMap = new Map.from(d2._dimensionMap);
+  Dimensions.copy(Dimensions d2)
+      : _dimensionMap = new Map.from(d2._dimensionMap);
 
   /// Tests the equality of this Dimensions object and another Dimensions object.
   /// Two Dimensions objects are only equal if they have exactly equal
@@ -101,7 +103,8 @@ class Dimensions {
 
     // Check Values
     for (String key in _dimensionMap.keys) {
-      if (!d2._dimensionMap.containsKey(key) || (_dimensionMap[key] != d2._dimensionMap[key])) return false;
+      if (!d2._dimensionMap.containsKey(key) ||
+          (_dimensionMap[key] != d2._dimensionMap[key])) return false;
     }
 
     return true;
@@ -298,7 +301,8 @@ class Dimensions {
 
     // Bin Possibilities By Length Dimension and number of components
     num lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
-    if (lengthExp is! int) return MiscQuantity; // non-integer exponents means MiscQuantity
+    if (lengthExp
+        is! int) return MiscQuantity; // non-integer exponents means MiscQuantity
 
     if (lengthExp == -3) {
       if (numDims == 1) {
@@ -307,39 +311,50 @@ class Dimensions {
         if (dim == MassDensity.massDensityDimensions) return MassDensity;
         if (dim == Concentration.concentrationDimensions) return Concentration;
       } else if (numDims == 3) {
-        if (dim == ChargeDensity.electricChargeDensityDimensions) return ChargeDensity;
+        if (dim ==
+            ChargeDensity.electricChargeDensityDimensions) return ChargeDensity;
       } else if (numDims == 4) {
         if (dim == Permittivity.permittivityDimensions) return Permittivity;
       }
     } else if (lengthExp == -2) {
       if (numDims == 2) {
-        if (dim == CurrentDensity.electricCurrentDensityDimensions) return CurrentDensity;
+        if (dim ==
+            CurrentDensity.electricCurrentDensityDimensions) return CurrentDensity;
         if (dim == Luminance.luminanceDimensions) return Luminance;
       } else if (numDims == 3) {
-        if (dim == ElectricFluxDensity.electricFluxDensityDimensions) return ElectricFluxDensity;
+        if (dim ==
+            ElectricFluxDensity.electricFluxDensityDimensions) return ElectricFluxDensity;
         if (dim == Illuminance.illuminanceDimensions) return Illuminance;
-        if (dim == MassFluxDensity.massFluxDensityDimensions) return MassFluxDensity;
+        if (dim ==
+            MassFluxDensity.massFluxDensityDimensions) return MassFluxDensity;
       } else if (numDims == 4) {
-        if (dim == Capacitance.electricCapacitanceDimensions) return Capacitance;
-        if (dim == Conductance.electricConductanceDimensions) return Conductance;
+        if (dim ==
+            Capacitance.electricCapacitanceDimensions) return Capacitance;
+        if (dim ==
+            Conductance.electricConductanceDimensions) return Conductance;
       }
     } else if (lengthExp == -1) {
       if (numDims == 1) {
         return WaveNumber;
       } else if (numDims == 2) {
-        if (dim == MagneticFieldStrength.magneticFieldStrengthDimensions) return MagneticFieldStrength;
+        if (dim ==
+            MagneticFieldStrength.magneticFieldStrengthDimensions) return MagneticFieldStrength;
       } else if (numDims == 3) {
         if (dim == Pressure.pressureDimensions) return Pressure;
-        if (dim == DynamicViscosity.dynamicViscosityDimensions) return DynamicViscosity;
+        if (dim ==
+            DynamicViscosity.dynamicViscosityDimensions) return DynamicViscosity;
       }
     } else if (lengthExp == 0) {
       if (numDims == 1) {
         if (dim == Mass.massDimensions) return Mass;
         if (dim == Time.timeDimensions) return Time;
         if (dim == Current.electricCurrentDimensions) return Current;
-        if (dim == TemperatureInterval.temperatureIntervalDimensions) return TemperatureInterval;
-        if (dim == AmountOfSubstance.amountOfSubstanceDimensions) return AmountOfSubstance;
-        if (dim == LuminousIntensity.luminousIntensityDimensions) return LuminousIntensity;
+        if (dim ==
+            TemperatureInterval.temperatureIntervalDimensions) return TemperatureInterval;
+        if (dim ==
+            AmountOfSubstance.amountOfSubstanceDimensions) return AmountOfSubstance;
+        if (dim ==
+            LuminousIntensity.luminousIntensityDimensions) return LuminousIntensity;
         if (dim == Angle.angleDimensions) return Angle;
         if (dim == SolidAngle.solidAngleDimensions) return SolidAngle;
 
@@ -347,14 +362,19 @@ class Dimensions {
       } else if (numDims == 2) {
         if (dim == Charge.electricChargeDimensions) return Charge;
         if (dim == LuminousFlux.luminousFluxDimensions) return LuminousFlux;
-        if (dim == SurfaceTension.surfaceTensionDimensions) return SurfaceTension;
+        if (dim ==
+            SurfaceTension.surfaceTensionDimensions) return SurfaceTension;
         if (dim == AngularSpeed.angularSpeedDimensions) return AngularSpeed;
-        if (dim == AngularAcceleration.angularAccelerationDimensions) return AngularAcceleration;
-        if (dim == HeatFluxDensity.heatFluxDensityDimensions) return HeatFluxDensity;
-        if (dim == CatalyticActivity.catalyticActivityDimensions) return CatalyticActivity;
+        if (dim ==
+            AngularAcceleration.angularAccelerationDimensions) return AngularAcceleration;
+        if (dim ==
+            HeatFluxDensity.heatFluxDensityDimensions) return HeatFluxDensity;
+        if (dim ==
+            CatalyticActivity.catalyticActivityDimensions) return CatalyticActivity;
         if (dim == MassFlowRate.massFlowRateDimensions) return MassFlowRate;
       } else if (numDims == 3) {
-        if (dim == MagneticFluxDensity.magneticFluxDensityDimensions) return MagneticFluxDensity;
+        if (dim ==
+            MagneticFluxDensity.magneticFluxDensityDimensions) return MagneticFluxDensity;
         if (dim == Exposure.exposureDimensions) return Exposure;
         if (dim == Radiance.radianceDimensions) return Radiance;
       }
@@ -366,19 +386,25 @@ class Dimensions {
         if (dim == Acceleration.accelerationDimensions) return Acceleration;
       } else if (numDims == 3) {
         if (dim == Force.forceDimensions) return Force;
-        if (dim == AngularMomentum.angularMometumDimensions) return AngularMomentum;
+        if (dim ==
+            AngularMomentum.angularMometumDimensions) return AngularMomentum;
       } else if (numDims == 4) {
-        if (dim == ThermalConductivity.thermalConductivityDimensions) return ThermalConductivity;
-        if (dim == ElectricFieldStrength.electricFieldStrengthDimensions) return ElectricFieldStrength;
+        if (dim ==
+            ThermalConductivity.thermalConductivityDimensions) return ThermalConductivity;
+        if (dim ==
+            ElectricFieldStrength.electricFieldStrengthDimensions) return ElectricFieldStrength;
         if (dim == Permeability.permeabilityDimensions) return Permeability;
       }
     } else if (lengthExp == 2) {
       if (numDims == 1) {
         return Area;
       } else if (numDims == 2) {
-        if (dim == SpecificEnergy.specificEnergyDimensions) return SpecificEnergy;
-        if (dim == AbsorbedDoseRate.ABSORBED_DOSE_RATE_DIMENSIONS) return AbsorbedDoseRate;
-        if (dim == KinematicViscosity.kinematicViscosityDimensions) return KinematicViscosity;
+        if (dim ==
+            SpecificEnergy.specificEnergyDimensions) return SpecificEnergy;
+        if (dim ==
+            AbsorbedDoseRate.ABSORBED_DOSE_RATE_DIMENSIONS) return AbsorbedDoseRate;
+        if (dim ==
+            KinematicViscosity.kinematicViscosityDimensions) return KinematicViscosity;
       } else if (numDims == 3) {
         if (dim == Energy.energyDimensions) return Energy;
         if (dim == Power.powerDimensions) return Power;
@@ -390,19 +416,24 @@ class Dimensions {
         if (dim == Resistance.electricResistanceDimensions) return Resistance;
         if (dim == MagneticFlux.magneticFluxDimensions) return MagneticFlux;
         if (dim == Inductance.inductanceDimensions) return Inductance;
-        if (dim == Entropy.entropyDimensions) return Entropy; // also heat capacity
+        if (dim ==
+            Entropy.entropyDimensions) return Entropy; // also heat capacity
         if (dim == MolarEnergy.molarEnergyDimensions) return MolarEnergy;
-        if (dim == RadiantIntensity.radiantIntensityDimensions) return RadiantIntensity;
+        if (dim ==
+            RadiantIntensity.radiantIntensityDimensions) return RadiantIntensity;
         if (dim == Torque.torqueDimensions) return Torque;
       } else if (numDims == 5) {
-        if (dim == MolarEntropy.molarEntropyDimensions) return MolarEntropy; // also molar heat capacity
+        if (dim ==
+            MolarEntropy.molarEntropyDimensions) return MolarEntropy; // also molar heat capacity
       }
     } else if (lengthExp == 3) {
       if (numDims == 1) {
         return Volume;
       } else if (numDims == 2) {
-        if (dim == SpecificVolume.specificVolumeDimensions) return SpecificVolume;
-        if (dim == VolumeFlowRate.volumeFlowRateDimensions) return VolumeFlowRate;
+        if (dim ==
+            SpecificVolume.specificVolumeDimensions) return SpecificVolume;
+        if (dim ==
+            VolumeFlowRate.volumeFlowRateDimensions) return VolumeFlowRate;
       }
     } else {
       return MiscQuantity;
@@ -418,7 +449,6 @@ class Dimensions {
   /// a new instance of the [MiscQuantity] class will be returned.
   ///
   Quantity toQuantity([value = 0.0, Units units, double uncert = 0.0]) {
-
     // Check units match dimensions, if provided
     if (units is Quantity) {
       if (this != (units as Quantity).dimensions) throw new DimensionsException(
@@ -428,10 +458,11 @@ class Dimensions {
     //TODO need to provide units (metric units as default?)
 
     try {
-      return createTypedQuantityInstance(determineQuantityType(this), value, units, uncert);
+      return createTypedQuantityInstance(
+          determineQuantityType(this), value, units, uncert);
     } catch (e) {
       _logger.warning("Fallback MiscQuantity instance created for ${this}");
-      //print(e);
+
       // Can always return a MiscQuantity
       if (units != null) {
         return new MiscQuantity(units.toMks(value), this, uncert);

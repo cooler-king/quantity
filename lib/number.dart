@@ -12,21 +12,19 @@ part 'src/number/number.dart';
 part 'src/number/precise.dart';
 part 'src/number/real.dart';
 
-/**
- * Converts an [object] to a Number.  The [object]
- * must be either a [num] or [Number], otherwise
- * and ArgumentError is thrown.
- */
+/// Converts an [object] to a Number.  The [object]
+/// must be either a [num] or [Number], otherwise
+/// and ArgumentError is thrown.
+///
 Number objToNumber(Object object) {
   if (object is num) return numToNumber(object);
   else if (object is Number) return object;
   else throw new ArgumentError("num or Number expected");
 }
 
-/**
- * Converts a num [value] to associated Number object
- * (Integer for int, Double for Double).
- */
+/// Converts a num [value] to associated Number object
+/// (Integer for int, Double for Double).
+///
 Number numToNumber(num value) {
   if (value is int) return new Integer(value);
   else return new Double(value);
@@ -44,13 +42,12 @@ num numberToNum(Number number) {
   return 0;
 }
 
-/**
- *  Approximate solution for the error function of [x].
- *
- * * Fractional error is less than 1.2e7.
- * * There is no standard erf() available in dart:math.
- * * The approximation is based on Chebyshev fitting.
-*/
+/// Approximate solution for the error function of [x].
+///
+/// * Fractional error is less than 1.2e7.
+/// * There is no standard erf() available in dart:math.
+/// * The approximation is based on Chebyshev fitting.
+///
 double erf(double x) {
   double z = x.abs();
   double t = 1.0 / (1.0 + 0.5 * z);
@@ -71,7 +68,11 @@ double erf(double x) {
                                               (0.27886807 +
                                                   t *
                                                       (-1.13520398 +
-                                                          t * (1.48851587 + t * (-0.82215223 + t * 0.17087277)))))))));
+                                                          t *
+                                                              (1.48851587 +
+                                                                  t *
+                                                                      (-0.82215223 +
+                                                                          t * 0.17087277)))))))));
 
   if (x < 0.0) erfc = 2.0 - erfc;
   return 1.0 - erfc;

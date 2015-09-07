@@ -1,26 +1,27 @@
 part of quantity_core;
 
 class Volume extends Quantity {
-
   /// Dimensions for this type of quantity
-  static const Dimensions volumeDimensions = const Dimensions.constant(const {"Length": -3});
+  static const Dimensions volumeDimensions =
+      const Dimensions.constant(const {"Length": -3});
 
   /// The standard SI unit
   static final VolumeUnits cubicMeters = new VolumeUnits.length(Length.meters);
 
   /// Accepted for use with the SI
   /// equal to one thousandth of a cubic meter
-  static final VolumeUnits liters = new VolumeUnits("liters", null, "L", null, 1.0e-3, true);
+  static final VolumeUnits liters =
+      new VolumeUnits("liters", null, "L", null, 1.0e-3, true);
 
   Volume({dynamic m3, dynamic L, double uncert: 0.0})
-      : super(m3 != null ? m3 : (L != null ? L : 0.0), L != null ? Volume.liters : Volume.cubicMeters, uncert);
+      : super(m3 != null ? m3 : (L != null ? L : 0.0),
+            L != null ? Volume.liters : Volume.cubicMeters, uncert);
 
   Volume._internal(conv) : super._dimensions(conv, Volume.volumeDimensions);
 
-  /**
-   * Constructs a Volume based on the [value]
-   * and the conversion factor intrinsic to the passed [units].
-   */
+  /// Constructs a Volume based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  ///
   Volume.inUnits(value, VolumeUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : Volume.cubicMeters, uncert);
 
@@ -28,11 +29,11 @@ class Volume extends Quantity {
       : super.constant(valueSI, Volume.volumeDimensions, units, uncert);
 }
 
-/**
- * Units acceptable for use in describing Volume quantities.
- */
+/// Units acceptable for use in describing Volume quantities.
+///
 class VolumeUnits extends Volume with Units {
-  VolumeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  VolumeUnits(String name, String abbrev1, String abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
@@ -58,12 +59,16 @@ class VolumeUnits extends Volume with Units {
   /// Returns the Type of the Quantity to which these Units apply
   Type get quantityType => Volume;
 
-  /**
-   * Derive new VolumeUnits using this VolumeUnits object as the base.
-   */
+  /// Derive new VolumeUnits using this VolumeUnits object as the base.
+  ///
   Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new VolumeUnits("${fullPrefix}${name}", _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null, "${fullPrefix}${singular}", valueSI * conv, false,
+    return new VolumeUnits(
+        "${fullPrefix}${name}",
+        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
+        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
+        "${fullPrefix}${singular}",
+        valueSI * conv,
+        false,
         this.offset);
   }
 }

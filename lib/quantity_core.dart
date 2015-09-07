@@ -102,81 +102,141 @@ typedef Quantity QuantityInstantiator(value, Units units, num uncert);
 
 /// Maps each quantity type to a function that can be used to create an instance of that type
 final LinkedHashMap<Type, QuantityInstantiator> _typeInstantiatorMap = {
-  AbsorbedDose: (value, units, uncert) => new AbsorbedDose.inUnits(value, units, uncert),
-  AbsorbedDoseRate: (value, units, uncert) => new AbsorbedDoseRate.inUnits(value, units, uncert),
-  Acceleration: (value, units, uncert) => new Acceleration.inUnits(value, units, uncert),
-  Activity: (value, units, uncert) => new Activity.inUnits(value, units, uncert),
-  AmountOfSubstance: (value, units, uncert) => new AmountOfSubstance.inUnits(value, units, uncert),
+  AbsorbedDose: (value, units, uncert) =>
+      new AbsorbedDose.inUnits(value, units, uncert),
+  AbsorbedDoseRate: (value, units, uncert) =>
+      new AbsorbedDoseRate.inUnits(value, units, uncert),
+  Acceleration: (value, units, uncert) =>
+      new Acceleration.inUnits(value, units, uncert),
+  Activity: (value, units, uncert) =>
+      new Activity.inUnits(value, units, uncert),
+  AmountOfSubstance: (value, units, uncert) =>
+      new AmountOfSubstance.inUnits(value, units, uncert),
   Angle: (value, units, uncert) => new Angle.inUnits(value, units, uncert),
-  AngularAcceleration: (value, units, uncert) => new AngularAcceleration.inUnits(value, units, uncert),
-  AngularMomentum: (value, units, uncert) => new AngularMomentum.inUnits(value, units, uncert),
-  AngularSpeed: (value, units, uncert) => new AngularSpeed.inUnits(value, units, uncert),
+  AngularAcceleration: (value, units, uncert) =>
+      new AngularAcceleration.inUnits(value, units, uncert),
+  AngularMomentum: (value, units, uncert) =>
+      new AngularMomentum.inUnits(value, units, uncert),
+  AngularSpeed: (value, units, uncert) =>
+      new AngularSpeed.inUnits(value, units, uncert),
   Area: (value, units, uncert) => new Area.inUnits(value, units, uncert),
-  Capacitance: (value, units, uncert) => new Capacitance.inUnits(value, units, uncert),
-  CatalyticActivity: (value, units, uncert) => new CatalyticActivity.inUnits(value, units, uncert),
+  Capacitance: (value, units, uncert) =>
+      new Capacitance.inUnits(value, units, uncert),
+  CatalyticActivity: (value, units, uncert) =>
+      new CatalyticActivity.inUnits(value, units, uncert),
   Charge: (value, units, uncert) => new Charge.inUnits(value, units, uncert),
-  ChargeDensity: (value, units, uncert) => new ChargeDensity.inUnits(value, units, uncert),
-  Concentration: (value, units, uncert) => new Concentration.inUnits(value, units, uncert),
-  Conductance: (value, units, uncert) => new Conductance.inUnits(value, units, uncert),
-  Currency: (value, units, uncert) => new Currency.inUnits(value, units, uncert),
+  ChargeDensity: (value, units, uncert) =>
+      new ChargeDensity.inUnits(value, units, uncert),
+  Concentration: (value, units, uncert) =>
+      new Concentration.inUnits(value, units, uncert),
+  Conductance: (value, units, uncert) =>
+      new Conductance.inUnits(value, units, uncert),
+  Currency: (value, units, uncert) =>
+      new Currency.inUnits(value, units, uncert),
   Current: (value, units, uncert) => new Current.inUnits(value, units, uncert),
-  CurrentDensity: (value, units, uncert) => new CurrentDensity.inUnits(value, units, uncert),
-  DoseEquivalent: (value, units, uncert) => new DoseEquivalent.inUnits(value, units, uncert),
-  DynamicViscosity: (value, units, uncert) => new DynamicViscosity.inUnits(value, units, uncert),
-  ElectricFieldStrength: (value, units, uncert) => new ElectricFieldStrength.inUnits(value, units, uncert),
-  ElectricFluxDensity: (value, units, uncert) => new ElectricFluxDensity.inUnits(value, units, uncert),
-  ElectricPotentialDifference: (value, units, uncert) => new ElectricPotentialDifference.inUnits(value, units, uncert),
+  CurrentDensity: (value, units, uncert) =>
+      new CurrentDensity.inUnits(value, units, uncert),
+  DoseEquivalent: (value, units, uncert) =>
+      new DoseEquivalent.inUnits(value, units, uncert),
+  DynamicViscosity: (value, units, uncert) =>
+      new DynamicViscosity.inUnits(value, units, uncert),
+  ElectricFieldStrength: (value, units, uncert) =>
+      new ElectricFieldStrength.inUnits(value, units, uncert),
+  ElectricFluxDensity: (value, units, uncert) =>
+      new ElectricFluxDensity.inUnits(value, units, uncert),
+  ElectricPotentialDifference: (value, units, uncert) =>
+      new ElectricPotentialDifference.inUnits(value, units, uncert),
   Energy: (value, units, uncert) => new Energy.inUnits(value, units, uncert),
-  EnergyDensity: (value, units, uncert) => new EnergyDensity.inUnits(value, units, uncert),
-  EnergyFlux: (value, units, uncert) => new EnergyFlux.inUnits(value, units, uncert),
+  EnergyDensity: (value, units, uncert) =>
+      new EnergyDensity.inUnits(value, units, uncert),
+  EnergyFlux: (value, units, uncert) =>
+      new EnergyFlux.inUnits(value, units, uncert),
   Entropy: (value, units, uncert) => new Entropy.inUnits(value, units, uncert),
-  Exposure: (value, units, uncert) => new Exposure.inUnits(value, units, uncert),
-  FieldLevel: (value, units, uncert) => new FieldLevel.inUnits(value, units, uncert),
+  Exposure: (value, units, uncert) =>
+      new Exposure.inUnits(value, units, uncert),
+  FieldLevel: (value, units, uncert) =>
+      new FieldLevel.inUnits(value, units, uncert),
   Force: (value, units, uncert) => new Force.inUnits(value, units, uncert),
-  Frequency: (value, units, uncert) => new Frequency.inUnits(value, units, uncert),
-  HeatFluxDensity: (value, units, uncert) => new HeatFluxDensity.inUnits(value, units, uncert),
-  Illuminance: (value, units, uncert) => new Illuminance.inUnits(value, units, uncert),
-  Inductance: (value, units, uncert) => new Inductance.inUnits(value, units, uncert),
-  Information: (value, units, uncert) => new Information.inUnits(value, units, uncert),
-  InformationRate: (value, units, uncert) => new InformationRate.inUnits(value, units, uncert),
-  KinematicViscosity: (value, units, uncert) => new KinematicViscosity.inUnits(value, units, uncert),
+  Frequency: (value, units, uncert) =>
+      new Frequency.inUnits(value, units, uncert),
+  HeatFluxDensity: (value, units, uncert) =>
+      new HeatFluxDensity.inUnits(value, units, uncert),
+  Illuminance: (value, units, uncert) =>
+      new Illuminance.inUnits(value, units, uncert),
+  Inductance: (value, units, uncert) =>
+      new Inductance.inUnits(value, units, uncert),
+  Information: (value, units, uncert) =>
+      new Information.inUnits(value, units, uncert),
+  InformationRate: (value, units, uncert) =>
+      new InformationRate.inUnits(value, units, uncert),
+  KinematicViscosity: (value, units, uncert) =>
+      new KinematicViscosity.inUnits(value, units, uncert),
   Length: (value, units, uncert) => new Length.inUnits(value, units, uncert),
-  Luminance: (value, units, uncert) => new Luminance.inUnits(value, units, uncert),
-  LuminousFlux: (value, units, uncert) => new LuminousFlux.inUnits(value, units, uncert),
-  LuminousIntensity: (value, units, uncert) => new LuminousIntensity.inUnits(value, units, uncert),
-  MagneticFieldStrength: (value, units, uncert) => new MagneticFieldStrength.inUnits(value, units, uncert),
-  MagneticFlux: (value, units, uncert) => new MagneticFlux.inUnits(value, units, uncert),
-  MagneticFluxDensity: (value, units, uncert) => new MagneticFluxDensity.inUnits(value, units, uncert),
+  Luminance: (value, units, uncert) =>
+      new Luminance.inUnits(value, units, uncert),
+  LuminousFlux: (value, units, uncert) =>
+      new LuminousFlux.inUnits(value, units, uncert),
+  LuminousIntensity: (value, units, uncert) =>
+      new LuminousIntensity.inUnits(value, units, uncert),
+  MagneticFieldStrength: (value, units, uncert) =>
+      new MagneticFieldStrength.inUnits(value, units, uncert),
+  MagneticFlux: (value, units, uncert) =>
+      new MagneticFlux.inUnits(value, units, uncert),
+  MagneticFluxDensity: (value, units, uncert) =>
+      new MagneticFluxDensity.inUnits(value, units, uncert),
   Mass: (value, units, uncert) => new Mass.inUnits(value, units, uncert),
-  MassDensity: (value, units, uncert) => new MassDensity.inUnits(value, units, uncert),
-  MassFlowRate: (value, units, uncert) => new MassFlowRate.inUnits(value, units, uncert),
-  MassFluxDensity: (value, units, uncert) => new MassFluxDensity.inUnits(value, units, uncert),
-  MolarEnergy: (value, units, uncert) => new MolarEnergy.inUnits(value, units, uncert),
-  MolarEntropy: (value, units, uncert) => new MolarEntropy.inUnits(value, units, uncert),
-  Permeability: (value, units, uncert) => new Permeability.inUnits(value, units, uncert),
-  Permittivity: (value, units, uncert) => new Permittivity.inUnits(value, units, uncert),
+  MassDensity: (value, units, uncert) =>
+      new MassDensity.inUnits(value, units, uncert),
+  MassFlowRate: (value, units, uncert) =>
+      new MassFlowRate.inUnits(value, units, uncert),
+  MassFluxDensity: (value, units, uncert) =>
+      new MassFluxDensity.inUnits(value, units, uncert),
+  MolarEnergy: (value, units, uncert) =>
+      new MolarEnergy.inUnits(value, units, uncert),
+  MolarEntropy: (value, units, uncert) =>
+      new MolarEntropy.inUnits(value, units, uncert),
+  Permeability: (value, units, uncert) =>
+      new Permeability.inUnits(value, units, uncert),
+  Permittivity: (value, units, uncert) =>
+      new Permittivity.inUnits(value, units, uncert),
   Power: (value, units, uncert) => new Power.inUnits(value, units, uncert),
-  PowerLevel: (value, units, uncert) => new PowerLevel.inUnits(value, units, uncert),
-  Pressure: (value, units, uncert) => new Pressure.inUnits(value, units, uncert),
-  Radiance: (value, units, uncert) => new Radiance.inUnits(value, units, uncert),
-  RadiantIntensity: (value, units, uncert) => new RadiantIntensity.inUnits(value, units, uncert),
-  Resistance: (value, units, uncert) => new Resistance.inUnits(value, units, uncert),
+  PowerLevel: (value, units, uncert) =>
+      new PowerLevel.inUnits(value, units, uncert),
+  Pressure: (value, units, uncert) =>
+      new Pressure.inUnits(value, units, uncert),
+  Radiance: (value, units, uncert) =>
+      new Radiance.inUnits(value, units, uncert),
+  RadiantIntensity: (value, units, uncert) =>
+      new RadiantIntensity.inUnits(value, units, uncert),
+  Resistance: (value, units, uncert) =>
+      new Resistance.inUnits(value, units, uncert),
   Scalar: (value, units, uncert) => new Scalar.inUnits(value, units, uncert),
-  SolidAngle: (value, units, uncert) => new SolidAngle.inUnits(value, units, uncert),
-  SpecificEnergy: (value, units, uncert) => new SpecificEnergy.inUnits(value, units, uncert),
-  SpecificHeatCapacity: (value, units, uncert) => new SpecificHeatCapacity.inUnits(value, units, uncert),
-  SpecificVolume: (value, units, uncert) => new SpecificVolume.inUnits(value, units, uncert),
+  SolidAngle: (value, units, uncert) =>
+      new SolidAngle.inUnits(value, units, uncert),
+  SpecificEnergy: (value, units, uncert) =>
+      new SpecificEnergy.inUnits(value, units, uncert),
+  SpecificHeatCapacity: (value, units, uncert) =>
+      new SpecificHeatCapacity.inUnits(value, units, uncert),
+  SpecificVolume: (value, units, uncert) =>
+      new SpecificVolume.inUnits(value, units, uncert),
   Speed: (value, units, uncert) => new Speed.inUnits(value, units, uncert),
-  SurfaceTension: (value, units, uncert) => new SurfaceTension.inUnits(value, units, uncert),
-  Temperature: (value, units, uncert) => new Temperature.inUnits(value, units, uncert),
-  TemperatureInterval: (value, units, uncert) => new TemperatureInterval.inUnits(value, units, uncert),
-  ThermalConductivity: (value, units, uncert) => new ThermalConductivity.inUnits(value, units, uncert),
+  SurfaceTension: (value, units, uncert) =>
+      new SurfaceTension.inUnits(value, units, uncert),
+  Temperature: (value, units, uncert) =>
+      new Temperature.inUnits(value, units, uncert),
+  TemperatureInterval: (value, units, uncert) =>
+      new TemperatureInterval.inUnits(value, units, uncert),
+  ThermalConductivity: (value, units, uncert) =>
+      new ThermalConductivity.inUnits(value, units, uncert),
   Time: (value, units, uncert) => new Time.inUnits(value, units, uncert),
-  TimeInstant: (value, units, uncert) => new TimeInstant.inUnits(value, units, uncert),
+  TimeInstant: (value, units, uncert) =>
+      new TimeInstant.inUnits(value, units, uncert),
   Torque: (value, units, uncert) => new Torque.inUnits(value, units, uncert),
   Volume: (value, units, uncert) => new Volume.inUnits(value, units, uncert),
-  VolumeFlowRate: (value, units, uncert) => new VolumeFlowRate.inUnits(value, units, uncert),
-  WaveNumber: (value, units, uncert) => new WaveNumber.inUnits(value, units, uncert)
+  VolumeFlowRate: (value, units, uncert) =>
+      new VolumeFlowRate.inUnits(value, units, uncert),
+  WaveNumber: (value, units, uncert) =>
+      new WaveNumber.inUnits(value, units, uncert)
 };
 
 ///  Returns whether or not [q] is one of the seven SI base quantities.
@@ -202,10 +262,10 @@ bool siBaseQuantity(Quantity q) {
 ///
 bool areWithin(Quantity q1, Quantity q2, Quantity tolerance) {
   if (q1.dimensions != q2.dimensions || q2.dimensions != tolerance.dimensions) {
-    throw new ArgumentError("The two quantities and tolerance must have the same dimensions");
+    throw new ArgumentError(
+        "The two quantities and tolerance must have the same dimensions");
   }
 
-  //print("${(q1 - q2).abs()} <= ${tolerance.valueSI}");
   return (q1 - q2).abs().valueSI <= tolerance.valueSI;
 }
 
@@ -223,7 +283,7 @@ bool areWithin(Quantity q1, Quantity q2, Quantity tolerance) {
 bool siDerivedQuantity(Quantity q) => !siBaseQuantity(q);
 
 /// Returns an iterable of Type objects representing all of the quantity types
-/// supported by this library (for example, Angle, Duration, Length, etc.).
+/// supported by this library (for example, Angle, Length, etc.).
 ///
 ///  * The Iterable provides the types in alphabetical order.
 ///  * [MiscQuantity] is not included (as it is a catch-all for
@@ -240,15 +300,10 @@ Iterable<Type> get allQuantityTypes => _typeInstantiatorMap.keys;
 ///
 /// The quantity's relative [uncert]ainty can optionally be provided (defaults to 0).
 ///
-Quantity createTypedQuantityInstance(Type t, value, Units units, [double uncert = 0.0]) {
+Quantity createTypedQuantityInstance(Type t, value, Units units,
+    [double uncert = 0.0]) {
   QuantityInstantiator qi = _typeInstantiatorMap[t];
-  if (qi != null) {
-    try {
-      return Function.apply(qi, [value, units, uncert]);
-    } catch (e) {
-      print(e);
-    }
-  }
+  if (qi != null) return Function.apply(qi, [value, units, uncert]);
 
   // Fall back to MiscQuantity
   return new MiscQuantity(value, (units as Quantity).dimensions, uncert);

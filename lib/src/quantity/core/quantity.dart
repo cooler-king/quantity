@@ -133,26 +133,30 @@ class Quantity implements Comparable {
   ///
   Quantity([value = 0.0, Units units, double uncert = 0.0])
       : this.valueSI = (value is Number)
-          ? (units != null ? units.toMks(value) : value)
-          : (value is num ? (units != null ? units.toMks(numToNumber(value)) : numToNumber(value)) : Double.zero),
+            ? (units != null ? units.toMks(value) : value)
+            : (value is num
+                ? (units != null
+                    ? units.toMks(numToNumber(value))
+                    : numToNumber(value))
+                : Double.zero),
         this.preferredUnits = units,
         this.dimensions = (units != null && units is Quantity)
             ? (units as Quantity).dimensions
             : Scalar.scalarDimensions,
         this._ur = uncert;
 
-  const Quantity.constant(this.valueSI, this.dimensions, this.preferredUnits, this._ur);
+  const Quantity.constant(
+      this.valueSI, this.dimensions, this.preferredUnits, this._ur);
 
   /// A private constructor to support MiscQuantity:  dimensions are
   /// known, units are not.
   ///
-  Quantity._dimensions([value = 0.0, Dimensions dimensions, double uncert = 0.0])
+  Quantity._dimensions(
+      [value = 0.0, Dimensions dimensions, double uncert = 0.0])
       : this.valueSI = (value is num) ? numToNumber(value) : value,
         this.preferredUnits = null,
         this.dimensions = dimensions,
-        this._ur = uncert {
-    // print("Q_dimensions... $value ${this.dimensions}   (${dimensions})");
-  }
+        this._ur = uncert {}
 
   ///  Whether or not this Quantity is represented using arbitrary precision.
   ///
@@ -290,7 +294,8 @@ class Quantity implements Comparable {
     }*/
 
     // Every other Quantity type can only add another Quantity
-    if (addend is! Quantity) throw new ArgumentError("Cannot add a ${addend.runtimeType} to a non-Scalar Quantity");
+    if (addend is! Quantity) throw new ArgumentError(
+        "Cannot add a ${addend.runtimeType} to a non-Scalar Quantity");
 
     Quantity q2 = addend as Quantity;
     if (dimensions != q2.dimensions) {
@@ -301,7 +306,6 @@ class Quantity implements Comparable {
     // Calculate the new uncertainty, if necessary
     double sumUr = 0.0;
     if (_ur != 0.0 || q2._ur != 0.0) {
-
       // Standard uncertainty (derive from relative standard uncertainty)
       //double v1 = valueSI.toDouble();
       double u1 = _ur * valueSI.abs().toDouble();
@@ -343,7 +347,8 @@ class Quantity implements Comparable {
   ///
   Quantity operator -(subtrahend) {
     // Null check
-    if (subtrahend == null) throw new ArgumentError("Cannot subtract NULL from Quantity");
+    if (subtrahend ==
+        null) throw new ArgumentError("Cannot subtract NULL from Quantity");
 
     /*
     // Scalars can accept numbers as arguments
@@ -357,7 +362,8 @@ class Quantity implements Comparable {
 
     Quantity q2 = subtrahend as Quantity;
     if (dimensions != q2.dimensions) {
-      throw new DimensionsException('''Can't subtract Quantities having different 
+      throw new DimensionsException(
+          '''Can't subtract Quantities having different 
         dimensions:  $dimensions and ${q2.dimensions}''');
     }
 
@@ -381,7 +387,8 @@ class Quantity implements Comparable {
    */
 
     Number newValueSI = valueSI - q2.valueSI;
-    double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+    double diffUr =
+        _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
 
     if (dynamicQuantityTyping) {
       return dimensions.toQuantity(valueSI - q2.valueSI, null, diffUr);
@@ -402,7 +409,6 @@ class Quantity implements Comparable {
   /// the uncertainty is unchanged.
   ///
   Quantity operator *(multiplier) {
-
     // Product uncertainty
     double productUr = _ur;
 
@@ -417,7 +423,9 @@ class Quantity implements Comparable {
       Quantity q2 = multiplier as Quantity;
       productDimensions = dimensions * q2.dimensions;
       productValue = valueSI * q2.valueSI;
-      productUr = (_ur != 0.0 || q2._ur != 0.0) ? Math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
+      productUr = (_ur != 0.0 || q2._ur != 0.0)
+          ? Math.sqrt(_ur * _ur + q2._ur * q2._ur)
+          : 0.0;
     } else if (multiplier is num || multiplier is Number) {
       productValue = valueSI * multiplier;
     } else {
@@ -441,7 +449,6 @@ class Quantity implements Comparable {
   /// relative standard uncertainties.
   ///
   Quantity operator /(divisor) {
-
     // Result uncertainty
     double resultUr;
 
@@ -461,7 +468,9 @@ class Quantity implements Comparable {
         Quantity q2 = divisor as Quantity;
         resultDimensions = dimensions / q2.dimensions;
         resultValue = valueSI / q2.valueSI;
-        resultUr = (_ur != 0.0 || q2._ur != 0.0) ? Math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
+        resultUr = (_ur != 0.0 || q2._ur != 0.0)
+            ? Math.sqrt(_ur * _ur + q2._ur * q2._ur)
+            : 0.0;
       }
 
       if (dynamicQuantityTyping) {
@@ -486,18 +495,21 @@ class Quantity implements Comparable {
   Quantity operator ^(exponent) {
     if (exponent is! num &&
         exponent is! Number &&
-        exponent is! Scalar) throw new ArgumentError("Cannot raise a quantity to a non-numeric power");
+        exponent is! Scalar) throw new ArgumentError(
+        "Cannot raise a quantity to a non-numeric power");
 
     if (exponent == 1) return this;
     if (exponent == 0) return Scalar.one;
 
-    return (dimensions ^ exponent).toQuantity(valueSI ^ exponent, null, _ur * exponent);
+    return (dimensions ^ exponent)
+        .toQuantity(valueSI ^ exponent, null, _ur * exponent);
   }
 
   /// The unary minus operator returns a Quantity whose value
   /// is the negative of this Quantity's value.
   ///
-  Quantity operator -() => dimensions.toQuantity(valueSI * -1, preferredUnits, _ur);
+  Quantity operator -() =>
+      dimensions.toQuantity(valueSI * -1, preferredUnits, _ur);
 
   /// Returns a [Quantity] that represents the square root of this Quantity,
   /// in terms of both value and dimensions (for example, if this Quantity were an
@@ -572,7 +584,6 @@ class Quantity implements Comparable {
   /// less than, equal to, or greater than the specified Quantity.
   ///
   int compareTo(Comparable q2) {
-
     // Scalar can be compared to num or Number
     if (this is Scalar && (q2 is num || q2 is Number)) {
       return valueSI.compareTo(q2);
@@ -627,7 +638,8 @@ class Quantity implements Comparable {
       if (units is Quantity && (units as Quantity).dimensions == dimensions) {
         return units.fromMks(valueSI);
       } else {
-        throw new DimensionsException("Cannot retrieve quantity value using units with incompatible dimensions");
+        throw new DimensionsException(
+            "Cannot retrieve quantity value using units with incompatible dimensions");
       }
     }
   }
@@ -1056,7 +1068,8 @@ class Quantity implements Comparable {
   /// Note: NumberFormat is coming in intl library
   ///
   //void outputText(StringBuffer buffer, {bool showUncert:false, bool symbols:true, NumberFormat numberFormat:null}) {
-  void outputText(StringBuffer buffer, {bool showUncert: false, bool symbols: true}) {
+  void outputText(StringBuffer buffer,
+      {bool showUncert: false, bool symbols: true}) {
     if (preferredUnits != null) {
       Number val = preferredUnits.fromMks(mks);
 
@@ -1135,9 +1148,9 @@ class Quantity implements Comparable {
 // Top level functions
 // --------------------------------------------------------------------
 
-double _calcRelativeCombinedUncertaintySumDiff(Quantity q1, Quantity q2, Number valueSI) {
+double _calcRelativeCombinedUncertaintySumDiff(
+    Quantity q1, Quantity q2, Number valueSI) {
   if (q1._ur != 0.0 || q2._ur != 0.0) {
-
     // Standard uncertainty (derive from relative standard uncertainty)
     double u1 = q1._ur * q1.valueSI.abs().toDouble();
 

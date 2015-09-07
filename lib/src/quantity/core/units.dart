@@ -587,7 +587,8 @@ abstract class Units {
       if (fully) {
         for (ExponentialUnits uwe in _units) {
           double exp = uwe._exp;
-          List<ExponentialUnits> subComps = uwe._units.getComponents(true, false);
+          List<ExponentialUnits> subComps =
+              uwe._units.getComponents(true, false);
           for (ExponentialUnits uwe2 in subComps) {
             uwe2._exp *= exp;
           }

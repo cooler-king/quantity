@@ -14,79 +14,77 @@ double tan(Angle a) => a.tangent();
 // Constant
 const double twoPi = 2.0 * Math.PI;
 
-/**
- *  Class Angle represents a planar (2-dimensional) angle, which has
- *  dimensions of _1_ and is expressed in units of planar angle.
- */
+///  Class Angle represents a planar (2-dimensional) angle, which has
+///  dimensions of _1_ and is expressed in units of planar angle.
+///
 class Angle extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions angleDimensions = const Dimensions.constant(const {"Angle": 1});
+  static const Dimensions angleDimensions =
+      const Dimensions.constant(const {"Angle": 1});
 
-  /** the standard SI unit */
-  static final AngleUnits radians = new AngleUnits("radians", null, "rad", null, Integer.one, true);
+  /// The standard SI unit.
+  static final AngleUnits radians =
+      new AngleUnits("radians", null, "rad", null, Integer.one, true);
 
-  /** accepted for use with the SI **/
-  static final AngleUnits degrees =
-      new AngleUnits("degrees", "\u{00b0}", "deg", null, const Double.constant(1.7453292519943e-2), false);
+  /// Accepted for use with the SI.
+  static final AngleUnits degrees = new AngleUnits("degrees", "\u{00b0}", "deg",
+      null, const Double.constant(1.7453292519943e-2), false);
 
-  /** accepted for use with the SI **/
-  static final AngleUnits minutesArc =
-      new AngleUnits("arc minutes", "\'", "arc min", null, const Double.constant(2.9088821e-4), false);
+  /// Accepted for use with the SI.
+  static final AngleUnits minutesArc = new AngleUnits("arc minutes", "\'",
+      "arc min", null, const Double.constant(2.9088821e-4), false);
 
-  /** accepted for use with the SI **/
-  static final AngleUnits secondsArc =
-      new AngleUnits("arc seconds", "\"", "arc sec", null, const Double.constant(4.8481368e-6), false);
+  /// Accepted for use with the SI.
+  static final AngleUnits secondsArc = new AngleUnits("arc seconds", "\"",
+      "arc sec", null, const Double.constant(4.8481368e-6), false);
 
   // convenience units
 
-  /** accepted for use with the SI; equivalent to [minutesArc] **/
+  /// Accepted for use with the SI; equivalent to [minutesArc].
   static final AngleUnits minutes = minutesArc;
 
-  /** accepted for use with the SI; equivalent to [secondsArc] **/
+  /// Accepted for use with the SI; equivalent to [secondsArc].
   static final AngleUnits seconds = secondsArc;
 
   Angle({dynamic rad, dynamic deg, double uncert: 0.0})
-      : super(deg != null ? deg : (rad != null ? rad : 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
+      : super(deg != null ? deg : (rad != null ? rad : 0.0),
+            deg != null ? Angle.degrees : Angle.radians, uncert);
 
-  Angle._internal(conv) : super._dimensions(conv, Angle.angleDimensions) {
-    //print("Angle._internal $conv ${Angle.ANGLE_DIMENSIONS}");
-  }
+  Angle._internal(conv) : super._dimensions(conv, Angle.angleDimensions);
 
-  /**
-   * Constructs an Angle based on the [value]
-   * and the conversion factor intrinsic to the passed [units].
-   *
-   * Unlike other Quantity subclasses, the Angle constructor requires
-   * both value _and units_ to be provided.  This is to avoid any confusion
-   * between radians and degrees, which is a common source of programming
-   * errors.
-   *
-   * The dimension is set to the static ANGLE_DIMENSIONS parameter.
-   *
-   * The internal value is automatically bounded between -PI and PI
-   * radians (-180 to 180 degrees)
-   */
+  /// Constructs an Angle based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  ///
+  /// Unlike other Quantity subclasses, the Angle constructor requires
+  /// both value _and units_ to be provided.  This is to avoid any confusion
+  /// between radians and degrees, which is a common source of programming
+  /// errors.
+  ///
+  /// The dimension is set to the static [angleDimensions] parameter.
+  ///
+  /// The internal value is automatically bounded between -PI and PI
+  /// radians (-180 to 180 degrees)
+  ///
   Angle.inUnits(value, AngleUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : Angle.radians, uncert);
 
   const Angle.constant(Number valueSI, {AngleUnits units, num uncert: 0.0})
       : super.constant(valueSI, Angle.angleDimensions, units, uncert);
 
-  /**
-   *  This constructor creates an angle value from the three values
-   *  passed in for degrees, minutes, and seconds of arc OR hours, minutes and
-   *  seconds of time.  The final parameter is a flag to dostinguish between the
-   *  two cases:  true indicates degrees, false indicates hours.
-   */
+  ///  This constructor creates an angle value from the three values
+  ///  passed in for degrees, minutes, and seconds of arc OR hours, minutes and
+  ///  seconds of time.  The final parameter is a flag to dostinguish between the
+  ///  two cases:  true indicates degrees, false indicates hours.
+  ///
   Angle.fromDegMinSec(int d, int m, double s, [double uncert = 0.0])
-      : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s), Angle.radians, uncert);
+      : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s),
+            Angle.radians, uncert);
 
-  /**
-   * Return an equivalent angle bounded to between -PI and PI
-   * (-180 and 180 degrees).
-   *
-   * If this Angle is already within that range then it is returned directly.
-   */
+  /// Return an equivalent angle bounded to between -PI and PI
+  /// (-180 and 180 degrees).
+  ///
+  /// If this Angle is already within that range then it is returned directly.
+  ///
   Angle get angle180 {
     if (valueSI >= -Math.PI && valueSI <= Math.PI) return this;
 
@@ -96,12 +94,11 @@ class Angle extends Quantity {
     return new Angle(rad: rad);
   }
 
-  /**
-   * Returns an equivalent angle bounded to between 0 and 2PI
-   * (0 and 360 degrees).
-   *
-   * If this Angle is already within that range then it is returned directly.
-   */
+  /// Returns an equivalent angle bounded to between 0 and 2PI
+  /// (0 and 360 degrees).
+  ///
+  /// If this Angle is already within that range then it is returned directly.
+  ///
   Angle get angle360 {
     if (valueSI >= 0.0 && valueSI <= twoPi) return this;
     double rad = valueSI.toDouble();
@@ -110,47 +107,40 @@ class Angle extends Quantity {
     return new Angle(rad: rad);
   }
 
-  /**
-   * Calculates the cosine of this angle.
-   */
+  /// Calculates the cosine of this angle.
+  ///
   double cosine() => Math.cos(mks.toDouble());
 
-  /**
-   * Calculates the sine of this angle.
-   */
+  /// Calculates the sine of this angle.
+  ///
   double sine() => Math.sin(mks.toDouble());
 
-  /**
-   * Calculates the tangent of this angle.
-   */
+  /// Calculates the tangent of this angle.
+  ///
   double tangent() => Math.tan(mks.toDouble());
 
-  /**
-   * Calculates and returns the secant of this angle.
-   *
-   * The secant of an angle is equivalent to 1 over the cosine.
-   */
+  /// Calculates and returns the secant of this angle.
+  ///
+  /// The secant of an angle is equivalent to 1 over the cosine.
+  ///
   double secant() => 1.0 / Math.cos(mks.toDouble());
 
-  /**
-   * Calculates and returns the cosecant of this angle.
-   *
-   * The cosecant of an angle is equivalent to 1 over the sine.
-   */
+  /// Calculates and returns the cosecant of this angle.
+  ///
+  /// The cosecant of an angle is equivalent to 1 over the sine.
+  ///
   double cosecant() => 1.0 / Math.sin(mks.toDouble());
 
-  /**
-   *  Calculates and returns the cotangent of this angle.
-   *
-   * The cotangent is equivalent to 1 over the tangent.
-   */
+  ///  Calculates and returns the cotangent of this angle.
+  ///
+  /// The cotangent is equivalent to 1 over the tangent.
+  ///
   double cotangent() => 1.0 / Math.tan(mks.toDouble());
 
-  /**
-   * Returns an array of three values representing the value of this Angle
-   * in degrees, minutes arc and seconds arc.  The first value (degrees) may
-   * be either positive or negative; the other two values will be positive.
-   */
+  /// Returns an array of three values representing the value of this Angle
+  /// in degrees, minutes arc and seconds arc.  The first value (degrees) may
+  /// be either positive or negative; the other two values will be positive.
+  ///
   List<double> get degMinSec {
     List<double> dms = new List<double>.generate(3, null, growable: false);
 
@@ -171,11 +161,10 @@ class Angle extends Quantity {
     return dms;
   }
 
-  /**
-   * Gets the value of this angle in terms of hours, minutes and seconds
-   * (where there are 24 hours in a complete circle).  The first value (hours)
-   * may be either positive or negative; the other two values will be positive.
-  */
+  /// Gets the value of this angle in terms of hours, minutes and seconds
+  /// (where there are 24 hours in a complete circle).  The first value (hours)
+  /// may be either positive or negative; the other two values will be positive.
+  ///
   List<double> get hrMinSec {
     List<double> hms = new List<double>.generate(3, null, growable: false);
 
@@ -197,11 +186,11 @@ class Angle extends Quantity {
   }
 }
 
-/**
- * Units acceptable for use in describing Angle quantities.
- */
+/// Units acceptable for use in describing Angle quantities.
+///
 class AngleUnits extends Angle with Units {
-  AngleUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  AngleUnits(String name, String abbrev1, String abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
@@ -216,12 +205,16 @@ class AngleUnits extends Angle with Units {
   /// Returns the Type of the Quantity to which these Units apply
   Type get quantityType => Angle;
 
-  /**
-   * Derive new AngleUnits using this AngleUnits object as the base.
-   */
+  /// Derive new AngleUnits using this AngleUnits object as the base.
+  ///
   Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new AngleUnits("${fullPrefix}${name}", _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null, "${fullPrefix}${singular}", valueSI * conv, false,
+    return new AngleUnits(
+        "${fullPrefix}${name}",
+        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
+        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
+        "${fullPrefix}${singular}",
+        valueSI * conv,
+        false,
         this.offset);
   }
 }

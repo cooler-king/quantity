@@ -37,17 +37,6 @@ main() {
 
       //TODO double hashcodes are NOT unique!!!!  (only do integer part right now)
 
-      print("${s2} ${s2.hashCode}");
-      print("${s5} ${s5.hashCode}");
-      print("11 ${11.hashCode}");
-      print("11.0 ${11.0.hashCode}");
-      print("0.96 ${0.96.hashCode}");
-      print("0.0096 ${0.0096.hashCode}");
-      print("1230.7654 ${1230.7654.hashCode}");
-      print("-3.0096 ${-3.0096.hashCode}");
-      print("4.0096 ${4.0096.hashCode}");
-      print("8.0096 ${8.0096.hashCode}");
-
       expect(s1.hashCode == s2.hashCode, false);
       expect(s1.hashCode == s3.hashCode, true);
       expect(s2.hashCode == s4.hashCode, true);

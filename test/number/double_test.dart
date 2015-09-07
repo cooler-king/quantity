@@ -47,7 +47,8 @@ main() {
       Imaginary i = new Imaginary(34.21);
       expect((d + i) is Complex, true);
       expect(((d + i) as Complex).real.toDouble(), closeTo(42.056, 0.000001));
-      expect(((d + i) as Complex).imag.value.toDouble(), closeTo(34.21, 0.000001));
+      expect(
+          ((d + i) as Complex).imag.value.toDouble(), closeTo(34.21, 0.000001));
     });
   });
 }

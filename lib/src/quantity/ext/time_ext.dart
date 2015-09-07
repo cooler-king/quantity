@@ -23,49 +23,52 @@ final TimeUnits attoseconds = Time.seconds.atto();
 final TimeUnits zeptoseconds = Time.seconds.zepto();
 final TimeUnits yoctoseconds = Time.seconds.yocto();
 
-/** accepted for use with the SI **/
+/// Accepted for use with the SI.
 final TimeUnits daysMeanSolar = Time.daysMeanSolar;
 
-/** accepted for use with the SI **/
+/// Accepted for use with the SI.
 final TimeUnits hoursMeanSolar = Time.hoursMeanSolar;
 
-/** accepted for use with the SI **/
+/// Accepted for use with the SI.
 final TimeUnits minutesMeanSolar = Time.minutesMeanSolar;
 
-/** accepted for use with the SI **/
+/// Accepted for use with the SI.
 final TimeUnits minutes = minutesMeanSolar;
 
-/** accepted for use with the SI **/
+/// Accepted for use with the SI.
 final TimeUnits hours = hoursMeanSolar;
 
-/** accepted for use with the SI **/
+/// Accepted for use with the SI.
 final TimeUnits days = daysMeanSolar;
 
 // non-SI units
 
-final TimeUnits daysSidereal =
-    new TimeUnits("days (sidereal)", null, "days (sid)", "day (sidereal)", 8.6164090e4, false);
+final TimeUnits daysSidereal = new TimeUnits("days (sidereal)", null,
+    "days (sid)", "day (sidereal)", 8.6164090e4, false);
 
-final TimeUnits hoursSidereal =
-    new TimeUnits("hours (sidereal)", null, "hr (sid)", "hour (sidereal)", 3.5901704e3, false);
+final TimeUnits hoursSidereal = new TimeUnits("hours (sidereal)", null,
+    "hr (sid)", "hour (sidereal)", 3.5901704e3, false);
 
-final TimeUnits minutesSidereal =
-    new TimeUnits("minutes (sidereal)", null, "min (sid)", "minute (sidereal)", 5.9836174e1, false);
+final TimeUnits minutesSidereal = new TimeUnits("minutes (sidereal)", null,
+    "min (sid)", "minute (sidereal)", 5.9836174e1, false);
 
-final TimeUnits secondsSidereal =
-    new TimeUnits("seconds (sidereal)", null, "s (sid)", "second (sidereal)", 9.9726957e-1, false);
+final TimeUnits secondsSidereal = new TimeUnits("seconds (sidereal)", null,
+    "s (sid)", "second (sidereal)", 9.9726957e-1, false);
 
-final TimeUnits yearsCalendar = new TimeUnits("years", null, "yr", null, 3.1536e7, false);
+final TimeUnits yearsCalendar =
+    new TimeUnits("years", null, "yr", null, 3.1536e7, false);
 
-final TimeUnits yearsSidereal =
-    new TimeUnits("years (sidereal)", null, "yr (sid)", "year (sidereal)", 3.1558150e7, false);
+final TimeUnits yearsSidereal = new TimeUnits("years (sidereal)", null,
+    "yr (sid)", "year (sidereal)", 3.1558150e7, false);
 
-final TimeUnits yearsTropical =
-    new TimeUnits("years (tropical)", null, "yr (trop)", "year (tropical)", 3.1556926e7, false);
+final TimeUnits yearsTropical = new TimeUnits("years (tropical)", null,
+    "yr (trop)", "year (tropical)", 3.1556926e7, false);
 
-final TimeUnits yearsJulian = new TimeUnits("years (Julian)", null, "yr (Jul)", "year (Julian)", 3.15576e7, false);
+final TimeUnits yearsJulian = new TimeUnits(
+    "years (Julian)", null, "yr (Jul)", "year (Julian)", 3.15576e7, false);
 
-final TimeUnits aeons = new TimeUnits("aeons", null, "aeons", null, 3.1536e18, false);
+final TimeUnits aeons =
+    new TimeUnits("aeons", null, "aeons", null, 3.1536e18, false);
 
 final TimeUnits eons = aeons;
 

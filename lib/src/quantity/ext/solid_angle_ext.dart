@@ -25,16 +25,20 @@ final SolidAngleUnits yoctosteradians = SolidAngle.steradians.yocto();
 
 // non-SI units
 
-final SolidAngleUnits spats = new SolidAngleUnits("spats", "sp", null, null, 12.566371, false);
+final SolidAngleUnits spats =
+    new SolidAngleUnits("spats", "sp", null, null, 12.566371, false);
 
-final SolidAngleUnits spheres = new SolidAngleUnits("spheres", null, null, null, 4.0 * Math.PI, false);
+final SolidAngleUnits spheres =
+    new SolidAngleUnits("spheres", null, null, null, 4.0 * Math.PI, false);
 
-final SolidAngleUnits hemispheres = new SolidAngleUnits("hemispheres", null, null, null, 2.0 * Math.PI, false);
+final SolidAngleUnits hemispheres =
+    new SolidAngleUnits("hemispheres", null, null, null, 2.0 * Math.PI, false);
 
-/** 1/8th of a sphere or a spherical right triangle **/
-final SolidAngleUnits octants = new SolidAngleUnits("octants", null, null, null, Math.PI / 2.0, false);
+/// 1/8th of a sphere (a spherical right triangle).
+final SolidAngleUnits octants =
+    new SolidAngleUnits("octants", null, null, null, Math.PI / 2.0, false);
 
-/** same as OCTANTS **/
+/// Same as [octants].
 final SolidAngleUnits sphericalRightTriangles = OCTANTS;
 
 final SolidAngleUnits squareDegrees = new SolidAngleUnits(ANGLE.DEGREES);

@@ -1,34 +1,38 @@
 part of quantity_core;
 
 class WaveNumber extends Quantity {
-
   /// Dimensions for this type of quantity
-  static const Dimensions waveNumberDimensions = const Dimensions.constant(const {"Length": -1});
+  static const Dimensions waveNumberDimensions =
+      const Dimensions.constant(const {"Length": -1});
 
-  /** the standard SI unit **/
-  static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.length(Length.meters);
+  /// The standard SI unit.
+  static final WaveNumberUnits reciprocalMeters =
+      new WaveNumberUnits.length(Length.meters);
 
   WaveNumber({dynamic reciprocal_m, double uncert: 0.0})
-      : super(reciprocal_m != null ? reciprocal_m : 0.0, WaveNumber.reciprocalMeters, uncert);
+      : super(reciprocal_m != null ? reciprocal_m : 0.0,
+            WaveNumber.reciprocalMeters, uncert);
 
-  WaveNumber._internal(conv) : super._dimensions(conv, WaveNumber.waveNumberDimensions);
+  WaveNumber._internal(conv)
+      : super._dimensions(conv, WaveNumber.waveNumberDimensions);
 
-  /**
-   * Constructs a WaveNumber based on the [value]
-   * and the conversion factor intrinsic to the passed [units].
-   */
+  /// Constructs a WaveNumber based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  ///
   WaveNumber.inUnits(value, WaveNumberUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : WaveNumber.reciprocalMeters, uncert);
+      : super(
+            value, units != null ? units : WaveNumber.reciprocalMeters, uncert);
 
-  const WaveNumber.constant(Number valueSI, {WaveNumberUnits units, num uncert: 0.0})
+  const WaveNumber.constant(Number valueSI,
+      {WaveNumberUnits units, num uncert: 0.0})
       : super.constant(valueSI, WaveNumber.waveNumberDimensions, units, uncert);
 }
 
-/**
- * Units acceptable for use in describing WaveNumber quantities.
- */
+/// Units acceptable for use in describing WaveNumber quantities.
+///
 class WaveNumberUnits extends WaveNumber with Units {
-  WaveNumberUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  WaveNumberUnits(String name, String abbrev1, String abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
@@ -40,7 +44,8 @@ class WaveNumberUnits extends WaveNumber with Units {
     this.offset = offset;
   }
 
-  WaveNumberUnits.length(LengthUnits lu) : super._internal(Integer.one / lu.valueSI) {
+  WaveNumberUnits.length(LengthUnits lu)
+      : super._internal(Integer.one / lu.valueSI) {
     this.name = "reciprocal ${lu.name}";
     this.singular = "reciprocal ${lu.singular}";
     this._convToMKS = Integer.one / lu.valueSI;
@@ -53,12 +58,16 @@ class WaveNumberUnits extends WaveNumber with Units {
   /// Returns the Type of the Quantity to which these Units apply
   Type get quantityType => WaveNumber;
 
-  /**
-   * Derive new WaveNumberUnits using this WaveNumberUnits object as the base.
-   */
+  /// Derive new WaveNumberUnits using this WaveNumberUnits object as the base.
+  ///
   Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new WaveNumberUnits("${fullPrefix}${name}", _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null, "${fullPrefix}${singular}", valueSI * conv, false,
+    return new WaveNumberUnits(
+        "${fullPrefix}${name}",
+        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
+        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
+        "${fullPrefix}${singular}",
+        valueSI * conv,
+        false,
         this.offset);
   }
 }

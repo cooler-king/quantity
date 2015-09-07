@@ -5,19 +5,22 @@ part of quantity_core;
 ///
 class Scalar extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions scalarDimensions = const Dimensions.constant(const {});
+  static const Dimensions scalarDimensions =
+      const Dimensions.constant(const {});
 
   // Units
 
   /// The standard SI unit; may be represented by "1" but is typically not displayed at all.
-  static final ScalarUnits one = new ScalarUnits("1", null, null, "1", Double.one, false);
+  static final ScalarUnits one =
+      new ScalarUnits("1", null, null, "1", Double.one, false);
 
   /// Acceptable for use with the SI; percent (%) represents the number 0.01
-  static final ScalarUnits percent =
-      new ScalarUnits("percent", null, "%", "percent", const Double.constant(0.01), false);
+  static final ScalarUnits percent = new ScalarUnits(
+      "percent", null, "%", "percent", const Double.constant(0.01), false);
 
-  Scalar({value, percent, double uncert: 0.0}) : super(percent != null ? percent : (value != null ? value : 0.0),
-          percent != null ? Scalar.percent : Scalar.one, uncert);
+  Scalar({value, percent, double uncert: 0.0})
+      : super(percent != null ? percent : (value != null ? value : 0.0),
+            percent != null ? Scalar.percent : Scalar.one, uncert);
 
   Scalar._internal(conv) : super._dimensions(conv, Scalar.scalarDimensions);
 
@@ -25,7 +28,8 @@ class Scalar extends Quantity {
   Scalar.inUnits(value, ScalarUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : Scalar.one, uncert);
 
-  const Scalar.constant(value, [ScalarUnits units = null]) : super.constant(value, Scalar.scalarDimensions, units, 0.0);
+  const Scalar.constant(value, [ScalarUnits units = null])
+      : super.constant(value, Scalar.scalarDimensions, units, 0.0);
 
   /// Scalar's hash code is identical to the hash code of its SI value
   /// in order to support functional equality of [Scalar] quantitiess,
@@ -46,12 +50,14 @@ class Scalar extends Quantity {
       Number sumValue = valueSI + s2.valueSI;
       double sumUr = 0.0;
       if (_ur != 0.0 && s2._ur != 0.0) {
-        sumUr = Math.sqrt(_ur * _ur + s2._ur * s2._ur) / sumValue.abs().toDouble();
+        sumUr =
+            Math.sqrt(_ur * _ur + s2._ur * s2._ur) / sumValue.abs().toDouble();
       }
 
       return new Scalar.inUnits(valueSI + addend.valueSI, Scalar.one, sumUr);
     } else {
-      throw new DimensionsException("Cannot add non-Scalar Quantities to a Scalar");
+      throw new DimensionsException(
+          "Cannot add non-Scalar Quantities to a Scalar");
     }
   }
 }
@@ -59,7 +65,8 @@ class Scalar extends Quantity {
 /// Units acceptable for use in describing Scalar quantities.
 ///
 class ScalarUnits extends Scalar with Units {
-  ScalarUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ScalarUnits(String name, String abbrev1, String abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
@@ -77,8 +84,13 @@ class ScalarUnits extends Scalar with Units {
   /// Derive new ScalarUnits using this ScalarUnits object as the base.
   ///
   Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ScalarUnits("${fullPrefix}${name}", _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null, "${fullPrefix}${singular}", valueSI * conv, false,
+    return new ScalarUnits(
+        "${fullPrefix}${name}",
+        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
+        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
+        "${fullPrefix}${singular}",
+        valueSI * conv,
+        false,
         this.offset);
   }
 }

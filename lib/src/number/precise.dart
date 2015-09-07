@@ -42,7 +42,9 @@ class Precise extends Real {
     int eIndex = str.indexOf("e");
 
     if (decimalPointIndex != -1) {
-      _power = eIndex != -1 ? -(eIndex - decimalPointIndex - 1) : -(str.length - decimalPointIndex - 1);
+      _power = eIndex != -1
+          ? -(eIndex - decimalPointIndex - 1)
+          : -(str.length - decimalPointIndex - 1);
     }
     if (eIndex != -1) {
       _power += int.parse(str.substring(eIndex + 1));
@@ -69,7 +71,8 @@ class Precise extends Real {
     }
   }
 
-  factory Precise.num(num value) => value != null ? new Precise(value.toString()) : Precise.zero;
+  factory Precise.num(num value) =>
+      value != null ? new Precise(value.toString()) : Precise.zero;
 
   /// Creates a new arbitrary precision number directly from digits.
   ///
@@ -84,7 +87,8 @@ class Precise extends Real {
   ///
   /// Default [precision] is 50 digits.
   ///
-  Precise.raw(List<Digit> digits, {int power: 0, bool neg: false, int precision: 50}) {
+  Precise.raw(List<Digit> digits,
+      {int power: 0, bool neg: false, int precision: 50}) {
     if (digits != null && digits.isNotEmpty) {
       _digits.addAll(digits);
     } else {
@@ -140,8 +144,9 @@ class Precise extends Real {
   ///
   @override
   Number operator +(addend) {
-    Precise preciseAddend =
-        addend is Precise ? addend : addend is num ? new Precise.num(addend) : new Precise("${addend}");
+    Precise preciseAddend = addend is Precise
+        ? addend
+        : addend is num ? new Precise.num(addend) : new Precise("${addend}");
 
     // Divert to subtraction if signs are not the same
     if (_neg != preciseAddend._neg) {
@@ -150,7 +155,8 @@ class Precise extends Real {
     }
 
     int minPlace = Math.min(_power, addend._power);
-    int maxPlace = Math.max(_power + _digits.length - 1, addend._power + _digits.length - 1);
+    int maxPlace = Math.max(
+        _power + _digits.length - 1, addend._power + _digits.length - 1);
     List<Digit> sum = [];
     int carry = 0;
     int temp = 0;
@@ -239,8 +245,10 @@ class Digit {
   }
 
   factory Digit.char(String digitChar) {
-    if (digitChar == null) throw "Digit cannot be constructed with null character";
-    if (digitChar.length != 1) throw "Digit must be constructed with a single character";
+    if (digitChar ==
+        null) throw "Digit cannot be constructed with null character";
+    if (digitChar.length !=
+        1) throw "Digit must be constructed with a single character";
     return new Digit(digitChar.codeUnitAt(0) - codeUnit0);
   }
   @override
