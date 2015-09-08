@@ -4,17 +4,40 @@
 ///
 library quantity_ext;
 
+import 'dart:math' show PI;
 import 'package:quantity/number.dart';
-import 'package:quantity/quantity.dart';
-
-export 'src/quantity/ext/angle_ext.dart';
+import 'package:quantity/quantity_si.dart';
 
 // quantity type extensions
-//part 'src/quantity/ext/angle_ext.dart';
-part 'src/quantity/ext/amount_of_substance_ext.dart';
-part 'src/quantity/ext/length_ext.dart';
-part 'src/quantity/ext/luminous_intensity_ext.dart';
-part 'src/quantity/ext/mass_ext.dart';
-part 'src/quantity/ext/scalar_ext.dart';
-part 'src/quantity/ext/temperature_ext.dart';
-part 'src/quantity/ext/time_ext.dart';
+part 'src/ext/acceleration_ext.dart';
+part 'src/ext/amount_of_substance_ext.dart';
+part 'src/ext/angle_ext.dart';
+part 'src/ext/angular_speed_ext.dart';
+part 'src/ext/area_ext.dart';
+part 'src/ext/capacitance_ext.dart';
+part 'src/ext/charge_ext.dart';
+part 'src/ext/conductance_ext.dart';
+part 'src/ext/current_ext.dart';
+part 'src/ext/electric_potential_difference_ext.dart';
+part 'src/ext/energy_ext.dart';
+part 'src/ext/energy_flux_ext.dart';
+part 'src/ext/entropy_ext.dart';
+//part 'src/ext/flux_density_ext.dart';
+part 'src/ext/force_ext.dart';
+part 'src/ext/illuminance_ext.dart';
+part 'src/ext/inductance_ext.dart';
+part 'src/ext/kinematic_viscosity_ext.dart';
+part 'src/ext/length_ext.dart';
+part 'src/ext/luminous_intensity_ext.dart';
+part 'src/ext/magnetic_flux_ext.dart';
+part 'src/ext/magnetic_flux_density_ext.dart';
+part 'src/ext/mass_ext.dart';
+part 'src/ext/mass_density_ext.dart';
+part 'src/ext/permeability_ext.dart';
+part 'src/ext/permittivity_ext.dart';
+part 'src/ext/power_ext.dart';
+part 'src/ext/resistance_ext.dart';
+part 'src/ext/scalar_ext.dart';
+part 'src/ext/temperature_ext.dart';
+part 'src/ext/time_ext.dart';
+part 'src/ext/volume_ext.dart';
