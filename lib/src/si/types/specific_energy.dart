@@ -50,6 +50,27 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
     this.offset = 0.0;
   }
 
+  SpecificEnergyUnits.lengthTime(LengthUnits lu, TimeUnits tu)
+      : super._internal(lu.valueSI * lu.valueSI / (tu.valueSI * tu.valueSI)) {
+    this.name = "${lu.name} squared per ${tu.singular} squared";
+    this.singular = "${lu.singular} squared per ${tu.singular} squared";
+    this._convToMKS = lu.valueSI * lu.valueSI / (tu.valueSI * tu.valueSI);
+    this._abbrev1 = lu._abbrev1 != null && tu._abbrev1 != null ? "${lu._abbrev1} sq./ ${tu._abbrev1} sq." : null;
+    this._abbrev2 = lu._abbrev2 != null && tu._abbrev2 != null ? "${lu._abbrev2}^2/${tu._abbrev2}^2" : null;
+    this.metricBase = false;
+    this.offset = 0.0;
+  }
+
+  SpecificEnergyUnits.speed(SpeedUnits su) : super._internal(su.valueSI) {
+    this.name = "${su.name} squared";
+    this.singular = "${su.singular} squared";
+    this._convToMKS = su.valueSI;
+    this._abbrev1 = su._abbrev1 != null ? "${su._abbrev1} sq." : null;
+    this._abbrev2 = su._abbrev2 != null ? "${su._abbrev2}^2" : null;
+    this.metricBase = false;
+    this.offset = 0.0;
+  }
+
   /// Returns the Type of the Quantity to which these Units apply
   Type get quantityType => SpecificEnergy;
 

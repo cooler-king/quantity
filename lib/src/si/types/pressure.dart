@@ -41,6 +41,19 @@ class PressureUnits extends Pressure with Units {
     this.metricBase = metricBase;
     this.offset = offset;
   }
+  
+
+  PressureUnits.forceArea(ForceUnits fu, AreaUnits au) : super._internal(fu.valueSI * au.valueSI) {
+    this.name = "${fu.name} per ${au.singular}";
+    this.singular = "${fu.singular} per ${au.singular}";
+    this._convToMKS = fu.valueSI * au.valueSI;
+    this._abbrev1 = fu._abbrev1 != null && au._abbrev1 != null ? "${fu._abbrev1} / ${au._abbrev1}" : null;
+    this._abbrev2 = fu._abbrev2 != null && au._abbrev2 != null ? "${fu._abbrev2}${au._abbrev2}" : null;
+    this.metricBase = metricBase;
+    this.offset = offset;
+  }
+
+
 
   /// Returns the Type of the Quantity to which these Units apply
   Type get quantityType => Pressure;
