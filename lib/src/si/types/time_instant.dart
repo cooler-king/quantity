@@ -16,13 +16,11 @@ bool _pre1972LeapSeconds = true;
 /// conversion between various time scales.  This class
 /// also enables the representation of a point in time to arbitrarily high
 /// precision over the entire span of time from the birth of the Universe
-/// to a possibly infinite future (unlike the Java Date class which is limited
-/// to millisecond  precision and is only capable of representing times within
-/// about a 600 million year period).  Therefore it is suitable for use within
+/// to a possibly infinite future.  Therefore it is suitable for use within
 /// science and engineering disciplines that involve very long and/or very short
 /// time spans.
 //
-/// <b>Internal Representation in the International Atomic Time Scale</b>
+/// ##Internal Representation in the International Atomic Time Scale
 /// The time instant is represented internally as the number of (SI) seconds elapsed
 /// since January 1, 1958 0h 0m 0s, which is the origin of the International
 /// Atomic Time Scale (TAI).  Unlike other quantities, the notion of an absolute
@@ -130,7 +128,8 @@ class TimeInstant extends Quantity {
   /// time defined by the Dart VM
   ///
   static final TimeInstantUnits system = new TimeInstantUnits(
-      "System Time (ms since 1 Jan 1970 0h 0m 0s)", null, "JVM", null, .001, false, 4383000.0 * 86400.0, (double d) {
+      "System Time (ms since 1 Jan 1970 0h 0m 0s)", null, "System Time", null, .001, false, 4383000.0 * 86400.0,
+      (double d) {
     //d = UTC.fromMks(d);  // UTC seconds
     //d = 1000.0 * (d - 3.786912e8);
     return (UTC.fromMks(d) - 3.786912e8) * 1000;
@@ -140,20 +139,28 @@ class TimeInstant extends Quantity {
     return UTC.toMks(d);
   });
 
+  /// Constructs a TimeInstant in either [TAI] or [UTC] units, with an optional standard relative [uncert]ainty.
+  ///
   TimeInstant({dynamic TAI, dynamic UTC, double uncert: 0.0})
       : super(TAI != null ? TAI : (UTC != null ? UTC : 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
 
   TimeInstant._internal(conv) : super._dimensions(conv, TimeInstant.timeInstantDimensions);
 
-  ///
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
   TimeInstant.inUnits(value, TimeInstantUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : TimeInstant.TAI, uncert);
 
+  /// Constructs a constant TimeInstant object.
+  ///
   const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, num uncert: 0.0})
       : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
+
+  /// Constructs a TimeInstant from an existing [dateTime] object.
+  ///
+  TimeInstant.dateTime(DateTime dateTime, {double uncert: 0.0})
+      : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
 
   /// Returns a [DateTime] object that represents as closely as possible the time
   /// instant represented by this object.  DateTime objects are limited to
@@ -164,8 +171,11 @@ class TimeInstant extends Quantity {
     Number msSince1970 = valueInUnits(TimeInstant.system);
 
     // Adjust for rounding to closest date
-    if (msSince1970 < 0.0) msSince1970 -= 0.5;
-    else msSince1970 += 0.5;
+    if (msSince1970 < 0.0) {
+      msSince1970 -= 0.5;
+    } else {
+      msSince1970 += 0.5;
+    }
 
     return new DateTime.fromMillisecondsSinceEpoch(msSince1970.toInt(), isUtc: true);
   }
