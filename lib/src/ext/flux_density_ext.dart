@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-final HeatFluxDensityUnits JOULE_PER_SQUARE_METER =
+final SpectralIrradianceUnits JOULE_PER_SQUARE_METER =
 HeatFluxDensityUnits.;
 
 

@@ -2,7 +2,7 @@ part of quantity_si;
 
 class AbsorbedDoseRate extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions ABSORBED_DOSE_RATE_DIMENSIONS = const Dimensions.constant(const {"Length": 2, "Time": -3});
+  static const Dimensions absorbedDoseRateDimensions = const Dimensions.constant(const {"Length": 2, "Time": -3});
 
   /// The standard SI unit.
   static final AbsorbedDoseRateUnits grayPerSecond =
@@ -16,7 +16,7 @@ class AbsorbedDoseRate extends Quantity {
       : super(Gy_per_s != null ? Gy_per_s : (rads_per_s != null ? rads_per_s : 0.0),
             rads_per_s != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.grayPerSecond, uncert);
 
-  AbsorbedDoseRate._internal(conv) : super._dimensions(conv, AbsorbedDoseRate.ABSORBED_DOSE_RATE_DIMENSIONS);
+  AbsorbedDoseRate._internal(conv) : super._dimensions(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
 
   /// Constructs a AbsorbedDoseRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -25,7 +25,7 @@ class AbsorbedDoseRate extends Quantity {
       : super(value, units != null ? units : AbsorbedDoseRate.grayPerSecond, uncert);
 
   const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, num uncert: 0.0})
-      : super.constant(valueSI, AbsorbedDoseRate.ABSORBED_DOSE_RATE_DIMENSIONS, units, uncert);
+      : super.constant(valueSI, AbsorbedDoseRate.absorbedDoseRateDimensions, units, uncert);
 }
 
 /// Units acceptable for use in describing AbsorbedDoseRate quantities.

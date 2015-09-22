@@ -688,13 +688,13 @@ abstract class Units {
   ///  (that is implicitly in these units).
   ///
   ///  The method expects [value] to be a num or Number object; any other type will
-  ///  cause an [ArgumentError].
+  ///  cause an [QuantityException].
   ///
   Number toMks(value) {
     if (value is num || value is Number) {
       return _convToMKS * value;
     } else {
-      throw new ArgumentError("num or Number expected");
+      throw new QuantityException("num or Number expected");
     }
   }
 
@@ -702,13 +702,13 @@ abstract class Units {
   /// object of [mks] (that is expected to be in SI-MKS units).
   ///
   /// The method accepts a num or Number object; any other type will
-  /// cause an [ArgumentError].
+  /// cause an [QuantityException].
   ///
   Number fromMks(mks) {
     if (mks is num || mks is Number) {
       return (mks / _convToMKS);
     } else {
-      throw new ArgumentError("num or Number expected");
+      throw new QuantityException("num or Number expected");
     }
   }
 
@@ -792,7 +792,7 @@ abstract class Units {
       Quantity u2 = new Quantity._units(this as Quantity);
       u2.
     } else {
-      throw new ArgumentError("Units mixin can only be used with Quantity");
+      throw new QuantityException("Units mixin can only be used with Quantity");
     }
 
     // Creates a Units object of the appropriate subclass

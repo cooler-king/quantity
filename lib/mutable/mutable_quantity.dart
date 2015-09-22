@@ -120,8 +120,7 @@ class MutableQuantity implements Quantity {
   set standardUncertainty(Quantity su) {
     if (!(dimensions == su.dimensions)) {
       throw new DimensionsException(
-          "The standard uncertainty must have the same " +
-              "dimensions as this Quantity object");
+          "The standard uncertainty must have the same " + "dimensions as this Quantity object");
     }
 
     // Determine ur
@@ -131,7 +130,7 @@ class MutableQuantity implements Quantity {
 
   /// Sets the this Quantity's [value] in the specified [units].  If units
   /// are not provided, MKS units are assumed.  The [value] is expected to
-  /// be a num or Number object; anything else will cause an [ArgumentError].
+  /// be a num or Number object.
   ///
   void setValue(Object value, [Units units]) {
     if (units == null) {
@@ -141,8 +140,7 @@ class MutableQuantity implements Quantity {
       if (units is Quantity && (units as Quantity).dimensions == dimensions) {
         valueSI = units.toMks(value);
       } else {
-        throw new DimensionsException(
-            "Cannot set quantity value using units with incompatible dimensions");
+        throw new DimensionsException("Cannot set quantity value using units with incompatible dimensions");
       }
     }
   }

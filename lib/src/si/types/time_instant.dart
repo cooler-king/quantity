@@ -110,18 +110,28 @@ class TimeInstant extends Quantity {
   // Note that UTC offset from TAI must be calculated dynamically--changes with
   // addition of leap seconds
   static final TimeInstantUnits UTC =
-      new TimeInstantUnits("Coordinated Universal Time", null, "UTC", null, 1.0, false, 0.0,
-          // FromMks
-          (double d) {
+      new TimeInstantUnits("Coordinated Universal Time", null, "UTC", null, 1.0, false, 0.0, (dynamic d) {
     // Have to remove leap seconds when converting to UTC
-    double leap = getLeapSeconds(d);
-    d -= leap;
+    d -= getLeapSeconds(d is num || d is Number ? d.toDouble() : 0.0);
 
-    return d;
-  }, (double d) {
-    // Get seconds in UTC time scale... (offset = 4383 days = 3.786912e14 ms)
-    d = 0.001 * (d + 3.786912e11); // UTC seconds
-    return UTC.toMks(d);
+    return new Double(d);
+  }, (dynamic d) {
+    d = (d is num || d is Number) ? d.toDouble() : 0.0;
+
+    // For conversion from UTC to TAI, the offset depends on the
+    // time itself due to the addition of leap seconds
+    num leap1 = getLeapSeconds(d);
+    if (leap1 > 0.0) {
+      // Add in the leap seconds
+      d += leap1;
+
+      // Make sure that adding in leap seconds didn't make it cross
+      // another leap second threshold
+      num leap2 = getLeapSeconds(d);
+      if (leap2 != leap1) d += (leap2 - leap1);
+    }
+
+    return new Double(d);
   });
 
   /// Number of milliseconds since 1 Jan 1970 0h 0m 0s, which is the System
@@ -129,11 +139,12 @@ class TimeInstant extends Quantity {
   ///
   static final TimeInstantUnits system = new TimeInstantUnits(
       "System Time (ms since 1 Jan 1970 0h 0m 0s)", null, "System Time", null, .001, false, 4383000.0 * 86400.0,
-      (double d) {
+      (dynamic d) {
     //d = UTC.fromMks(d);  // UTC seconds
     //d = 1000.0 * (d - 3.786912e8);
     return (UTC.fromMks(d) - 3.786912e8) * 1000;
-  }, (double d) {
+  }, (dynamic d) {
+    d = (d is num || d is Number) ? d.toDouble() : 0.0;
     // Get seconds in UTC time scale... (offset = 4383 days = 3.786912e14 ms)
     d = 0.001 * (d + 3.786912e11); // UTC seconds
     return UTC.toMks(d);
@@ -192,7 +203,7 @@ class TimeInstant extends Quantity {
       return new TimeInstant(TAI: (valueSI - subtrahend.valueSI), uncert: 0.0);
     }
 
-    throw new ArgumentError("Only a Time or another TimeInstant can be subtracted from a TimeInstant");
+    throw new QuantityException("Only a Time or another TimeInstant can be subtracted from a TimeInstant");
   }
 
   /// Tests if this time instant is before the specified time instant.
@@ -244,9 +255,6 @@ class TimeInstantUnits extends TimeInstant with Units {
   /// Calculates and returns the value in SI-MKS units of the specified [value]
   /// (that is implicitly in these units).
   ///
-  /// The method expects [value] to be a num or Number object; any other type will
-  /// cause an [ArgumentError].
-  ///
   @override
   Number toMks(value) {
     if (_toMks != null) {
@@ -258,9 +266,6 @@ class TimeInstantUnits extends TimeInstant with Units {
 
   /// Calculates and returns the value in the units represented by this Units
   /// object of [mks] (that is expected to be in SI-MKS units).
-  ///
-  /// The method accepts a num or Number object; any other type will
-  /// cause an [ArgumentError].
   ///
   @override
   Number fromMks(mks) {

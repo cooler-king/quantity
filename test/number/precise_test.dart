@@ -25,15 +25,13 @@ main() {
       // Bad values
       try {
         new Digit(10);
-        fail(
-            "Should not be allowed to contruct a Digit with a value greater then 9");
+        fail("Should not be allowed to contruct a Digit with a value greater then 9");
       } catch (e) {
         expect(e is String, true);
       }
       try {
         new Digit(-1);
-        fail(
-            "Should not be allowed to contruct a Digit with a value less than 0");
+        fail("Should not be allowed to contruct a Digit with a value less than 0");
       } catch (e) {
         expect(e is String, true);
       }
@@ -45,8 +43,7 @@ main() {
       }
       try {
         new Digit.char("12");
-        fail(
-            "Should not be allowed to contruct a Digit with a string having more than one character");
+        fail("Should not be allowed to contruct a Digit with a string having more than one character");
       } catch (e) {
         expect(e is String, true);
       }
@@ -123,6 +120,45 @@ main() {
       expect((sum as Precise).digits[1], Digit.seven);
       expect((sum as Precise).digits[2], Digit.five);
       expect((sum as Precise).toString(), "579");
+
+      Precise p3 = new Precise("9999");
+      sum = p + p3;
+      expect(sum is Precise, true);
+      expect((sum as Precise).digits.length, 5);
+      expect((sum as Precise).power, 0);
+      expect((sum as Precise).digits[0], Digit.two);
+      expect((sum as Precise).digits[1], Digit.two);
+      expect((sum as Precise).digits[2], Digit.one);
+      expect((sum as Precise).digits[3], Digit.zero);
+      expect((sum as Precise).digits[4], Digit.one);
+      expect((sum as Precise).toString(), "10122");
+
+      Precise p4 = new Precise("123.456");
+      Precise p5 = new Precise("987.654");
+      sum = p4 + p5; // 1111.110
+      expect(sum is Precise, true);
+      expect((sum as Precise).digits.length, 7);
+      expect((sum as Precise).power, -3);
+      expect((sum as Precise).digits[0], Digit.zero);
+      expect((sum as Precise).digits[1], Digit.one);
+      expect((sum as Precise).digits[2], Digit.one);
+      expect((sum as Precise).digits[3], Digit.one);
+      expect((sum as Precise).digits[4], Digit.one);
+      expect((sum as Precise).digits[5], Digit.one);
+      expect((sum as Precise).digits[6], Digit.one);
+      expect((sum as Precise).toString(), "1111.110");
+
+      Precise p6 = new Precise("-382");
+      sum = p + p6; // -259
+      expect(sum is Precise, true);
+      expect((sum as Precise).digits.length, 3);
+      expect((sum as Precise).power, 0);
+      expect((sum as Precise).isNegative, true);
+      expect((sum as Precise).digits[0], Digit.zero);
+      expect((sum as Precise).digits[1], Digit.two);
+      expect((sum as Precise).digits[2], Digit.five);
+      expect((sum as Precise).digits[3], Digit.nine);
+      expect((sum as Precise).toString(), "-259");
     });
   });
 }

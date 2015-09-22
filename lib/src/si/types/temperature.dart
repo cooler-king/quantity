@@ -68,7 +68,7 @@ class TemperatureUnits extends Temperature with Units {
     if (value is num || value is Number) {
       return valueSI * (value + offset);
     } else {
-      throw new ArgumentError("num or Number expected");
+      throw new QuantityException("num or Number expected");
     }
   }
 
@@ -80,7 +80,7 @@ class TemperatureUnits extends Temperature with Units {
     if (value is num || value is Number) {
       return (value / valueSI) - offset;
     } else {
-      throw new ArgumentError("num or Number expected");
+      throw new QuantityException("num or Number expected");
     }
   }
 }

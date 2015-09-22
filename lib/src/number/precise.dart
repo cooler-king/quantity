@@ -42,9 +42,7 @@ class Precise extends Real {
     int eIndex = str.indexOf("e");
 
     if (decimalPointIndex != -1) {
-      _power = eIndex != -1
-          ? -(eIndex - decimalPointIndex - 1)
-          : -(str.length - decimalPointIndex - 1);
+      _power = eIndex != -1 ? -(eIndex - decimalPointIndex - 1) : -(str.length - decimalPointIndex - 1);
     }
     if (eIndex != -1) {
       _power += int.parse(str.substring(eIndex + 1));
@@ -71,8 +69,7 @@ class Precise extends Real {
     }
   }
 
-  factory Precise.num(num value) =>
-      value != null ? new Precise(value.toString()) : Precise.zero;
+  factory Precise.num(num value) => value != null ? new Precise(value.toString()) : Precise.zero;
 
   /// Creates a new arbitrary precision number directly from digits.
   ///
@@ -87,8 +84,7 @@ class Precise extends Real {
   ///
   /// Default [precision] is 50 digits.
   ///
-  Precise.raw(List<Digit> digits,
-      {int power: 0, bool neg: false, int precision: 50}) {
+  Precise.raw(List<Digit> digits, {int power: 0, bool neg: false, int precision: 50}) {
     if (digits != null && digits.isNotEmpty) {
       _digits.addAll(digits);
     } else {
@@ -144,9 +140,8 @@ class Precise extends Real {
   ///
   @override
   Number operator +(addend) {
-    Precise preciseAddend = addend is Precise
-        ? addend
-        : addend is num ? new Precise.num(addend) : new Precise("${addend}");
+    Precise preciseAddend =
+        addend is Precise ? addend : addend is num ? new Precise.num(addend) : new Precise("${addend}");
 
     // Divert to subtraction if signs are not the same
     if (_neg != preciseAddend._neg) {
@@ -155,23 +150,25 @@ class Precise extends Real {
     }
 
     int minPlace = Math.min(_power, addend._power);
-    int maxPlace = Math.max(
-        _power + _digits.length - 1, addend._power + _digits.length - 1);
+    int maxPlace = Math.max(_power + _digits.length - 1, addend._power + addend._digits.length - 1);
     List<Digit> sum = [];
     int carry = 0;
     int temp = 0;
     for (int place = minPlace; place <= maxPlace; place++) {
       Digit d1 = digitAtPlace(place);
       Digit d2 = preciseAddend.digitAtPlace(place);
-      temp = d1 + d2 + carry;
+      temp = (d1 + d2) + carry;
       if (temp < 10) {
-        sum.add(new Digit(temp));
+        sum.add(Digit.list[temp]);
         carry = 0;
       } else {
-        sum.add(new Digit(temp - 10));
+        sum.add(Digit.list[temp - 10]);
         carry = 1;
       }
     }
+
+    if (carry == 1) sum.add(Digit.one);
+
     return new Precise.raw(sum, power: minPlace, neg: _neg);
   }
 
@@ -186,7 +183,7 @@ class Precise extends Real {
 
   @override
   String toString() {
-    StringBuffer buf = new StringBuffer();
+    var buf = new StringBuffer();
     if (_neg) buf.write("-");
     _digits.reversed.forEach((d) => buf.write(d));
 
@@ -203,11 +200,11 @@ class Precise extends Real {
       if (_power.abs() < _digits.length) {
         // Insert decimal point
         String str = buf.toString();
-        StringBuffer buf2 = new StringBuffer();
+        buf.clear();
         int splitIndex = _digits.length + _power;
-        buf2.write(str.substring(0, splitIndex));
-        buf2.write(".");
-        buf2.write(str.substring(splitIndex));
+        buf.write(str.substring(0, splitIndex));
+        buf.write(".");
+        buf.write(str.substring(splitIndex));
       } else {
         buf.write("e${_power}");
       }
@@ -234,6 +231,8 @@ class Digit {
   static final Digit eight = new Digit(8);
   static final Digit nine = new Digit(9);
 
+  static final List<Digit> list = new List.unmodifiable([zero, one, two, three, four, five, six, seven, eight, nine]);
+
   static final int codeUnit0 = "0".codeUnitAt(0);
 
   final ByteData value = new ByteData(1);
@@ -245,10 +244,8 @@ class Digit {
   }
 
   factory Digit.char(String digitChar) {
-    if (digitChar ==
-        null) throw "Digit cannot be constructed with null character";
-    if (digitChar.length !=
-        1) throw "Digit must be constructed with a single character";
+    if (digitChar == null) throw "Digit cannot be constructed with null character";
+    if (digitChar.length != 1) throw "Digit must be constructed with a single character";
     return new Digit(digitChar.codeUnitAt(0) - codeUnit0);
   }
   @override
@@ -263,7 +260,7 @@ class Digit {
 
   /// Adds two digits together.
   ///
-  /// The result will either be a digit or a list of two digits
+  /// TODO The result will either be a digit or a list of two digits
   /// if the sum is greater than 10.  The order of the digits
   /// is like it would be read (e.g., [1, 5] for fifteen), which is
   /// opposite of the way [Precise] stores them.

@@ -69,10 +69,15 @@ abstract class Number implements Comparable {
 
   /// Compares this Number to another Number by comparing values.
   ///
+  /// [n2] is expected to be a num or Number.  If it is not it will
+  /// be considered to have a value of 0.
+  ///
   int compareTo(Comparable n2) {
-    //TODO support nums too
-    if (n2 is! Number) throw new ArgumentError();
-    return Comparable.compare(this.toDouble(), (n2 as Number).toDouble());
+    if (n2 is Number) return Comparable.compare(this.toDouble(), (n2 as Number).toDouble());
+    if (n2 is num) return Comparable.compare(this.toDouble(), n2);
+
+    // If n2 is not a num or Number, treat it as a zero
+    return Comparable.compare(this.toDouble(), 0);
   }
 
   /// Detect the type of Number by inspecting

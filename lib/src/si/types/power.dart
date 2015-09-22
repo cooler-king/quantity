@@ -70,3 +70,8 @@ class PowerUnits extends Power with Units {
         this.offset);
   }
 }
+
+class RadiantFlux extends Power {
+  const RadiantFlux.constant(Number valueSI, {PowerUnits units, num uncert: 0.0})
+      : super.constant(valueSI, units: units, uncert: uncert);
+}

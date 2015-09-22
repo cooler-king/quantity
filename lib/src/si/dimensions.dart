@@ -377,7 +377,7 @@ class Dimensions {
         return Area;
       } else if (numDims == 2) {
         if (dim == SpecificEnergy.specificEnergyDimensions) return SpecificEnergy;
-        if (dim == AbsorbedDoseRate.ABSORBED_DOSE_RATE_DIMENSIONS) return AbsorbedDoseRate;
+        if (dim == AbsorbedDoseRate.absorbedDoseRateDimensions) return AbsorbedDoseRate;
         if (dim == KinematicViscosity.kinematicViscosityDimensions) return KinematicViscosity;
       } else if (numDims == 3) {
         if (dim == Energy.energyDimensions) return Energy;

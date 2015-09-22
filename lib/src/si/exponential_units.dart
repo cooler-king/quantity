@@ -11,7 +11,7 @@ class ExponentialUnits {
   /// Associates [units] with an [exp]onent.
   ///
   /// The [exp]onent must be either a [num] or [Number], otherwise
-  /// an [ArgumentError] will be thrown.
+  /// a [QuantityException] will be thrown.
   ///
   ExponentialUnits(Units units, Object exp) {
     this._units = units;
@@ -19,7 +19,7 @@ class ExponentialUnits {
     if (exp is num || exp is Number) {
       this._exp = exp;
     } else {
-      throw new ArgumentError("exp must be a num or Number");
+      throw new QuantityException("exp must be a num or Number");
     }
   }
 

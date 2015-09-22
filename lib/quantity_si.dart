@@ -202,7 +202,7 @@ bool siBaseQuantity(Quantity q) {
 ///
 bool areWithin(Quantity q1, Quantity q2, Quantity tolerance) {
   if (q1.dimensions != q2.dimensions || q2.dimensions != tolerance.dimensions) {
-    throw new ArgumentError("The two quantities and tolerance must have the same dimensions");
+    throw new QuantityException("The two quantities and tolerance must have the same dimensions");
   }
 
   return (q1 - q2).abs().valueSI <= tolerance.valueSI;

@@ -14,12 +14,12 @@ part 'src/number/real.dart';
 
 /// Converts an [object] to a Number.  The [object]
 /// must be either a [num] or [Number], otherwise
-/// and ArgumentError is thrown.
+/// an Exception is thrown.
 ///
 Number objToNumber(Object object) {
   if (object is num) return numToNumber(object);
   else if (object is Number) return object;
-  else throw new ArgumentError("num or Number expected");
+  else throw new Exception("num or Number expected");
 }
 
 /// Converts a num [value] to associated Number object
@@ -68,11 +68,7 @@ double erf(double x) {
                                               (0.27886807 +
                                                   t *
                                                       (-1.13520398 +
-                                                          t *
-                                                              (1.48851587 +
-                                                                  t *
-                                                                      (-0.82215223 +
-                                                                          t * 0.17087277)))))))));
+                                                          t * (1.48851587 + t * (-0.82215223 + t * 0.17087277)))))))));
 
   if (x < 0.0) erfc = 2.0 - erfc;
   return 1.0 - erfc;

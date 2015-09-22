@@ -278,7 +278,7 @@ class Quantity implements Comparable {
   ///
   Quantity operator +(addend) {
     // Null check
-    if (addend == null) throw new ArgumentError("Cannot add NULL to Quantity");
+    if (addend == null) throw new QuantityException("Cannot add NULL to Quantity");
 
     /*
     // Scalars can accept numbers as arguments
@@ -287,7 +287,7 @@ class Quantity implements Comparable {
     }*/
 
     // Every other Quantity type can only add another Quantity
-    if (addend is! Quantity) throw new ArgumentError("Cannot add a ${addend.runtimeType} to a non-Scalar Quantity");
+    if (addend is! Quantity) throw new QuantityException("Cannot add a ${addend.runtimeType} to a non-Scalar Quantity");
 
     Quantity q2 = addend as Quantity;
     if (dimensions != q2.dimensions) {
@@ -339,7 +339,7 @@ class Quantity implements Comparable {
   ///
   Quantity operator -(subtrahend) {
     // Null check
-    if (subtrahend == null) throw new ArgumentError("Cannot subtract NULL from Quantity");
+    if (subtrahend == null) throw new QuantityException("Cannot subtract NULL from Quantity");
 
     /*
     // Scalars can accept numbers as arguments
@@ -348,8 +348,8 @@ class Quantity implements Comparable {
     }*/
 
     // Every other Quantity type can only add another Quantity
-    if (subtrahend
-        is! Quantity) throw new ArgumentError("Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity");
+    if (subtrahend is! Quantity) throw new QuantityException(
+        "Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity");
 
     Quantity q2 = subtrahend as Quantity;
     if (dimensions != q2.dimensions) {
@@ -388,7 +388,7 @@ class Quantity implements Comparable {
 
   /// Returns the product of this quantity and [multiplier], which is expected
   /// to be either a Quantity, num or Number object.  All other
-  /// types will cause an ArgumentError to be thrown.
+  /// types will cause a QuantityException to be thrown.
   ///
   /// * This Quantity object is unaffected.
   /// * The uncertainty of the resulting product Quantity
@@ -416,7 +416,7 @@ class Quantity implements Comparable {
     } else if (multiplier is num || multiplier is Number) {
       productValue = valueSI * multiplier;
     } else {
-      throw new ArgumentError("Expected a Quantity, num or Number object");
+      throw new QuantityException("Expected a Quantity, num or Number object");
     }
 
     if (dynamicQuantityTyping) {
@@ -464,7 +464,7 @@ class Quantity implements Comparable {
         return new MiscQuantity(resultValue, resultDimensions, resultUr);
       }
     } else {
-      throw new ArgumentError("Expected a Quantity, num or Number object");
+      throw new QuantityException("Expected a Quantity, num or Number object");
     }
   }
 
@@ -480,7 +480,7 @@ class Quantity implements Comparable {
   Quantity operator ^(exponent) {
     if (exponent is! num &&
         exponent is! Number &&
-        exponent is! Scalar) throw new ArgumentError("Cannot raise a quantity to a non-numeric power");
+        exponent is! Scalar) throw new QuantityException("Cannot raise a quantity to a non-numeric power");
 
     if (exponent == 1) return this;
     if (exponent == 0) return Scalar.one;
@@ -563,7 +563,7 @@ class Quantity implements Comparable {
   /// Quantities need not have the same dimensions.
   ///
   /// Returns a negative integer, zero, or a positive integer as this Quantity is
-  /// less than, equal to, or greater than the specified Quantity.
+  /// less than, equal to, or greater than [q2].
   ///
   int compareTo(Comparable q2) {
     // Scalar can be compared to num or Number
@@ -571,7 +571,8 @@ class Quantity implements Comparable {
       return valueSI.compareTo(q2);
     }
 
-    if (q2 is! Quantity) throw new ArgumentError();
+    if (q2
+        is! Quantity) throw new QuantityException("A Quantity cannot be compared to anything besides another Quantity");
     return valueSI.compareTo((q2 as Quantity).valueSI);
   }
 

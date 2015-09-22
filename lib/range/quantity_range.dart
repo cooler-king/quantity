@@ -17,8 +17,8 @@ class QuantityRange<Q extends Quantity> {
   Q _span;
 
   QuantityRange(this.q1, this.q2) {
-    if (q1 is! Quantity || q2 is! Quantity) throw new ArgumentError(
-        "QuantityRange endpoints must be Quantity objects");
+    if (q1 is! Quantity ||
+        q2 is! Quantity) throw new QuantityException("QuantityRange endpoints must be Quantity objects");
   }
 
   // The minimum value in this range
@@ -73,23 +73,18 @@ class QuantityRange<Q extends Quantity> {
       if (q1 > quantity && q2 < quantity) return true;
     } else {
       if (inclusive) {
-        if (q1.mks - epsilon < quantity.mks &&
-            q2.mks + epsilon > quantity.mks) return true;
-        if (q1.mks + epsilon > quantity.mks &&
-            q2.mks - epsilon < quantity.mks) return true;
+        if (q1.mks - epsilon < quantity.mks && q2.mks + epsilon > quantity.mks) return true;
+        if (q1.mks + epsilon > quantity.mks && q2.mks - epsilon < quantity.mks) return true;
       } else {
-        if (q1.mks - epsilon <= quantity.mks &&
-            q2.mks + epsilon >= quantity.mks) return true;
-        if (q1.mks + epsilon >= quantity.mks &&
-            q2.mks - epsilon <= quantity.mks) return true;
+        if (q1.mks - epsilon <= quantity.mks && q2.mks + epsilon >= quantity.mks) return true;
+        if (q1.mks + epsilon >= quantity.mks && q2.mks - epsilon <= quantity.mks) return true;
       }
     }
     return false;
   }
 
   /// True only if this range completely encompasses range2.
-  bool encompasses(QuantityRange<Q> range2) =>
-      minValue <= range2.minValue && maxValue >= range2.maxValue;
+  bool encompasses(QuantityRange<Q> range2) => minValue <= range2.minValue && maxValue >= range2.maxValue;
 
   @override
   String toString() {
