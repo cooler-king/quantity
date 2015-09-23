@@ -23,5 +23,17 @@ main() {
       expect(nearest.month, 9);
       expect(nearest.day, 23);
     });
+
+    test('FiscalYear', () {
+      FiscalYear fy = new FiscalYear(2013);
+      expect(fy, isNotNull);
+      expect(fy.toString(), "FY13");
+    });
+
+    test('CalendarYear', () {
+      CalendarYear cy = new CalendarYear(2013);
+      expect(cy, isNotNull);
+      expect(cy.toString(), "2013");
+    });
   });
 }

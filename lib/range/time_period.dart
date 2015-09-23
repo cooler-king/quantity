@@ -14,14 +14,26 @@ class TimePeriod extends QuantityRange<TimeInstant> {
 /// 70 or over means 19xx and anything under 70 mean 20xx.
 ///
 class FiscalYear extends TimePeriod {
-  FiscalYear({int year, int monthOffset: -3})
+  final int _year;
+
+  FiscalYear(int year, {int monthOffset: -3})
       : super(new TimeInstant.dateTime(new DateTime(fy4(year), 1 + monthOffset)),
-            new TimeInstant.dateTime(new DateTime(fy4(year), 13 + monthOffset)));
+            new TimeInstant.dateTime(new DateTime(fy4(year), 13 + monthOffset))),
+        this._year = year;
+
+  @override
+  String toString() => "FY${'$_year'.substring(2)}";
 }
 
 class CalendarYear extends TimePeriod {
+  final int _year;
+
   CalendarYear(int year)
-      : super(new TimeInstant.dateTime(new DateTime(year, 1)), new TimeInstant.dateTime(new DateTime(year + 1)));
+      : super(new TimeInstant.dateTime(new DateTime(year, 1)), new TimeInstant.dateTime(new DateTime(year + 1))),
+        this._year = year;
+
+  @override
+  String toString() => "$_year";
 }
 
 /// Returns a four digit year from [year] which may be only 2 digits, assuming that
