@@ -149,12 +149,11 @@ class Precise extends Real {
       return this - (-preciseAddend);
     }
 
-    int minPlace = Math.min(_power, addend._power);
-    int maxPlace = Math.max(_power + _digits.length - 1, addend._power + addend._digits.length - 1);
+    var placeExtents = determinePlaceExtents(this, addend);
     List<Digit> sum = [];
     int carry = 0;
     int temp = 0;
-    for (int place = minPlace; place <= maxPlace; place++) {
+    for (int place = placeExtents[0]; place <= placeExtents[1]; place++) {
       Digit d1 = digitAtPlace(place);
       Digit d2 = preciseAddend.digitAtPlace(place);
       temp = (d1 + d2) + carry;
@@ -169,8 +168,76 @@ class Precise extends Real {
 
     if (carry == 1) sum.add(Digit.one);
 
-    return new Precise.raw(sum, power: minPlace, neg: _neg);
+    return new Precise.raw(sum, power: placeExtents[0], neg: _neg);
   }
+
+  /// Equals operator.
+  ///
+  @override
+  bool operator ==(other) {
+    Precise p2 = other is Precise
+        ? other
+        : other is num ? new Precise.num(other) : other is Number ? new Precise.num(other.toDouble()) : null;
+    if (p2 == null) return false;
+    if (_neg != p2._neg) return false;
+    var placeExtents = determinePlaceExtents(this, p2);
+    for (int place = placeExtents[0]; place <= placeExtents[1]; place++) {
+      if (digitAtPlace(place) != p2.digitAtPlace(place)) return false;
+    }
+    return true;
+  }
+
+  /// Less than operator.
+  ///
+  @override
+  bool operator <(other) {
+    Precise p2 = other is Precise
+        ? other
+        : other is num ? new Precise.num(other) : other is Number ? new Precise.num(other.toDouble()) : null;
+    if (p2 == null) p2 = Precise.zero;
+    if (_neg && !p2._neg) return true;
+    if (!_neg && p2._neg) return false;
+    bool result = (_neg && p2._neg) ? false : true;
+    var placeExtents = determinePlaceExtents(this, p2);
+    for (int place = placeExtents[1]; place >= placeExtents[0]; place--) {
+      Digit d1 = digitAtPlace(place);
+      Digit d2 = p2.digitAtPlace(place);
+      if (d1 < d2) return result;
+      if (d1 > d2) return !result;
+    }
+    return false;
+  }
+
+  /// Less than or equals operator.
+  ///
+  @override
+  bool operator <=(other) => !(this > other);
+
+  /// Greater than operator.
+  ///
+  @override
+  bool operator >(other) {
+    Precise p2 = other is Precise
+        ? other
+        : other is num ? new Precise.num(other) : other is Number ? new Precise.num(other.toDouble()) : null;
+    if (p2 == null) p2 = Precise.zero;
+    if (_neg && !p2._neg) return false;
+    if (!_neg && p2._neg) return true;
+    bool result = (_neg && p2._neg) ? false : true;
+    var placeExtents = determinePlaceExtents(this, p2);
+    for (int place = placeExtents[1]; place >= placeExtents[0]; place--) {
+      Digit d1 = digitAtPlace(place);
+      Digit d2 = p2.digitAtPlace(place);
+      if (d1 > d2) return result;
+      if (d1 < d2) return !result;
+    }
+    return false;
+  }
+
+  /// Greater than or equals operator.
+  ///
+  @override
+  bool operator >=(other) => !(this < other);
 
   /// Support [dart:json] stringify.
   ///
@@ -212,6 +279,12 @@ class Precise extends Real {
 
     return buf.toString();
   }
+
+  /// Returns the minimum and maximum place extents for the combination of
+  /// two Precise objects, [p1] and [p2].
+  ///
+  static List<int> determinePlaceExtents(Precise p1, Precise p2) =>
+      [Math.min(p1._power, p2._power), Math.max(p1._power + p1._digits.length - 1, p2._power + p2._digits.length - 1)];
 }
 
 /// Represents a digit in four bits of a single byte.
@@ -270,6 +343,16 @@ class Digit {
   int operator +(addend) {
     if (addend is! Digit) throw "Addend must be a Digit";
     return toInt() + addend.toInt();
+  }
+
+  bool operator <(other) {
+    if (other is! Digit) throw "Object must be a Digit";
+    return toInt() < other.toInt();
+  }
+
+  bool operator >(other) {
+    if (other is! Digit) throw "Object must be a Digit";
+    return toInt() > other.toInt();
   }
 
   int toInt() => value.getUint8(0);

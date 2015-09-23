@@ -71,6 +71,18 @@ main() {
       expect(d3.toInt(), 2);
       expect(d4.toInt(), 3);
     });
+
+    test('operator <', () {
+      Digit d1 = new Digit(0);
+      Digit d2 = new Digit(1);
+      Digit d3 = new Digit(2);
+      Digit d4 = new Digit(3);
+      expect(d1 < d2, true);
+      expect(d2 < d3, true);
+      expect(d3 < d2, false);
+      expect(d3 < Digit.two, false);
+      expect(d3 < Digit.three, true);
+    });
   });
 
   group('Precise', () {
@@ -107,6 +119,88 @@ main() {
       expect(p.digits[3].toInt(), 4);
       expect(p.digits[4].toInt(), 5);
       expect(p.power, 5);
+    });
+
+    test('operator ==', () {
+      Precise p = new Precise("123");
+      Precise p2 = new Precise("456");
+      Precise p3 = new Precise("456");
+      Precise p4 = new Precise("456.000");
+      Precise p5 = new Precise("-456");
+      expect(p == p, true);
+      expect(p == p2, false);
+      expect(p2 == p3, true);
+      expect(p2 == p4, true);
+      expect(p3 == p5, false);
+      expect(p4 == p5, false);
+    });
+
+    test('operator <', () {
+      Precise p = new Precise("123");
+      Precise p2 = new Precise("456");
+      Precise p3 = new Precise("456");
+      Precise p4 = new Precise("456.000");
+      Precise p5 = new Precise("-456");
+      expect(p < p, false);
+      expect(p < p2, true);
+      expect(p2 < p, false);
+      expect(p2 < p3, false);
+      expect(p2 < p4, false);
+      expect(p5 < p3, true);
+      expect(p5 < p4, true);
+      expect(p3 < p5, false);
+      expect(p4 < p5, false);
+    });
+
+    test('operator >', () {
+      Precise p = new Precise("123");
+      Precise p2 = new Precise("456");
+      Precise p3 = new Precise("456");
+      Precise p4 = new Precise("456.000");
+      Precise p5 = new Precise("-456");
+      expect(p > p, false);
+      expect(p > p2, false);
+      expect(p2 > p, true);
+      expect(p2 > p3, false);
+      expect(p2 > p4, false);
+      expect(p5 > p3, false);
+      expect(p5 > p4, false);
+      expect(p3 > p5, true);
+      expect(p4 > p5, true);
+    });
+
+    test('operator <=', () {
+      Precise p = new Precise("123");
+      Precise p2 = new Precise("456");
+      Precise p3 = new Precise("456");
+      Precise p4 = new Precise("456.000");
+      Precise p5 = new Precise("-456");
+      expect(p <= p, true);
+      expect(p <= p2, true);
+      expect(p2 <= p, false);
+      expect(p2 <= p3, true);
+      expect(p2 <= p4, true);
+      expect(p5 <= p3, true);
+      expect(p5 <= p4, true);
+      expect(p3 <= p5, false);
+      expect(p4 <= p5, false);
+    });
+
+    test('operator >=', () {
+      Precise p = new Precise("123");
+      Precise p2 = new Precise("456");
+      Precise p3 = new Precise("456");
+      Precise p4 = new Precise("456.000");
+      Precise p5 = new Precise("-456");
+      expect(p >= p, true);
+      expect(p >= p2, false);
+      expect(p2 >= p, true);
+      expect(p2 >= p3, true);
+      expect(p2 >= p4, true);
+      expect(p5 >= p3, false);
+      expect(p5 >= p4, false);
+      expect(p3 >= p5, true);
+      expect(p4 >= p5, true);
     });
 
     test('operator +', () {
