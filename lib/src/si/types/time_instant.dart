@@ -230,6 +230,17 @@ class TimeInstant extends Quantity {
 
     return (dt.millisecondsSinceEpoch - yearStartMillis) / (yearEndMillis - yearStartMillis);
   }
+
+  /// Returns true if the year that contains this TimeInstant is a leap
+  /// year.
+  ///
+  /// Leap years occur every four years except on the hundreds (with the
+  /// exception of every 400th year).
+  ///
+  bool get isLeapYear {
+    int year = nearestDateTime.year;
+    return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
+  }
 }
 
 typedef Number fromMksOverride(dynamic mks);
