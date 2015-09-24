@@ -4,10 +4,8 @@ library astronomical;
 /// Astronomy and related sciences.
 
 import 'package:quantity/quantity.dart';
-import 'package:quantity/number.dart' show Double;
-import 'package:quantity/quantity_ext.dart' show janskys;
 
-export 'package:quantity/quantity_ext.dart'
+export 'package:quantity/quantity.dart'
     show
         gees,
         yearsTropical,
@@ -18,7 +16,17 @@ export 'package:quantity/quantity_ext.dart'
         lightYears,
         xUnits,
         solarLuminosity,
-        janskys;
+        janskys,
+        Acceleration,
+        AccelerationUnits,
+        Frequency,
+        EnergyFlux,
+        Length,
+        Mass,
+        Power,
+        SpectralIrradianceUnits,
+        TimeUnits,
+        LengthUnits;
 
 export 'package:quantity/domain/thermodynamic.dart' show wienDisplacement;
 

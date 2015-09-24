@@ -13,7 +13,18 @@ export 'package:quantity/quantity.dart'
         planckMass,
         planckTemperature,
         planckTime,
-        electricConstant;
+        electricConstant,
+        Length,
+        Mass,
+        Speed,
+        Permeability,
+        Permittivity,
+        Resistance,
+        Temperature,
+        Time,
+        MiscQuantity,
+        AngularMomentum,
+        WaveNumber;
 
 const Speed c = speedOfLightVacuum;
 const Speed c0 = c;

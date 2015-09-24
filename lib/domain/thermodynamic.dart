@@ -2,10 +2,17 @@ library thermodynamic;
 
 import 'package:quantity/quantity.dart';
 
-export 'package:quantity/quantity.dart' show unifiedAtomicMassUnits, boltzmannConstant, boltzmannUnit;
-
-/// Atomic Mass Unit (Unified)
-MassUnits unifiedAtomicMassUnits = Mass.unifiedAtomicMassUnits;
+export 'package:quantity/quantity.dart'
+    show
+        unifiedAtomicMassUnits,
+        boltzmannUnit,
+        boltzmannConstant,
+        sackurTetrode100kPa,
+        sackurTetrodeStdAtm,
+        Entropy,
+        EntropyUnits,
+        MiscQuantity,
+        MassUnits;
 
 // CONSTANTS
 
@@ -56,12 +63,6 @@ const MiscQuantity molarVolumeStdAtm = const MiscQuantity.constant(
 const MiscQuantity secondRadiationConstant = const MiscQuantity.constant(
     const Double.constant(1.43877736e-2), const Dimensions.constant(const {"length": 1, "temperature": 1}),
     uncert: 5.7e-7);
-
-/// Sackur-Tetrode constant at 1 K and 100 kPa ("S0/R")
-const Scalar sackurTetrode100kPA = const Scalar.constant(const Double.constant(-1.1517084), uncert: 1.2e-6);
-
-/// Sackur-Tetrode constant at 1 K and 101.325 kPa ("S0/R")
-const Scalar sackurTetrodeStdAtm = const Scalar.constant(const Double.constant(-1.1648714), uncert: 1.2e-6);
 
 /// Stefan-Boltzmann constant (sigma)
 const MiscQuantity stefanBoltzmann = const MiscQuantity.constant(
