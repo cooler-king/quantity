@@ -39,6 +39,9 @@ class MiscQuantity extends Quantity {
   MiscQuantity([Object value = 0.0, Dimensions dim = Scalar.scalarDimensions, double uncert = 0.0])
       : super._dimensions(value, dim, uncert);
 
+  const MiscQuantity.constant(Number valueSI, Dimensions dim, {Units units, num uncert: 0.0})
+      : super.constant(valueSI, dim, units, uncert);
+
   /*
   const MiscQuantity.constant(
       Number value, Dimensions dim, Units units, double uncert) :

@@ -1,36 +1,33 @@
 library electromagnetic;
 
-import 'package:quantity/quantity.dart' as q;
-import 'package:quantity/quantity_ext.dart' as qx;
+import 'package:quantity/quantity.dart';
 
-final q.Charge elementaryCharge = qx.elementaryCharge;
-/*
-final Charge e = ELEMENTARY_CHARGE;
+export 'package:quantity/quantity.dart' show elementaryCharge, magneticConstant;
 
-final MagneticFlux MAGNETIC_FLUX_QUANTUM = new MagneticFlux(2.06783372e-15, MagneticFlux.WEBERS, 8.5e-8, true);
+const MagneticFlux magneticFluxQuantum =
+    const MagneticFlux.constant(const Double.constant(2.067833831e-15), uncert: 6.1e-9);
 
-final ElectricConductance CONDUCTANCE_QUANTUM =
-    new ElectricConductance(7.748091733e-5, ElectricConductance.SIEMENS, 3.3e-9, true);
-final ElectricConductance G0 = CONDUCTANCE_QUANTUM;
+const Conductance conductanceQuantum =
+    const Conductance.constant(const Double.constant(7.7480917310e-5), uncert: 2.3e-10);
+const Conductance G0 = conductanceQuantum;
 
-final MiscQuantity JOSEPHSON_CONSTANT = new MiscQuantity(
-    483597.879e9,
-    new Dimensions(Dimensions.LENGTH, QuantityType.NEG_TWO, Dimensions.MASS, QuantityType.NEG_ONE, Dimensions.CURRENT,
-        QuantityType.ONE, Dimensions.TIME, QuantityType.TWO),
-    8.5e-8,
-    true);
-final MiscQuantity KJ = JOSEPHSON_CONSTANT;
+const MiscQuantity josephsonConstant = const MiscQuantity.constant(const Double.constant(483597.8525e9),
+    const Dimensions.constant(const {"length": -2, "mass": -1, "current": 1, "time": 2}),
+    uncert: 6.1e-9);
+const MiscQuantity KJ = josephsonConstant;
 
-final ElectricConductance VON_KLITZING_CONSTANT =
-    new ElectricConductance(25812.807449, ElectricConductance.SIEMENS, 3.3e-9, true);
-final ElectricConductance RK = CONDUCTANCE_QUANTUM;
+const Conductance vonKlitzingConstant =
+    const Conductance.constant(const Double.constant(25812.8074555), uncert: 2.3e-10);
+const Conductance RK = vonKlitzingConstant;
 
-final MiscQuantity BOHR_MAGNETON = new MiscQuantity(927.400949e-26,
-    new Dimensions(Dimensions.LENGTH, QuantityType.TWO, Dimensions.CURRENT, QuantityType.ONE), 8.6e-8, true);
-final MiscQuantity muB = BOHR_MAGNETON;
+const MiscQuantity bohrMagneton = const MiscQuantity.constant(
+    const Double.constant(927.4009994e-26), const Dimensions.constant(const {"length": 2, "current": 1}),
+    uncert: 6.2e-9);
+const MiscQuantity muB = bohrMagneton;
 
-final MiscQuantity NUCLEAR_MAGNETON = new MiscQuantity(5.05078343e-27,
-    new Dimensions(Dimensions.LENGTH, QuantityType.TWO, Dimensions.CURRENT, QuantityType.ONE), 8.6e-8, true);
-final MiscQuantity muN = NUCLEAR_MAGNETON;
+const MiscQuantity nuclearMagneton = const MiscQuantity.constant(
+    const Double.constant(5.050783699e-27), const Dimensions.constant(const {"length": 2, "current": 1}),
+    uncert: 6.2e-9);
+const MiscQuantity muN = nuclearMagneton;
 
-final Permeability VACCUUM = PERMEABILITY.MAGNETIC_CONSTANT;*/
+const Permeability vacuum = magneticConstant;

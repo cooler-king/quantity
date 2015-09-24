@@ -3,13 +3,13 @@ part of quantity_si;
 // Common trig functions
 
 /// Calculates the cosine of an [Angle] (adjacent divided by hypotenuse)
-double cos(Angle a) => a.cosine();
+double cosine(Angle a) => a.cosine();
 
 /// Calculates the sine of an [Angle] (opposite divided by hypotenuse)
-double sin(Angle a) => a.sine();
+double sine(Angle a) => a.sine();
 
 /// Calculates the tangent of an [Angle] (opposite divided by adjacent)
-double tan(Angle a) => a.tangent();
+double tangent(Angle a) => a.tangent();
 
 // Constant
 const double twoPi = 2.0 * Math.PI;

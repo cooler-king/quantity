@@ -13,9 +13,9 @@ double degToRad(double deg) => deg * 0.0174532925;
 double radToDeg(double rad) => rad / 0.0174532925;
 
 // Trig functions
-double csc(Angle a) => a.cosecant();
-double cot(Angle a) => a.cotangent();
-double sec(Angle a) => a.secant();
+double cosecant(Angle a) => a.cosecant();
+double cotangent(Angle a) => a.cotangent();
+double secant(Angle a) => a.secant();
 
 // Constants
 const double tau = twoPi;
@@ -72,18 +72,18 @@ final Angle angleTau = angle360;
 // Common trig values
 final double sin0 = 0.0;
 final double sin30 = 0.5;
-final double sin45 = sin(angle45);
-final double sin60 = sin(angle60);
+final double sin45 = sine(angle45);
+final double sin60 = sine(angle60);
 final double sin90 = 1.0;
 final double cos0 = 1.0;
-final double cos30 = cos(angle30);
-final double cos45 = cos(angle45);
+final double cos30 = cosine(angle30);
+final double cos45 = cosine(angle45);
 final double cos60 = 0.5;
 final double cos90 = 0.0;
 final double tan0 = 0.0;
-final double tan30 = tan(angle30);
+final double tan30 = tangent(angle30);
 final double tan45 = 1.0;
-final double tan60 = tan(angle60);
+final double tan60 = tangent(angle60);
 
 // Alternative construction
 Angle angleFromHourMinSec(int hour, int minute, double second, [double uncert = 0.0]) {
