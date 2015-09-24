@@ -353,6 +353,7 @@ class Dimensions {
         if (dim == HeatFluxDensity.heatFluxDensityDimensions) return HeatFluxDensity;
         if (dim == CatalyticActivity.catalyticActivityDimensions) return CatalyticActivity;
         if (dim == MassFlowRate.massFlowRateDimensions) return MassFlowRate;
+        if (dim == SpectralIrradiance.spectralIrradianceDimensions) return SpectralIrradiance;
       } else if (numDims == 3) {
         if (dim == MagneticFluxDensity.magneticFluxDensityDimensions) return MagneticFluxDensity;
         if (dim == Exposure.exposureDimensions) return Exposure;

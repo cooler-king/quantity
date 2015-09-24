@@ -78,6 +78,7 @@ part 'src/si/types/solid_angle.dart';
 part 'src/si/types/specific_energy.dart';
 part 'src/si/types/specific_heat_capacity.dart';
 part 'src/si/types/specific_volume.dart';
+part 'src/si/types/spectral_irradiance.dart';
 part 'src/si/types/speed.dart';
 part 'src/si/types/surface_tension.dart';
 part 'src/si/types/temperature.dart';
@@ -166,6 +167,7 @@ final LinkedHashMap<Type, QuantityInstantiator> _typeInstantiatorMap = {
   SpecificEnergy: (value, units, uncert) => new SpecificEnergy.inUnits(value, units, uncert),
   SpecificHeatCapacity: (value, units, uncert) => new SpecificHeatCapacity.inUnits(value, units, uncert),
   SpecificVolume: (value, units, uncert) => new SpecificVolume.inUnits(value, units, uncert),
+  SpectralIrradiance: (value, units, uncert) => new SpectralIrradiance.inUnits(value, units, uncert),
   Speed: (value, units, uncert) => new Speed.inUnits(value, units, uncert),
   SurfaceTension: (value, units, uncert) => new SurfaceTension.inUnits(value, units, uncert),
   Temperature: (value, units, uncert) => new Temperature.inUnits(value, units, uncert),
