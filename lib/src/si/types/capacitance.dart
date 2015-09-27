@@ -8,7 +8,11 @@ class Capacitance extends Quantity {
   /// The standard SI unit.
   static final CapacitanceUnits farads = new CapacitanceUnits("farads", null, "F", null, 1.0, true);
 
-  Capacitance({dynamic F, double uncert: 0.0}) : super(F != null ? F : 0.0, Capacitance.farads, uncert);
+  /// Construct a Capacitance with farads ([F]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Capacitance({dynamic F, double uncert: 0.0}) : super(F ?? 0.0, Capacitance.farads, uncert);
 
   Capacitance._internal(conv) : super._dimensions(conv, Capacitance.electricCapacitanceDimensions);
 
@@ -16,7 +20,7 @@ class Capacitance extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Capacitance.inUnits(value, CapacitanceUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Capacitance.farads, uncert);
+      : super(value, units ?? Capacitance.farads, uncert);
 
   const Capacitance.constant(Number valueSI, {CapacitanceUnits units, num uncert: 0.0})
       : super.constant(valueSI, Capacitance.electricCapacitanceDimensions, units, uncert);

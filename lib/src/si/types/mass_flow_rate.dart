@@ -7,8 +7,12 @@ class MassFlowRate extends Quantity {
   /// The standard SI unit.
   static final MassFlowRateUnits kilogramsPerSecond = new MassFlowRateUnits.massTime(Mass.kilograms, Time.seconds);
 
+  /// Construct a MassFlowRate with kilograms per second ([kg_per_s]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   MassFlowRate({dynamic kg_per_s, double uncert: 0.0})
-      : super(kg_per_s != null ? kg_per_s : 0.0, MassFlowRate.kilogramsPerSecond, uncert);
+      : super(kg_per_s ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert);
 
   MassFlowRate._internal(conv) : super._dimensions(conv, MassFlowRate.massFlowRateDimensions);
 
@@ -16,7 +20,7 @@ class MassFlowRate extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   MassFlowRate.inUnits(value, MassFlowRateUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : MassFlowRate.kilogramsPerSecond, uncert);
+      : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert);
 
   const MassFlowRate.constant(Number valueSI, {MassFlowRateUnits units, num uncert: 0.0})
       : super.constant(valueSI, MassFlowRate.massFlowRateDimensions, units, uncert);

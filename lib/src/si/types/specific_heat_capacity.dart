@@ -11,8 +11,12 @@ class SpecificHeatCapacity extends Quantity {
   static final SpecificHeatCapacityUnits joulesPerKilogramKelvin =
       new SpecificHeatCapacityUnits.energyMassTemperature(Energy.joules, Mass.kilograms, TemperatureInterval.kelvins);
 
+  /// Construct a SpecificHeatCapacity with joules per kilogram kelvin ([J_per_kgK]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   SpecificHeatCapacity({dynamic J_per_kgK, double uncert: 0.0})
-      : super(J_per_kgK != null ? J_per_kgK : 0.0, SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
+      : super(J_per_kgK ?? 0.0, SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
   SpecificHeatCapacity._internal(conv) : super._dimensions(conv, SpecificHeatCapacity.specificHeatCapacityDimensions);
 
@@ -20,7 +24,7 @@ class SpecificHeatCapacity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   SpecificHeatCapacity.inUnits(value, SpecificHeatCapacityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
+      : super(value, units ?? SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
   const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits units, num uncert: 0.0})
       : super.constant(valueSI, SpecificHeatCapacity.specificHeatCapacityDimensions, units, uncert);

@@ -8,8 +8,12 @@ class MassDensity extends Quantity {
   static final MassDensityUnits kilogramsPerCubicMeter =
       new MassDensityUnits.massVolume(Mass.kilograms, Volume.cubicMeters);
 
+  /// Construct a MassDensity with kilograms per cubic meter ([kg_per_m3]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   MassDensity({dynamic kg_per_m3, double uncert: 0.0})
-      : super(kg_per_m3 != null ? kg_per_m3 : 0.0, MassDensity.kilogramsPerCubicMeter, uncert);
+      : super(kg_per_m3 ?? 0.0, MassDensity.kilogramsPerCubicMeter, uncert);
 
   MassDensity._internal(conv) : super._dimensions(conv, MassDensity.massDensityDimensions);
 
@@ -17,7 +21,7 @@ class MassDensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   MassDensity.inUnits(value, MassDensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : MassDensity.kilogramsPerCubicMeter, uncert);
+      : super(value, units ?? MassDensity.kilogramsPerCubicMeter, uncert);
 
   const MassDensity.constant(Number valueSI, {MassDensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, MassDensity.massDensityDimensions, units, uncert);

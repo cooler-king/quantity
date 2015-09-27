@@ -10,6 +10,10 @@ class SpectralIrradiance extends Quantity {
   static final SpectralIrradianceUnits wattsPerSquareMeterPerHertz =
       new SpectralIrradianceUnits("watts per square meter per hertz", "W m-2 Hz-1", null, null, 1.0, true);
 
+  /// Construct a SpectralIrradiance with watts per square meter per hertz ([W_per_m2_per_Hz]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   SpectralIrradiance({dynamic W_per_m2_per_Hz, double uncert: 0.0})
       : super(W_per_m2_per_Hz ?? 0.0, SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 

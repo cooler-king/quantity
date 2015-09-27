@@ -9,7 +9,11 @@ class Conductance extends Quantity {
   /// Note: singular still has an 's'
   static final ConductanceUnits siemens = new ConductanceUnits("siemens", null, "S", "siemens", 1.0, true);
 
-  Conductance({dynamic S, double uncert: 0.0}) : super(S != null ? S : 0.0, Conductance.siemens, uncert);
+  /// Construct a Conductance with siemens ([S]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Conductance({dynamic S, double uncert: 0.0}) : super(S ?? 0.0, Conductance.siemens, uncert);
 
   Conductance._internal(conv) : super._dimensions(conv, Conductance.electricConductanceDimensions);
 
@@ -17,7 +21,7 @@ class Conductance extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Conductance.inUnits(value, ConductanceUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Conductance.siemens, uncert);
+      : super(value, units ?? Conductance.siemens, uncert);
 
   const Conductance.constant(Number valueSI, {ConductanceUnits units, num uncert: 0.0})
       : super.constant(valueSI, Conductance.electricConductanceDimensions, units, uncert);

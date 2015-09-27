@@ -6,20 +6,24 @@ class ElectricFieldStrength extends Quantity {
       const Dimensions.constant(const {"Current": -1, "Time": -3, "Length": 1, "Mass": 1});
 
   /// The standard SI unit.
-  static final ElectricFieldStrengthUnits voltPerMeter =
+  static final ElectricFieldStrengthUnits voltsPerMeter =
       new ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifference.volts, Length.meters);
 
+  /// Construct an ElectricFieldStrength with volts per meter ([V_per_m]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   ElectricFieldStrength({dynamic V_per_m, double uncert: 0.0})
-      : super(V_per_m != null ? V_per_m : 0.0, ElectricFieldStrength.voltPerMeter, uncert);
+      : super(V_per_m ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
   ElectricFieldStrength._internal(conv)
       : super._dimensions(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
 
-  /// Constructs a ElectricFieldStrength based on the [value]
+  /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
   ElectricFieldStrength.inUnits(value, ElectricFieldStrengthUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : ElectricFieldStrength.voltPerMeter, uncert);
+      : super(value, units ?? ElectricFieldStrength.voltsPerMeter, uncert);
 
   const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits units, num uncert: 0.0})
       : super.constant(valueSI, ElectricFieldStrength.electricFieldStrengthDimensions, units, uncert);

@@ -1,4 +1,4 @@
-part of quantity_mutable;
+part of quantity_ext;
 
 /// *    ## Inversion
 /// The Quantity class supports inversion through the <code>inverse</code>
@@ -58,12 +58,12 @@ class MutableQuantity implements Quantity {
   ///
   set cgs(Number value) {
     // Adjust for centimeters vs. meters
-    num lengthExp = dimensions.getComponentExponent(Dimensions.BASE_LENGTH);
-    value /= Math.pow(100.0, lengthExp.toDouble());
+    num lengthExp = dimensions.getComponentExponent(Dimensions.baseLengthKey);
+    value /= pow(100.0, lengthExp.toDouble());
 
     // Adjust for grams vs. kilograms
-    num massExp = dimensions.getComponentExponent(Dimensions.BASE_MASS);
-    value /= Math.pow(1000.0, massExp.toDouble());
+    num massExp = dimensions.getComponentExponent(Dimensions.baseMassKey);
+    value /= pow(1000.0, massExp.toDouble());
 
     mks = new Double(value.toDouble());
   }
@@ -97,7 +97,7 @@ class MutableQuantity implements Quantity {
     }
     dimensions = q2.dimensions;
     preferredUnits = q2.preferredUnits;
-    _ur = q2._ur;
+    _ur = q2.relativeUncertainty;
 
     // Send new values over streams
 

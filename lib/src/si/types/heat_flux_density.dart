@@ -10,8 +10,12 @@ class HeatFluxDensity extends Quantity {
   static final HeatFluxDensityUnits wattsPerSquareMeter =
       new HeatFluxDensityUnits.powerArea(Power.watts, Area.squareMeters);
 
+  /// Construct a HeatFluxDensity with watts per square meter ([W_per_m2]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   HeatFluxDensity({dynamic W_per_m2, double uncert: 0.0})
-      : super(W_per_m2 != null ? W_per_m2 : 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
+      : super(W_per_m2 ?? 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
 
   HeatFluxDensity._internal(conv) : super._dimensions(conv, HeatFluxDensity.heatFluxDensityDimensions);
 
@@ -19,7 +23,7 @@ class HeatFluxDensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   HeatFluxDensity.inUnits(value, HeatFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : HeatFluxDensity.wattsPerSquareMeter, uncert);
+      : super(value, units ?? HeatFluxDensity.wattsPerSquareMeter, uncert);
 
   const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, HeatFluxDensity.heatFluxDensityDimensions, units, uncert);

@@ -10,16 +10,19 @@ class Current extends Quantity {
   /// A common metric derivative.
   static final CurrentUnits milliamperes = amperes.milli();
 
+  /// Construct a Current with amperes ([A]) or milliamperes ([mA]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Current({dynamic A, dynamic mA, double uncert: 0.0})
-      : super(A != null ? A : (mA != null ? mA : 0.0), mA != null ? Current.milliamperes : Current.amperes, uncert);
+      : super(A ?? (mA ?? 0.0), mA != null ? Current.milliamperes : Current.amperes, uncert);
 
   Current._internal(conv) : super._dimensions(conv, Current.electricCurrentDimensions);
 
   /// Constructs a Current based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Current.inUnits(value, CurrentUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Current.amperes, uncert);
+  Current.inUnits(value, CurrentUnits units, [double uncert = 0.0]) : super(value, units ?? Current.amperes, uncert);
 
   const Current.constant(Number valueSI, {CurrentUnits units, num uncert: 0.0})
       : super.constant(valueSI, Current.electricCurrentDimensions, units, uncert);

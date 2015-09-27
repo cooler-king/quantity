@@ -12,16 +12,19 @@ class Pressure extends Quantity {
   /// Accepted for use with the SI, subject to further review.
   static final PressureUnits bars = new PressureUnits("bars", null, null, null, 1.0e5, true);
 
+  /// Construct a pressure with pascals ([Pa]) or [bars].
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Pressure({dynamic Pa, dynamic bars, double uncert: 0.0})
-      : super(Pa != null ? Pa : (bars != null ? bars : 0.0), bars != null ? Pressure.bars : Pressure.pascals, uncert);
+      : super(Pa ?? (bars ?? 0.0), bars != null ? Pressure.bars : Pressure.pascals, uncert);
 
   Pressure._internal(conv) : super._dimensions(conv, Pressure.pressureDimensions);
 
   /// Constructs a Pressure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Pressure.inUnits(value, PressureUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Pressure.pascals, uncert);
+  Pressure.inUnits(value, PressureUnits units, [double uncert = 0.0]) : super(value, units ?? Pressure.pascals, uncert);
 
   const Pressure.constant(Number valueSI, {PressureUnits units, num uncert: 0.0})
       : super.constant(valueSI, Pressure.pressureDimensions, units, uncert);
@@ -41,7 +44,6 @@ class PressureUnits extends Pressure with Units {
     this.metricBase = metricBase;
     this.offset = offset;
   }
-  
 
   PressureUnits.forceArea(ForceUnits fu, AreaUnits au) : super._internal(fu.valueSI * au.valueSI) {
     this.name = "${fu.name} per ${au.singular}";
@@ -52,8 +54,6 @@ class PressureUnits extends Pressure with Units {
     this.metricBase = metricBase;
     this.offset = offset;
   }
-
-
 
   /// Returns the Type of the Quantity to which these Units apply
   Type get quantityType => Pressure;

@@ -1,7 +1,7 @@
-library astronomical;
-
-/// A collection of units and constants commonly encountered in the field of
+/// Quantity types, units and constants commonly encountered in the field of
 /// Astronomy and related sciences.
+///
+library astronomical;
 
 import 'package:quantity/quantity.dart';
 

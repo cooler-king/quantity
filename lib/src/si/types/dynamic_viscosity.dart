@@ -12,9 +12,11 @@ class DynamicViscosity extends Quantity {
   /// Another name for [pascalSeconds]
   static final DynamicViscosityUnits poiseuille = pascalSeconds;
 
-  DynamicViscosity({dynamic rad_per_s2, dynamic deg_per_s2, double uncert: 0.0})
-      : super(rad_per_s2 != null ? rad_per_s2 : (deg_per_s2 != null ? deg_per_s2 : 0.0), DynamicViscosity.pascalSeconds,
-            uncert);
+  /// Construct a DynamicViscosity with pascal seconds ([Pas]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  DynamicViscosity({dynamic Pas, double uncert: 0.0}) : super(Pas ?? 0.0, DynamicViscosity.pascalSeconds, uncert);
 
   DynamicViscosity._internal(conv) : super._dimensions(conv, DynamicViscosity.dynamicViscosityDimensions);
 
@@ -22,7 +24,7 @@ class DynamicViscosity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   DynamicViscosity.inUnits(value, DynamicViscosityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : DynamicViscosity.pascalSeconds, uncert);
+      : super(value, units ?? DynamicViscosity.pascalSeconds, uncert);
 
   const DynamicViscosity.constant(Number valueSI, {DynamicViscosityUnits units, num uncert: 0.0})
       : super.constant(valueSI, DynamicViscosity.dynamicViscosityDimensions, units, uncert);

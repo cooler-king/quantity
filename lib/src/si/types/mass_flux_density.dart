@@ -9,9 +9,12 @@ class MassFluxDensity extends Quantity {
   static final MassFluxDensityUnits kilogramsPerSecondPerSquareMeter =
       new MassFluxDensityUnits.massTimeArea(Mass.kilograms, Time.seconds, Area.squareMeters);
 
+  /// Construct a MassFluxDensity with kilograms per second per square meter ([kg_per_s_per_m2]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   MassFluxDensity({dynamic kg_per_s_per_m2, double uncert: 0.0})
-      : super(
-            kg_per_s_per_m2 != null ? kg_per_s_per_m2 : 0.0, MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
+      : super(kg_per_s_per_m2 ?? 0.0, MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
 
   MassFluxDensity._internal(conv) : super._dimensions(conv, MassFluxDensity.massFluxDensityDimensions);
 
@@ -19,7 +22,7 @@ class MassFluxDensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   MassFluxDensity.inUnits(value, MassFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
+      : super(value, units ?? MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
 
   const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, MassFluxDensity.massFluxDensityDimensions, units, uncert);

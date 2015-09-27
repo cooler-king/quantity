@@ -9,8 +9,12 @@ class Radiance extends Quantity {
   static final RadianceUnits wattsPerSquareMeterSteradian =
       new RadianceUnits.powerAreaSolidAngle(Power.watts, Area.squareMeters, SolidAngle.steradians);
 
+  /// Construct a Radiance with watts per square meter steradian ([W_per_m2sr]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Radiance({dynamic W_per_m2sr, double uncert: 0.0})
-      : super(W_per_m2sr != null ? W_per_m2sr : 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
+      : super(W_per_m2sr ?? 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
 
   Radiance._internal(conv) : super._dimensions(conv, Radiance.radianceDimensions);
 
@@ -18,7 +22,7 @@ class Radiance extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Radiance.inUnits(value, RadianceUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Radiance.wattsPerSquareMeterSteradian, uncert);
+      : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert);
 
   const Radiance.constant(Number valueSI, {RadianceUnits units, num uncert: 0.0})
       : super.constant(valueSI, Radiance.radianceDimensions, units, uncert);

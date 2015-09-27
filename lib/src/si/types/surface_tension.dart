@@ -7,8 +7,11 @@ class SurfaceTension extends Quantity {
   /// The standard SI unit.
   static final SurfaceTensionUnits newtonsPerMeter = new SurfaceTensionUnits.forceLength(Force.newtons, Length.meters);
 
-  SurfaceTension({dynamic N_per_m, double uncert: 0.0})
-      : super(N_per_m != null ? N_per_m : 0.0, SurfaceTension.newtonsPerMeter, uncert);
+  /// Construct a SurfaceTension with newtons per meter ([N_per_m]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  SurfaceTension({dynamic N_per_m, double uncert: 0.0}) : super(N_per_m ?? 0.0, SurfaceTension.newtonsPerMeter, uncert);
 
   SurfaceTension._internal(conv) : super._dimensions(conv, SurfaceTension.surfaceTensionDimensions);
 
@@ -16,7 +19,7 @@ class SurfaceTension extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   SurfaceTension.inUnits(value, SurfaceTensionUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : SurfaceTension.newtonsPerMeter, uncert);
+      : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert);
 
   const SurfaceTension.constant(Number valueSI, {SurfaceTensionUnits units, num uncert: 0.0})
       : super.constant(valueSI, SurfaceTension.surfaceTensionDimensions, units, uncert);

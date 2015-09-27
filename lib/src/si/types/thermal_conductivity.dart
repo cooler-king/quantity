@@ -9,8 +9,12 @@ class ThermalConductivity extends Quantity {
   static final ThermalConductivityUnits wattsPerMeterKelvin =
       new ThermalConductivityUnits.powerLengthTemperature(Power.watts, Length.meters, TemperatureInterval.kelvins);
 
+  /// Construct a ThermalConductivity with watts per meter kelvin ([W_per_mK]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   ThermalConductivity({dynamic W_per_mK, double uncert: 0.0})
-      : super(W_per_mK != null ? W_per_mK : 0.0, ThermalConductivity.wattsPerMeterKelvin, uncert);
+      : super(W_per_mK ?? 0.0, ThermalConductivity.wattsPerMeterKelvin, uncert);
 
   ThermalConductivity._internal(conv) : super._dimensions(conv, ThermalConductivity.thermalConductivityDimensions);
 
@@ -18,7 +22,7 @@ class ThermalConductivity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   ThermalConductivity.inUnits(value, ThermalConductivityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : ThermalConductivity.wattsPerMeterKelvin, uncert);
+      : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert);
 
   const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits units, num uncert: 0.0})
       : super.constant(valueSI, ThermalConductivity.thermalConductivityDimensions, units, uncert);

@@ -14,15 +14,18 @@ class Torque extends Quantity {
   /// The standard SI unit.
   static final TorqueUnits newtonMeters = new TorqueUnits.forceLength(Force.newtons, Length.meters);
 
-  Torque({dynamic Nm, double uncert: 0.0}) : super(Nm != null ? Nm : 0.0, Torque.newtonMeters, uncert);
+  /// Construct a Torque with newton meters ([Nm]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Torque({dynamic Nm, double uncert: 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
 
   Torque._internal(conv) : super._dimensions(conv, Torque.torqueDimensions);
 
   /// Constructs a Torque based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Torque.inUnits(value, TorqueUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Torque.newtonMeters, uncert);
+  Torque.inUnits(value, TorqueUnits units, [double uncert = 0.0]) : super(value, units ?? Torque.newtonMeters, uncert);
 
   const Torque.constant(Number valueSI, {TorqueUnits units, num uncert: 0.0})
       : super.constant(valueSI, Torque.torqueDimensions, units, uncert);

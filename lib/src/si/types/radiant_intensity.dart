@@ -9,8 +9,12 @@ class RadiantIntensity extends Quantity {
   static final RadiantIntensityUnits wattsPerSteradian =
       new RadiantIntensityUnits.powerSolidAngle(Power.watts, SolidAngle.steradians);
 
+  /// Construct a RadiantIntensity with watts per steradian ([W_per_sr]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   RadiantIntensity({dynamic W_per_sr, double uncert: 0.0})
-      : super(W_per_sr != null ? W_per_sr : 0.0, RadiantIntensity.wattsPerSteradian, uncert);
+      : super(W_per_sr ?? 0.0, RadiantIntensity.wattsPerSteradian, uncert);
 
   RadiantIntensity._internal(conv) : super._dimensions(conv, RadiantIntensity.radiantIntensityDimensions);
 
@@ -18,7 +22,7 @@ class RadiantIntensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   RadiantIntensity.inUnits(value, RadiantIntensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : RadiantIntensity.wattsPerSteradian, uncert);
+      : super(value, units ?? RadiantIntensity.wattsPerSteradian, uncert);
 
   const RadiantIntensity.constant(Number valueSI, {RadiantIntensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, RadiantIntensity.radiantIntensityDimensions, units, uncert);

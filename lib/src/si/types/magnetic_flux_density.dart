@@ -8,7 +8,11 @@ class MagneticFluxDensity extends Quantity {
   /// The standard SI unit.
   static final MagneticFluxDensityUnits teslas = new MagneticFluxDensityUnits("teslas", null, "T", null, 1.0, true);
 
-  MagneticFluxDensity({dynamic T, double uncert: 0.0}) : super(T != null ? T : 0.0, MagneticFluxDensity.teslas, uncert);
+  /// Construct a MagneticFluxDensity with teslas ([T]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  MagneticFluxDensity({dynamic T, double uncert: 0.0}) : super(T ?? 0.0, MagneticFluxDensity.teslas, uncert);
 
   MagneticFluxDensity._internal(conv) : super._dimensions(conv, MagneticFluxDensity.magneticFluxDensityDimensions);
 
@@ -16,7 +20,7 @@ class MagneticFluxDensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   MagneticFluxDensity.inUnits(value, MagneticFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : MagneticFluxDensity.teslas, uncert);
+      : super(value, units ?? MagneticFluxDensity.teslas, uncert);
 
   const MagneticFluxDensity.constant(Number valueSI, {MagneticFluxDensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, MagneticFluxDensity.magneticFluxDensityDimensions, units, uncert);

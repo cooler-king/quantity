@@ -8,9 +8,12 @@ class Concentration extends Quantity {
   static final ConcentrationUnits molesPerCubicMeter =
       new ConcentrationUnits.amountVolume(AmountOfSubstance.moles, Volume.cubicMeters);
 
-  Concentration({dynamic rad_per_s2, dynamic deg_per_s2, double uncert: 0.0})
-      : super(rad_per_s2 != null ? rad_per_s2 : (deg_per_s2 != null ? deg_per_s2 : 0.0),
-            Concentration.molesPerCubicMeter, uncert);
+  /// Construct a Concentration with moles per cubic meter ([mol_per_m3]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Concentration({dynamic mol_per_m3, double uncert: 0.0})
+      : super(mol_per_m3 ?? 0.0, Concentration.molesPerCubicMeter, uncert);
 
   Concentration._internal(conv) : super._dimensions(conv, Concentration.concentrationDimensions);
 
@@ -18,7 +21,7 @@ class Concentration extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Concentration.inUnits(value, ConcentrationUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Concentration.molesPerCubicMeter, uncert);
+      : super(value, units ?? Concentration.molesPerCubicMeter, uncert);
 
   const Concentration.constant(Number valueSI, {ConcentrationUnits units, num uncert: 0.0})
       : super.constant(valueSI, Concentration.concentrationDimensions, units, uncert);

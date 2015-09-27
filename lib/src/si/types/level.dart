@@ -2,15 +2,15 @@ part of quantity_si;
 
 /// Represents _logarithmic_ physical quantities and has
 /// dimensions of 1 (Scalar).  Level of a field quantity and level of a power
-/// quantity are two common logarithmic quantities.<p>
+/// quantity are two common logarithmic quantities.
 ///
 /// Level of a field quantity is defined as ln(F/F0), where F/F0 is the ratio
-/// of two amplitudes of the same kind and F0 is a reference amplitude.<p>
+/// of two amplitudes of the same kind and F0 is a reference amplitude.
 ///
 /// Level of a power quantity is defined as 0.5*ln(P/P0), where P/P0 is the ratio
-/// of two powers and P0 is a reference power.<p>
+/// of two powers and P0 is a reference power.
 ///
-/// ##Adding and Subtracting Levels</h4>
+/// ## Adding and Subtracting Levels
 /// When levels are to be combined or separated, use the 'add' and
 /// 'subtract' methods of this class rather than the 'plus,' 'plusEquals,'
 /// 'minus,' or 'minusEquals' methods that are inherited from the Quantity
@@ -37,15 +37,18 @@ abstract class Level extends Quantity {
   /// Accepted for use with the SI.
   static final LevelUnits decibels = bels.deci();
 
-  Level({dynamic Np, double uncert: 0.0}) : super(Np != null ? Np : 0.0, Level.nepers, uncert);
+  /// Construct a Level with nepers ([Np]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Level({dynamic Np, double uncert: 0.0}) : super(Np ?? 0.0, Level.nepers, uncert);
 
   Level._internal(conv) : super._dimensions(conv, Level.levelDimensions);
 
   /// Constructs a Level based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Level.inUnits(value, LevelUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Level.nepers, uncert);
+  Level.inUnits(value, LevelUnits units, [double uncert = 0.0]) : super(value, units ?? Level.nepers, uncert);
 
   const Level.constant(Number valueSI, {LevelUnits units, num uncert: 0.0})
       : super.constant(valueSI, Level.levelDimensions, units, uncert);

@@ -20,7 +20,11 @@ class Currency extends Quantity {
   // For real time feeds
   // See : http://stackoverflow.com/questions/11393173/free-real-time-currency-conversion-exchange-rate-xml-feed-url
 
-  Currency({dynamic USD, double uncert: 0.0}) : super(USD != null ? USD : 0.0, Currency.dollarsUS, uncert);
+  /// Construct a Currency with US dollars ([USD]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Currency({dynamic USD, double uncert: 0.0}) : super(USD ?? 0.0, Currency.dollarsUS, uncert);
 
   Currency._internal(conv) : super._dimensions(conv, Currency.currencyDimensions);
 
@@ -28,7 +32,7 @@ class Currency extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Currency.inUnits(value, CurrencyUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Currency.dollarsUS, uncert);
+      : super(value, units ?? Currency.dollarsUS, uncert);
 
   const Currency.constant(Number valueSI, {CurrencyUnits units, num uncert: 0.0})
       : super.constant(valueSI, Currency.currencyDimensions, units, uncert);

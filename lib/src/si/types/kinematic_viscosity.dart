@@ -8,8 +8,11 @@ class KinematicViscosity extends Quantity {
   static final KinematicViscosityUnits metersSquaredPerSecond =
       new KinematicViscosityUnits.areaTime(Area.squareMeters, Time.seconds);
 
-  KinematicViscosity({dynamic m2_per_s, double uncert: 0.0})
-      : super(m2_per_s != null ? m2_per_s : 0.0, Illuminance.lux, uncert);
+  /// Construct a KinematicViscosity with meters squared per second ([m2_per_s]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  KinematicViscosity({dynamic m2_per_s, double uncert: 0.0}) : super(m2_per_s ?? 0.0, Illuminance.lux, uncert);
 
   KinematicViscosity._internal(conv) : super._dimensions(conv, KinematicViscosity.kinematicViscosityDimensions);
 
@@ -17,7 +20,7 @@ class KinematicViscosity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   KinematicViscosity.inUnits(value, KinematicViscosityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : KinematicViscosity.metersSquaredPerSecond, uncert);
+      : super(value, units ?? KinematicViscosity.metersSquaredPerSecond, uncert);
 
   const KinematicViscosity.constant(Number valueSI, {KinematicViscosityUnits units, num uncert: 0.0})
       : super.constant(valueSI, KinematicViscosity.kinematicViscosityDimensions, units, uncert);

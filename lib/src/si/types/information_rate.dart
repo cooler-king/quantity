@@ -20,11 +20,14 @@ class InformationRate extends Quantity {
   static final InformationRateUnits terabitsPerSecond =
       new InformationRateUnits.massTime(Information.terabits, Time.seconds);
 
+  /// Construct an InformationRate with bits per second ([bps]), kilobits per second ([kbps]),
+  /// megabits per second ([Mbps]), gigibits per second ([Gbps]) or terabits per second ([Tbps]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   InformationRate({dynamic bps, dynamic kbps, dynamic Mbps, dynamic Gbps, dynamic Tbps, uncert: 0.0})
       : super(
-            bps != null
-                ? bps
-                : (kbps != null ? kbps : (Mbps != null ? Mbps : (Gbps != null ? Gbps : (Tbps != null ? Tbps : 0.0)))),
+            bps ?? (kbps ?? (Mbps ?? (Gbps ?? (Tbps ?? 0.0)))),
             kbps != null
                 ? InformationRate.kilobitsPerSecond
                 : (Mbps != null
@@ -40,7 +43,7 @@ class InformationRate extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   InformationRate.inUnits(value, InformationRateUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : InformationRate.bitsPerSecond, uncert);
+      : super(value, units ?? InformationRate.bitsPerSecond, uncert);
 
   const InformationRate.constant(Number valueSI, {InformationRateUnits units, num uncert: 0.0})
       : super.constant(valueSI, InformationRate.informationRateDimensions, units, uncert);

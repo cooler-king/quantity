@@ -8,8 +8,12 @@ class SpecificVolume extends Quantity {
   static final SpecificVolumeUnits cubicMetersPerKilogram =
       new SpecificVolumeUnits.lengthMass(Length.meters, Mass.kilograms);
 
+  /// Construct a SpecificVolume with cubic meters per kilogram ([m3_per_kg]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   SpecificVolume({dynamic m3_per_kg, double uncert: 0.0})
-      : super(m3_per_kg != null ? m3_per_kg : 0.0, SpecificVolume.cubicMetersPerKilogram, uncert);
+      : super(m3_per_kg ?? 0.0, SpecificVolume.cubicMetersPerKilogram, uncert);
 
   SpecificVolume._internal(conv) : super._dimensions(conv, SpecificVolume.specificVolumeDimensions);
 
@@ -17,7 +21,7 @@ class SpecificVolume extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   SpecificVolume.inUnits(value, SpecificVolumeUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : SpecificVolume.cubicMetersPerKilogram, uncert);
+      : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert);
 
   const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits units, num uncert: 0.0})
       : super.constant(valueSI, SpecificVolume.specificVolumeDimensions, units, uncert);

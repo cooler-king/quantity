@@ -1,3 +1,9 @@
+/// The core library containing the fundamental
+/// quantity classes and types consistent with the International System of Units
+/// (SI, in the French acronym).
+///
+/// See [International System of Units](http://physics.nist.gov/cuu/Units/introduction.html)
+///
 library quantity_si;
 
 import 'dart:collection';
@@ -204,7 +210,7 @@ bool siBaseQuantity(Quantity q) {
 ///
 bool areWithin(Quantity q1, Quantity q2, Quantity tolerance) {
   if (q1.dimensions != q2.dimensions || q2.dimensions != tolerance.dimensions) {
-    throw new QuantityException("The two quantities and tolerance must have the same dimensions");
+    throw new DimensionsException("The two quantities and tolerance must have the same dimensions");
   }
 
   return (q1 - q2).abs().valueSI <= tolerance.valueSI;

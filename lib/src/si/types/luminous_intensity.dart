@@ -9,8 +9,11 @@ class LuminousIntensity extends Quantity {
   /// The standard SI unit.
   static final LuminousIntensityUnits candelas = new LuminousIntensityUnits("candelas", "cd", null, null, 1.0, true);
 
-  LuminousIntensity({dynamic cd, double uncert: 0.0})
-      : super(cd != null ? cd : 0.0, LuminousIntensity.candelas, uncert);
+  /// Construct a LuminousIntensity with candelas ([cd]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  LuminousIntensity({dynamic cd, double uncert: 0.0}) : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
 
   LuminousIntensity._internal(conv) : super._dimensions(conv, LuminousIntensity.luminousIntensityDimensions);
 
@@ -18,7 +21,7 @@ class LuminousIntensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   LuminousIntensity.inUnits(value, LuminousIntensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : LuminousIntensity.candelas, uncert);
+      : super(value, units ?? LuminousIntensity.candelas, uncert);
 
   const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, LuminousIntensity.luminousIntensityDimensions, units, uncert);

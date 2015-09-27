@@ -29,14 +29,19 @@ class Length extends Quantity {
   static final LengthUnits millimeters = Length.meters.milli();
   static final LengthUnits nanometers = Length.meters.nano();
 
-  Length({dynamic m, dynamic km, dynamic mm, dynamic AU, dynamic NM, double uncert: 0.0})
+  /// Construct a Length with meters ([m]), kilometers ([km]), millimeters ([mm]), astronomical units ([ua])
+  /// or nautical miles ([NM]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Length({dynamic m, dynamic km, dynamic mm, dynamic ua, dynamic NM, double uncert: 0.0})
       : super(
-            m != null ? m : (km != null ? km : (mm != null ? mm : (AU != null ? AU : (NM != null ? NM : 0.0)))),
+            m ?? (km ?? (mm ?? (ua ?? (NM ?? 0.0)))),
             km != null
                 ? Length.kilometers
                 : (mm != null
                     ? Length.millimeters
-                    : (AU != null ? Length.astronomicalUnits : (NM != null ? Length.nauticalMiles : Length.meters))),
+                    : (ua != null ? Length.astronomicalUnits : (NM != null ? Length.nauticalMiles : Length.meters))),
             uncert);
 
   Length._internal(conv) : super._dimensions(conv, Length.lengthDimensions);
@@ -44,8 +49,7 @@ class Length extends Quantity {
   /// Constructs a Length based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Length.inUnits(value, LengthUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Length.meters, uncert);
+  Length.inUnits(value, LengthUnits units, [double uncert = 0.0]) : super(value, units ?? Length.meters, uncert);
 
   const Length.constant(Number valueSI, {LengthUnits units, num uncert: 0.0})
       : super.constant(valueSI, Length.lengthDimensions, units, uncert);

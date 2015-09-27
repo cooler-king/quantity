@@ -50,11 +50,14 @@ class Time extends Quantity {
   /// accepted for use with the SI
   static final TimeUnits days = daysMeanSolar;
 
+  /// Construct a Time with seconds ([s]), milliseconds ([ms]), nanoseconds ([ns]), mean solar days ([d]), mean solar hours ([h])
+  /// or mean solar minutes ([min]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Time({dynamic s, dynamic ms, dynamic ns, dynamic d, dynamic h, dynamic min, double uncert: 0.0})
       : super(
-            s != null
-                ? s
-                : (ms != null ? ms : (ns != null ? ns : (d != null ? d : (h != null ? h : (min != null ? min : 0.0))))),
+            s ?? (ms ?? (ns ?? (d ?? (h ?? (min ?? 0.0))))),
             ms != null
                 ? Time.milliseconds
                 : (ns != null
@@ -69,8 +72,7 @@ class Time extends Quantity {
   /// Constructs a Time based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Time.inUnits(value, TimeUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Time.seconds, uncert);
+  Time.inUnits(value, TimeUnits units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
 
   const Time.constant(Number valueSI, {TimeUnits units, num uncert: 0.0})
       : super.constant(valueSI, Time.timeDimensions, units, uncert);

@@ -11,8 +11,11 @@ class Entropy extends Quantity {
   static final EntropyUnits joulesPerKelvin =
       new EntropyUnits.energyTemperature(Energy.joules, TemperatureInterval.kelvins);
 
-  Entropy({dynamic J_per_K, double uncert: 0.0})
-      : super(J_per_K != null ? J_per_K : 0.0, Entropy.joulesPerKelvin, uncert);
+  /// Construct an Entropy with joules per kelvin ([J_per_K]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Entropy({dynamic J_per_K, double uncert: 0.0}) : super(J_per_K ?? 0.0, Entropy.joulesPerKelvin, uncert);
 
   Entropy._internal(conv) : super._dimensions(conv, Entropy.entropyDimensions);
 
@@ -20,7 +23,7 @@ class Entropy extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Entropy.inUnits(value, EntropyUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Entropy.joulesPerKelvin, uncert);
+      : super(value, units ?? Entropy.joulesPerKelvin, uncert);
 
   const Entropy.constant(Number valueSI, {EntropyUnits units, num uncert: 0.0})
       : super.constant(valueSI, Entropy.entropyDimensions, units, uncert);

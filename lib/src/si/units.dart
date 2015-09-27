@@ -1,58 +1,58 @@
 part of quantity_si;
 
-///  A unit is a particular physical quantity, defined and adopted by
-///  convention, with which other particular quantities of the same kind
-///  (dimensions) are compared to express their value.
+/// A unit is a particular physical quantity, defined and adopted by
+/// convention, with which other particular quantities of the same kind
+/// (dimensions) are compared to express their value.
 ///
-///  The Units class respresents a unit and includes a name (plural), an optional
-///  intermediate abbreviation, an optional symbol and an optional singular form.
-///  A Units object stores a conversion value (to convert a value to SI-MKS units)
-///  and dimensions.
+/// The Units class respresents a unit and includes a name (plural), an optional
+/// intermediate abbreviation, an optional symbol and an optional singular form.
+/// A Units object stores a conversion value (to convert a value to SI-MKS units)
+/// and dimensions.
 ///
-///  ###Design Decisions
+/// ### Design Decisions
 ///
-///  ####Units are Immutable MiscQuantity Objects<
-///  The above definition of unit implies that Units ought to extend the Quantity
-///  class and this is in fact the case as Units extend MiscQuantity which
-///  extends Quantity.  As a MiscQuantity, a Units object has a value and
-///  dimensions and may be used anywhere a Quantity may be used.  Units objects
-///  are automatically made immutable.
+/// #### Units are Immutable MiscQuantity Objects<
+/// The above definition of unit implies that Units ought to extend the Quantity
+/// class and this is in fact the case as Units extend MiscQuantity which
+/// extends Quantity.  As a MiscQuantity, a Units object has a value and
+/// dimensions and may be used anywhere a Quantity may be used.  Units objects
+/// are automatically made immutable.
 ///
-///  ####Units Subclass vs. Units Interface
-///  If Java supported multiple inheritance (like C++, for example) the design
-///  that would make the most sense is for particular types of Units to extend
-///  both a typed Quantity and a Units class (for example, AngleUnits extends
-///  Angle, Units).  Then those typed Units could be used with
-///  only the appropriate typed Quantity and would inherit all the functionality
-///  that Units requires.  Unfortunately, this is not an option in Java--a subclass
-///  can only extend a single class.  So something has to give.
-///  The major design alternative for Units would have been to have a Units
-///  _interface_ with all the necessary methods of a Units.  Since any
-///  Quantity could potentially be used as Units if tagged with a name, an <code>
-///  enableUnits(name)</code> method in Quantity could be added and Quantity
-///  could implement Units.  The problem with this approach is that a number of
-///  methods get forced into Quantity that don't really belong there.
-///  Particularly onerous would be methods like <code>to/fromMKS()</code> which
-///  could be easily confused with <code>get/setMKS()</code> even though they
-///  perform different functions.  Or if the methods were not placed in Quantity,
-///  a number of method implementations would proliferate through the typed Units
-///  classes, compromising code maintenance and library size.  So the design
-///  chosen has Units extending MiscQuantity.  The only significant drawback to
-///  this approach is that typed Units (e.g., AngleUnits) cannot be used as Angle
-///  objects even though they have the same Dimensions.  This minor problem is
-///  ameliorated by including the <code>getAsTypedQuantity()</code> method in
-///  Units, which can provide a typed Quantity equivalent to the Units in value
-///  and Dimensions.
+/// #### Units Subclass vs. Units Interface
+/// If Java supported multiple inheritance (like C++, for example) the design
+/// that would make the most sense is for particular types of Units to extend
+/// both a typed Quantity and a Units class (for example, AngleUnits extends
+/// Angle, Units).  Then those typed Units could be used with
+/// only the appropriate typed Quantity and would inherit all the functionality
+/// that Units requires.  Unfortunately, this is not an option in Java--a subclass
+/// can only extend a single class.  So something has to give.
+/// The major design alternative for Units would have been to have a Units
+/// _interface_ with all the necessary methods of a Units.  Since any
+/// Quantity could potentially be used as Units if tagged with a name, an <code>
+/// enableUnits(name)</code> method in Quantity could be added and Quantity
+/// could implement Units.  The problem with this approach is that a number of
+/// methods get forced into Quantity that don't really belong there.
+/// Particularly onerous would be methods like <code>to/fromMKS()</code> which
+/// could be easily confused with <code>get/setMKS()</code> even though they
+/// perform different functions.  Or if the methods were not placed in Quantity,
+/// a number of method implementations would proliferate through the typed Units
+/// classes, compromising code maintenance and library size.  So the design
+/// chosen has Units extending MiscQuantity.  The only significant drawback to
+/// this approach is that typed Units (e.g., AngleUnits) cannot be used as Angle
+/// objects even though they have the same Dimensions.  This minor problem is
+/// ameliorated by including the <code>getAsTypedQuantity()</code> method in
+/// Units, which can provide a typed Quantity equivalent to the Units in value
+/// and Dimensions.
 ///
 ///
-/// ##"Units" vs. "Unit"
+/// ## "Units" vs. "Unit"
 /// Precisely speaking, quantities are expressed as multiples of a particular
 /// unit (singular, not plural).  However, when the quantity's absolute value is
 /// greater than 1, the unit is pluralized when spoken.  For example, one says
 /// "five meters," not "five of the meter unit" or something along those lines.
 /// Therefore, to make units easier to work with and program, the design decision
 /// was made to call this class Units and not Unit and to create all static
-/// unit objects with plural names (e.g., METERS vs. METER).  This leads to a
+/// unit objects with plural names (e.g., _meters_ vs. _meter_).  This leads to a
 /// more natural expression upon Quantity object creation and value manipulation.
 ///
 /// See [NIST Physics Home Page[(http://physics.nist.gov)]
@@ -570,9 +570,9 @@ abstract class Units {
    dimensions = dim;
 }*/
 
-  ///  Returns the components of these Units, with options to [fully] decompose
-  ///  any component Units that are in turn compound Units and [combine]
-  ///  components having the exact same units.
+  /// Returns the components of these Units, with options to [fully] decompose
+  /// any component Units that are in turn compound Units and [combine]
+  /// components having the exact same units.
   ///
   List<ExponentialUnits> getComponents(bool fully, bool combine) {
     if (_units == null) {
@@ -623,18 +623,18 @@ abstract class Units {
     }
   }
 
-  ///  Returns the alternate name for the units.  This may be a non-standard
-  ///  representation.  If no alternate name exists, then null is returned.
+  /// Returns the alternate name for the units.  This may be a non-standard
+  /// representation.  If no alternate name exists, then null is returned.
   ///
   String get alternateName => _abbrev1;
 
-  ///  Returns the shortest name for the units.  This will be the first non-null name
-  ///  found when inspecting symbol, alternate name and full name, in that order
-  ///  (so a non-null symbol will be returned by this method even it is longer than
-  ///  the alternate name).
+  /// Returns the shortest name for the units.  This will be the first non-null name
+  /// found when inspecting symbol, alternate name and full name, in that order
+  /// (so a non-null symbol will be returned by this method even it is longer than
+  /// the alternate name).
   /// @param sing whether (true) or not (false) to return the singular form of
-  ///                the full name in the case no suitable symbols/abbreviations are
-  ///                available.
+  ///               the full name in the case no suitable symbols/abbreviations are
+  ///               available.
   ///
   String getShortestName(bool sing) {
     if (_abbrev2 != null) return _abbrev2;
@@ -684,11 +684,11 @@ abstract class Units {
     return true;
   }
 
-  ///  Calculates and returns the value in SI-MKS units of the specified [value]
-  ///  (that is implicitly in these units).
+  /// Calculates and returns the value in SI-MKS units of the specified [value]
+  /// (that is implicitly in these units).
   ///
-  ///  The method expects [value] to be a num or Number object; any other type will
-  ///  cause an [QuantityException].
+  /// The method expects [value] to be a num or Number object; any other type will
+  /// cause an [QuantityException].
   ///
   Number toMks(value) {
     if (value is num || value is Number) {
@@ -933,25 +933,25 @@ e.printStackTrace();
   /// Returns the derived Units having the 10<sup>6</sup> prefix, mega (M).
   Units mega() => derive("mega", "M", 1.0e6);
 
-  ///  Returns the derived Units having the 10<sup>3</sup> (i.e., 1000) prefix, kilo (k).
+  /// Returns the derived Units having the 10<sup>3</sup> (i.e., 1000) prefix, kilo (k).
   Units kilo() => derive("kilo", "k", 1.0e3);
 
-  ///   Returns the derived Units having the 10<sup>2</sup> (i.e., 100) prefix, hecto (h).
+  ///  Returns the derived Units having the 10<sup>2</sup> (i.e., 100) prefix, hecto (h).
   Units hecto() => derive("hecto", "h", 1.0e2);
 
-  ///  Returns the derived Units having the 10<sup>1</sup> (i.e. 10) prefix, deka (da).
+  /// Returns the derived Units having the 10<sup>1</sup> (i.e. 10) prefix, deka (da).
   Units deka() => derive("deka", "da", 1.0e1);
 
-  ///  Returns the derived Units having the 10<sup>-1</sup> (i.e., 0.1) prefix, deci (d).
+  /// Returns the derived Units having the 10<sup>-1</sup> (i.e., 0.1) prefix, deci (d).
   Units deci() => derive("deci", "d", 1.0e-1);
 
   /// Returns the derived Units having the 10<sup>-2</sup> (i.e., 0.01) prefix, centi (c).
   Units centi() => derive("centi", "c", 1.0e-2);
 
-  ///  Returns the derived Units having the 10<sup>-3</sup> (i.e., 0.001) prefix, milli (m).
+  /// Returns the derived Units having the 10<sup>-3</sup> (i.e., 0.001) prefix, milli (m).
   Units milli() => derive("milli", "m", 1.0e-3);
 
-  ///  Returns the derived Units having the 10<sup>-6</sup> prefix, micro (the symbol mu).
+  /// Returns the derived Units having the 10<sup>-6</sup> prefix, micro (the symbol mu).
   Units micro() => derive("micro", "\u00b5", 1.0e-6);
 
   /// Returns the derived Units having the 10<sup>-9</sup> prefix, nano (n).
@@ -960,21 +960,21 @@ e.printStackTrace();
   /// Returns the derived Units having the 10<sup>-12</sup> prefix, pico (p).
   Units pico() => derive("pico", "p", 1.0e-12);
 
-  ///  Returns the derived Units having the 10<sup>-15</sup> prefix, femto (f).
+  /// Returns the derived Units having the 10<sup>-15</sup> prefix, femto (f).
   Units femto() => derive("femto", "f", 1.0e-15);
 
-  ///  Returns the derived Units having the 10<sup>-18</sup> prefix, atto (a).
+  /// Returns the derived Units having the 10<sup>-18</sup> prefix, atto (a).
   Units atto() => derive("atto", "a", 1.0e-18);
 
-  ///  Returns the derived Units having the 10<sup>-21</sup> prefix, zepto (z).
+  /// Returns the derived Units having the 10<sup>-21</sup> prefix, zepto (z).
   Units zepto() => derive("zepto", "z", 1.0e-21);
 
-  ///  Returns the derived Units having the 10<sup>-24</sup> prefix, yocto (y).
+  /// Returns the derived Units having the 10<sup>-24</sup> prefix, yocto (y).
   Units yocto() => derive("yocto", "y", 1.0e-24);
 
   /// Returns a String representation of the Units in the following format:
   ///
-  ///     full name [MKS value]
+  ///    full name [MKS value]
   ///
   String toString() {
     //String mksStr = super.toString();

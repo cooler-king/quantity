@@ -8,7 +8,11 @@ class MagneticFlux extends Quantity {
   /// The standard SI unit.
   static final MagneticFluxUnits webers = new MagneticFluxUnits("webers", null, "Wb", null, 1.0, true);
 
-  MagneticFlux({dynamic Wb, double uncert: 0.0}) : super(Wb != null ? Wb : 0.0, MagneticFlux.webers, uncert);
+  /// Construct a MagneticFlux with webers ([Wb]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  MagneticFlux({dynamic Wb, double uncert: 0.0}) : super(Wb ?? 0.0, MagneticFlux.webers, uncert);
 
   MagneticFlux._internal(conv) : super._dimensions(conv, MagneticFlux.magneticFluxDimensions);
 
@@ -16,7 +20,7 @@ class MagneticFlux extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   MagneticFlux.inUnits(value, MagneticFluxUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : MagneticFlux.webers, uncert);
+      : super(value, units ?? MagneticFlux.webers, uncert);
 
   const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits units, num uncert: 0.0})
       : super.constant(valueSI, MagneticFlux.magneticFluxDimensions, units, uncert);

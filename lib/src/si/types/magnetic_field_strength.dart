@@ -9,8 +9,12 @@ class MagneticFieldStrength extends Quantity {
   static final MagneticFieldStrengthUnits amperesPerMeter =
       new MagneticFieldStrengthUnits.currentLength(Current.amperes, Length.meters);
 
+  /// Construct a MagneticFieldStrength with amperes per meter ([A_per_m]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   MagneticFieldStrength({dynamic A_per_m, double uncert: 0.0})
-      : super(A_per_m != null ? A_per_m : 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
+      : super(A_per_m ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
   MagneticFieldStrength._internal(conv)
       : super._dimensions(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
@@ -19,7 +23,7 @@ class MagneticFieldStrength extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   MagneticFieldStrength.inUnits(value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : MagneticFieldStrength.amperesPerMeter, uncert);
+      : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
 
   const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, num uncert: 0.0})
       : super.constant(valueSI, MagneticFieldStrength.magneticFieldStrengthDimensions, units, uncert);

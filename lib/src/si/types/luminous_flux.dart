@@ -7,7 +7,11 @@ class LuminousFlux extends Quantity {
   /// The standard SI unit.
   static final LuminousFluxUnits lumens = new LuminousFluxUnits("lumens", null, "lm", null, 1.0, true);
 
-  LuminousFlux({dynamic lm, double uncert: 0.0}) : super(lm != null ? lm : 0.0, LuminousFlux.lumens, uncert);
+  /// Construct a LuminousFlux with lumens ([lm]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  LuminousFlux({dynamic lm, double uncert: 0.0}) : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
 
   LuminousFlux._internal(conv) : super._dimensions(conv, LuminousFlux.luminousFluxDimensions);
 
@@ -15,7 +19,7 @@ class LuminousFlux extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   LuminousFlux.inUnits(value, LuminousFluxUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : LuminousFlux.lumens, uncert);
+      : super(value, units ?? LuminousFlux.lumens, uncert);
 
   const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits units, num uncert: 0.0})
       : super.constant(valueSI, LuminousFlux.luminousFluxDimensions, units, uncert);

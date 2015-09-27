@@ -10,8 +10,12 @@ class SpecificEnergy extends Quantity {
   static final SpecificEnergyUnits joulesPerKilogram =
       new SpecificEnergyUnits.energyMass(Energy.joules, Mass.kilograms);
 
+  /// Construct a SpecificEnergy with joules per kilogram ([J_per_kg]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   SpecificEnergy({dynamic J_per_kg, double uncert: 0.0})
-      : super(J_per_kg != null ? J_per_kg : 0.0, SpecificEnergy.joulesPerKilogram, uncert);
+      : super(J_per_kg ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert);
 
   SpecificEnergy._internal(conv) : super._dimensions(conv, SpecificEnergy.specificEnergyDimensions);
 
@@ -19,7 +23,7 @@ class SpecificEnergy extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   SpecificEnergy.inUnits(value, SpecificEnergyUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : SpecificEnergy.joulesPerKilogram, uncert);
+      : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert);
 
   const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits units, num uncert: 0.0})
       : super.constant(valueSI, SpecificEnergy.specificEnergyDimensions, units, uncert);

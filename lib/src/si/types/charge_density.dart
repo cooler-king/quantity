@@ -9,8 +9,12 @@ class ChargeDensity extends Quantity {
   static final ChargeDensityUnits coulombsPerCubicMeter =
       new ChargeDensityUnits.chargeVolume(Charge.coulombs, Volume.cubicMeters);
 
+  /// Construct a ChargeDensity with coulombs per cubic meter ([C_per_m3]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   ChargeDensity({dynamic C_per_m3, double uncert: 0.0})
-      : super(C_per_m3 != null ? C_per_m3 : 0.0, ChargeDensity.coulombsPerCubicMeter, uncert);
+      : super(C_per_m3 ?? 0.0, ChargeDensity.coulombsPerCubicMeter, uncert);
 
   ChargeDensity._internal(conv) : super._dimensions(conv, ChargeDensity.electricChargeDensityDimensions);
 
@@ -18,7 +22,7 @@ class ChargeDensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   ChargeDensity.inUnits(value, ChargeDensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : ChargeDensity.coulombsPerCubicMeter, uncert);
+      : super(value, units ?? ChargeDensity.coulombsPerCubicMeter, uncert);
 
   const ChargeDensity.constant(Number valueSI, {ChargeDensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, ChargeDensity.electricChargeDensityDimensions, units, uncert);

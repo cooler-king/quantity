@@ -8,7 +8,11 @@ class AngularMomentum extends Quantity {
   /// The standard SI unit
   static final AngularMomentumUnits jouleSecond = new AngularMomentumUnits.energyTime(Energy.joules, Time.seconds);
 
-  AngularMomentum({dynamic Js, double uncert: 0.0}) : super(Js != null ? Js : 0.0, AngularMomentum.jouleSecond, uncert);
+  /// Construct an AngularMomentum with joule seconds ([Js]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  AngularMomentum({dynamic Js, double uncert: 0.0}) : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
 
   AngularMomentum._internal(conv) : super._dimensions(conv, AngularMomentum.angularMometumDimensions);
 
@@ -16,7 +20,7 @@ class AngularMomentum extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   AngularMomentum.inUnits(value, AngularMomentumUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : AngularMomentum.jouleSecond, uncert);
+      : super(value, units ?? AngularMomentum.jouleSecond, uncert);
 
   const AngularMomentum.constant(Number valueSI, {AngularMomentumUnits units, num uncert: 0.0})
       : super.constant(valueSI, AngularMomentum.angularMometumDimensions, units, uncert);

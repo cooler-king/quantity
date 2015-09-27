@@ -12,7 +12,7 @@ TT  = Terrestial Time. Originally used instead of TDT or TDB when the
 
 bool _pre1972LeapSeconds = true;
 
-/// Class TimeInstant represents a specific moment in time and its units enable
+/// `TimeInstant` represents a specific moment in time and its units enable
 /// conversion between various time scales.  This class
 /// also enables the representation of a point in time to arbitrarily high
 /// precision over the entire span of time from the birth of the Universe
@@ -20,7 +20,7 @@ bool _pre1972LeapSeconds = true;
 /// science and engineering disciplines that involve very long and/or very short
 /// time spans.
 //
-/// ##Internal Representation in the International Atomic Time Scale
+/// ## Internal Representation in the International Atomic Time Scale
 /// The time instant is represented internally as the number of (SI) seconds elapsed
 /// since January 1, 1958 0h 0m 0s, which is the origin of the International
 /// Atomic Time Scale (TAI).  Unlike other quantities, the notion of an absolute
@@ -33,65 +33,64 @@ bool _pre1972LeapSeconds = true;
 /// through statistical analysis of atomic clocks maintained around the world.
 ///
 ///
-/// #Time Systems
-/// ##TAI - International Atomic Time Scale
+/// ## Time Systems
+/// ### TAI - International Atomic Time Scale
 ///     A statistical timescale based on a large number of atomic clocks.
 ///
-/// *UTC - Coordinated Universal Time
+/// ### UTC - Coordinated Universal Time
 ///     The scale used for most official and civilian time keeping.  UTC differs
 ///     from TAI by an integral number of seconds; leap seconds are added (or removed)
 ///     as necessary to keep UTC within 0.9 seconds of UT1.
 ///
-/// *system - Used by the Dart VM
+/// ### system - Used by the Dart VM
 ///     The number of milliseconds elapsed since 1 Jan 1970 0h.
 ///
-/// ##Additional time systems are available in the quantity_ext library.
+/// ### Additional time systems are available in the quantity_ext library.
 ///
-/// *Also available in the [time_ext] library:
-///    <ul>
-///    *UT1 - Universal Time (1)
+/// Also available in the [time_ext] library:
+/// #### UT1 - Universal Time (1)
 ///        The rotational time of a particular place of observation with
 ///        additional corrections for the affects of polar motion applied.  Because
 ///        the rotation of the Earth is not exactly uniform UT1 does not "flow"
 ///        uniformly.
 ///
-///    *UT2 - Universal Time (2)
+/// #### UT2 - Universal Time (2)
 ///        UT1 with additional corrections applied for a "smoother" flow of
 ///        time.
 ///
-///    *TDT - Terrestrial Dynamical Time (also TT - Terrestrial Time)
+/// #### TDT - Terrestrial Dynamical Time (also TT - Terrestrial Time)
 ///        The independent argument of apparent geocentric ephemerides.
 ///
-///    *TDB - Barycentric Dynamical Time
+/// #### TDB - Barycentric Dynamical Time
 ///        A coordinate time having its spatial origin at the center of mass of
 ///        the Earth.
 ///
-///    *TCG - Geocentric Coordinate Time
+/// #### TCG - Geocentric Coordinate Time
 ///        A relativistic coordinate time referred to the geocenter.
 ///
-///    *TCB - Barycentric Dynamical Time
+/// #### TCB - Barycentric Dynamical Time
 ///        A relativistic coordinate time having its spatial origin at the
 ///        solar system barycenter..
 ///
-///    *JD_* - Julian Date
+/// #### JD_* - Julian Date
 ///        The number of days elapsed since 1 Jan 4713 B.C. in a particular time
 ///        scale (e.g., JD_TAI, JD_UTC, etc)
 ///
-///    *MJD_* - Modified Julian Date
+/// #### MJD_* - Modified Julian Date
 ///        The Modified Julian Date (Julian Data minus 2400000.5) in a particular time
 ///        scale (e.g., MJD_TAI, MJD_UTC, etc).
 ///
-///    *GPST - GPS Satellite Time
+/// #### GPST - GPS Satellite Time
 ///        The time scale used by the GPS satellites.
 ///
-///    *NTP - Network Time Protocol
+/// #### NTP - Network Time Protocol
 ///        The time scale used by Internet time servers for synchronization
 ///        purposes.
 ///
-///    *Besselian
+/// #### Besselian
 ///        Used in some astronomy applications.
 ///
-/// ###Synchronizing your system clock to Coordinated Universal Time (UTC):
+/// ### Synchronizing your system clock to Coordinated Universal Time (UTC):
 /// Software is available for most operating systems that synchronizes its
 /// clock to the current UTC within a small fraction of a second using the Network Time
 /// Protocol (NTP).  For applications--especially distributed applications--that
@@ -151,10 +150,12 @@ class TimeInstant extends Quantity {
     return UTC.toMks(d);
   });
 
-  /// Constructs a TimeInstant in either [TAI] or [UTC] units, with an optional standard relative [uncert]ainty.
+  /// Constructs a TimeInstant in either [TAI] or [UTC] units.
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
   ///
   TimeInstant({dynamic TAI, dynamic UTC, double uncert: 0.0})
-      : super(TAI != null ? TAI : (UTC != null ? UTC : 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
+      : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
 
   TimeInstant._internal(conv) : super._dimensions(conv, TimeInstant.timeInstantDimensions);
 
@@ -162,7 +163,7 @@ class TimeInstant extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   TimeInstant.inUnits(value, TimeInstantUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : TimeInstant.TAI, uncert);
+      : super(value, units ?? TimeInstant.TAI, uncert);
 
   /// Constructs a constant TimeInstant object.
   ///

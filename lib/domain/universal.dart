@@ -1,3 +1,5 @@
+/// Quantity types and constants with universal application.
+///
 library universal;
 
 import 'package:quantity/quantity.dart';
@@ -36,7 +38,7 @@ Permittivity eps0 = electricConstant;
 Resistance Z0 = characteristicImpedanceOfVacuum;
 
 const MiscQuantity newtonianConstantOfGravitation = const MiscQuantity.constant(
-    const Double.constant(6.67408e-11), const Dimensions.constant(const {"length": 3, "mass": -1, "time": -2}),
+    const Double.constant(6.67408e-11), const Dimensions.constant(const {"Length": 3, "Mass": -1, "Time": -2}),
     uncert: 4.7e-5);
 
 const MiscQuantity G = newtonianConstantOfGravitation;

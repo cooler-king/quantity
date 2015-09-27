@@ -12,16 +12,19 @@ class Energy extends Quantity {
   /// Accepted for use with the SI
   static final EnergyUnits electronVolts = new EnergyUnits("electronvolts", null, "eV", null, 1.60217653e-19, false);
 
+  /// Construct an Energy with joules ([J]) or electron volts ([eV]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Energy({dynamic J, dynamic eV, double uncert: 0.0})
-      : super(J != null ? J : (eV != null ? eV : 0.0), eV != null ? Energy.electronVolts : Energy.joules, uncert);
+      : super(J ?? (eV ?? 0.0), eV != null ? Energy.electronVolts : Energy.joules, uncert);
 
   Energy._internal(conv) : super._dimensions(conv, Energy.energyDimensions);
 
   /// Constructs a Energy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Energy.inUnits(value, EnergyUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Energy.joules, uncert);
+  Energy.inUnits(value, EnergyUnits units, [double uncert = 0.0]) : super(value, units ?? Energy.joules, uncert);
 
   const Energy.constant(Number valueSI, {EnergyUnits units, num uncert: 0.0})
       : super.constant(valueSI, Energy.energyDimensions, units, uncert);

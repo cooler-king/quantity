@@ -25,17 +25,20 @@ class Mass extends Quantity {
   static final MassUnits unifiedAtomicMassUnits =
       new MassUnits("unified atomic mass units", null, "u", null, 1.66053886e-27, false);
 
-  Mass({dynamic kg, dynamic g, dynamic au, double uncert: 0.0})
-      : super(kg != null ? kg : (g != null ? g : (au != null ? au : 0.0)),
-            g != null ? Mass.grams : (au != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
+  /// Construct a Mass with kilograms ([kg]), grams ([g]) or unified atomic mass units ([u]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Mass({dynamic kg, dynamic g, dynamic u, double uncert: 0.0})
+      : super(kg ?? (g ?? (u ?? 0.0)),
+            g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
 
   Mass._internal(conv) : super._dimensions(conv, Mass.massDimensions);
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Mass.inUnits(value, MassUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Mass.kilograms, uncert);
+  Mass.inUnits(value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
 
   const Mass.constant(Number valueSI, {MassUnits units, num uncert: 0.0})
       : super.constant(valueSI, Mass.massDimensions, units, uncert);

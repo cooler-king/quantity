@@ -10,9 +10,12 @@ class Exposure extends Quantity {
   /// Accepted for use with the SI, subject to further review.
   static final ExposureUnits roentgens = new ExposureUnits("roentgens", null, "R", null, 2.58e-4, false);
 
+  /// Construct an Exposure with coulombs per kilogram ([C_per_kg]) or roentgens ([R]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Exposure({dynamic C_per_kg, dynamic R, double uncert: 0.0})
-      : super(C_per_kg != null ? C_per_kg : (R != null ? R : 0.0),
-            R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram, uncert);
+      : super(C_per_kg ?? (R ?? 0.0), R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram, uncert);
 
   Exposure._internal(conv) : super._dimensions(conv, Exposure.exposureDimensions);
 
@@ -20,7 +23,7 @@ class Exposure extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Exposure.inUnits(value, ExposureUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Exposure.coulombsPerKilogram, uncert);
+      : super(value, units ?? Exposure.coulombsPerKilogram, uncert);
 
   const Exposure.constant(Number valueSI, {ExposureUnits units, num uncert: 0.0})
       : super.constant(valueSI, Exposure.exposureDimensions, units, uncert);

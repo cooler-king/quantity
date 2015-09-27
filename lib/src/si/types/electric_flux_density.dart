@@ -9,8 +9,12 @@ class ElectricFluxDensity extends Quantity {
   static final ElectricFluxDensityUnits coulombsPerSquareMeter =
       new ElectricFluxDensityUnits.chargeArea(Charge.coulombs, Area.squareMeters);
 
+  /// Construct an ElectricFluxDensity with coulombs per square meter ([C_per_m2]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   ElectricFluxDensity({dynamic C_per_m2, double uncert: 0.0})
-      : super(C_per_m2 != null ? C_per_m2 : 0.0, ElectricFluxDensity.coulombsPerSquareMeter, uncert);
+      : super(C_per_m2 ?? 0.0, ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
   ElectricFluxDensity._internal(conv) : super._dimensions(conv, ElectricFluxDensity.electricFluxDensityDimensions);
 
@@ -18,7 +22,7 @@ class ElectricFluxDensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   ElectricFluxDensity.inUnits(value, ElectricFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : ElectricFluxDensity.coulombsPerSquareMeter, uncert);
+      : super(value, units ?? ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
   const ElectricFluxDensity.constant(Number valueSI, {ElectricFluxDensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, ElectricFluxDensity.electricFluxDensityDimensions, units, uncert);

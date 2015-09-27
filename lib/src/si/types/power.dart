@@ -13,17 +13,20 @@ class Power extends Quantity {
   static final PowerUnits kilowatts = watts.kilo();
   static final PowerUnits megawatts = watts.mega();
 
+  /// Construct a Power with watts ([W]), kilowatts ([kW]) or megawatts ([MW]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Power({dynamic W, dynamic kW, dynamic MW, double uncert: 0.0})
-      : super(W != null ? W : (kW != null ? kW : (MW != null ? MW : 0.0)),
-            kW != null ? Power.kilowatts : (MW != null ? Power.megawatts : Power.watts), uncert);
+      : super(W ?? (kW ?? (MW ?? 0.0)), kW != null ? Power.kilowatts : (MW != null ? Power.megawatts : Power.watts),
+            uncert);
 
   Power._internal(conv) : super._dimensions(conv, Power.powerDimensions);
 
   /// Constructs a Power based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Power.inUnits(value, PowerUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Power.watts, uncert);
+  Power.inUnits(value, PowerUnits units, [double uncert = 0.0]) : super(value, units ?? Power.watts, uncert);
 
   const Power.constant(Number valueSI, {PowerUnits units, num uncert: 0.0})
       : super.constant(valueSI, Power.powerDimensions, units, uncert);

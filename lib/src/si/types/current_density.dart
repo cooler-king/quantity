@@ -9,8 +9,12 @@ class CurrentDensity extends Quantity {
   static final CurrentDensityUnits amperesPerSquareMeter =
       new CurrentDensityUnits.currentArea(Current.amperes, Area.squareMeters);
 
+  /// Construct a CurrentDensity with amperes per square meter ([A_per_m2]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   CurrentDensity({dynamic A_per_m2, double uncert: 0.0})
-      : super(A_per_m2 != null ? A_per_m2 : 0.0, CurrentDensity.amperesPerSquareMeter, uncert);
+      : super(A_per_m2 ?? 0.0, CurrentDensity.amperesPerSquareMeter, uncert);
 
   CurrentDensity._internal(conv) : super._dimensions(conv, CurrentDensity.electricCurrentDensityDimensions);
 
@@ -18,7 +22,7 @@ class CurrentDensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   CurrentDensity.inUnits(value, CurrentDensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : CurrentDensity.amperesPerSquareMeter, uncert);
+      : super(value, units ?? CurrentDensity.amperesPerSquareMeter, uncert);
 
   const CurrentDensity.constant(Number valueSI, {CurrentDensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, CurrentDensity.electricCurrentDensityDimensions, units, uncert);

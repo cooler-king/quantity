@@ -10,8 +10,13 @@ class AngularSpeed extends Quantity {
   /// Accepted for use with the SI
   static final AngularSpeedUnits degreesPerSecond = new AngularSpeedUnits.angleTime(Angle.degrees, Time.seconds);
 
+  /// Construct an AngularSpeed with either radians per second ([rad_per_s])
+  /// or degrees per second ([deg_per_s]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   AngularSpeed({dynamic rad_per_s, dynamic deg_per_s, double uncert: 0.0})
-      : super(rad_per_s != null ? rad_per_s : (deg_per_s != null ? deg_per_s : 0.0),
+      : super(rad_per_s ?? (deg_per_s ?? 0.0),
             deg_per_s != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
 
   AngularSpeed._internal(conv) : super._dimensions(conv, AngularSpeed.angularSpeedDimensions);
@@ -20,7 +25,7 @@ class AngularSpeed extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   AngularSpeed.inUnits(value, AngularSpeedUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : AngularSpeed.radiansPerSecond, uncert);
+      : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
 
   const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits units, num uncert: 0.0})
       : super.constant(valueSI, AngularSpeed.angularSpeedDimensions, units, uncert);

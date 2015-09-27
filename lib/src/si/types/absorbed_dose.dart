@@ -15,18 +15,20 @@ class AbsorbedDose extends Quantity {
   // Angle's radians during parsing & output
   static final AbsorbedDoseUnits rads = new AbsorbedDoseUnits("rads", null, null, "rads", 1.0e-2, true);
 
+  /// Construct an AbsorbedDose with either grays ([Gy]) or rads ([rads]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   AbsorbedDose({dynamic Gy, dynamic rads, double uncert: 0.0})
-      : super(Gy != null ? Gy : (rads != null ? rads : 0.0), rads != null ? AbsorbedDose.rads : AbsorbedDose.grays,
-            uncert);
+      : super(Gy ?? (rads ?? 0.0), rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert);
 
   AbsorbedDose._internal(conv) : super._dimensions(conv, AbsorbedDose.absorbedDoseDimensions);
 
-  /**
-   * Constructs a AbsorbedDose based on the [value]
-   * and the conversion factor intrinsic to the passed [units].
-   */
+  /// Constructs a AbsorbedDose based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  ///
   AbsorbedDose.inUnits(value, AbsorbedDoseUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : AbsorbedDose.grays, uncert);
+      : super(value, units ?? AbsorbedDose.grays, uncert);
 
   const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits units, num uncert: 0.0})
       : super.constant(valueSI, AbsorbedDose.absorbedDoseDimensions, units, uncert);

@@ -13,9 +13,12 @@ class Temperature extends Quantity {
   static final TemperatureUnits degreesCelsius =
       new TemperatureUnits("degrees Celsius", "deg C", null, "degree Celsius", Double.one, false, 273.15);
 
+  /// Construct a Temperature with kelvins ([K]) or degrees Celsius ([C]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Temperature({dynamic K, dynamic C, double uncert: 0.0})
-      : super(K != null ? K : (C != null ? C : 0.0), C != null ? Temperature.degreesCelsius : Temperature.kelvins,
-            uncert);
+      : super(K ?? (C ?? 0.0), C != null ? Temperature.degreesCelsius : Temperature.kelvins, uncert);
 
   Temperature._internal(conv) : super._dimensions(conv, Temperature.temperatureDimensions);
 
@@ -23,7 +26,7 @@ class Temperature extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Temperature.inUnits(value, TemperatureUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Temperature.kelvins, uncert);
+      : super(value, units ?? Temperature.kelvins, uncert);
 
   const Temperature.constant(Number valueSI, {TemperatureUnits units, num uncert: 0.0})
       : super.constant(valueSI, Temperature.temperatureDimensions, units, uncert);

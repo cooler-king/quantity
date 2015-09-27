@@ -7,13 +7,17 @@ class SolidAngle extends Quantity {
   /// The standard SI unit.
   static final SolidAngleUnits steradians = new SolidAngleUnits("steradians", null, "sr", null, 1.0, true);
 
-  SolidAngle({dynamic sr, double uncert: 0.0}) : super(sr != null ? sr : 0.0, SolidAngle.steradians, uncert);
+  /// Construct a SolidAngle with steradians ([sr]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  SolidAngle({dynamic sr, double uncert: 0.0}) : super(sr ?? 0.0, SolidAngle.steradians, uncert);
 
   SolidAngle._internal(conv) : super._dimensions(conv, SolidAngle.solidAngleDimensions);
 
   // CONSTRUCTORS
   SolidAngle.inUnits(value, SolidAngleUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : SolidAngle.steradians, uncert);
+      : super(value, units ?? SolidAngle.steradians, uncert);
 
   const SolidAngle.constant(value, [SolidAngleUnits units = null])
       : super.constant(value, SolidAngle.solidAngleDimensions, units, 0.0);

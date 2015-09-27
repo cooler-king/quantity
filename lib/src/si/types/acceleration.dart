@@ -5,11 +5,15 @@ class Acceleration extends Quantity {
   static const Dimensions accelerationDimensions = const Dimensions.constant(const {"Length": 1, "Time": -2});
 
   /// The standard SI unit.
-  static final AccelerationUnits meterPerSecondSquared =
+  static final AccelerationUnits metersPerSecondSquared =
       new AccelerationUnits.lengthTimeUnits(Length.meters, Time.seconds);
 
+  /// Construct an Acceleration with meters per second squared ([m_per_s2]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Acceleration({dynamic m_per_s2, double uncert: 0.0})
-      : super(m_per_s2 != null ? m_per_s2 : 0.0, Acceleration.meterPerSecondSquared, uncert);
+      : super(m_per_s2 ?? 0.0, Acceleration.metersPerSecondSquared, uncert);
 
   Acceleration._internal(conv) : super._dimensions(conv, Acceleration.accelerationDimensions);
 
@@ -17,7 +21,7 @@ class Acceleration extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Acceleration.inUnits(value, AccelerationUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Acceleration.meterPerSecondSquared, uncert);
+      : super(value, units ?? Acceleration.metersPerSecondSquared, uncert);
 
   const Acceleration.constant(Number valueSI, {AccelerationUnits units, num uncert: 0.0})
       : super.constant(valueSI, Acceleration.accelerationDimensions, units, uncert);

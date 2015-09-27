@@ -7,8 +7,11 @@ class CatalyticActivity extends Quantity {
   /// The standard SI unit **/
   static final CatalyticActivityUnits katals = new CatalyticActivityUnits("katals", "kat", null, "katal", 1.0, true);
 
-  CatalyticActivity({dynamic kat, double uncert: 0.0})
-      : super(kat != null ? kat : 0.0, CatalyticActivity.katals, uncert);
+  /// Construct a CatalyticActivity with katals ([kat]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  CatalyticActivity({dynamic kat, double uncert: 0.0}) : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
 
   CatalyticActivity._internal(conv) : super._dimensions(conv, CatalyticActivity.catalyticActivityDimensions);
 
@@ -16,7 +19,7 @@ class CatalyticActivity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   CatalyticActivity.inUnits(value, CatalyticActivityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : CatalyticActivity.katals, uncert);
+      : super(value, units ?? CatalyticActivity.katals, uncert);
 
   const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits units, num uncert: 0.0})
       : super.constant(valueSI, CatalyticActivity.catalyticActivityDimensions, units, uncert);

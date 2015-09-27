@@ -12,9 +12,18 @@ class Frequency extends Quantity {
   static final FrequencyUnits megahertz = hertz.mega();
   static final FrequencyUnits gigahertz = hertz.giga();
 
-  Frequency({dynamic Hz, dynamic kHz, dynamic MHz, double uncert: 0.0})
-      : super(Hz != null ? Hz : (kHz != null ? kHz : (MHz != null ? MHz : 0.0)),
-            kHz != null ? Frequency.kilohertz : (MHz != null ? Frequency.megahertz : Frequency.hertz), uncert);
+  /// Construct a Frequency with hertz ([Hz]), kilohertz ([kHz]), megahertz ([MHz])
+  /// or gigahertz ([GHz]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Frequency({dynamic Hz, dynamic kHz, dynamic MHz, dynamic GHz, double uncert: 0.0})
+      : super(
+            Hz ?? (kHz ?? (MHz ?? (GHz ?? 0.0))),
+            kHz != null
+                ? Frequency.kilohertz
+                : (MHz != null ? Frequency.megahertz : (GHz != null ? Frequency.gigahertz : Frequency.hertz)),
+            uncert);
 
   Frequency._internal(conv) : super._dimensions(conv, Frequency.frequencyDimensions);
 
@@ -22,7 +31,7 @@ class Frequency extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Frequency.inUnits(value, FrequencyUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Frequency.hertz, uncert);
+      : super(value, units ?? Frequency.hertz, uncert);
 
   const Frequency.constant(Number valueSI, {FrequencyUnits units, num uncert: 0.0})
       : super.constant(valueSI, Frequency.frequencyDimensions, units, uncert);

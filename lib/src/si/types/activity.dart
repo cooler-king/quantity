@@ -10,8 +10,11 @@ class Activity extends Quantity {
   /// Accepted for use with the SI, subject to further review.
   static final ActivityUnits curies = new ActivityUnits("curies", null, "Ci", null, 3.7e10, false);
 
-  Activity({dynamic Bq, dynamic Ci, double uncert: 0.0})
-      : super(Bq != null ? Bq : (Ci != null ? Ci : 0.0), Activity.becquerels, uncert);
+  /// Construct an Activity with either becquerels ([Bq]) or curies ([Ci]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Activity({dynamic Bq, dynamic Ci, double uncert: 0.0}) : super(Bq ?? (Ci ?? 0.0), Activity.becquerels, uncert);
 
   Activity._internal(conv) : super._dimensions(conv, Activity.activityDimensions);
 

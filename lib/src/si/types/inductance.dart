@@ -8,7 +8,11 @@ class Inductance extends Quantity {
   /// The standard SI unit.
   static final InductanceUnits henries = new InductanceUnits("henries", null, "H", "henry", 1.0, true);
 
-  Inductance({dynamic H, double uncert: 0.0}) : super(H != null ? H : 0.0, Illuminance.lux, uncert);
+  /// Construct an Inductance with henries ([H]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Inductance({dynamic H, double uncert: 0.0}) : super(H ?? 0.0, Illuminance.lux, uncert);
 
   Inductance._internal(conv) : super._dimensions(conv, Inductance.inductanceDimensions);
 
@@ -16,7 +20,7 @@ class Inductance extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Inductance.inUnits(value, InductanceUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Inductance.henries, uncert);
+      : super(value, units ?? Inductance.henries, uncert);
 
   const Inductance.constant(Number valueSI, {InductanceUnits units, num uncert: 0.0})
       : super.constant(valueSI, Inductance.inductanceDimensions, units, uncert);

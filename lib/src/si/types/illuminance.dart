@@ -9,7 +9,11 @@ class Illuminance extends Quantity {
   // Note: singular same as plural
   static final IlluminanceUnits lux = new IlluminanceUnits("lux", null, "lx", "lux", 1.0, true);
 
-  Illuminance({dynamic lux, double uncert: 0.0}) : super(lux != null ? lux : 0.0, Illuminance.lux, uncert);
+  /// Construct an Illuminance with [lux].
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Illuminance({dynamic lux, double uncert: 0.0}) : super(lux ?? 0.0, Illuminance.lux, uncert);
 
   Illuminance._internal(conv) : super._dimensions(conv, Illuminance.illuminanceDimensions);
 
@@ -17,7 +21,7 @@ class Illuminance extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Illuminance.inUnits(value, IlluminanceUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Illuminance.lux, uncert);
+      : super(value, units ?? Illuminance.lux, uncert);
 
   const Illuminance.constant(Number valueSI, {IlluminanceUnits units, num uncert: 0.0})
       : super.constant(valueSI, Illuminance.illuminanceDimensions, units, uncert);

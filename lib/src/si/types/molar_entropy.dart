@@ -11,8 +11,12 @@ class MolarEntropy extends Quantity {
   static final MolarEntropyUnits joulesPerMoleKelvin = new MolarEntropyUnits.energyAmountTemperature(
       Energy.joules, AmountOfSubstance.moles, TemperatureInterval.kelvins);
 
+  /// Construct a MolarEntropy with joules per mole kelvin ([J_per_molK]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   MolarEntropy({dynamic J_per_molK, double uncert: 0.0})
-      : super(J_per_molK != null ? J_per_molK : 0.0, MolarEntropy.joulesPerMoleKelvin, uncert);
+      : super(J_per_molK ?? 0.0, MolarEntropy.joulesPerMoleKelvin, uncert);
 
   MolarEntropy._internal(conv) : super._dimensions(conv, MolarEntropy.molarEntropyDimensions);
 
@@ -20,7 +24,7 @@ class MolarEntropy extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   MolarEntropy.inUnits(value, MolarEntropyUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : MolarEntropy.joulesPerMoleKelvin, uncert);
+      : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert);
 
   const MolarEntropy.constant(Number valueSI, {MolarEntropyUnits units, num uncert: 0.0})
       : super.constant(valueSI, MolarEntropy.molarEntropyDimensions, units, uncert);

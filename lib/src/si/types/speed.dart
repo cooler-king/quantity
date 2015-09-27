@@ -12,17 +12,19 @@ class Speed extends Quantity {
   /// Accepted for use with the SI, subject to further review.
   static final SpeedUnits knots = new SpeedUnits("knots", null, null, null, 5.144444444e-1, false);
 
+  /// Construct a Speed with meters per second ([m_per_s]) or [knots].
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Speed({dynamic m_per_s, dynamic knots, double uncert: 0.0})
-      : super(m_per_s != null ? m_per_s : (knots != null ? knots : 0.0),
-            knots != null ? Speed.knots : Speed.metersPerSecond, uncert);
+      : super(m_per_s ?? (knots ?? 0.0), knots != null ? Speed.knots : Speed.metersPerSecond, uncert);
 
   Speed._internal(conv) : super._dimensions(conv, Speed.speedDimensions);
 
   /// Constructs a Speed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Speed.inUnits(value, SpeedUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Speed.metersPerSecond, uncert);
+  Speed.inUnits(value, SpeedUnits units, [double uncert = 0.0]) : super(value, units ?? Speed.metersPerSecond, uncert);
 
   const Speed.constant(Number valueSI, {SpeedUnits units, num uncert: 0.0})
       : super.constant(valueSI, Speed.speedDimensions, units, uncert);

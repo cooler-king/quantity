@@ -8,8 +8,12 @@ class VolumeFlowRate extends Quantity {
   static final VolumeFlowRateUnits cubicMetersPerSecond =
       new VolumeFlowRateUnits.volumeTime(Volume.cubicMeters, Time.seconds);
 
+  /// Construct a VolumeFlowRate with cubic meters per second ([m3_per_s]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   VolumeFlowRate({dynamic m3_per_s, double uncert: 0.0})
-      : super(m3_per_s != null ? m3_per_s : 0.0, VolumeFlowRate.cubicMetersPerSecond, uncert);
+      : super(m3_per_s ?? 0.0, VolumeFlowRate.cubicMetersPerSecond, uncert);
 
   VolumeFlowRate._internal(conv) : super._dimensions(conv, VolumeFlowRate.volumeFlowRateDimensions);
 
@@ -17,7 +21,7 @@ class VolumeFlowRate extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   VolumeFlowRate.inUnits(value, VolumeFlowRateUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : VolumeFlowRate.cubicMetersPerSecond, uncert);
+      : super(value, units ?? VolumeFlowRate.cubicMetersPerSecond, uncert);
 
   const VolumeFlowRate.constant(Number valueSI, {VolumeFlowRateUnits units, num uncert: 0.0})
       : super.constant(valueSI, VolumeFlowRate.volumeFlowRateDimensions, units, uncert);

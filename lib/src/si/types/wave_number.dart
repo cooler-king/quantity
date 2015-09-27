@@ -7,8 +7,12 @@ class WaveNumber extends Quantity {
   /// The standard SI unit.
   static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.length(Length.meters);
 
+  /// Construct a WaveNumber with reciprocal meters ([reciprocal_m]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   WaveNumber({dynamic reciprocal_m, double uncert: 0.0})
-      : super(reciprocal_m != null ? reciprocal_m : 0.0, WaveNumber.reciprocalMeters, uncert);
+      : super(reciprocal_m ?? 0.0, WaveNumber.reciprocalMeters, uncert);
 
   WaveNumber._internal(conv) : super._dimensions(conv, WaveNumber.waveNumberDimensions);
 
@@ -16,7 +20,7 @@ class WaveNumber extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   WaveNumber.inUnits(value, WaveNumberUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : WaveNumber.reciprocalMeters, uncert);
+      : super(value, units ?? WaveNumber.reciprocalMeters, uncert);
 
   const WaveNumber.constant(Number valueSI, {WaveNumberUnits units, num uncert: 0.0})
       : super.constant(valueSI, WaveNumber.waveNumberDimensions, units, uncert);

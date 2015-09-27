@@ -10,9 +10,13 @@ class AmountOfSubstance extends Quantity {
   /// A common metric derivative of the standard SI unit.
   static final AmountOfSubstanceUnits kilomoles = moles.kilo();
 
+  /// Construct an AmountOfSubstance with moles ([mol])
+  /// or kilomoles ([kmol]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   AmountOfSubstance({dynamic mol, dynamic kmol, double uncert: 0.0})
-      : super(mol != null ? mol : (kmol != null ? kmol : 0.0),
-            kmol != null ? AmountOfSubstance.kilomoles : AmountOfSubstance.moles, uncert);
+      : super(mol ?? (kmol ?? 0.0), kmol != null ? AmountOfSubstance.kilomoles : AmountOfSubstance.moles, uncert);
 
   AmountOfSubstance._internal(conv) : super._dimensions(conv, AmountOfSubstance.amountOfSubstanceDimensions);
 
@@ -20,7 +24,7 @@ class AmountOfSubstance extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   AmountOfSubstance.inUnits(value, AmountOfSubstanceUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : AmountOfSubstance.moles, uncert);
+      : super(value, units ?? AmountOfSubstance.moles, uncert);
 
   const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits units, num uncert: 0.0})
       : super.constant(valueSI, AmountOfSubstance.amountOfSubstanceDimensions, units, uncert);

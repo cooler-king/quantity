@@ -19,17 +19,21 @@ class Area extends Quantity {
   /// equals 100 square femtometers, or 1.0e-28 square meters
   static final AreaUnits barns = new AreaUnits("barns", "b", null, null, 1.0e-28, true);
 
+  /// Construct an Area with either square meters ([m2]), hectares ([ha])
+  /// or barns ([b]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Area({dynamic m2, dynamic ha, dynamic b, double uncert: 0.0})
-      : super(m2 != null ? m2 : (ha != null ? ha : (b != null ? b : 0.0)),
-            ha != null ? Area.hectares : (b != null ? Area.barns : Area.squareMeters), uncert);
+      : super(m2 ?? (ha ?? (b ?? 0.0)), ha != null ? Area.hectares : (b != null ? Area.barns : Area.squareMeters),
+            uncert);
 
   Area._internal(conv) : super._dimensions(conv, Area.areaDimensions);
 
   /// Constructs a Area based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Area.inUnits(value, AreaUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Area.squareMeters, uncert);
+  Area.inUnits(value, AreaUnits units, [double uncert = 0.0]) : super(value, units ?? Area.squareMeters, uncert);
 
   const Area.constant(Number valueSI, {AreaUnits units, num uncert: 0.0})
       : super.constant(valueSI, Area.areaDimensions, units, uncert);

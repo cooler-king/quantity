@@ -13,8 +13,12 @@ class Permeability extends Quantity {
   static final PermeabilityUnits newtonsPerAmpereSquared =
       new PermeabilityUnits.forceCurrent(Force.newtons, Current.amperes);
 
+  /// Construct a Permability with henries per meter ([H_per_m]) or newtons per ampere squared ([N_per_A2]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Permeability({dynamic H_per_m, dynamic N_per_A2, double uncert: 0.0})
-      : super(H_per_m != null ? H_per_m : (N_per_A2 != null ? N_per_A2 : 0.0),
+      : super(H_per_m ?? (N_per_A2 ?? 0.0),
             N_per_A2 != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter, uncert);
 
   Permeability._internal(conv) : super._dimensions(conv, Permeability.permeabilityDimensions);
@@ -23,7 +27,7 @@ class Permeability extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Permeability.inUnits(value, PermeabilityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Permeability.henriesPerMeter, uncert);
+      : super(value, units ?? Permeability.henriesPerMeter, uncert);
 
   const Permeability.constant(Number valueSI, {PermeabilityUnits units, num uncert: 0.0})
       : super.constant(valueSI, Permeability.permeabilityDimensions, units, uncert);

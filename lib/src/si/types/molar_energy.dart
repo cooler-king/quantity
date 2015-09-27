@@ -9,8 +9,11 @@ class MolarEnergy extends Quantity {
   static final MolarEnergyUnits joulesPerMole =
       new MolarEnergyUnits.energyAmount(Energy.joules, AmountOfSubstance.moles);
 
-  MolarEnergy({dynamic J_per_mol, double uncert: 0.0})
-      : super(J_per_mol != null ? J_per_mol : 0.0, MolarEnergy.joulesPerMole, uncert);
+  /// Construct a MolarEnergy with joules per mole ([J_per_mol]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  MolarEnergy({dynamic J_per_mol, double uncert: 0.0}) : super(J_per_mol ?? 0.0, MolarEnergy.joulesPerMole, uncert);
 
   MolarEnergy._internal(conv) : super._dimensions(conv, MolarEnergy.molarEnergyDimensions);
 
@@ -18,7 +21,7 @@ class MolarEnergy extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   MolarEnergy.inUnits(value, MolarEnergyUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : MolarEnergy.joulesPerMole, uncert);
+      : super(value, units ?? MolarEnergy.joulesPerMole, uncert);
 
   const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits units, num uncert: 0.0})
       : super.constant(valueSI, MolarEnergy.molarEnergyDimensions, units, uncert);

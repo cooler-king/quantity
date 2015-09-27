@@ -9,8 +9,11 @@ class Permittivity extends Quantity {
   static final PermittivityUnits faradsPerMeter =
       new PermittivityUnits.capacitanceLength(Capacitance.farads, Length.meters);
 
-  Permittivity({dynamic F_per_m, double uncert: 0.0})
-      : super(F_per_m != null ? F_per_m : 0.0, Permittivity.faradsPerMeter, uncert);
+  /// Construct a Permittivity with farads per meter ([F_per_m]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Permittivity({dynamic F_per_m, double uncert: 0.0}) : super(F_per_m ?? 0.0, Permittivity.faradsPerMeter, uncert);
 
   Permittivity._internal(conv) : super._dimensions(conv, Permittivity.permittivityDimensions);
 
@@ -18,7 +21,7 @@ class Permittivity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Permittivity.inUnits(value, PermittivityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Permittivity.faradsPerMeter, uncert);
+      : super(value, units ?? Permittivity.faradsPerMeter, uncert);
 
   const Permittivity.constant(Number valueSI, {PermittivityUnits units, num uncert: 0.0})
       : super.constant(valueSI, Permittivity.permittivityDimensions, units, uncert);

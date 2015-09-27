@@ -8,7 +8,11 @@ class Resistance extends Quantity {
   /// The standard SI unit.
   static final ResistanceUnits ohms = new ResistanceUnits("ohms", "\u2126", "\u03a9", null, 1.0, true);
 
-  Resistance({dynamic ohms, double uncert: 0.0}) : super(ohms != null ? ohms : 0.0, Resistance.ohms, uncert);
+  /// Construct a Resistance with [ohms].
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Resistance({dynamic ohms, double uncert: 0.0}) : super(ohms ?? 0.0, Resistance.ohms, uncert);
 
   Resistance._internal(conv) : super._dimensions(conv, Resistance.electricResistanceDimensions);
 
@@ -16,7 +20,7 @@ class Resistance extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Resistance.inUnits(value, ResistanceUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Resistance.ohms, uncert);
+      : super(value, units ?? Resistance.ohms, uncert);
 
   const Resistance.constant(Number valueSI, {ResistanceUnits units, num uncert: 0.0})
       : super.constant(valueSI, Resistance.electricResistanceDimensions, units, uncert);

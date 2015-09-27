@@ -44,8 +44,12 @@ class Angle extends Quantity {
   /// Accepted for use with the SI; equivalent to [secondsArc].
   static final AngleUnits seconds = secondsArc;
 
+  /// Construct an Angle with either radians ([rad]) or degrees ([deg]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Angle({dynamic rad, dynamic deg, double uncert: 0.0})
-      : super(deg != null ? deg : (rad != null ? rad : 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
+      : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
 
   Angle._internal(conv) : super._dimensions(conv, Angle.angleDimensions);
 
@@ -62,8 +66,7 @@ class Angle extends Quantity {
   /// The internal value is automatically bounded between -PI and PI
   /// radians (-180 to 180 degrees)
   ///
-  Angle.inUnits(value, AngleUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Angle.radians, uncert);
+  Angle.inUnits(value, AngleUnits units, [double uncert = 0.0]) : super(value, units ?? Angle.radians, uncert);
 
   const Angle.constant(Number valueSI, {AngleUnits units, num uncert: 0.0})
       : super.constant(valueSI, Angle.angleDimensions, units, uncert);

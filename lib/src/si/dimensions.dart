@@ -1,33 +1,32 @@
 part of quantity_si;
 
-///  The Dimensions class represents the dimensions of a physical quantity.
+/// The Dimensions class represents the dimensions of a physical quantity.
 ///
-///  ## Dimensions Objects Are Immutable
-///  ===================================
-///  Dimensions are immutable (constant), so they may be shared without worry over
-///  unexpected changes.
+/// ## Dimensions Objects Are Immutable
+/// Dimensions are immutable (constant), so they may be shared without worry over
+/// unexpected changes.
 ///
-///  ## The Seven Base Quantities
-///  In the International System of Units (SI) all quantities are considered
-///  to be either one of the seven base quantities (Length, Mass, Time Interval,
-///  Temperature, Current, Intensity and Amount of Substance) or derived from
-///  those base quantities through combinations and/or arbitrary exponents.
-///  The Dimensions of a quantity capture which combination applies for that
-///  particular quantity.  Any combination of these base quantities is possible;
-///  in practice less than 100 derived quantities are in common use.
-///  The Dimensions of a quantity determine its type and directly relate to that
-///  quantity's significance and meaning in the real world.
+/// ## The Seven Base Quantities
+/// In the International System of Units (SI) all quantities are considered
+/// to be either one of the seven base quantities (Length, Mass, Time Interval,
+/// Temperature, Current, Intensity and Amount of Substance) or derived from
+/// those base quantities through combinations and/or arbitrary exponents.
+/// The Dimensions of a quantity capture which combination applies for that
+/// particular quantity.  Any combination of these base quantities is possible;
+/// in practice less than 100 derived quantities are in common use.
+/// The Dimensions of a quantity determine its type and directly relate to that
+/// quantity's significance and meaning in the real world.
 ///
-///  ## The Dimensions Class Also Tracks Angle and Solid Angle
-///  The dimensions that are tracked include the seven base SI quantities and
-///  also the angle and solid angle dimensionless quantities.  Angular
-///  quantities are often distinguished from their non-angular counterparts
-///  even if the SI base dimensions are equal.  Consequently, in order
-///  to support such differentiation, Angle and SolidAngle dimensions are stored
-///  alongside the base seven dimensions and used to distinguish between
-///  dimensions and determine quantity types.  To test whether two Dimensions
-///  objects are equal strictly in terms of the base SI dimensions, the
-///  equalsSI method may be used.
+/// ## The Dimensions Class Also Tracks Angle and Solid Angle
+/// The dimensions that are tracked include the seven base SI quantities and
+/// also the angle and solid angle dimensionless quantities.  Angular
+/// quantities are often distinguished from their non-angular counterparts
+/// even if the SI base dimensions are equal.  Consequently, in order
+/// to support such differentiation, Angle and SolidAngle dimensions are stored
+/// alongside the base seven dimensions and used to distinguish between
+/// dimensions and determine quantity types.  To test whether two Dimensions
+/// objects are equal strictly in terms of the base SI dimensions, the
+/// equalsSI method may be used.
 ///
 class Dimensions {
   /// The dimensions (base dimension key -> base dimension exponent)
@@ -75,8 +74,8 @@ class Dimensions {
   ///
   const Dimensions.constant(Map<String, num> dims) : _dimensionMap = dims;
 
-  ///  Constructs a Dimensions object with a map of base dimension keys to
-  ///  base dimension exponents.
+  /// Constructs a Dimensions object with a map of base dimension keys to
+  /// base dimension exponents.
   ///
   Dimensions.fromMap(Map<String, num> typeValuePairs) : _dimensionMap = new Map.from(typeValuePairs);
 
@@ -273,15 +272,15 @@ class Dimensions {
   /// by the specified Dimensions [dim].
   ///
   /// *  If no specific Quantity type is found that matches the dimensions
-  ///    the MiscQuantity class will be returned.<br>
+  ///   the MiscQuantity class will be returned.<br>
   /// *  The appropriate Quantity subclass is determined by a priori knowledge
-  ///    of all the Quantity types included in this library.  Therefore, if new
-  ///    Quantity subclasses are added outside of this library the Dimensions
-  ///    class will not automatically be aware of them, which will affect this
-  ///    method.  Therefore, if new Quantity subclasses are added, this methos should
-  ///    be modified to include the new subclasses.<br>
+  ///   of all the Quantity types included in this library.  Therefore, if new
+  ///   Quantity subclasses are added outside of this library the Dimensions
+  ///   class will not automatically be aware of them, which will affect this
+  ///   method.  Therefore, if new Quantity subclasses are added, this methos should
+  ///   be modified to include the new subclasses.<br>
   /// *  Some distinct Quantity types have identical dimensions.  In this case
-  ///    the first Quantity type discovered is returned.
+  ///   the first Quantity type discovered is returned.
   ///
   //TODO would a static dimensionsTypeMap be better?
   static Type determineQuantityType(Dimensions dim) {
@@ -441,10 +440,10 @@ class Dimensions {
     }
   }
 
-  ///  Returns a String reprentation of this Dimensions object in the
-  ///  form:
+  /// Returns a String reprentation of this Dimensions object in the
+  /// form:
   ///
-  ///      "Dimensions [<type>=<value>; <type2>=<value2> ... ]"
+  ///     "Dimensions [<type>=<value>; <type2>=<value2> ... ]"
   ///
   String toString() {
     var buffer = new StringBuffer();

@@ -1,3 +1,7 @@
+/// Models ranges of quantites with start and end values (not necessarily increasing).
+///
+/// Additional claasses and utilities are provided for `Angle` and `TimePeriod` ranges.
+///
 library quantity_range;
 
 import 'package:quantity/quantity.dart';

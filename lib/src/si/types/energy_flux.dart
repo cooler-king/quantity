@@ -8,8 +8,11 @@ class EnergyFlux extends Quantity {
   /// The standard SI unit.
   static final EnergyFluxUnits wattsPerSquareMeter = new EnergyFluxUnits.powerArea(Power.watts, Area.squareMeters);
 
-  EnergyFlux({dynamic W_per_m2, double uncert: 0.0})
-      : super(W_per_m2 != null ? W_per_m2 : 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
+  /// Construct an EnergyFlux with watts per square meter ([W_per_m2]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  EnergyFlux({dynamic W_per_m2, double uncert: 0.0}) : super(W_per_m2 ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
 
   EnergyFlux._internal(conv) : super._dimensions(conv, EnergyFlux.energyFluxDimensions);
 
@@ -17,7 +20,7 @@ class EnergyFlux extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   EnergyFlux.inUnits(value, EnergyFluxUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : EnergyFlux.wattsPerSquareMeter, uncert);
+      : super(value, units ?? EnergyFlux.wattsPerSquareMeter, uncert);
 
   const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits units, num uncert: 0.0})
       : super.constant(valueSI, EnergyFlux.energyFluxDimensions, units, uncert);

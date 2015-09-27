@@ -10,6 +10,10 @@ class DoseEquivalent extends Quantity {
   /// Accepted for use with the SI, subject to further review.
   static final DoseEquivalentUnits rems = new DoseEquivalentUnits("rems", null, null, null, 1.0e-2, true);
 
+  /// Construct a DoseEquivalent with seiverts ([Sv]) or [rems].
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   DoseEquivalent({dynamic Sv, dynamic rems, double uncert: 0.0})
       : super(Sv != null ? Sv : (rems != null ? rems : 0.0),
             rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts, uncert);

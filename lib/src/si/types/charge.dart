@@ -7,15 +7,18 @@ class Charge extends Quantity {
   /// The standard SI unit.
   static final ChargeUnits coulombs = new ChargeUnits("coulombs", null, "C", null, 1.0, true);
 
-  Charge({dynamic C, double uncert: 0.0}) : super(C != null ? C : 0.0, Charge.coulombs, uncert);
+  /// Construct a Charge with coulombs ([C]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Charge({dynamic C, double uncert: 0.0}) : super(C ?? 0.0, Charge.coulombs, uncert);
 
   Charge._internal(conv) : super._dimensions(conv, Charge.electricChargeDimensions);
 
   /// Constructs a Charge based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Charge.inUnits(value, ChargeUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Charge.coulombs, uncert);
+  Charge.inUnits(value, ChargeUnits units, [double uncert = 0.0]) : super(value, units ?? Charge.coulombs, uncert);
 
   const Charge.constant(Number valueSI, {ChargeUnits units, num uncert: 0.0})
       : super.constant(valueSI, Charge.electricChargeDimensions, units, uncert);

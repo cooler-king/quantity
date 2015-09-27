@@ -12,9 +12,13 @@ class AngularAcceleration extends Quantity {
   static final AngularAccelerationUnits degreePerSecondSquared =
       new AngularAccelerationUnits.angleTime(Angle.degrees, Time.seconds);
 
+  /// Construct an AngularAcceleration with either radians per second squared ([rad_per_s2])
+  /// or degrees per second squared ([deg_per_s2]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   AngularAcceleration({dynamic rad_per_s2, dynamic deg_per_s2, double uncert: 0.0})
-      : super(rad_per_s2 != null ? rad_per_s2 : (deg_per_s2 != null ? deg_per_s2 : 0.0),
-            AngularAcceleration.radianPerSecondSquared, uncert);
+      : super(rad_per_s2 ?? (deg_per_s2 ?? 0.0), AngularAcceleration.radianPerSecondSquared, uncert);
 
   AngularAcceleration._internal(conv) : super._dimensions(conv, AngularAcceleration.angularAccelerationDimensions);
 
@@ -22,7 +26,7 @@ class AngularAcceleration extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   AngularAcceleration.inUnits(value, AngularAccelerationUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : AngularAcceleration.radianPerSecondSquared, uncert);
+      : super(value, units ?? AngularAcceleration.radianPerSecondSquared, uncert);
 
   const AngularAcceleration.constant(Number valueSI, {AngularAccelerationUnits units, num uncert: 0.0})
       : super.constant(valueSI, AngularAcceleration.angularAccelerationDimensions, units, uncert);

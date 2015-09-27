@@ -7,15 +7,18 @@ class Force extends Quantity {
   /// The standard SI unit.
   static final ForceUnits newtons = new ForceUnits("newtons", null, "N", null, 1.0, true);
 
-  Force({dynamic N, double uncert: 0.0}) : super(N != null ? N : 0.0, Force.newtons, uncert);
+  /// Construct a Force with newtons ([N]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Force({dynamic N, double uncert: 0.0}) : super(N ?? 0.0, Force.newtons, uncert);
 
   Force._internal(conv) : super._dimensions(conv, Force.forceDimensions);
 
   /// Constructs a Force based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Force.inUnits(value, ForceUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Force.newtons, uncert);
+  Force.inUnits(value, ForceUnits units, [double uncert = 0.0]) : super(value, units ?? Force.newtons, uncert);
 
   const Force.constant(Number valueSI, {ForceUnits units, num uncert: 0.0})
       : super.constant(valueSI, Force.forceDimensions, units, uncert);

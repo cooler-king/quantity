@@ -1,9 +1,9 @@
-/// The quantity extension library includes unit synonyms to enable very terse
-/// constructors and expressions, non-SI units, constants, and auxiliary
-/// functions.
+/// Extends the core library with non-SI units, constants, unit synonyms to enable terse
+/// constructors and expressions, and auxiliary functions.
 ///
 library quantity_ext;
 
+import 'dart:async';
 import 'dart:math';
 import 'package:quantity/number.dart';
 import 'package:quantity/quantity_si.dart';
@@ -48,3 +48,6 @@ part 'src/ext/time_ext.dart';
 part 'src/ext/time_instant_ext.dart';
 part 'src/ext/volume_ext.dart';
 part 'src/ext/volume_flow_rate_ext.dart';
+
+// mutable quantity type extensions
+part 'src/ext/mutable/mutable_quantity.dart';

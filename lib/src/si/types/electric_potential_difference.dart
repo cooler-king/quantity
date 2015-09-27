@@ -11,8 +11,12 @@ class ElectricPotentialDifference extends Quantity {
   static final ElectricPotentialDifferenceUnits volts =
       new ElectricPotentialDifferenceUnits("volts", null, "V", null, 1.0, true);
 
+  /// Construct an ElectricPotentialDifference with volts ([V]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   ElectricPotentialDifference({dynamic V, double uncert: 0.0})
-      : super(V != null ? V : 0.0, ElectricPotentialDifference.volts, uncert);
+      : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
 
   ElectricPotentialDifference._internal(conv)
       : super._dimensions(conv, ElectricPotentialDifference.electricPotentialDifferenceDimensions);
@@ -21,7 +25,7 @@ class ElectricPotentialDifference extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   ElectricPotentialDifference.inUnits(value, ElectricPotentialDifferenceUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : ElectricPotentialDifference.volts, uncert);
+      : super(value, units ?? ElectricPotentialDifference.volts, uncert);
 
   const ElectricPotentialDifference.constant(Number valueSI, {ElectricPotentialDifferenceUnits units, num uncert: 0.0})
       : super.constant(valueSI, ElectricPotentialDifference.electricPotentialDifferenceDimensions, units, uncert);

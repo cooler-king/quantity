@@ -5,25 +5,34 @@ class AbsorbedDoseRate extends Quantity {
   static const Dimensions absorbedDoseRateDimensions = const Dimensions.constant(const {"Length": 2, "Time": -3});
 
   /// The standard SI unit.
-  static final AbsorbedDoseRateUnits grayPerSecond =
+  static final AbsorbedDoseRateUnits graysPerSecond =
       new AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDose.grays, Time.seconds);
 
   /// Accepted for use with the SI.
   static final AbsorbedDoseRateUnits radsPerSecond =
       new AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDose.rads, Time.seconds);
 
+  /// Construct an AbsorbedDoseRate with either grays per second ([Gy_per_s])
+  /// or rads per second ([rads_per_s]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   AbsorbedDoseRate({dynamic Gy_per_s, dynamic rads_per_s, double uncert: 0.0})
-      : super(Gy_per_s != null ? Gy_per_s : (rads_per_s != null ? rads_per_s : 0.0),
-            rads_per_s != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.grayPerSecond, uncert);
+      : super(Gy_per_s ?? (rads_per_s ?? 0.0),
+            rads_per_s != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
 
   AbsorbedDoseRate._internal(conv) : super._dimensions(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
 
-  /// Constructs a AbsorbedDoseRate based on the [value]
-  /// and the conversion factor intrinsic to the passed [units].
+  /// Constructs an AbsorbedDoseRate based on the [value]
+  /// and the conversion factor intrinsic to the provided [units].
   ///
   AbsorbedDoseRate.inUnits(value, AbsorbedDoseRateUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : AbsorbedDoseRate.grayPerSecond, uncert);
+      : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert);
 
+  /// Construct a constant AbsorbedDoseRate with its SI value.
+  ///
+  ///
+  ///
   const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, num uncert: 0.0})
       : super.constant(valueSI, AbsorbedDoseRate.absorbedDoseRateDimensions, units, uncert);
 }

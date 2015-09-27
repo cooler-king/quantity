@@ -11,9 +11,13 @@ class TemperatureInterval extends Quantity {
   static final TemperatureIntervalUnits degreesCelsius =
       new TemperatureIntervalUnits("degrees Celsius", "deg C", null, "degree Celsius", 1.0, true);
 
+  /// Construct a TemperatureInterval with kelvin ([K]) or degrees Celsius ([degC]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   TemperatureInterval({dynamic K, dynamic degC, double uncert: 0.0})
-      : super(K != null ? K : (degC != null ? degC : 0.0),
-            degC != null ? TemperatureInterval.degreesCelsius : TemperatureInterval.kelvins, uncert);
+      : super(K ?? (degC ?? 0.0), degC != null ? TemperatureInterval.degreesCelsius : TemperatureInterval.kelvins,
+            uncert);
 
   TemperatureInterval._internal(conv) : super._dimensions(conv, TemperatureInterval.temperatureIntervalDimensions);
 
@@ -21,7 +25,7 @@ class TemperatureInterval extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   TemperatureInterval.inUnits(value, TemperatureIntervalUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : TemperatureInterval.kelvins, uncert);
+      : super(value, units ?? TemperatureInterval.kelvins, uncert);
 
   const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits units, num uncert: 0.0})
       : super.constant(valueSI, TemperatureInterval.temperatureIntervalDimensions, units, uncert);

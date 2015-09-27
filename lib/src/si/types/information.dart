@@ -31,49 +31,53 @@ class Information extends Quantity {
 
   // Pseudo-Metric Units
 
-  /// 1 kilobyte is equal to 2<sup>10</sup> bytes (1 024 bytes) in typical usage.
+  /// 1 kilobyte is equal to 2^10 bytes (1 024 bytes) in typical usage.
   /// This is at odds with the standard use of the "kilo" prefix for
-  /// 1 000; use BYTES.kilo() to get the metric value.  Use KILOBYTES for
+  /// 1 000; use `bytes.kilo()` to get the metric value.  Use `kilobytes` for
   /// common usage (e.g., for data storage units).
   static final InformationUnits kilobytes = new InformationUnits("kilobytes", "kB", "KB", null, 8.0 * 1024.0, false);
 
-  /// 1 megabyte is equal to 2<sup>20</sup> bytes (1 048 576 bytes) in typical usage.
+  /// 1 megabyte is equal to 2^20 bytes (1 048 576 bytes) in typical usage.
   /// This is at odds with the standard use of the "mega" prefix for
-  /// 10<sup>6</sup>; use BYTES.mega() to get the metric value.  Use MEGABYTES for
-  /// common usage (e.g., for data storage units). **/
+  /// 10^6; use `bytes.mega()` to get the metric value.  Use `megabytes` for
+  /// common usage (e.g., for data storage units).
   static final InformationUnits megabytes =
       new InformationUnits("megabytes", null, "MB", null, 8.0 * 1.048576e6, false);
 
-  /// 1 gigabyte is equal to 2<sup>30</sup> bytes (1 073 741 824 bytes) in typical usage.
+  /// 1 gigabyte is equal to 2^30 bytes (1 073 741 824 bytes) in typical usage.
   /// This is at odds with the standard use of the "giga" prefix for
-  /// 10<sup>9</sup>; use BYTES.giga() to get the metric value.  Use GIGABYTES for
-  /// common usage (e.g., for data storage units). **/
+  /// 10^9; use `bytes.giga()` to get the metric value.  Use `gigabytes` for
+  /// common usage (e.g., for data storage units).
   static final InformationUnits gigabytes =
       new InformationUnits("gigabytes", null, "GB", null, 8.0 * 1.073741824e9, false);
 
-  /// 1 terabyte is equal to 2<sup>40</sup> bytes (1 099 511 627 776 bytes) in typical usage.
+  /// 1 terabyte is equal to 2^40 bytes (1 099 511 627 776 bytes) in typical usage.
   /// This is at odds with the standard use of the "tera" prefix for
-  /// 10<sup>12</sup>; use BYTES.tera() to get the metric value.  Use TERABYTES for
-  /// common usage (e.g., for data storage units). **/
+  /// 10^12; use `bytes.tera()` to get the metric value.  Use `terabytes` for
+  /// common usage (e.g., for data storage units).
   static final InformationUnits terabytes =
       new InformationUnits("terabytes", null, "TB", null, 8.0 * 1.099511627776e12, false);
 
-  /// 1 petabyte is equal to 2<sup>50</sup> bytes (1 125 899 906 842 624 bytes) in typical usage.
+  /// 1 petabyte is equal to 2^50 bytes (1 125 899 906 842 624 bytes) in typical usage.
   /// This is at odds with the standard use of the "peta" prefix for
-  /// 10<sup>15</sup>; use BYTES.peta() to get the metric value.  Use PETABYTES for
-  /// common usage (e.g., for data storage units). **/
+  /// 10^15; use `bytes.peta()` to get the metric value.  Use `petabytes` for
+  /// common usage (e.g., for data storage units).
   static final InformationUnits petabytes =
       new InformationUnits("petabytes", null, "PB", null, 8.0 * 1.125899906842624e15, false);
 
-  /// 1 exabyte is equal to 2<sup>60</sup> bytes (1 152 921 504 606 846 976 bytes) in typical usage.
+  /// 1 exabyte is equal to 2^60 bytes (1 152 921 504 606 846 976 bytes) in typical usage.
   /// This is at odds with the standard use of the "exa" prefix for
-  /// 10<sup>18</sup>; use BYTES.exa() to get the metric value.  Use EXABYTES for
-  /// common usage (e.g., for data storage units). **/
-  static final InformationUnits EXABYTES =
+  /// 10^18; use `bytes.exa()` to get the metric value.  Use `exabytes` for
+  /// common usage (e.g., for data storage units).
+  static final InformationUnits exabytes =
       new InformationUnits("exabytes", null, "EB", null, 8.0 * 1.152921504606846976e18, false);
 
-  Information({dynamic Bq, dynamic Ci, double uncert: 0.0})
-      : super(Bq != null ? Bq : (Ci != null ? Ci : 0.0), Information.bits, uncert);
+  /// Construct an Information object with [bits], bytes ([B]), kilobytes ([kB]), megabytes ([MB]), gigabytes ([GB]), or terabytes ([TB]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert: 0.0})
+      : super(bits ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0)))), Information.bits, uncert);
 
   Information._internal(conv) : super._dimensions(conv, Information.informationDimensions);
 
@@ -81,7 +85,7 @@ class Information extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Information.inUnits(value, InformationUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Information.bits, uncert);
+      : super(value, units ?? Information.bits, uncert);
 
   const Information.constant(Number valueSI, {InformationUnits units, num uncert: 0.0})
       : super.constant(valueSI, Information.informationDimensions, units, uncert);

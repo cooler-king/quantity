@@ -16,15 +16,17 @@ class Scalar extends Quantity {
   static final ScalarUnits percent =
       new ScalarUnits("percent", null, "%", "percent", const Double.constant(0.01), false);
 
+  /// Construct a Scalar with [value] or [percent].
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   Scalar({value, percent, double uncert: 0.0})
-      : super(percent != null ? percent : (value != null ? value : 0.0), percent != null ? Scalar.percent : Scalar.one,
-            uncert);
+      : super(percent ?? (value ?? 0.0), percent != null ? Scalar.percent : Scalar.one, uncert);
 
   Scalar._internal(conv) : super._dimensions(conv, Scalar.scalarDimensions);
 
   // CONSTRUCTORS
-  Scalar.inUnits(value, ScalarUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : Scalar.one, uncert);
+  Scalar.inUnits(value, ScalarUnits units, [double uncert = 0.0]) : super(value, units ?? Scalar.one, uncert);
 
   const Scalar.constant(value, {ScalarUnits units, double uncert: 0.0})
       : super.constant(value, Scalar.scalarDimensions, units, uncert);

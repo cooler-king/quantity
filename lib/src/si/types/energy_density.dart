@@ -8,8 +8,12 @@ class EnergyDensity extends Quantity {
   static final EnergyDensityUnits joulesPerCubicMeter =
       new EnergyDensityUnits.energyVolume(Energy.joules, Volume.cubicMeters);
 
+  /// Construct an EnergyDensity with joules per cubic meter ([J_per_m3]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
   EnergyDensity({dynamic J_per_m3, double uncert: 0.0})
-      : super(J_per_m3 != null ? J_per_m3 : 0.0, EnergyDensity.joulesPerCubicMeter, uncert);
+      : super(J_per_m3 ?? 0.0, EnergyDensity.joulesPerCubicMeter, uncert);
 
   EnergyDensity._internal(conv) : super._dimensions(conv, EnergyDensity.energyDensityDimensions);
 
@@ -17,7 +21,7 @@ class EnergyDensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   EnergyDensity.inUnits(value, EnergyDensityUnits units, [double uncert = 0.0])
-      : super(value, units != null ? units : EnergyDensity.joulesPerCubicMeter, uncert);
+      : super(value, units ?? EnergyDensity.joulesPerCubicMeter, uncert);
 
   const EnergyDensity.constant(Number valueSI, {EnergyDensityUnits units, num uncert: 0.0})
       : super.constant(valueSI, EnergyDensity.energyDensityDimensions, units, uncert);
