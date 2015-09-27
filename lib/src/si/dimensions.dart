@@ -157,11 +157,7 @@ class Dimensions {
     if (!_dimensionMap.containsKey(component)) return 0;
 
     num exp = _dimensionMap[component];
-    if (exp != null) {
-      return exp;
-    } else {
-      return 0;
-    }
+    return exp ?? 0;
   }
 
   /// Return the product of this Dimensions object and [other] Dimensions.
