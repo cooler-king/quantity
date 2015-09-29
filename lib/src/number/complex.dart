@@ -39,15 +39,22 @@ class Complex extends Number {
   ///
   Double get phase => complexArgument;
 
+  @override
   bool get isInfinite => real.value == double.INFINITY || real.value == double.NEGATIVE_INFINITY;
+
+  @override
   bool get isNaN => real.value == double.NAN;
+
+  @override
   bool get isNegative => real.value < 0;
 
-  //TODO
+  @override
   bool get isInteger => (imaginary == null || imaginary == 0) && real.isInteger;
 
+  @override
   double toDouble() => real.toDouble();
 
+  @override
   int toInt() => real.toInt();
 
   @override
@@ -61,6 +68,7 @@ class Complex extends Number {
     }
   }
 
+  @override
   bool operator ==(obj) {
     if (obj is num) return real == obj && imaginary.value == 0.0;
     if (obj is Complex) return real == obj.real && imaginary == obj.imaginary;
@@ -80,8 +88,10 @@ class Complex extends Number {
     return this;
   }
 
+  @override
   Number operator -() => new Complex(-real, -imaginary);
 
+  @override
   Number operator -(subtrahend) {
     if (subtrahend is Complex) return new Complex(real - subtrahend.real.value, imaginary - subtrahend.imaginary);
     if (subtrahend is Imaginary) return new Complex(real, imaginary - subtrahend);
@@ -91,6 +101,7 @@ class Complex extends Number {
     return this;
   }
 
+  @override
   Number operator *(multiplier) {
     // i * i = -1
     if (multiplier is num) return new Complex(real * multiplier, imaginary * multiplier);
@@ -107,6 +118,7 @@ class Complex extends Number {
     return Double.zero;
   }
 
+  @override
   Number operator /(divisor) {
     if (divisor is num) return new Complex(real / divisor, imaginary / divisor);
     if (divisor is Real) return new Complex(real / divisor.value, imaginary / divisor.value);
@@ -125,6 +137,7 @@ class Complex extends Number {
 
   ///  The truncating division operator.
   ///
+  @override
   Number operator ~/(divisor) {
     if (divisor == 0) {
       // Treat divisor as 0
@@ -152,7 +165,9 @@ class Complex extends Number {
    *
    *  See http://math.stackexchange.com/questions/274694/modulo-complex-number
    */
+  @override
   Number operator %(divisor) {
+    //TODO complex modulo operator
     /*
     if(divisor is num) return new Double(value % divisor);
     else if(divisor is Real) return new Double(value % divisor.value);
@@ -180,6 +195,7 @@ class Complex extends Number {
   /// overrides the caret operator.  In Dart the caret operator is ordinarily used
   /// for bitwise XOR operations on [int]s.
   ///
+  @override
   Number operator ^(exponent) {
     if (exponent is num) {
       double scaledPhase = exponent * phase.value;
@@ -198,35 +214,67 @@ class Complex extends Number {
     return Double.one;
   }
 
-  bool operator >(obj) {
-    //TODO if(obj is num)
-    return false;
-  }
-
-  bool operator >=(obj) {
-    //TODO if(obj is num)
-    return false;
-  }
-
-  bool operator <(obj) {
-    //TODO if(obj is num)
-    return false;
-  }
-
-  bool operator <=(obj) {
-    //TODO if(obj is num)
-    return false;
-  }
-
-  /// The absolute value of a Complex number is its distance from zero in the Complex number space (e.g. the
-  /// absolute value of 3 + 4i = 5).  The absolute value is always a real number.
+  /// Returns true if the real component of this Complex number is greater than [obj].
   ///
-  Real abs() => ((real * real) + (imaginary.value * imaginary.value)) ^ 0.5;
+  /// The imaginary part of this complex number is ignored.
+  ///
+  @override
+  bool operator >(obj) => real > obj;
 
-  Integer ceil() => real.ceil();
+  /// Returns true if the real component of this Complex number is greater
+  /// than or equal to [obj].
+  ///
+  /// The imaginary part of this complex number is ignored.
+  ///
+  @override
+  bool operator >=(obj) => real >= obj;
 
-  Integer truncate() => real.truncate();
+  /// Returns true if the real component of this Complex number is
+  /// less than [obj].
+  ///
+  /// The imaginary part of this complex number is ignored.
+  ///
+  @override
+  bool operator <(obj) => real < obj;
 
+  /// Returns true if the real component of this Complex number is
+  /// less than or equal to [obj].
+  ///
+  /// The imaginary part of this complex number is ignored.
+  ///
+  @override
+  bool operator <=(obj) => real <= obj;
+
+  /// The absolute value of a Complex number is its distance from zero in the
+  /// Complex number space (e.g. the absolute value of 3 + 4i = 5).  The absolute
+  /// value is always a real number.
+  ///
+  @override
+  Number abs() => ((real * real) + (imaginary.value * imaginary.value)) ^ 0.5;
+
+  /// Returns the ceiling
+  @override
+  Number ceil() => real.ceil();
+
+  @override
+  Number clamp(lowerLimit, upperLimit) => real.clamp(lowerLimit, upperLimit);
+
+  @override
+  Number floor() => real.floor();
+
+  @override
+  Number round() => real.round();
+
+  @override
+  Number truncate() => real.truncate();
+
+  /// The remainder method operates on the real portion of
+  /// this Complex number only.
+  ///
+  @override
+  Number remainder(divisor) => real.remainder(divisor);
+
+  @override
   Number reciprocal() {
     // (a - bi) / (a^2 + b^2)
     num a2b2 = Math.pow(real.value, 2) + Math.pow(imaginary.value.value, 2);

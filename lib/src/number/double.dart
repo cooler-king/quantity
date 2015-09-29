@@ -40,6 +40,13 @@ class Double extends Real {
     return false;
   }
 
+  @override
+  Number clamp(lowerLimit, upperLimit) {
+    num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
+    num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
+    return new Double(value?.clamp(lower, upper));
+  }
+
   Number reciprocal() {
     if (value != 0.0) return new Double(1.0 / value);
     return Double.zero;

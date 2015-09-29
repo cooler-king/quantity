@@ -26,8 +26,8 @@ part 'src/number/real.dart';
 ///
 Number objToNumber(Object object) {
   if (object is num) return numToNumber(object);
-  else if (object is Number) return object;
-  else throw new Exception("num or Number expected");
+  if (object is Number) return object;
+  throw new Exception("num or Number expected");
 }
 
 /// Converts a num [value] to associated Number object
@@ -35,17 +35,21 @@ Number objToNumber(Object object) {
 ///
 Number numToNumber(num value) {
   if (value is int) return new Integer(value);
-  else return new Double(value);
+  return new Double(value);
   // JS can't distinguish so just assume Double
   //return new Double(value.toDouble());
 }
 
 num numberToNum(Number number) {
   if (number is Double) return number.value;
-  else if (number is Integer) return number.value;
-  //else if(number is Precise) return (number as Precise).toDouble();
-  else if (number is Imaginary) return 0;
-  else if (number is Complex) return number.real.toDouble();
+  if (number is Integer) return number.value;
+  if (number is Imaginary) return 0;
+  if (number is Complex) return number.real.toDouble();
+  if (number is Precise) {
+    if (number.isInteger) return number.toInt();
+  } else {
+    return number.toDouble();
+  }
 
   return 0;
 }

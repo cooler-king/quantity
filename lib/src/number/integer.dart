@@ -50,7 +50,7 @@ class Integer extends Real {
   @override
   Number operator +(addend) {
     if (addend is int) return new Integer(addend + value);
-    else if (addend is Integer) return new Integer(addend.value + value);
+    if (addend is Integer) return new Integer(addend.value + value);
     return super + addend;
   }
 
@@ -117,10 +117,20 @@ class Integer extends Real {
   Integer abs() => _value >= 0 ? this : new Integer(value.abs());
 
   @override
-  Integer ceil() => this;
+  Number ceil() => this;
 
   @override
-  Integer truncate() => this;
+  Number clamp(lowerLimit, upperLimit) {
+    num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
+    num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
+    return new Integer(value?.clamp(lower, upper));
+  }
+
+  @override
+  Number floor() => this;
+
+  @override
+  Number truncate() => this;
 
   /// Support [dart:json] stringify.
   ///

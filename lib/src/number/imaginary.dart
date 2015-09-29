@@ -186,17 +186,42 @@ class Imaginary extends Number {
 
   /// The real absolute value of a purely imaginary number is always zero.
   ///
-  Integer abs() => Integer.zero;
+  @override
+  Number abs() => Integer.zero;
 
   /// The integer ceiling of a purely imaginary number is always zero.
   ///
-  Integer ceil() => Integer.zero;
+  @override
+  Number ceil() => Integer.zero;
+
+  @override
+  Number clamp(lowerLimit, upperLimit) {
+    //TODO what does this mean?
+    throw new UnsupportedError("clamping of Imaginary number is undefined");
+  }
+
+  /// The integer floor of a purely imaginary number is always zero.
+  ///
+  @override
+  Number floor() => Integer.zero;
+
+  /// The nearest integer of a purely imaginary number is always zero.
+  ///
+  @override
+  Number round() => Integer.zero;
 
   /// The integer resulting from truncation of a purely imaginary number is always zero.
   ///
-  Integer truncate() => Integer.zero;
+  @override
+  Number truncate() => Integer.zero;
 
+  @override
   Number reciprocal() => Integer.one / this;
+
+  @override
+  Number remainder(divisor) {
+    new Imaginary(value.remainder(divisor));
+  }
 
   /// Support [dart:convert] JSON.stringify.
   ///
@@ -206,6 +231,7 @@ class Imaginary extends Number {
   /// Example:
   ///     {"imag":{"d":456.7}}
   ///
+  @override
   Map toJson() {
     return {"imag": value.toJson()};
   }

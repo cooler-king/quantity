@@ -37,9 +37,24 @@ abstract class Number implements Comparable {
   bool operator <=(obj);
 
   // Mirror num's abstract properties
+  bool get isFinite => !isInfinite;
   bool get isInfinite;
   bool get isNaN;
   bool get isNegative;
+
+  /// Returns minus one, zero or plus one depending on the sign and numerical value of the number.
+  ///
+  /// Returns minus one if the number is less than zero, plus one if the number is greater than zero,
+  /// and zero if the number is equal to zero. Returns NaN if the number is NaN.
+  ///
+  /// Returns an `int` if this Number's value is an integer, a `double` otherwise.
+  ///
+  num get sign {
+    if (isNaN) return double.NAN;
+    if (isNegative) return isInteger ? -1 : -1.0;
+    if (this == 0) return isInteger ? 0 : 0.0;
+    return isInteger ? 1 : 1.0;
+  }
 
   // Mirror num's abstract methods
 
@@ -49,9 +64,40 @@ abstract class Number implements Comparable {
   /// Returns the least Number having integer components no smaller than this Number.
   Number ceil();
 
+  /// Returns this num clamped to be in the range lowerLimit-upperLimit.
+  ///
+  /// The comparison is done using compareTo and therefore takes -0.0 into account.
+  /// This also implies that double.NAN is treated as the maximal double value.
+  ///
+  /// `lowerLimit` and `upperLimit` are expected to be `num` or `Number' objects.
+  ///
+  Number clamp(lowerLimit, upperLimit);
+
+  /// Returns the greatest Number with an integer value no greater than this Number.
+  ///
+  /// If this is not finite (NaN or infinity), throws an UnsupportedError.
+  ///
+  Number floor();
+
+  /// Returns the remainder of the truncating division of this Number by `divisor`.
+  ///
+  /// The result r of this operation satisfies: this == (this ~/ other) * other + r.
+  /// As a consequence the remainder r has the same sign as the [operator /(divisor)].
+  ///
+  Number remainder(divisor);
+
+  /// Returns the integer Number closest to this Number.
+  ///
+  /// Rounds away from zero when there is no closest integer:
+  /// (3.5).round() == 4 and (-3.5).round() == -4.
+  ///
+  /// If this is not finite (NaN or infinity), throws an UnsupportedError.
+  ///
+  Number round();
+
   int toInt();
   double toDouble();
-  Integer truncate();
+  Number truncate();
 
   // Add some of our own
   Number reciprocal();

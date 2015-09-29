@@ -1,5 +1,5 @@
 /// Quantity types, units and constants commonly encountered in the fields dealing with
-/// electromagnetics
+/// electromagnetics.
 ///
 library electromagnetic;
 

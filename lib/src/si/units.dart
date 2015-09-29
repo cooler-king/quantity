@@ -720,27 +720,27 @@ abstract class Units {
    *  2. The overall order is the base unit first followed by the derived
    *  units in order from greatest to least:
    *
-   *  * base 10<sup>0</sup>
-   *  * yotta 10<sup>24</sup>,
-   *  * zetta 10<sup>21</sup>,
-   *  * exa 10<sup>18</sup>,
-   *  * peta 10<sup>15</sup>,
-   *  * tera 10<sup>12</sup>,
-   *  * giga 10<sup>9</sup>,
-   *  * mega 10<sup>6</sup>,
-   *  * kilo 10<sup>3</sup>,
-   *  * hecto 10<sup>2</sup>,
-   *  * deka 10<sup>1</sup>,
-   *  * deci 10<sup>-1</sup>,
-   *  * centi 10<sup>-2</sup>,
-   *  * milli 10<sup>-3</sup>,
-   *  * micro 10<sup>-6</sup>,
-   *  * nano 10<sup>-9</sup>,
-   *  * pico 10<sup>-12</sup>,
-   *  * femto 10<sup>-15</sup>,
-   *  * atto 10<sup>-18</sup>,
-   *  * zepto 10<sup>-21</sup>,
-   *  * yocto 10<sup>-24</sup>.
+   *  * base 10^0
+   *  * yotta 10^24,
+   *  * zetta 10^21,
+   *  * exa 10^18,
+   *  * peta 10^15,
+   *  * tera 10^12,
+   *  * giga 10^9,
+   *  * mega 10^6,
+   *  * kilo 10^3,
+   *  * hecto 10^2,
+   *  * deka 10^1,
+   *  * deci 10^-1,
+   *  * centi 10^-2,
+   *  * milli 10^-3,
+   *  * micro 10^-6,
+   *  * nano 10^-9,
+   *  * pico 10^-12,
+   *  * femto 10^-15,
+   *  * atto 10^-18,
+   *  * zepto 10^-21,
+   *  * yocto 10^-24.
    *
   List<Units> getAllDerivedUnits() {
     List<Units> list = new List<Units>();
@@ -912,64 +912,64 @@ e.printStackTrace();
     }
   }*/
 
-  /// Returns the derived Units having the 10<sup>24</sup> prefix, yotta (Y).
+  /// Returns the derived Units having the 10^24 prefix, yotta (Y).
   Units yotta() => derive("yotta", "Y", 1.0e24);
 
-  /// Returns the derived Units having the 10<sup>21</sup> prefix, zetta (Z).
+  /// Returns the derived Units having the 10^21 prefix, zetta (Z).
   Units zetta() => derive("zetta", "Z", 1.0e21);
 
-  /// Returns the derived Units having the 10<sup>18</sup> prefix, exa (E).
+  /// Returns the derived Units having the 10^18 prefix, exa (E).
   Units exa() => derive("exa", "E", 1.0e18);
 
-  /// Returns the derived Units having the 10<sup>15</sup> prefix, peta (P).
+  /// Returns the derived Units having the 10^15 prefix, peta (P).
   Units peta() => derive("peta", "P", 1.0e15);
 
-  /// Returns the derived Units having the 10<sup>12</sup> prefix, tera (T).
+  /// Returns the derived Units having the 10^12 prefix, tera (T).
   Units tera() => derive("tera", "T", 1.0e12);
 
-  /// Returns the derived Units having the 10<sup>9</sup> prefix, giga (G).
+  /// Returns the derived Units having the 10^9 prefix, giga (G).
   Units giga() => derive("giga", "G", 1.0e9);
 
-  /// Returns the derived Units having the 10<sup>6</sup> prefix, mega (M).
+  /// Returns the derived Units having the 10^6 prefix, mega (M).
   Units mega() => derive("mega", "M", 1.0e6);
 
-  /// Returns the derived Units having the 10<sup>3</sup> (i.e., 1000) prefix, kilo (k).
+  /// Returns the derived Units having the 10^3 (i.e., 1000) prefix, kilo (k).
   Units kilo() => derive("kilo", "k", 1.0e3);
 
-  ///  Returns the derived Units having the 10<sup>2</sup> (i.e., 100) prefix, hecto (h).
+  ///  Returns the derived Units having the 10^2 (i.e., 100) prefix, hecto (h).
   Units hecto() => derive("hecto", "h", 1.0e2);
 
-  /// Returns the derived Units having the 10<sup>1</sup> (i.e. 10) prefix, deka (da).
+  /// Returns the derived Units having the 10^1 (i.e. 10) prefix, deka (da).
   Units deka() => derive("deka", "da", 1.0e1);
 
-  /// Returns the derived Units having the 10<sup>-1</sup> (i.e., 0.1) prefix, deci (d).
+  /// Returns the derived Units having the 10^-1 (i.e., 0.1) prefix, deci (d).
   Units deci() => derive("deci", "d", 1.0e-1);
 
-  /// Returns the derived Units having the 10<sup>-2</sup> (i.e., 0.01) prefix, centi (c).
+  /// Returns the derived Units having the 10^-2 (i.e., 0.01) prefix, centi (c).
   Units centi() => derive("centi", "c", 1.0e-2);
 
-  /// Returns the derived Units having the 10<sup>-3</sup> (i.e., 0.001) prefix, milli (m).
+  /// Returns the derived Units having the 10^-3 (i.e., 0.001) prefix, milli (m).
   Units milli() => derive("milli", "m", 1.0e-3);
 
-  /// Returns the derived Units having the 10<sup>-6</sup> prefix, micro (the symbol mu).
+  /// Returns the derived Units having the 10^-6 prefix, micro (the symbol mu).
   Units micro() => derive("micro", "\u00b5", 1.0e-6);
 
-  /// Returns the derived Units having the 10<sup>-9</sup> prefix, nano (n).
+  /// Returns the derived Units having the 10^-9 prefix, nano (n).
   Units nano() => derive("nano", "n", 1.0e-9);
 
-  /// Returns the derived Units having the 10<sup>-12</sup> prefix, pico (p).
+  /// Returns the derived Units having the 10^-12 prefix, pico (p).
   Units pico() => derive("pico", "p", 1.0e-12);
 
-  /// Returns the derived Units having the 10<sup>-15</sup> prefix, femto (f).
+  /// Returns the derived Units having the 10^-15 prefix, femto (f).
   Units femto() => derive("femto", "f", 1.0e-15);
 
-  /// Returns the derived Units having the 10<sup>-18</sup> prefix, atto (a).
+  /// Returns the derived Units having the 10^-18 prefix, atto (a).
   Units atto() => derive("atto", "a", 1.0e-18);
 
-  /// Returns the derived Units having the 10<sup>-21</sup> prefix, zepto (z).
+  /// Returns the derived Units having the 10^-21 prefix, zepto (z).
   Units zepto() => derive("zepto", "z", 1.0e-21);
 
-  /// Returns the derived Units having the 10<sup>-24</sup> prefix, yocto (y).
+  /// Returns the derived Units having the 10^-24 prefix, yocto (y).
   Units yocto() => derive("yocto", "y", 1.0e-24);
 
   /// Returns a String representation of the Units in the following format:
