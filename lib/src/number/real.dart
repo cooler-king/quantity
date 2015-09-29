@@ -12,16 +12,14 @@ abstract class Real extends Number {
   int toInt();
   double toDouble();
 
-  bool get isInfinite =>
-      value == double.INFINITY || value == double.NEGATIVE_INFINITY;
+  bool get isInfinite => value == double.INFINITY || value == double.NEGATIVE_INFINITY;
   bool get isNaN => value == double.NAN;
   bool get isNegative => value < 0;
 
   Number operator +(addend) {
     if (addend is num) return new Double(value + addend);
     if (addend is Real) return new Double(value + addend.value);
-    if (addend is Complex) return new Complex(
-        new Double(addend.real.toDouble() + value), addend.imag);
+    if (addend is Complex) return new Complex(new Double(addend.real.toDouble() + value), addend.imag);
     if (addend is Imaginary) return new Complex(this, addend);
     return this;
   }
@@ -31,8 +29,7 @@ abstract class Real extends Number {
   Number operator -(subtrahend) {
     if (subtrahend is num) return new Double(value - subtrahend);
     if (subtrahend is Real) return new Double(value - subtrahend.value);
-    if (subtrahend is Complex) return new Complex(
-        new Double(value - subtrahend.real.value), -(subtrahend.imag));
+    if (subtrahend is Complex) return new Complex(new Double(value - subtrahend.real.value), -(subtrahend.imag));
     if (subtrahend is Imaginary) return new Complex(this, -subtrahend);
 
     return this;
@@ -45,8 +42,7 @@ abstract class Real extends Number {
       return new Double(product);
     }
     if (multiplier is Real) return this * multiplier.value;
-    if (multiplier is Complex) return new Complex(
-        multiplier.real * value, multiplier.imaginary * value);
+    if (multiplier is Complex) return new Complex(multiplier.real * value, multiplier.imaginary * value);
     if (multiplier is Imaginary) return new Imaginary(multiplier.value * value);
 
     // Treat multiplier as 0
@@ -61,10 +57,8 @@ abstract class Real extends Number {
       Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       Number aOverc2d2 = this / c2d2;
 
-      return new Complex(aOverc2d2 * divisor.real,
-          new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
-    } else if (divisor
-        is Imaginary) return new Imaginary((this / divisor.value) * -1);
+      return new Complex(aOverc2d2 * divisor.real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
+    } else if (divisor is Imaginary) return new Imaginary((this / divisor.value) * -1);
 
     // Treat divisor as 0
     return Double.infinity;
@@ -83,8 +77,8 @@ abstract class Real extends Number {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
       Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       Number aOverc2d2 = this / c2d2;
-      return new Complex((aOverc2d2 * divisor.real).truncate(),
-          new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
+      return new Complex(
+          (aOverc2d2 * divisor.real).truncate(), new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
     if (divisor is Imaginary) {
       return new Imaginary(((this / divisor.value) * -1).truncate());
@@ -124,7 +118,7 @@ abstract class Real extends Number {
   ///
   /// In order to provide a convenient power operator for all [Number]s, the number library
   /// overrides the caret operator.  In Dart the caret operator is ordinarily used
-  /// for bitwise XOR operations on [int]s.  This class provides the [bitwiseXor] method
+  /// for bitwise XOR operations on [int]s.  The [Integer] class provides the [bitwiseXor] method
   /// as a substitute.
   ///
   Number operator ^(exponent) {
@@ -140,8 +134,7 @@ abstract class Real extends Number {
       // a^(b+ic) = a^b * ( cos(c * ln(a)) + i * sin(c * ln(a)) )
       Number coeff = this ^ exponent.real;
       double clna = (exponent.imaginary.value * Math.log(value)).toDouble();
-      return new Complex(coeff * Math.cos(clna) as Real,
-          new Imaginary(coeff * Math.sin(clna)));
+      return new Complex(coeff * Math.cos(clna) as Real, new Imaginary(coeff * Math.sin(clna)));
     }
     if (exponent is Imaginary) {
       // a^(ic) = cos(c * ln(a)) + i * sin(c * ln(a))
@@ -165,11 +158,7 @@ abstract class Real extends Number {
 
   bool operator <=(obj) => !(this > obj);
 
-  Number abs() => value >= 0
-      ? this
-      : value is int
-          ? new Integer(value.abs())
-          : new Double(value.abs().toDouble());
+  Number abs() => value >= 0 ? this : value is int ? new Integer(value.abs()) : new Double(value.abs().toDouble());
 
   Integer ceil() => new Integer(value.ceil());
 

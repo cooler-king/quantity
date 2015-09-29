@@ -46,36 +46,24 @@ main() {
       // types
       expect(createTypedQuantityInstance(Mass, 1.1, null) is Mass, true);
       expect(createTypedQuantityInstance(Time, 1.1, null) is Time, true);
-      expect(
-          createTypedQuantityInstance(TemperatureInterval, 1.1, null)
-          is TemperatureInterval,
-          true);
-      expect(
-          createTypedQuantityInstance(AmountOfSubstance, 1.1, null)
-          is AmountOfSubstance,
-          true);
+      expect(createTypedQuantityInstance(TemperatureInterval, 1.1, null) is TemperatureInterval, true);
+      expect(createTypedQuantityInstance(AmountOfSubstance, 1.1, null) is AmountOfSubstance, true);
       expect(createTypedQuantityInstance(Current, 1.1, null) is Current, true);
       expect(
-          createTypedQuantityInstance(
-              LuminousIntensity, 1.1, LuminousIntensity.candelas)
-          is LuminousIntensity,
-          true);
+          createTypedQuantityInstance(LuminousIntensity, 1.1, LuminousIntensity.candelas) is LuminousIntensity, true);
 
       expect(createTypedQuantityInstance(Scalar, 1.1, null) is Scalar, true);
-      expect(
-          createTypedQuantityInstance(Angle, 1.1, Angle.degrees, 13.2) is Angle,
-          true);
-      expect(createTypedQuantityInstance(SolidAngle, 1.1, null) is SolidAngle,
-          true);
+      expect(createTypedQuantityInstance(Angle, 1.1, Angle.degrees, 13.2) is Angle, true);
+      expect(createTypedQuantityInstance(SolidAngle, 1.1, null) is SolidAngle, true);
 
       Math.Random random = new Math.Random();
       for (Type t in allQuantityTypes) {
         try {
-          Quantity q = createTypedQuantityInstance(
-              t, 1.1, null, random.nextDouble() * 10.0);
+          Quantity q = createTypedQuantityInstance(t, 1.1, null, random.nextDouble() * 10.0);
           expect(q != null, true);
           expect(q.runtimeType == t, true);
         } catch (err) {
+          print(err);
           expect(err == null, true);
         }
       }

@@ -42,7 +42,7 @@ main() {
       expect(a.relativeUncertainty, 0);
 
       // default ctor, astronomical units
-      a = new Length(AU: 0.001);
+      a = new Length(ua: 0.001);
       expect(a.valueSI.toDouble(), closeTo(1.495978707e8, 0.00001));
       expect(a.preferredUnits, Length.astronomicalUnits);
       expect(a.relativeUncertainty, 0);

@@ -8,7 +8,7 @@ part of number;
 /// where those errors can be significant.
 ///
 /// This class enables arbitary precision calculations in both Dart and when transpiled to JavaScript by
-/// representing numbers as discrete blocks of digits that stay within the limitations of the underlying number
+/// representing numbers as digits that stay within the limitations of the underlying number
 /// system in the language.  In JavaScript the maximum value of a number, because they are 64-bit floating
 /// point values, is 2^53, or 9007199254740992, and the maximum number of significant digits as a result is 16.
 ///
@@ -24,18 +24,22 @@ class Precise extends Real {
   /// Flag for negative values
   bool _neg = false;
 
-  /// Optional precision cutoff (max number of significant digits allowed)
+  /// Optional precision cutoff (maximum number of significant digits allowed)
   int _precision;
 
   /// Construct an arbitrary precision number from a string.
+  ///
+  /// The precision can be limited by providing the maximum number of significant digits
+  /// (default is 50).
   ///
   /// Examples:
   ///   new Precise("12")
   ///   new Precise("0.1234")
   ///   new Precise("-12.345")
-  ///   new Precise("1.23456789e-6")
+  ///   new Precise("1.23456789e-6", sigDigits: 4)
   ///
-  Precise(String value) {
+  Precise(String value, {int sigDigits: 50}) {
+    _precision = sigDigits;
     String str = value.toLowerCase().trim();
     if (str.startsWith("-")) _neg = true;
     int decimalPointIndex = str.indexOf(".");
@@ -67,9 +71,13 @@ class Precise extends Real {
       if (char == "-" || char == "+" && index == 0) break;
       _digits.add(new Digit.char(char));
     }
+
+    _trimLeadingZeros();
+    _limitPrecision();
   }
 
-  factory Precise.num(num value) => value != null ? new Precise(value.toString()) : Precise.zero;
+  factory Precise.num(num value, {int sigDigits}) =>
+      value != null ? new Precise(value.toString(), sigDigits: sigDigits) : Precise.zero;
 
   /// Creates a new arbitrary precision number directly from digits.
   ///
@@ -84,15 +92,18 @@ class Precise extends Real {
   ///
   /// Default [precision] is 50 digits.
   ///
-  Precise.raw(List<Digit> digits, {int power: 0, bool neg: false, int precision: 50}) {
-    if (digits != null && digits.isNotEmpty) {
+  Precise.raw(List<Digit> digits, {int power: 0, bool neg: false, int sigDigits: 50}) {
+    if (digits?.isNotEmpty) {
       _digits.addAll(digits);
     } else {
       _digits.add(Digit.zero);
     }
     _power = power;
     _neg = neg;
-    _precision = precision;
+    _precision = sigDigits;
+
+    _trimLeadingZeros();
+    _limitPrecision();
   }
 
   /// Returns a copy of the internal digits list, from least significant to most.
@@ -102,6 +113,39 @@ class Precise extends Real {
   int get power => _power;
 
   int get precision => _precision;
+
+  /// Limit the precision to a maximum number of significant digits.
+  ///
+  void set precision(int sigDigits) {
+    _precision = sigDigits ?? 50;
+    _limitPrecision();
+  }
+
+  /// If the specified precision is lower than the number of digits,
+  /// truncates the digits and adjusts the power accordingly.
+  ///
+  /// Rounds the new least significant digit based on the
+  /// most significant truncated digit.
+  ///
+  void _limitPrecision() {
+    if (_digits.length > (_precision ?? 50)) {
+      int numCull = _digits.length - _precision;
+      bool roundUp = false;
+
+      // Round based on the digit one past the new max precision
+      for (int i = numCull; i >= 0; i--) {
+        Digit d = _digits.removeAt(i);
+        if (i == numCull && d.toInt() > 4) roundUp = true;
+      }
+      _power -= numCull;
+
+      if (roundUp) {
+        if (_digits[0] == Digit.nine) {} else {
+          _digits[0] = Digit.list[_digits[0].toInt() + 1];
+        }
+      }
+    }
+  }
 
   /// Returns the digit at [place], where place is with respect to the decimal number system
   /// (that is, place 1 is tens, place 2 is hundreds, place -3 is thousandths, etc).
@@ -117,7 +161,9 @@ class Precise extends Real {
     }
   }
 
-  @override bool get isInteger => _power == 0;
+  @override bool get isInteger => _power >= 0;
+
+  bool get isNegative => _neg;
 
   @override int toInt() {
     if (_power >= 0) return int.parse(toString());
@@ -140,6 +186,7 @@ class Precise extends Real {
   ///
   @override
   Number operator +(addend) {
+    //print("OPERATOR +       $this + $addend");
     Precise preciseAddend =
         addend is Precise ? addend : addend is num ? new Precise.num(addend) : new Precise("${addend}");
 
@@ -171,6 +218,162 @@ class Precise extends Real {
     return new Precise.raw(sum, power: placeExtents[0], neg: _neg);
   }
 
+  /// Subtraction operator.
+  ///
+  @override
+  Number operator -(subtrahend) {
+    //print("OPERATOR -       $this - $subtrahend");
+    Precise preciseSubtrahend = subtrahend is Precise
+        ? subtrahend
+        : subtrahend is num ? new Precise.num(subtrahend) : new Precise("${subtrahend}");
+
+    // Divert to addition if signs are different
+    if (_neg != preciseSubtrahend._neg) {
+      if (_neg) return preciseSubtrahend - (-this);
+      return this + (-preciseSubtrahend);
+    }
+
+    // Flip operation if subtrahend is greater
+    if (subtrahend.abs() > this.abs()) {
+      return -(subtrahend - this);
+      //Precise p = (subtrahend - this);
+      //if (_neg) return new Precise.raw(p._digits, power: p._power, neg: false);
+      //return p;
+    }
+
+    // Subtrahend is lesser; safe to borrow
+    var placeExtents = determinePlaceExtents(this, preciseSubtrahend);
+    List<Digit> diff = [];
+    int borrow = 0;
+    int temp = 0;
+    for (int place = placeExtents[0]; place <= placeExtents[1]; place++) {
+      Digit d1 = digitAtPlace(place);
+      Digit d2 = preciseSubtrahend.digitAtPlace(place);
+      temp = (d1 - d2) + borrow;
+      //print("sub... $temp = ($d1 - $d2) + $borrow");
+      if (temp < 0) {
+        diff.add(Digit.list[10 + temp]);
+        borrow = -1;
+      } else {
+        diff.add(Digit.list[temp]);
+        borrow = 0;
+      }
+    }
+
+    //print(diff);
+
+    //if (borrow == -1) diff.add(Digit.one);
+
+    return new Precise.raw(diff, power: placeExtents[0], neg: _neg);
+  }
+
+  /// Multiplication operator.
+  ///
+  @override
+  Number operator *(multiplier) {
+    Precise preciseMultiplier = multiplier is Precise
+        ? multiplier
+        : multiplier is num ? new Precise.num(multiplier) : new Precise("${multiplier}");
+    //TODO what about Number?
+
+    Precise product = Precise.zero;
+    List<Digit> intermediateProduct = [];
+    int combinedPower = _power + preciseMultiplier._power;
+    int carry = 0;
+    int temp = 0;
+    int offset = 0;
+    for (int p1 = preciseMultiplier._power; p1 < preciseMultiplier._power + preciseMultiplier._digits.length; p1++) {
+      int d1Int = preciseMultiplier.digitAtPlace(p1).toInt();
+      //print("DIGIT1 = ${d1Int}");
+      intermediateProduct = [];
+      for (int p2 = _power; p2 < _power + _digits.length; p2++) {
+        Digit d2 = digitAtPlace(p2);
+        //print("DIGIT2 = ${d2}");
+        temp = (d1Int * d2.toInt()) + carry;
+        //print("temp = ${temp}.... (carry ${carry})");
+
+        if (temp < 10) {
+          intermediateProduct.add(Digit.list[temp]);
+          carry = 0;
+        } else {
+          carry = temp ~/ 10;
+          intermediateProduct.add(Digit.list[temp - (carry * 10)]);
+        }
+      }
+      if (carry != 0) {
+        intermediateProduct.add(Digit.list[carry]);
+        carry = 0;
+      }
+
+      for (int i = 0; i < offset; i++) {
+        intermediateProduct.insert(0, Digit.zero);
+      }
+      //print("${multiplier}--- intermediate... ${intermediateProduct}");
+      //print(
+      //    "${product + new Precise.raw(intermediateProduct, sigDigits: _precision + 2)} = ${product} + ${intermediateProduct} ");
+      product += new Precise.raw(intermediateProduct, sigDigits: _precision + 2);
+      //print("temp product = ${product}");
+
+      offset += 1;
+    }
+
+    return new Precise.raw(product._digits, power: combinedPower, neg: _neg != preciseMultiplier._neg);
+  }
+
+  /// Division operator.
+  ///
+  @override
+  Number operator /(divisor) {
+    Precise preciseDivisor =
+        divisor is Precise ? divisor : divisor is num ? new Precise.num(divisor) : new Precise("${divisor}");
+    //TODO what about Number?
+
+    bool negResult = _neg != preciseDivisor._neg;
+
+    if (preciseDivisor == 0) return negResult ? Double.negInfinity : Double.infinity;
+    if (preciseDivisor == 1) return this;
+
+    // Use the absolute value of the divisor from here
+    preciseDivisor = preciseDivisor.abs();
+
+    // Shift of decimal place
+    int shift = divisor._power < 0 ? -divisor._power : 0;
+    int effectivePower = 0;
+
+    // Long division algorithm
+    int divisorDigits = preciseDivisor._digits.length;
+    //int remainder = 0;
+    List<Digit> result = [];
+    int digitCursor = _digits.length - 1;
+    List<Digit> temp = [];
+    while (result.length < _precision && digitCursor > -1) {
+      // Grab next digit
+      temp.add(_digits[digitCursor]);
+      if (temp.length >= divisorDigits) {
+        Precise p = new Precise.raw(temp);
+        if (p >= preciseDivisor) {
+          // Find the highest multiple of the divisor that's less than p
+          for (int i = 9; i > 0; i--) {
+            Precise prod = preciseDivisor * i;
+            if (prod <= p) {
+              result.add(Digit.list[i]);
+
+              // Remainder is new temp
+              temp = new List<Digit>.from(((p - prod) as Precise)._digits);
+
+              break;
+            }
+          }
+        } else {
+          result.add(Digit.zero);
+        }
+      }
+      digitCursor--;
+    }
+
+    return new Precise.raw(result, power: effectivePower, neg: negResult);
+  }
+
   /// Equals operator.
   ///
   @override
@@ -185,6 +388,17 @@ class Precise extends Real {
       if (digitAtPlace(place) != p2.digitAtPlace(place)) return false;
     }
     return true;
+  }
+
+  /// If an integer value, returns the same hash as an [int] with the same value.
+  ///
+  /// If not an integer value, uses the hashing utility from the quiver package to
+  /// create a high quality hash based on the digits, sign and power.
+  ///
+  @override
+  int get hashCode {
+    if (isInteger) return toInt().hashCode;
+    return hashObjects(new List.from(_digits)..add(_neg)..add(_power));
   }
 
   /// Less than operator.
@@ -234,6 +448,23 @@ class Precise extends Real {
     return false;
   }
 
+  /// Power operator.
+  ///
+  @override
+  Number operator ^(exponent) {
+    if (exponent == null || exponent == 0) return Integer.one;
+    if (exponent == 1) return this;
+    if (exponent is int || (exponent is Number && exponent.isInteger)) {
+      int exp = exponent is int ? exponent : (exponent as Number).toInt();
+      Precise p = this;
+      for (int i = 1; i < exp; i++) {
+        p = p * this;
+      }
+    } else {
+      //TODO Precise to decimal power - unsupported or approximated?
+    }
+  }
+
   /// Greater than or equals operator.
   ///
   @override
@@ -255,20 +486,21 @@ class Precise extends Real {
     _digits.reversed.forEach((d) => buf.write(d));
 
     if (_power > 0) {
-      if (_power > 3) {
-        buf.write("e${_power}");
-      } else {
-        // Add zeroes
-        for (int i = 0; i <= _power; i++) {
-          buf.write("0");
-        }
+      //if (_power > 3) {
+      //  buf.write("e${_power}");
+      //} else {
+      // Add zeroes
+      for (int i = 0; i <= _power; i++) {
+        buf.write("0");
       }
+      // }
     } else if (_power < 0) {
       if (_power.abs() < _digits.length) {
         // Insert decimal point
         String str = buf.toString();
         buf.clear();
         int splitIndex = _digits.length + _power;
+        if (_neg) splitIndex++;
         buf.write(str.substring(0, splitIndex));
         buf.write(".");
         buf.write(str.substring(splitIndex));
@@ -285,6 +517,15 @@ class Precise extends Real {
   ///
   static List<int> determinePlaceExtents(Precise p1, Precise p2) =>
       [Math.min(p1._power, p2._power), Math.max(p1._power + p1._digits.length - 1, p2._power + p2._digits.length - 1)];
+
+  /// Remove any most-significant zeros more than one place away from the
+  /// decimal point.
+  ///
+  void _trimLeadingZeros() {
+    while (_digits.length > 1 && _digits.last == Digit.zero && _digits.length > (1 - _power)) {
+      _digits.removeLast();
+    }
+  }
 }
 
 /// Represents a digit in four bits of a single byte.
@@ -331,18 +572,24 @@ class Digit {
 
   @override int get hashCode => value.getUint8(0);
 
-  /// Adds two digits together.
-  ///
-  /// TODO The result will either be a digit or a list of two digits
-  /// if the sum is greater than 10.  The order of the digits
-  /// is like it would be read (e.g., [1, 5] for fifteen), which is
-  /// opposite of the way [Precise] stores them.
+  /// Adds two digits together, returning the result as an [int].
   ///
   /// If [addend] is not a [Digit] then an exception will be thrown.
   ///
   int operator +(addend) {
     if (addend is! Digit) throw "Addend must be a Digit";
     return toInt() + addend.toInt();
+  }
+
+  /// Subtracts [subtrahend] from this Digit, returning the result as an [int].
+  ///
+  /// The result may be negative.
+  ///
+  /// If [subtrahend] is not a [Digit] then an exception will be thrown.
+  ///
+  int operator -(subtrahend) {
+    if (subtrahend is! Digit) throw "Subtrahend must be a Digit";
+    return toInt() - subtrahend.toInt();
   }
 
   bool operator <(other) {

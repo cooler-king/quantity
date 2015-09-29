@@ -1,7 +1,15 @@
+/// The _quantity package_ accepts both Dart's `num` types and the `Number`s defined by this
+/// _number library_ as quantity values and for quantity operations.
+///
+/// The classes in this library can be used to model quantities having values with arbitrary precision
+/// as well as imaginary or complex numbers.  It is independent of the quantity classes and can be
+/// used in a purely mathematical context.
+///
 library number;
 
 import 'dart:math' as Math;
 import 'dart:typed_data';
+import 'package:quiver/core.dart';
 
 part 'src/number/complex.dart';
 part 'src/number/double.dart';

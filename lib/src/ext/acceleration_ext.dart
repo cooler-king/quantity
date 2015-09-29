@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-final AccelerationUnits meterPerSecondSquared = Acceleration.meterPerSecondSquared;
+final AccelerationUnits meterPerSecondSquared = Acceleration.metersPerSecondSquared;
 
 final AccelerationUnits footPerSecondSquared = new AccelerationUnits.lengthTimeUnits(feet, seconds);
 

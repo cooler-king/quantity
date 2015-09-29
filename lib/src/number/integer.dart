@@ -15,8 +15,7 @@ class Integer extends Real {
 
   Integer(this._value);
   const Integer.constant(this._value) : super.constant();
-  Integer.parse(String str, {int radix: 10})
-      : _value = int.parse(str, radix: radix);
+  Integer.parse(String str, {int radix: 10}) : _value = int.parse(str, radix: radix);
 
   num get value => _value;
 
@@ -41,7 +40,10 @@ class Integer extends Real {
     return false;
   }
 
-  int get hashCode => _value.toDouble().hashCode;
+  /// Returns the same hash as the [int] with the same value.
+  ///
+  @override
+  int get hashCode => _value?.hashCode;
 
   bool get isInteger => true;
 
@@ -86,8 +88,7 @@ class Integer extends Real {
   Number operator &(n) {
     if (n is int) return new Integer(_value & n);
     if (n is Integer) return new Integer(_value & n._value);
-    throw new UnsupportedError(
-        "Bitwise AND operations are only supported for int and Integer objects");
+    throw new UnsupportedError("Bitwise AND operations are only supported for int and Integer objects");
   }
 
   /// Bitwise OR.
@@ -95,8 +96,7 @@ class Integer extends Real {
   Number operator |(n) {
     if (n is int) return new Integer(_value | n);
     if (n is Integer) return new Integer(_value | n._value);
-    throw new UnsupportedError(
-        "Bitwise OR operations are only supported for int and Integer objects");
+    throw new UnsupportedError("Bitwise OR operations are only supported for int and Integer objects");
   }
 
   /// A substitute method to perform bitwise XOR operation on integers.
@@ -106,8 +106,7 @@ class Integer extends Real {
   Integer bitwiseXor(n) {
     if (n is int) return new Integer(_value ^ n);
     if (n is Integer) return new Integer(_value ^ n._value);
-    throw new UnsupportedError(
-        "Bitwise XOR operations are only supported for int and Integer objects");
+    throw new UnsupportedError("Bitwise XOR operations are only supported for int and Integer objects");
   }
 
   /// The absolute value, returned as an [Integer].

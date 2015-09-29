@@ -16,11 +16,11 @@ main() {
       expect(boltzmannConstant.valueSI.toDouble(), 1.38064852e-23);
       expect(boltzmannConstant.relativeUncertainty, 5.7e-7);
 
-      expect(sackurTetrode100kPa is Entropy, true);
+      expect(sackurTetrode100kPa is Scalar, true);
       expect(sackurTetrode100kPa.valueSI.toDouble(), -1.1517084);
       expect(sackurTetrode100kPa.relativeUncertainty, 1.2e-6);
 
-      expect(sackurTetrodeStdAtm is Entropy, true);
+      expect(sackurTetrodeStdAtm is Scalar, true);
       expect(sackurTetrodeStdAtm.valueSI.toDouble(), -1.1648714);
       expect(sackurTetrodeStdAtm.relativeUncertainty, 1.2e-6);
 

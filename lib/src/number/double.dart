@@ -9,11 +9,8 @@ class Double extends Real {
   static const Double hundred = const Double.constant(100.0);
   static const Double thousand = const Double.constant(1000.0);
   static const Double infinity = const Double.constant(double.INFINITY);
-  static const Double negInfinity =
-      const Double.constant(double.NEGATIVE_INFINITY);
+  static const Double negInfinity = const Double.constant(double.NEGATIVE_INFINITY);
   static const Double NaN = const Double.constant(double.NAN);
-
-  static const String decimalString = "9753124680";
 
   Double(this._value);
   const Double.constant(this._value) : super.constant();
@@ -22,18 +19,17 @@ class Double extends Real {
   num get value => _value;
 
   double toDouble() => _value;
+
   int toInt() => _value.toInt();
 
-  /// Dart's double hashCode method is inadequate (it returns the integer portion
-  /// only of the value).
+  /// If an integer value returns the same hash as the [int] with the same value.
   ///
+  /// Otherwise returns the same hash as the [Precise] number represeting the value.
+  ///
+  @override
   int get hashCode {
-    if (_value.toInt() == _value) return _value.hashCode;
-
-    // make it into a string (turn the decimal into an unlikely series of numbers)
-    String str = "${_value}";
-    str = str.replaceAll(".", Double.decimalString);
-    return int.parse(str);
+    if (isInteger) return toInt().hashCode;
+    return (new Precise.num(_value)).hashCode;
   }
 
   bool operator ==(obj) {

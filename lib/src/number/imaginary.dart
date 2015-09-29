@@ -8,14 +8,9 @@ part of number;
 class Imaginary extends Number {
   final Real value;
 
-  static const String imaginaryString = "5456565651";
-
-  //Imaginary(num n) : super(n);
   Imaginary(val)
       : this.value = (val is num)
-            ? ((val is int)
-                ? new Integer(val as int)
-                : new Double(val as double))
+            ? ((val is int) ? new Integer(val as int) : new Double(val as double))
             : (val is Real) ? val : Double.zero;
 
   const Imaginary.constant(this.value) : super.constant();
@@ -24,17 +19,15 @@ class Imaginary extends Number {
   int toInt() => 0;
   Complex toComplex() => new Complex(Double.zero, this);
 
-  bool get isInfinite =>
-      value == Double.infinity || value == Double.negInfinity;
+  bool get isInfinite => value == Double.infinity || value == Double.negInfinity;
   bool get isNaN => value == Double.NaN;
   bool get isNegative => value < 0;
 
   bool get isInteger => value.isInteger;
 
-  Imaginary.fromMap(Map m)
-      : this.value =
-            (m.containsKey("imag")) ? Number._fromMap(m["imag"]) : Double.zero;
+  Imaginary.fromMap(Map m) : this.value = (m.containsKey("imag")) ? Number._fromMap(m["imag"]) : Double.zero;
 
+  @override
   bool operator ==(obj) {
     if (obj is Imaginary) return value == obj.value;
     if (obj is Complex) return obj.real == 0.0 && this == obj.imaginary;
@@ -43,14 +36,14 @@ class Imaginary extends Number {
     return false;
   }
 
+  @override
   int get hashCode {
-    String str = "${Imaginary.imaginaryString}${value.hashCode}";
-    return int.parse(str);
+    if (value == 0) return 0.hashCode;
+    return hash2(0.hashCode, value);
   }
 
   Number operator +(addend) {
-    if (addend
-        is Imaginary) return new Imaginary((value + addend.value).toDouble());
+    if (addend is Imaginary) return new Imaginary((value + addend.value).toDouble());
     if (addend is Complex) return new Complex(addend.real, value + addend.imag);
     if (addend is Real) return new Complex(addend, this);
     if (addend is num) return new Complex(new Double(addend), this);
@@ -60,12 +53,10 @@ class Imaginary extends Number {
   Number operator -() => new Imaginary(-value);
 
   Number operator -(subtrahend) {
-    if (subtrahend is num) return new Complex(
-        subtrahend is int ? new Integer(-subtrahend) : new Double(-subtrahend),
-        this);
+    if (subtrahend
+        is num) return new Complex(subtrahend is int ? new Integer(-subtrahend) : new Double(-subtrahend), this);
     if (subtrahend is Real) return new Complex(-subtrahend, this);
-    if (subtrahend is Complex) return new Complex(
-        -subtrahend.real, this - subtrahend.imaginary);
+    if (subtrahend is Complex) return new Complex(-subtrahend.real, this - subtrahend.imaginary);
     if (subtrahend is Imaginary) return new Imaginary(value - subtrahend.value);
 
     return this;
@@ -74,8 +65,7 @@ class Imaginary extends Number {
   Number operator *(multiplier) {
     // i * i = -1
     if (multiplier is Imaginary) return value * multiplier.value * -1;
-    if (multiplier is Complex) return new Complex(
-        value * multiplier.imag * -1.0, value * multiplier.real);
+    if (multiplier is Complex) return new Complex(value * multiplier.imag * -1.0, value * multiplier.real);
     if (multiplier is num) return new Imaginary(value * multiplier);
     if (multiplier is Real) return new Imaginary(multiplier * value);
 
@@ -89,10 +79,8 @@ class Imaginary extends Number {
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
-      Number bOverc2d2 =
-          value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return new Complex(bOverc2d2 * divisor.real,
-          new Imaginary(bOverc2d2 * divisor.imaginary.value * -1.0));
+      Number bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
+      return new Complex(bOverc2d2 * divisor.real, new Imaginary(bOverc2d2 * divisor.imaginary.value * -1.0));
     }
 
     // Treat divisor as 0
@@ -103,27 +91,20 @@ class Imaginary extends Number {
   ///  The truncating division operator.
   ///
   Number operator ~/(divisor) {
-    if (divisor == 0) return value < 0
-        ? new Imaginary(Double.negInfinity)
-        : new Imaginary(Double.infinity);
+    if (divisor == 0) return value < 0 ? new Imaginary(Double.negInfinity) : new Imaginary(Double.infinity);
     if (divisor is num) return new Imaginary(value ~/ divisor);
     if (divisor is Imaginary) return value ~/ divisor.value;
     if (divisor is Real) return new Imaginary(value ~/ divisor.value);
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
-      Number bOverc2d2 =
-          value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return new Complex(
-          (bOverc2d2 * divisor.real).truncate(),
-          new Imaginary(
-              (bOverc2d2 * divisor.imaginary.value * -1.0).truncate()));
+      Number bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
+      return new Complex((bOverc2d2 * divisor.real).truncate(),
+          new Imaginary((bOverc2d2 * divisor.imaginary.value * -1.0).truncate()));
     }
 
     // Treat divisor as 0
-    return value < 0
-        ? new Imaginary(Double.negInfinity)
-        : new Imaginary(Double.infinity);
+    return value < 0 ? new Imaginary(Double.negInfinity) : new Imaginary(Double.infinity);
   }
 
   /// The modulo operator.
@@ -151,15 +132,12 @@ class Imaginary extends Number {
   ///
   Number operator ^(exponent) {
     if (exponent is num) return new Double(Math.pow(value.value, exponent));
-    if (exponent
-        is Real) return new Double(Math.pow(value.value, exponent.value));
+    if (exponent is Real) return new Double(Math.pow(value.value, exponent.value));
     if (exponent is Complex) {
       // a^(b+ic) = a^b * ( cos(c * ln(a)) + i * sin(c * ln(a)) )
       Number coeff = this ^ exponent.real;
-      double clna =
-          (exponent.imaginary.value * Math.log(value.value)).toDouble();
-      return new Complex(coeff * Math.cos(clna) as Real,
-          new Imaginary(coeff * Math.sin(clna)));
+      double clna = (exponent.imaginary.value * Math.log(value.value)).toDouble();
+      return new Complex(coeff * Math.cos(clna) as Real, new Imaginary(coeff * Math.sin(clna)));
     }
     if (exponent is Imaginary) {
       // a^(ic) = cos(c * ln(a)) + i * sin(c * ln(a))

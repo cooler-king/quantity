@@ -1,11 +1,8 @@
 part of number;
 
-/**
-   ###Immutable?
- */
+/// The abstract base class for all Number types.
+///
 abstract class Number implements Comparable {
-  //static Map<String, Type> _codeTypeMap;
-
   const Number.constant();
   Number();
 
@@ -16,8 +13,11 @@ abstract class Number implements Comparable {
   ///
   bool operator ==(obj);
 
-  /// The hashcodes for two Numbers will be equal when the represnted values are equal,
+  /// The hashcodes for two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
+  ///
+  /// Additionally, Numbers having integer values will have the same hashcode as
+  /// the corresponding dart:core `int`.
   ///
   int get hashCode;
 
@@ -73,7 +73,7 @@ abstract class Number implements Comparable {
   /// be considered to have a value of 0.
   ///
   int compareTo(Comparable n2) {
-    if (n2 is Number) return Comparable.compare(this.toDouble(), (n2 as Number).toDouble());
+    if (n2 is Number) return Comparable.compare(this.toDouble(), n2.toDouble());
     if (n2 is num) return Comparable.compare(this.toDouble(), n2);
 
     // If n2 is not a num or Number, treat it as a zero

@@ -15,7 +15,8 @@ export 'package:quantity/quantity.dart'
         Entropy,
         EntropyUnits,
         MiscQuantity,
-        MassUnits;
+        MassUnits,
+        Scalar;
 
 // CONSTANTS
 

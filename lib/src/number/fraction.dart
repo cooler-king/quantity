@@ -8,26 +8,18 @@ class Fraction extends Double {
       : _numerator = numer,
         _denominator = denom,
         super(numer / denom);
+
   Fraction.mixed(int whole, int numer, int denom)
       : _numerator = numer + (whole * denom),
         _denominator = denom,
         super((whole * denom + numer) / denom);
-
-  // num get real => this.value;
-
-  /*
-  bool isInteger() {
-    if(imaginary == null) {}
-  }*/
 
   Number operator +(addend) {
     if (addend is Fraction) {} else {
       return super + addend;
     }
 
-    double val = (_denominator != 0)
-        ? (_numerator.toDouble() / _denominator.toDouble())
-        : double.INFINITY;
+    double val = (_denominator != 0) ? (_numerator.toDouble() / _denominator.toDouble()) : double.INFINITY;
 
     if (addend is Imaginary) {
       return new Complex(new Double(val), addend);
