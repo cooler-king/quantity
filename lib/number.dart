@@ -30,14 +30,12 @@ Number objToNumber(Object object) {
   throw new Exception("num or Number expected");
 }
 
-/// Converts a num [value] to associated Number object
-/// (Integer for int, Double for Double).
+/// Converts a num [value] to associated [Number] object
+/// ([Integer] for `int`, [Double] for `double`).
 ///
 Number numToNumber(num value) {
   if (value is int) return new Integer(value);
   return new Double(value);
-  // JS can't distinguish so just assume Double
-  //return new Double(value.toDouble());
 }
 
 num numberToNum(Number number) {

@@ -12,6 +12,21 @@ main() {
       expect(Double.ten.value, 10.0);
       expect(Double.hundred.value, 100.0);
       expect(Double.thousand.value, 1000.0);
+      expect(Double.infinity.value, double.INFINITY);
+      expect(Double.negInfinity.value, double.NEGATIVE_INFINITY);
+      expect(identical(Double.NaN.value, double.NAN), true);
+    });
+
+    test('isNaN', () {
+      Double d = const Double.constant(42.0);
+      Double d2 = Double.NaN;
+      Double d3 = Double.infinity;
+      Double d4 = new Double(double.NAN);
+
+      expect(d.isNaN, false);
+      expect(d2.isNaN, true);
+      expect(d3.isNaN, false);
+      expect(d4.isNaN, true);
     });
 
     test('equality', () {
@@ -35,6 +50,7 @@ main() {
 
       // equality with complex
       Complex c1 = new Complex(new Double(42.0), new Imaginary(0.0));
+      expect(d4 == c1, true);
     });
 
     test('addition', () {
@@ -47,8 +63,7 @@ main() {
       Imaginary i = new Imaginary(34.21);
       expect((d + i) is Complex, true);
       expect(((d + i) as Complex).real.toDouble(), closeTo(42.056, 0.000001));
-      expect(
-          ((d + i) as Complex).imag.value.toDouble(), closeTo(34.21, 0.000001));
+      expect(((d + i) as Complex).imag.value.toDouble(), closeTo(34.21, 0.000001));
     });
   });
 }

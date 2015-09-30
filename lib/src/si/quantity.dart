@@ -4,7 +4,7 @@ part of quantity_si;
 /// the value of a quantity (stored internally in SI MKS units) and its
 /// associated dimensions.  It provides methods for getting and setting the
 /// quantity's value in arbitrary units, methods for mathematical manipulation
-/// and comparison and optional features such as immutability, arbitrary
+/// and comparison and optional features such as arbitrary
 /// precision and uncertainty.
 ///
 /// ## Definitions
@@ -103,7 +103,12 @@ part of quantity_si;
 //TODO make generic? Quantity<double>, Quantity<Precise> etc
 //abstract class Quantity implements Comparable //, QuantityValues
 class Quantity implements Comparable {
-  // Value
+  /// The value of the quantity in the [base units](http://physics.nist.gov/cuu/Units/current.html),
+  /// of the International System of Units (SI).
+  ///
+  /// This is often referred to as the _MKS_ value to highlight that the units reference meters
+  /// and kilograms rather than centimeters and grams (_CGS_) as was often done before standardization.
+  /// The [mks] getter offers a shorthand way to retrieve this value.
   final Number valueSI;
 
   // Dimensions
@@ -264,7 +269,12 @@ class Quantity implements Comparable {
 
   /// Returns the absolute value of this Quantity.
   ///
-  Quantity abs() => dimensions.toQuantity(valueSI.abs(), preferredUnits, _ur);
+  /// If the value of this Quantity is not negative it is returned directly.
+  ///
+  Quantity abs() {
+    if (valueSI >= 0) return this;
+    return dimensions.toQuantity(valueSI.abs(), preferredUnits, _ur);
+  }
 
   /// Returns the sum of this Quantity and [addend].
   ///
@@ -273,9 +283,9 @@ class Quantity implements Comparable {
   /// * If the uncertainty is calculated it will be equal to the combined
   /// standard uncertainty divided by the absolute value of the sum of the
   /// quantities.  The standard uncertainty is the square root of the sum
-  /// of the squares of the two quantities' standard uncertainties.
-  ///
-  /// See [NIST Reference on Constants, Units, and Uncertainty: Combining Uncertainty Components](http://physics.nist.gov/cuu/Uncertainty/combination.html)</a>
+  /// of the squares of the two quantities' standard uncertainties. See
+  /// [NIST Reference on Constants, Units, and Uncertainty: Combining
+  /// Uncertainty Components](http://physics.nist.gov/cuu/Uncertainty/combination.html)
   ///
   Quantity operator +(addend) {
     // Null check
@@ -336,7 +346,7 @@ class Quantity implements Comparable {
   ///
   /// See <a href="http://physics.nist.gov/cuu/Uncertainty/combination.html">
   /// NIST Reference on Constants, Units, and Uncertainty: Combining
-  /// uncertainty components</a>
+  /// uncertainty components
   ///
   Quantity operator -(subtrahend) {
     // Null check
@@ -476,7 +486,7 @@ class Quantity implements Comparable {
   ///  Quantity is calculated it will be equal to the exponent times the
   ///  relative standard uncertainty of this Quantity.
   ///
-  /// See [NIST Reference on Constants, Units, and Uncertainty: Combining uncertainty components](http://physics.nist.gov/cuu/Uncertainty/combination.html)</a>
+  /// See [NIST Reference on Constants, Units, and Uncertainty: Combining uncertainty components](http://physics.nist.gov/cuu/Uncertainty/combination.html)
   ///
   Quantity operator ^(exponent) {
     if (exponent is! num &&

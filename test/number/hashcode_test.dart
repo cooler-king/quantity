@@ -86,8 +86,6 @@ main() {
 
       var d5 = new Precise("-32.456");
       expect(d.hashCode == d5.hashCode, false);
-
-      expect((12.345).hashCode == (12.987).hashCode, false);
     });
   });
 }

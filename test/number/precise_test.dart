@@ -450,12 +450,35 @@ main() {
 
       result = p2 / pNeg20;
       expect(result, new Precise("-0.1"));
+
+      Precise pPt1 = new Precise("0.1");
+      result = pPt1 / p10;
+      expect(result, new Precise("0.01"));
+
+      Precise pPt0002 = new Precise("0.0002");
+      result = pPt0002 / p2;
+      expect(result, new Precise("0.0001"));
+      result = pPt0002 / p10;
+      expect(result, new Precise("0.00002"));
+      result = pPt0002 / pPt1;
+      expect(result, new Precise("0.002"));
+      result = pPt1 / pPt0002;
+      expect(result, new Precise("500"));
+
+      Precise pNegPt0002 = new Precise("-0.0002");
+      result = pNegPt0002 / p2;
+      expect(result, new Precise("-0.0001"));
+      result = pNegPt0002 / p10;
+      expect(result, new Precise("-0.00002"));
+      result = pNegPt0002 / pPt1;
+      expect(result, new Precise("-0.002"));
+      result = pPt1 / pNegPt0002;
+      expect(result, new Precise("-500"));
     });
 
     test('operator ^', () {
       Precise p0 = Precise.zero;
-      //expect(identical(p0 ^ 0, Double.NaN), true);
-      expect(p0 ^ 0, Double.NaN);
+      expect(identical(p0 ^ 0, Double.NaN), true);
       expect(p0 ^ 1, Precise.zero);
       expect(p0 ^ 2, Precise.zero);
       expect(p0 ^ -2, Precise.zero);
@@ -475,12 +498,60 @@ main() {
       expect(p10 ^ 2, new Precise.num(100));
       expect(p10 ^ -1, new Precise.num(0.1));
       expect(p10 ^ -2, new Precise.num(0.01));
+      expect(p10 ^ -5, new Precise.num(0.00001));
+
+      var p1000 = new Precise.num(1000);
+      expect(p1000 ^ 0, p1);
+      expect(p1000 ^ 1, p1000);
+      expect(p1000 ^ 2, new Precise.num(1000000));
+      expect(p1000 ^ -1, new Precise.num(0.001));
+      expect(p1000 ^ -2, new Precise.num(0.000001));
 
       var pNeg5 = new Precise.num(-5);
       expect(pNeg5 ^ 0, p1);
       expect(pNeg5 ^ 1, pNeg5);
       expect(pNeg5 ^ 2, new Precise.num(25));
       expect(pNeg5 ^ 3, new Precise.num(-125));
+    });
+
+    test('operator ~/', () {
+      Precise p0 = Precise.zero;
+      expect(p0 ~/ 1, Precise.zero);
+      expect(p0 ~/ 2, Precise.zero);
+      expect(p0 ~/ -2, Precise.zero);
+      expect(p0 ~/ 100, Precise.zero);
+
+      var p10 = new Precise.num(10);
+      expect(p10 ~/ 3, new Precise("3"));
+      expect(p10 ~/ new Integer(3), new Precise("3"));
+      expect(p10 ~/ new Double(3.0), new Precise("3"));
+      expect(p10 ~/ new Precise("3"), new Precise("3"));
+      expect(p10 ~/ new Precise.num(3), new Precise("3"));
+
+      expect(p10 ~/ 2, new Precise("5"));
+      expect(p10 ~/ -2, new Precise("-5"));
+      expect(p10 ~/ -3, new Precise("-3"));
+      expect(p10 ~/ 0.003, new Precise("3333"));
+    });
+
+    test('operator %', () {
+      Precise p0 = Precise.zero;
+      expect(p0 % 1, Precise.zero);
+      expect(p0 % 2, Precise.zero);
+      expect(p0 % -2, Precise.zero);
+      expect(p0 % 100, Precise.zero);
+
+      var p10 = new Precise.num(10);
+      expect(p10 % 3, new Precise("1"));
+      expect(p10 % new Integer(3), new Precise("1"));
+      expect(p10 % new Double(3.0), new Precise("1"));
+      expect(p10 % new Precise("3"), new Precise("1"));
+      expect(p10 % new Precise.num(3), new Precise("1"));
+
+      expect(p10 % 2, Precise.zero);
+      expect(p10 % -2, Precise.zero);
+      expect(p10 % -3, Precise.one);
+      expect(p10 % 0.003, new Precise("0.001"));
     });
 
     test('abs', () {
@@ -535,6 +606,39 @@ main() {
       expect(ceil.toString(), "11");
     });
 
+    test('clamp', () {
+      var p = new Precise("5.678");
+
+      var clamp = p.clamp(5.7, 6);
+      expect(clamp is Precise, true);
+      expect(clamp.toString(), "5.7");
+
+      clamp = p.clamp(5.1, 5.5111);
+      expect(clamp.toString(), "5.5111");
+
+      clamp = p.clamp(new Precise("5.69"), 100);
+      expect(clamp.toString(), "5.69");
+
+      clamp = p.clamp(0, 100);
+      expect(clamp.toString(), "5.678");
+      expect(identical(clamp, p), true);
+
+      p = new Precise("-12.345");
+
+      clamp = p.clamp(5.7, 6);
+      expect(clamp.toString(), "5.7");
+
+      clamp = p.clamp(-13, -12.5);
+      expect(clamp.toString(), "-12.5");
+
+      clamp = p.clamp(-12.20001, -6);
+      expect(clamp.toString(), "-12.20001");
+
+      clamp = p.clamp(-100, 0);
+      expect(clamp.toString(), "-12.345");
+      expect(identical(clamp, p), true);
+    });
+
     test('floor', () {
       var p = new Precise("5.678");
       var floor = p.floor();
@@ -583,6 +687,11 @@ main() {
       expect(recip.digits[1], Digit.two);
       expect(recip.digits[2], Digit.zero);
       expect(recip.toString(), "0.25");
+    });
+
+    test('remainder', () {
+      var p = new Precise("4");
+      expect(p.remainder(3), new Precise("1"));
     });
 
     test('round', () {

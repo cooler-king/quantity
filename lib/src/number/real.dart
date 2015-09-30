@@ -17,7 +17,7 @@ abstract class Real extends Number {
   bool get isInfinite => value == double.INFINITY || value == double.NEGATIVE_INFINITY;
 
   @override
-  bool get isNaN => value == double.NAN;
+  bool get isNaN => identical(value, double.NAN);
 
   @override
   bool get isNegative => value < 0;

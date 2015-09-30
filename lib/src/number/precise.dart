@@ -77,7 +77,7 @@ class Precise extends Real {
     _limitPrecision();
   }
 
-  factory Precise.num(num value, {int sigDigits}) =>
+  factory Precise.num(num value, {int sigDigits: 50}) =>
       value != null ? new Precise(value.toString(), sigDigits: sigDigits) : Precise.zero;
 
   /// Creates a new arbitrary precision number directly from digits.
@@ -336,8 +336,13 @@ class Precise extends Real {
     preciseDivisor = preciseDivisor.abs();
 
     // Shift of decimal place
-    int shift = divisor._power < 0 ? -divisor._power : 0;
-    //int effectivePower = 0;
+    int shift = 0;
+    if (preciseDivisor._power < 0) {
+      shift = -(preciseDivisor._power);
+
+      // Convert divisor to integer
+      preciseDivisor = new Precise.raw(preciseDivisor.digits);
+    }
 
     // Long division algorithm
     int divisorDigits = preciseDivisor._digits.length;
@@ -346,33 +351,28 @@ class Precise extends Real {
     int digitCursor = _digits.length - 1;
     List<Digit> temp = [];
     while (result.length < _precision) {
-      // && digitCursor > -1) {
       // If into bonus digits and remainder is 0, done
       if (digitCursor < 0) {
         if (new Precise.raw(temp) == Precise.zero) {
           break;
         }
-        shift--;
       }
 
-      // Grab next digit
+      // Process next digit
       temp.insert(0, digitCursor >= 0 ? _digits[digitCursor] : Digit.zero);
-      print("temp = $temp");
+      if (digitCursor < 0) shift--;
       if (temp.length >= divisorDigits) {
         Precise p = new Precise.raw(temp);
         if (p >= preciseDivisor) {
           // Find the highest multiple of the divisor that is less than p
           for (int i = 9; i > -1; i--) {
             if (i == 0) {
-              print("result inserting 0");
               result.insert(0, Digit.zero);
               break;
             }
 
             Precise prod = preciseDivisor * i;
-            print("prod = $prod");
             if (prod <= p) {
-              print("result inserting ${Digit.list[i]}");
               result.insert(0, Digit.list[i]);
 
               // Remainder is new temp
@@ -388,8 +388,7 @@ class Precise extends Real {
       digitCursor--;
     }
 
-    print("RESULT ${new Precise.raw(result, power: shift, neg: negResult)}");
-    return new Precise.raw(result, power: shift, neg: negResult);
+    return new Precise.raw(result, power: power + shift, neg: negResult);
   }
 
   /// Truncating division operator.
@@ -474,8 +473,8 @@ class Precise extends Real {
   @override
   Number operator ^(exponent) {
     if (this == 0) {
-      if (exponent == 0) return new Double(double.NAN);
-      return Precise.one;
+      if (exponent == 0) return Double.NaN;
+      return Precise.zero;
     }
     if (exponent == null || exponent == 0) return Integer.one;
     if (exponent == 1) return this;
@@ -489,8 +488,10 @@ class Precise extends Real {
         return p;
       } else {
         Precise p = this.reciprocal();
+        //print("RECIP ${p}");
         for (int i = -1; i > exp; i--) {
           p = p / this;
+          //print("... i = $i... p= ${p}");
         }
         return p;
       }
@@ -587,7 +588,7 @@ class Precise extends Real {
   Number reciprocal() => Precise.one / this;
 
   @override
-  Number remainder(divisor) => ((this / divisor) as Precise).decimalPortion;
+  Number remainder(divisor) => this - ((this ~/ divisor) * divisor);
 
   /// Returns the Precise integer value closest to this Precise value.
   ///
