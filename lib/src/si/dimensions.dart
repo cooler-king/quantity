@@ -2,10 +2,6 @@ part of quantity_si;
 
 /// The Dimensions class represents the dimensions of a physical quantity.
 ///
-/// ## Dimensions Objects Are Immutable
-/// Dimensions are immutable (constant), so they may be shared without worry over
-/// unexpected changes.
-///
 /// ## The Seven Base Quantities
 /// In the International System of Units (SI) all quantities are considered
 /// to be either one of the seven base quantities (Length, Mass, Time Interval,
@@ -160,7 +156,7 @@ class Dimensions {
     return exp ?? 0;
   }
 
-  /// Return the product of this Dimensions object and [other] Dimensions.
+  /// Returns the product of this Dimensions object and [other] Dimensions.
   ///
   /// Dimension multiplication (as occurs when two physical quantities are
   /// multiplied) is accomplished by adding component exponents.  For example,
@@ -174,13 +170,16 @@ class Dimensions {
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (String key in other._dimensionMap.keys) {
+    for (var key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       newValue = otherValue + myValue;
 
-      if (newValue != 0.0) result._dimensionMap[key] = newValue;
-      else result._dimensionMap.remove(key); // remove 0's
+      if (newValue != 0.0) {
+        result._dimensionMap[key] = newValue;
+      } else {
+        result._dimensionMap.remove(key); // remove 0's
+      }
     }
 
     return result;
@@ -264,18 +263,17 @@ class Dimensions {
     return result;
   }
 
-  /// Determines the Quantity type associated with the dimensions represented
-  /// by the specified Dimensions [dim].
+  /// Determines the Quantity type associated with the specified [dim]ensions.
   ///
-  /// *  If no specific Quantity type is found that matches the dimensions
-  ///   the MiscQuantity class will be returned.<br>
-  /// *  The appropriate Quantity subclass is determined by a priori knowledge
+  /// * If no specific Quantity type is found that matches the dimensions
+  ///   the MiscQuantity class will be returned.
+  /// * The appropriate Quantity subclass is determined by a priori knowledge
   ///   of all the Quantity types included in this library.  Therefore, if new
   ///   Quantity subclasses are added outside of this library the Dimensions
   ///   class will not automatically be aware of them, which will affect this
   ///   method.  Therefore, if new Quantity subclasses are added, this methos should
-  ///   be modified to include the new subclasses.<br>
-  /// *  Some distinct Quantity types have identical dimensions.  In this case
+  ///   be modified to include the new subclasses.
+  /// * Some distinct Quantity types have identical dimensions.  In this case
   ///   the first Quantity type discovered is returned.
   ///
   //TODO would a static dimensionsTypeMap be better?

@@ -219,7 +219,7 @@ bool areWithin(Quantity q1, Quantity q2, Quantity tolerance) {
 /// opposed to one of the seven base SI quantities).
 ///
 /// * If a quantity is not one of the seven base SI quantities, then it is
-///   a derived quantity.<br>
+///   a derived quantity.
 /// * The seven base SI Quantities are Length, Mass, Duration,
 ///   Temperature, ElectricCurrent, LuminousIntensity and AmountOfSubstance.
 /// * The two auxiliary angle-related base quantities (Angle and SolidAngle)

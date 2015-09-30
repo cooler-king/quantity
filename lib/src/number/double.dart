@@ -28,11 +28,13 @@ class Double extends Real {
   ///
   @override
   int get hashCode {
+    if (_value.isNaN || _value.isInfinite) return _value.hashCode;
     if (isInteger) return toInt().hashCode;
     return (new Precise.num(_value)).hashCode;
   }
 
   bool operator ==(obj) {
+    if (obj == double.NAN) return value == double.NAN;
     if (obj is Real || obj is num) return obj == value;
     if (obj is Imaginary) return value == 0.0 && obj.value == 0.0;
     if (obj is Complex) return obj.real == value && obj.imaginary == 0.0;

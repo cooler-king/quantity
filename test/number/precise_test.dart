@@ -449,12 +449,13 @@ main() {
       expect(result, new Precise("-2"));
 
       result = p2 / pNeg20;
-      expect(result, new Precise("-0.2"));
+      expect(result, new Precise("-0.1"));
     });
 
     test('operator ^', () {
       Precise p0 = Precise.zero;
-      expect(p0 ^ 0, new Precise.num(1));
+      //expect(identical(p0 ^ 0, Double.NaN), true);
+      expect(p0 ^ 0, Double.NaN);
       expect(p0 ^ 1, Precise.zero);
       expect(p0 ^ 2, Precise.zero);
       expect(p0 ^ -2, Precise.zero);
@@ -467,6 +468,19 @@ main() {
       expect(p1 ^ 2, p1);
       expect(p1 ^ 10, p1);
       expect(p1 ^ 2, p1);
+
+      var p10 = new Precise.num(10);
+      expect(p10 ^ 0, p1);
+      expect(p10 ^ 1, p10);
+      expect(p10 ^ 2, new Precise.num(100));
+      expect(p10 ^ -1, new Precise.num(0.1));
+      expect(p10 ^ -2, new Precise.num(0.01));
+
+      var pNeg5 = new Precise.num(-5);
+      expect(pNeg5 ^ 0, p1);
+      expect(pNeg5 ^ 1, pNeg5);
+      expect(pNeg5 ^ 2, new Precise.num(25));
+      expect(pNeg5 ^ 3, new Precise.num(-125));
     });
 
     test('abs', () {

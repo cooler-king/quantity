@@ -1,6 +1,8 @@
 part of quantity_ext;
 
-/// *    ## Inversion
+/// _MutableQuantity is a work in progress._
+///
+/// ## Inversion
 /// The Quantity class supports inversion through the <code>inverse</code>
 /// method, which returns a new Quantity object that is the result of the
 /// inversion process.  MiscQuantity adds to this capability with the
@@ -50,7 +52,7 @@ class MutableQuantity implements Quantity {
   /// ### Notes:
   ///   (1) Although CGS units were once commonly used and contended for the role
   ///   of standard units, their use is now discouraged in favor of the adopted
-  ///   standard MKS (or meter-kilogram-second) units.<br>
+  ///   standard MKS (or meter-kilogram-second) units.
   ///   (2) Throws an ImmutableQuantityException (a RuntimeException) if this
   ///   Quantity has been made immutable.
   ///
@@ -72,7 +74,7 @@ class MutableQuantity implements Quantity {
   ///
   ///   ### Notes:
   ///   (1) Will throw an ImmutableQuantityException (a RuntimeException) if this
-  ///   Quantity is in an immutable state.<br>
+  ///   Quantity is in an immutable state.
   ///   (2) Relative standard uncertainty is defined as the standard uncertainty
   ///   divided by the absolute value of the quantity.  Standard uncertainty, in turn,
   ///   is defined as the uncertainty (of a measurement result) by an estimated
@@ -108,7 +110,7 @@ class MutableQuantity implements Quantity {
   ///
   /// ### Notes:
   /// (1) Will throw an ImmutableQuantityException (a RuntimeException) if this
-  /// Quantity is in an immutable state.<br>
+  /// Quantity is in an immutable state.
   /// (2) Relative standard uncertainty is defined as the standard uncertainty
   /// divided by the absolute value of the quantity.  Standard uncertainty, in turn,
   /// is defined as the uncertainty (of a measurement result) by an estimated
@@ -149,7 +151,7 @@ class MutableQuantity implements Quantity {
   ///
   /// ### Notes:
   /// (1) If this Quantity is in an immutable state, an ImmutableQuantityException
-  /// will be thrown.<br>
+  /// will be thrown.
   /// (2) Dimensions are immutable; no copy is made;
   ///
   /// * @param dim the desired Dimensions for this Quantity; if null, Scalar

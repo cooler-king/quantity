@@ -473,17 +473,30 @@ class Precise extends Real {
   ///
   @override
   Number operator ^(exponent) {
+    if (this == 0) {
+      if (exponent == 0) return new Double(double.NAN);
+      return Precise.one;
+    }
     if (exponent == null || exponent == 0) return Integer.one;
     if (exponent == 1) return this;
     if (exponent is int || (exponent is Number && exponent.isInteger)) {
       int exp = exponent is int ? exponent : (exponent as Number).toInt();
-      Precise p = this;
-      for (int i = 1; i < exp; i++) {
-        p = p * this;
+      if (exp > 0) {
+        Precise p = this;
+        for (int i = 1; i < exp; i++) {
+          p = p * this;
+        }
+        return p;
+      } else {
+        Precise p = this.reciprocal();
+        for (int i = -1; i > exp; i--) {
+          p = p / this;
+        }
+        return p;
       }
-      return p;
     } else {
       //TODO Precise to decimal power - unsupported or approximated?
+      throw new UnsupportedError("decimal power of arbitrary precision not supported");
     }
   }
 
