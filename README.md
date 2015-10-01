@@ -1,20 +1,36 @@
 # quantity
-A package to make it easy to work with physical quantities.
+Facilitates working with physical quantities.
 
-_This is a work in progress; this package's API may change significantly.  Use at your own risk._
+_This is a work in progress; this package's API may change significantly.  
+Some parts are currently unfinished, untested and/or undocumented.  Use at your own risk._
 
-## Libraries
+## Quick start
 
-The quantity package consists of a number of separate libraries to meet different needs:
+    // Import the core library
+    import 'package:quantity/quantity_si.dart';
 
-* __quantity_si__: Includes the core quantity classes and types and units consistent with the International System of Units (SI).  If you only import this library then it facilitates compliance with SI guidelines.
-* __quantity_ext__: Extends the SI types with units that lie outside the SI and useful constants
-* __quantity_range__: Models quantity ranges with specific additional functionality for `AngleRange`s and `TimePeriod`s.
-* __number__: Enables support for arbitrary precision and imaginary and complex numbers.  All the quantity libraries use the `number` library implicitly.
-* __quantity__: A superset of all the above libraries.  Just import this one to gain access to everything in the quantity package. 
- 
-The quantity package also includes set of domain-specific libraries that expose commonly used units, constants and symbols for a particular domain: 
-* __astronomical__  
-* __electromagnetic__ 
-* __thermodynamic__  
-* __universal__
+    // Construct an Angle in radians
+    var Angle ang = new Angle(rad: 1.1);
+
+    // Construct an Angle in degrees
+    var Angle ang2 = new Angle(deg: 270);
+
+    // Find the difference
+    var diff = ang2 - ang;
+
+    // Display the result in degrees
+    print(diff.valueInUnits(Angle.degrees);
+
+## Key Features
+
+* Typed quantities (such as [Length], [Mass] and [Temperature]) that are easy to construct and use in calculations.
+* Encourages use of standard units by isolating non-standard units in an extension library.
+* Support for relative standard uncertainty in quantity values and calculations.
+* Allows use of arbitrary precision values (as well as complex and imaginary values).
+* Provides access to the latest official constant values published by NIST. 
+* Integration with Dart's existing `Duration` and `DateTime` classes.
+* Extensive set of quantity types and standard and non-standard units.
+* Support for untyped quantities having unusual dimensions with the `MiscQuantity` class.
+* Models quantity ranges, including special support for angle ranges and time spans.
+* Includes a mutable quantity with streams.
+* Metric prefixes for any unit. 
