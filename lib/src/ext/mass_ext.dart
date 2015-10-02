@@ -106,13 +106,14 @@ final MassUnits tonsAssay = new MassUnits("tons (assay)", null, null, "ton (assa
 final MassUnits kgfSecondSquaredMeter = new MassUnits("kgf second squared meter", null, null, null, 9.80665, false);
 
 // Constants
-const Mass planckMass = const Mass.constant(const Double.constant(2.176470e-8), uncert: 2.3e-5);
-const Mass alphaParticleMass = const Mass.constant(const Double.constant(6.644657230e-27), uncert: 1.2e-8);
-const Mass atomicMass = const Mass.constant(const Double.constant(1.660539040e-27), uncert: 1.2e-8);
-const Mass electronMass = const Mass.constant(const Double.constant(9.10938356e-31), uncert: 1.2e-8);
-const Mass protonMass = const Mass.constant(const Double.constant(1.672621898e-27), uncert: 1.2e-8);
-const Mass neutronMass = const Mass.constant(const Double.constant(1.674927471e-27), uncert: 1.2e-8);
-const Mass tauMass = const Mass.constant(const Double.constant(3.16747e-27), uncert: 9.0e-5);
-const Mass deuteronMass = const Mass.constant(const Double.constant(3.343583719e-27), uncert: 1.2e-8);
-const Mass helionMass = const Mass.constant(const Double.constant(5.006412700e-27), uncert: 1.2e-8);
-const Mass muonMass = const Mass.constant(const Double.constant(1.883531594e-28), uncert: 2.5e-8);
+const Mass planckMass = const Mass.constant(const Double.constant(2.176470e-8), uncert: 2.3432438765523993e-5);
+const Mass alphaParticleMass =
+    const Mass.constant(const Double.constant(6.644657230e-27), uncert: 1.2340741916645112e-8);
+const Mass atomicMass = const Mass.constant(const Double.constant(1.660539040e-27), uncert: 1.2044281717098324e-8);
+const Mass electronMass = const Mass.constant(const Double.constant(9.10938356e-31), uncert: 1.2075460350908751e-8);
+const Mass protonMass = const Mass.constant(const Double.constant(1.672621898e-27), uncert: 1.2555138746605121e-8);
+const Mass neutronMass = const Mass.constant(const Double.constant(1.674927471e-27), uncert: 1.2537856333242981e-8);
+const Mass tauMass = const Mass.constant(const Double.constant(3.16747e-27), uncert: 9.155572112758763e-5);
+const Mass deuteronMass = const Mass.constant(const Double.constant(3.343583719e-27), uncert: 1.2262292033250568e-8);
+const Mass helionMass = const Mass.constant(const Double.constant(5.006412700e-27), uncert: 1.2384116874743467e-8);
+const Mass muonMass = const Mass.constant(const Double.constant(1.883531594e-28), uncert: 2.548404292919973e-8);

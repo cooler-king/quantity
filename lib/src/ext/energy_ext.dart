@@ -59,4 +59,5 @@ final EnergyUnits kilojoules = joules.kilo();
 final EnergyUnits kilocaloriesThermo = caloriesKgThermo;
 
 // constants
-const Energy hartreeEnergy = const Energy.constant(const Double.constant(4.359744650e-18), uncert: 1.2e-8);
+const Energy hartreeEnergy =
+    const Energy.constant(const Double.constant(4.359744650e-18), uncert: 1.238604650848072e-8);

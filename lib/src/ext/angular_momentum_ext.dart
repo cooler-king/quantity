@@ -14,7 +14,8 @@ final AngularMomentumUnits hBarUnits =
 
 /// The Planck constant.
 const AngularMomentum planckConstant =
-    const AngularMomentum.constant(const Double.constant(6.626070040e-34), uncert: 1.2e-8);
+    const AngularMomentum.constant(const Double.constant(6.626070040e-34), uncert: 1.2224440658040493e-8);
 
 /// The Planck constant divided by 2 PI (a.k.a., "h-bar")
-const AngularMomentum hBar = const AngularMomentum.constant(const Double.constant(1.054571800e-34), uncert: 1.2e-8);
+const AngularMomentum hBar =
+    const AngularMomentum.constant(const Double.constant(1.054571800e-34), uncert: 1.2327278237479894e-8);

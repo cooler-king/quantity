@@ -7,4 +7,5 @@ const Resistance characteristicImpedanceOfVacuum = const Resistance.constant(con
 
 const Resistance Z0 = characteristicImpedanceOfVacuum;
 
-const Resistance vonKlitzingConstant = const Resistance.constant(const Double.constant(25812.8074555), uncert: 2.3e-10);
+const Resistance vonKlitzingConstant =
+    const Resistance.constant(const Double.constant(25812.8074555), uncert: 2.2856870606466607e-10);

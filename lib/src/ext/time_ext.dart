@@ -70,4 +70,4 @@ final TimeUnits aeons = new TimeUnits("aeons", null, "aeons", null, 3.1536e18, f
 final TimeUnits eons = aeons;
 
 // Constants
-const Time planckTime = const Time.constant(const Double.constant(5.39116e-44), uncert: 2.3e-5);
+const Time planckTime = const Time.constant(const Double.constant(5.39116e-44), uncert: 2.411354884663041e-5);

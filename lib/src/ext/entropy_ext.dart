@@ -14,4 +14,5 @@ final EntropyUnits ergPerKelvin = new EntropyUnits.energyTemperature(ergs, Tempe
 
 // CONSTANTS
 
-const Entropy boltzmannConstant = const Entropy.constant(const Double.constant(1.38064852e-23), uncert: 5.7e-7);
+const Entropy boltzmannConstant =
+    const Entropy.constant(const Double.constant(1.38064852e-23), uncert: 5.721948696979012e-7);

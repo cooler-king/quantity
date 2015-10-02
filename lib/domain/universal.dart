@@ -39,10 +39,11 @@ Resistance Z0 = characteristicImpedanceOfVacuum;
 
 const MiscQuantity newtonianConstantOfGravitation = const MiscQuantity.constant(
     const Double.constant(6.67408e-11), const Dimensions.constant(const {"Length": 3, "Mass": -1, "Time": -2}),
-    uncert: 4.7e-5);
+    uncert: 4.64483494354278e-5);
 
 const MiscQuantity G = newtonianConstantOfGravitation;
 
 const AngularMomentum h = planckConstant;
 
-const WaveNumber rydberg = const WaveNumber.constant(const Double.constant(10973731.568508), uncert: 5.9e-12);
+const WaveNumber rydberg =
+    const WaveNumber.constant(const Double.constant(10973731.568508), uncert: 5.92323582859768e-12);

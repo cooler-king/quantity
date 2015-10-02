@@ -41,4 +41,5 @@ final AreaUnits squarePoles = squareRods;
 final AreaUnits squarePerches = squareRods;
 
 // constants
-const Area thomsonCrossSection = const Area.constant(const Double.constant(0.66524587158e-28), uncert: 1.4e-9);
+const Area thomsonCrossSection =
+    const Area.constant(const Double.constant(0.66524587158e-28), uncert: 1.367915290986615e-9);

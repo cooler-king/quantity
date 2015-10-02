@@ -86,29 +86,33 @@ final Scalar naught = scalarZero;
 final Scalar zilch = scalarZero;
 
 /// Fine structure constant (alpha).
-const Scalar fineStructureConstant = const Scalar.constant(const Double.constant(7.2973525664e-3), uncert: 2.3e-10);
+const Scalar fineStructureConstant =
+    const Scalar.constant(const Double.constant(7.2973525664e-3), uncert: 2.3296119853486266e-10);
 
 /// Proton g factor (gp).
-const Scalar protonGFactor = const Scalar.constant(const Double.constant(5.585694702), uncert: 3.0e-9);
+const Scalar protonGFactor = const Scalar.constant(const Double.constant(5.585694702), uncert: 3.043488931450733e-9);
 
 /// Electron g factor (ge).
-const Scalar electronGFactor = const Scalar.constant(const Double.constant(-2.00231930436182), uncert: 2.6e-13);
+const Scalar electronGFactor =
+    const Scalar.constant(const Double.constant(-2.00231930436182), uncert: 2.59698839674192e-13);
 
 /// Neutron g factor (gn).
-const Scalar neutronGFactor = const Scalar.constant(const Double.constant(-3.82608545), uncert: 2.4e-7);
+const Scalar neutronGFactor = const Scalar.constant(const Double.constant(-3.82608545), uncert: 2.3522736534804782e-7);
 
 /// Muon g factor (gn).
-const Scalar muonGFactor = const Scalar.constant(const Double.constant(-2.0023318418), uncert: 6.3e-10);
+const Scalar muonGFactor = const Scalar.constant(const Double.constant(-2.0023318418), uncert: 6.492430339775063e-10);
 
 /// googol (10^100), arbitrary precision.
 const Scalar googol = const Scalar.constant(const Integer.constant(
     10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000));
 
 /// Sackur-Tetrode constant at 1 K and 100 kPa ("S0/R").
-const Scalar sackurTetrode100kPa = const Scalar.constant(const Double.constant(-1.1517084), uncert: 1.2e-6);
+const Scalar sackurTetrode100kPa =
+    const Scalar.constant(const Double.constant(-1.1517084), uncert: 1.2155854728505931e-6);
 
 /// Sackur-Tetrode constant at 1 K and 101.325 kPa ("S0/R")
-const Scalar sackurTetrodeStdAtm = const Scalar.constant(const Double.constant(-1.1648714), uncert: 1.2e-6);
+const Scalar sackurTetrodeStdAtm =
+    const Scalar.constant(const Double.constant(-1.1648714), uncert: 1.201849405865746e-6);
 
 /// Weak mixing angle
-const Scalar weakMixingAngle = const Scalar.constant(const Double.constant(0.2223), uncert: 9.5e-3);
+const Scalar weakMixingAngle = const Scalar.constant(const Double.constant(0.2223), uncert: 9.446693657219972e-3);

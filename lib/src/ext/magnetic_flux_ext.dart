@@ -8,4 +8,4 @@ MagneticFluxUnits unitPoles = new MagneticFluxUnits("unit poles", null, null, nu
 
 // Constants
 const MagneticFlux magneticFluxQuantum =
-    const MagneticFlux.constant(const Double.constant(2.067833831e-15), uncert: 6.1e-9);
+    const MagneticFlux.constant(const Double.constant(2.067833831e-15), uncert: 6.286772082509758e-9);

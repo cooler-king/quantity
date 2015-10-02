@@ -68,9 +68,13 @@ final LengthUnits angstromStars = new LengthUnits("Angstrom stars", "A*", null, 
 // CONSTANTS
 const Length lengthZero = const Length.constant(Double.zero);
 
-const Length planckLength = const Length.constant(const Double.constant(1.616229e-35), uncert: 2.3e-5);
-const Length angstromStar = const Length.constant(const Double.constant(1.00001495e-10), uncert: 9.0e-7);
-const Length bohrRadius = const Length.constant(const Double.constant(0.52917721067e-10), uncert: 2.3e-10);
-const Length comptonWavelength = const Length.constant(const Double.constant(2.4263102367e-12), uncert: 4.5e-10);
-const Length tauComptonWavelength = const Length.constant(const Double.constant(0.697787e-15), uncert: 9.0e-5);
-const Length classicalElectronRadius = const Length.constant(const Double.constant(2.8179403227e-15), uncert: 6.8e-10);
+const Length planckLength = const Length.constant(const Double.constant(1.616229e-35), uncert: 2.3511519716574815e-5);
+const Length angstromStar = const Length.constant(const Double.constant(1.00001495e-10), uncert: 8.999865452011492e-7);
+const Length bohrRadius =
+    const Length.constant(const Double.constant(0.52917721067e-10), uncert: 2.2676713505493936e-10);
+const Length comptonWavelength =
+    const Length.constant(const Double.constant(2.4263102367e-12), uncert: 4.533632935152179e-10);
+const Length tauComptonWavelength =
+    const Length.constant(const Double.constant(0.697787e-15), uncert: 9.02854309409605e-5);
+const Length classicalElectronRadius =
+    const Length.constant(const Double.constant(2.8179403227e-15), uncert: 6.742513262947746e-10);

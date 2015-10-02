@@ -10,4 +10,4 @@ final ConductanceUnits abmho = siemens.giga() as ConductanceUnits;
 
 // Constants
 const Conductance conductanceQuantum =
-    const Conductance.constant(const Double.constant(7.7480917310e-5), uncert: 2.3e-10);
+    const Conductance.constant(const Double.constant(7.7480917310e-5), uncert: 2.3231526709966877e-10);

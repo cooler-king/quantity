@@ -19,4 +19,5 @@ final ChargeUnits statcoulombs = new ChargeUnits("statcoulombs", null, null, nul
 final ChargeUnits abcoulombs = coulombs.deka() as ChargeUnits;
 
 // Constants
-const Charge elementaryCharge = const Charge.constant(const Double.constant(1.6021766208e-19), uncert: 6.1e-9);
+const Charge elementaryCharge =
+    const Charge.constant(const Double.constant(1.6021766208e-19), uncert: 6.116678943365593e-9);
