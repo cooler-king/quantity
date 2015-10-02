@@ -12,10 +12,6 @@ class Torque extends Quantity {
   static const Dimensions torqueDimensions =
       const Dimensions.constant(const {"Length": 2, "Time": -2, "Mass": 1, "Angle": -1});
 
-  //TODO autoconvert Newton meters to JOules per radian
-  // complicated... torque used both with and without angle dimension component
-  // without it its same as Energy so we use it
-
   /// The standard SI unit.
   static final TorqueUnits newtonMeters = new TorqueUnits.forceLength(Force.newtons, Length.meters);
 

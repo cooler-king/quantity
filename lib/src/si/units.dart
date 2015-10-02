@@ -741,44 +741,8 @@ abstract class Units {
   }
 */
 
-  /**
-   * Derive new Units using this Units object as the base.
-   *
-   * Abstract.
-   */
+  /// Derive new Units using this Units object as the base.
   Units derive(String fullPrefix, String abbrevPrefix, double conv);
-  /*
-  {
-
-    if(this is Quantity) {
-      Quantity u2 = new Quantity._units(this as Quantity);
-      u2.
-    } else {
-      throw new QuantityException("Units mixin can only be used with Quantity");
-    }
-
-    // Creates a Units object of the appropriate subclass
-    //Units copy = new Units.copy(this);
-
-    String copyName = fullPrefix + name;
-    String copySingular = fullPrefix + singular;
-    String copyAbbrev1 = null;
-    String copyAbbrev2 = null;
-    if(_abbrev1 != null) copyAbbrev1 = abbrevPrefix + _abbrev1;
-    if(_abbrev2 != null) copyAbbrev2 = abbrevPrefix + _abbrev2;
-    Number copyConvToMks = valueSI * conv;
-    //bool copyMetricBase = false;
-
-
-
-
-    return const Units(copyName, copyAbbrev1, copyAbbrev2, copySingular,
-        copyConvToMks, this.dimensions, false, this.offset);
-
-    //TODO restore derive capability
-    return null;
-  }
-*/
 
 /**
    Returns the Class representing a type of Quantity consistent with these

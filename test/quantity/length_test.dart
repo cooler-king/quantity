@@ -324,5 +324,12 @@ main() {
       expect((Length.meters.zepto() as Length).valueSI == 1e-21, true);
       expect((Length.meters.yocto() as Length).valueSI == 1e-24, true);
     });
+
+    test('outputText', () {
+      var a = new Length(m: 75.3);
+      var buf = new StringBuffer();
+      a.outputText(buf);
+      expect(buf.toString(), "75.3 m");
+    });
   });
 }

@@ -30,8 +30,6 @@ class Acceleration extends Quantity {
 
   const Acceleration.constant(Number valueSI, {AccelerationUnits units, num uncert: 0.0})
       : super.constant(valueSI, Acceleration.accelerationDimensions, units, uncert);
-
-  //TODO constructor for length and time here?
 }
 
 /// Units acceptable for use in describing Acceleration quantities.

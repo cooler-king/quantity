@@ -400,33 +400,14 @@ abstract class Quantity implements Comparable {
   /// relative standard uncertainties.
   ///
   Quantity operator /(divisor) {
-    // Result uncertainty
-    double resultUr;
-
-    // Result value
-    Number resultValue = null;
-
-    // Result dimensions
-    Dimensions resultDimensions = dimensions;
-
     if (divisor is Quantity) {
       return this * (divisor as Quantity).inverse();
     } else if (divisor is num || divisor is Number) {
-      resultValue = valueSI / divisor;
-
-      /*
-      // Branch on Quantity, num, Number
-      if (divisor is Quantity) {
-        Quantity q2 = divisor as Quantity;
-        resultDimensions = dimensions / q2.dimensions;
-        resultValue = valueSI / q2.valueSI;
-        resultUr = (_ur != 0.0 || q2._ur != 0.0) ? Math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
-      }*/
-
+      var resultValue = valueSI / divisor;
       if (dynamicQuantityTyping) {
-        return resultDimensions.toQuantity(resultValue, null, _ur);
+        return dimensions.toQuantity(resultValue, null, _ur);
       } else {
-        return new MiscQuantity(resultValue, resultDimensions, _ur);
+        return new MiscQuantity(resultValue, dimensions, _ur);
       }
     } else {
       throw new QuantityException("Expected a Quantity, num or Number object");
@@ -469,16 +450,12 @@ abstract class Quantity implements Comparable {
   /// dimensions and therefore be of a different type).  This object is not
   /// modified.
   ///
-  /// (1) Inversion occurs when a Quantity is divided into 1 and is
+  /// * Inversion occurs when a Quantity is divided into 1 and is
   /// accomplished by simply inverting the dimensions and dividing the SI MKS value
   /// into 1.0.
-  /// (2) The relative standard uncertainty is unchanged by inversion.
-  /// TODO (3) The returned Quantity will be mutable, regardless of whether this
-  /// Quantity is immutable or mutable.
+  /// * The relative standard uncertainty is unchanged by inversion.
   ///
-  Quantity inverse() {
-    return dimensions.inverse().toQuantity(valueSI.reciprocal(), null, _ur);
-  }
+  Quantity inverse() => dimensions.inverse().toQuantity(valueSI.reciprocal(), null, _ur);
 
   /// Determines whether on not this Quantity is less than a specified Quantity by
   /// comparing their MKS values.  The two Quantities need not be of the same
@@ -550,13 +527,9 @@ abstract class Quantity implements Comparable {
   /// (or centimeter-gram-second) units.  MKS (meter-kilogram-second) units are
   /// preferred.
   ///
-  /// ### Notes:
-  /// (1) Although CGS units were once commonly used and contended for the role
+  /// Although CGS units were once commonly used and contended for the role
   /// of standard units, their use is now discouraged in favor of the adopted
   /// standard MKS (or meter-kilogram-second) units.
-  /// (2) If the Quantity's value is stored internally as a BigDecimal, this
-  /// method will return the closest approximate value that a double can
-  /// represent.
   ///
   /// See [get mks].
   ///
@@ -1008,30 +981,19 @@ abstract class Quantity implements Comparable {
 */
 
   /// Appends a String representation of this [Quantity] to the [buffer]
-  /// using the preferred units and number format.    If no preferred units have
+  /// using the preferred units and number format.  If no preferred units have
   /// been specified, then MKS units are used.  Uncertainty in the value of the
   /// Quantity is optionally shown as a plus/minus value in the same units.
   ///
-  /// Note: NumberFormat is coming in intl library
-  ///
-  //void outputText(StringBuffer buffer, {bool showUncert:false, bool symbols:true, NumberFormat numberFormat:null}) {
-  void outputText(StringBuffer buffer, {bool showUncert: false, bool symbols: true}) {
+  void outputText(StringBuffer buffer, {bool showUncert: false, bool symbols: true, NumberFormat numberFormat}) {
     if (preferredUnits != null) {
       Number val = preferredUnits.fromMks(mks);
 
-      // format the number
-      String valStr;
-      /* TODO number formats
-      NumberFormat format = numberFormat;
-      if(numberFormat == null) format = new NumberFormatSI();
-
-
-      if(format is NumberFormatSI) {
-         valStr = (format as NumberFormatSI).formatQuantityValue(this);
-      } else {
-         valStr = format.format(val);
-      }*/
-      valStr = val.toString();
+      // Format the number
+      //NumberFormat format = numberFormat;
+      //if (numberFormat == null) format = new NumberFormatSI();
+      //if (numberFormat == null) format = new NumberFormat.decimalPattern();
+      var valStr = numberFormat?.format(val) ?? "$val";
 
       // Get the units string (singular or plural, as appropriate)
       String unitStr = null;
@@ -1065,7 +1027,7 @@ abstract class Quantity implements Comparable {
   /// If no preferred units have been specified, then MKS units are used.
   ///
   String toString() {
-    StringBuffer buffer = new StringBuffer();
+    var buffer = new StringBuffer();
     outputText(buffer);
     return buffer.toString();
   }

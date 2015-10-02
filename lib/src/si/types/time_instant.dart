@@ -202,11 +202,12 @@ class TimeInstant extends Quantity {
   ///
   @override
   Quantity operator -(subtrahend) {
-    //TODO uncertainty
+    Number newValueSI = valueSI - subtrahend.valueSI;
+    double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
     if (subtrahend is TimeInstant) {
-      return new Time(s: (valueSI - subtrahend.valueSI), uncert: 0.0);
+      return new Time(s: newValueSI, uncert: diffUr);
     } else if (subtrahend is Time) {
-      return new TimeInstant(TAI: (valueSI - subtrahend.valueSI), uncert: 0.0);
+      return new TimeInstant(TAI: newValueSI, uncert: diffUr);
     }
 
     throw new QuantityException("Only a Time or another TimeInstant can be subtracted from a TimeInstant");
