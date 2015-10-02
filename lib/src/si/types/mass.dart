@@ -42,6 +42,18 @@ class Mass extends Quantity {
 
   const Mass.constant(Number valueSI, {MassUnits units, num uncert: 0.0})
       : super.constant(valueSI, Mass.massDimensions, units, uncert);
+
+  /// Returns the [Energy] equivalent of this Mass using the famous E=mc^2 relationship.
+  ///
+  Energy toEnergy() {
+    if (valueSI is Precise) {
+      var c = new Precise("2.99792458e8");
+      return new Energy(J: valueSI * c * c, uncert: this._ur);
+    } else {
+      double c = 2.99792458e8;
+      return new Energy(J: valueSI * c * c, uncert: this._ur);
+    }
+  }
 }
 
 /// Units acceptable for use in describing [Mass] quantities.
