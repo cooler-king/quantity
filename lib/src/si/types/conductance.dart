@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The ease with which an electric current passes through a conductor (the inverse of [Resistance]).
+///
+/// See the [Wikipedia entry for Electrical resistance and conductance](https://en.wikipedia.org/wiki/Electrical_resistance_and_conductance)
+/// for more information.
+///
 class Conductance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricConductanceDimensions =

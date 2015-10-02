@@ -2,6 +2,11 @@ part of quantity_si;
 
 // also MomentOfForce
 
+/// The tendency of a force to rotate an object about an axis, fulcrum, or pivot.
+///
+/// See the [Wikipedia entry for Torque](https://en.wikipedia.org/wiki/Torque)
+/// for more information.
+///
 class Torque extends Quantity {
   /// Dimensions for this type of quantity (energy per angle rather than LengthxForce)
   static const Dimensions torqueDimensions =

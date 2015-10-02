@@ -14,8 +14,25 @@ double tangent(Angle a) => a.tangent();
 // Constant
 const double twoPi = 2.0 * Math.PI;
 
-///  Class Angle represents a planar (2-dimensional) angle, which has
-///  dimensions of _1_ and is expressed in units of planar angle.
+/// A planar (2-dimensional) angle, which has dimensions of _1_ and is a
+/// measure of the ratio of the length of a circular arc to its radius.
+///
+/// Example usage:
+///
+///     // Construct an Angle in radians
+///     var ang = new Angle(rad: 1.1);
+///
+///     // Construct an Angle in degrees
+///     var ang2 = new Angle(deg: 270);
+///
+///     // Find the difference
+///     var diff = ang2 - ang;
+///
+///     // Display the result in degrees
+///     print(diff.valueInUnits(Angle.degrees);
+///
+/// See the [Wikipedia entry for Angle](https://en.wikipedia.org/wiki/Angle)
+/// for more information.
 ///
 class Angle extends Quantity {
   /// Dimensions for this type of quantity

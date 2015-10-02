@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The elastic tendency of liquids which makes them acquire the least surface area possible.
+///
+/// See the [Wikipedia entry for Surface tension](https://en.wikipedia.org/wiki/Surface_tension)
+/// for more information.
+///
 class SurfaceTension extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions surfaceTensionDimensions = const Dimensions.constant(const {"Mass": 1, "Time": -2});

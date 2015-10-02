@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The electric current per unit area of cross section.
+///
+/// See the [Wikipedia entry for Current density](https://en.wikipedia.org/wiki/Current_density)
+/// for more information.
+///
 class CurrentDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricCurrentDensityDimensions =

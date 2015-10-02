@@ -2,6 +2,12 @@ part of quantity_si;
 
 // Also HeatCapacity
 
+/// The number of specific ways in which a thermodynamic system may be arranged,
+/// commonly understood as a measure of disorder.
+///
+/// See the [Wikipedia entry for Entropy](https://en.wikipedia.org/wiki/Entropy)
+/// for more information.
+///
 class Entropy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions entropyDimensions =

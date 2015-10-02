@@ -31,10 +31,12 @@ Number objToNumber(Object object) {
 }
 
 /// Converts a num [value] to associated [Number] object
-/// ([Integer] for `int`, [Double] for `double`).
+/// ([Integer] for `int`s and `double`s that have an integer value,
+/// [Double] for other `double`s).
 ///
 Number numToNumber(num value) {
   if (value is int) return new Integer(value);
+  if (value.toInt() == value) return new Integer(value.toInt());
   return new Double(value);
 }
 
@@ -42,14 +44,13 @@ num numberToNum(Number number) {
   if (number is Double) return number.value;
   if (number is Integer) return number.value;
   if (number is Imaginary) return 0;
-  if (number is Complex) return number.real.toDouble();
+  if (number is Complex) return number.real?.toDouble() ?? 0.0;
   if (number is Precise) {
     if (number.isInteger) return number.toInt();
-  } else {
     return number.toDouble();
+  } else {
+    return number?.toDouble() ?? 0;
   }
-
-  return 0;
 }
 
 /// Approximate solution for the error function of [x].

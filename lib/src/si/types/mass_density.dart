@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// Mass per unit volume.
+///
+/// See the [Wikipedia entry for Density](https://en.wikipedia.org/wiki/Density)
+/// for more information.
+///
 class MassDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions massDensityDimensions = const Dimensions.constant(const {"Mass": 1, "Length": -3});

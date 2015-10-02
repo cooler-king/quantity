@@ -272,7 +272,6 @@ class Precise extends Real {
   @override
   Number operator *(multiplier) {
     Precise preciseMultiplier = toPrecise(multiplier);
-    //TODO what about Number?
 
     Precise product = Precise.zero;
     List<Digit> intermediateProduct = [];

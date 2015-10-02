@@ -1,6 +1,11 @@
 part of quantity_si;
 
-/// Represents the *luminous intensity* physical quantity (one of the seven base SI quantities).
+/// Represents the *luminous intensity* physical quantity (one of the seven
+/// base SI quantities), the wavelength-weighted power emitted by a light source
+/// in a particular direction per unit solid angle.
+///
+/// See the [Wikipedia entry for Luminous intensity](https://en.wikipedia.org/wiki/Luminous_intensity)
+/// for more information.
 ///
 class LuminousIntensity extends Quantity {
   /// Dimensions for this type of quantity

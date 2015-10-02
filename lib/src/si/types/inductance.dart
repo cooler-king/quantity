@@ -1,5 +1,12 @@
 part of quantity_si;
 
+/// The property of an electrical conductor by which a change in current flowing through
+/// it induces an electromotive force in both the conductor itself and in any nearby
+/// conductors by mutual inductance.
+///
+/// See the [Wikipedia entry for Inductance](https://en.wikipedia.org/wiki/Inductance)
+/// for more information.
+///
 class Inductance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions inductanceDimensions =

@@ -10,10 +10,10 @@ Some parts are currently unfinished, untested and/or undocumented.  Use at your 
     import 'package:quantity/quantity_si.dart';
 
     // Construct an Angle in radians
-    var Angle ang = new Angle(rad: 1.1);
+    var ang = new Angle(rad: 1.1);
 
     // Construct an Angle in degrees
-    var Angle ang2 = new Angle(deg: 270);
+    var ang2 = new Angle(deg: 270);
 
     // Find the difference
     var diff = ang2 - ang;

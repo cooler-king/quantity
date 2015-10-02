@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The size of an ensemble of elementary entities, such as atoms, molecules, electrons, and other particles.
+///
+/// See the [Wikipedia entry for Amount of substance](https://en.wikipedia.org/wiki/Amount_of_substance)
+/// for more information.
+///
 class AmountOfSubstance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions amountOfSubstanceDimensions = const Dimensions.constant(const {"Amount": 1});

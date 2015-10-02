@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The radiant energy received by a surface per unit area.
+///
+/// See the [Wikipedia entry for Radiant exposure](https://en.wikipedia.org/wiki/Radiant_exposure)
+/// for more information.
+///
 class Exposure extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions exposureDimensions = const Dimensions.constant(const {"Current": 1, "Mass": -1, "Time": 1});

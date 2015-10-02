@@ -1,5 +1,11 @@
 part of quantity_si;
 
+/// The radiant flux emitted, reflected, transmitted or received by a surface,
+/// per unit solid angle per unit projected area.
+///
+/// See the [Wikipedia entry for Radiance](https://en.wikipedia.org/wiki/Radiance)
+/// for more information.
+///
 class Radiance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions radianceDimensions =

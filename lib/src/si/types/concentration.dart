@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The abundance of a constituent divided by the total volume of a mixture.
+///
+/// See the [Wikipedia entry for Concentration](https://en.wikipedia.org/wiki/Concentration)
+/// for more information.
+///
 class Concentration extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions concentrationDimensions = const Dimensions.constant(const {"Amount": 1, "Length": -3});

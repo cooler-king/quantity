@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The amount of three-dimensional space enclosed by some closed boundary.
+///
+/// See the [Wikipedia entry for Volume](https://en.wikipedia.org/wiki/Volume)
+/// for more information.
+///
 class Volume extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions volumeDimensions = const Dimensions.constant(const {"Length": -3});

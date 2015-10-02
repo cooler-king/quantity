@@ -1,7 +1,10 @@
 part of quantity_si;
 
-// also velocity (?)
-
+/// The rate of change of position.
+///
+/// See the [Wikipedia entry for Speed](https://en.wikipedia.org/wiki/Speed)
+/// for more information.
+///
 class Speed extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions speedDimensions = const Dimensions.constant(const {"Length": 1, "Time": -1});

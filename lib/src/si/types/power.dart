@@ -2,6 +2,11 @@ part of quantity_si;
 
 // Also HeatFlowRate, RadiantFlux
 
+/// Amount of energy per unit time.
+///
+/// See the [Wikipedia entry for Power (physics)](https://en.wikipedia.org/wiki/Power_(physics))
+/// for more information.
+///
 class Power extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions powerDimensions = const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -3});

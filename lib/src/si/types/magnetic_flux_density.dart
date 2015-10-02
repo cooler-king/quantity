@@ -1,5 +1,11 @@
 part of quantity_si;
 
+/// The amount of magnetic flux in an area taken perpendicular to a
+/// magnetic flux's direction
+///
+/// See the [Wikipedia entry for Magnetic flux](https://en.wikipedia.org/wiki/Magnetic_flux)
+/// for more information.
+///
 class MagneticFluxDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions magneticFluxDensityDimensions =

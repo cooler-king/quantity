@@ -1,5 +1,11 @@
 part of quantity_si;
 
+/// The difference between two temperatures, where temperature is an objective comparative
+/// measure of hot or cold.
+///
+/// See the [Wikipedia entry for Thermodynamic temperature](https://en.wikipedia.org/wiki/Thermodynamic_temperature)
+/// for more information.
+///
 class TemperatureInterval extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions temperatureIntervalDimensions = const Dimensions.constant(const {"Temperature": 1});

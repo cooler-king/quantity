@@ -1,7 +1,9 @@
 part of quantity_si;
 
-/// Represents the _scalar_ physical quantity, which is dimensionless or
-/// alternatively considered to have a dimension of *1*.
+/// A one-dimensional physical quantity that can be described by a single real number.
+///
+/// See the [Wikipedia entry for Scalar (physics)](https://en.wikipedia.org/wiki/Scalar_%28physics%29)
+/// for more information.
 ///
 class Scalar extends Quantity {
   /// Dimensions for this type of quantity

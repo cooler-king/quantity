@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// Amount of data.
+///
+/// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)
+/// for more information.
+///
 class Information extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions informationDimensions = Scalar.scalarDimensions;

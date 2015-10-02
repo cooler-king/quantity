@@ -1,33 +1,34 @@
 part of quantity_ext;
 
-/// International Atomic Time Scale
-TimeInstantUnits TAI = TimeInstant.TAI;
+/// International Atomic Time scale units
+final TimeInstantUnits TAI = TimeInstant.TAI;
 
 /// Coordinated Universal Time (differs from TAI by a number of leap seconds)
-TimeInstantUnits UTC = TimeInstant.UTC;
+final TimeInstantUnits UTC = TimeInstant.UTC;
 
-/// Number of milliseconds since 1 Jan 1970 0h 0m 0s, which is the System
-/// time defined by the Java VM */
-TimeInstantUnits system = TimeInstant.system;
+/// Measures time since 1 Jan 1970 0h 0m 0s, which is the System
+/// time defined by many computer operating systems
+final TimeInstantUnits system = TimeInstant.system;
 
 /// Terrestrial Dynamical Time (TDT):  TDT = TAI + 32.184 s
-TimeInstantUnits TDT = new TimeInstantUnits("Terrestrial Dynamical Time", "TT", "TDT", null, 1.0, false, -32.184);
+final TimeInstantUnits TDT = new TimeInstantUnits("Terrestrial Dynamical Time", "TT", "TDT", null, 1.0, false, -32.184);
 
 /// Terrestrial Time (TT) is the same as TDT:  TDT = TT = TAI + 32.184 s
-TimeInstantUnits TT = TDT;
+final TimeInstantUnits TT = TDT;
 
 /// Ephemeris Time (ET) is the same as TDT:  ET = TDT = TT = TAI + 32.184 s.
 /// Ephemeris Time was renamed Terrestrial Dynamical Time in 1984 (when
 /// Barycentric Dynamical Time was also introduced)
-TimeInstantUnits ET = TDT;
+final TimeInstantUnits ET = TDT;
 
 /// GPS Satellite Time (GPST):  GPST = TAI - 19 s
-TimeInstantUnits GPST = new TimeInstantUnits("GPS Satellite Time", null, "GPST", null, 1.0, false, 19.0);
+final TimeInstantUnits GPST = new TimeInstantUnits("GPS Satellite Time", null, "GPST", null, 1.0, false, 19.0);
 
 //__________________________________________________________________________________________________________
 
 /// Geocentric Coordinate Time (TCG): TCG = TDT + (6.969291e-10)(JD - 2443144.5)(86400)
-TimeInstantUnits TCG = new TimeInstantUnits("Geocentric Coordinate Time", null, "TCG", null, 1.0, false, 0.0, (val) {
+final TimeInstantUnits TCG =
+    new TimeInstantUnits("Geocentric Coordinate Time", null, "TCG", null, 1.0, false, 0.0, (val) {
   // TCG = TAI + 32.184 + (6.969291e-10)(JD - 2443144.5)(86400)... where the Julian Date is in the TAI scale
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   return new Double(d + 32.184 + (6.969291e-10 * (d - 599616000.0)));
@@ -41,7 +42,7 @@ TimeInstantUnits TCG = new TimeInstantUnits("Geocentric Coordinate Time", null, 
 //__________________________________________________________________________________________________________
 
 /// Barycentric Dynamical Time (TDB):  TDB varies from TDT by periodic variations
-TimeInstantUnits TDB =
+final TimeInstantUnits TDB =
     new TimeInstantUnits("Barycentric Dynamical Time", null, "TDB", null, 1.0, false, -32.184, (val) {
   // TDB = TAI + 32.184 + 0.001658sin(g) + 0.000014sin(2g)...
   // where g = 357.53 deg + 0.9856003(JD - 2451545.0) deg... (Julian dates are in the TAI time scale)
@@ -86,12 +87,12 @@ TimeInstantUnits TDB =
 //__________________________________________________________________________________________________________
 
 /// Barycentric Time (TB); same as TDB:  TT = TDB
-TimeInstantUnits TB = TDB;
+final TimeInstantUnits TB = TDB;
 
 //__________________________________________________________________________________________________________
 
 /// Barycentric Coordinate Time (TCB): TCB = TDB + (1.550505e-8)(JD - 2443144.5)(86400)
-TimeInstantUnits TCB = new TimeInstantUnits(
+final TimeInstantUnits TCB = new TimeInstantUnits(
     "Barycentric Coordinate Time", null, "TCB", null, (1.0 - 1.550505e-8), false, 599616000.0 - 32.184, (val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   Number tdb = TDB.fromMks(val); // TDB seconds
@@ -131,7 +132,7 @@ TimeInstantUnits TCB = new TimeInstantUnits(
 //__________________________________________________________________________________________________________
 
 /// Universal Time (UT1): UT1 = TDT - Delta T
-TimeInstantUnits UT1 = new TimeInstantUnits("Universal Time (UT1)", null, "UT1", null, 1.0, false, 0.0, (val) {
+final TimeInstantUnits UT1 = new TimeInstantUnits("Universal Time (UT1)", null, "UT1", null, 1.0, false, 0.0, (val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   return (TDT.fromMks(d) - getDeltaT(new TimeInstant(TAI: d)));
 }, (val) {
@@ -159,7 +160,7 @@ TimeInstantUnits UT1 = new TimeInstantUnits("Universal Time (UT1)", null, "UT1",
 /// Universal Time (UT2):
 ///  UT2 = UT1 + 0.022 sin(2PI*t) - 0.012 cos(2PI*t) - 0.006 sin(4PI*t) + 0.007 cos(4PI*t),
 ///  where t = the date in Besellian years
-TimeInstantUnits UT2 = new TimeInstantUnits("Universal Time (UT2)", null, "UT2", null, 1.0, false, 0.0, (val) {
+final TimeInstantUnits UT2 = new TimeInstantUnits("Universal Time (UT2)", null, "UT2", null, 1.0, false, 0.0, (val) {
   //double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   Number d = UT1.fromMks(val); // UT1
   double twoPI = 2.0 * PI;
@@ -179,18 +180,19 @@ TimeInstantUnits UT2 = new TimeInstantUnits("Universal Time (UT2)", null, "UT2",
 //__________________________________________________________________________________________________________
 
 /// Julian Date in the TAI scale
-TimeInstantUnits JD_TAI = new TimeInstantUnits("Julian Date (TAI)", null, "JD(TAI)", null, 86400.0, false, -2436204.5);
+final TimeInstantUnits JD_TAI =
+    new TimeInstantUnits("Julian Date (TAI)", null, "JD(TAI)", null, 86400.0, false, -2436204.5);
 
 //__________________________________________________________________________________________________________
 
 /// Modified Julian Date in the TAI scale
-TimeInstantUnits MJD_TAI =
+final TimeInstantUnits MJD_TAI =
     new TimeInstantUnits("Modified Julian Date (TAI)", null, "MJD(TAI)", null, 86400.0, false, -36204.0);
 
 //__________________________________________________________________________________________________________
 
 /// Julian Date in the UTC scale
-TimeInstantUnits JD_UTC =
+final TimeInstantUnits JD_UTC =
     new TimeInstantUnits("Julian Date (UTC)", null, "JD(UTC)", null, 86400.0, false, -2436204.5, (val) {
   double d = UTC.fromMks(val).toDouble(); // UTC seconds
   int jd0 = d ~/ 86400.0; // integer UTC days
@@ -216,7 +218,7 @@ TimeInstantUnits JD_UTC =
 //__________________________________________________________________________________________________________
 
 /// Modified Julian Date in the UTC scale
-TimeInstantUnits MJD_UTC =
+final TimeInstantUnits MJD_UTC =
     new TimeInstantUnits("Modified Julian Date (UTC)", null, "MJD(UTC)", null, 86400.0, false, -36204.0, (val) {
   Number jd = JD_UTC.fromMks(val);
   return jd - 2400000.5;
@@ -229,7 +231,7 @@ TimeInstantUnits MJD_UTC =
 //__________________________________________________________________________________________________________
 
 /// Julian Date in the UT1 scale
-TimeInstantUnits JD_UT1 =
+final TimeInstantUnits JD_UT1 =
     new TimeInstantUnits("Julian Date (UT1)", null, "JD(UT1)", null, 86400.0, false, -2436204.5, (val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
 
@@ -277,7 +279,7 @@ TimeInstantUnits JD_UT1 =
 //__________________________________________________________________________________________________________
 
 /// Modified Julian Date in the UT1 scale
-TimeInstantUnits MJD_UT1 =
+final TimeInstantUnits MJD_UT1 =
     new TimeInstantUnits("Modified Julian Date (UT1)", null, "MJD(UT1)", null, 86400.0, false, -36204.0, (val) {
   Number jd = JD_UT1.fromMks(val);
   return jd - 2400000.5;
@@ -290,7 +292,7 @@ TimeInstantUnits MJD_UT1 =
 //__________________________________________________________________________________________________________
 
 /// Julian Date in the TDT (TT) scale
-TimeInstantUnits JD_TDT =
+final TimeInstantUnits JD_TDT =
     new TimeInstantUnits("Julian Date (TDT)", null, "JD(TDT)", null, 86400.0, false, -2436204.5, (val) {
   return (TDT.fromMks(val) / 86400.0) + 2436204.5;
 }, (val) {
@@ -305,7 +307,7 @@ TimeInstantUnits JD_TDT =
 //__________________________________________________________________________________________________________
 
 /// Modified Julian Date in the TDT scale
-TimeInstantUnits MJD_TDT =
+final TimeInstantUnits MJD_TDT =
     new TimeInstantUnits("Modified Julian Date (TDT)", null, "MJD(TDT)", null, 86400.0, false, -36204.0, (val) {
   //double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   Number jd = JD_TDT.fromMks(val);
@@ -319,7 +321,7 @@ TimeInstantUnits MJD_TDT =
 //__________________________________________________________________________________________________________
 
 /// Julian Date in the TDB (TB) scale
-TimeInstantUnits JD_TDB =
+final TimeInstantUnits JD_TDB =
     new TimeInstantUnits("Julian Date (TDB)", null, "JD(TDB)", null, 86400.0, false, -2436204.5, (val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   return (TDB.fromMks(d) / 86400.0) + 2436204.5;
@@ -332,7 +334,7 @@ TimeInstantUnits JD_TDB =
 //__________________________________________________________________________________________________________
 
 /// Modified Julian Date in the TDB scale
-TimeInstantUnits MJD_TDB =
+final TimeInstantUnits MJD_TDB =
     new TimeInstantUnits("Modified Julian Date (TDT)", null, "MJD(TDT)", null, 86400.0, false, -36204.0, (val) {
   //double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   Number jd = JD_TDB.fromMks(val);
@@ -346,7 +348,7 @@ TimeInstantUnits MJD_TDB =
 //__________________________________________________________________________________________________________
 
 /// Julian Date in the TCG scale
-TimeInstantUnits JD_TCG =
+final TimeInstantUnits JD_TCG =
     new TimeInstantUnits("Julian Date (TCG)", null, "JD(TCG)", null, 86400.0, false, -2436204.5, (val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   return ((TCG.fromMks(d) / 86400.0) + 2436204.5);
@@ -359,7 +361,7 @@ TimeInstantUnits JD_TCG =
 //__________________________________________________________________________________________________________
 
 /// Modified Julian Date in the TCG scale
-TimeInstantUnits MJD_TCG =
+final TimeInstantUnits MJD_TCG =
     new TimeInstantUnits("Modified Julian Date (TCG)", null, "MJD(TCG)", null, 86400.0, false, -36204.0, (val) {
   //double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   Number jd = JD_TCG.fromMks(val);
@@ -373,7 +375,7 @@ TimeInstantUnits MJD_TCG =
 //__________________________________________________________________________________________________________
 
 /// Julian Date in the TCB scale
-TimeInstantUnits JD_TCB =
+final TimeInstantUnits JD_TCB =
     new TimeInstantUnits("Julian Date (TCB)", null, "JD(TCB)", null, 86400.0, false, -2436204.5, (val) {
   return (TCB.fromMks(val) / 86400.0) + 2436204.5;
 }, (val) {
@@ -385,7 +387,7 @@ TimeInstantUnits JD_TCB =
 //__________________________________________________________________________________________________________
 
 /// Modified Julian Date in the TCB scale
-TimeInstantUnits MJD_TCB =
+final TimeInstantUnits MJD_TCB =
     new TimeInstantUnits("Modified Julian Date (TCB)", null, "MJD(TCB)", null, 86400.0, false, -36204.0, (val) {
   Number jd = JD_TCB.fromMks(val);
   return jd - 2400000.5;
@@ -398,7 +400,7 @@ TimeInstantUnits MJD_TCB =
 //__________________________________________________________________________________________________________
 
 /// Besselian - Replaced by Julian system, but still of occasional use
-TimeInstantUnits B = new TimeInstantUnits("Bessellian", null, "B", null, 1.0, false, 0.0, (val) {
+final TimeInstantUnits B = new TimeInstantUnits("Bessellian", null, "B", null, 1.0, false, 0.0, (val) {
   double jd = JD_TAI.fromMks(val).toDouble();
   return new Double(1900.0 + ((jd - 2415020.31352) / 365.242198781));
 }, (val) {
@@ -410,7 +412,7 @@ TimeInstantUnits B = new TimeInstantUnits("Bessellian", null, "B", null, 1.0, fa
 //__________________________________________________________________________________________________________
 
 /// Network Time Protocol (NTP) - NTP is offset from the UTC time scale, with its epoch at 1 Jan 1900 0h
-TimeInstantUnits NTP =
+final TimeInstantUnits NTP =
     new TimeInstantUnits("Network Time Protocol", null, "NTP", null, 1.0, false, -1.8302976e9, (val) {
   Number d = UTC.fromMks(val);
   d += 1.8302976e9;

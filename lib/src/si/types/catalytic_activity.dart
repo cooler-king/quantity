@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The increase in rate of a chemical reaction caused by the presence of a catalyst.
+///
+/// See the [Wikipedia entry for Catalysis](https://en.wikipedia.org/wiki/Catalysis)
+/// for more information.
+///
 class CatalyticActivity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions catalyticActivityDimensions = const Dimensions.constant(const {"Amount": 1, "Time": -1});

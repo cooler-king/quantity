@@ -2,6 +2,9 @@ part of quantity_si;
 
 /// Represents the _length_ physical quantity (one of the seven base SI quantities).
 ///
+/// See the [Wikipedia entry for Length](https://en.wikipedia.org/wiki/Length)
+/// for more information.
+///
 class Length extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions lengthDimensions = const Dimensions.constant(const {"Length": 1});

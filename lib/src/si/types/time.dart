@@ -8,6 +8,9 @@ part of quantity_si;
 ///
 /// Use the [TimeInstant] class to specify a specific moment in time.
 ///
+/// See the [Wikipedia entry for Time](https://en.wikipedia.org/wiki/Time)
+/// for more information.
+///
 class Time extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions timeDimensions = const Dimensions.constant(const {"Time": 1});

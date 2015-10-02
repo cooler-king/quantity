@@ -2,6 +2,11 @@ part of quantity_si;
 
 //TODO other related quantities, such as Currency Rate (time), Exchange Rate (scalar ratio) with live data?
 
+/// Money in any form when in actual use or circulation as a medium of exchange.
+///
+/// See the [Wikipedia entry for Currency](https://en.wikipedia.org/wiki/Currency)
+/// for more information.
+///
 class Currency extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions currencyDimensions = Scalar.scalarDimensions;

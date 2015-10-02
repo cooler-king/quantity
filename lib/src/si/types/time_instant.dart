@@ -13,8 +13,12 @@ TT  = Terrestial Time. Originally used instead of TDT or TDB when the
 bool _pre1972LeapSeconds = true;
 
 /// `TimeInstant` represents a specific moment in time and its units enable
-/// conversion between various time scales.  This class
-/// also enables the representation of a point in time to arbitrarily high
+/// conversion between various time scales.
+///
+/// See the [Wikipedia entry for Time](https://en.wikipedia.org/wiki/Time)
+/// for more information.
+///
+/// This class also enables the representation of a point in time to arbitrarily high
 /// precision over the entire span of time from the birth of the Universe
 /// to a possibly infinite future.  Therefore it is suitable for use within
 /// science and engineering disciplines that involve very long and/or very short
@@ -285,7 +289,7 @@ class TimeInstantUnits extends TimeInstant with Units {
     if (_fromMks != null) {
       return Function.apply(_fromMks, [mks]);
     } else {
-      return super.toMks(mks);
+      return super.fromMks(mks);
     }
   }
 

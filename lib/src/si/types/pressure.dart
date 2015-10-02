@@ -2,6 +2,12 @@ part of quantity_si;
 
 // Also Stress
 
+/// Force applied perpendicular to the surface of an object per unit area
+/// over which that force is distributed.
+///
+/// See the [Wikipedia entry for Pressure](https://en.wikipedia.org/wiki/Pressure)
+/// for more information.
+///
 class Pressure extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions pressureDimensions = const Dimensions.constant(const {"Length": -1, "Mass": 1, "Time": -2});

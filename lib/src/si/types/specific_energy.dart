@@ -2,6 +2,11 @@ part of quantity_si;
 
 // Also ImpartedSpecificEnergy, Kerma
 
+/// Energy per unit mass.
+///
+/// See the [Wikipedia entry for Specific energy](https://en.wikipedia.org/wiki/Specific_energy)
+/// for more information.
+///
 class SpecificEnergy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions specificEnergyDimensions = const Dimensions.constant(const {"Length": 2, "Time": -2});

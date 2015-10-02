@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The ability of a body to store an electrical charge,
+///
+/// See the [Wikipedia entry for Capacitance](https://en.wikipedia.org/wiki/Capacitance)
+/// for more information.
+///
 class Capacitance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricCapacitanceDimensions =

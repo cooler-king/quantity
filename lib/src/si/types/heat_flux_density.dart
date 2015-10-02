@@ -2,6 +2,11 @@ part of quantity_si;
 
 // Also EnergyFluxDensity, Irradiance, PowerFluxDensity
 
+/// Heat rate per unit area.
+///
+/// See the [Wikipedia entry for Heat flux](https://en.wikipedia.org/wiki/Heat_flux)
+/// for more information.
+///
 class HeatFluxDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions heatFluxDensityDimensions = const Dimensions.constant(const {"Mass": 1, "Time": -3});

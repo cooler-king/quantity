@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// An objective comparative measure of hot or cold.
+///
+/// See the [Wikipedia entry for Thermodynamic temperature](https://en.wikipedia.org/wiki/Thermodynamic_temperature)
+/// for more information.
+///
 class Temperature extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions temperatureDimensions = const Dimensions.constant(const {"Temperature": 1});
@@ -62,7 +67,7 @@ class TemperatureUnits extends Temperature with Units {
         false,
         this.offset);
   }
-
+/*
   /// Calculates and returns the temperature in Kelvin of the specified value
   /// (which is implicitly in these units).  Takes into account any offset
   /// between absolute temperature scales.
@@ -85,5 +90,5 @@ class TemperatureUnits extends Temperature with Units {
     } else {
       throw new QuantityException("num or Number expected");
     }
-  }
+  }*/
 }

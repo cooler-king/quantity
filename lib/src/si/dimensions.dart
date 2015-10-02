@@ -63,17 +63,26 @@ class Dimensions {
 
   /// No-arg constructor sets all dimensions to zero (that is, a scalar quantity).
   ///
-  Dimensions() : _dimensionMap = {};
+  Dimensions()
+      : _dimensionMap = {},
+        qType = Scalar;
+
+  /// Optional associated Quantity type
+  final Type qType;
 
   /// Constructs a constant Dimensions object with a map of base dimension
   /// keys to exponents
   ///
-  const Dimensions.constant(Map<String, num> dims) : _dimensionMap = dims;
+  const Dimensions.constant(Map<String, num> dims, {Type type})
+      : _dimensionMap = dims,
+        qType = type;
 
   /// Constructs a Dimensions object with a map of base dimension keys to
   /// base dimension exponents.
   ///
-  Dimensions.fromMap(Map<String, num> typeValuePairs) : _dimensionMap = new Map.from(typeValuePairs);
+  Dimensions.fromMap(Map<String, num> typeValuePairs)
+      : _dimensionMap = new Map.from(typeValuePairs),
+        qType = null;
 
   /// Creates a new Dimensions object by copying an existing Dimensions object.
   ///
@@ -81,7 +90,9 @@ class Dimensions {
   /// object (which in turn contains only immutable objects of classes
   /// String and num).
   ///
-  Dimensions.copy(Dimensions d2) : _dimensionMap = new Map.from(d2._dimensionMap);
+  Dimensions.copy(Dimensions d2)
+      : _dimensionMap = new Map.from(d2._dimensionMap),
+        qType = d2.qType;
 
   /// Tests the equality of this Dimensions object and another Dimensions object.
   /// Two Dimensions objects are only equal if they have exactly equal
@@ -149,12 +160,7 @@ class Dimensions {
 
   /// Gets the exponent value for the specified base dimension [component] key.
   ///
-  num getComponentExponent(String component) {
-    if (!_dimensionMap.containsKey(component)) return 0;
-
-    num exp = _dimensionMap[component];
-    return exp ?? 0;
-  }
+  num getComponentExponent(String component) => _dimensionMap[component] ?? 0;
 
   /// Returns the product of this Dimensions object and [other] Dimensions.
   ///
@@ -421,7 +427,7 @@ class Dimensions {
     //TODO need to provide units (metric units as default?)
 
     try {
-      return createTypedQuantityInstance(determineQuantityType(this), value, units, uncert);
+      return createTypedQuantityInstance(qType ?? determineQuantityType(this), value, units, uncert);
     } catch (e) {
       _logger.warning("Fallback MiscQuantity instance created for ${this}");
 

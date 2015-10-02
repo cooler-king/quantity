@@ -2,6 +2,11 @@ part of quantity_si;
 
 // Also, ElectromotiveForce, EMF, Potential
 
+/// The difference in electric potential energy between two points per unit electric charge
+///
+/// See the [Wikipedia entry for Voltage](https://en.wikipedia.org/wiki/Voltage)
+/// for more information.
+///
 class ElectricPotentialDifference extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricPotentialDifferenceDimensions =

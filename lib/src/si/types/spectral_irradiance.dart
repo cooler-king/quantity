@@ -2,9 +2,13 @@ part of quantity_si;
 
 /// Irradiance of a surface per unit frequency.
 ///
+/// See the [Wikipedia entry for Radiometry](https://en.wikipedia.org/wiki/Radiometry)
+/// for more information.
+///
 class SpectralIrradiance extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions spectralIrradianceDimensions = const Dimensions.constant(const {"Mass": 1, "Time": -2});
+  static const Dimensions spectralIrradianceDimensions =
+      const Dimensions.constant(const {"Mass": 1, "Time": -2}, type: SpectralIrradiance);
 
   /// The standard SI unit.
   static final SpectralIrradianceUnits wattsPerSquareMeterPerHertz =
@@ -23,7 +27,7 @@ class SpectralIrradiance extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   SpectralIrradiance.inUnits(value, SpectralIrradianceUnits units, [double uncert = 0.0])
-      : super(value, units ?? SpectralIrradiance.spectralIrradianceDimensions, uncert);
+      : super(value, units ?? SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
   const SpectralIrradiance.constant(Number valueSI, {SpectralIrradianceUnits units, num uncert: 0.0})
       : super.constant(valueSI, SpectralIrradiance.spectralIrradianceDimensions, units, uncert);

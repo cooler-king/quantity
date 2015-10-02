@@ -38,9 +38,6 @@ abstract class Real extends Number {
   }
 
   @override
-  Number operator -() => new Double(-value);
-
-  @override
   Number operator -(subtrahend) {
     if (subtrahend is num) return new Double(value - subtrahend);
     if (subtrahend is Real) return new Double(value - subtrahend.value);

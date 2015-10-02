@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// A two-dimensional angle in three-dimensional space that an object subtends at a point.
+///
+/// See the [Wikipedia entry for Solid angle](https://en.wikipedia.org/wiki/Solid_angle)
+/// for more information.
+///
 class SolidAngle extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions solidAngleDimensions = const Dimensions.constant(const {"Solid Angle": 1});

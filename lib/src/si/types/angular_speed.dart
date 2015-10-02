@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The rate of change of an angle.
+///
+/// See the [Wikipedia entry for Angular_velocity](https://en.wikipedia.org/wiki/Angular_velocity)
+/// for more information.
+///
 class AngularSpeed extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions angularSpeedDimensions = const Dimensions.constant(const {"Angle": 1, "Time": -1});

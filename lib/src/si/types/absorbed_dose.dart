@@ -1,9 +1,11 @@
 part of quantity_si;
 
-//TODO typedef
+/// The mean energy imparted to matter per unit mass by ionizing radiation.
+///
+/// See the [Wikipedia entry for Absorbed Dose](https://en.wikipedia.org/wiki/Absorbed_dose)
+/// for more information.
+///
 class AbsorbedDose extends Quantity {
-  //SpecificEnergy {
-
   /// Dimensions for this type of quantity
   static const Dimensions absorbedDoseDimensions = SpecificEnergy.specificEnergyDimensions;
 
@@ -24,7 +26,7 @@ class AbsorbedDose extends Quantity {
 
   AbsorbedDose._internal(conv) : super._dimensions(conv, AbsorbedDose.absorbedDoseDimensions);
 
-  /// Constructs a AbsorbedDose based on the [value]
+  /// Constructs an AbsorbedDose based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
   AbsorbedDose.inUnits(value, AbsorbedDoseUnits units, [double uncert = 0.0])

@@ -2,6 +2,11 @@ part of quantity_si;
 
 // Also SpecificEntropy
 
+/// The heat capacity per unit mass of a material.
+///
+/// See the [Wikipedia entry for Heat capacity](https://en.wikipedia.org/wiki/Heat_capacity)
+/// for more information.
+///
 class SpecificHeatCapacity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions specificHeatCapacityDimensions =

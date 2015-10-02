@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// Any interaction that, when unopposed, changes the motion of an object.
+///
+/// See the [Wikipedia entry for Force](https://en.wikipedia.org/wiki/Force)
+/// for more information.
+///
 class Force extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions forceDimensions = const Dimensions.constant(const {"Length": 1, "Mass": 1, "Time": -2});

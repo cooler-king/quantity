@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The number of occurrences of a repeating event per unit time.
+///
+/// See the [Wikipedia entry for Frequency](https://en.wikipedia.org/wiki/Frequency)
+/// for more information.
+///
 class Frequency extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions frequencyDimensions = const Dimensions.constant(const {"Time": -1});

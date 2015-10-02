@@ -63,7 +63,6 @@ main() {
           expect(q != null, true);
           expect(q.runtimeType == t, true);
         } catch (err) {
-          print(err);
           expect(err == null, true);
         }
       }

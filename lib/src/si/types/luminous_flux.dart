@@ -1,5 +1,15 @@
 part of quantity_si;
 
+/// The perceived power of light.
+///
+/// It differs from radiant flux, the measure of the total power of electromagnetic
+/// radiation (including infrared, ultraviolet, and visible light), in that luminous
+/// flux is adjusted to reflect the varying sensitivity of the human eye to different
+/// wavelengths of light
+///
+/// See the [Wikipedia entry for Luminance](https://en.wikipedia.org/wiki/Luminance)
+/// for more information.
+///
 class LuminousFlux extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions luminousFluxDimensions = const Dimensions.constant(const {"Intensity": 1, "Solid Angle": 1});

@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The flow of information, per unit time.
+///
+/// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)
+/// for more information.
+///
 class InformationRate extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions informationRateDimensions = Frequency.frequencyDimensions;

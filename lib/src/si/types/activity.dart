@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// A measure of the _effective concentration_ of a species in a mixture.
+///
+/// See the [Wikipedia entry for Thermodynamic activity](https://en.wikipedia.org/wiki/Thermodynamic_activity)
+/// for more information.
+///
 class Activity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions activityDimensions = const Dimensions.constant(const {"Time": -1});

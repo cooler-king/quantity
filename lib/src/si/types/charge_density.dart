@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// Electric charge per unit volume of space.
+///
+/// See the [Wikipedia entry for Charge density](https://en.wikipedia.org/wiki/Charge_density)
+/// for more information.
+///
 class ChargeDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricChargeDensityDimensions =

@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The rate of mean energy imparted to matter per unit mass by ionizing radiation.
+///
+/// See the [Wikipedia entry for Absorbed Dose](https://en.wikipedia.org/wiki/Absorbed_dose)
+/// for more information.
+///
 class AbsorbedDoseRate extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions absorbedDoseRateDimensions = const Dimensions.constant(const {"Length": 2, "Time": -3});

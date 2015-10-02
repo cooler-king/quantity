@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The intensity of light emitted from a surface per unit area.
+///
+/// See the [Wikipedia entry for Luminance](https://en.wikipedia.org/wiki/Luminance)
+/// for more information.
+///
 class Luminance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions luminanceDimensions = const Dimensions.constant(const {"Length": -2, "Intensity": 1});

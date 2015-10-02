@@ -9,56 +9,26 @@ part of quantity_si;
 /// A Units object stores a conversion value (to convert a value to SI-MKS units)
 /// and dimensions.
 ///
-/// ### Design Decisions
-///
-/// #### Units are Immutable MiscQuantity Objects<
-/// The above definition of unit implies that Units ought to extend the Quantity
-/// class and this is in fact the case as Units extend MiscQuantity which
-/// extends Quantity.  As a MiscQuantity, a Units object has a value and
-/// dimensions and may be used anywhere a Quantity may be used.  Units objects
-/// are automatically made immutable.
-///
-/// #### Units Subclass vs. Units Interface
-/// If Java supported multiple inheritance (like C++, for example) the design
-/// that would make the most sense is for particular types of Units to extend
-/// both a typed Quantity and a Units class (for example, AngleUnits extends
-/// Angle, Units).  Then those typed Units could be used with
-/// only the appropriate typed Quantity and would inherit all the functionality
-/// that Units requires.  Unfortunately, this is not an option in Java--a subclass
-/// can only extend a single class.  So something has to give.
-/// The major design alternative for Units would have been to have a Units
-/// _interface_ with all the necessary methods of a Units.  Since any
-/// Quantity could potentially be used as Units if tagged with a name, an <code>
-/// enableUnits(name)</code> method in Quantity could be added and Quantity
-/// could implement Units.  The problem with this approach is that a number of
-/// methods get forced into Quantity that don't really belong there.
-/// Particularly onerous would be methods like <code>to/fromMKS()</code> which
-/// could be easily confused with <code>get/setMKS()</code> even though they
-/// perform different functions.  Or if the methods were not placed in Quantity,
-/// a number of method implementations would proliferate through the typed Units
-/// classes, compromising code maintenance and library size.  So the design
-/// chosen has Units extending MiscQuantity.  The only significant drawback to
-/// this approach is that typed Units (e.g., AngleUnits) cannot be used as Angle
-/// objects even though they have the same Dimensions.  This minor problem is
-/// ameliorated by including the <code>getAsTypedQuantity()</code> method in
-/// Units, which can provide a typed Quantity equivalent to the Units in value
-/// and Dimensions.
-///
+/// ## Abstract Units Mixin
+/// This class is designed to be used as a mixin.  In this way typed units
+/// wind up being quantities themselves, extending the associated quantity type
+/// and mixing in units to represent themselves as units objects (e.g.,
+/// `LengthUnits extends Length with Units`).  This is
+/// consistent with the definition of units as quantities with specific values
+/// and means also that units object _are quantity objects_ and can be used
+/// as quantity parameters.
 ///
 /// ## "Units" vs. "Unit"
 /// Precisely speaking, quantities are expressed as multiples of a particular
 /// unit (singular, not plural).  However, when the quantity's absolute value is
 /// greater than 1, the unit is pluralized when spoken.  For example, one says
 /// "five meters," not "five of the meter unit" or something along those lines.
-/// Therefore, to make units easier to work with and program, the design decision
-/// was made to call this class Units and not Unit and to create all static
+/// Therefore, to make units easier to work with and program, this package calls
+/// this class Units and not Unit and defines all static
 /// unit objects with plural names (e.g., _meters_ vs. _meter_).  This leads to a
 /// more natural expression upon Quantity object creation and value manipulation.
 ///
-/// See [NIST Physics Home Page[(http://physics.nist.gov)]
-///
 abstract class Units {
-  //extends MiscQuantity {
   String name;
   String singular;
   String _abbrev1;
@@ -72,9 +42,6 @@ abstract class Units {
   //final String _shDialog;
 
   double offset = 0.0;
-
-  //final Number valueSI = null;
-  //final Dimensions dimensions = null;
 
   // Support for Compound Units
   final List<ExponentialUnits> _units = [];
@@ -362,13 +329,6 @@ abstract class Units {
   }
 */
 
-/**
-   Checks whether two Units objects represent the same Units by checking the
-   name and the conversion to MKS.
-<p>
-   * @return true if the Units objects are equal; false otherwise
-*/
-
   /// Two units are considered equal if their conversions to MKS are equal and
   /// theyhave the same singular name.
   ///
@@ -376,10 +336,7 @@ abstract class Units {
     if (obj == null) return false;
     if (identical(this, obj)) return true;
 
-    if (obj is Units) {
-      return (singular == obj.singular && _convToMKS == obj._convToMKS);
-    }
-
+    if (obj is Units) return (singular == obj.singular && _convToMKS == obj._convToMKS);
     return false;
   }
 
@@ -688,11 +645,12 @@ abstract class Units {
   /// (that is implicitly in these units).
   ///
   /// The method expects [value] to be a num or Number object; any other type will
-  /// cause an [QuantityException].
+  /// cause a [QuantityException].
   ///
   Number toMks(value) {
     if (value is num || value is Number) {
-      return _convToMKS * value;
+      if (offset == 0) return _convToMKS * value;
+      return _convToMKS * (objToNumber(offset) + value);
     } else {
       throw new QuantityException("num or Number expected");
     }
@@ -702,11 +660,15 @@ abstract class Units {
   /// object of [mks] (that is expected to be in SI-MKS units).
   ///
   /// The method accepts a num or Number object; any other type will
-  /// cause an [QuantityException].
+  /// cause a [QuantityException].
   ///
   Number fromMks(mks) {
-    if (mks is num || mks is Number) {
-      return (mks / _convToMKS);
+    if (mks is num) {
+      if (offset == 0) return (new Double(mks) / _convToMKS);
+      return (new Double(mks) / _convToMKS) - objToNumber(offset);
+    } else if (mks is Number) {
+      if (offset == 0) return (mks / _convToMKS);
+      return (mks / _convToMKS) - objToNumber(offset);
     } else {
       throw new QuantityException("num or Number expected");
     }
@@ -894,23 +856,6 @@ e.printStackTrace();
    return type;
 }
 */
-
-  /**
-   *  All Units extend MiscQuantity and therefore do not represent a particular
-   *  typed Quantity, such as Length or Mass, even though they may have the
-   *  dimensions of a Length or Mass.  This method constructs a typed Quantity
-   *  equal to this Units object in value and dimensions.  That Quantity may no
-   *  longer be used as Units, but it may be used where a particular type of
-   *  Quantity is required.
-   *
-  Quantity toTypedQuantity() {
-    try {
-      return dimensionsToQuantity(dimensions, 1.0, this);
-    } catch(e) {
-      // Can always return a MiscQuantity
-      return new MiscQuantity(this.valueSI, this.dimensions);
-    }
-  }*/
 
   /// Returns the derived Units having the 10^24 prefix, yotta (Y).
   Units yotta() => derive("yotta", "Y", 1.0e24);

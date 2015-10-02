@@ -43,6 +43,9 @@ class Double extends Real {
   }
 
   @override
+  Number operator -() => new Double(-value);
+
+  @override
   Number clamp(lowerLimit, upperLimit) {
     num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
     num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;

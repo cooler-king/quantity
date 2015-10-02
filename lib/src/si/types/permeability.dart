@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The ability of a material to support the formation of a magnetic field within itself.
+///
+/// See the [Wikipedia entry for Permeability (electromagnetism)](https://en.wikipedia.org/wiki/Permeability_%28electromagnetism%29)
+/// for more information.
+///
 class Permeability extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions permeabilityDimensions =

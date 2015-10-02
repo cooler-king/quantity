@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// Energy per mole of a substance.
+///
+/// See the [Wikipedia entry for Specific energy](https://en.wikipedia.org/wiki/Specific_energy)
+/// for more information.
+///
 class MolarEnergy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions molarEnergyDimensions =

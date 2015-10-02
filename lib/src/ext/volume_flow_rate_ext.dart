@@ -1,18 +1,18 @@
 part of quantity_ext;
 
-/** the standard SI unit **/
+/// the standard SI unit
 VolumeFlowRateUnits cubicMetersPerSecond = VolumeFlowRate.cubicMetersPerSecond;
 
-/** shorthand synonym for standard SI unit **/
+/// shorthand synonym for standard SI unit
 VolumeFlowRateUnits cumecs = cubicMetersPerSecond;
 
-/** shorthand synonym for standard SI unit **/
+/// shorthand synonym for standard SI unit
 VolumeFlowRateUnits musecs = cubicMetersPerSecond;
 
-/** 0.001 cubic meter per second **/
+/// 0.001 cubic meter per second
 VolumeFlowRateUnits litersPerSecond = new VolumeFlowRateUnits.volumeTime(liters, seconds);
 
-/** shorthand synonym for LITER_PER_SECOND **/
+/// shorthand synonym for liters per second
 VolumeFlowRateUnits lusecs = litersPerSecond;
 
 VolumeFlowRateUnits minersInches =

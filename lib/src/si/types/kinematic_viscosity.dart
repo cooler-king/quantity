@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The resistance to flow of a fluid, equal to its absolute viscosity divided by its density.
+///
+/// See the [Wikipedia entry for Viscosity](https://en.wikipedia.org/wiki/Viscosity)
+/// for more information.
+///
 class KinematicViscosity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions kinematicViscosityDimensions = const Dimensions.constant(const {"Length": 2, "Time": -1});

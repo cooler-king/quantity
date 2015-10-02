@@ -1,5 +1,11 @@
 part of quantity_si;
 
+/// The property of matter that causes it to experience a force when placed in an
+/// electromagnetic field
+///
+/// See the [Wikipedia entry for Electric charge](https://en.wikipedia.org/wiki/Electric_charge)
+/// for more information.
+///
 class Charge extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricChargeDimensions = const Dimensions.constant(const {"Current": 1, "Time": 1});

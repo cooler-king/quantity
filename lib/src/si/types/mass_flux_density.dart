@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The mass of a substance which passes per unit of time.
+///
+/// See the [Wikipedia entry for Mass flow rate](https://en.wikipedia.org/wiki/Mass_flow_rate)
+/// for more information.
+///
 class MassFluxDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions massFluxDensityDimensions =

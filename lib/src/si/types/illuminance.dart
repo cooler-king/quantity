@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The total luminous flux incident on a surface, per unit area.
+///
+/// See the [Wikipedia entry for Illuminance](https://en.wikipedia.org/wiki/Illuminance)
+/// for more information.
+///
 class Illuminance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions illuminanceDimensions =

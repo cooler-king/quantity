@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The flow of electric charge.
+///
+/// See the [Wikipedia entry for Electric current](https://en.wikipedia.org/wiki/Electric_current)
+/// for more information.
+///
 class Current extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricCurrentDimensions = const Dimensions.constant(const {"Current": 1});

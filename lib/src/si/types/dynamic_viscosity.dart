@@ -1,5 +1,11 @@
 part of quantity_si;
 
+/// A measure of a fluid's resistance to gradual deformation by shear stress or
+/// tensile stress.
+///
+/// See the [Wikipedia entry for Viscosity](https://en.wikipedia.org/wiki/Viscosity)
+/// for more information.
+///
 class DynamicViscosity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions dynamicViscosityDimensions =

@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The radiant flux emitted, reflected, transmitted or received, per unit solid angle.
+///
+/// See the [Wikipedia entry for Radiant intensity](https://en.wikipedia.org/wiki/Radiant_intensity)
+/// for more information.
+///
 class RadiantIntensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions radiantIntensityDimensions =

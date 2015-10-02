@@ -295,6 +295,11 @@ main() {
       expect(a >= e, false);
     });
 
+    test('valueInUnits', () {
+      Length a = new Length(m: 75.3);
+      expect(a.valueInUnits(meters).toDouble(), 75.3);
+    });
+
     test('units - metric', () {
       expect(Length.meters.valueSI == 1, true);
 

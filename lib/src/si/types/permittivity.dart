@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The resistance that is encountered when forming an electric field in a medium.
+///
+/// See the [Wikipedia entry for Permittivity](https://en.wikipedia.org/wiki/Permittivity)
+/// for more information.
+///
 class Permittivity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions permittivityDimensions =

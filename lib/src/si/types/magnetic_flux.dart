@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The magnetic flux density passing through a closed surface.
+///
+/// See the [Wikipedia entry for Magnetic flux](https://en.wikipedia.org/wiki/Magnetic_flux)
+/// for more information.
+///
 class MagneticFlux extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions magneticFluxDimensions =

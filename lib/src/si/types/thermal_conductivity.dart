@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The ability of a material to conduct heat.
+///
+/// See the [Wikipedia entry for Thermal conductivity](https://en.wikipedia.org/wiki/Thermal_conductivity)
+/// for more information.
+///
 class ThermalConductivity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions thermalConductivityDimensions =

@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The magnitude of the force per unit charge that an electric field exerts.
+///
+/// See the [Wikipedia entry for Electric field](https://en.wikipedia.org/wiki/Electric_field)
+/// for more information.
+///
 class ElectricFieldStrength extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricFieldStrengthDimensions =

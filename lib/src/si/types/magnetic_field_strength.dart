@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The intensity of a magnetic field.
+///
+/// See the [Wikipedia entry for Magnetic field](https://en.wikipedia.org/wiki/Magnetic_field)
+/// for more information.
+///
 class MagneticFieldStrength extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions magneticFieldStrengthDimensions =

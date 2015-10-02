@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The amount of energy stored in a given system or region of space per unit volume.
+///
+/// See the [Wikipedia entry for Energy density](https://en.wikipedia.org/wiki/Energy_density)
+/// for more information.
+///
 class EnergyDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions energyDensityDimensions = Pressure.pressureDimensions;

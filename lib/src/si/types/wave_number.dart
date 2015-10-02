@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The spatial frequency of a wave.
+///
+/// See the [Wikipedia entry for Wavenumber](https://en.wikipedia.org/wiki/Wavenumber)
+/// for more information.
+///
 class WaveNumber extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions waveNumberDimensions = const Dimensions.constant(const {"Length": -1});

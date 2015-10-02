@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The extent of a two-dimensional figure or shape.
+///
+/// See the [Wikipedia entry for Area](https://en.wikipedia.org/wiki/Area)
+/// for more information.
+///
 class Area extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions areaDimensions = const Dimensions.constant(const {"Length": 2});

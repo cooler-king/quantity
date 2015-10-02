@@ -1,6 +1,10 @@
 part of quantity_si;
 
-//until typedefs work with classes
+/// The rate of transfer of energy through a surface.
+///
+/// See the [Wikipedia entry for Energy density](https://en.wikipedia.org/wiki/Energy_density)
+/// for more information.
+///
 class EnergyFlux extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions energyFluxDimensions = Power.powerDimensions;

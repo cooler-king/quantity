@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The ratio of the substance's volume to its mass.
+///
+/// See the [Wikipedia entry for Specific volume](https://en.wikipedia.org/wiki/Specific_volume)
+/// for more information.
+///
 class SpecificVolume extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions specificVolumeDimensions = const Dimensions.constant(const {"Length": 3, "Mass": -1});

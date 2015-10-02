@@ -19,6 +19,9 @@ part of quantity_si;
 /// to properly determine that the resulting sound intensity level from two
 /// sources--62.0 dB and 73.0 dB--is 73.3 dB (not 135 dB!).
 ///
+/// See the [Wikipedia entry for Level (logarithmic_quantity)](https://en.wikipedia.org/wiki/Level_%28logarithmic_quantity%29)
+/// for more information.
+///
 abstract class Level extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions levelDimensions = Scalar.scalarDimensions;

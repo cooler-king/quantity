@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The volume of fluid which passes per unit time.
+///
+/// See the [Wikipedia entry for Volumetric flow rate](https://en.wikipedia.org/wiki/Volumetric_flow_rate)
+/// for more information.
+///
 class VolumeFlowRate extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions volumeFlowRateDimensions = const Dimensions.constant(const {"Length": 3, "Time": -1});

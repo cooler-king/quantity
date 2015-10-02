@@ -2,6 +2,11 @@ part of quantity_si;
 
 // Also QuantityOfHeat, Work
 
+/// The ability of a system to perform work; cannot be created or destroyed but can take many forms.
+///
+/// See the [Wikipedia entry for Energy](https://en.wikipedia.org/wiki/Energy)
+/// for more information.
+///
 class Energy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions energyDimensions = const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -2});

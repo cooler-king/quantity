@@ -1,5 +1,11 @@
 part of quantity_si;
 
+/// Represents the stochastic health effects (probability of cancer induction and genetic damage)
+/// of ionizing radiation on the human body.
+///
+/// See the [Wikipedia entry for Equivalent dose](https://en.wikipedia.org/wiki/Equivalent_dose)
+/// for more information.
+///
 class DoseEquivalent extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions doseEquivalentDimensions = SpecificEnergy.specificEnergyDimensions;

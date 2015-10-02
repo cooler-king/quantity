@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// The rate of change of speed of an object.
+///
+/// See the [Wikipedia entry for Acceleration](https://en.wikipedia.org/wiki/Acceleration)
+/// for more information.
+///
 class Acceleration extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions accelerationDimensions = const Dimensions.constant(const {"Length": 1, "Time": -2});

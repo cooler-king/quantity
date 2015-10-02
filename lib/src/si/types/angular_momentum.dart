@@ -1,5 +1,11 @@
 part of quantity_si;
 
+/// A measure of the quantity of rotation of a system of matter, taking into account its mass,
+/// rotations, motions and shape.
+///
+/// See the [Wikipedia entry for Angular momentum](https://en.wikipedia.org/wiki/Angular_momentum)
+/// for more information.
+///
 class AngularMomentum extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions angularMometumDimensions =

@@ -1,13 +1,15 @@
 part of quantity_si;
 
-/// An abstract base class for all quantities.  The Quantity class represents
-/// the value of a quantity (stored internally in SI MKS units) and its
-/// associated dimensions.  It provides methods for getting and setting the
+/// The abstract base class for all quantities.  The Quantity class represents
+/// the value of a physical quantity and its
+/// associated dimensions.  It provides methods for constructing and getting the
 /// quantity's value in arbitrary units, methods for mathematical manipulation
 /// and comparison and optional features such as arbitrary
 /// precision and uncertainty.
 ///
 /// ## Definitions
+/// _from [NIST's introduction to the International System of Units](http://physics.nist.gov/cuu/Units/introduction.html)_
+///
 /// * A _quantity in the general sense_ is a property ascribed to phenomena,
 /// bodies, or substances that can be quantified for, or assigned to, a
 /// particular phenomenon, body, or substance.  Examples are mass and electric
@@ -20,22 +22,22 @@ part of quantity_si;
 /// * A _unit_ is a particular physical quantity, defined and adopted by
 /// convention, with which other particular quantities of the same kind
 /// (dimension) are compared to express their value.
-/// * The  of a physical quantity_ is the quantitative expression of a
+/// * The _value of a physical quantity_ is the quantitative expression of a
 /// particular physical quantity as the product of a number and a unit, the
 /// number being its numerical value.  Thus, the numerical value of a particular
 /// physical quantity depends on the unit in which it is expressed.
 ///
-/// ### Immutability
-/// Quantity objects are immutable; they may not be changed after creation.
+/// ## Immutable
+/// Quantity values are immutable; they may not be changed after creation.
 /// Use [MutableQuantity] in the quantity_ext library for situations where
 /// changing a Quantity object's value or units is required.
 ///
-/// ### Value Representation,  Arbitrary Precision
-/// Quantity supports values specified by [num]s or [Number]s.  [Number] subtypes
+/// ## Value Representation,  Arbitrary Precision
+/// Quantity supports values specified by [num] or [Number] objects.  `Number` subtypes
 /// include [Real], [Imaginary] and [Complex].  Various [Real] subtypes are
 /// available, including [Precise], which supports arbitrary precision calculations.
 ///
-/// ### Uncertainty
+/// ## Uncertainty
 /// A Quantity object optionally includes an uncertainty, as quantities are
 /// often determined by measurement and therefore are only accurate within
 /// the capabilities of the measuring devices or techniques.  Internally,
@@ -53,56 +55,7 @@ part of quantity_si;
 /// is constructed with any uncertainty and off otherwise.  The setCalcUncertainty
 /// method may be called at any point to enable/disable this capability.
 ///
-/// ## Quantity Subclasses
-/// All subclasses of the Quantity class should follow the following guidelines:
-///
-/// * If it represents a type of quantity then it should implement the
-/// QuantityType interface (which requires no additional methods, but helps
-/// the system treat quantity types properly and provides some common
-/// static variables for use).
-/// * It should define a  static inner class for its specific Units and
-/// use that class wherever a Units type parameter is needed in its methods (such
-/// as in its constructors).  The inner class should be named [quantity name]Units
-/// in order to match the convention of this library.  The static inner class
-/// must extend the Units class and should include a constructor and
-/// the getQuantityType method similar to the ones shown below.
-///
-///
-///     // Length Units
-///     static class LengthUnits extends Units
-///    {
-///    &nbsp;&nbsp;&nbsp;
-///    &nbsp;&nbsp;&nbsp;LengthUnits(String n, String alt, String sym, String sing,
-///    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double conv, bool metric)
-///    &nbsp;&nbsp;&nbsp;{
-///    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(n,alt,sym,sing,conv,LENGTH_DIMENSIONS,metric);
-///    &nbsp;&nbsp;&nbsp;}
-///
-///
-///    &nbsp;&nbsp;&nbsp; Class
-///    &nbsp;&nbsp;&nbsp;getQuantityType()
-///    &nbsp;&nbsp;&nbsp;{
-///    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return Length;
-///    &nbsp;&nbsp;&nbsp;}
-///    }
-///
-///
-/// *The Quantity.getAllQuantityTypes() and Dimensions.determineQuantityType()
-/// methods should be modified to include the new subclass.
-///
-/// * It should, at a minimum, create a  static final instance of its
-/// base metric units (which will be an instance of the static inner class
-/// described above with the metric flag set to true).  It should also create
-/// any other desired unit instances.
-///
-///    static final LengthUnits METERS = new LengthUnits("meters",null,"m",null,1.0,true);
-///
-///
-/// See [NIST Physics Home Page](http://physics.nist.gov)
-///
-//TODO make generic? Quantity<double>, Quantity<Precise> etc
-//abstract class Quantity implements Comparable //, QuantityValues
-class Quantity implements Comparable {
+abstract class Quantity implements Comparable {
   /// The value of the quantity in the [base units](http://physics.nist.gov/cuu/Units/current.html),
   /// of the International System of Units (SI).
   ///
@@ -124,12 +77,15 @@ class Quantity implements Comparable {
   //final Map _options = {};
 
   /// This constructor sets the [value] (as expressed in the accompanying [units])
-  /// and uncertainty of this quantity and includes a flag for setting the Quantity
-  /// to be immutable (unchangeable).  The value is set using any Number object,
-  /// including BigInteger or BigDecimal.
+  /// and the relative standard [uncert]ainty.  The value is may be set using any
+  /// `num` or `Number` object, including [Precise] for arbitrary precision.
   ///
-  /// ## Notes:
-  /// * Relative standard uncertainty is defined as the standard uncertainty
+  /// Both the value and the uncertainty default to zero.
+  ///
+  /// Quantity dimensions are derived from the [units] and default to scalar
+  /// dimensions if units are not provided.
+  ///
+  /// Relative standard uncertainty is defined as the standard uncertainty
   /// divided by the absolute value of the result.  Standard uncertainty, in turn,
   /// is defined as the uncertainty (of a measurement result) by an estimated
   /// standard deviation, which is equal to the positive square root of the
@@ -137,13 +93,10 @@ class Quantity implements Comparable {
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
   ///
-  Quantity([value = 0.0, Units units, double uncert = 0.0])
-      : this.valueSI = (value is Number)
-            ? (units != null ? units.toMks(value) : value)
-            : (value is num ? (units != null ? units.toMks(numToNumber(value)) : numToNumber(value)) : Double.zero),
+  Quantity([value = Integer.zero, Units units, double uncert = 0.0])
+      : this.valueSI = units?.toMks(value) ?? (value is Number ? value : numToNumber(value)),
         this.preferredUnits = units,
-        this.dimensions =
-            (units != null && units is Quantity) ? (units as Quantity).dimensions : Scalar.scalarDimensions,
+        this.dimensions = (units is Quantity) ? (units as Quantity).dimensions : Scalar.scalarDimensions,
         this._ur = uncert;
 
   const Quantity.constant(this.valueSI, this.dimensions, this.preferredUnits, this._ur);
@@ -461,18 +414,19 @@ class Quantity implements Comparable {
     } else if (divisor is num || divisor is Number) {
       resultValue = valueSI / divisor;
 
+      /*
       // Branch on Quantity, num, Number
       if (divisor is Quantity) {
         Quantity q2 = divisor as Quantity;
         resultDimensions = dimensions / q2.dimensions;
         resultValue = valueSI / q2.valueSI;
         resultUr = (_ur != 0.0 || q2._ur != 0.0) ? Math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
-      }
+      }*/
 
       if (dynamicQuantityTyping) {
-        return resultDimensions.toQuantity(resultValue, null, resultUr);
+        return resultDimensions.toQuantity(resultValue, null, _ur);
       } else {
-        return new MiscQuantity(resultValue, resultDimensions, resultUr);
+        return new MiscQuantity(resultValue, resultDimensions, _ur);
       }
     } else {
       throw new QuantityException("Expected a Quantity, num or Number object");

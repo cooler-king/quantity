@@ -1,5 +1,10 @@
 part of quantity_si;
 
+/// A measure of the difficulty passing an electric current through a conductor.
+///
+/// See the [Wikipedia entry for Electrical resistance and conductance](https://en.wikipedia.org/wiki/Electrical_resistance_and_conductance)
+/// for more information.
+///
 class Resistance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricResistanceDimensions =

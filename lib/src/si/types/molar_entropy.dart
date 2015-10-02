@@ -1,7 +1,12 @@
 part of quantity_si;
 
-// Also MolarHeatCapacity
+// Also MolarHeatCapacity entropy content of one mole of substanc
 
+/// Entropy content per mole of substance.
+///
+/// See the [Wikipedia entry for Standard molar entropy](https://en.wikipedia.org/wiki/Standard_molar_entropy)
+/// for more information.
+///
 class MolarEntropy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions molarEntropyDimensions =

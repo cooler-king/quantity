@@ -1,6 +1,10 @@
 part of quantity_si;
 
-/// Represents the *mass* physical quantity (one of the seven base SI quantities).
+/// Represents the *mass* physical quantity (one of the seven base SI quantities),
+/// that determines the strength of a body's mutual gravitational attraction to other bodies.
+///
+/// See the [Wikipedia entry for Mass](https://en.wikipedia.org/wiki/Mass)
+/// for more information.
 ///
 class Mass extends Quantity {
   /// Dimensions for this type of quantity
