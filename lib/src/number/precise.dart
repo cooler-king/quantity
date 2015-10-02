@@ -254,7 +254,6 @@ class Precise extends Real {
       Digit d1 = digitAtPlace(place);
       Digit d2 = preciseSubtrahend.digitAtPlace(place);
       temp = (d1 - d2) + borrow;
-      //print("sub... $temp = ($d1 - $d2) + $borrow");
       if (temp < 0) {
         diff.add(Digit.list[10 + temp]);
         borrow = -1;
@@ -281,13 +280,10 @@ class Precise extends Real {
     int offset = 0;
     for (int p1 = preciseMultiplier._power; p1 < preciseMultiplier._power + preciseMultiplier._digits.length; p1++) {
       int d1Int = preciseMultiplier.digitAtPlace(p1).toInt();
-      //print("DIGIT1 = ${d1Int}");
       intermediateProduct = [];
       for (int p2 = _power; p2 < _power + _digits.length; p2++) {
         Digit d2 = digitAtPlace(p2);
-        //print("DIGIT2 = ${d2}");
         temp = (d1Int * d2.toInt()) + carry;
-        //print("temp = ${temp}.... (carry ${carry})");
 
         if (temp < 10) {
           intermediateProduct.add(Digit.list[temp]);
@@ -305,12 +301,7 @@ class Precise extends Real {
       for (int i = 0; i < offset; i++) {
         intermediateProduct.insert(0, Digit.zero);
       }
-      //print("${multiplier}--- intermediate... ${intermediateProduct}");
-      //print(
-      //    "${product + new Precise.raw(intermediateProduct, sigDigits: _precision + 2)} = ${product} + ${intermediateProduct} ");
       product += new Precise.raw(intermediateProduct, sigDigits: _precision != null ? _precision + 2 : null);
-      //print("temp product = ${product}");
-
       offset += 1;
     }
 
@@ -487,10 +478,8 @@ class Precise extends Real {
         return p;
       } else {
         Precise p = this.reciprocal();
-        //print("RECIP ${p}");
         for (int i = -1; i > exp; i--) {
           p = p / this;
-          //print("... i = $i... p= ${p}");
         }
         return p;
       }

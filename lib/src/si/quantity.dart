@@ -94,7 +94,7 @@ abstract class Quantity implements Comparable {
   /// 68%.
   ///
   Quantity([value = Integer.zero, Units units, double uncert = 0.0])
-      : this.valueSI = units?.toMks(value) ?? (value is Number ? value : numToNumber(value)),
+      : this.valueSI = units?.toMks(value ?? 0) ?? (value is Number ? value : numToNumber(value)),
         this.preferredUnits = units,
         this.dimensions = (units is Quantity) ? (units as Quantity).dimensions : Scalar.scalarDimensions,
         this._ur = uncert;

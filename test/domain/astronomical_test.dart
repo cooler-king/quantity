@@ -38,35 +38,27 @@ main() {
     test('constants', () {
       expect(solarLuminosity is Power, true);
       expect(solarLuminosity.valueSI.toDouble(), 3.846e26);
-      expect(solarLuminosity.relativeUncertainty, 0.0);
 
       expect(gravitySolarSurface is Acceleration, true);
       expect(gravitySolarSurface.valueSI.toDouble(), 274.0);
-      expect(gravitySolarSurface.relativeUncertainty, 0.0);
 
       expect(hubbleConstant is Frequency, true);
       expect(hubbleConstant.valueSI.toDouble(), 2.4e-18);
-      expect(hubbleConstant.relativeUncertainty, 0.3333333333);
 
       expect(solarConstant is EnergyFlux, true);
       expect(solarConstant.valueSI.toDouble(), 1370.0);
-      expect(solarConstant.relativeUncertainty, 0.0);
 
       expect(solarRadius is Length, true);
       expect(solarRadius.valueSI.toDouble(), 6.9599e8);
-      expect(solarRadius.relativeUncertainty, 0.0);
 
       expect(earthRadiusEquatorial is Length, true);
       expect(earthRadiusEquatorial.valueSI.toDouble(), 6378.164);
-      expect(earthRadiusEquatorial.relativeUncertainty, 0.0);
 
       expect(solarMass is Mass, true);
       expect(solarMass.valueSI.toDouble(), 1.989e30);
-      expect(solarMass.relativeUncertainty, 0.0);
 
       expect(earthMass is Mass, true);
       expect(earthMass.valueSI.toDouble(), 5.972e24);
-      expect(earthMass.relativeUncertainty, 0.0);
     });
   });
 }
