@@ -1,7 +1,9 @@
 name: quantity
 version: 0.1.0
-description: Physical quantity and number libraries.
+description: Facilitates working with physical quantities.
 author: Rob Bishop (cooler-king)
+homepage: https://github.com/cooler-king/quantity
+documentation: https://github.com/cooler-king/quantity/wiki
 environment:
   sdk: '>=1.12.0 <2.0.0'
 dependencies:
