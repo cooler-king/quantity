@@ -40,6 +40,8 @@ Number numToNumber(num value) {
   return new Double(value);
 }
 
+/// Converts a Number to the equivalent [num].
+///
 num numberToNum(Number number) {
   if (number is Double) return number.value;
   if (number is Integer) return number.value;

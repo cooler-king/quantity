@@ -53,9 +53,9 @@ main() {
       Scalar s2 = new Scalar(value: 69);
 
       var c = s1 + s2;
+      expect(c is Scalar, true);
       expect(c.valueSI.toInt(), 80);
       expect(c.valueSI is Integer, true);
-      expect(c is Scalar, true);
 
       var d = s1 + s2 + s2 + s1;
       expect(d.valueSI == 160, true);
@@ -111,6 +111,106 @@ main() {
       expect(g is Scalar, true);
       expect(g.valueSI is Precise, true);
       expect(g.valueSI, new Precise("15.0032"));
+    });
+
+    test('operator -', () {
+      dynamicQuantityTyping = true;
+      Scalar s1 = new Scalar(value: 11);
+      Scalar s2 = new Scalar(value: 69);
+
+      var c = s1 - s2;
+      expect(c is Scalar, true);
+      expect(c.valueSI.toInt(), -58);
+      expect(c.valueSI is Integer, true);
+      c = s2 - s1;
+      expect(c.valueSI.toInt(), 58);
+
+      Scalar s3 = new Scalar(value: 34.21);
+
+      var e = s3 - s1;
+      expect(e.valueSI == 23.21, true);
+      expect(e.valueSI is Double, true);
+      expect(e is Scalar, true);
+
+      // Scalar - num
+      var g = s1 - 5;
+      expect(g is Scalar, true);
+      expect(g.valueSI is Integer, true);
+      expect(g.valueSI.toDouble(), 6.0);
+
+      g = s1 - 8.3;
+      expect(g is Scalar, true);
+      expect(g.valueSI is Double, true);
+      expect(g.valueSI.toDouble(), closeTo(2.7, 0.000001));
+
+      g = s1 - new Integer(7);
+      expect(g is Scalar, true);
+      expect(g.valueSI is Integer, true);
+      expect(g.valueSI.toDouble(), 4.0);
+
+      g = s1 - new Double(21.1);
+      expect(g is Scalar, true);
+      expect(g.valueSI is Double, true);
+      expect(g.valueSI.toDouble(), closeTo(-10.1, 0.0000001));
+
+      g = s1 - new Imaginary(3.8);
+      expect(g is Scalar, true);
+      expect(g.valueSI is Complex, true);
+      expect(g.valueSI.real.toDouble(), 11.0);
+      expect(g.valueSI.imag.value.toDouble(), -3.8);
+
+      g = s1 - new Complex(new Double(2.2), new Imaginary(9.3));
+      expect(g is Scalar, true);
+      expect(g.valueSI is Complex, true);
+      expect(g.valueSI.real.toDouble(), 8.8);
+      expect(g.valueSI.imag.value.toDouble(), -9.3);
+
+      g = s1 - new Precise("4.0032");
+      expect(g is Scalar, true);
+      expect(g.valueSI is Precise, true);
+      expect(g.valueSI, new Precise("6.9968"));
+    });
+
+    test('operator *', () {
+      dynamicQuantityTyping = true;
+      Scalar s1 = new Scalar(value: 3);
+      Scalar s2 = new Scalar(value: 4);
+
+      var c = s1 * s2;
+      expect(c is Scalar, true);
+      expect(c.valueSI.toInt(), 12);
+      expect(c.valueSI is Integer, true);
+      c = s2 * s1;
+      expect(c.valueSI.toInt(), 12);
+
+      var s3 = new Scalar(value: -5);
+      c = s3 * s1;
+      expect(c.valueSI.toInt(), -15);
+      expect(c.valueSI is Integer, true);
+      c = s1 * s3;
+      expect(c.valueSI.toInt(), -15);
+      expect(c.valueSI is Integer, true);
+
+      var s4 = new Scalar(value: 1.3);
+      c = s4 * s1;
+      expect(c.valueSI.toDouble(), closeTo(3.9, 0.000001));
+      expect(c.valueSI is Double, true);
+      c = s1 * s4;
+      expect(c.valueSI.toDouble(), closeTo(3.9, 0.000001));
+      expect(c.valueSI is Double, true);
+
+      var s5 = new Scalar(value: -0.5);
+      c = s5 * s1;
+      expect(c.valueSI.toDouble(), -1.5);
+      expect(c.valueSI is Double, true);
+      c = s1 * s5;
+      expect(c.valueSI.toDouble(), -1.5);
+      expect(c.valueSI is Double, true);
+
+      var s6 = new Scalar(value: new Imaginary(6));
+      c = s6 * s1;
+      expect(c.valueSI is Imaginary, true);
+      expect(c.valueSI.value == 18, true);
     });
   });
 }

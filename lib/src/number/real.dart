@@ -72,7 +72,6 @@ abstract class Real extends Number {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
       Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       Number aOverc2d2 = this / c2d2;
-
       return new Complex(aOverc2d2 * divisor.real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
     if (divisor is Imaginary) return new Imaginary((this / divisor.value) * -1);
@@ -214,7 +213,5 @@ abstract class Real extends Number {
   }
 
   @override
-  String toString() {
-    return "${value}";
-  }
+  String toString() => "${value}";
 }

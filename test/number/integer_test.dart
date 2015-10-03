@@ -38,7 +38,7 @@ main() {
       Complex c1 = new Complex(new Integer(42), new Imaginary(0.0));
     });
 
-    test('addition', () {
+    test('operator +', () {
       Integer d = new Integer(42);
 
       // + int
@@ -70,6 +70,26 @@ main() {
       expect((d + i2) is Complex, true);
       expect(((d + i2) as Complex).real.value == 42, true);
       expect(((d + i2) as Complex).imag.value == -8, true);
+
+      // + Complex
+      Complex cx = new Complex(new Double(2.1), new Imaginary(9.6));
+      var sum = d + cx;
+      expect(sum is Complex, true);
+      expect((sum as Complex).real.toDouble(), closeTo(44.1, 0.000001));
+      expect((sum as Complex).imag.value.toDouble(), 9.6);
+      cx = new Complex(new Double(-2.1), new Imaginary(-9.6));
+      sum = d + cx;
+      expect(sum is Complex, true);
+      expect((sum as Complex).real.toDouble(), closeTo(39.9, 0.000001));
+      expect((sum as Complex).imag.value.toDouble(), -9.6);
+
+      // + Precise
+      var p = new Precise("34.21");
+      expect((d + p) is Precise, true);
+      expect(((d + p) as Precise).value == 76.21, true);
+      p = new Precise("-21.7");
+      expect((d + p) is Precise, true);
+      expect(((d + p) as Precise).value == 20.3, true);
     });
   });
 }

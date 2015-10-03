@@ -10,6 +10,7 @@ import 'dart:math' as Math;
 import 'package:quantity/number.dart';
 import 'package:logging/logging.dart';
 import 'package:intl/intl.dart' show NumberFormat;
+import 'package:quiver/core.dart' show hash2;
 
 part 'src/si/quantity.dart';
 part 'src/si/units.dart';

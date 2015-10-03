@@ -34,7 +34,7 @@ class Scalar extends Quantity {
       : super.constant(value, Scalar.scalarDimensions, units, uncert);
 
   /// Scalar's hash code is identical to the hash code of its SI value
-  /// in order to support functional equality of [Scalar] quantitiess,
+  /// in order to support functional equality of [Scalar] quantities,
   /// [Number]s and [num]s.
   ///
   @override

@@ -3,7 +3,7 @@ import 'package:quantity/number.dart';
 
 main() {
   group('Imaginary', () {
-    test('zeroes', () {
+    test('zeros', () {
       Imaginary imag0a = new Imaginary(0);
       Imaginary imag0b = new Imaginary(0.0);
       Imaginary imag0c = new Imaginary(new Integer(0));
@@ -18,7 +18,7 @@ main() {
       expect(imag0a == complex0, true);
     });
 
-    test('addition -- imaginary only', () {
+    test('operator + -- imaginary only', () {
       Imaginary imag0 = new Imaginary(0);
       Imaginary imag1 = new Imaginary(6);
       Imaginary imag2 = new Imaginary(9);

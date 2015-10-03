@@ -302,25 +302,6 @@ abstract class Quantity implements Comparable {
         dimensions:  $dimensions and ${q2.dimensions}''');
     }
 
-    /*
-    // Calculate the new uncertainty, if necessary
-    double diffUr = 0.0;
-    if(_ur != 0.0 || q2._ur != 0.0) {
-
-      // Standard uncertainty (derive from relative standard uncertainty)
-      double u1 = _ur * valueSI.abs().toDouble();
-
-      // q2's standard uncertainty (derive from relative standard uncertainty)
-      double u2 = q2._ur * q2.valueSI.abs().toDouble();
-
-      // Combined standard uncertainty
-      double uc = Math.sqrt(u1*u1 + u2*u2);
-
-      // Relative combined standard uncertainty
-      diffUr = uc / mks.abs().toDouble();
-    }
-   */
-
     Number newValueSI = valueSI - q2.valueSI;
     double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
 
@@ -410,7 +391,10 @@ abstract class Quantity implements Comparable {
         exponent is! Scalar) throw new QuantityException("Cannot raise a quantity to a non-numeric power");
 
     if (exponent == 1) return this;
-    if (exponent == 0) return Scalar.one;
+    if (exponent == 0) {
+      if (valueSI == 0) return new Scalar(value: Double.NaN);
+      return Scalar.one;
+    }
 
     return (dimensions ^ exponent).toQuantity(valueSI ^ exponent, null, _ur * exponent);
   }
@@ -470,6 +454,7 @@ abstract class Quantity implements Comparable {
   /// Scalar quantities are also considered equal to num and Number objects
   /// with matching values.
   ///
+  @override
   bool operator ==(Object obj) {
     if (obj == null) return false;
 
@@ -480,7 +465,12 @@ abstract class Quantity implements Comparable {
     return (compareTo(obj) == 0);
   }
 
-  //TODO need to do hashcode since did ==
+  /// The hash code is based on the value and dimensions.
+  ///
+  /// Uncertainty and preferred units are not considered.
+  ///
+  @override
+  int get hashCode => hash2(valueSI, dimensions);
 
   /// Compares this Quantity to [q2] by comparing MKS values.  The
   /// Quantities need not have the same dimensions.
