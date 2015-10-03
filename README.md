@@ -23,7 +23,7 @@ Some parts are currently unfinished, untested and/or undocumented.  Use at your 
 
 ## Key Features
 
-* Typed quantities (such as [Length], [Mass] and [Temperature]) that are easy to construct and use in calculations.
+* Typed quantities (such as `Length`, `Mass` and `Temperature`) that are easy to construct and use in calculations.
 * Encourages use of standard units by isolating non-standard units in an extension library.
 * Support for relative standard uncertainty in quantity values and calculations.
 * Allows use of arbitrary precision values (as well as complex and imaginary values).
