@@ -51,7 +51,6 @@ class AngleRange extends QuantityRange<Angle> {
   ///
   /// Counterclockwise revolutions will be returned as a negative number.
   ///
-  //int get revolutions => delta.valueSI.toDouble() ~/ twoPi;
   int get revolutions => (q2.mks - q1.mks).toDouble() ~/ twoPi;
 
   /// Returns true if this angle range overlaps [range2]'s angle range

@@ -17,8 +17,8 @@ class FiscalYear extends TimePeriod {
   final int _year;
 
   FiscalYear(int year, {int monthOffset: -3})
-      : super(new TimeInstant.dateTime(new DateTime(fy4(year), 1 + monthOffset)),
-            new TimeInstant.dateTime(new DateTime(fy4(year), 13 + monthOffset))),
+      : super(new TimeInstant.dateTime(new DateTime(yr4(year), 1 + monthOffset)),
+            new TimeInstant.dateTime(new DateTime(yr4(year), 13 + monthOffset))),
         this._year = year;
 
   @override
@@ -39,7 +39,7 @@ class CalendarYear extends TimePeriod {
 /// Returns a four digit year from [year] which may be only 2 digits, assuming that
 /// anything 70 or more means 19xx and under 70 means 20xx.
 ///
-int fy4(int year) {
+int yr4(int year) {
   if (year > 1000) return year;
   if (year > 69) return 1900 + year;
   return 2000 + year;

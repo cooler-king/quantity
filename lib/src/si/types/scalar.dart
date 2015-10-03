@@ -44,20 +44,43 @@ class Scalar extends Quantity {
   /// num or Number objects.
   ///
   Quantity operator +(addend) {
-    // Scalars can accept numbers as arguments
     if (addend is num || addend is Number) {
-      return new Scalar.inUnits(valueSI + addend, Scalar.one, _ur);
-    } else if (addend is Scalar) {
-      Scalar s2 = addend as Scalar;
-      Number sumValue = valueSI + s2.valueSI;
-      double sumUr = 0.0;
-      if (_ur != 0.0 && s2._ur != 0.0) {
-        sumUr = Math.sqrt(_ur * _ur + s2._ur * s2._ur) / sumValue.abs().toDouble();
-      }
-
-      return new Scalar.inUnits(valueSI + addend.valueSI, Scalar.one, sumUr);
+      return new Scalar(value: valueSI + addend, uncert: _ur);
     } else {
-      throw new DimensionsException("Cannot add non-Scalar Quantities to a Scalar");
+      return super + addend;
+    }
+  }
+
+  /// Overrides Quantity's subtraction operator to allow for subtracting
+  /// num or Number objects from a Scalar quantity.
+  ///
+  Quantity operator -(subtrahend) {
+    if (subtrahend is num || subtrahend is Number) {
+      return new Scalar(value: valueSI - subtrahend, uncert: _ur);
+    } else {
+      return super - subtrahend;
+    }
+  }
+
+  /// Overrides Quantity's multiplication operator to allow multiplying
+  /// a Scalar quantity by a num or Number.
+  ///
+  Quantity operator *(multiplier) {
+    if (multiplier is num || multiplier is Number) {
+      return new Scalar(value: valueSI * multiplier, uncert: _ur);
+    } else {
+      return super * multiplier;
+    }
+  }
+
+  /// Overrides Quantity's division operator to allow dividing
+  /// a Scalar quantity by a num or Number.
+  ///
+  Quantity operator /(divisor) {
+    if (divisor is num || divisor is Number) {
+      return new Scalar(value: valueSI / divisor, uncert: _ur);
+    } else {
+      return super / divisor;
     }
   }
 }

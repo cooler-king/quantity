@@ -1,5 +1,6 @@
 part of number;
 
+/// A convenient way to
 class Fraction extends Double {
   final int _numerator;
   final int _denominator;
@@ -14,6 +15,7 @@ class Fraction extends Double {
         _denominator = denom,
         super((whole * denom + numer) / denom);
 
+  /*
   Number operator +(addend) {
     if (addend is Fraction) {} else {
       return super + addend;
@@ -33,5 +35,5 @@ class Fraction extends Double {
 
     // treat addend as zero
     return this;
-  }
+  }*/
 }

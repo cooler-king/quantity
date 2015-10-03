@@ -16,7 +16,7 @@ main() {
       expect(s.relativeUncertainty, 0);
     });
 
-    test('operator - equals/hashCode', () {
+    test('operator ==/hashCode', () {
       Scalar s1 = new Scalar(value: 11);
       Scalar s2 = new Scalar(value: 0.96);
       Scalar s3 = new Scalar(value: 11.0);
@@ -47,7 +47,7 @@ main() {
       expect(s6.hashCode == s8.hashCode, true);
     });
 
-    test('operator - addition', () {
+    test('operator +', () {
       dynamicQuantityTyping = true;
       Scalar s1 = new Scalar(value: 11);
       Scalar s2 = new Scalar(value: 69);
@@ -73,6 +73,44 @@ main() {
       expect(f.valueSI.toDouble(), closeTo(148.42, 0.000001));
       expect(f.valueSI is Double, true);
       expect(f is Scalar, true);
+
+      // Scalar + num
+      var g = s1 + 5;
+      expect(g is Scalar, true);
+      expect(g.valueSI is Integer, true);
+      expect(g.valueSI.toDouble(), 16.0);
+
+      g = s1 + 8.3;
+      expect(g is Scalar, true);
+      expect(g.valueSI is Double, true);
+      expect(g.valueSI.toDouble(), 19.3);
+
+      g = s1 + new Integer(7);
+      expect(g is Scalar, true);
+      expect(g.valueSI is Integer, true);
+      expect(g.valueSI.toDouble(), 18.0);
+
+      g = s1 + new Double(21.1);
+      expect(g is Scalar, true);
+      expect(g.valueSI is Double, true);
+      expect(g.valueSI.toDouble(), 32.1);
+
+      g = s1 + new Imaginary(3.8);
+      expect(g is Scalar, true);
+      expect(g.valueSI is Complex, true);
+      expect(g.valueSI.real.toDouble(), 11.0);
+      expect(g.valueSI.imag.value.toDouble(), 3.8);
+
+      g = s1 + new Complex(new Double(2.2), new Imaginary(9.3));
+      expect(g is Scalar, true);
+      expect(g.valueSI is Complex, true);
+      expect(g.valueSI.real.toDouble(), 13.2);
+      expect(g.valueSI.imag.value.toDouble(), 9.3);
+
+      g = s1 + new Precise("4.0032");
+      expect(g is Scalar, true);
+      expect(g.valueSI is Precise, true);
+      expect(g.valueSI, new Precise("15.0032"));
     });
   });
 }

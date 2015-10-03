@@ -106,7 +106,7 @@ class Dimensions {
     if (_dimensionMap.keys.length != d2._dimensionMap.keys.length) return false;
 
     // Check Values
-    for (String key in _dimensionMap.keys) {
+    for (var key in _dimensionMap.keys) {
       if (!d2._dimensionMap.containsKey(key) || (_dimensionMap[key] != d2._dimensionMap[key])) return false;
     }
 
@@ -120,7 +120,7 @@ class Dimensions {
     if (_dimensionMap.isEmpty) return 0;
 
     // Construct a unique string key and take its hashcode
-    StringBuffer buffer = new StringBuffer();
+    var buffer = new StringBuffer();
 
     buffer.write("L${getComponentExponent(Dimensions.baseLengthKey)}");
     buffer.write("M${getComponentExponent(Dimensions.baseMassKey)}");
@@ -146,8 +146,8 @@ class Dimensions {
     if (d2 == null) return false;
     if (d2 == this) return true;
 
-    Dimensions copy1 = new Dimensions.copy(this);
-    Dimensions copy2 = new Dimensions.copy(d2);
+    var copy1 = new Dimensions.copy(this);
+    var copy2 = new Dimensions.copy(d2);
 
     // Remove Angle and SolidAngle from consideration
     copy1._dimensionMap.remove(Dimensions.baseAngleKey);
@@ -170,7 +170,7 @@ class Dimensions {
   /// (1 + (-1) = 0).
   ///
   Dimensions operator *(Dimensions other) {
-    Dimensions result = new Dimensions.copy(this);
+    var result = new Dimensions.copy(this);
 
     // Add other's dimensions to my dimensions
     num otherValue = 0;
@@ -206,15 +206,18 @@ class Dimensions {
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (String key in other._dimensionMap.keys) {
+    for (var key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       if (myValue == null) {
         result._dimensionMap[key] = otherValue * -1;
       } else {
         newValue = myValue - otherValue;
-        if (newValue != 0.0) result._dimensionMap[key] = newValue;
-        else result._dimensionMap.remove(key); // remove 0's
+        if (newValue != 0.0) {
+          result._dimensionMap[key] = newValue;
+        } else {
+          result._dimensionMap.remove(key); // remove 0's
+        }
       }
     }
 
@@ -248,11 +251,11 @@ class Dimensions {
     if (exp == 0) return new Dimensions();
 
     // Make a copy of this Object...
-    Dimensions result = new Dimensions.copy(this);
+    var result = new Dimensions.copy(this);
 
     List<String> keysToRemove = [];
     num value = null;
-    for (String k in result._dimensionMap.keys) {
+    for (var k in result._dimensionMap.keys) {
       value = result._dimensionMap[k];
       if (value != null && value != 0) {
         result._dimensionMap[k] = value * exp;
@@ -261,8 +264,8 @@ class Dimensions {
       }
     }
 
-    // remove 0's
-    for (String k in keysToRemove) {
+    // Remove 0's
+    for (var k in keysToRemove) {
       result._dimensionMap.remove(k);
     }
 
@@ -449,7 +452,7 @@ class Dimensions {
     var buffer = new StringBuffer();
     buffer.write(" Dimensions [");
     bool first = true;
-    for (String t in _dimensionMap.keys) {
+    for (var t in _dimensionMap.keys) {
       if (!first) {
         buffer.write("; ");
       } else {

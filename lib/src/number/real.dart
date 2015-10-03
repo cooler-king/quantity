@@ -30,20 +30,20 @@ abstract class Real extends Number {
   @override
   Number operator +(addend) {
     if (addend is num) return new Double(value + addend);
+    if (addend is Precise) return addend + this;
     if (addend is Real) return new Double(value + addend.value);
     if (addend is Complex) return new Complex(new Double(addend.real.toDouble() + value), addend.imag);
     if (addend is Imaginary) return new Complex(this, addend);
-    if (addend is Precise) return addend + this;
     return this;
   }
 
   @override
   Number operator -(subtrahend) {
     if (subtrahend is num) return new Double(value - subtrahend);
+    if (subtrahend is Precise) return (-subtrahend) + this;
     if (subtrahend is Real) return new Double(value - subtrahend.value);
     if (subtrahend is Complex) return new Complex(new Double(value - subtrahend.real.value), -(subtrahend.imag));
     if (subtrahend is Imaginary) return new Complex(this, -subtrahend);
-    if (subtrahend is Precise) return (-subtrahend) + this;
     return this;
   }
 
@@ -54,10 +54,10 @@ abstract class Real extends Number {
       if (product == product.truncate()) return new Integer(product.truncate());
       return new Double(product);
     }
+    if (multiplier is Precise) return multiplier * this;
     if (multiplier is Real) return this * multiplier.value;
     if (multiplier is Complex) return new Complex(multiplier.real * value, multiplier.imaginary * value);
     if (multiplier is Imaginary) return new Imaginary(multiplier.value * value);
-    if (multiplier is Precise) return multiplier * this;
 
     // Treat multiplier as 0
     return Integer.zero;
@@ -66,6 +66,7 @@ abstract class Real extends Number {
   @override
   Number operator /(divisor) {
     if (divisor is num) return new Double(value / divisor);
+    if (divisor is Precise) return (new Precise.num(this.value)) / divisor;
     if (divisor is Real) return new Double(value / divisor.value);
     if (divisor is Complex) {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
@@ -75,7 +76,6 @@ abstract class Real extends Number {
       return new Complex(aOverc2d2 * divisor.real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
     if (divisor is Imaginary) return new Imaginary((this / divisor.value) * -1);
-    if (divisor is Precise) return (new Precise.num(this.value)) / divisor;
 
     // Treat divisor as 0
     return Double.infinity;
@@ -90,6 +90,7 @@ abstract class Real extends Number {
   Number operator ~/(divisor) {
     if (divisor == 0) return Double.infinity;
     if (divisor is num) return new Integer(value ~/ divisor);
+    if (divisor is Precise) return (new Precise.num(this.value) / divisor).truncate();
     if (divisor is Real) return new Integer(value ~/ divisor.value);
     if (divisor is Complex) {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
@@ -99,7 +100,6 @@ abstract class Real extends Number {
           (aOverc2d2 * divisor.real).truncate(), new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
     if (divisor is Imaginary) return new Imaginary(((this / divisor.value) * -1).truncate());
-    if (divisor is Precise) return (new Precise.num(this.value) / divisor).truncate();
 
     // Treat divisor as 0
     return Double.infinity;
@@ -148,6 +148,7 @@ abstract class Real extends Number {
       if (raised is int) return new Integer(raised);
       return new Double(raised);
     }
+    if (exponent is Precise) return (new Precise.num(value)) ^ exponent;
     if (exponent is Real) return new Double(Math.pow(value, exponent.value));
     if (exponent is Complex) {
       // a^(b+ic) = a^b * ( cos(c * ln(a)) + i * sin(c * ln(a)) )
@@ -160,17 +161,16 @@ abstract class Real extends Number {
       double clna = (exponent.value * Math.log(value)).toDouble();
       return new Complex(Math.cos(clna) as Real, new Imaginary(Math.sin(clna)));
     }
-    if (exponent is Precise) return (new Precise.num(value)) ^ exponent;
     return Double.one;
   }
 
   @override
   bool operator >(obj) {
     if (obj is num) return value > obj;
+    if (obj is Precise) return new Precise.num(this.value) > obj;
     if (obj is Real) return value > obj.value;
     if (obj is Imaginary) return value > 0;
     if (obj is Complex) return this > obj.real;
-    if (obj is Precise) return new Precise.num(this.value) > obj;
     return this > 0;
   }
 
@@ -201,8 +201,8 @@ abstract class Real extends Number {
   @override
   Number reciprocal() {
     if (value == 0) return Double.NaN;
-    else if (value == 1) return Integer.one;
-    else return new Double(1.0 / value);
+    if (value == 1) return Integer.one;
+    return new Double(1.0 / value);
   }
 
   @override

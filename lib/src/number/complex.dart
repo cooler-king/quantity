@@ -1,5 +1,7 @@
 part of number;
 
+/// Complex numbers have both a real and an imaginary part.
+///
 class Complex extends Number {
   final Real real;
   final Imaginary imaginary;

@@ -53,7 +53,7 @@ main() {
       expect(d4 == c1, true);
     });
 
-    test('addition', () {
+    test('operator +', () {
       Double d = new Double(42.056);
       Double d2 = new Double(14.321);
       expect((d + d2) is Double, true);
@@ -64,6 +64,10 @@ main() {
       expect((d + i) is Complex, true);
       expect(((d + i) as Complex).real.toDouble(), closeTo(42.056, 0.000001));
       expect(((d + i) as Complex).imag.value.toDouble(), closeTo(34.21, 0.000001));
+
+      Precise p = new Precise("123.456");
+      var sum = d + p;
+      expect(sum is Precise, true);
     });
   });
 }

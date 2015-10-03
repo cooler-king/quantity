@@ -74,7 +74,6 @@ abstract class Quantity implements Comparable {
 
   /// Preferred units for display
   final Units preferredUnits;
-  //final Map _options = {};
 
   /// This constructor sets the [value] (as expressed in the accompanying [units])
   /// and the relative standard [uncert]ainty.  The value is may be set using any
@@ -148,12 +147,7 @@ abstract class Quantity implements Comparable {
   /// 3. 99% for k=2.576 and
   /// 4. 99.73% for k=3.
   ///
-  Quantity calcExpandedUncertainty(double k) {
-    //Quantity q = this * (_ur * k);
-    //q.absEquals();
-    //return q;
-    return dimensions.toQuantity(valueSI * _ur * k);
-  }
+  Quantity calcExpandedUncertainty(double k) => dimensions.toQuantity(valueSI * _ur * k);
 
   /// Returns the standard uncertainty in this Quantity object's value as a typed
   /// Quantity object.
@@ -165,13 +159,7 @@ abstract class Quantity implements Comparable {
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
   ///
-  Quantity get standardUncertainty {
-    //Quantity q = this * _ur;
-    // q.absEquals ();
-    // q._ur = 0.0;  // no uncertainty in uncertainty!
-    //return q;
-    return dimensions.toQuantity(valueSI * _ur);
-  }
+  Quantity get standardUncertainty => dimensions.toQuantity(valueSI * _ur);
 
   /// Randomly generates a Quantity from this Quantity's value and uncertainty.
   /// The uncertainty is represented by a Normal (Gaussian) continous
@@ -188,7 +176,6 @@ abstract class Quantity implements Comparable {
     if (_ur == 0.0) return this;
 
     // Generate a random number btw 0.0 and 1.0
-
     double rand = new Math.Random().nextDouble();
 
     double test = 2.0 * rand - 1.0;
@@ -243,12 +230,6 @@ abstract class Quantity implements Comparable {
   Quantity operator +(addend) {
     // Null check
     if (addend == null) throw new QuantityException("Cannot add NULL to Quantity");
-
-    /*
-    // Scalars can accept numbers as arguments
-    if(this is Scalar && (addend is num || addend is Number)) {
-      return new Scalar.number(valueSI + addend, _ur);
-    }*/
 
     // Every other Quantity type can only add another Quantity
     if (addend is! Quantity) throw new QuantityException("Cannot add a ${addend.runtimeType} to a non-Scalar Quantity");

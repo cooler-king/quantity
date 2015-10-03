@@ -1,5 +1,8 @@
 part of number;
 
+/// Wraps Dart's core [double] type, so that it can share a common base
+/// type with other [Number]s.
+///
 class Double extends Real {
   final double _value;
 
