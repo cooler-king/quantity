@@ -35,6 +35,43 @@ class Temperature extends Quantity {
 
   const Temperature.constant(Number valueSI, {TemperatureUnits units, num uncert: 0.0})
       : super.constant(valueSI, Temperature.temperatureDimensions, units, uncert);
+
+  /// Override the addition operator to manage the `Temperature`/[TemperatureInterval] relationship.
+  ///
+  @override
+  operator +(addend) {
+    if (addend is TemperatureInterval || addend is Temperature) {
+      var newValueSI = valueSI + addend.valueSI;
+      var ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      return new Temperature(K: newValueSI, uncert: ur);
+    } else {
+      return super + addend;
+    }
+  }
+
+  /// Override the subtraction operator to manage the `Temperature`/[TemperatureInterval] relationship.
+  ///
+  /// * Subtracting a `Temperature` returns a [TemperatureInterval] object.
+  /// * Subtracting a `TemperatureInterval` returns a [Temperature] object.
+  ///
+  @override
+  operator -(subtrahend) {
+    if (subtrahend is TemperatureInterval) {
+      var newValueSI = valueSI - subtrahend.valueSI;
+      var ur = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      return new Temperature(K: newValueSI, uncert: ur);
+    } else if (subtrahend is Temperature) {
+      var newValueSI = valueSI - subtrahend.valueSI;
+      var ur = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      return new TemperatureInterval(K: newValueSI, uncert: ur);
+    } else {
+      return super - subtrahend;
+    }
+  }
+
+  /// Returns the [TemperatureInterval] equal to this temperature in kelvins.
+  ///
+  TemperatureInterval toInterval() => new TemperatureInterval(K: valueSI, uncert: _ur);
 }
 
 /// Units acceptable for use in describing [Temperature] quantities.
@@ -67,28 +104,4 @@ class TemperatureUnits extends Temperature with Units {
         false,
         this.offset);
   }
-/*
-  /// Calculates and returns the temperature in Kelvin of the specified value
-  /// (which is implicitly in these units).  Takes into account any offset
-  /// between absolute temperature scales.
-  ///
-  Number toMks(value) {
-    if (value is num || value is Number) {
-      return valueSI * (value + offset);
-    } else {
-      throw new QuantityException("num or Number expected");
-    }
-  }
-
-  /// Calculates and returns the value in the units represented by this Units
-  /// object of the specified value (which is implicitly in Kelvins). Takes
-  /// into account any offset between absolute temperature scales.
-  ///
-  Number fromMks(value) {
-    if (value is num || value is Number) {
-      return (value / valueSI) - offset;
-    } else {
-      throw new QuantityException("num or Number expected");
-    }
-  }*/
 }

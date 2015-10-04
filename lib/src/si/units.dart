@@ -650,7 +650,7 @@ abstract class Units {
   Number toMks(value) {
     if (value is num || value is Number) {
       if (offset == 0) return _convToMKS * value;
-      return _convToMKS * (objToNumber(offset) + value);
+      return (_convToMKS * value) + objToNumber(offset);
     } else {
       throw new QuantityException("num or Number expected");
     }

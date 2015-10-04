@@ -35,6 +35,49 @@ class TemperatureInterval extends Quantity {
 
   const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits units, num uncert: 0.0})
       : super.constant(valueSI, TemperatureInterval.temperatureIntervalDimensions, units, uncert);
+
+  /// Override the addition operator to manage the [Temperature]/`TemperatureInterval` relationship.
+  ///
+  /// * Adding a `Temperature` returns a [Temperature] object.
+  /// * Adding a `TemperatureInterval` returns a [TemperatureInterval] object.
+  ///
+  @override
+  operator +(addend) {
+    if (addend is TemperatureInterval) {
+      var newValueSI = valueSI + addend.valueSI;
+      var ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      return new TemperatureInterval(K: newValueSI, uncert: ur);
+    } else if (addend is Temperature) {
+      var newValueSI = valueSI + addend.valueSI;
+      var ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      return new Temperature(K: newValueSI, uncert: ur);
+    } else {
+      return super + addend;
+    }
+  }
+
+  /// Override the subtraction operator to manage the [Temperature]/`TemperatureInterval` relationship.
+  ///
+  /// * Subtracting a `TemperatureInterval` returns a `TemperatureInterval` object.
+  /// * Attempting to subtract a `Temperature` from a `TemperatureInterval` throws a
+  /// [QuantityException] as a physically nonsensical operation.
+  ///
+  @override
+  operator -(subtrahend) {
+    if (subtrahend is TemperatureInterval) {
+      var newValueSI = valueSI - subtrahend.valueSI;
+      var ur = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      return new TemperatureInterval(K: newValueSI, uncert: ur);
+    } else if (subtrahend is Temperature) {
+      throw new QuantityException("Subtracting a Temperature from a TemperatureInterval is not supported.");
+    } else {
+      return super - subtrahend;
+    }
+  }
+
+  /// Retuns the [Temperature] equal to this temperature interval measured from 0 degrees kelvin.
+  ///
+  Temperature toTemperature() => new Temperature(K: valueSI, uncert: _ur);
 }
 
 /// Units acceptable for use in describing TemperatureInterval quantities.
