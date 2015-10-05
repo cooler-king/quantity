@@ -118,6 +118,21 @@ main() {
       expect(p.digits[3].toInt(), 4);
       expect(p.digits[4].toInt(), 5);
       expect(p.power, 5);
+
+      // Limited to default (50) sig digits
+      p = new Precise("5.00000000000000000000000000000000000000000000000000000000000000000000000000000000001");
+      expect(p.digits.length, 50);
+      expect(p.digits[0].toInt(), 0);
+      expect(p.digits[49].toInt(), 5);
+      expect(p.power, -49);
+
+      // Raised precision
+      p = new Precise("5.00000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+          sigDigits: 500);
+      expect(p.digits.length > 50, true);
+      expect(p.digits[0].toInt(), 1);
+      expect(p.digits.last.toInt(), 5);
+      expect(p.power < -49, true);
     });
 
     test('decimalPortion', () {
@@ -674,6 +689,38 @@ main() {
       p = new Precise("-999.9999999999999999999999999");
       floor = p.floor();
       expect(floor.toString(), "-1000");
+    });
+
+    test('isInteger', () {
+      var p = new Precise("4");
+      expect(p.isInteger, true);
+
+      p = new Precise("4.0");
+      expect(p.isInteger, true);
+
+      p = new Precise("-4.0000");
+      expect(p.isInteger, true);
+
+      p = new Precise.num(4);
+      expect(p.isInteger, true);
+
+      p = new Precise.num(4.000);
+      expect(p.isInteger, true);
+
+      p = new Precise.num(-4);
+      expect(p.isInteger, true);
+
+      p = new Precise("4.000000000000000000000001");
+      expect(p.isInteger, false);
+
+      p = new Precise("-4.1");
+      expect(p.isInteger, false);
+
+      p = new Precise.num(4.0000000001);
+      expect(p.isInteger, false);
+
+      p = new Precise.num(-4.1);
+      expect(p.isInteger, false);
     });
 
     test('reciprocal', () {

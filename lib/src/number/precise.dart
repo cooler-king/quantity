@@ -135,11 +135,11 @@ class Precise extends Real {
       bool roundUp = false;
 
       // Round based on the digit one past the new max precision
-      for (int i = numCull; i >= 0; i--) {
+      for (int i = numCull - 1; i >= 0; i--) {
         Digit d = _digits.removeAt(i);
         if (i == numCull && d.toInt() > 4) roundUp = true;
       }
-      _power -= numCull;
+      _power += numCull;
 
       if (roundUp) {
         if (_digits[0] == Digit.nine) {} else {
@@ -163,7 +163,17 @@ class Precise extends Real {
     }
   }
 
-  @override bool get isInteger => _power >= 0;
+  /// Returns true if the stored value can be represented exactly as an integer.
+  ///
+  @override bool get isInteger {
+    if (_power >= 0) return true;
+
+    // Check for case where decimal portion is equal to 0
+    for (var d in digits.sublist(0, _power.abs())) {
+      if (d != Digit.zero) return false;
+    }
+    return true;
+  }
 
   @override bool get isNegative => _neg;
 
