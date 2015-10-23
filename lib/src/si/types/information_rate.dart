@@ -42,7 +42,7 @@ class InformationRate extends Quantity {
                         : (Tbps != null ? InformationRate.terabitsPerSecond : InformationRate.bitsPerSecond))),
             uncert);
 
-  InformationRate._internal(conv) : super._dimensions(conv, InformationRate.informationRateDimensions);
+  InformationRate._internal(conv) : super._internal(conv, InformationRate.informationRateDimensions);
 
   /// Constructs a InformationRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

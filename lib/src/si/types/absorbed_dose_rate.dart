@@ -26,7 +26,7 @@ class AbsorbedDoseRate extends Quantity {
       : super(Gy_per_s ?? (rads_per_s ?? 0.0),
             rads_per_s != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
 
-  AbsorbedDoseRate._internal(conv) : super._dimensions(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
+  AbsorbedDoseRate._internal(conv) : super._internal(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
 
   /// Constructs an AbsorbedDoseRate based on the [value]
   /// and the conversion factor intrinsic to the provided [units].

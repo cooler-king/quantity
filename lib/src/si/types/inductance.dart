@@ -21,7 +21,7 @@ class Inductance extends Quantity {
   ///
   Inductance({dynamic H, double uncert: 0.0}) : super(H ?? 0.0, Illuminance.lux, uncert);
 
-  Inductance._internal(conv) : super._dimensions(conv, Inductance.inductanceDimensions);
+  Inductance._internal(conv) : super._internal(conv, Inductance.inductanceDimensions);
 
   /// Constructs a Inductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

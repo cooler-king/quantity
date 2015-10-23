@@ -21,7 +21,7 @@ class CurrentDensity extends Quantity {
   CurrentDensity({dynamic A_per_m2, double uncert: 0.0})
       : super(A_per_m2 ?? 0.0, CurrentDensity.amperesPerSquareMeter, uncert);
 
-  CurrentDensity._internal(conv) : super._dimensions(conv, CurrentDensity.electricCurrentDensityDimensions);
+  CurrentDensity._internal(conv) : super._internal(conv, CurrentDensity.electricCurrentDensityDimensions);
 
   /// Constructs a CurrentDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

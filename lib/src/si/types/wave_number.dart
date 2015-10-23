@@ -19,7 +19,7 @@ class WaveNumber extends Quantity {
   WaveNumber({dynamic reciprocal_m, double uncert: 0.0})
       : super(reciprocal_m ?? 0.0, WaveNumber.reciprocalMeters, uncert);
 
-  WaveNumber._internal(conv) : super._dimensions(conv, WaveNumber.waveNumberDimensions);
+  WaveNumber._internal(conv) : super._internal(conv, WaveNumber.waveNumberDimensions);
 
   /// Constructs a WaveNumber based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

@@ -22,7 +22,7 @@ class SpecificEnergy extends Quantity {
   SpecificEnergy({dynamic J_per_kg, double uncert: 0.0})
       : super(J_per_kg ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert);
 
-  SpecificEnergy._internal(conv) : super._dimensions(conv, SpecificEnergy.specificEnergyDimensions);
+  SpecificEnergy._internal(conv) : super._internal(conv, SpecificEnergy.specificEnergyDimensions);
 
   /// Constructs a SpecificEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

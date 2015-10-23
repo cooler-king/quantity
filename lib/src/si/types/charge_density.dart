@@ -21,7 +21,7 @@ class ChargeDensity extends Quantity {
   ChargeDensity({dynamic C_per_m3, double uncert: 0.0})
       : super(C_per_m3 ?? 0.0, ChargeDensity.coulombsPerCubicMeter, uncert);
 
-  ChargeDensity._internal(conv) : super._dimensions(conv, ChargeDensity.electricChargeDensityDimensions);
+  ChargeDensity._internal(conv) : super._internal(conv, ChargeDensity.electricChargeDensityDimensions);
 
   /// Constructs a ChargeDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

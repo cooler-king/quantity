@@ -22,7 +22,7 @@ class MagneticFieldStrength extends Quantity {
       : super(A_per_m ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
   MagneticFieldStrength._internal(conv)
-      : super._dimensions(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
+      : super._internal(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

@@ -21,7 +21,7 @@ class RadiantIntensity extends Quantity {
   RadiantIntensity({dynamic W_per_sr, double uncert: 0.0})
       : super(W_per_sr ?? 0.0, RadiantIntensity.wattsPerSteradian, uncert);
 
-  RadiantIntensity._internal(conv) : super._dimensions(conv, RadiantIntensity.radiantIntensityDimensions);
+  RadiantIntensity._internal(conv) : super._internal(conv, RadiantIntensity.radiantIntensityDimensions);
 
   /// Constructs a RadiantIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

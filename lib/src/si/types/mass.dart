@@ -37,7 +37,7 @@ class Mass extends Quantity {
       : super(kg ?? (g ?? (u ?? 0.0)),
             g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
 
-  Mass._internal(conv) : super._dimensions(conv, Mass.massDimensions);
+  Mass._internal(conv) : super._internal(conv, Mass.massDimensions);
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

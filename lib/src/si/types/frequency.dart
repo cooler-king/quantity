@@ -30,7 +30,7 @@ class Frequency extends Quantity {
                 : (MHz != null ? Frequency.megahertz : (GHz != null ? Frequency.gigahertz : Frequency.hertz)),
             uncert);
 
-  Frequency._internal(conv) : super._dimensions(conv, Frequency.frequencyDimensions);
+  Frequency._internal(conv) : super._internal(conv, Frequency.frequencyDimensions);
 
   /// Constructs a Frequency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

@@ -19,7 +19,7 @@ class KinematicViscosity extends Quantity {
   ///
   KinematicViscosity({dynamic m2_per_s, double uncert: 0.0}) : super(m2_per_s ?? 0.0, Illuminance.lux, uncert);
 
-  KinematicViscosity._internal(conv) : super._dimensions(conv, KinematicViscosity.kinematicViscosityDimensions);
+  KinematicViscosity._internal(conv) : super._internal(conv, KinematicViscosity.kinematicViscosityDimensions);
 
   /// Constructs a KinematicViscosity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

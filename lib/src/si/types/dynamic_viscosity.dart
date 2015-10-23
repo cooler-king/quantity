@@ -24,7 +24,7 @@ class DynamicViscosity extends Quantity {
   ///
   DynamicViscosity({dynamic Pas, double uncert: 0.0}) : super(Pas ?? 0.0, DynamicViscosity.pascalSeconds, uncert);
 
-  DynamicViscosity._internal(conv) : super._dimensions(conv, DynamicViscosity.dynamicViscosityDimensions);
+  DynamicViscosity._internal(conv) : super._internal(conv, DynamicViscosity.dynamicViscosityDimensions);
 
   /// Constructs a DynamicViscosity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

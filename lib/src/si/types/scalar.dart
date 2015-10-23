@@ -25,7 +25,7 @@ class Scalar extends Quantity {
   Scalar({value, percent, double uncert: 0.0})
       : super(percent ?? (value ?? 0.0), percent != null ? Scalar.percent : Scalar.one, uncert);
 
-  Scalar._internal(conv) : super._dimensions(conv, Scalar.scalarDimensions);
+  Scalar._internal(conv) : super._internal(conv, Scalar.scalarDimensions);
 
   // CONSTRUCTORS
   Scalar.inUnits(value, ScalarUnits units, [double uncert = 0.0]) : super(value, units ?? Scalar.one, uncert);

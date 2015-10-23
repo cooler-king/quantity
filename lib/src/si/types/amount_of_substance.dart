@@ -23,7 +23,7 @@ class AmountOfSubstance extends Quantity {
   AmountOfSubstance({dynamic mol, dynamic kmol, double uncert: 0.0})
       : super(mol ?? (kmol ?? 0.0), kmol != null ? AmountOfSubstance.kilomoles : AmountOfSubstance.moles, uncert);
 
-  AmountOfSubstance._internal(conv) : super._dimensions(conv, AmountOfSubstance.amountOfSubstanceDimensions);
+  AmountOfSubstance._internal(conv) : super._internal(conv, AmountOfSubstance.amountOfSubstanceDimensions);
 
   /// Constructs a AmountOfSubstance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

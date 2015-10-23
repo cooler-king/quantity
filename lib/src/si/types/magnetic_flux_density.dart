@@ -20,7 +20,7 @@ class MagneticFluxDensity extends Quantity {
   ///
   MagneticFluxDensity({dynamic T, double uncert: 0.0}) : super(T ?? 0.0, MagneticFluxDensity.teslas, uncert);
 
-  MagneticFluxDensity._internal(conv) : super._dimensions(conv, MagneticFluxDensity.magneticFluxDensityDimensions);
+  MagneticFluxDensity._internal(conv) : super._internal(conv, MagneticFluxDensity.magneticFluxDensityDimensions);
 
   /// Constructs a MagneticFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

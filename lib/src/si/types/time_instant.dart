@@ -161,7 +161,7 @@ class TimeInstant extends Quantity {
   TimeInstant({dynamic TAI, dynamic UTC, double uncert: 0.0})
       : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
 
-  TimeInstant._internal(conv) : super._dimensions(conv, TimeInstant.timeInstantDimensions);
+  TimeInstant._internal(conv) : super._internal(conv, TimeInstant.timeInstantDimensions);
 
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

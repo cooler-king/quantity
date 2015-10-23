@@ -18,7 +18,7 @@ class EnergyFlux extends Quantity {
   ///
   EnergyFlux({dynamic W_per_m2, double uncert: 0.0}) : super(W_per_m2 ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
 
-  EnergyFlux._internal(conv) : super._dimensions(conv, EnergyFlux.energyFluxDimensions);
+  EnergyFlux._internal(conv) : super._internal(conv, EnergyFlux.energyFluxDimensions);
 
   /// Constructs a EnergyFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

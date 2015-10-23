@@ -25,7 +25,7 @@ class TemperatureInterval extends Quantity {
       : super(K ?? (degC ?? 0.0), degC != null ? TemperatureInterval.degreesCelsius : TemperatureInterval.kelvins,
             uncert);
 
-  TemperatureInterval._internal(conv) : super._dimensions(conv, TemperatureInterval.temperatureIntervalDimensions);
+  TemperatureInterval._internal(conv) : super._internal(conv, TemperatureInterval.temperatureIntervalDimensions);
 
   /// Constructs a TemperatureInterval based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

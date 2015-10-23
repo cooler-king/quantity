@@ -24,7 +24,7 @@ class DoseEquivalent extends Quantity {
       : super(Sv != null ? Sv : (rems != null ? rems : 0.0),
             rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts, uncert);
 
-  DoseEquivalent._internal(conv) : super._dimensions(conv, DoseEquivalent.doseEquivalentDimensions);
+  DoseEquivalent._internal(conv) : super._internal(conv, DoseEquivalent.doseEquivalentDimensions);
 
   /// Constructs a DoseEquivalent based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

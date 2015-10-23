@@ -20,7 +20,7 @@ class SpecificVolume extends Quantity {
   SpecificVolume({dynamic m3_per_kg, double uncert: 0.0})
       : super(m3_per_kg ?? 0.0, SpecificVolume.cubicMetersPerKilogram, uncert);
 
-  SpecificVolume._internal(conv) : super._dimensions(conv, SpecificVolume.specificVolumeDimensions);
+  SpecificVolume._internal(conv) : super._internal(conv, SpecificVolume.specificVolumeDimensions);
 
   /// Constructs a SpecificVolume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

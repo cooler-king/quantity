@@ -31,7 +31,7 @@ class Currency extends Quantity {
   ///
   Currency({dynamic USD, double uncert: 0.0}) : super(USD ?? 0.0, Currency.dollarsUS, uncert);
 
-  Currency._internal(conv) : super._dimensions(conv, Currency.currencyDimensions);
+  Currency._internal(conv) : super._internal(conv, Currency.currencyDimensions);
 
   /// Constructs a Currency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

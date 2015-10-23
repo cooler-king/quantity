@@ -23,7 +23,7 @@ class Entropy extends Quantity {
   ///
   Entropy({dynamic J_per_K, double uncert: 0.0}) : super(J_per_K ?? 0.0, Entropy.joulesPerKelvin, uncert);
 
-  Entropy._internal(conv) : super._dimensions(conv, Entropy.entropyDimensions);
+  Entropy._internal(conv) : super._internal(conv, Entropy.entropyDimensions);
 
   /// Constructs a Entropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

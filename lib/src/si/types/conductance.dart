@@ -20,7 +20,7 @@ class Conductance extends Quantity {
   ///
   Conductance({dynamic S, double uncert: 0.0}) : super(S ?? 0.0, Conductance.siemens, uncert);
 
-  Conductance._internal(conv) : super._dimensions(conv, Conductance.electricConductanceDimensions);
+  Conductance._internal(conv) : super._internal(conv, Conductance.electricConductanceDimensions);
 
   /// Constructs a Conductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

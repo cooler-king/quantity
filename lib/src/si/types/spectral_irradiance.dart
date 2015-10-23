@@ -21,7 +21,7 @@ class SpectralIrradiance extends Quantity {
   SpectralIrradiance({dynamic W_per_m2_per_Hz, double uncert: 0.0})
       : super(W_per_m2_per_Hz ?? 0.0, SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
-  SpectralIrradiance._internal(conv) : super._dimensions(conv, SpectralIrradiance.spectralIrradianceDimensions);
+  SpectralIrradiance._internal(conv) : super._internal(conv, SpectralIrradiance.spectralIrradianceDimensions);
 
   /// Constructs a SpectralIrradiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

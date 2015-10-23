@@ -18,7 +18,7 @@ class Force extends Quantity {
   ///
   Force({dynamic N, double uncert: 0.0}) : super(N ?? 0.0, Force.newtons, uncert);
 
-  Force._internal(conv) : super._dimensions(conv, Force.forceDimensions);
+  Force._internal(conv) : super._internal(conv, Force.forceDimensions);
 
   /// Constructs a Force based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

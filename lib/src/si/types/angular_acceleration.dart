@@ -25,7 +25,7 @@ class AngularAcceleration extends Quantity {
   AngularAcceleration({dynamic rad_per_s2, dynamic deg_per_s2, double uncert: 0.0})
       : super(rad_per_s2 ?? (deg_per_s2 ?? 0.0), AngularAcceleration.radianPerSecondSquared, uncert);
 
-  AngularAcceleration._internal(conv) : super._dimensions(conv, AngularAcceleration.angularAccelerationDimensions);
+  AngularAcceleration._internal(conv) : super._internal(conv, AngularAcceleration.angularAccelerationDimensions);
 
   /// Constructs a AngularAcceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

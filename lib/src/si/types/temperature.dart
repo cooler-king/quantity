@@ -25,7 +25,7 @@ class Temperature extends Quantity {
   Temperature({dynamic K, dynamic C, double uncert: 0.0})
       : super(K ?? (C ?? 0.0), C != null ? Temperature.degreesCelsius : Temperature.kelvins, uncert);
 
-  Temperature._internal(conv) : super._dimensions(conv, Temperature.temperatureDimensions);
+  Temperature._internal(conv) : super._internal(conv, Temperature.temperatureDimensions);
 
   /// Constructs a Temperature based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

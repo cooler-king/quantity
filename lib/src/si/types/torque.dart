@@ -21,7 +21,7 @@ class Torque extends Quantity {
   ///
   Torque({dynamic Nm, double uncert: 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
 
-  Torque._internal(conv) : super._dimensions(conv, Torque.torqueDimensions);
+  Torque._internal(conv) : super._internal(conv, Torque.torqueDimensions);
 
   /// Constructs a Torque based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

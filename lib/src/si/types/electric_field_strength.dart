@@ -22,7 +22,7 @@ class ElectricFieldStrength extends Quantity {
       : super(V_per_m ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
   ElectricFieldStrength._internal(conv)
-      : super._dimensions(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
+      : super._internal(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
 
   /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

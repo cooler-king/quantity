@@ -22,7 +22,7 @@ class Current extends Quantity {
   Current({dynamic A, dynamic mA, double uncert: 0.0})
       : super(A ?? (mA ?? 0.0), mA != null ? Current.milliamperes : Current.amperes, uncert);
 
-  Current._internal(conv) : super._dimensions(conv, Current.electricCurrentDimensions);
+  Current._internal(conv) : super._internal(conv, Current.electricCurrentDimensions);
 
   /// Constructs a Current based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

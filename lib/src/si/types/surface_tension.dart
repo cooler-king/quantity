@@ -18,7 +18,7 @@ class SurfaceTension extends Quantity {
   ///
   SurfaceTension({dynamic N_per_m, double uncert: 0.0}) : super(N_per_m ?? 0.0, SurfaceTension.newtonsPerMeter, uncert);
 
-  SurfaceTension._internal(conv) : super._dimensions(conv, SurfaceTension.surfaceTensionDimensions);
+  SurfaceTension._internal(conv) : super._internal(conv, SurfaceTension.surfaceTensionDimensions);
 
   /// Constructs a SurfaceTension based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

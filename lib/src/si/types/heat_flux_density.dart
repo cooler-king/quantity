@@ -22,7 +22,7 @@ class HeatFluxDensity extends Quantity {
   HeatFluxDensity({dynamic W_per_m2, double uncert: 0.0})
       : super(W_per_m2 ?? 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
 
-  HeatFluxDensity._internal(conv) : super._dimensions(conv, HeatFluxDensity.heatFluxDensityDimensions);
+  HeatFluxDensity._internal(conv) : super._internal(conv, HeatFluxDensity.heatFluxDensityDimensions);
 
   /// Constructs a HeatFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

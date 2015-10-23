@@ -22,7 +22,7 @@ class Speed extends Quantity {
   Speed({dynamic m_per_s, dynamic knots, double uncert: 0.0})
       : super(m_per_s ?? (knots ?? 0.0), knots != null ? Speed.knots : Speed.metersPerSecond, uncert);
 
-  Speed._internal(conv) : super._dimensions(conv, Speed.speedDimensions);
+  Speed._internal(conv) : super._internal(conv, Speed.speedDimensions);
 
   /// Constructs a Speed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

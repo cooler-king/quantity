@@ -24,7 +24,7 @@ class ElectricPotentialDifference extends Quantity {
       : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
 
   ElectricPotentialDifference._internal(conv)
-      : super._dimensions(conv, ElectricPotentialDifference.electricPotentialDifferenceDimensions);
+      : super._internal(conv, ElectricPotentialDifference.electricPotentialDifferenceDimensions);
 
   /// Constructs a ElectricPotentialDifference based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

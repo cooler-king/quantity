@@ -24,7 +24,7 @@ class AngularSpeed extends Quantity {
       : super(rad_per_s ?? (deg_per_s ?? 0.0),
             deg_per_s != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
 
-  AngularSpeed._internal(conv) : super._dimensions(conv, AngularSpeed.angularSpeedDimensions);
+  AngularSpeed._internal(conv) : super._internal(conv, AngularSpeed.angularSpeedDimensions);
 
   /// Constructs a AngularSpeed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

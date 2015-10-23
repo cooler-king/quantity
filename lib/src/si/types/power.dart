@@ -26,7 +26,7 @@ class Power extends Quantity {
       : super(W ?? (kW ?? (MW ?? 0.0)), kW != null ? Power.kilowatts : (MW != null ? Power.megawatts : Power.watts),
             uncert);
 
-  Power._internal(conv) : super._dimensions(conv, Power.powerDimensions);
+  Power._internal(conv) : super._internal(conv, Power.powerDimensions);
 
   /// Constructs a Power based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

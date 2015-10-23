@@ -68,7 +68,7 @@ class Angle extends Quantity {
   Angle({dynamic rad, dynamic deg, double uncert: 0.0})
       : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
 
-  Angle._internal(conv) : super._dimensions(conv, Angle.angleDimensions);
+  Angle._internal(conv) : super._internal(conv, Angle.angleDimensions);
 
   /// Constructs an Angle based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

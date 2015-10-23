@@ -20,7 +20,7 @@ class AngularMomentum extends Quantity {
   ///
   AngularMomentum({dynamic Js, double uncert: 0.0}) : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
 
-  AngularMomentum._internal(conv) : super._dimensions(conv, AngularMomentum.angularMometumDimensions);
+  AngularMomentum._internal(conv) : super._internal(conv, AngularMomentum.angularMometumDimensions);
 
   /// Constructs a AngularMomentum based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

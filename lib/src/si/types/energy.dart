@@ -24,7 +24,7 @@ class Energy extends Quantity {
   Energy({dynamic J, dynamic eV, double uncert: 0.0})
       : super(J ?? (eV ?? 0.0), eV != null ? Energy.electronVolts : Energy.joules, uncert);
 
-  Energy._internal(conv) : super._dimensions(conv, Energy.energyDimensions);
+  Energy._internal(conv) : super._internal(conv, Energy.energyDimensions);
 
   /// Constructs a Energy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

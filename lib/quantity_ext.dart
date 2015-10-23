@@ -6,6 +6,7 @@ library quantity_ext;
 import 'dart:async';
 import 'dart:math';
 import 'package:quantity/number.dart';
+import 'package:intl/intl.dart' show NumberFormat;
 import 'package:quantity/quantity_si.dart';
 
 // quantity type extensions

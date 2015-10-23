@@ -103,7 +103,7 @@ abstract class Quantity implements Comparable {
   /// A private constructor to support MiscQuantity:  dimensions are
   /// known, units are not.
   ///
-  Quantity._dimensions([value = 0.0, Dimensions dimensions, double uncert = 0.0])
+  Quantity._internal([value = 0.0, Dimensions dimensions, double uncert = 0.0])
       : this.valueSI = (value is num) ? numToNumber(value) : value,
         this.preferredUnits = null,
         this.dimensions = dimensions,
@@ -733,10 +733,6 @@ abstract class Quantity implements Comparable {
    * @return ignore superclass units (true) or include them (false)
 */
 
-  bool ignoreSuperUnits() {
-    return false; //TODO make flag?
-  }
-
   /**
      Returns a list of all units available for a particular quantity type.
      The specified type is searched for any Units objects.
@@ -768,7 +764,7 @@ abstract class Quantity implements Comparable {
                      com.nanotitan.nvisualizer.quantity.constant.LENGTH class will to be examined for
                      additional units)
   *
-  static List<Units> getAllUnits(Type c, bool siOnly) {
+  static List<Units> getAllUnits(Type c, bool siOnly, bool ignoreSuperUnits) {
     List<Units> list = new List<Units>();
 
     reflect()

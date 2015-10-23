@@ -20,7 +20,7 @@ class EnergyDensity extends Quantity {
   EnergyDensity({dynamic J_per_m3, double uncert: 0.0})
       : super(J_per_m3 ?? 0.0, EnergyDensity.joulesPerCubicMeter, uncert);
 
-  EnergyDensity._internal(conv) : super._dimensions(conv, EnergyDensity.energyDensityDimensions);
+  EnergyDensity._internal(conv) : super._internal(conv, EnergyDensity.energyDensityDimensions);
 
   /// Constructs a EnergyDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

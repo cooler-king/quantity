@@ -47,7 +47,7 @@ class Length extends Quantity {
                     : (ua != null ? Length.astronomicalUnits : (NM != null ? Length.nauticalMiles : Length.meters))),
             uncert);
 
-  Length._internal(conv) : super._dimensions(conv, Length.lengthDimensions);
+  Length._internal(conv) : super._internal(conv, Length.lengthDimensions);
 
   /// Constructs a Length based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

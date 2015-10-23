@@ -70,7 +70,7 @@ class Time extends Quantity {
                         : (h != null ? Time.hoursMeanSolar : (min != null ? Time.minutesMeanSolar : Time.seconds)))),
             uncert);
 
-  Time._internal(conv) : super._dimensions(conv, Time.timeDimensions);
+  Time._internal(conv) : super._internal(conv, Time.timeDimensions);
 
   /// Constructs a Time based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

@@ -21,7 +21,7 @@ class Activity extends Quantity {
   ///
   Activity({dynamic Bq, dynamic Ci, double uncert: 0.0}) : super(Bq ?? (Ci ?? 0.0), Activity.becquerels, uncert);
 
-  Activity._internal(conv) : super._dimensions(conv, Activity.activityDimensions);
+  Activity._internal(conv) : super._internal(conv, Activity.activityDimensions);
 
   /// Constructs a Activity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

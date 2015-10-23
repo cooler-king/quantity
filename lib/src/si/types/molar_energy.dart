@@ -20,7 +20,7 @@ class MolarEnergy extends Quantity {
   ///
   MolarEnergy({dynamic J_per_mol, double uncert: 0.0}) : super(J_per_mol ?? 0.0, MolarEnergy.joulesPerMole, uncert);
 
-  MolarEnergy._internal(conv) : super._dimensions(conv, MolarEnergy.molarEnergyDimensions);
+  MolarEnergy._internal(conv) : super._internal(conv, MolarEnergy.molarEnergyDimensions);
 
   /// Constructs a MolarEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

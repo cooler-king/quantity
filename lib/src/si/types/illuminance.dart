@@ -20,7 +20,7 @@ class Illuminance extends Quantity {
   ///
   Illuminance({dynamic lux, double uncert: 0.0}) : super(lux ?? 0.0, Illuminance.lux, uncert);
 
-  Illuminance._internal(conv) : super._dimensions(conv, Illuminance.illuminanceDimensions);
+  Illuminance._internal(conv) : super._internal(conv, Illuminance.illuminanceDimensions);
 
   /// Constructs a Illuminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

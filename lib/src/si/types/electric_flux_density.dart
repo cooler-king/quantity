@@ -22,7 +22,7 @@ class ElectricFluxDensity extends Quantity {
   ElectricFluxDensity({dynamic C_per_m2, double uncert: 0.0})
       : super(C_per_m2 ?? 0.0, ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
-  ElectricFluxDensity._internal(conv) : super._dimensions(conv, ElectricFluxDensity.electricFluxDensityDimensions);
+  ElectricFluxDensity._internal(conv) : super._internal(conv, ElectricFluxDensity.electricFluxDensityDimensions);
 
   /// Constructs a ElectricFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

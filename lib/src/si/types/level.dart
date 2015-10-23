@@ -46,7 +46,7 @@ abstract class Level extends Quantity {
   ///
   Level({dynamic Np, double uncert: 0.0}) : super(Np ?? 0.0, Level.nepers, uncert);
 
-  Level._internal(conv) : super._dimensions(conv, Level.levelDimensions);
+  Level._internal(conv) : super._internal(conv, Level.levelDimensions);
 
   /// Constructs a Level based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

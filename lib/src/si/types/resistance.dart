@@ -19,7 +19,7 @@ class Resistance extends Quantity {
   ///
   Resistance({dynamic ohms, double uncert: 0.0}) : super(ohms ?? 0.0, Resistance.ohms, uncert);
 
-  Resistance._internal(conv) : super._dimensions(conv, Resistance.electricResistanceDimensions);
+  Resistance._internal(conv) : super._internal(conv, Resistance.electricResistanceDimensions);
 
   /// Constructs a Resistance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

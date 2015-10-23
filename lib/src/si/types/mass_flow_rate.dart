@@ -19,7 +19,7 @@ class MassFlowRate extends Quantity {
   MassFlowRate({dynamic kg_per_s, double uncert: 0.0})
       : super(kg_per_s ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert);
 
-  MassFlowRate._internal(conv) : super._dimensions(conv, MassFlowRate.massFlowRateDimensions);
+  MassFlowRate._internal(conv) : super._internal(conv, MassFlowRate.massFlowRateDimensions);
 
   /// Constructs a MassFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

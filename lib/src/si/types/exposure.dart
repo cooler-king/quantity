@@ -22,7 +22,7 @@ class Exposure extends Quantity {
   Exposure({dynamic C_per_kg, dynamic R, double uncert: 0.0})
       : super(C_per_kg ?? (R ?? 0.0), R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram, uncert);
 
-  Exposure._internal(conv) : super._dimensions(conv, Exposure.exposureDimensions);
+  Exposure._internal(conv) : super._internal(conv, Exposure.exposureDimensions);
 
   /// Constructs a Exposure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
