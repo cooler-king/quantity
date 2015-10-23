@@ -18,8 +18,8 @@ class MiscQuantity extends Quantity {
   ///
   /// [value] may be a num or Number object.
   ///
-  MiscQuantity([Object value = 0.0, Dimensions dim = Scalar.scalarDimensions, double uncert = 0.0])
-      : super._dimensions(value, dim, uncert);
+  MiscQuantity([dynamic value = 0.0, Dimensions dim = Scalar.scalarDimensions, double uncert = 0.0])
+      : super._internal(value, dim, uncert);
 
   const MiscQuantity.constant(Number valueSI, Dimensions dim, {Units units, num uncert: 0.0})
       : super.constant(valueSI, dim, units, uncert);
@@ -38,4 +38,6 @@ class MiscQuantity extends Quantity {
     }
     return super.valueInUnits(units);
   }
+
+  Quantity toTypedQuantity() => dimensions.toQuantity(valueSI, null, _ur);
 }
