@@ -1,3 +1,8 @@
+### 0.1.4
+  * Added `isScalar` and `isScalarSI` to `Dimensions` and `Quantity`.
+  * Extended use of type hints in dimensions for more efficient and accurate type determination during operations.
+  * Generalized special handling of scalar quantities.
+
 ### 0.1.3+1
   * Fixed `CHANGELOG.md` formatting.
 
