@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class AbsorbedDose extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions absorbedDoseDimensions = SpecificEnergy.specificEnergyDimensions;
+  static const Dimensions absorbedDoseDimensions =
+      const Dimensions.constant(const {"Length": 2, "Time": -2}, type: AbsorbedDose);
 
   /// The standard SI unit.
   static final AbsorbedDoseUnits grays = new AbsorbedDoseUnits("grays", null, "Gy", null, 1.0, true);

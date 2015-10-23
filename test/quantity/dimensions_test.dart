@@ -384,5 +384,27 @@ main() {
       expect(q1, isNotNull);
       expect(q1 is Length, true);
     });
+
+    test('isScalar', () {
+      expect(Length.lengthDimensions.isScalar, false);
+      expect(Time.timeDimensions.isScalar, false);
+      expect(Scalar.scalarDimensions.isScalar, true);
+      expect(Angle.angleDimensions.isScalar, false);
+      expect(SolidAngle.solidAngleDimensions.isScalar, false);
+      expect(AngularSpeed.angularSpeedDimensions.isScalar, false);
+      expect(Currency.currencyDimensions.isScalar, true);
+      expect(Information.informationDimensions.isScalar, true);
+    });
+
+    test('isScalarSI', () {
+      expect(Length.lengthDimensions.isScalarSI, false);
+      expect(Time.timeDimensions.isScalarSI, false);
+      expect(Scalar.scalarDimensions.isScalarSI, true);
+      expect(Angle.angleDimensions.isScalarSI, true);
+      expect(SolidAngle.solidAngleDimensions.isScalarSI, true);
+      expect(AngularSpeed.angularSpeedDimensions.isScalarSI, false);
+      expect(Currency.currencyDimensions.isScalarSI, true);
+      expect(Information.informationDimensions.isScalarSI, true);
+    });
   });
 }

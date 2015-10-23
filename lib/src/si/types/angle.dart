@@ -36,7 +36,7 @@ const double twoPi = 2.0 * Math.PI;
 ///
 class Angle extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions angleDimensions = const Dimensions.constant(const {"Angle": 1});
+  static const Dimensions angleDimensions = const Dimensions.constant(const {"Angle": 1}, type: Angle);
 
   /// The standard SI unit.
   static final AngleUnits radians = new AngleUnits("radians", null, "rad", null, Integer.one, true);

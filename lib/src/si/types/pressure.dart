@@ -10,7 +10,8 @@ part of quantity_si;
 ///
 class Pressure extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions pressureDimensions = const Dimensions.constant(const {"Length": -1, "Mass": 1, "Time": -2});
+  static const Dimensions pressureDimensions =
+      const Dimensions.constant(const {"Length": -1, "Mass": 1, "Time": -2}, type: Pressure);
 
   /// The standard SI unit.
   static final PressureUnits pascals = new PressureUnits("pascals", null, "Pa", null, 1.0, true);

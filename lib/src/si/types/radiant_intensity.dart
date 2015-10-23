@@ -8,7 +8,7 @@ part of quantity_si;
 class RadiantIntensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions radiantIntensityDimensions =
-      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -3, "Solid Angle": -1});
+      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -3, "Solid Angle": -1}, type: RadiantIntensity);
 
   /// The standard SI unit.
   static final RadiantIntensityUnits wattsPerSteradian =

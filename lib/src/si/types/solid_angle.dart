@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class SolidAngle extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions solidAngleDimensions = const Dimensions.constant(const {"Solid Angle": 1});
+  static const Dimensions solidAngleDimensions = const Dimensions.constant(const {"Solid Angle": 1}, type: SolidAngle);
 
   /// The standard SI unit.
   static final SolidAngleUnits steradians = new SolidAngleUnits("steradians", null, "sr", null, 1.0, true);

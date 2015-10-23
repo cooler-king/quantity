@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class CatalyticActivity extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions catalyticActivityDimensions = const Dimensions.constant(const {"Amount": 1, "Time": -1});
+  static const Dimensions catalyticActivityDimensions =
+      const Dimensions.constant(const {"Amount": 1, "Time": -1}, type: CatalyticActivity);
 
   /// The standard SI unit **/
   static final CatalyticActivityUnits katals = new CatalyticActivityUnits("katals", "kat", null, "katal", 1.0, true);

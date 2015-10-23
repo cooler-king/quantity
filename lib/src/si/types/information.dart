@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class Information extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions informationDimensions = Scalar.scalarDimensions;
+  static const Dimensions informationDimensions = const Dimensions.constant(const {}, type: Information);
 
   // Units
 

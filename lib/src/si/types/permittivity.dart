@@ -8,7 +8,7 @@ part of quantity_si;
 class Permittivity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions permittivityDimensions =
-      const Dimensions.constant(const {"Length": -3, "Time": 4, "Current": 2, "Mass": -1});
+      const Dimensions.constant(const {"Length": -3, "Time": 4, "Current": 2, "Mass": -1}, type: Permittivity);
 
   /// The standard SI unit.
   static final PermittivityUnits faradsPerMeter =

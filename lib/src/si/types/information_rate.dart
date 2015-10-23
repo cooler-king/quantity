@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class InformationRate extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions informationRateDimensions = Frequency.frequencyDimensions;
+  static const Dimensions informationRateDimensions =
+      const Dimensions.constant(const {"Time": -1}, type: InformationRate);
 
   /// The standard SI unit
   static final InformationRateUnits bitsPerSecond = new InformationRateUnits.massTime(Information.bits, Time.seconds);

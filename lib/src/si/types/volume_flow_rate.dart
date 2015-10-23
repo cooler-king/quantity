@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class VolumeFlowRate extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions volumeFlowRateDimensions = const Dimensions.constant(const {"Length": 3, "Time": -1});
+  static const Dimensions volumeFlowRateDimensions =
+      const Dimensions.constant(const {"Length": 3, "Time": -1}, type: VolumeFlowRate);
 
   /// The standard SI unit.
   static final VolumeFlowRateUnits cubicMetersPerSecond =

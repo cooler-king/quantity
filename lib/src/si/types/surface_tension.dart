@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class SurfaceTension extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions surfaceTensionDimensions = const Dimensions.constant(const {"Mass": 1, "Time": -2});
+  static const Dimensions surfaceTensionDimensions =
+      const Dimensions.constant(const {"Mass": 1, "Time": -2}, type: SurfaceTension);
 
   /// The standard SI unit.
   static final SurfaceTensionUnits newtonsPerMeter = new SurfaceTensionUnits.forceLength(Force.newtons, Length.meters);

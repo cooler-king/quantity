@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class Speed extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions speedDimensions = const Dimensions.constant(const {"Length": 1, "Time": -1});
+  static const Dimensions speedDimensions = const Dimensions.constant(const {"Length": 1, "Time": -1}, type: Speed);
 
   /// The standard SI unit.
   static final SpeedUnits metersPerSecond = new SpeedUnits.lengthTime(Length.meters, Time.seconds);

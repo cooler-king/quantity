@@ -12,7 +12,8 @@ part of quantity_si;
 ///
 class LuminousFlux extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions luminousFluxDimensions = const Dimensions.constant(const {"Intensity": 1, "Solid Angle": 1});
+  static const Dimensions luminousFluxDimensions =
+      const Dimensions.constant(const {"Intensity": 1, "Solid Angle": 1}, type: LuminousFlux);
 
   /// The standard SI unit.
   static final LuminousFluxUnits lumens = new LuminousFluxUnits("lumens", null, "lm", null, 1.0, true);

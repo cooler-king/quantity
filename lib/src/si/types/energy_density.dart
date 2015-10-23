@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class EnergyDensity extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions energyDensityDimensions = Pressure.pressureDimensions;
+  static const Dimensions energyDensityDimensions =
+      const Dimensions.constant(const {"Length": -1, "Mass": 1, "Time": -2}, type: EnergyDensity);
 
   /// The standard SI unit.
   static final EnergyDensityUnits joulesPerCubicMeter =

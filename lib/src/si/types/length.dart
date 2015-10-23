@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class Length extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions lengthDimensions = const Dimensions.constant(const {"Length": 1});
+  static const Dimensions lengthDimensions = const Dimensions.constant(const {"Length": 1}, type: Length);
 
   /// The standard SI unit.
   static final LengthUnits meters = new LengthUnits("meters", "m", null, null, 1.0, true);

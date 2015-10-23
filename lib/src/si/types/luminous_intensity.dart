@@ -9,7 +9,8 @@ part of quantity_si;
 ///
 class LuminousIntensity extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions luminousIntensityDimensions = const Dimensions.constant(const {"Intensity": 1});
+  static const Dimensions luminousIntensityDimensions =
+      const Dimensions.constant(const {"Intensity": 1}, type: LuminousIntensity);
 
   /// The standard SI unit.
   static final LuminousIntensityUnits candelas = new LuminousIntensityUnits("candelas", "cd", null, null, 1.0, true);

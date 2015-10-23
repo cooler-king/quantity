@@ -9,7 +9,7 @@ part of quantity_si;
 class DynamicViscosity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions dynamicViscosityDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Length": -1, "Time": -1});
+      const Dimensions.constant(const {"Mass": 1, "Length": -1, "Time": -1}, type: DynamicViscosity);
 
   /// The standard SI unit.
   static final DynamicViscosityUnits pascalSeconds =

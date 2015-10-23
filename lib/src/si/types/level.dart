@@ -24,7 +24,7 @@ part of quantity_si;
 ///
 abstract class Level extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions levelDimensions = Scalar.scalarDimensions;
+  static const Dimensions levelDimensions = const Dimensions.constant(const {}, type: Level);
 
   /// Accepted for use with the SI...
   /// the level of a field quantity when F/F0 = e and P/P0 = e squared.

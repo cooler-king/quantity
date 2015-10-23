@@ -8,7 +8,7 @@ part of quantity_si;
 class MagneticFlux extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions magneticFluxDimensions =
-      const Dimensions.constant(const {"Length": 2, "Time": -2, "Current": -1, "Mass": 1});
+      const Dimensions.constant(const {"Length": 2, "Time": -2, "Current": -1, "Mass": 1}, type: MagneticFlux);
 
   /// The standard SI unit.
   static final MagneticFluxUnits webers = new MagneticFluxUnits("webers", null, "Wb", null, 1.0, true);

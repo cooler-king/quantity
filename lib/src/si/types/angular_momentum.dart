@@ -9,7 +9,7 @@ part of quantity_si;
 class AngularMomentum extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions angularMometumDimensions =
-      const Dimensions.constant(const {"Angle": 1, "Length": 1, "Time": -1});
+      const Dimensions.constant(const {"Angle": 1, "Length": 1, "Time": -1}, type: AngularMomentum);
 
   /// The standard SI unit
   static final AngularMomentumUnits jouleSecond = new AngularMomentumUnits.energyTime(Energy.joules, Time.seconds);

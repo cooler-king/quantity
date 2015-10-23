@@ -7,8 +7,9 @@ part of quantity_si;
 ///
 class ThermalConductivity extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions thermalConductivityDimensions =
-      const Dimensions.constant(const {"Length": 1, "Mass": 1, "Time": -3, "Temperature": -1});
+  static const Dimensions thermalConductivityDimensions = const Dimensions.constant(
+      const {"Length": 1, "Mass": 1, "Time": -3, "Temperature": -1},
+      type: ThermalConductivity);
 
   /// The standard SI unit.
   static final ThermalConductivityUnits wattsPerMeterKelvin =

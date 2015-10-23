@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class Frequency extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions frequencyDimensions = const Dimensions.constant(const {"Time": -1});
+  static const Dimensions frequencyDimensions = const Dimensions.constant(const {"Time": -1}, type: Frequency);
 
   /// The standard SI unit.
   static final FrequencyUnits hertz = new FrequencyUnits("hertz", "Hz", null, "hertz", 1.0, true);

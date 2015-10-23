@@ -8,7 +8,7 @@ part of quantity_si;
 class Capacitance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricCapacitanceDimensions =
-      const Dimensions.constant(const {"Time": 4, "Current": 2, "Length": -2, "Mass": -1});
+      const Dimensions.constant(const {"Time": 4, "Current": 2, "Length": -2, "Mass": -1}, type: Capacitance);
 
   /// The standard SI unit.
   static final CapacitanceUnits farads = new CapacitanceUnits("farads", null, "F", null, 1.0, true);

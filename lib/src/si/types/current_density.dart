@@ -8,7 +8,7 @@ part of quantity_si;
 class CurrentDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricCurrentDensityDimensions =
-      const Dimensions.constant(const {"Current": 1, "Length": -2});
+      const Dimensions.constant(const {"Current": 1, "Length": -2}, type: CurrentDensity);
 
   /// The standard SI unit.
   static final CurrentDensityUnits amperesPerSquareMeter =

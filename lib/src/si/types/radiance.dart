@@ -9,7 +9,7 @@ part of quantity_si;
 class Radiance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions radianceDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Solid Angle": -1, "Time": -3});
+      const Dimensions.constant(const {"Mass": 1, "Solid Angle": -1, "Time": -3}, type: Radiance);
 
   /// The standard SI unit.
   static final RadianceUnits wattsPerSquareMeterSteradian =

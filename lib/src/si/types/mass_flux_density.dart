@@ -8,7 +8,7 @@ part of quantity_si;
 class MassFluxDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions massFluxDensityDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Time": -1, "Length": -2});
+      const Dimensions.constant(const {"Mass": 1, "Time": -1, "Length": -2}, type: MassFluxDensity);
 
   /// The standard SI unit.
   static final MassFluxDensityUnits kilogramsPerSecondPerSquareMeter =

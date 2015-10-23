@@ -11,7 +11,7 @@ part of quantity_si;
 class Entropy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions entropyDimensions =
-      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Temperature": -1, "Time": -2});
+      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Temperature": -1, "Time": -2}, type: Entropy);
 
   /// The standard SI unit.
   static final EntropyUnits joulesPerKelvin =

@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class WaveNumber extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions waveNumberDimensions = const Dimensions.constant(const {"Length": -1});
+  static const Dimensions waveNumberDimensions = const Dimensions.constant(const {"Length": -1}, type: WaveNumber);
 
   /// The standard SI unit.
   static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.length(Length.meters);

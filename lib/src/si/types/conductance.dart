@@ -8,7 +8,7 @@ part of quantity_si;
 class Conductance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricConductanceDimensions =
-      const Dimensions.constant(const {"Current": 2, "Time": 3, "Length": -2, "Mass": -1});
+      const Dimensions.constant(const {"Current": 2, "Time": 3, "Length": -2, "Mass": -1}, type: Conductance);
 
   /// The standard SI unit.
   /// Note: singular still has an 's'

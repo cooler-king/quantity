@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class EnergyFlux extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions energyFluxDimensions = Power.powerDimensions;
+  static const Dimensions energyFluxDimensions =
+      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -3}, type: EnergyFlux);
 
   /// The standard SI unit.
   static final EnergyFluxUnits wattsPerSquareMeter = new EnergyFluxUnits.powerArea(Power.watts, Area.squareMeters);

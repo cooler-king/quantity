@@ -9,7 +9,7 @@ part of quantity_si;
 class ElectricFluxDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricFluxDensityDimensions =
-      const Dimensions.constant(const {"Current": 1, "Time": 1, "Length": -2});
+      const Dimensions.constant(const {"Current": 1, "Time": 1, "Length": -2}, type: ElectricFluxDensity);
 
   /// The standard SI unit.
   static final ElectricFluxDensityUnits coulombsPerSquareMeter =

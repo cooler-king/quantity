@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class MassDensity extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions massDensityDimensions = const Dimensions.constant(const {"Mass": 1, "Length": -3});
+  static const Dimensions massDensityDimensions =
+      const Dimensions.constant(const {"Mass": 1, "Length": -3}, type: MassDensity);
 
   /// The standard SI unit.
   static final MassDensityUnits kilogramsPerCubicMeter =

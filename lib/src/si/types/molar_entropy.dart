@@ -9,8 +9,9 @@ part of quantity_si;
 ///
 class MolarEntropy extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions molarEntropyDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Length": 2, "Time": -2, "Amount": -1, "Temperature": -1});
+  static const Dimensions molarEntropyDimensions = const Dimensions.constant(
+      const {"Mass": 1, "Length": 2, "Time": -2, "Amount": -1, "Temperature": -1},
+      type: MolarEntropy);
 
   /// The standard SI unit.
   static final MolarEntropyUnits joulesPerMoleKelvin = new MolarEntropyUnits.energyAmountTemperature(

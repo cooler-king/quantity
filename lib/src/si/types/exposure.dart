@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class Exposure extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions exposureDimensions = const Dimensions.constant(const {"Current": 1, "Mass": -1, "Time": 1});
+  static const Dimensions exposureDimensions =
+      const Dimensions.constant(const {"Current": 1, "Mass": -1, "Time": 1}, type: Exposure);
 
   /// The standard SI unit.
   static final ExposureUnits coulombsPerKilogram = new ExposureUnits.chargeMass(Charge.coulombs, Mass.kilograms);

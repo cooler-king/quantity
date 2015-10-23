@@ -121,6 +121,25 @@ abstract class Quantity implements Comparable {
   ///
   bool get arbitraryPrecision => valueSI is Precise;
 
+  /// Whether or not this Quantity has scalar dimensions, including having no angle or
+  /// solid angle dimensions.
+  ///
+  /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
+  /// Internation System of Units (SI) sense, which allows non-zero angular and
+  /// solid angular dimensions.
+  ///
+  bool get isScalar => dimensions.isScalar;
+
+  /// Whether or not this Quantity has scalar dimensions in the strict
+  /// Internation System of Units (SI) sense, which allows non-zero angle and
+  /// solid angle dimensions.
+  ///
+  /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
+  /// Internation System of Units sense, which allows non-zero angular and
+  /// solid angular dimensions.
+  ///
+  bool get isScalarSI => dimensions.isScalarSI;
+
   /// The relative standard uncertainty in this Quantity object's value.
   ///
   /// Relative standard uncertainty is defined as the standard uncertainty
@@ -228,8 +247,12 @@ abstract class Quantity implements Comparable {
   /// Uncertainty Components](http://physics.nist.gov/cuu/Uncertainty/combination.html)
   ///
   Quantity operator +(addend) {
-    // Null check
     if (addend == null) throw new QuantityException("Cannot add NULL to Quantity");
+
+    // Scalars allow addition of numbers
+    if (this.isScalar && (addend is num || addend is Number)) {
+      return dimensions.toQuantity(valueSI + addend, null, _ur);
+    }
 
     // Every other Quantity type can only add another Quantity
     if (addend is! Quantity) throw new QuantityException("Cannot add a ${addend.runtimeType} to a non-Scalar Quantity");
@@ -286,13 +309,12 @@ abstract class Quantity implements Comparable {
     // Null check
     if (subtrahend == null) throw new QuantityException("Cannot subtract NULL from Quantity");
 
-    /*
-    // Scalars can accept numbers as arguments
-    if(this is Scalar && (addend is num || addend is Number)) {
-      return new Scalar.number(valueSI + addend, _ur);
-    }*/
+    // Scalars allow subtraction of numbers
+    if (this.isScalar && (subtrahend is num || subtrahend is Number)) {
+      return dimensions.toQuantity(valueSI - subtrahend, null, _ur);
+    }
 
-    // Every other Quantity type can only add another Quantity
+    // Every other Quantity type can only subtract another Quantity
     if (subtrahend is! Quantity) throw new QuantityException(
         "Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity");
 

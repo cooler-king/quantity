@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class Acceleration extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions accelerationDimensions = const Dimensions.constant(const {"Length": 1, "Time": -2});
+  static const Dimensions accelerationDimensions =
+      const Dimensions.constant(const {"Length": 1, "Time": -2}, type: Acceleration);
 
   /// The standard SI unit.
   static final AccelerationUnits metersPerSecondSquared =
