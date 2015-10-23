@@ -12,24 +12,24 @@ main() {
       expect(period.q2 == new TimeInstant.dateTime(new DateTime(2007, 3)), true);
     });
 
-    /*
-    test('min/max values', () {
-      QuantityRange<Scalar> range = new QuantityRange<Scalar>(
-          new Scalar(value: 15.2), new Scalar(value: -1003.3));
-      expect(range.minValue == new Scalar(value: -1003.3), true);
-      expect(range.maxValue == new Scalar(value: 15.2), true);
+    test('operator ==', () {
+      var p1 = new FiscalYear(2015);
+      var p2 = new FiscalYear(2017);
+      var p3 = new FiscalYear(2015);
+      expect(p1 == p2, false);
+      expect(p2 == p3, false);
+      expect(p1 == p3, true);
+      expect(p3 == p1, true);
+    });
 
-      range = new QuantityRange<Scalar>(
-          new Scalar(value: -1003.3), new Scalar(value: 15.2));
-      expect(range.minValue == new Scalar(value: -1003.3), true);
-      expect(range.maxValue == new Scalar(value: 15.2), true);
+    test('hashCode', () {
+      var p1 = new FiscalYear(2015);
+      var p2 = new FiscalYear(2017);
+      var p3 = new FiscalYear(2015);
 
-      QuantityRange<Length> range2 =
-          new QuantityRange<Length>(new Length(m: 10000), new Length(km: 1000));
-      expect(
-          areWithin(range2.minValue, new Length(km: 10), new Length(m: 0.001)),
-          true);
-      expect(range2.maxValue == new Length(km: 1000), true);
-    });*/
+      expect(p1.hashCode == p2.hashCode, false);
+      expect(p2.hashCode == p3.hashCode, false);
+      expect(p1.hashCode == p3.hashCode, true);
+    });
   });
 }

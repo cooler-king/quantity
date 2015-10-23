@@ -84,10 +84,26 @@ class QuantityRange<Q extends Quantity> {
   }
 
   /// True only if this range completely encompasses range2.
-  bool encompasses(QuantityRange<Q> range2) => minValue <= range2.minValue && maxValue >= range2.maxValue;
+  ///
+  bool encompasses(QuantityRange<Q> range2) => (minValue <= range2.minValue) && (maxValue >= range2.maxValue);
 
+  /// Returns a String representation of this range in the form "<Q1> to <Q2>".
+  ///
   @override
   String toString() {
     return "${q1} to ${q2}";
   }
+
+  /// Two quantity ranges are considered equal only if their endpoints are exactly equal.
+  ///
+  @override
+  bool operator ==(obj) {
+    if (obj is! QuantityRange) return false;
+    return (q1 == obj.q1) && (q2 == obj.q2);
+  }
+
+  /// Two equal quantity ranges will have the same hash code.
+  ///
+  @override
+  int get hashCode => hash2(q1, q2);
 }
