@@ -9,7 +9,7 @@ part of quantity_si;
 ///
 class Currency extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions currencyDimensions = Scalar.scalarDimensions;
+  static const Dimensions currencyDimensions = const Dimensions.constant(const {}, type: Currency);
 
   /// The unit of currency in the United States
   static final CurrencyUnits dollarsUS = new CurrencyUnits("United States Dollars", "\$", "USD", null, 1.0, false);

@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class KinematicViscosity extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions kinematicViscosityDimensions = const Dimensions.constant(const {"Length": 2, "Time": -1});
+  static const Dimensions kinematicViscosityDimensions =
+      const Dimensions.constant(const {"Length": 2, "Time": -1}, type: KinematicViscosity);
 
   /// The standard SI unit.
   static final KinematicViscosityUnits metersSquaredPerSecond =

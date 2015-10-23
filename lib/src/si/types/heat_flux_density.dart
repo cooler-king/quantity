@@ -9,7 +9,8 @@ part of quantity_si;
 ///
 class HeatFluxDensity extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions heatFluxDensityDimensions = const Dimensions.constant(const {"Mass": 1, "Time": -3});
+  static const Dimensions heatFluxDensityDimensions =
+      const Dimensions.constant(const {"Mass": 1, "Time": -3}, type: HeatFluxDensity);
 
   /// The standard SI unit.
   static final HeatFluxDensityUnits wattsPerSquareMeter =

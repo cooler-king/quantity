@@ -13,7 +13,7 @@ part of quantity_si;
 ///
 class Time extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions timeDimensions = const Dimensions.constant(const {"Time": 1});
+  static const Dimensions timeDimensions = const Dimensions.constant(const {"Time": 1}, type: Time);
 
   // units
 

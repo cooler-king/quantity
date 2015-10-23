@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class Activity extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions activityDimensions = const Dimensions.constant(const {"Time": -1});
+  static const Dimensions activityDimensions = const Dimensions.constant(const {"Time": -1}, type: Activity);
 
   /// The standard SI unit.
   static final ActivityUnits becquerels = new ActivityUnits("becquerels", null, "Bq", null, 1.0, true);

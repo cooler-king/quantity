@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class Luminance extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions luminanceDimensions = const Dimensions.constant(const {"Length": -2, "Intensity": 1});
+  static const Dimensions luminanceDimensions =
+      const Dimensions.constant(const {"Length": -2, "Intensity": 1}, type: Luminance);
 
   /// The standard SI unit.
   static final LuminanceUnits candelasPerSquareMeter =

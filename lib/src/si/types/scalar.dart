@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class Scalar extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions scalarDimensions = const Dimensions.constant(const {});
+  static const Dimensions scalarDimensions = const Dimensions.constant(const {}, type: Scalar);
 
   // Units
 
@@ -39,50 +39,6 @@ class Scalar extends Quantity {
   ///
   @override
   int get hashCode => valueSI.hashCode;
-
-  /// Overrides Quantity's addition operator to allow for Scalar addition with
-  /// num or Number objects.
-  ///
-  Quantity operator +(addend) {
-    if (addend is num || addend is Number) {
-      return new Scalar(value: valueSI + addend, uncert: _ur);
-    } else {
-      return super + addend;
-    }
-  }
-
-  /// Overrides Quantity's subtraction operator to allow for subtracting
-  /// num or Number objects from a Scalar quantity.
-  ///
-  Quantity operator -(subtrahend) {
-    if (subtrahend is num || subtrahend is Number) {
-      return new Scalar(value: valueSI - subtrahend, uncert: _ur);
-    } else {
-      return super - subtrahend;
-    }
-  }
-
-  /// Overrides Quantity's multiplication operator to allow multiplying
-  /// a Scalar quantity by a num or Number.
-  ///
-  Quantity operator *(multiplier) {
-    if (multiplier is num || multiplier is Number) {
-      return new Scalar(value: valueSI * multiplier, uncert: _ur);
-    } else {
-      return super * multiplier;
-    }
-  }
-
-  /// Overrides Quantity's division operator to allow dividing
-  /// a Scalar quantity by a num or Number.
-  ///
-  Quantity operator /(divisor) {
-    if (divisor is num || divisor is Number) {
-      return new Scalar(value: valueSI / divisor, uncert: _ur);
-    } else {
-      return super / divisor;
-    }
-  }
 }
 
 /// Units acceptable for use in describing Scalar quantities.

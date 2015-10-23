@@ -103,7 +103,7 @@ bool _pre1972LeapSeconds = true;
 ///
 class TimeInstant extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions timeInstantDimensions = Time.timeDimensions;
+  static const Dimensions timeInstantDimensions = const Dimensions.constant(const {"Time": 1}, type: TimeInstant);
 
   /// TAI  - International Atomic Time
   static final TimeInstantUnits TAI =

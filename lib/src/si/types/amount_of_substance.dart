@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class AmountOfSubstance extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions amountOfSubstanceDimensions = const Dimensions.constant(const {"Amount": 1});
+  static const Dimensions amountOfSubstanceDimensions =
+      const Dimensions.constant(const {"Amount": 1}, type: AmountOfSubstance);
 
   /// The standard SI unit.
   static final AmountOfSubstanceUnits moles = new AmountOfSubstanceUnits("moles", null, "mol", null, 1.0, true);

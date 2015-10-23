@@ -9,7 +9,8 @@ part of quantity_si;
 ///
 class SpecificEnergy extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions specificEnergyDimensions = const Dimensions.constant(const {"Length": 2, "Time": -2});
+  static const Dimensions specificEnergyDimensions =
+      const Dimensions.constant(const {"Length": 2, "Time": -2}, type: SpecificEnergy);
 
   /// The standard SI unit.
   static final SpecificEnergyUnits joulesPerKilogram =

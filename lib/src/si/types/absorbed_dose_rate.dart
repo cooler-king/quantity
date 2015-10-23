@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class AbsorbedDoseRate extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions absorbedDoseRateDimensions = const Dimensions.constant(const {"Length": 2, "Time": -3});
+  static const Dimensions absorbedDoseRateDimensions =
+      const Dimensions.constant(const {"Length": 2, "Time": -3}, type: AbsorbedDoseRate);
 
   /// The standard SI unit.
   static final AbsorbedDoseRateUnits graysPerSecond =

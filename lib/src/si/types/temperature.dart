@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class Temperature extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions temperatureDimensions = const Dimensions.constant(const {"Temperature": 1});
+  static const Dimensions temperatureDimensions =
+      const Dimensions.constant(const {"Temperature": 1}, type: Temperature);
 
   // Units
 

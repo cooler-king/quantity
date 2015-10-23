@@ -8,7 +8,8 @@ part of quantity_si;
 ///
 class Charge extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions electricChargeDimensions = const Dimensions.constant(const {"Current": 1, "Time": 1});
+  static const Dimensions electricChargeDimensions =
+      const Dimensions.constant(const {"Current": 1, "Time": 1}, type: Charge);
 
   /// The standard SI unit.
   static final ChargeUnits coulombs = new ChargeUnits("coulombs", null, "C", null, 1.0, true);

@@ -9,7 +9,7 @@ part of quantity_si;
 class MagneticFluxDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions magneticFluxDensityDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Current": -1, "Time": -2});
+      const Dimensions.constant(const {"Mass": 1, "Current": -1, "Time": -2}, type: MagneticFluxDensity);
 
   /// The standard SI unit.
   static final MagneticFluxDensityUnits teslas = new MagneticFluxDensityUnits("teslas", null, "T", null, 1.0, true);

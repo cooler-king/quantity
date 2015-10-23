@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class AngularSpeed extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions angularSpeedDimensions = const Dimensions.constant(const {"Angle": 1, "Time": -1});
+  static const Dimensions angularSpeedDimensions =
+      const Dimensions.constant(const {"Angle": 1, "Time": -1}, type: AngularSpeed);
 
   /// The standard SI unit
   static final AngularSpeedUnits radiansPerSecond = new AngularSpeedUnits.angleTime(Angle.radians, Time.seconds);

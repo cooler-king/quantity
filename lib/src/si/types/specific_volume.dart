@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class SpecificVolume extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions specificVolumeDimensions = const Dimensions.constant(const {"Length": 3, "Mass": -1});
+  static const Dimensions specificVolumeDimensions =
+      const Dimensions.constant(const {"Length": 3, "Mass": -1}, type: SpecificVolume);
 
   /// The standard SI unit.
   static final SpecificVolumeUnits cubicMetersPerKilogram =

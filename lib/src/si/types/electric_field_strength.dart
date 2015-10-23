@@ -8,7 +8,7 @@ part of quantity_si;
 class ElectricFieldStrength extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricFieldStrengthDimensions =
-      const Dimensions.constant(const {"Current": -1, "Time": -3, "Length": 1, "Mass": 1});
+      const Dimensions.constant(const {"Current": -1, "Time": -3, "Length": 1, "Mass": 1}, type: ElectricFieldStrength);
 
   /// The standard SI unit.
   static final ElectricFieldStrengthUnits voltsPerMeter =
@@ -21,8 +21,7 @@ class ElectricFieldStrength extends Quantity {
   ElectricFieldStrength({dynamic V_per_m, double uncert: 0.0})
       : super(V_per_m ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
-  ElectricFieldStrength._internal(conv)
-      : super._internal(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
+  ElectricFieldStrength._internal(conv) : super._internal(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
 
   /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

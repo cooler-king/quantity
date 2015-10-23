@@ -68,7 +68,7 @@ main() {
       /*
       /// const
       const MiscQuantity cmq = const MiscQuantity.constant(
-          Double.THOUSAND, Angle.ANGLE_DIMENSIONS, Angle.radians, 0.2);
+          Double.THOUSAND, Angle.ANGLEdimensions, Angle.radians, 0.2);
       expect(cmq, isNotNull);
       */
     });

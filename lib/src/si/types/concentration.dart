@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class Concentration extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions concentrationDimensions = const Dimensions.constant(const {"Amount": 1, "Length": -3});
+  static const Dimensions concentrationDimensions =
+      const Dimensions.constant(const {"Amount": 1, "Length": -3}, type: Concentration);
 
   /// The standard SI unit **/
   static final ConcentrationUnits molesPerCubicMeter =

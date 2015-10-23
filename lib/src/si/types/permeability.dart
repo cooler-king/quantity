@@ -8,7 +8,7 @@ part of quantity_si;
 class Permeability extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions permeabilityDimensions =
-      const Dimensions.constant(const {"Length": 1, "Mass": 1, "Time": -2, "Current": -2});
+      const Dimensions.constant(const {"Length": 1, "Mass": 1, "Time": -2, "Current": -2}, type: Permeability);
 
   /// The standard SI unit.
   static final PermeabilityUnits henriesPerMeter =

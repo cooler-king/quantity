@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class AngularAcceleration extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions angularAccelerationDimensions = const Dimensions.constant(const {"Angle": 1, "Time": -2});
+  static const Dimensions angularAccelerationDimensions =
+      const Dimensions.constant(const {"Angle": 1, "Time": -2}, type: AngularAcceleration);
 
   /// The Standard SI unit.
   static final AngularAccelerationUnits radianPerSecondSquared =

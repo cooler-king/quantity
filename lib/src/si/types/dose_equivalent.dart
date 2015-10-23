@@ -8,7 +8,8 @@ part of quantity_si;
 ///
 class DoseEquivalent extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions doseEquivalentDimensions = SpecificEnergy.specificEnergyDimensions;
+  static const Dimensions doseEquivalentDimensions =
+      const Dimensions.constant(const {"Length": 2, "Time": -2}, type: DoseEquivalent);
 
   /// The standard SI unit.
   static final DoseEquivalentUnits seiverts = new DoseEquivalentUnits("seiverts", null, "Sv", null, 1.0, true);

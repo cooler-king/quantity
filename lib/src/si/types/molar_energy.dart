@@ -8,7 +8,7 @@ part of quantity_si;
 class MolarEnergy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions molarEnergyDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Length": 2, "Time": -2, "Amount": -1});
+      const Dimensions.constant(const {"Mass": 1, "Length": 2, "Time": -2, "Amount": -1}, type: MolarEnergy);
 
   /// The standard SI unit.
   static final MolarEnergyUnits joulesPerMole =

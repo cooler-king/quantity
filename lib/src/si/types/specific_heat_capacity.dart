@@ -10,7 +10,7 @@ part of quantity_si;
 class SpecificHeatCapacity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions specificHeatCapacityDimensions =
-      const Dimensions.constant(const {"Length": 2, "Time": -2, "Temperature": -1});
+      const Dimensions.constant(const {"Length": 2, "Time": -2, "Temperature": -1}, type: SpecificHeatCapacity);
 
   /// The standard SI unit.
   static final SpecificHeatCapacityUnits joulesPerKilogramKelvin =

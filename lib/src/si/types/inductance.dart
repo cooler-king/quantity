@@ -10,7 +10,7 @@ part of quantity_si;
 class Inductance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions inductanceDimensions =
-      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Current": -2, "Time": -2});
+      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Current": -2, "Time": -2}, type: Inductance);
 
   /// The standard SI unit.
   static final InductanceUnits henries = new InductanceUnits("henries", null, "H", "henry", 1.0, true);

@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class Force extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions forceDimensions = const Dimensions.constant(const {"Length": 1, "Mass": 1, "Time": -2});
+  static const Dimensions forceDimensions =
+      const Dimensions.constant(const {"Length": 1, "Mass": 1, "Time": -2}, type: Force);
 
   /// The standard SI unit.
   static final ForceUnits newtons = new ForceUnits("newtons", null, "N", null, 1.0, true);

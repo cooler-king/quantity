@@ -8,7 +8,8 @@ part of quantity_si;
 ///
 class TemperatureInterval extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions temperatureIntervalDimensions = const Dimensions.constant(const {"Temperature": 1});
+  static const Dimensions temperatureIntervalDimensions =
+      const Dimensions.constant(const {"Temperature": 1}, type: TemperatureInterval);
 
   /// The standard SI unit.
   static final TemperatureIntervalUnits kelvins = new TemperatureIntervalUnits("kelvins", null, "K", null, 1.0, true);

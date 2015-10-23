@@ -8,7 +8,7 @@ part of quantity_si;
 ///
 class Mass extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions massDimensions = const Dimensions.constant(const {"Mass": 1});
+  static const Dimensions massDimensions = const Dimensions.constant(const {"Mass": 1}, type: Mass);
 
   /// The standard SI unit.
   static final MassUnits kilograms = new MassUnits("kilograms", "kg", null, null, 1.0, false);

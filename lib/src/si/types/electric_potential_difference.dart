@@ -9,8 +9,9 @@ part of quantity_si;
 ///
 class ElectricPotentialDifference extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions electricPotentialDifferenceDimensions =
-      const Dimensions.constant(const {"Current": -1, "Time": -3, "Length": 2, "Mass": 1});
+  static const Dimensions electricPotentialDifferenceDimensions = const Dimensions.constant(
+      const {"Current": -1, "Time": -3, "Length": 2, "Mass": 1},
+      type: ElectricPotentialDifference);
 
   /// The standard SI unit.
   static final ElectricPotentialDifferenceUnits volts =

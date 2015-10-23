@@ -9,7 +9,8 @@ part of quantity_si;
 ///
 class Energy extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions energyDimensions = const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -2});
+  static const Dimensions energyDimensions =
+      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -2}, type: Energy);
 
   /// The standard SI unit
   static final EnergyUnits joules = new EnergyUnits("joules", null, "J", null, 1.0, true);

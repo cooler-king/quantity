@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class Current extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions electricCurrentDimensions = const Dimensions.constant(const {"Current": 1});
+  static const Dimensions electricCurrentDimensions = const Dimensions.constant(const {"Current": 1}, type: Current);
 
   /// The standard SI unit.
   static final CurrentUnits amperes = new CurrentUnits("amperes", "A", null, null, 1.0, true);

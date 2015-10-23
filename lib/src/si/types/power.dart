@@ -9,7 +9,8 @@ part of quantity_si;
 ///
 class Power extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions powerDimensions = const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -3});
+  static const Dimensions powerDimensions =
+      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -3}, type: Power);
 
   /// The standard SI unit.
   static final PowerUnits watts = new PowerUnits("watts", null, "W", null, 1.0, true);

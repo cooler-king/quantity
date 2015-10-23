@@ -10,7 +10,7 @@ part of quantity_si;
 class Torque extends Quantity {
   /// Dimensions for this type of quantity (energy per angle rather than LengthxForce)
   static const Dimensions torqueDimensions =
-      const Dimensions.constant(const {"Length": 2, "Time": -2, "Mass": 1, "Angle": -1});
+      const Dimensions.constant(const {"Length": 2, "Time": -2, "Mass": 1, "Angle": -1}, type: Torque);
 
   /// The standard SI unit.
   static final TorqueUnits newtonMeters = new TorqueUnits.forceLength(Force.newtons, Length.meters);

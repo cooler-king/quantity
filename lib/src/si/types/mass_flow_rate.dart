@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class MassFlowRate extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions massFlowRateDimensions = const Dimensions.constant(const {"Mass": 1, "Time": -1});
+  static const Dimensions massFlowRateDimensions =
+      const Dimensions.constant(const {"Mass": 1, "Time": -1}, type: MassFlowRate);
 
   /// The standard SI unit.
   static final MassFlowRateUnits kilogramsPerSecond = new MassFlowRateUnits.massTime(Mass.kilograms, Time.seconds);

@@ -8,7 +8,7 @@ part of quantity_si;
 class Illuminance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions illuminanceDimensions =
-      const Dimensions.constant(const {"Length": -2, "Intensity": 1, "Solid Angle": 1});
+      const Dimensions.constant(const {"Length": -2, "Intensity": 1, "Solid Angle": 1}, type: Illuminance);
 
   /// The standard SI unit.
   // Note: singular same as plural

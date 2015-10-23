@@ -8,7 +8,7 @@ part of quantity_si;
 class MagneticFieldStrength extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions magneticFieldStrengthDimensions =
-      const Dimensions.constant(const {"Length": -1, "Current": 1});
+      const Dimensions.constant(const {"Length": -1, "Current": 1}, type: MagneticFieldStrength);
 
   /// The standard SI unit.
   static final MagneticFieldStrengthUnits amperesPerMeter =
@@ -21,8 +21,7 @@ class MagneticFieldStrength extends Quantity {
   MagneticFieldStrength({dynamic A_per_m, double uncert: 0.0})
       : super(A_per_m ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
-  MagneticFieldStrength._internal(conv)
-      : super._internal(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
+  MagneticFieldStrength._internal(conv) : super._internal(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

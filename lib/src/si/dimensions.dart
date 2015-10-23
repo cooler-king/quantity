@@ -90,9 +90,12 @@ class Dimensions {
   /// object (which in turn contains only immutable objects of classes
   /// String and num).
   ///
-  Dimensions.copy(Dimensions d2)
+  /// Any type hint is preserved by default but can be cleared by
+  /// setting `includeTypeHint` to false.
+  ///
+  Dimensions.copy(Dimensions d2, {bool includeTypeHint: true})
       : _dimensionMap = new Map.from(d2._dimensionMap),
-        qType = d2.qType;
+        qType = includeTypeHint ? d2.qType : null;
 
   /// Tests the equality of this Dimensions object and another Dimensions object.
   /// Two Dimensions objects are only equal if they have exactly equal
@@ -158,6 +161,34 @@ class Dimensions {
     return (copy1 == copy2);
   }
 
+  /// Whether or not these are scalar dimensions, including having no angle or
+  /// solid angle dimensions.
+  ///
+  /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
+  /// Internation System of Units (SI) sense, which allows non-zero angular and
+  /// solid angular dimensions.
+  ///
+  bool get isScalar => _dimensionMap.isEmpty;
+
+  /// Whether or not these are scalar dimensions, in the strict
+  /// Internation System of Units (SI) sense, which allows non-zero angle and
+  /// solid angle dimensions.
+  ///
+  /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
+  /// Internation System of Units sense, which allows non-zero angular and
+  /// solid angular dimensions.
+  ///
+  bool get isScalarSI {
+    if (getComponentExponent(Dimensions.baseLengthKey) != 0) return false;
+    if (getComponentExponent(Dimensions.baseMassKey) != 0) return false;
+    if (getComponentExponent(Dimensions.baseTimeKey) != 0) return false;
+    if (getComponentExponent(Dimensions.baseTemperatureKey) != 0) return false;
+    if (getComponentExponent(Dimensions.baseAmountKey) != 0) return false;
+    if (getComponentExponent(Dimensions.baseCurrentKey) != 0) return false;
+    if (getComponentExponent(Dimensions.baseIntensityKey) != 0) return false;
+    return true;
+  }
+
   /// Gets the exponent value for the specified base dimension [component] key.
   ///
   num getComponentExponent(String component) => _dimensionMap[component] ?? 0;
@@ -170,7 +201,11 @@ class Dimensions {
   /// (1 + (-1) = 0).
   ///
   Dimensions operator *(Dimensions other) {
-    var result = new Dimensions.copy(this);
+    // Return self if other is Scalar.
+    if (other._dimensionMap.isEmpty) return this;
+
+    // Copy.  Clear the type hint.
+    var result = new Dimensions.copy(this, includeTypeHint: false);
 
     // Add other's dimensions to my dimensions
     num otherValue = 0;
@@ -200,7 +235,11 @@ class Dimensions {
   /// (length: +1) yields an area (length: +2) or (3 - (+1) = 2).
   ///
   Dimensions operator /(Dimensions other) {
-    Dimensions result = new Dimensions.copy(this);
+    // Return self if other is Scalar.
+    if (other._dimensionMap.isEmpty) return this;
+
+    // Copy.  Clear the type hint.
+    var result = new Dimensions.copy(this, includeTypeHint: false);
 
     // Add other's dimensions to my dimensions
     num otherValue = 0;
@@ -249,9 +288,10 @@ class Dimensions {
   ///
   Dimensions operator ^(num exp) {
     if (exp == 0) return new Dimensions();
+    if (exp == 1) return this;
 
-    // Make a copy of this Object...
-    var result = new Dimensions.copy(this);
+    // Make a copy of this Object.  Clear the type hint.
+    var result = new Dimensions.copy(this, includeTypeHint: false);
 
     List<String> keysToRemove = [];
     num value = null;

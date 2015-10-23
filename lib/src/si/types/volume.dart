@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class Volume extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions volumeDimensions = const Dimensions.constant(const {"Length": -3});
+  static const Dimensions volumeDimensions = const Dimensions.constant(const {"Length": -3}, type: Volume);
 
   /// The standard SI unit
   static final VolumeUnits cubicMeters = new VolumeUnits.length(Length.meters);

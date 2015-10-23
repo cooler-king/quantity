@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class Area extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions areaDimensions = const Dimensions.constant(const {"Length": 2});
+  static const Dimensions areaDimensions = const Dimensions.constant(const {"Length": 2}, type: Area);
 
   /// The standard SI unit
   static final AreaUnits squareMeters = new AreaUnits.lengthSquared(Length.meters);

@@ -8,7 +8,7 @@ part of quantity_si;
 class Resistance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricResistanceDimensions =
-      const Dimensions.constant(const {"Current": -2, "Time": -3, "Length": 2, "Mass": 1});
+      const Dimensions.constant(const {"Current": -2, "Time": -3, "Length": 2, "Mass": 1}, type: Resistance);
 
   /// The standard SI unit.
   static final ResistanceUnits ohms = new ResistanceUnits("ohms", "\u2126", "\u03a9", null, 1.0, true);
