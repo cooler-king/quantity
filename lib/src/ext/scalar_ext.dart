@@ -103,8 +103,7 @@ const Scalar neutronGFactor = const Scalar.constant(const Double.constant(-3.826
 const Scalar muonGFactor = const Scalar.constant(const Double.constant(-2.0023318418), uncert: 6.492430339775063e-10);
 
 /// googol (10^100), arbitrary precision.
-const Scalar googol = const Scalar.constant(const Integer.constant(
-    10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000));
+Scalar googol = new Scalar(value: new Precise.raw([Digit.one], power: 100, sigDigits: 101));
 
 /// Sackur-Tetrode constant at 1 K and 100 kPa ("S0/R").
 const Scalar sackurTetrode100kPa =
