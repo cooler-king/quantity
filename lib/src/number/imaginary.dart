@@ -39,7 +39,7 @@ class Imaginary extends Number {
   @override
   int get hashCode {
     if (value == 0) return 0.hashCode;
-    return hash2(0.hashCode, value);
+    return hashObjects([0, value]);
   }
 
   Number operator +(addend) {
@@ -220,7 +220,7 @@ class Imaginary extends Number {
 
   @override
   Number remainder(divisor) {
-    new Imaginary(value.remainder(divisor));
+    return new Imaginary(value.remainder(divisor));
   }
 
   /// Support [dart:convert] JSON.stringify.

@@ -10,13 +10,13 @@ import 'dart:math' as Math;
 import 'package:quantity/number.dart';
 import 'package:logging/logging.dart';
 import 'package:intl/intl.dart' show NumberFormat;
-import 'package:quiver/core.dart' show hash2;
 
 part 'src/si/quantity.dart';
 part 'src/si/units.dart';
 part 'src/si/exponential_units.dart';
 part 'src/si/dimensions.dart';
 part 'src/si/misc_quantity.dart';
+part 'src/si/number_format_si.dart';
 
 part 'src/si/dimensions_exception.dart';
 part 'src/si/quantity_exception.dart';

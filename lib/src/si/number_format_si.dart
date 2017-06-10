@@ -22,7 +22,7 @@ part of quantity_si;
 /// after the decimal.  Therefore, this class directly extends NumberFormat
 /// and provides implementations for format and parse.
 ///
-class NumberFormatSI extends NumberFormat {
+class NumberFormatSI implements NumberFormat {
   bool unicode = false; // output in unicode (using unicode thin spaces
   // instead of regular ascii spaces)
 
@@ -31,4 +31,6 @@ class NumberFormatSI extends NumberFormat {
   // not compact is (7.131 +/- 0.003)
 
   //TODO placeholder for formatting
+
+  NumberFormatSI(this.showUncertainty, this.compact, this.unicode);
 }

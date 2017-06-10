@@ -135,6 +135,33 @@ main() {
 
       expect((d1 ^ 1), d1);
       expect((d1 ^ 0), d5);
+
+      var d2Squared = d2 ^ 2;
+      expect(d2Squared.getComponentExponent(Dimensions.baseAmountKey), 4);
+      expect(d2Squared.getComponentExponent(Dimensions.baseTimeKey), -2);
+      expect(d2Squared.getComponentExponent(Dimensions.baseLengthKey), 4);
+      expect(d2Squared ^ 0.5, d2);
+
+      var d3Inverse = d3 ^ -1;
+      expect(d3Inverse.getComponentExponent(Dimensions.baseLengthKey), 1);
+      expect(d3Inverse.getComponentExponent(Dimensions.baseAngleKey), -1);
+      expect(d3Inverse.getComponentExponent(Dimensions.baseAmountKey), 4);
+      var d3InverseCubed = d3Inverse ^ 3;
+      expect(d3InverseCubed.getComponentExponent(Dimensions.baseLengthKey), 3);
+      expect(d3InverseCubed.getComponentExponent(Dimensions.baseAngleKey), -3);
+      expect(d3InverseCubed.getComponentExponent(Dimensions.baseAmountKey), 12);
+
+      var d4Sqrt = d4 ^ 0.5;
+      expect(d4Sqrt.getComponentExponent(Dimensions.baseLengthKey), 0.5);
+      expect(d4Sqrt.getComponentExponent(Dimensions.baseAngleKey), -0.5);
+      expect(d4Sqrt.getComponentExponent(Dimensions.baseAmountKey), 2);
+      expect(d4Sqrt ^ 2, d4);
+
+      var d6Mod = d6 ^ -0.123;
+      expect(d6Mod.getComponentExponent(Dimensions.baseTimeKey), -0.123);
+      expect(d6Mod.getComponentExponent(Dimensions.baseLengthKey), 0.123);
+      expect(d6Mod.getComponentExponent(Dimensions.baseAngleKey), 0.123);
+      expect(d6Mod.getComponentExponent(Dimensions.baseAmountKey), -0.246);
     });
 
     test('inverse', () {
@@ -378,11 +405,23 @@ main() {
       Dimensions d1 = new Dimensions.fromMap({"Length": 1});
       Dimensions d2 = new Dimensions.fromMap({"Length": 2});
       Dimensions d3 = new Dimensions();
+      Dimensions d4 = new Dimensions.fromMap({"Length": 1, "Time": -2});
 
       Quantity q1 = d1.toQuantity();
-
       expect(q1, isNotNull);
       expect(q1 is Length, true);
+
+      Quantity q2 = d2.toQuantity();
+      expect(q2, isNotNull);
+      expect(q2 is Area, true);
+
+      Quantity q3 = d3.toQuantity();
+      expect(q3, isNotNull);
+      expect(q3 is Scalar, true);
+
+      Quantity q4 = d4.toQuantity();
+      expect(q4, isNotNull);
+      expect(q4 is Acceleration, true);
     });
 
     test('isScalar', () {

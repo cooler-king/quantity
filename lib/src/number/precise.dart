@@ -7,7 +7,7 @@ part of number;
 /// Arbitrary precision can be used to combat the effects of cumulative rounding errors in circumstances
 /// where those errors can be significant.
 ///
-/// This class enables arbitary precision calculations in both Dart and when transpiled to JavaScript by
+/// This class enables arbitrary precision calculations in both Dart and when transpiled to JavaScript by
 /// representing numbers as digits that stay within the limitations of the underlying number.  In JavaScript
 /// the maximum value of a number, because they are 64-bit floating
 /// point values, is 2^53, or 9007199254740992, and the maximum number of significant digits as a result is 16.
@@ -95,7 +95,7 @@ class Precise extends Real {
   ///
   Precise.raw(List<Digit> digits, {int power: 0, bool neg: false, int sigDigits: 50}) {
     _precision = sigDigits;
-    if (digits?.isNotEmpty) {
+    if (digits?.isNotEmpty ?? false) {
       _digits.addAll(digits);
     } else {
       _digits.add(Digit.zero);
@@ -186,7 +186,7 @@ class Precise extends Real {
 
   /// Return only the decimal portion as a Precise number.
   ///
-  /// For example, Precsie value 123.4567 will return Precise value
+  /// For example, Precise value 123.4567 will return Precise value
   /// 0.4567.  An integer value will return [zero].
   ///
   Precise get decimalPortion {

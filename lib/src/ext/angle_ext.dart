@@ -7,10 +7,10 @@ final AngleUnits rad = Angle.radians;
 final AngleUnits deg = Angle.degrees;
 
 /// Converts degrees to radians
-double degToRad(double deg) => deg * 0.0174532925;
+double degToRad(num deg) => deg * 0.0174532925;
 
 /// Convert radians to degrees
-double radToDeg(double rad) => rad / 0.0174532925;
+double radToDeg(num rad) => rad / 0.0174532925;
 
 // Trig functions
 double cosecant(Angle a) => a.cosecant();

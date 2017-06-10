@@ -492,7 +492,7 @@ abstract class Quantity implements Comparable {
   /// Uncertainty and preferred units are not considered.
   ///
   @override
-  int get hashCode => hash2(valueSI, dimensions);
+  int get hashCode => hashObjects([valueSI, dimensions]);
 
   /// Compares this Quantity to [q2] by comparing MKS values.  The
   /// Quantities need not have the same dimensions.

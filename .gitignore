@@ -16,3 +16,5 @@ pubspec.lock
 .settings/
 .project
 doc
+.idea/
+*.iml

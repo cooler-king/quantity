@@ -1,3 +1,6 @@
+### 0.1.5
+  * Upgraded dependencies:  `intl 0.14` and `quiver 0.23`
+
 ### 0.1.4
   * Added `isScalar` and `isScalarSI` to `Dimensions` and `Quantity`.
   * Extended use of type hints in dimensions for more efficient and accurate type determination during operations.

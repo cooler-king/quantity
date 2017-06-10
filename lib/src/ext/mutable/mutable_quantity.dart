@@ -1,22 +1,35 @@
 part of quantity_ext;
 
+MutableQuantity toMutable(Quantity q) => new MutableQuantity()..setEqualTo(q);
+
 /// _MutableQuantity is a work in progress._
 ///
 /// ## Inversion
-/// The Quantity class supports inversion through the <code>inverse</code>
+/// The Quantity class supports inversion through the `inverse`
 /// method, which returns a new Quantity object that is the result of the
 /// inversion process.  MiscQuantity adds to this capability with the
-/// <code>invert</code> method, which inverts the MiscQuantity in place without
+/// `invert` method, which inverts the MiscQuantity in place without
 /// returning a new object.  This is possible because a MiscQuantity may have
 /// any Dimensions, whereas other Quantity subclasses have fixed Dimensions.
 ///
-//class MutableQuantity<Q extends Quantity> extends MiscQuantity {
 class MutableQuantity implements Quantity {
   // Value
-  Number valueSI;
+  Number _valueSI;
+  Number get valueSI => _valueSI;
+  void set valueSI(value) {
+    if (!mutable) throw new ImmutableQuantityException(q: this);
+    valueSI = objToNumber(value);
+    //TODO event
+  }
 
   // Dimensions
-  Dimensions dimensions;
+  Dimensions _dimensions;
+  Dimensions get dimensions => _dimensions;
+  void set dimensions(Dimensions dim) {
+    if (!mutable) throw new ImmutableQuantityException(q: this);
+    _dimensions = dim;
+    //TODO event
+  }
 
   /// Relative uncertainty
   double _ur = 0.0;
@@ -24,41 +37,56 @@ class MutableQuantity implements Quantity {
   // Preferred units for display
   Units preferredUnits = null;
 
-  /// TODO Mutability can be turned on and off
+  /// Mutability can be turned on and off (defaults to true)
   bool mutable = true;
 
-  StreamController _valueController;
-  Stream onValueChange;
-  Stream onDimensionsChange;
-  Stream onUncertaintyChange;
+  StreamController<Number> _changeController;
+  Stream<Number> onChange;
+
+  MutableQuantity([dynamic value = 0.0, Dimensions dim = Scalar.scalarDimensions, double uncert = 0.0]) {}
+
+  void _initStream() {
+    _changeController = new StreamController<Number>.broadcast();
+    onChange = _changeController.stream;
+  }
+
+  Number get mks => valueSI;
 
   /// Sets the [value] of this quantity in standard MKS (meter-kilogram-second) units.
   ///
   set mks(Number value) {
+    if (!mutable) throw new ImmutableQuantityException(q: this);
     if (value != valueSI) {
       valueSI = value;
 
       // Send new value over stream
-      _valueController.add(valueSI);
+      _changeController.add(valueSI);
     }
   }
 
-  //TODO toTypedQuantity
+  /// Creates and returns an immutable typed [Quantity] that represents the value and
+  /// uncertainty of this MutableQuantity at this moment.
+  ///
+  Quantity get snapshot => //const MiscQuantity.constant(_valueSI, _dimensions, _preferredUnits, _ur);
+      dimensions?.toQuantity(preferredUnits?.fromMks(valueSI) ?? valueSI, preferredUnits, _ur) ??
+          new Scalar(value: valueSI, uncert: _ur);
+
+  Number get cgs => snapshot.cgs;
 
   /// Sets the value of this quantity in alternative CGS
   /// (or centimeter-gram-second) units.  MKS (meter-kilogram-second) units are
   /// preferred.
   ///
-  /// ### Notes:
-  ///   (1) Although CGS units were once commonly used and contended for the role
-  ///   of standard units, their use is now discouraged in favor of the adopted
-  ///   standard MKS (or meter-kilogram-second) units.
-  ///   (2) Throws an ImmutableQuantityException (a RuntimeException) if this
-  ///   Quantity has been made immutable.
+  /// * Although CGS units were once commonly used and contended for the role
+  /// of standard units, their use is now discouraged in favor of the adopted
+  /// standard MKS (or meter-kilogram-second) units.
+  /// * Throws an ImmutableQuantityException (a RuntimeException) if this
+  /// Quantity has been made immutable.
   ///
-  ///   See [set mks(double)].
+  /// See [set mks(double)].
   ///
-  set cgs(Number value) {
+  void set cgs(Number value) {
+    if (!mutable) throw new ImmutableQuantityException(q: this);
     // Adjust for centimeters vs. meters
     num lengthExp = dimensions.getComponentExponent(Dimensions.baseLengthKey);
     value /= pow(100.0, lengthExp.toDouble());
@@ -70,12 +98,13 @@ class MutableQuantity implements Quantity {
     mks = new Double(value.toDouble());
   }
 
+  double get relativeUncertainty => _ur;
+
   ///   Sets the relative standard uncertainty in this Quantity object's value.
   ///
-  ///   ### Notes:
-  ///   (1) Will throw an ImmutableQuantityException (a RuntimeException) if this
+  ///   * Will throw an ImmutableQuantityException (a RuntimeException) if this
   ///   Quantity is in an immutable state.
-  ///   (2) Relative standard uncertainty is defined as the standard uncertainty
+  ///   * Relative standard uncertainty is defined as the standard uncertainty
   ///   divided by the absolute value of the quantity.  Standard uncertainty, in turn,
   ///   is defined as the uncertainty (of a measurement result) by an estimated
   ///   standard deviation, which is equal to the positive square root of the
@@ -83,9 +112,7 @@ class MutableQuantity implements Quantity {
   ///   corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   ///   68%.
   ///
-  ///   * @param ur the relative uncertainty
-  ///
-  set relativeUncertainty(double value) {
+  void set relativeUncertainty(double value) {
     if (!mutable) throw new ImmutableQuantityException(q: this);
     this._ur = value;
   }
@@ -94,24 +121,27 @@ class MutableQuantity implements Quantity {
     if (!mutable) throw new ImmutableQuantityException(q: this);
 
     if (valueSI != q2.valueSI) {
-      valueSI = q2.valueSI;
-      _valueController.add(valueSI);
+      _valueSI = q2.valueSI;
     }
     dimensions = q2.dimensions;
     preferredUnits = q2.preferredUnits;
     _ur = q2.relativeUncertainty;
 
-    // Send new values over streams
+    // TODO Send new values over streams
+    _changeController.add(valueSI);
 
     return this;
   }
 
+  Quantity sqrt() => snapshot.sqrt();
+
+  Quantity get standardUncertainty => snapshot.standardUncertainty;
+
   /// Sets the relative standard uncertainty in this Quantity object's value to [su].
   ///
-  /// ### Notes:
-  /// (1) Will throw an ImmutableQuantityException (a RuntimeException) if this
+  /// * Will throw an ImmutableQuantityException (a RuntimeException) if this
   /// Quantity is in an immutable state.
-  /// (2) Relative standard uncertainty is defined as the standard uncertainty
+  /// * Relative standard uncertainty is defined as the standard uncertainty
   /// divided by the absolute value of the quantity.  Standard uncertainty, in turn,
   /// is defined as the uncertainty (of a measurement result) by an estimated
   /// standard deviation, which is equal to the positive square root of the
@@ -119,7 +149,8 @@ class MutableQuantity implements Quantity {
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
   ///
-  set standardUncertainty(Quantity su) {
+  void set standardUncertainty(Quantity su) {
+    if (!mutable) throw new ImmutableQuantityException(q: this);
     if (!(dimensions == su.dimensions)) {
       throw new DimensionsException(
           "The standard uncertainty must have the same " + "dimensions as this Quantity object");
@@ -135,6 +166,7 @@ class MutableQuantity implements Quantity {
   /// be a num or Number object.
   ///
   void setValue(Object value, [Units units]) {
+    if (!mutable) throw new ImmutableQuantityException(q: this);
     if (units == null) {
       valueSI = value;
     } else {
@@ -171,4 +203,75 @@ class MutableQuantity implements Quantity {
   }
   */
 
+  /// Converts the value of this MutableQuantity to its absolute value.
+  ///
+  /// Returns itself.
+  ///
+
+  Quantity abs() {
+    if (!mutable) throw new ImmutableQuantityException(q: this);
+    valueSI = valueSI.abs();
+    return this;
+  }
+
+  bool get arbitraryPrecision => valueSI is Precise;
+
+  Quantity calcExpandedUncertainty(double k) => snapshot.calcExpandedUncertainty(k);
+
+  int compareTo(Comparable q2) => snapshot.compareTo(q2);
+
+  /// Each MutableQuantity has a unique hashCode that is _not_ value based.
+  ///
+  /// Therefore MutableQuantity instances with the
+  /// same value and dimensions as another quantity will not have
+  /// the same hash code.
+  ///
+
+  int get hashCode => super.hashCode;
+
+  /// Inverts this MutableQuantity in place and returns itself.
+  ///
+  MutableQuantity invert() {
+    if (!mutable) throw new ImmutableQuantityException(q: this);
+    valueSI = valueSI.reciprocal();
+    dimensions = dimensions.inverse();
+    return this;
+  }
+
+  Quantity inverse() => snapshot.inverse();
+
+  void outputText(StringBuffer buffer, {bool showUncert: false, bool symbols: true, NumberFormat numberFormat}) =>
+      snapshot.outputText(buffer, showUncert: showUncert, symbols: symbols, numberFormat: numberFormat);
+
+  Quantity randomSample() => snapshot.randomSample();
+
+  Map toJson() => snapshot.toJson();
+
+  Number valueInUnits(Units units) => snapshot.valueInUnits(units);
+
+  /// Negates the value of this MutableQuantity and returns
+  /// a reference to itself.
+  ///
+  Quantity operator -() {
+    valueSI = -valueSI;
+    return this;
+  }
+
+  Quantity operator +(addend) => snapshot + addend;
+
+  Quantity operator -(subtrahend) => snapshot - subtrahend;
+
+  Quantity operator *(multiplier) => snapshot * multiplier;
+
+  Quantity operator /(divisor) => snapshot / divisor;
+
+  bool operator <(Quantity other) => snapshot.compareTo(other) < 0;
+
+  bool operator <=(Quantity other) => snapshot.compareTo(other) <= 0;
+
+  bool operator >(Quantity other) => snapshot.compareTo(other) > 0;
+
+  bool operator >=(Quantity other) => snapshot.compareTo(other) >= 0;
+
+  Quantity operator ^(exp) => snapshot ^ exp;
 }

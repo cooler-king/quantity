@@ -35,7 +35,7 @@ main() {
       expect(d5 == 44.0, true);
 
       // equality with complex
-      Complex c1 = new Complex(new Integer(42), new Imaginary(0.0));
+      //TODO Complex c1 = new Complex(new Integer(42), new Imaginary(0.0));
     });
 
     test('operator +', () {

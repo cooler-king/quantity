@@ -9,7 +9,6 @@ library number;
 
 import 'dart:math' as Math;
 import 'dart:typed_data';
-import 'package:quiver/core.dart';
 
 part 'src/number/complex.dart';
 part 'src/number/double.dart';
@@ -19,6 +18,7 @@ part 'src/number/integer.dart';
 part 'src/number/number.dart';
 part 'src/number/precise.dart';
 part 'src/number/real.dart';
+part 'src/number/util/jenkins_hash.dart';
 
 /// Converts an [object] to a Number.  The [object]
 /// must be either a [num] or [Number], otherwise

@@ -27,7 +27,7 @@ class Double extends Real {
 
   /// If an integer value returns the same hash as the [int] with the same value.
   ///
-  /// Otherwise returns the same hash as the [Precise] number represeting the value.
+  /// Otherwise returns the same hash as the [Precise] number representing the value.
   ///
   @override
   int get hashCode {

@@ -105,5 +105,5 @@ class QuantityRange<Q extends Quantity> {
   /// Two equal quantity ranges will have the same hash code.
   ///
   @override
-  int get hashCode => hash2(q1, q2);
+  int get hashCode => hashObjects([q1, q2]);
 }

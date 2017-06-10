@@ -898,13 +898,13 @@ e.printStackTrace();
    *      singular), symbol or alternate abbreviation of one of the Units of
    *      the Quantity types known to the system (as returned by the method
    *      Quantity.getAllQuantityTypes())
-   *  * Any number is considered to be an exponent of the preceeding unit
+   *  * Any number is considered to be an exponent of the preceding unit
    *      symbol or name
    *  * Whitespace of any kind is used to tokenize the input String; whitespace
    *      between units symbols/names and exponents will be ignored
    *  * Carets are recognized as indicating exponents, but are not necessary;
    *      any number (e.g. -2 or +3 or just 3) will be interpreted as an
-   *      exponent of the preceeding units symbol/name
+   *      exponent of the preceding units symbol/name
    *  * Metric prefixes are only considered legal for metric base units
    *      (e.g., km or kilometers will work; kilomiles will not)
    *  * Parentheses, brackets, braces and the like are ignored
@@ -915,17 +915,17 @@ e.printStackTrace();
    *  * "inverse" indicates the following unit exponent will be multiplied by -1
    *  * "reciprocal" indicates the following unit exponent will be multiplied by -1
    *  * "square" indicates the following unit exponent will be multiplied by 2
-   *  * "squared" indicates the preceeding unit exponent will be multiplied by 2
+   *  * "squared" indicates the preceding unit exponent will be multiplied by 2
    *  * "cubic" indicates the following unit exponent will be multiplied by 3
-   *  * "cubed" indicates the preceeding unit exponent will be multiplied by 3
+   *  * "cubed" indicates the preceding unit exponent will be multiplied by 3
    *  * "to the *" or "to the power of *" where * is either "first", "second",
    *  "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "one",
    *  "two", "three", "four", "five", "six", "seven", "eight", "nine" or a
-   *  number indicates the preceeding unit exponent will be multiplied by the
+   *  number indicates the preceding unit exponent will be multiplied by the
    *  appropriate number.  "to the minus *" and "to the negative *", similarly,
-   *  indicate that the preceeding unit exponent will be multipled by the negative
+   *  indicate that the preceding unit exponent will be multiplied by the negative
    *  of the number.
-   *  * Multiword units are not recognized; use the symbol, if available, instead
+   *  * Multi-word units are not recognized; use the symbol, if available, instead
    *  * A failure to recognize any portion of the input String will result
    *      in an Exception being thrown
    *  * Note that the non-metric unit "mils" is both an Angle unit and a Length unit;

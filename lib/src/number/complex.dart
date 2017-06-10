@@ -65,8 +65,8 @@ class Complex extends Number {
       if (real is Precise) return real.hashCode;
       return new Precise.num(real.toDouble()).hashCode;
     } else {
-      if (real == null || real == 0) return hash2(0, imaginary.value);
-      return hash2(real, imaginary.value);
+      if (real == null || real == 0) return hashObjects([0, imaginary.value]);
+      return hashObjects([real, imaginary.value]);
     }
   }
 
