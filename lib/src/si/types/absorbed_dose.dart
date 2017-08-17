@@ -33,7 +33,7 @@ class AbsorbedDose extends Quantity {
   AbsorbedDose.inUnits(value, AbsorbedDoseUnits units, [double uncert = 0.0])
       : super(value, units ?? AbsorbedDose.grays, uncert);
 
-  const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits units, num uncert: 0.0})
+  const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits units, double uncert: 0.0})
       : super.constant(valueSI, AbsorbedDose.absorbedDoseDimensions, units, uncert);
 }
 
@@ -50,7 +50,7 @@ class AbsorbedDoseUnits extends AbsorbedDose with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   AbsorbedDoseUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super._internal(lu.valueSI * su.valueSI) {
@@ -61,7 +61,7 @@ class AbsorbedDoseUnits extends AbsorbedDose with Units {
     this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? "${lu._abbrev2}${su._abbrev2}" : null;
     ;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

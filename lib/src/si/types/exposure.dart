@@ -31,7 +31,7 @@ class Exposure extends Quantity {
   Exposure.inUnits(value, ExposureUnits units, [double uncert = 0.0])
       : super(value, units ?? Exposure.coulombsPerKilogram, uncert);
 
-  const Exposure.constant(Number valueSI, {ExposureUnits units, num uncert: 0.0})
+  const Exposure.constant(Number valueSI, {ExposureUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Exposure.exposureDimensions, units, uncert);
 }
 
@@ -47,7 +47,7 @@ class ExposureUnits extends Exposure with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   ExposureUnits.chargeMass(ChargeUnits ecu, MassUnits mu) : super._internal(ecu.valueSI * mu.valueSI) {

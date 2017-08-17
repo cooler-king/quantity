@@ -29,7 +29,7 @@ class MassDensity extends Quantity {
   MassDensity.inUnits(value, MassDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? MassDensity.kilogramsPerCubicMeter, uncert);
 
-  const MassDensity.constant(Number valueSI, {MassDensityUnits units, num uncert: 0.0})
+  const MassDensity.constant(Number valueSI, {MassDensityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, MassDensity.massDensityDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class MassDensityUnits extends MassDensity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   MassDensityUnits.massVolume(MassUnits mu, VolumeUnits vu) : super._internal(mu.valueSI * vu.valueSI) {

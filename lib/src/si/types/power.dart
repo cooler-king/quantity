@@ -16,8 +16,8 @@ class Power extends Quantity {
   static final PowerUnits watts = new PowerUnits("watts", null, "W", null, 1.0, true);
 
   // Convenience
-  static final PowerUnits kilowatts = watts.kilo();
-  static final PowerUnits megawatts = watts.mega();
+  static final PowerUnits kilowatts = watts.kilo() as PowerUnits;
+  static final PowerUnits megawatts = watts.mega() as PowerUnits;
 
   /// Construct a Power with watts ([W]), kilowatts ([kW]) or megawatts ([MW]).
   ///
@@ -34,7 +34,7 @@ class Power extends Quantity {
   ///
   Power.inUnits(value, PowerUnits units, [double uncert = 0.0]) : super(value, units ?? Power.watts, uncert);
 
-  const Power.constant(Number valueSI, {PowerUnits units, num uncert: 0.0})
+  const Power.constant(Number valueSI, {PowerUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Power.powerDimensions, units, uncert);
 }
 
@@ -50,7 +50,7 @@ class PowerUnits extends Power with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   PowerUnits.energyTime(EnergyUnits eu, TimeUnits tu) : super._internal(eu.valueSI / tu.valueSI) {
@@ -60,7 +60,7 @@ class PowerUnits extends Power with Units {
     this._abbrev1 = eu._abbrev1 != null && tu._abbrev1 != null ? "${eu._abbrev1} / ${tu._abbrev1}" : null;
     this._abbrev2 = eu._abbrev2 != null && tu._abbrev2 != null ? "${eu._abbrev2}${tu._abbrev2}" : null;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -81,6 +81,6 @@ class PowerUnits extends Power with Units {
 }
 
 class RadiantFlux extends Power {
-  const RadiantFlux.constant(Number valueSI, {PowerUnits units, num uncert: 0.0})
+  const RadiantFlux.constant(Number valueSI, {PowerUnits  units, double uncert: 0.0})
       : super.constant(valueSI, units: units, uncert: uncert);
 }

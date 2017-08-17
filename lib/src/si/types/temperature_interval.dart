@@ -34,7 +34,7 @@ class TemperatureInterval extends Quantity {
   TemperatureInterval.inUnits(value, TemperatureIntervalUnits units, [double uncert = 0.0])
       : super(value, units ?? TemperatureInterval.kelvins, uncert);
 
-  const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits units, num uncert: 0.0})
+  const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits units, double uncert: 0.0})
       : super.constant(valueSI, TemperatureInterval.temperatureIntervalDimensions, units, uncert);
 
   /// Override the addition operator to manage the [Temperature]/`TemperatureInterval` relationship.
@@ -93,7 +93,7 @@ class TemperatureIntervalUnits extends TemperatureInterval with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

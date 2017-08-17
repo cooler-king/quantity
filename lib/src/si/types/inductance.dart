@@ -29,7 +29,7 @@ class Inductance extends Quantity {
   Inductance.inUnits(value, InductanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Inductance.henries, uncert);
 
-  const Inductance.constant(Number valueSI, {InductanceUnits units, num uncert: 0.0})
+  const Inductance.constant(Number valueSI, {InductanceUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Inductance.inductanceDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class InductanceUnits extends Inductance with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

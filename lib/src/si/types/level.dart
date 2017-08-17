@@ -38,7 +38,7 @@ abstract class Level extends Quantity {
   // Convenience
 
   /// Accepted for use with the SI.
-  static final LevelUnits decibels = bels.deci();
+  static final LevelUnits decibels = bels.deci() as LevelUnits;
 
   /// Construct a Level with nepers ([Np]).
   ///
@@ -53,7 +53,7 @@ abstract class Level extends Quantity {
   ///
   Level.inUnits(value, LevelUnits units, [double uncert = 0.0]) : super(value, units ?? Level.nepers, uncert);
 
-  const Level.constant(Number valueSI, {LevelUnits units, num uncert: 0.0})
+  const Level.constant(Number valueSI, {LevelUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Level.levelDimensions, units, uncert);
 }
 
@@ -69,7 +69,7 @@ class LevelUnits extends Level with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

@@ -25,7 +25,8 @@ class Imaginary extends Number {
 
   bool get isInteger => value.isInteger;
 
-  Imaginary.fromMap(Map m) : this.value = (m.containsKey("imag")) ? Number._fromMap(m["imag"]) : Double.zero;
+  Imaginary.fromMap(Map<String, dynamic> m)
+      : this.value = (m.containsKey("imag")) ? Number._fromMap(m["imag"] as Map<String, dynamic>) as Real : Double.zero;
 
   @override
   bool operator ==(obj) {
@@ -44,19 +45,19 @@ class Imaginary extends Number {
 
   Number operator +(dynamic addend) {
     if (addend is Imaginary) return new Imaginary((value + addend.value).toDouble());
-    if (addend is Complex) return new Complex(addend.real, value + addend.imag);
+    if (addend is Complex) return new Complex(addend.real, new Imaginary(value + addend.imag));
     if (addend is Real) return new Complex(addend, this);
-    if (addend is num) return new Complex(new Double(addend), this);
+    if (addend is num) return new Complex(new Double(addend.toDouble()), this);
     return this;
   }
 
-  Number operator -() => new Imaginary(-value);
+  Imaginary operator -() => new Imaginary(-value);
 
   Number operator -(dynamic subtrahend) {
-    if (subtrahend
-        is num) return new Complex(subtrahend is int ? new Integer(-subtrahend) : new Double(-subtrahend), this);
+    if (subtrahend is num)
+      return new Complex(subtrahend is int ? new Integer(-subtrahend) : new Double(-subtrahend as double), this);
     if (subtrahend is Real) return new Complex(-subtrahend, this);
-    if (subtrahend is Complex) return new Complex(-subtrahend.real, this - subtrahend.imaginary);
+    if (subtrahend is Complex) return new Complex(-subtrahend.real, (this - subtrahend.imaginary) as Imaginary);
     if (subtrahend is Imaginary) return new Imaginary(value - subtrahend.value);
 
     return this;
@@ -65,7 +66,8 @@ class Imaginary extends Number {
   Number operator *(dynamic multiplier) {
     // i * i = -1
     if (multiplier is Imaginary) return value * multiplier.value * -1;
-    if (multiplier is Complex) return new Complex(value * multiplier.imag * -1.0, value * multiplier.real);
+    if (multiplier is Complex)
+      return new Complex(value * multiplier.imag.toDouble() * -1.0 as Real, new Imaginary(value * multiplier.real));
     if (multiplier is num) return new Imaginary(value * multiplier);
     if (multiplier is Real) return new Imaginary(multiplier * value);
 
@@ -80,12 +82,14 @@ class Imaginary extends Number {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
       Number bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return new Complex(bOverc2d2 * divisor.real, new Imaginary(bOverc2d2 * divisor.imaginary.value * -1.0));
+      return new Complex((bOverc2d2 * divisor.real) as Real, new Imaginary(bOverc2d2 * divisor.imaginary.value * -1.0));
     }
 
     // Treat divisor as 0
-    if (value.isNegative) return new Imaginary(Double.negInfinity);
-    else return new Imaginary(Double.infinity);
+    if (value.isNegative)
+      return new Imaginary(Double.negInfinity);
+    else
+      return new Imaginary(Double.infinity);
   }
 
   ///  The truncating division operator.
@@ -99,7 +103,7 @@ class Imaginary extends Number {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
       Number bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return new Complex((bOverc2d2 * divisor.real).truncate(),
+      return new Complex((bOverc2d2 * divisor.real).truncate() as Real,
           new Imaginary((bOverc2d2 * divisor.imaginary.value * -1.0).truncate()));
     }
 

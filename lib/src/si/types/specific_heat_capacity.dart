@@ -31,7 +31,7 @@ class SpecificHeatCapacity extends Quantity {
   SpecificHeatCapacity.inUnits(value, SpecificHeatCapacityUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
-  const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits units, num uncert: 0.0})
+  const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, SpecificHeatCapacity.specificHeatCapacityDimensions, units, uncert);
 }
 
@@ -47,7 +47,7 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   SpecificHeatCapacityUnits.energyMassTemperature(EnergyUnits eu, MassUnits mu, TemperatureIntervalUnits tu)

@@ -24,7 +24,7 @@ class SolidAngle extends Quantity {
   SolidAngle.inUnits(value, SolidAngleUnits units, [double uncert = 0.0])
       : super(value, units ?? SolidAngle.steradians, uncert);
 
-  const SolidAngle.constant(value, [SolidAngleUnits units = null])
+  const SolidAngle.constant(Number value, [SolidAngleUnits units = null])
       : super.constant(value, SolidAngle.solidAngleDimensions, units, 0.0);
 }
 
@@ -40,7 +40,7 @@ class SolidAngleUnits extends SolidAngle with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   SolidAngleUnits.angleUnits(AngleUnits au) : super._internal(au.valueSI * au.valueSI) {
@@ -50,7 +50,7 @@ class SolidAngleUnits extends SolidAngle with Units {
     this._abbrev1 = au._abbrev1 != null ? "${au._abbrev1}^2" : null;
     this._abbrev2 = au._abbrev2 != null ? "${au._abbrev2}^2" : null;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

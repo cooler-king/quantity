@@ -27,7 +27,7 @@ class Charge extends Quantity {
   ///
   Charge.inUnits(value, ChargeUnits units, [double uncert = 0.0]) : super(value, units ?? Charge.coulombs, uncert);
 
-  const Charge.constant(Number valueSI, {ChargeUnits units, num uncert: 0.0})
+  const Charge.constant(Number valueSI, {ChargeUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Charge.electricChargeDimensions, units, uncert);
 }
 
@@ -43,7 +43,7 @@ class ChargeUnits extends Charge with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   ChargeUnits.currentTime(CurrentUnits cu, TimeUnits tu) : super._internal(cu.valueSI * tu.valueSI) {

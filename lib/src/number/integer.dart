@@ -17,7 +17,8 @@ class Integer extends Real {
   const Integer.constant(this._value) : super.constant();
   Integer.parse(String str, {int radix: 10}) : _value = int.parse(str, radix: radix);
 
-  num get value => _value;
+  @override
+  int get value => _value;
 
   bool get isInfinite => false;
   bool get isNaN => false;
@@ -57,7 +58,7 @@ class Integer extends Real {
   /// Negation operator.
   ///
   @override
-  Number operator -() => new Integer(-value);
+  Integer operator -() => new Integer(-value);
 
   @override
   Number operator -(subtrahend) {
@@ -123,7 +124,7 @@ class Integer extends Real {
   Number clamp(lowerLimit, upperLimit) {
     num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
     num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
-    return new Integer(value?.clamp(lower, upper));
+    return new Integer(value?.clamp(lower, upper)?.toInt() ?? lower.toInt());
   }
 
   @override

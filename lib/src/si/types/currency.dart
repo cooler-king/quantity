@@ -39,7 +39,7 @@ class Currency extends Quantity {
   Currency.inUnits(value, CurrencyUnits units, [double uncert = 0.0])
       : super(value, units ?? Currency.dollarsUS, uncert);
 
-  const Currency.constant(Number valueSI, {CurrencyUnits units, num uncert: 0.0})
+  const Currency.constant(Number valueSI, {CurrencyUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Currency.currencyDimensions, units, uncert);
 }
 
@@ -55,7 +55,7 @@ class CurrencyUnits extends Currency with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

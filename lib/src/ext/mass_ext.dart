@@ -47,7 +47,7 @@ final MassUnits zg = zeptograms;
 final MassUnits yg = yoctograms;
 
 // Convenience units
-final MassUnits gammas = Mass.grams.micro();
+final MassUnits gammas = Mass.grams.micro() as MassUnits;
 
 /// Accepted for use with the SI.
 final MassUnits metricTons = Mass.metricTons;

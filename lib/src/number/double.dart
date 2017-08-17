@@ -19,7 +19,8 @@ class Double extends Real {
   const Double.constant(this._value) : super.constant();
   Double.fromInt(int val) : _value = val.toDouble();
 
-  num get value => _value;
+  @override
+  double get value => _value;
 
   double toDouble() => _value;
 
@@ -46,13 +47,13 @@ class Double extends Real {
   }
 
   @override
-  Number operator -() => new Double(-value);
+  Double operator -() => new Double(-value);
 
   @override
   Number clamp(lowerLimit, upperLimit) {
     num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
     num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
-    return new Double(value?.clamp(lower, upper));
+    return new Double(value?.clamp(lower, upper)?.toDouble() ?? 0.0);
   }
 
   Number reciprocal() {
@@ -67,7 +68,7 @@ class Double extends Real {
   /// Map Contents:
   ///     "d" : double value
   ///
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {"d": value};
   }
 }

@@ -29,7 +29,7 @@ class Current extends Quantity {
   ///
   Current.inUnits(value, CurrentUnits units, [double uncert = 0.0]) : super(value, units ?? Current.amperes, uncert);
 
-  const Current.constant(Number valueSI, {CurrentUnits units, num uncert: 0.0})
+  const Current.constant(Number valueSI, {CurrentUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Current.electricCurrentDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class CurrentUnits extends Current with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

@@ -28,7 +28,7 @@ class MassFlowRate extends Quantity {
   MassFlowRate.inUnits(value, MassFlowRateUnits units, [double uncert = 0.0])
       : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert);
 
-  const MassFlowRate.constant(Number valueSI, {MassFlowRateUnits units, num uncert: 0.0})
+  const MassFlowRate.constant(Number valueSI, {MassFlowRateUnits  units, double uncert: 0.0})
       : super.constant(valueSI, MassFlowRate.massFlowRateDimensions, units, uncert);
 }
 
@@ -44,7 +44,7 @@ class MassFlowRateUnits extends MassFlowRate with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   MassFlowRateUnits.massTime(MassUnits mu, TimeUnits tu) : super._internal(mu.valueSI * tu.valueSI) {

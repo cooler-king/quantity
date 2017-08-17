@@ -32,7 +32,7 @@ class MolarEntropy extends Quantity {
   MolarEntropy.inUnits(value, MolarEntropyUnits units, [double uncert = 0.0])
       : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert);
 
-  const MolarEntropy.constant(Number valueSI, {MolarEntropyUnits units, num uncert: 0.0})
+  const MolarEntropy.constant(Number valueSI, {MolarEntropyUnits  units, double uncert: 0.0})
       : super.constant(valueSI, MolarEntropy.molarEntropyDimensions, units, uncert);
 }
 
@@ -48,7 +48,7 @@ class MolarEntropyUnits extends MolarEntropy with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   MolarEntropyUnits.energyAmountTemperature(EnergyUnits eu, AmountOfSubstanceUnits aosu, TemperatureIntervalUnits tu)

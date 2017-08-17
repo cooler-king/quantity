@@ -27,7 +27,7 @@ class WaveNumber extends Quantity {
   WaveNumber.inUnits(value, WaveNumberUnits units, [double uncert = 0.0])
       : super(value, units ?? WaveNumber.reciprocalMeters, uncert);
 
-  const WaveNumber.constant(Number valueSI, {WaveNumberUnits units, num uncert: 0.0})
+  const WaveNumber.constant(Number valueSI, {WaveNumberUnits units, double uncert: 0.0})
       : super.constant(valueSI, WaveNumber.waveNumberDimensions, units, uncert);
 }
 
@@ -43,7 +43,7 @@ class WaveNumberUnits extends WaveNumber with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   WaveNumberUnits.length(LengthUnits lu) : super._internal(Integer.one / lu.valueSI) {

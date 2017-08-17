@@ -31,7 +31,7 @@ class Entropy extends Quantity {
   Entropy.inUnits(value, EntropyUnits units, [double uncert = 0.0])
       : super(value, units ?? Entropy.joulesPerKelvin, uncert);
 
-  const Entropy.constant(Number valueSI, {EntropyUnits units, num uncert: 0.0})
+  const Entropy.constant(Number valueSI, {EntropyUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Entropy.entropyDimensions, units, uncert);
 }
 
@@ -47,7 +47,7 @@ class EntropyUnits extends Entropy with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   EntropyUnits.energyTemperature(EnergyUnits eu, TemperatureIntervalUnits tu)

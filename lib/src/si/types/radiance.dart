@@ -30,7 +30,7 @@ class Radiance extends Quantity {
   Radiance.inUnits(value, RadianceUnits units, [double uncert = 0.0])
       : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert);
 
-  const Radiance.constant(Number valueSI, {RadianceUnits units, num uncert: 0.0})
+  const Radiance.constant(Number valueSI, {RadianceUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Radiance.radianceDimensions, units, uncert);
 }
 
@@ -46,7 +46,7 @@ class RadianceUnits extends Radiance with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   RadianceUnits.powerAreaSolidAngle(PowerUnits ecu, AreaUnits mu, SolidAngleUnits sau)

@@ -29,7 +29,7 @@ class Luminance extends Quantity {
   Luminance.inUnits(value, LuminanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Luminance.candelasPerSquareMeter, uncert);
 
-  const Luminance.constant(Number valueSI, {LuminanceUnits units, num uncert: 0.0})
+  const Luminance.constant(Number valueSI, {LuminanceUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Luminance.luminanceDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class LuminanceUnits extends Luminance with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   LuminanceUnits.intensityArea(LuminousIntensityUnits liu, AreaUnits au) : super._internal(liu.valueSI * au.valueSI) {

@@ -30,7 +30,7 @@ class ThermalConductivity extends Quantity {
   ThermalConductivity.inUnits(value, ThermalConductivityUnits units, [double uncert = 0.0])
       : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert);
 
-  const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits units, num uncert: 0.0})
+  const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits units, double uncert: 0.0})
       : super.constant(valueSI, ThermalConductivity.thermalConductivityDimensions, units, uncert);
 }
 
@@ -46,7 +46,7 @@ class ThermalConductivityUnits extends ThermalConductivity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   ThermalConductivityUnits.powerLengthTemperature(PowerUnits pu, LengthUnits lu, TemperatureIntervalUnits tiu)

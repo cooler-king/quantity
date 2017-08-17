@@ -14,7 +14,7 @@ class AmountOfSubstance extends Quantity {
   static final AmountOfSubstanceUnits moles = new AmountOfSubstanceUnits("moles", null, "mol", null, 1.0, true);
 
   /// A common metric derivative of the standard SI unit.
-  static final AmountOfSubstanceUnits kilomoles = moles.kilo();
+  static final AmountOfSubstanceUnits kilomoles = moles.kilo() as AmountOfSubstanceUnits;
 
   /// Construct an AmountOfSubstance with moles ([mol])
   /// or kilomoles ([kmol]).
@@ -32,7 +32,7 @@ class AmountOfSubstance extends Quantity {
   AmountOfSubstance.inUnits(value, AmountOfSubstanceUnits units, [double uncert = 0.0])
       : super(value, units ?? AmountOfSubstance.moles, uncert);
 
-  const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits units, num uncert: 0.0})
+  const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits  units, double uncert: 0.0})
       : super.constant(valueSI, AmountOfSubstance.amountOfSubstanceDimensions, units, uncert);
 }
 
@@ -48,7 +48,7 @@ class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

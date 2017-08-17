@@ -28,7 +28,7 @@ class MolarEnergy extends Quantity {
   MolarEnergy.inUnits(value, MolarEnergyUnits units, [double uncert = 0.0])
       : super(value, units ?? MolarEnergy.joulesPerMole, uncert);
 
-  const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits units, num uncert: 0.0})
+  const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits  units, double uncert: 0.0})
       : super.constant(valueSI, MolarEnergy.molarEnergyDimensions, units, uncert);
 }
 
@@ -44,7 +44,7 @@ class MolarEnergyUnits extends MolarEnergy with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   MolarEnergyUnits.energyAmount(EnergyUnits eu, AmountOfSubstanceUnits aosu)

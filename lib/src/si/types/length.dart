@@ -27,10 +27,10 @@ class Length extends Quantity {
   static final LengthUnits nauticalMiles = new LengthUnits("nautical miles", null, "NM", null, 1.852e3, false);
 
   // Convenience Units
-  static final LengthUnits kilometers = Length.meters.kilo();
-  static final LengthUnits centimeters = Length.meters.centi();
-  static final LengthUnits millimeters = Length.meters.milli();
-  static final LengthUnits nanometers = Length.meters.nano();
+  static final LengthUnits kilometers = Length.meters.kilo() as LengthUnits;
+  static final LengthUnits centimeters = Length.meters.centi() as LengthUnits;
+  static final LengthUnits millimeters = Length.meters.milli() as LengthUnits;
+  static final LengthUnits nanometers = Length.meters.nano() as LengthUnits;
 
   /// Construct a Length with meters ([m]), kilometers ([km]), millimeters ([mm]), astronomical units ([ua])
   /// or nautical miles ([NM]).
@@ -54,7 +54,7 @@ class Length extends Quantity {
   ///
   Length.inUnits(value, LengthUnits units, [double uncert = 0.0]) : super(value, units ?? Length.meters, uncert);
 
-  const Length.constant(Number valueSI, {LengthUnits units, num uncert: 0.0})
+  const Length.constant(Number valueSI, {LengthUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Length.lengthDimensions, units, uncert);
 }
 
@@ -70,7 +70,7 @@ class LengthUnits extends Length with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

@@ -33,7 +33,7 @@ class Pressure extends Quantity {
   ///
   Pressure.inUnits(value, PressureUnits units, [double uncert = 0.0]) : super(value, units ?? Pressure.pascals, uncert);
 
-  const Pressure.constant(Number valueSI, {PressureUnits units, num uncert: 0.0})
+  const Pressure.constant(Number valueSI, {PressureUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Pressure.pressureDimensions, units, uncert);
 }
 
@@ -49,7 +49,7 @@ class PressureUnits extends Pressure with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   PressureUnits.forceArea(ForceUnits fu, AreaUnits au) : super._internal(fu.valueSI * au.valueSI) {
@@ -59,7 +59,7 @@ class PressureUnits extends Pressure with Units {
     this._abbrev1 = fu._abbrev1 != null && au._abbrev1 != null ? "${fu._abbrev1} / ${au._abbrev1}" : null;
     this._abbrev2 = fu._abbrev2 != null && au._abbrev2 != null ? "${fu._abbrev2}${au._abbrev2}" : null;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

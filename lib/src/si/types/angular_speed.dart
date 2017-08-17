@@ -33,7 +33,7 @@ class AngularSpeed extends Quantity {
   AngularSpeed.inUnits(value, AngularSpeedUnits units, [double uncert = 0.0])
       : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
 
-  const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits units, num uncert: 0.0})
+  const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits  units, double uncert: 0.0})
       : super.constant(valueSI, AngularSpeed.angularSpeedDimensions, units, uncert);
 }
 
@@ -49,7 +49,7 @@ class AngularSpeedUnits extends AngularSpeed with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   AngularSpeedUnits.angleTime(AngleUnits au, TimeUnits tu) : super._internal(au.valueSI * tu.valueSI) {

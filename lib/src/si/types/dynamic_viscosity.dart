@@ -32,7 +32,7 @@ class DynamicViscosity extends Quantity {
   DynamicViscosity.inUnits(value, DynamicViscosityUnits units, [double uncert = 0.0])
       : super(value, units ?? DynamicViscosity.pascalSeconds, uncert);
 
-  const DynamicViscosity.constant(Number valueSI, {DynamicViscosityUnits units, num uncert: 0.0})
+  const DynamicViscosity.constant(Number valueSI, {DynamicViscosityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, DynamicViscosity.dynamicViscosityDimensions, units, uncert);
 }
 
@@ -48,7 +48,7 @@ class DynamicViscosityUnits extends DynamicViscosity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   DynamicViscosityUnits.pressureTime(PressureUnits pu, TimeUnits tu) : super._internal(pu.valueSI * tu.valueSI) {

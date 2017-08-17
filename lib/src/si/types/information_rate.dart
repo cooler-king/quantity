@@ -31,7 +31,7 @@ class InformationRate extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  InformationRate({dynamic bps, dynamic kbps, dynamic Mbps, dynamic Gbps, dynamic Tbps, uncert: 0.0})
+  InformationRate({dynamic bps, dynamic kbps, dynamic Mbps, dynamic Gbps, dynamic Tbps, double uncert: 0.0})
       : super(
             bps ?? (kbps ?? (Mbps ?? (Gbps ?? (Tbps ?? 0.0)))),
             kbps != null
@@ -51,7 +51,7 @@ class InformationRate extends Quantity {
   InformationRate.inUnits(value, InformationRateUnits units, [double uncert = 0.0])
       : super(value, units ?? InformationRate.bitsPerSecond, uncert);
 
-  const InformationRate.constant(Number valueSI, {InformationRateUnits units, num uncert: 0.0})
+  const InformationRate.constant(Number valueSI, {InformationRateUnits  units, double uncert: 0.0})
       : super.constant(valueSI, InformationRate.informationRateDimensions, units, uncert);
 }
 
@@ -67,7 +67,7 @@ class InformationRateUnits extends InformationRate with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   InformationRateUnits.massTime(InformationUnits iu, TimeUnits tu) : super._internal(iu.valueSI * tu.valueSI) {

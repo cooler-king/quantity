@@ -116,26 +116,26 @@ class TimeInstant extends Quantity {
       new TimeInstantUnits("Coordinated Universal Time", null, "UTC", null, 1.0, false, 0.0, (dynamic d) {
     // Have to remove leap seconds when converting to UTC
     d = (d is num || d is Number) ? d.toDouble() : 0.0;
-    d -= getLeapSeconds(d);
+    d -= getLeapSeconds(d as double);
 
-    return new Double(d);
+    return new Double(d as double);
   }, (dynamic d) {
     d = (d is num || d is Number) ? d.toDouble() : 0.0;
 
     // For conversion from UTC to TAI, the offset depends on the
     // time itself due to the addition of leap seconds
-    num leap1 = getLeapSeconds(d);
+    num leap1 = getLeapSeconds(d as double);
     if (leap1 > 0.0) {
       // Add in the leap seconds
       d += leap1;
 
       // Make sure that adding in leap seconds didn't make it cross
       // another leap second threshold
-      num leap2 = getLeapSeconds(d);
+      num leap2 = getLeapSeconds(d as double);
       if (leap2 != leap1) d += (leap2 - leap1);
     }
 
-    return new Double(d);
+    return new Double(d as double);
   });
 
   /// Number of milliseconds since 1 Jan 1970 0h 0m 0s, which is the System
@@ -150,7 +150,7 @@ class TimeInstant extends Quantity {
   }, (dynamic d) {
     d = (d is num || d is Number) ? d.toDouble() : 0.0;
     // Get seconds in UTC time scale... (offset = 4383 days = 3.786912e14 ms)
-    d = 0.001 * (d + 3.786912e11); // UTC seconds
+    d = 0.001 * ((d as double) + 3.786912e11); // UTC seconds
     return UTC.toMks(d);
   });
 
@@ -171,7 +171,7 @@ class TimeInstant extends Quantity {
 
   /// Constructs a constant TimeInstant object.
   ///
-  const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, num uncert: 0.0})
+  const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, double uncert: 0.0})
       : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
 
   /// Constructs a TimeInstant from an existing [dateTime] object.
@@ -198,16 +198,18 @@ class TimeInstant extends Quantity {
   }
 
   /// Override the default [Quantity] subtraction operator to return a Time
-  /// when another TimeInstant is subtracted or a TimeInstant when Time is substracted.
+  /// when another TimeInstant is subtracted or a TimeInstant when Time is subtracted.
   ///
   @override
-  Quantity operator -(subtrahend) {
+  Quantity operator -(dynamic subtrahend) {
     Number newValueSI = valueSI - subtrahend.valueSI;
-    double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
-    if (subtrahend is TimeInstant) {
-      return new Time(s: newValueSI, uncert: diffUr);
-    } else if (subtrahend is Time) {
-      return new TimeInstant(TAI: newValueSI, uncert: diffUr);
+    if (subtrahend is Quantity) {
+      double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      if (subtrahend is TimeInstant) {
+        return new Time(s: newValueSI, uncert: diffUr);
+      } else if (subtrahend is Time) {
+        return new TimeInstant(TAI: newValueSI, uncert: diffUr);
+      }
     }
 
     throw new QuantityException("Only a Time or another TimeInstant can be subtracted from a TimeInstant");
@@ -267,7 +269,7 @@ class TimeInstantUnits extends TimeInstant with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Calculates and returns the value in SI-MKS units of the specified [value]
@@ -276,7 +278,7 @@ class TimeInstantUnits extends TimeInstant with Units {
   @override
   Number toMks(value) {
     if (_toMks != null) {
-      return Function.apply(_toMks, [value]);
+      return Function.apply(_toMks, [value]) as Number;
     } else {
       return super.toMks(value);
     }
@@ -288,7 +290,7 @@ class TimeInstantUnits extends TimeInstant with Units {
   @override
   Number fromMks(mks) {
     if (_fromMks != null) {
-      return Function.apply(_fromMks, [mks]);
+      return Function.apply(_fromMks, [mks]) as Number;
     } else {
       return super.fromMks(mks);
     }
@@ -445,7 +447,7 @@ double getDeltaT(TimeInstant time) {
 
     if (index1 > (_deltaT.length - 2)) {
       // Out of range... just use the last value (as good a guess as any!)
-      return _deltaT[_deltaT.length - 1];
+      return (_deltaT[_deltaT.length - 1]).toDouble();
     } else {
       /*
        double frac = 0.0;
@@ -462,7 +464,7 @@ double getDeltaT(TimeInstant time) {
       num dt2 = _deltaT[index2];
       num change = dt2 - dt1;
 
-      return dt1 + time.fractionOfYear * change;
+      return (dt1 + time.fractionOfYear * change).toDouble();
     }
   }
 }

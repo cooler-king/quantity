@@ -115,7 +115,9 @@ main() {
       a = new Angle(deg: new Complex.coeff(12.34, 98.76));
       expect(a, isNotNull);
       expect(a.valueSI is Complex, true);
-      expect(a.valueSI == new Complex.coeff(Angle.degrees.toMks(12.34), Angle.degrees.toMks(98.76)), true);
+      expect(
+          a.valueSI == new Complex.coeff(Angle.degrees.toMks(12.34).toDouble(), Angle.degrees.toMks(98.76).toDouble()),
+          true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);
 

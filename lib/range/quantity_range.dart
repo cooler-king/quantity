@@ -35,7 +35,7 @@ class QuantityRange<Q extends Quantity> {
 
   // The value at the center of the range
   Q get centerValue {
-    if (_centerValue == null) _centerValue = (q1 + q2) / 2.0;
+    if (_centerValue == null) _centerValue = ((q1 + q2) / 2.0) as Q;
     return _centerValue;
   }
 
@@ -45,12 +45,12 @@ class QuantityRange<Q extends Quantity> {
   /// signed version of the range.
   ///
   Q get span {
-    if (_span == null) _span = (q2 - q1).abs();
+    if (_span == null) _span = (q2 - q1).abs() as Q;
     return _span;
   }
 
   /// The change in value from start to end, which may be negative.
-  Q get delta => q2 - q1;
+  Q get delta => q2 - q1 as Q;
 
   /// Returns true if this range overlaps [range2]
   /// (exclusive of the endpoints).

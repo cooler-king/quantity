@@ -130,7 +130,7 @@ abstract class Number implements Comparable<dynamic> {
   /// Detect the type of Number by inspecting
   /// map contents and create it.
   ///
-  static Number _fromMap(Map m) {
+  static Number _fromMap(Map<String, dynamic> m) {
     if (m.containsKey("imag")) return new Imaginary.fromMap(m);
     if (m.containsKey("real")) return new Complex.fromMap(m);
     if (m.containsKey("pd")) return null; //return new Precise()

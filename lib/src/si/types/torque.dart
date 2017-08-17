@@ -28,7 +28,7 @@ class Torque extends Quantity {
   ///
   Torque.inUnits(value, TorqueUnits units, [double uncert = 0.0]) : super(value, units ?? Torque.newtonMeters, uncert);
 
-  const Torque.constant(Number valueSI, {TorqueUnits units, num uncert: 0.0})
+  const Torque.constant(Number valueSI, {TorqueUnits units, double uncert: 0.0})
       : super.constant(valueSI, Torque.torqueDimensions, units, uncert);
 }
 
@@ -44,7 +44,7 @@ class TorqueUnits extends Torque with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   TorqueUnits.forceLength(ForceUnits fu, LengthUnits lu) : super._internal(fu.valueSI * lu.valueSI) {

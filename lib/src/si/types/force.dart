@@ -26,7 +26,7 @@ class Force extends Quantity {
   ///
   Force.inUnits(value, ForceUnits units, [double uncert = 0.0]) : super(value, units ?? Force.newtons, uncert);
 
-  const Force.constant(Number valueSI, {ForceUnits units, num uncert: 0.0})
+  const Force.constant(Number valueSI, {ForceUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Force.forceDimensions, units, uncert);
 
   Force.ma(Mass m, Acceleration a)
@@ -45,7 +45,7 @@ class ForceUnits extends Force with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

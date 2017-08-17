@@ -31,7 +31,7 @@ class SpecificEnergy extends Quantity {
   SpecificEnergy.inUnits(value, SpecificEnergyUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert);
 
-  const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits units, num uncert: 0.0})
+  const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits  units, double uncert: 0.0})
       : super.constant(valueSI, SpecificEnergy.specificEnergyDimensions, units, uncert);
 }
 
@@ -47,7 +47,7 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   SpecificEnergyUnits.energyMass(EnergyUnits eu, MassUnits mu) : super._internal(eu.valueSI / mu.valueSI) {

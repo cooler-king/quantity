@@ -30,7 +30,7 @@ class Scalar extends Quantity {
   // CONSTRUCTORS
   Scalar.inUnits(value, ScalarUnits units, [double uncert = 0.0]) : super(value, units ?? Scalar.one, uncert);
 
-  const Scalar.constant(value, {ScalarUnits units, double uncert: 0.0})
+  const Scalar.constant(Number value, {ScalarUnits units, double uncert: 0.0})
       : super.constant(value, Scalar.scalarDimensions, units, uncert);
 
   /// Scalar's hash code is identical to the hash code of its SI value
@@ -68,7 +68,7 @@ class ScalarUnits extends Scalar with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

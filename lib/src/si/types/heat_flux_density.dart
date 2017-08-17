@@ -31,7 +31,7 @@ class HeatFluxDensity extends Quantity {
   HeatFluxDensity.inUnits(value, HeatFluxDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? HeatFluxDensity.wattsPerSquareMeter, uncert);
 
-  const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits units, num uncert: 0.0})
+  const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, HeatFluxDensity.heatFluxDensityDimensions, units, uncert);
 }
 
@@ -47,7 +47,7 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   HeatFluxDensityUnits.powerArea(PowerUnits pu, AreaUnits au) : super._internal(pu.valueSI * au.valueSI) {

@@ -30,7 +30,7 @@ class Volume extends Quantity {
   ///
   Volume.inUnits(value, VolumeUnits units, [double uncert = 0.0]) : super(value, units ?? Volume.cubicMeters, uncert);
 
-  const Volume.constant(Number valueSI, {VolumeUnits units, num uncert: 0.0})
+  const Volume.constant(Number valueSI, {VolumeUnits units, double uncert: 0.0})
       : super.constant(valueSI, Volume.volumeDimensions, units, uncert);
 }
 
@@ -46,7 +46,7 @@ class VolumeUnits extends Volume with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   VolumeUnits.length(LengthUnits lu) : super._internal(lu.valueSI ^ 3) {

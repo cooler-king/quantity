@@ -29,7 +29,7 @@ class RadiantIntensity extends Quantity {
   RadiantIntensity.inUnits(value, RadiantIntensityUnits units, [double uncert = 0.0])
       : super(value, units ?? RadiantIntensity.wattsPerSteradian, uncert);
 
-  const RadiantIntensity.constant(Number valueSI, {RadiantIntensityUnits units, num uncert: 0.0})
+  const RadiantIntensity.constant(Number valueSI, {RadiantIntensityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, RadiantIntensity.radiantIntensityDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   RadiantIntensityUnits.powerSolidAngle(PowerUnits pu, SolidAngleUnits sau)

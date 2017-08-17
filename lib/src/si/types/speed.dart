@@ -29,7 +29,7 @@ class Speed extends Quantity {
   ///
   Speed.inUnits(value, SpeedUnits units, [double uncert = 0.0]) : super(value, units ?? Speed.metersPerSecond, uncert);
 
-  const Speed.constant(Number valueSI, {SpeedUnits units, num uncert: 0.0})
+  const Speed.constant(Number valueSI, {SpeedUnits units, double uncert: 0.0})
       : super.constant(valueSI, Speed.speedDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class SpeedUnits extends Speed with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   SpeedUnits.lengthTime(LengthUnits lu, TimeUnits tu) : super._internal(lu.valueSI / tu.valueSI) {

@@ -29,7 +29,7 @@ class VolumeFlowRate extends Quantity {
   VolumeFlowRate.inUnits(value, VolumeFlowRateUnits units, [double uncert = 0.0])
       : super(value, units ?? VolumeFlowRate.cubicMetersPerSecond, uncert);
 
-  const VolumeFlowRate.constant(Number valueSI, {VolumeFlowRateUnits units, num uncert: 0.0})
+  const VolumeFlowRate.constant(Number valueSI, {VolumeFlowRateUnits units, double uncert: 0.0})
       : super.constant(valueSI, VolumeFlowRate.volumeFlowRateDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class VolumeFlowRateUnits extends VolumeFlowRate with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   VolumeFlowRateUnits.volumeTime(VolumeUnits vu, TimeUnits tu) : super._internal(vu.valueSI / tu.valueSI) {

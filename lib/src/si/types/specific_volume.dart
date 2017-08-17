@@ -29,7 +29,7 @@ class SpecificVolume extends Quantity {
   SpecificVolume.inUnits(value, SpecificVolumeUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert);
 
-  const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits units, num uncert: 0.0})
+  const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits units, double uncert: 0.0})
       : super.constant(valueSI, SpecificVolume.specificVolumeDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class SpecificVolumeUnits extends SpecificVolume with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   SpecificVolumeUnits.lengthMass(LengthUnits lu, MassUnits mu) : super._internal(lu.valueSI / mu.valueSI) {

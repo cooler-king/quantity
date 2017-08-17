@@ -30,7 +30,7 @@ class ElectricFluxDensity extends Quantity {
   ElectricFluxDensity.inUnits(value, ElectricFluxDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
-  const ElectricFluxDensity.constant(Number valueSI, {ElectricFluxDensityUnits units, num uncert: 0.0})
+  const ElectricFluxDensity.constant(Number valueSI, {ElectricFluxDensityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, ElectricFluxDensity.electricFluxDensityDimensions, units, uncert);
 }
 
@@ -46,7 +46,7 @@ class ElectricFluxDensityUnits extends ElectricFluxDensity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   ElectricFluxDensityUnits.chargeArea(ChargeUnits ecu, AreaUnits au) : super._internal(ecu.valueSI * au.valueSI) {

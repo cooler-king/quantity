@@ -13,11 +13,13 @@ class ExponentialUnits {
   /// The [exp]onent must be either a [num] or [Number], otherwise
   /// a [QuantityException] will be thrown.
   ///
-  ExponentialUnits(Units units, Object exp) {
+  ExponentialUnits(Units units, dynamic exp) {
     this._units = units;
 
-    if (exp is num || exp is Number) {
+    if (exp is num) {
       this._exp = exp;
+    } else if (exp is Number) {
+      this._exp = exp.toDouble();
     } else {
       throw new QuantityException("exp must be a num or Number");
     }

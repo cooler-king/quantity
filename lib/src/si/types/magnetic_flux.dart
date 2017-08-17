@@ -27,7 +27,7 @@ class MagneticFlux extends Quantity {
   MagneticFlux.inUnits(value, MagneticFluxUnits units, [double uncert = 0.0])
       : super(value, units ?? MagneticFlux.webers, uncert);
 
-  const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits units, num uncert: 0.0})
+  const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits  units, double uncert: 0.0})
       : super.constant(valueSI, MagneticFlux.magneticFluxDimensions, units, uncert);
 }
 
@@ -43,7 +43,7 @@ class MagneticFluxUnits extends MagneticFlux with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

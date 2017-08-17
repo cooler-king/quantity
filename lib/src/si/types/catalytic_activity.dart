@@ -27,7 +27,7 @@ class CatalyticActivity extends Quantity {
   CatalyticActivity.inUnits(value, CatalyticActivityUnits units, [double uncert = 0.0])
       : super(value, units ?? CatalyticActivity.katals, uncert);
 
-  const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits units, num uncert: 0.0})
+  const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, CatalyticActivity.catalyticActivityDimensions, units, uncert);
 }
 
@@ -43,7 +43,7 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

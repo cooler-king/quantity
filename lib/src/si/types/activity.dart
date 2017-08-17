@@ -29,7 +29,7 @@ class Activity extends Quantity {
   Activity.inUnits(value, ActivityUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : Activity.becquerels, uncert);
 
-  const Activity.constant(Number valueSI, {ActivityUnits units, num uncert: 0.0})
+  const Activity.constant(Number valueSI, {ActivityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Activity.activityDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class ActivityUnits extends Activity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   ActivityUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super._internal(lu.valueSI * su.valueSI) {
@@ -56,7 +56,7 @@ class ActivityUnits extends Activity with Units {
     this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? "${lu._abbrev2}${su._abbrev2}" : null;
     ;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

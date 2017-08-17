@@ -29,7 +29,7 @@ class EnergyDensity extends Quantity {
   EnergyDensity.inUnits(value, EnergyDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? EnergyDensity.joulesPerCubicMeter, uncert);
 
-  const EnergyDensity.constant(Number valueSI, {EnergyDensityUnits units, num uncert: 0.0})
+  const EnergyDensity.constant(Number valueSI, {EnergyDensityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, EnergyDensity.energyDensityDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class EnergyDensityUnits extends EnergyDensity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   EnergyDensityUnits.energyVolume(EnergyUnits eu, VolumeUnits vu) : super._internal(eu.valueSI * vu.valueSI) {

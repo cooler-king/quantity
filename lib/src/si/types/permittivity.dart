@@ -28,7 +28,7 @@ class Permittivity extends Quantity {
   Permittivity.inUnits(value, PermittivityUnits units, [double uncert = 0.0])
       : super(value, units ?? Permittivity.faradsPerMeter, uncert);
 
-  const Permittivity.constant(Number valueSI, {PermittivityUnits units, num uncert: 0.0})
+  const Permittivity.constant(Number valueSI, {PermittivityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Permittivity.permittivityDimensions, units, uncert);
 }
 
@@ -44,7 +44,7 @@ class PermittivityUnits extends Permittivity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   PermittivityUnits.capacitanceLength(CapacitanceUnits ecu, LengthUnits lu)

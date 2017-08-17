@@ -39,7 +39,7 @@ class AbsorbedDoseRate extends Quantity {
   ///
   ///
   ///
-  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, num uncert: 0.0})
+  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits  units, double uncert: 0.0})
       : super.constant(valueSI, AbsorbedDoseRate.absorbedDoseRateDimensions, units, uncert);
 }
 
@@ -55,7 +55,7 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDoseUnits adu, TimeUnits tu)
@@ -67,7 +67,7 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
     this._abbrev2 = adu._abbrev2 != null && tu._abbrev2 != null ? "${adu._abbrev2}${tu._abbrev2}" : null;
     ;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

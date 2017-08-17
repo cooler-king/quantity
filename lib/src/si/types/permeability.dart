@@ -34,7 +34,7 @@ class Permeability extends Quantity {
   Permeability.inUnits(value, PermeabilityUnits units, [double uncert = 0.0])
       : super(value, units ?? Permeability.henriesPerMeter, uncert);
 
-  const Permeability.constant(Number valueSI, {PermeabilityUnits units, num uncert: 0.0})
+  const Permeability.constant(Number valueSI, {PermeabilityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Permeability.permeabilityDimensions, units, uncert);
 }
 
@@ -50,7 +50,7 @@ class PermeabilityUnits extends Permeability with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   PermeabilityUnits.inductanceLength(InductanceUnits iu, LengthUnits lu) : super._internal(iu.valueSI / lu.valueSI) {

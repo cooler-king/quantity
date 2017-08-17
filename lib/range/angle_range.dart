@@ -66,7 +66,7 @@ class AngleRange extends QuantityRange<Angle> {
     Angle min360 = minValue.angle360;
     Angle max360 = maxValue.angle360;
     if (max360 < min360) {
-      max360 += new Angle(rad: twoPi);
+      max360 = (max360 + new Angle(rad: twoPi)) as Angle;
       list1.add(new AngleRange(min360, new Angle(rad: twoPi)));
       list1.add(new AngleRange(new Angle(rad: 0), max360));
     } else {
@@ -77,7 +77,7 @@ class AngleRange extends QuantityRange<Angle> {
     Angle min360_2 = range2.minValue.angle360;
     Angle max360_2 = range2.maxValue.angle360;
     if (max360_2 < min360_2) {
-      max360_2 += new Angle(rad: twoPi);
+      max360_2 = max360_2 + new Angle(rad: twoPi) as Angle;
       list2.add(new AngleRange(min360_2, new Angle(rad: twoPi)));
       list2.add(new AngleRange(new Angle(rad: 0), max360_2));
     } else {
@@ -109,15 +109,15 @@ class AngleRange extends QuantityRange<Angle> {
       end = temp;
     }
     if (scale != null) {
-      Angle delta = (end - start) * (scale / 2.0);
-      start = centerValue - delta;
-      end = centerValue + delta;
+      Angle delta = ((end - start) * (scale / 2.0)) as Angle;
+      start = (centerValue - delta) as Angle;
+      end = (centerValue + delta) as Angle;
     }
     if (rotate != null) {
-      Angle newCenter = centerValue + rotate;
-      Angle delta = (end - start) / 2.0;
-      start = newCenter - delta;
-      end = newCenter + delta;
+      Angle newCenter = centerValue + rotate as Angle;
+      Angle delta = (end - start) / 2.0 as Angle;
+      start = newCenter - delta as Angle;
+      end = newCenter + delta as Angle;
     }
 
     return new AngleRange(start, end);
@@ -137,8 +137,8 @@ class AngleRange extends QuantityRange<Angle> {
     if (startAngle < endAngle) {
       // clockwise
       Angle start360 = startAngle.angle360;
-      Angle delta = start360 - startAngle;
-      Angle endPlusDelta = endAngle + delta;
+      Angle delta = start360 - startAngle as Angle;
+      Angle endPlusDelta = endAngle + delta as Angle;
       if (endPlusDelta.valueSI > twoPi) {
         rangeList.add(new AngleRange(angle0, endPlusDelta.angle360));
         rangeList.add(new AngleRange(start360, angle360));
@@ -148,11 +148,11 @@ class AngleRange extends QuantityRange<Angle> {
     } else {
       // counterclockwise
       Angle end360 = endAngle.angle360;
-      Angle delta = end360 - endAngle;
-      Angle startPlusDelta = startAngle + delta;
+      Angle delta = end360 - endAngle as Angle;
+      Angle startPlusDelta = startAngle + delta as Angle;
       if (startPlusDelta.valueSI > twoPi) {
         rangeList.add(new AngleRange(angle360, end360));
-        rangeList.add(new AngleRange(startPlusDelta - angle360, angle0));
+        rangeList.add(new AngleRange(startPlusDelta - angle360 as Angle, angle0));
       } else {
         rangeList.add(new AngleRange(end360, startPlusDelta));
       }

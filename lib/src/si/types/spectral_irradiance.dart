@@ -29,7 +29,7 @@ class SpectralIrradiance extends Quantity {
   SpectralIrradiance.inUnits(value, SpectralIrradianceUnits units, [double uncert = 0.0])
       : super(value, units ?? SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
-  const SpectralIrradiance.constant(Number valueSI, {SpectralIrradianceUnits units, num uncert: 0.0})
+  const SpectralIrradiance.constant(Number valueSI, {SpectralIrradianceUnits units, double uncert: 0.0})
       : super.constant(valueSI, SpectralIrradiance.spectralIrradianceDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class SpectralIrradianceUnits extends SpectralIrradiance with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

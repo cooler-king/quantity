@@ -27,7 +27,7 @@ class EnergyFlux extends Quantity {
   EnergyFlux.inUnits(value, EnergyFluxUnits units, [double uncert = 0.0])
       : super(value, units ?? EnergyFlux.wattsPerSquareMeter, uncert);
 
-  const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits units, num uncert: 0.0})
+  const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits  units, double uncert: 0.0})
       : super.constant(valueSI, EnergyFlux.energyFluxDimensions, units, uncert);
 }
 
@@ -43,7 +43,7 @@ class EnergyFluxUnits extends EnergyFlux with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   EnergyFluxUnits.powerArea(PowerUnits pu, AreaUnits au) : super._internal(pu.valueSI * au.valueSI) {

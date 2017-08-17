@@ -28,7 +28,7 @@ class Conductance extends Quantity {
   Conductance.inUnits(value, ConductanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Conductance.siemens, uncert);
 
-  const Conductance.constant(Number valueSI, {ConductanceUnits units, num uncert: 0.0})
+  const Conductance.constant(Number valueSI, {ConductanceUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Conductance.electricConductanceDimensions, units, uncert);
 }
 
@@ -44,7 +44,7 @@ class ConductanceUnits extends Conductance with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

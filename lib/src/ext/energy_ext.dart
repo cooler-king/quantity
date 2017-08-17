@@ -55,7 +55,7 @@ final EnergyUnits wattHour = new EnergyUnits.powerTime(Power.watts, Time.hours);
 final EnergyUnits wattSecond = new EnergyUnits.powerTime(Power.watts, Time.seconds);
 
 // convenience units
-final EnergyUnits kilojoules = joules.kilo();
+final EnergyUnits kilojoules = joules.kilo() as EnergyUnits;
 final EnergyUnits kilocaloriesThermo = caloriesKgThermo;
 
 // constants

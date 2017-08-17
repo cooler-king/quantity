@@ -7,6 +7,10 @@ abstract class Real extends Number {
 
   Real();
 
+  //factory Real.fromMap(Map<String, dynamic> map) {
+  //  if (map == null) return Integer.zero;
+  //}
+
   /// All Real subclasses must be able to provide their value as a [dart:core] [num].
   num get value;
 
@@ -22,16 +26,20 @@ abstract class Real extends Number {
   @override
   bool get isNegative => value < 0;
 
+  /// Negation operator.
+  @override
+  Real operator -();
+
+
   /// Addition operator.
   ///
-  /// [addend] is expected to be a `num` or `Number`.  If it is not it
-  /// will be assumed to be 0.
+  /// [addend] is expected to be a `num` or `Number`.  If it is not it is assumed to be 0.
   ///
   @override
   Number operator +(addend) {
-    if (addend is num) return new Double(value + addend);
+    if (addend is num) return new Double((value + addend).toDouble());
     if (addend is Precise) return addend + this;
-    if (addend is Real) return new Double(value + addend.value);
+    if (addend is Real) return new Double((value + addend.value).toDouble());
     if (addend is Complex) return new Complex(new Double(addend.real.toDouble() + value), addend.imag);
     if (addend is Imaginary) return new Complex(this, addend);
     return this;
@@ -39,24 +47,26 @@ abstract class Real extends Number {
 
   @override
   Number operator -(subtrahend) {
-    if (subtrahend is num) return new Double(value - subtrahend);
+    if (subtrahend is num) return new Double((value - subtrahend).toDouble());
     if (subtrahend is Precise) return (-subtrahend) + this;
-    if (subtrahend is Real) return new Double(value - subtrahend.value);
-    if (subtrahend is Complex) return new Complex(new Double(value - subtrahend.real.value), -(subtrahend.imag));
+    if (subtrahend is Real) return new Double((value - subtrahend.value).toDouble());
+    if (subtrahend is Complex)
+      return new Complex(new Double((value - subtrahend.real.value).toDouble()), -(subtrahend.imag));
     if (subtrahend is Imaginary) return new Complex(this, -subtrahend);
     return this;
   }
 
   @override
-  Number operator *(multiplier) {
+  Number operator *(dynamic multiplier) {
     if (multiplier is num) {
       num product = multiplier * value;
       if (product == product.truncate()) return new Integer(product.truncate());
-      return new Double(product);
+      return new Double(product.toDouble());
     }
     if (multiplier is Precise) return multiplier * this;
     if (multiplier is Real) return this * multiplier.value;
-    if (multiplier is Complex) return new Complex(multiplier.real * value, multiplier.imaginary * value);
+    if (multiplier is Complex)
+      return new Complex((multiplier.real * value) as Real, (multiplier.imaginary * value) as Imaginary);
     if (multiplier is Imaginary) return new Imaginary(multiplier.value * value);
 
     // Treat multiplier as 0
@@ -72,7 +82,7 @@ abstract class Real extends Number {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
       Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       Number aOverc2d2 = this / c2d2;
-      return new Complex(aOverc2d2 * divisor.real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
+      return new Complex((aOverc2d2 * divisor.real) as Real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
     if (divisor is Imaginary) return new Imaginary((this / divisor.value) * -1);
 
@@ -96,7 +106,7 @@ abstract class Real extends Number {
       Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       Number aOverc2d2 = this / c2d2;
       return new Complex(
-          (aOverc2d2 * divisor.real).truncate(), new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
+          (aOverc2d2 * divisor.real).truncate() as Real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
     if (divisor is Imaginary) return new Imaginary(((this / divisor.value) * -1).truncate());
 
@@ -110,8 +120,8 @@ abstract class Real extends Number {
   ///
   @override
   Number operator %(divisor) {
-    if (divisor is num) return new Double(value % divisor);
-    if (divisor is Real) return new Double(value % divisor.value);
+    if (divisor is num) return new Double((value % divisor).toDouble());
+    if (divisor is Real) return new Double((value % divisor.value).toDouble());
     if (divisor is Complex) {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
       Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
@@ -141,14 +151,14 @@ abstract class Real extends Number {
   /// as a substitute.
   ///
   @override
-  Number operator ^(exponent) {
+  Number operator ^(dynamic exponent) {
     if (exponent is num) {
       num raised = Math.pow(value, exponent);
       if (raised is int) return new Integer(raised);
-      return new Double(raised);
+      return new Double(raised as double);
     }
     if (exponent is Precise) return (new Precise.num(value)) ^ exponent;
-    if (exponent is Real) return new Double(Math.pow(value, exponent.value));
+    if (exponent is Real) return new Double(Math.pow(value, exponent.value).toDouble());
     if (exponent is Complex) {
       // a^(b+ic) = a^b * ( cos(c * ln(a)) + i * sin(c * ln(a)) )
       Number coeff = this ^ exponent.real;
@@ -164,7 +174,7 @@ abstract class Real extends Number {
   }
 
   @override
-  bool operator >(obj) {
+  bool operator >(dynamic obj) {
     if (obj is num) return value > obj;
     if (obj is Precise) return new Precise.num(this.value) > obj;
     if (obj is Real) return value > obj.value;
@@ -183,7 +193,8 @@ abstract class Real extends Number {
   bool operator <=(obj) => !(this > obj);
 
   @override
-  Number abs() => value >= 0 ? this : value is int ? new Integer(value.abs()) : new Double(value.abs().toDouble());
+  Number abs() =>
+      value >= 0 ? this : value is int ? new Integer(value.abs().toInt()) : new Double(value.abs().toDouble());
 
   @override
   Number ceil() => new Integer(value.ceil());
@@ -205,11 +216,11 @@ abstract class Real extends Number {
   }
 
   @override
-  Number remainder(divisor) {
+  Number remainder(dynamic divisor) {
     num div = divisor is num ? divisor : divisor is Number ? divisor.toDouble() : 0;
-    var rem = value.remainder(div);
+    num rem = value.remainder(div);
     if (rem is int) return new Integer(rem);
-    return new Double(rem);
+    return new Double(rem.toDouble());
   }
 
   @override

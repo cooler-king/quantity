@@ -28,7 +28,7 @@ class Illuminance extends Quantity {
   Illuminance.inUnits(value, IlluminanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Illuminance.lux, uncert);
 
-  const Illuminance.constant(Number valueSI, {IlluminanceUnits units, num uncert: 0.0})
+  const Illuminance.constant(Number valueSI, {IlluminanceUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Illuminance.illuminanceDimensions, units, uncert);
 }
 
@@ -44,7 +44,7 @@ class IlluminanceUnits extends Illuminance with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

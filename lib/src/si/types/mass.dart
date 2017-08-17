@@ -20,7 +20,7 @@ class Mass extends Quantity {
   static final MassUnits grams = new MassUnits("grams", "g", null, null, 0.001, true);
 
   /// Accepted for use with the SI.
-  static final MassUnits metricTons = grams.mega();
+  static final MassUnits metricTons = grams.mega() as MassUnits;
 
   /// Accepted for use with the SI.
   static final MassUnits tonnes = metricTons;
@@ -44,7 +44,7 @@ class Mass extends Quantity {
   ///
   Mass.inUnits(value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
 
-  const Mass.constant(Number valueSI, {MassUnits units, num uncert: 0.0})
+  const Mass.constant(Number valueSI, {MassUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Mass.massDimensions, units, uncert);
 
   /// Returns the [Energy] equivalent of this Mass using the famous E=mc^2 relationship.
@@ -72,7 +72,7 @@ class MassUnits extends Mass with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

@@ -29,7 +29,7 @@ class Concentration extends Quantity {
   Concentration.inUnits(value, ConcentrationUnits units, [double uncert = 0.0])
       : super(value, units ?? Concentration.molesPerCubicMeter, uncert);
 
-  const Concentration.constant(Number valueSI, {ConcentrationUnits units, num uncert: 0.0})
+  const Concentration.constant(Number valueSI, {ConcentrationUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Concentration.concentrationDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class ConcentrationUnits extends Concentration with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   ConcentrationUnits.amountVolume(AmountOfSubstanceUnits asu, VolumeUnits vu)

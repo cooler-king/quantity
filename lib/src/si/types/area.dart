@@ -40,7 +40,7 @@ class Area extends Quantity {
   ///
   Area.inUnits(value, AreaUnits units, [double uncert = 0.0]) : super(value, units ?? Area.squareMeters, uncert);
 
-  const Area.constant(Number valueSI, {AreaUnits units, num uncert: 0.0})
+  const Area.constant(Number valueSI, {AreaUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Area.areaDimensions, units, uncert);
 
   Area.fromLengths(Length l1, Length l2)
@@ -59,7 +59,7 @@ class AreaUnits extends Area with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   AreaUnits.lengthSquared(LengthUnits lu) : super._internal(lu.valueSI * lu.valueSI) {

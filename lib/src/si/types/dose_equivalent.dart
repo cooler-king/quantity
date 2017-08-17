@@ -33,7 +33,7 @@ class DoseEquivalent extends Quantity {
   DoseEquivalent.inUnits(value, DoseEquivalentUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : DoseEquivalent.seiverts, uncert);
 
-  const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits units, num uncert: 0.0})
+  const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits  units, double uncert: 0.0})
       : super.constant(valueSI, DoseEquivalent.doseEquivalentDimensions, units, uncert);
 }
 
@@ -49,7 +49,7 @@ class DoseEquivalentUnits extends DoseEquivalent with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

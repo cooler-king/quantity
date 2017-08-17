@@ -92,8 +92,8 @@ abstract class Quantity implements Comparable<dynamic> {
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
   ///
-  Quantity([value = Integer.zero, Units units, double uncert = 0.0])
-      : this.valueSI = units?.toMks(value ?? 0) ?? (value is Number ? value : numToNumber(value)),
+  Quantity([dynamic value = Integer.zero, Units units, double uncert = 0.0])
+      : this.valueSI = units?.toMks(value ?? 0) ?? (value is Number ? value : numToNumber(value as num)),
         this.preferredUnits = units,
         this.dimensions = (units is Quantity) ? (units as Quantity).dimensions : Scalar.scalarDimensions,
         this._ur = uncert;
@@ -305,18 +305,18 @@ abstract class Quantity implements Comparable<dynamic> {
   /// NIST Reference on Constants, Units, and Uncertainty: Combining
   /// uncertainty components
   ///
-  Quantity operator -(subtrahend) {
+  Quantity operator -(dynamic subtrahend) {
     // Null check
     if (subtrahend == null) throw new QuantityException("Cannot subtract NULL from Quantity");
 
-    // Scalars allow subtraction of numbers
+    // Scalars allow subtraction of numbers.
     if (this.isScalar && (subtrahend is num || subtrahend is Number)) {
       return dimensions.toQuantity(valueSI - subtrahend, null, _ur);
     }
 
-    // Every other Quantity type can only subtract another Quantity
-    if (subtrahend is! Quantity) throw new QuantityException(
-        "Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity");
+    // Every other Quantity type can only subtract another Quantity.
+    if (subtrahend is! Quantity)
+      throw new QuantityException("Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity");
 
     Quantity q2 = subtrahend as Quantity;
     if (dimensions != q2.dimensions) {
@@ -325,7 +325,7 @@ abstract class Quantity implements Comparable<dynamic> {
     }
 
     Number newValueSI = valueSI - q2.valueSI;
-    double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+    double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend as Quantity, newValueSI);
 
     if (dynamicQuantityTyping) {
       return dimensions.toQuantity(valueSI - q2.valueSI, null, diffUr);
@@ -408,17 +408,22 @@ abstract class Quantity implements Comparable<dynamic> {
   /// See [NIST Reference on Constants, Units, and Uncertainty: Combining uncertainty components](http://physics.nist.gov/cuu/Uncertainty/combination.html)
   ///
   Quantity operator ^(dynamic exponent) {
-    if (exponent is! num &&
-        exponent is! Number &&
-        exponent is! Scalar) throw new QuantityException("Cannot raise a quantity to a non-numeric power");
-
     if (exponent == 1) return this;
     if (exponent == 0) {
       if (valueSI == 0) return new Scalar(value: Double.NaN);
       return Scalar.one;
     }
 
-    return (dimensions ^ exponent).toQuantity(valueSI ^ exponent, null, _ur * exponent);
+    if (exponent is num) {
+      return (dimensions ^ exponent).toQuantity(valueSI ^ exponent, null, _ur * exponent);
+    } else if (exponent is Number) {
+      return (dimensions ^ exponent.toDouble()).toQuantity(valueSI ^ exponent, null, _ur * exponent.toDouble());
+    } else if (exponent is Scalar) {
+      return (dimensions ^ exponent.valueSI.toDouble())
+          .toQuantity(valueSI ^ exponent, null, _ur * exponent.valueSI.toDouble());
+    }
+
+    throw new QuantityException("Cannot raise a quantity to a non-numeric power");
   }
 
   /// The unary minus operator returns a Quantity whose value
@@ -502,7 +507,8 @@ abstract class Quantity implements Comparable<dynamic> {
   ///
   @override
   int compareTo(dynamic q2) {
-    if (q2 is! Quantity) throw new QuantityException("A Quantity cannot be compared to anything besides another Quantity");
+    if (q2 is! Quantity)
+      throw new QuantityException("A Quantity cannot be compared to anything besides another Quantity");
     return valueSI.compareTo((q2 as Quantity).valueSI);
   }
 

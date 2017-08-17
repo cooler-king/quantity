@@ -85,7 +85,7 @@ class Angle extends Quantity {
   ///
   Angle.inUnits(value, AngleUnits units, [double uncert = 0.0]) : super(value, units ?? Angle.radians, uncert);
 
-  const Angle.constant(Number valueSI, {AngleUnits units, num uncert: 0.0})
+  const Angle.constant(Number valueSI, {AngleUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Angle.angleDimensions, units, uncert);
 
   ///  This constructor creates an angle value from the three values
@@ -214,7 +214,7 @@ class AngleUnits extends Angle with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

@@ -27,7 +27,7 @@ class Resistance extends Quantity {
   Resistance.inUnits(value, ResistanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Resistance.ohms, uncert);
 
-  const Resistance.constant(Number valueSI, {ResistanceUnits units, num uncert: 0.0})
+  const Resistance.constant(Number valueSI, {ResistanceUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Resistance.electricResistanceDimensions, units, uncert);
 }
 
@@ -43,7 +43,7 @@ class ResistanceUnits extends Resistance with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

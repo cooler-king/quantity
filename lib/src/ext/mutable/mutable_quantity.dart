@@ -64,7 +64,7 @@ class MutableQuantity implements Quantity {
   ///
   Quantity get snapshot => //const MiscQuantity.constant(_valueSI, _dimensions, _preferredUnits, _ur);
       dimensions?.toQuantity(preferredUnits?.fromMks(valueSI) ?? valueSI, preferredUnits, _ur) ??
-          new Scalar(value: valueSI, uncert: _ur);
+      new Scalar(value: valueSI, uncert: _ur);
 
   Number get cgs => snapshot.cgs;
 
@@ -160,10 +160,12 @@ class MutableQuantity implements Quantity {
   /// are not provided, MKS units are assumed.  The [value] is expected to
   /// be a num or Number object.
   ///
-  void setValue(Object value, [Units units]) {
+  void setValue(dynamic value, [Units units]) {
     if (!mutable) throw new ImmutableQuantityException(q: this);
     if (units == null) {
-      valueSI = value;
+      valueSI = value is Number
+          ? value
+          : value is num ? new Double(value.toDouble()) : throw new QuantityException("Expected a Number or num");
     } else {
       // First check for compatible dimensions
       if (units is Quantity && (units as Quantity).dimensions == dimensions) {

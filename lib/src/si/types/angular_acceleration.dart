@@ -34,7 +34,7 @@ class AngularAcceleration extends Quantity {
   AngularAcceleration.inUnits(value, AngularAccelerationUnits units, [double uncert = 0.0])
       : super(value, units ?? AngularAcceleration.radianPerSecondSquared, uncert);
 
-  const AngularAcceleration.constant(Number valueSI, {AngularAccelerationUnits units, num uncert: 0.0})
+  const AngularAcceleration.constant(Number valueSI, {AngularAccelerationUnits  units, double uncert: 0.0})
       : super.constant(valueSI, AngularAcceleration.angularAccelerationDimensions, units, uncert);
 }
 
@@ -50,7 +50,7 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   AngularAccelerationUnits.angleTime(AngleUnits au, TimeUnits tu) : super._internal(au.valueSI * tu.valueSI) {

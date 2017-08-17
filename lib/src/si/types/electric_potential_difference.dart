@@ -33,7 +33,7 @@ class ElectricPotentialDifference extends Quantity {
   ElectricPotentialDifference.inUnits(value, ElectricPotentialDifferenceUnits units, [double uncert = 0.0])
       : super(value, units ?? ElectricPotentialDifference.volts, uncert);
 
-  const ElectricPotentialDifference.constant(Number valueSI, {ElectricPotentialDifferenceUnits units, num uncert: 0.0})
+  const ElectricPotentialDifference.constant(Number valueSI, {ElectricPotentialDifferenceUnits  units, double uncert: 0.0})
       : super.constant(valueSI, ElectricPotentialDifference.electricPotentialDifferenceDimensions, units, uncert);
 }
 
@@ -49,7 +49,7 @@ class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with 
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

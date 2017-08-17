@@ -34,16 +34,16 @@ class Temperature extends Quantity {
   Temperature.inUnits(value, TemperatureUnits units, [double uncert = 0.0])
       : super(value, units ?? Temperature.kelvins, uncert);
 
-  const Temperature.constant(Number valueSI, {TemperatureUnits units, num uncert: 0.0})
+  const Temperature.constant(Number valueSI, {TemperatureUnits units, double uncert: 0.0})
       : super.constant(valueSI, Temperature.temperatureDimensions, units, uncert);
 
   /// Override the addition operator to manage the `Temperature`/[TemperatureInterval] relationship.
   ///
   @override
-  operator +(addend) {
+  operator +(dynamic addend) {
     if (addend is TemperatureInterval || addend is Temperature) {
       var newValueSI = valueSI + addend.valueSI;
-      var ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      var ur = _calcRelativeCombinedUncertaintySumDiff(this, addend as Quantity, newValueSI);
       return new Temperature(K: newValueSI, uncert: ur);
     } else {
       return super + addend;
@@ -87,7 +87,7 @@ class TemperatureUnits extends Temperature with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

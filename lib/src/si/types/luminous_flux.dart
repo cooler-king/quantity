@@ -32,7 +32,7 @@ class LuminousFlux extends Quantity {
   LuminousFlux.inUnits(value, LuminousFluxUnits units, [double uncert = 0.0])
       : super(value, units ?? LuminousFlux.lumens, uncert);
 
-  const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits units, num uncert: 0.0})
+  const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits  units, double uncert: 0.0})
       : super.constant(valueSI, LuminousFlux.luminousFluxDimensions, units, uncert);
 }
 
@@ -48,7 +48,7 @@ class LuminousFluxUnits extends LuminousFlux with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

@@ -58,20 +58,20 @@ main() {
       Double d2 = new Double(14.321);
 
       // + int
-      Double sum = d + 4;
+      Number sum = d + 4;
       expect(sum is Double, true);
-      expect(sum.value.toDouble(), 46.056);
+      expect((sum as Double).value.toDouble(), 46.056);
       sum = d + (-4);
       expect(sum is Double, true);
-      expect(sum.value.toDouble(), 38.056);
+      expect((sum as Double).value.toDouble(), 38.056);
 
       // + double
       sum = d + 5.1;
       expect(sum is Double, true);
-      expect(sum.value.toDouble(), 47.156);
+      expect((sum as Double).value.toDouble(), 47.156);
       sum = d + (-5.1);
       expect(sum is Double, true);
-      expect(sum.value.toDouble(), closeTo(36.956, 0.000001));
+      expect((sum as Double).value.toDouble(), closeTo(36.956, 0.000001));
 
       // + Double
       expect((d + d2) is Double, true);
@@ -90,7 +90,7 @@ main() {
       a = new Integer(-31);
       sum = d + a;
       expect(sum is Double, true);
-      expect(sum.value, closeTo(11.056, 0.000001));
+      expect((sum as Double).value, closeTo(11.056, 0.000001));
 
       // + Imaginary
       Imaginary i = new Imaginary(34.21);
@@ -130,35 +130,35 @@ main() {
       Double d2 = new Double(14.321);
 
       // - int
-      Double diff = d - 3;
+      Number diff = d - 3;
       expect(diff is Double, true);
-      expect(diff.value.toDouble(), 39.056);
+      expect((diff as Double).value.toDouble(), 39.056);
       diff = d - (-4);
       expect(diff is Double, true);
-      expect(diff.value.toDouble(), 46.056);
+      expect((diff as Double).value.toDouble(), 46.056);
 
       // - double
       diff = d - 5.1;
       expect(diff is Double, true);
-      expect(diff.value.toDouble(), closeTo(36.956, 0.000001));
+      expect((diff as Double).value.toDouble(), closeTo(36.956, 0.000001));
       diff = d - (-5.1);
       expect(diff is Double, true);
-      expect(diff.value.toDouble(), closeTo(47.156, 0.000001));
+      expect((diff as Double).value.toDouble(), closeTo(47.156, 0.000001));
 
       // - Double
       diff = d - d2;
       expect(diff is Double, true);
-      expect(diff.value, closeTo(27.735, 0.000001));
+      expect((diff as Double).value, closeTo(27.735, 0.000001));
       diff = d2 - d;
       expect(diff is Double, true);
-      expect(diff.value, closeTo(-27.735, 0.000001));
+      expect((diff as Double).value, closeTo(-27.735, 0.000001));
       Double d3 = new Double(-1.23);
       diff = d2 - d3;
       expect(diff is Double, true);
-      expect(diff.value, closeTo(15.551, 0.000001));
+      expect((diff as Double).value, closeTo(15.551, 0.000001));
       diff = d3 - d2;
       expect(diff is Double, true);
-      expect(diff.value, closeTo(-15.551, 0.000001));
+      expect((diff as Double).value, closeTo(-15.551, 0.000001));
 
       // - Integer
       var a = new Integer(4);
@@ -210,29 +210,29 @@ main() {
       Double d2 = new Double(3.4);
 
       // * int
-      Double prod = d * 3;
+      Number prod = d * 3;
       expect(prod is Double, true);
-      expect(prod.value.toDouble(), closeTo(3.6, 0.000001));
+      expect((prod as Double).value.toDouble(), closeTo(3.6, 0.000001));
       prod = d * (-6);
       expect(prod is Double, true);
-      expect(prod.value.toDouble(), closeTo(-7.2, 0.000001));
+      expect((prod as Double).value.toDouble(), closeTo(-7.2, 0.000001));
 
       // * double
       prod = d * 2.1;
       expect(prod is Double, true);
-      expect(prod.value.toDouble(), closeTo(2.52, 0.000001));
+      expect((prod as Double).value.toDouble(), closeTo(2.52, 0.000001));
       prod = d * (-1.2);
       expect(prod is Double, true);
-      expect(prod.value.toDouble(), closeTo(-1.44, 0.000001));
+      expect((prod as Double).value.toDouble(), closeTo(-1.44, 0.000001));
 
       // * Double
       prod = d * d2;
       expect(prod is Double, true);
-      expect(prod.value, closeTo(4.08, 0.000001));
+      expect((prod as Double).value, closeTo(4.08, 0.000001));
       Double d3 = new Double(-0.6);
       prod = d2 * d3;
       expect(prod is Double, true);
-      expect(prod.value, closeTo(-2.04, 0.000001));
+      expect((prod as Double).value, closeTo(-2.04, 0.000001));
 
       // * Integer
       var a = new Integer(4);
@@ -248,11 +248,11 @@ main() {
       Imaginary i = new Imaginary(2.6);
       prod = d * i;
       expect(prod is Imaginary, true);
-      expect(prod.value.toDouble(), closeTo(3.12, 0.000001));
+      expect((prod as Imaginary).value.toDouble(), closeTo(3.12, 0.000001));
       i = new Imaginary(-6);
       prod = d * i;
       expect(prod is Imaginary, true);
-      expect(prod.value.toDouble(), closeTo(-7.2, 0.000001));
+      expect((prod as Imaginary).value.toDouble(), closeTo(-7.2, 0.000001));
 
       // * Complex
       Complex cx = new Complex(new Double(2.1), new Imaginary(9.6));
@@ -282,29 +282,29 @@ main() {
       Double d2 = new Double(3.4);
 
       // / int
-      Double quot = d / 3;
+      Number quot = d / 3;
       expect(quot is Double, true);
-      expect(quot.value.toDouble(), closeTo(0.4, 0.000001));
+      expect((quot as Double).value.toDouble(), closeTo(0.4, 0.000001));
       quot = d / (-6);
       expect(quot is Double, true);
-      expect(quot.value.toDouble(), closeTo(-0.2, 0.000001));
+      expect((quot as Double).value.toDouble(), closeTo(-0.2, 0.000001));
 
       // * double
       quot = d / 0.12;
       expect(quot is Double, true);
-      expect(quot.value.toDouble(), closeTo(10.0, 0.000001));
+      expect((quot as Double).value.toDouble(), closeTo(10.0, 0.000001));
       quot = d / (-0.4);
       expect(quot is Double, true);
-      expect(quot.value.toDouble(), closeTo(-3.0, 0.000001));
+      expect((quot as Double).value.toDouble(), closeTo(-3.0, 0.000001));
 
       // / Double
       quot = d / d2;
       expect(quot is Double, true);
-      expect(quot.value, closeTo(0.3529411764705882, 0.000001));
+      expect((quot as Double).value, closeTo(0.3529411764705882, 0.000001));
       Double d3 = new Double(-0.6);
       quot = d2 / d3;
       expect(quot is Double, true);
-      expect(quot.value, closeTo(-5.666666666666667, 0.000001));
+      expect((quot as Double).value, closeTo(-5.666666666666667, 0.000001));
 
       // / Integer
       var a = new Integer(4);
@@ -320,11 +320,11 @@ main() {
       Imaginary i = new Imaginary(2.4);
       quot = d / i;
       expect(quot is Imaginary, true);
-      expect(quot.value.toDouble(), closeTo(-0.5, 0.000001));
+      expect((quot as Imaginary).value.toDouble(), closeTo(-0.5, 0.000001));
       i = new Imaginary(-6);
       quot = d / i;
       expect(quot is Imaginary, true);
-      expect(quot.value.toDouble(), closeTo(0.2, 0.000001));
+      expect((quot as Imaginary).value.toDouble(), closeTo(0.2, 0.000001));
 
       // / Complex
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)

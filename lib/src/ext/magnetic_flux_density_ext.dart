@@ -11,4 +11,4 @@ MagneticFluxDensityUnits magFieldAtomicUnit =
     new MagneticFluxDensityUnits("magnetic field, atomic unit", null, null, null, 1.7153e3, false);
 
 // Convenience Units
-MagneticFluxDensityUnits magneticGammas = teslas.nano();
+MagneticFluxDensityUnits magneticGammas = teslas.nano() as MagneticFluxDensityUnits;

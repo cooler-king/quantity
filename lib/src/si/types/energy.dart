@@ -32,7 +32,7 @@ class Energy extends Quantity {
   ///
   Energy.inUnits(value, EnergyUnits units, [double uncert = 0.0]) : super(value, units ?? Energy.joules, uncert);
 
-  const Energy.constant(Number valueSI, {EnergyUnits units, num uncert: 0.0})
+  const Energy.constant(Number valueSI, {EnergyUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Energy.energyDimensions, units, uncert);
 
   /// Returns the [Mass] equivalent of this Energy using the famous E=mc^2 relationship.
@@ -60,7 +60,7 @@ class EnergyUnits extends Energy with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   EnergyUnits.powerTime(PowerUnits pu, TimeUnits tu) : super._internal(pu.valueSI * tu.valueSI) {

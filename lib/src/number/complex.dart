@@ -9,11 +9,11 @@ class Complex extends Number {
   Complex(this.real, this.imaginary);
   const Complex.constant(this.real, this.imaginary) : super.constant();
 
-  Complex.coeff(dynamic realValue, dynamic imagValue)
-      : real = new Double.constant(realValue.toDouble()),
-        imaginary = new Imaginary.constant(imagValue is num ? new Double(imagValue.toDouble()) : imagValue);
+  Complex.coeff(double realValue, double imagValue)
+      : real = new Double.constant(realValue),
+        imaginary = new Imaginary.constant(new Double(imagValue));
 
-  Complex.fromMap(Map m)
+  Complex.fromMap(Map<String, dynamic> m)
       : real = m["real"].toJson(),
         imaginary = m["imag"].toJson();
 
@@ -31,7 +31,7 @@ class Complex extends Number {
   ///
   Double get complexNorm => complexModulus;
 
-  Double get absoluteSquare => complexModulus ^ 2;
+  Double get absoluteSquare => complexModulus ^ 2 as Double;
 
   /// In radians.
   ///
@@ -71,7 +71,7 @@ class Complex extends Number {
   }
 
   @override
-  bool operator ==(obj) {
+  bool operator ==(dynamic obj) {
     if (obj is num) return real == obj && imaginary.value == 0.0;
     if (obj is Complex) return real == obj.real && imaginary == obj.imaginary;
     if (obj is Imaginary) return real == 0.0 && imaginary == obj;
@@ -80,56 +80,56 @@ class Complex extends Number {
   }
 
   @override
-  Number operator +(addend) {
-    if (addend is Complex) return new Complex(real + addend.real, imaginary + addend.imaginary);
+  Number operator +(dynamic addend) {
+    if (addend is Complex) return new Complex(real + addend.real as Real, imaginary + addend.imaginary as Imaginary);
     if (addend is Imaginary) return new Complex(this.real, new Imaginary(imaginary.value + addend.value));
-    if (addend is Real) return new Complex(real + addend, this.imaginary);
-    if (addend is num) return new Complex(real + addend, this.imaginary);
+    if (addend is Real) return new Complex(real + addend as Real, this.imaginary);
+    if (addend is num) return new Complex(real + addend as Real, this.imaginary);
 
     // Treat addend as zero
     return this;
   }
 
   @override
-  Number operator -() => new Complex(-real, -imaginary);
+  Complex operator -() => new Complex(-real, -imaginary);
 
   @override
   Number operator -(dynamic subtrahend) {
-    if (subtrahend is Complex) return new Complex(real - subtrahend.real.value, imaginary - subtrahend.imaginary);
-    if (subtrahend is Imaginary) return new Complex(real, imaginary - subtrahend);
-    if (subtrahend is num) return new Complex(real - subtrahend, imaginary);
-    if (subtrahend is Real) return new Complex(real - subtrahend.value, imaginary);
+    if (subtrahend is Complex) return new Complex(real - subtrahend.real.value as Real, imaginary - subtrahend.imaginary as Imaginary);
+    if (subtrahend is Imaginary) return new Complex(real, imaginary - subtrahend as Imaginary);
+    if (subtrahend is num) return new Complex(real - subtrahend as Real, imaginary);
+    if (subtrahend is Real) return new Complex(real - subtrahend.value as Real, imaginary);
 
     return this;
   }
 
   @override
-  Number operator *(multiplier) {
+  Number operator *(dynamic multiplier) {
     // i * i = -1
-    if (multiplier is num) return new Complex(real * multiplier, imaginary * multiplier);
-    if (multiplier is Real) return new Complex(multiplier * real, new Imaginary(multiplier.value * imaginary.value.toDouble()));
+    if (multiplier is num) return new Complex(real * multiplier as Real, imaginary * multiplier as Imaginary);
+    if (multiplier is Real) return new Complex(multiplier * real as Real, new Imaginary(multiplier.value * imaginary.value.toDouble()));
     if (multiplier is Imaginary)
         // (0+bi)(c+di)=(-bd)+i(bc)
-        return new Complex(imaginary * multiplier.value * -1, real * multiplier.value);
+        return new Complex(imaginary * multiplier.value * -1 as Real, real * multiplier.value as Imaginary);
     if (multiplier is Complex)
         // (a+bi)(c+di)=(ac-bd)+i(ad+bc)
-        return new Complex(real * multiplier.real - imaginary * multiplier.imaginary,
-            real * multiplier.imaginary + imaginary * multiplier.real);
+        return new Complex(real * multiplier.real - imaginary * multiplier.imaginary as Real,
+            real * multiplier.imaginary + imaginary * multiplier.real as Imaginary);
 
-    // Treat multipler as zero
+    // Treat multiplier as zero
     return Double.zero;
   }
 
   @override
-  Number operator /(divisor) {
-    if (divisor is num) return new Complex(real / divisor, imaginary / divisor);
-    if (divisor is Real) return new Complex(real / divisor.value, imaginary / divisor.value);
-    if (divisor is Imaginary) return new Complex(imaginary / divisor.value, -real / divisor.value);
+  Number operator /(dynamic divisor) {
+    if (divisor is num) return new Complex(real / divisor as Real, imaginary / divisor as Imaginary);
+    if (divisor is Real) return new Complex(real / divisor.value as Real, imaginary / divisor.value as Imaginary);
+    if (divisor is Imaginary) return new Complex(imaginary / divisor.value as Real, -real / divisor.value as Imaginary);
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return new Complex((real * divisor.real + imaginary * divisor.imaginary) / c2d2,
-          (imaginary * divisor.real - real * divisor.imaginary) / c2d2);
+      return new Complex((real * divisor.real + imaginary * divisor.imaginary) / c2d2 as Real,
+          (imaginary * divisor.real - real * divisor.imaginary) / c2d2 as Imaginary);
     }
 
     // Treat divisor as 0
@@ -140,20 +140,20 @@ class Complex extends Number {
   ///  The truncating division operator.
   ///
   @override
-  Number operator ~/(divisor) {
+  Number operator ~/(dynamic divisor) {
     if (divisor == 0) {
       // Treat divisor as 0
       return new Complex(real < 0 ? Double.negInfinity : Double.infinity,
           imaginary < 0 ? new Imaginary(Double.negInfinity) : new Imaginary(Double.infinity));
     }
 
-    if (divisor is num) new Complex(real ~/ divisor, imaginary ~/ divisor);
-    if (divisor is Imaginary) new Complex(imaginary ~/ divisor.value, -real ~/ divisor.value);
-    if (divisor is Real) new Complex(real ~/ divisor, imaginary ~/ divisor);
+    if (divisor is num) new Complex(real ~/ divisor as Real, imaginary ~/ divisor as Imaginary);
+    if (divisor is Imaginary) new Complex(imaginary ~/ divisor.value as Real, new Imaginary(-real ~/ divisor.value));
+    if (divisor is Real) new Complex(real ~/ divisor as Real, imaginary ~/ divisor as Imaginary);
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return new Complex(((real * divisor.real + imaginary * divisor.imaginary) / c2d2).truncate(),
+      return new Complex(((real * divisor.real + imaginary * divisor.imaginary) / c2d2).truncate() as Real,
           new Imaginary(((imaginary * divisor.real - real * divisor.imaginary) / c2d2).truncate()));
     }
 
@@ -168,7 +168,7 @@ class Complex extends Number {
    *  See http://math.stackexchange.com/questions/274694/modulo-complex-number
    */
   @override
-  Number operator %(divisor) {
+  Number operator %(dynamic divisor) {
     //TODO complex modulo operator
     /*
     if(divisor is num) return new Double(value % divisor);
@@ -198,15 +198,15 @@ class Complex extends Number {
   /// for bitwise XOR operations on [int]s.
   ///
   @override
-  Number operator ^(exponent) {
+  Number operator ^(dynamic exponent) {
     if (exponent is num) {
-      double scaledPhase = exponent * phase.value;
+      double scaledPhase = exponent.toDouble() * phase.value;
       Number expModulus = (complexModulus ^ exponent);
-      return new Complex(expModulus * Math.cos(scaledPhase), expModulus * Math.sin(scaledPhase));
+      return new Complex(expModulus * Math.cos(scaledPhase) as Real, new Imaginary(expModulus * Math.sin(scaledPhase)));
     } else if (exponent is Real) {
       double scaledPhase = (exponent * phase.value).toDouble();
       Number expModulus = (complexModulus ^ exponent.value);
-      return new Complex(expModulus * Math.cos(scaledPhase), expModulus * Math.sin(scaledPhase));
+      return new Complex(expModulus * Math.cos(scaledPhase) as Real, new Imaginary(expModulus * Math.sin(scaledPhase)));
     } else if (exponent is Complex) {
       //TODO see http://mathworld.wolfram.com/ComplexNumber.html
     } else if (exponent is Imaginary) {
@@ -280,7 +280,7 @@ class Complex extends Number {
   Number reciprocal() {
     // (a - bi) / (a^2 + b^2)
     num a2b2 = Math.pow(real.value, 2) + Math.pow(imaginary.value.value, 2);
-    return new Complex(real / a2b2, new Imaginary(imaginary.value / -a2b2));
+    return new Complex((real / a2b2) as Real, new Imaginary(imaginary.value / -a2b2));
   }
 
   /// Support [dart:json] stringify.

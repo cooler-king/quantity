@@ -38,7 +38,7 @@ class Frequency extends Quantity {
   Frequency.inUnits(value, FrequencyUnits units, [double uncert = 0.0])
       : super(value, units ?? Frequency.hertz, uncert);
 
-  const Frequency.constant(Number valueSI, {FrequencyUnits units, num uncert: 0.0})
+  const Frequency.constant(Number valueSI, {FrequencyUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Frequency.frequencyDimensions, units, uncert);
 }
 
@@ -54,7 +54,7 @@ class FrequencyUnits extends Frequency with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

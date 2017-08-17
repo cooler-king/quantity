@@ -29,7 +29,7 @@ class MagneticFieldStrength extends Quantity {
   MagneticFieldStrength.inUnits(value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
       : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
 
-  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, num uncert: 0.0})
+  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits  units, double uncert: 0.0})
       : super.constant(valueSI, MagneticFieldStrength.magneticFieldStrengthDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   MagneticFieldStrengthUnits.currentLength(CurrentUnits ecu, LengthUnits lu)

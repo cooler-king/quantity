@@ -29,7 +29,7 @@ class ChargeDensity extends Quantity {
   ChargeDensity.inUnits(value, ChargeDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? ChargeDensity.coulombsPerCubicMeter, uncert);
 
-  const ChargeDensity.constant(Number valueSI, {ChargeDensityUnits units, num uncert: 0.0})
+  const ChargeDensity.constant(Number valueSI, {ChargeDensityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, ChargeDensity.electricChargeDensityDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class ChargeDensityUnits extends ChargeDensity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   ChargeDensityUnits.chargeVolume(ChargeUnits ecu, VolumeUnits vu) : super._internal(ecu.valueSI * vu.valueSI) {

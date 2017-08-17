@@ -29,7 +29,7 @@ class CurrentDensity extends Quantity {
   CurrentDensity.inUnits(value, CurrentDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? CurrentDensity.amperesPerSquareMeter, uncert);
 
-  const CurrentDensity.constant(Number valueSI, {CurrentDensityUnits units, num uncert: 0.0})
+  const CurrentDensity.constant(Number valueSI, {CurrentDensityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, CurrentDensity.electricCurrentDensityDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class CurrentDensityUnits extends CurrentDensity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   CurrentDensityUnits.currentArea(CurrentUnits ecu, AreaUnits au) : super._internal(ecu.valueSI * au.valueSI) {

@@ -29,7 +29,7 @@ class LuminousIntensity extends Quantity {
   LuminousIntensity.inUnits(value, LuminousIntensityUnits units, [double uncert = 0.0])
       : super(value, units ?? LuminousIntensity.candelas, uncert);
 
-  const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits units, num uncert: 0.0})
+  const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, LuminousIntensity.luminousIntensityDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class LuminousIntensityUnits extends LuminousIntensity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

@@ -29,7 +29,7 @@ class MassFluxDensity extends Quantity {
   MassFluxDensity.inUnits(value, MassFluxDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
 
-  const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits units, num uncert: 0.0})
+  const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits  units, double uncert: 0.0})
       : super.constant(valueSI, MassFluxDensity.massFluxDensityDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class MassFluxDensityUnits extends MassFluxDensity with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   MassFluxDensityUnits.massTimeArea(MassUnits mu, TimeUnits tu, AreaUnits au)

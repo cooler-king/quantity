@@ -165,24 +165,28 @@ class Precise extends Real {
 
   /// Returns true if the stored value can be represented exactly as an integer.
   ///
-  @override bool get isInteger {
+  @override
+  bool get isInteger {
     if (_power >= 0) return true;
 
     // Check for case where decimal portion is equal to 0
-    for (var d in digits.sublist(0, _power.abs())) {
+    for (Digit d in digits.sublist(0, _power.abs())) {
       if (d != Digit.zero) return false;
     }
     return true;
   }
 
-  @override bool get isNegative => _neg;
+  @override
+  bool get isNegative => _neg;
 
-  @override int toInt() {
+  @override
+  int toInt() {
     if (_power >= 0) return int.parse(toString());
     return toDouble().round();
   }
 
-  @override double toDouble() => double.parse(toString());
+  @override
+  double toDouble() => double.parse(toString());
 
   /// Return only the decimal portion as a Precise number.
   ///
@@ -199,12 +203,12 @@ class Precise extends Real {
   /// Negation operator.
   ///
   @override
-  Number operator -() => new Precise.raw(digits, power: _power, neg: !_neg, sigDigits: precision);
+  Precise operator -() => new Precise.raw(digits, power: _power, neg: !_neg, sigDigits: precision);
 
   /// Addition operator.
   ///
   @override
-  Number operator +(addend) {
+  Precise operator +(addend) {
     Precise preciseAddend = toPrecise(addend);
 
     // Divert to subtraction if signs are not the same
@@ -238,7 +242,7 @@ class Precise extends Real {
   /// Subtraction operator.
   ///
   @override
-  Number operator -(subtrahend) {
+  Precise operator -(dynamic subtrahend) {
     Precise preciseSubtrahend = toPrecise(subtrahend);
 
     // Divert to addition if signs are different
@@ -248,8 +252,8 @@ class Precise extends Real {
     }
 
     // Flip operation if subtrahend is greater
-    if (subtrahend.abs() > this.abs()) {
-      return -(subtrahend - this);
+    if (preciseSubtrahend.abs() > this.abs()) {
+      return -(preciseSubtrahend - this);
       //Precise p = (subtrahend - this);
       //if (_neg) return new Precise.raw(p._digits, power: p._power, neg: false);
       //return p;
@@ -279,7 +283,7 @@ class Precise extends Real {
   /// Multiplication operator.
   ///
   @override
-  Number operator *(multiplier) {
+  Precise operator *(multiplier) {
     Precise preciseMultiplier = toPrecise(multiplier);
 
     Precise product = Precise.zero;
@@ -376,7 +380,7 @@ class Precise extends Real {
               result.insert(0, Digit.list[i]);
 
               // Remainder is new temp
-              temp = new List<Digit>.from(((p - prod) as Precise)._digits);
+              temp = new List<Digit>.from((p - prod)._digits);
 
               break;
             }
@@ -487,9 +491,13 @@ class Precise extends Real {
         }
         return p;
       } else {
-        Precise p = this.reciprocal();
+        Number recip = this.reciprocal();
+        if (recip is! Precise) return recip;
+        Precise p = recip as Precise;
         for (int i = -1; i > exp; i--) {
-          p = p / this;
+          Number n = p / this;
+          if (n is! Precise) return n;
+          p = n as Precise;
         }
         return p;
       }
@@ -556,27 +564,27 @@ class Precise extends Real {
   }
 
   @override
-  Number abs() {
+  Precise abs() {
     if (_neg) return new Precise.raw(digits, power: _power, neg: false, sigDigits: _precision);
     return this;
   }
 
   @override
-  Number ceil() {
+  Precise ceil() {
     if (isInteger) return this;
     var truncated = this.truncate();
     return truncated.isNegative ? truncated : truncated + Precise.one;
   }
 
   @override
-  Number clamp(lowerLimit, upperLimit) {
+  Precise clamp(lowerLimit, upperLimit) {
     if (this < lowerLimit) return toPrecise(lowerLimit);
     if (this > upperLimit) return toPrecise(upperLimit);
     return this;
   }
 
   @override
-  Number floor() {
+  Precise floor() {
     if (isInteger) return this;
     var truncated = this.truncate();
     return truncated.isNegative ? truncated - Precise.one : truncated;
@@ -586,7 +594,7 @@ class Precise extends Real {
   Number reciprocal() => Precise.one / this;
 
   @override
-  Number remainder(divisor) => this - ((this ~/ divisor) * divisor);
+  Precise remainder(divisor) => this - ((this ~/ divisor) * divisor);
 
   /// Returns the Precise integer value closest to this Precise value.
   ///
@@ -594,7 +602,7 @@ class Precise extends Real {
   /// (3.5).round() == 4 and (-3.5).round() == -4.
   ///
   @override
-  Number round() {
+  Precise round() {
     if (isInteger) return this;
     var absPower = power.abs();
     var tenths = _digits[absPower - 1];
@@ -609,10 +617,10 @@ class Precise extends Real {
   }
 
   @override
-  Number truncate() {
+  Precise truncate() {
     if (_power >= 0) return new Precise.num(int.parse(toString()));
     if (_power.abs() >= _digits.length) return Precise.zero;
-    var newDigits = digits.sublist(_power.abs());
+    List<Digit> newDigits = digits.sublist(_power.abs());
     if (newDigits.last == Digit.zero) return Precise.zero;
     return new Precise.raw(newDigits, neg: _neg, power: 0);
   }
@@ -675,37 +683,19 @@ class Digit {
     return false;
   }
 
-  @override int get hashCode => value.getUint8(0);
+  @override
+  int get hashCode => value.getUint8(0);
 
   /// Adds two digits together, returning the result as an [int].
-  ///
-  /// If [addend] is not a [Digit] then an exception will be thrown.
-  ///
-  int operator +(addend) {
-    if (addend is! Digit) throw "Addend must be a Digit";
-    return toInt() + addend.toInt();
-  }
+  int operator +(Digit addend) => toInt() + (addend?.toInt() ?? 0);
 
-  /// Subtracts [subtrahend] from this Digit, returning the result as an [int].
-  ///
+  /// Subtracts [subtrahend] from this Digit, returning the result as an `int`.
   /// The result may be negative.
-  ///
-  /// If [subtrahend] is not a [Digit] then an exception will be thrown.
-  ///
-  int operator -(subtrahend) {
-    if (subtrahend is! Digit) throw "Subtrahend must be a Digit";
-    return toInt() - subtrahend.toInt();
-  }
+  int operator -(Digit subtrahend) => toInt() - subtrahend.toInt();
 
-  bool operator <(other) {
-    if (other is! Digit) throw "Object must be a Digit";
-    return toInt() < other.toInt();
-  }
+  bool operator <(Digit other) => toInt() < (other?.toInt() ?? 0);
 
-  bool operator >(other) {
-    if (other is! Digit) throw "Object must be a Digit";
-    return toInt() > other.toInt();
-  }
+  bool operator >(Digit other) => toInt() > (other?.toInt() ?? 0);
 
   int toInt() => value.getUint8(0);
 

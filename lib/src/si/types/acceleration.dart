@@ -29,7 +29,7 @@ class Acceleration extends Quantity {
   Acceleration.inUnits(value, AccelerationUnits units, [double uncert = 0.0])
       : super(value, units ?? Acceleration.metersPerSecondSquared, uncert);
 
-  const Acceleration.constant(Number valueSI, {AccelerationUnits units, num uncert: 0.0})
+  const Acceleration.constant(Number valueSI, {AccelerationUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Acceleration.accelerationDimensions, units, uncert);
 }
 
@@ -45,7 +45,7 @@ class AccelerationUnits extends Acceleration with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   AccelerationUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super._internal(lu.valueSI * su.valueSI) {
@@ -55,7 +55,7 @@ class AccelerationUnits extends Acceleration with Units {
     this._abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? "${lu._abbrev1} / ${su._abbrev1}" : null;
     this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? "${lu._abbrev2}${su._abbrev2}" : null;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

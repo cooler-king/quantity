@@ -23,16 +23,16 @@ class Information extends Quantity {
   // Convenience
 
   /// 1 000 bits (not 1024 bits)
-  static final InformationUnits kilobits = bits.kilo();
+  static final InformationUnits kilobits = bits.kilo() as InformationUnits;
 
   /// 1 000 000 bits (not 1 048 576 bits)
-  static final InformationUnits megabits = bits.mega();
+  static final InformationUnits megabits = bits.mega() as InformationUnits;
 
   /// 1 billion bits
-  static final InformationUnits gigabits = bits.giga();
+  static final InformationUnits gigabits = bits.giga() as InformationUnits;
 
   /// 1 trillion bits
-  static final InformationUnits terabits = bits.tera();
+  static final InformationUnits terabits = bits.tera() as InformationUnits;
 
   // Pseudo-Metric Units
 
@@ -92,7 +92,7 @@ class Information extends Quantity {
   Information.inUnits(value, InformationUnits units, [double uncert = 0.0])
       : super(value, units ?? Information.bits, uncert);
 
-  const Information.constant(Number valueSI, {InformationUnits units, num uncert: 0.0})
+  const Information.constant(Number valueSI, {InformationUnits  units, double uncert: 0.0})
       : super.constant(valueSI, Information.informationDimensions, units, uncert);
 }
 
@@ -108,7 +108,7 @@ class InformationUnits extends Information with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

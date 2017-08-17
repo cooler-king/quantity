@@ -110,7 +110,8 @@ class Dimensions {
 
     // Check Values
     for (var key in _dimensionMap.keys) {
-      if (!d2._dimensionMap.containsKey(key) || (_dimensionMap[key] != d2._dimensionMap[key])) return false;
+      if (!(d2 as Dimensions)._dimensionMap.containsKey(key) ||
+          (_dimensionMap[key] != (d2 as Dimensions)._dimensionMap[key])) return false;
     }
 
     return true;
@@ -272,7 +273,7 @@ class Dimensions {
   /// (time: +1).
   ///
   Dimensions inverse() {
-    var invertedMap = {};
+    Map<String, num> invertedMap = <String, num>{};
     for (String t in _dimensionMap.keys) {
       num value = _dimensionMap[t];
       if (value != null) invertedMap[t] = value * -1;
@@ -425,11 +426,11 @@ class Dimensions {
       } else if (numDims == 3) {
         if (dim == Energy.energyDimensions) return Energy;
         if (dim == Power.powerDimensions) return Power;
-        if (dim ==
-            SpecificHeatCapacity.specificHeatCapacityDimensions) return SpecificHeatCapacity; // or specific entropy
+        if (dim == SpecificHeatCapacity.specificHeatCapacityDimensions)
+          return SpecificHeatCapacity; // or specific entropy
       } else if (numDims == 4) {
-        if (dim ==
-            ElectricPotentialDifference.electricPotentialDifferenceDimensions) return ElectricPotentialDifference;
+        if (dim == ElectricPotentialDifference.electricPotentialDifferenceDimensions)
+          return ElectricPotentialDifference;
         if (dim == Resistance.electricResistanceDimensions) return Resistance;
         if (dim == MagneticFlux.magneticFluxDimensions) return MagneticFlux;
         if (dim == Inductance.inductanceDimensions) return Inductance;
@@ -463,8 +464,8 @@ class Dimensions {
   Quantity toQuantity([value = 0.0, Units units, double uncert = 0.0]) {
     // Check units match dimensions, if provided
     if (units is Quantity) {
-      if (this != (units as Quantity).dimensions) throw new DimensionsException(
-          "The dimensions of the provided units must equal the dimensions");
+      if (this != (units as Quantity).dimensions)
+        throw new DimensionsException("The dimensions of the provided units must equal the dimensions");
     }
 
     //TODO need to provide units (metric units as default?)

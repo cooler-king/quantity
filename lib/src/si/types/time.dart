@@ -34,13 +34,13 @@ class Time extends Quantity {
   // common metric derivations
 
   /// one thousandth of a second
-  static final TimeUnits milliseconds = Time.seconds.milli();
+  static final TimeUnits milliseconds = Time.seconds.milli() as TimeUnits;
 
   /// one millionth of a second
-  static final TimeUnits microseconds = Time.seconds.micro();
+  static final TimeUnits microseconds = Time.seconds.micro() as TimeUnits;
 
   /// one billionth of a second
-  static final TimeUnits nanoseconds = Time.seconds.nano();
+  static final TimeUnits nanoseconds = Time.seconds.nano() as TimeUnits;
 
   // convenience units
 
@@ -77,7 +77,7 @@ class Time extends Quantity {
   ///
   Time.inUnits(value, TimeUnits units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
 
-  const Time.constant(Number valueSI, {TimeUnits units, num uncert: 0.0})
+  const Time.constant(Number valueSI, {TimeUnits units, double uncert: 0.0})
       : super.constant(valueSI, Time.timeDimensions, units, uncert);
 
   /// Construct a Time object from an existin dart:core Duration object.
@@ -103,7 +103,7 @@ class TimeUnits extends Time with Units {
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
