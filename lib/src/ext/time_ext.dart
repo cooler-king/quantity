@@ -1,27 +1,27 @@
 part of quantity_ext;
 
 // Metric units
-final TimeUnits yottaseconds = Time.seconds.yotta();
-final TimeUnits zettaseconds = Time.seconds.zetta();
-final TimeUnits exaseconds = Time.seconds.exa();
-final TimeUnits petaseconds = Time.seconds.peta();
-final TimeUnits teraseconds = Time.seconds.tera();
-final TimeUnits gigaseconds = Time.seconds.giga();
-final TimeUnits megaseconds = Time.seconds.mega();
-final TimeUnits kiloseconds = Time.seconds.kilo();
-final TimeUnits hectoseconds = Time.seconds.hecto();
-final TimeUnits dekaseconds = Time.seconds.deka();
+final TimeUnits yottaseconds = Time.seconds.yotta() as TimeUnits;
+final TimeUnits zettaseconds = Time.seconds.zetta() as TimeUnits;
+final TimeUnits exaseconds = Time.seconds.exa() as TimeUnits;
+final TimeUnits petaseconds = Time.seconds.peta() as TimeUnits;
+final TimeUnits teraseconds = Time.seconds.tera() as TimeUnits;
+final TimeUnits gigaseconds = Time.seconds.giga() as TimeUnits;
+final TimeUnits megaseconds = Time.seconds.mega() as TimeUnits;
+final TimeUnits kiloseconds = Time.seconds.kilo() as TimeUnits;
+final TimeUnits hectoseconds = Time.seconds.hecto() as TimeUnits;
+final TimeUnits dekaseconds = Time.seconds.deka() as TimeUnits;
 final TimeUnits seconds = Time.seconds;
-final TimeUnits deciseconds = Time.seconds.deci();
-final TimeUnits centiseconds = Time.seconds.centi();
+final TimeUnits deciseconds = Time.seconds.deci() as TimeUnits;
+final TimeUnits centiseconds = Time.seconds.centi() as TimeUnits;
 final TimeUnits milliseconds = Time.milliseconds;
 final TimeUnits microseconds = Time.microseconds;
 final TimeUnits nanoseconds = Time.nanoseconds;
-final TimeUnits picoseconds = Time.seconds.pico();
-final TimeUnits femtoseconds = Time.seconds.femto();
-final TimeUnits attoseconds = Time.seconds.atto();
-final TimeUnits zeptoseconds = Time.seconds.zepto();
-final TimeUnits yoctoseconds = Time.seconds.yocto();
+final TimeUnits picoseconds = Time.seconds.pico() as TimeUnits;
+final TimeUnits femtoseconds = Time.seconds.femto() as TimeUnits;
+final TimeUnits attoseconds = Time.seconds.atto() as TimeUnits;
+final TimeUnits zeptoseconds = Time.seconds.zepto() as TimeUnits;
+final TimeUnits yoctoseconds = Time.seconds.yocto() as TimeUnits;
 
 /// Accepted for use with the SI.
 final TimeUnits daysMeanSolar = Time.daysMeanSolar;

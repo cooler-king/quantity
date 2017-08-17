@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('TimeInstant', () {
     test('constructors', () {
       TimeInstant t = new TimeInstant(TAI: 1234.5);

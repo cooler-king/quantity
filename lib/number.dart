@@ -37,7 +37,7 @@ Number objToNumber(Object object) {
 Number numToNumber(num value) {
   if (value is int) return new Integer(value);
   if (value.toInt() == value) return new Integer(value.toInt());
-  return new Double(value);
+  return new Double(value.toDouble());
 }
 
 /// Converts a Number to the equivalent [num].

@@ -40,15 +40,10 @@ class MutableQuantity implements Quantity {
   /// Mutability can be turned on and off (defaults to true)
   bool mutable = true;
 
-  StreamController<Number> _changeController;
-  Stream<Number> onChange;
+  Stream<Number> get onChange => _onChange.stream;
+  StreamController<Number> _onChange = new StreamController<Number>.broadcast();
 
   MutableQuantity([dynamic value = 0.0, Dimensions dim = Scalar.scalarDimensions, double uncert = 0.0]) {}
-
-  void _initStream() {
-    _changeController = new StreamController<Number>.broadcast();
-    onChange = _changeController.stream;
-  }
 
   Number get mks => valueSI;
 
@@ -60,7 +55,7 @@ class MutableQuantity implements Quantity {
       valueSI = value;
 
       // Send new value over stream
-      _changeController.add(valueSI);
+      _onChange.add(valueSI);
     }
   }
 
@@ -128,7 +123,7 @@ class MutableQuantity implements Quantity {
     _ur = q2.relativeUncertainty;
 
     // TODO Send new values over streams
-    _changeController.add(valueSI);
+    _onChange.add(valueSI);
 
     return this;
   }
@@ -218,7 +213,7 @@ class MutableQuantity implements Quantity {
 
   Quantity calcExpandedUncertainty(double k) => snapshot.calcExpandedUncertainty(k);
 
-  int compareTo(Comparable q2) => snapshot.compareTo(q2);
+  int compareTo(dynamic q2) => snapshot.compareTo(q2);
 
   /// Each MutableQuantity has a unique hashCode that is _not_ value based.
   ///

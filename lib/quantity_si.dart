@@ -106,11 +106,11 @@ Logger _logger = new Logger("quantity core");
 /// dimensions may change will be MiscQuantity type objects.
 bool dynamicQuantityTyping = true;
 
-typedef Quantity QuantityInstantiator(value, Units units, num uncert);
+typedef Quantity QuantityInstantiator(dynamic value, Units units, num uncert);
 
 /// Maps each quantity type to a function that can be used to create an instance of that type
-final LinkedHashMap<Type, QuantityInstantiator> _typeInstantiatorMap = {
-  AbsorbedDose: (value, units, uncert) => new AbsorbedDose.inUnits(value, units, uncert),
+final LinkedHashMap<Type, QuantityInstantiator> _typeInstantiatorMap = new LinkedHashMap<Type, QuantityInstantiator>.from({
+  AbsorbedDose: (dynamic value, Units units, num uncert) => new AbsorbedDose.inUnits(value, units, uncert),
   AbsorbedDoseRate: (value, units, uncert) => new AbsorbedDoseRate.inUnits(value, units, uncert),
   Acceleration: (value, units, uncert) => new Acceleration.inUnits(value, units, uncert),
   Activity: (value, units, uncert) => new Activity.inUnits(value, units, uncert),
@@ -186,7 +186,7 @@ final LinkedHashMap<Type, QuantityInstantiator> _typeInstantiatorMap = {
   Volume: (value, units, uncert) => new Volume.inUnits(value, units, uncert),
   VolumeFlowRate: (value, units, uncert) => new VolumeFlowRate.inUnits(value, units, uncert),
   WaveNumber: (value, units, uncert) => new WaveNumber.inUnits(value, units, uncert)
-};
+});
 
 ///  Returns whether or not [q] is one of the seven SI base quantities.
 ///

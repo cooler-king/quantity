@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_ext.dart';
 
-main() {
+void main() {
   group('temperature ext', () {
     test('Fahrenheit', () {
       var f = new Temperature.inUnits(1.23, Fahrenheit);

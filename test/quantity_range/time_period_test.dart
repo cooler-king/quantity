@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_range.dart';
 
-main() {
+void main() {
   group('TimePeriod', () {
     test('constructors', () {
       TimePeriod period =

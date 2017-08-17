@@ -98,14 +98,14 @@ main() {
       g = s1 + new Imaginary(3.8);
       expect(g is Scalar, true);
       expect(g.valueSI is Complex, true);
-      expect(g.valueSI.real.toDouble(), 11.0);
-      expect(g.valueSI.imag.value.toDouble(), 3.8);
+      expect((g.valueSI as Complex).real.toDouble(), 11.0);
+      expect((g.valueSI as Complex).imag.value.toDouble(), 3.8);
 
       g = s1 + new Complex(new Double(2.2), new Imaginary(9.3));
       expect(g is Scalar, true);
       expect(g.valueSI is Complex, true);
-      expect(g.valueSI.real.toDouble(), 13.2);
-      expect(g.valueSI.imag.value.toDouble(), 9.3);
+      expect((g.valueSI as Complex).real.toDouble(), 13.2);
+      expect((g.valueSI as Complex).imag.value.toDouble(), 9.3);
 
       g = s1 + new Precise("4.0032");
       expect(g is Scalar, true);
@@ -156,14 +156,14 @@ main() {
       g = s1 - new Imaginary(3.8);
       expect(g is Scalar, true);
       expect(g.valueSI is Complex, true);
-      expect(g.valueSI.real.toDouble(), 11.0);
-      expect(g.valueSI.imag.value.toDouble(), -3.8);
+      expect((g.valueSI as Complex).real.toDouble(), 11.0);
+      expect((g.valueSI as Complex).imag.value.toDouble(), -3.8);
 
       g = s1 - new Complex(new Double(2.2), new Imaginary(9.3));
       expect(g is Scalar, true);
       expect(g.valueSI is Complex, true);
-      expect(g.valueSI.real.toDouble(), 8.8);
-      expect(g.valueSI.imag.value.toDouble(), -9.3);
+      expect((g.valueSI as Complex).real.toDouble(), 8.8);
+      expect((g.valueSI as Complex).imag.value.toDouble(), -9.3);
 
       g = s1 - new Precise("4.0032");
       expect(g is Scalar, true);
@@ -210,7 +210,7 @@ main() {
       var s6 = new Scalar(value: new Imaginary(6));
       c = s6 * s1;
       expect(c.valueSI is Imaginary, true);
-      expect(c.valueSI.value == 18, true);
+      expect((c.valueSI as Imaginary).value == 18, true);
     });
   });
 }

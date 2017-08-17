@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_range.dart';
 
-main() {
+void main() {
   group('QuantityRange', () {
     test('constructors', () {
       QuantityRange<Scalar> range = new QuantityRange<Scalar>(new Scalar(value: 5), new Scalar(value: 23.3));

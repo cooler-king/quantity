@@ -330,9 +330,9 @@ abstract class Units {
 */
 
   /// Two units are considered equal if their conversions to MKS are equal and
-  /// theyhave the same singular name.
+  /// they have the same singular name.
   ///
-  bool operator ==(obj) {
+  bool operator ==(dynamic obj) {
     if (obj == null) return false;
     if (identical(this, obj)) return true;
 
@@ -543,7 +543,7 @@ abstract class Units {
       List<ExponentialUnits> components = new List<ExponentialUnits>();
       if (fully) {
         for (ExponentialUnits uwe in _units) {
-          double exp = uwe._exp;
+          double exp = uwe._exp?.toDouble();
           List<ExponentialUnits> subComps = uwe._units.getComponents(true, false);
           for (ExponentialUnits uwe2 in subComps) {
             uwe2._exp *= exp;
@@ -647,7 +647,7 @@ abstract class Units {
   /// The method expects [value] to be a num or Number object; any other type will
   /// cause a [QuantityException].
   ///
-  Number toMks(value) {
+  Number toMks(dynamic value) {
     if (value is num || value is Number) {
       if (offset == 0) return _convToMKS * value;
       return (_convToMKS * value) + objToNumber(offset);
@@ -662,10 +662,10 @@ abstract class Units {
   /// The method accepts a num or Number object; any other type will
   /// cause a [QuantityException].
   ///
-  Number fromMks(mks) {
+  Number fromMks(dynamic mks) {
     if (mks is num) {
-      if (offset == 0) return (new Double(mks) / _convToMKS);
-      return (new Double(mks) / _convToMKS) - objToNumber(offset);
+      if (offset == 0) return (new Double(mks.toDouble()) / _convToMKS);
+      return (new Double(mks.toDouble()) / _convToMKS) - objToNumber(offset);
     } else if (mks is Number) {
       if (offset == 0) return (mks / _convToMKS);
       return (mks / _convToMKS) - objToNumber(offset);

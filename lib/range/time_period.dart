@@ -17,9 +17,9 @@ class FiscalYear extends TimePeriod {
   final int _year;
 
   FiscalYear(int year, {int monthOffset: -3})
-      : super(new TimeInstant.dateTime(new DateTime(yr4(year), 1 + monthOffset)),
-            new TimeInstant.dateTime(new DateTime(yr4(year), 13 + monthOffset))),
-        this._year = year;
+      : this._year = year,
+        super(new TimeInstant.dateTime(new DateTime(yr4(year), 1 + monthOffset)),
+            new TimeInstant.dateTime(new DateTime(yr4(year), 13 + monthOffset)));
 
   @override
   String toString() => "FY${'$_year'.substring(2)}";
@@ -29,8 +29,8 @@ class CalendarYear extends TimePeriod {
   final int _year;
 
   CalendarYear(int year)
-      : super(new TimeInstant.dateTime(new DateTime(year, 1)), new TimeInstant.dateTime(new DateTime(year + 1))),
-        this._year = year;
+      : this._year = year,
+        super(new TimeInstant.dateTime(new DateTime(year, 1)), new TimeInstant.dateTime(new DateTime(year + 1)));
 
   @override
   String toString() => "$_year";

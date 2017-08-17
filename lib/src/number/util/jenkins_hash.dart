@@ -7,7 +7,7 @@ int hashObjects(Iterable<Object> objects) {
   objects.forEach((obj) {
     hash = 0x1fffffff & (hash + obj.hashCode);
     hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
+    hash = hash ^ (hash >> 6);
   });
   hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
   hash = hash ^ (hash >> 11);

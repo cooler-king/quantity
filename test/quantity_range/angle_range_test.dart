@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_range.dart';
 
-main() {
+void main() {
   group('AngleRange', () {
     test('constructors', () {
       AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));

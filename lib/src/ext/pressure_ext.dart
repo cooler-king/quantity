@@ -42,4 +42,4 @@ PressureUnits referenceSoundWater = new PressureUnits(
 
 // convenience units
 PressureUnits newtonsPerSquareMeter = pascals;
-PressureUnits millibars = pascals.hecto();
+PressureUnits millibars = pascals.hecto() as PressureUnits;

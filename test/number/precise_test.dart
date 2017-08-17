@@ -594,12 +594,12 @@ main() {
 
     test('ceil', () {
       var p = new Precise("5.678");
-      var ceil = p.ceil();
+      Number ceil = p.ceil();
       expect(ceil is Precise, true);
-      expect(ceil.digits.length, 1);
+      expect((ceil as Precise).digits.length, 1);
       expect(ceil.isNegative, false);
-      expect(ceil.power, 0);
-      expect(ceil.digits[0], Digit.six);
+      expect((ceil as Precise).power, 0);
+      expect((ceil as Precise).digits[0], Digit.six);
       expect(ceil.toString(), "6");
 
       p = new Precise("-5.678");
@@ -656,12 +656,12 @@ main() {
 
     test('floor', () {
       var p = new Precise("5.678");
-      var floor = p.floor();
+      Number floor = p.floor();
       expect(floor is Precise, true);
-      expect(floor.digits.length, 1);
+      expect((floor as Precise).digits.length, 1);
       expect(floor.isNegative, false);
-      expect(floor.power, 0);
-      expect(floor.digits[0], Digit.five);
+      expect((floor as Precise).power, 0);
+      expect((floor as Precise).digits[0], Digit.five);
       expect(floor.toString(), "5");
 
       p = new Precise("-5.678");
@@ -725,14 +725,14 @@ main() {
 
     test('reciprocal', () {
       var p = new Precise("4");
-      var recip = p.reciprocal();
+      Number recip = p.reciprocal();
       expect(recip is Precise, true);
-      expect(recip.digits.length, 3);
+      expect((recip as Precise).digits.length, 3);
       expect(recip.isNegative, false);
-      expect(recip.power, -2);
-      expect(recip.digits[0], Digit.five);
-      expect(recip.digits[1], Digit.two);
-      expect(recip.digits[2], Digit.zero);
+      expect((recip as Precise).power, -2);
+      expect((recip as Precise).digits[0], Digit.five);
+      expect((recip as Precise).digits[1], Digit.two);
+      expect((recip as Precise).digits[2], Digit.zero);
       expect(recip.toString(), "0.25");
     });
 
@@ -743,12 +743,12 @@ main() {
 
     test('round', () {
       var p = new Precise("5.678");
-      var round = p.round();
+      Number round = p.round();
       expect(round is Precise, true);
-      expect(round.digits.length, 1);
+      expect((round as Precise).digits.length, 1);
       expect(round.isNegative, false);
-      expect(round.power, 0);
-      expect(round.digits[0], Digit.six);
+      expect((round as Precise).power, 0);
+      expect((round as Precise).digits[0], Digit.six);
       expect(round.toString(), "6");
 
       p = new Precise("-5.678");
@@ -781,41 +781,41 @@ main() {
 
     test('truncate', () {
       var p = new Precise("5.678");
-      var trunc = p.truncate();
+      Number trunc = p.truncate();
       expect(trunc is Precise, true);
-      expect(trunc.digits.length, 1);
+      expect((trunc as Precise).digits.length, 1);
       expect(trunc.isNegative, false);
-      expect(trunc.power, 0);
-      expect(trunc.digits[0], Digit.five);
+      expect((trunc as Precise).power, 0);
+      expect((trunc as Precise).digits[0], Digit.five);
       expect(trunc.toString(), "5");
 
       p = new Precise("-1234.5678");
       trunc = p.truncate();
       expect(trunc.isNegative, true);
-      expect(trunc.power, 0);
+      expect((trunc as Precise).power, 0);
       expect(trunc.toString(), "-1234");
 
       p = new Precise("123456.78");
       trunc = p.truncate();
-      expect(trunc.power, 0);
+      expect((trunc as Precise).power, 0);
       expect(trunc.toString(), "123456");
 
       p = new Precise("0.999999999999999999999999999999999");
       trunc = p.truncate();
       expect(trunc.isNegative, false);
-      expect(trunc.power, 0);
+      expect((trunc as Precise).power, 0);
       expect(trunc.toString(), "0");
 
       p = new Precise("-0.000000000000000000000000000001");
       trunc = p.truncate();
       expect(trunc.isNegative, false);
-      expect(trunc.power, 0);
+      expect((trunc as Precise).power, 0);
       expect(trunc.toString(), "0");
 
       p = new Precise("10.000000000001");
       trunc = p.truncate();
       expect(trunc.isNegative, false);
-      expect(trunc.power, 0);
+      expect((trunc as Precise).power, 0);
       expect(trunc.toString(), "10");
     });
   });

@@ -39,6 +39,21 @@ class Scalar extends Quantity {
   ///
   @override
   int get hashCode => valueSI.hashCode;
+
+  /// Compares this Scalar to [q2] by comparing MKS values or if q2 is a [num] or [Number], by comparing
+  /// the values directly.  If [q2] is a Quantity it need not have Scalar dimensions.
+  ///
+  /// This method overrides the Quantity.compareTo() method in order to allow for Scalar to be compared
+  /// directly to nums and Numbers.
+  ///
+  /// Returns a negative integer, zero, or a positive integer as this Quantity is
+  /// less than, equal to, or greater than [q2].
+  ///
+  @override
+  int compareTo(dynamic q2) {
+    if (q2 is num || q2 is Number) return valueSI.compareTo(q2);
+    return super.compareTo(q2);
+  }
 }
 
 /// Units acceptable for use in describing Scalar quantities.

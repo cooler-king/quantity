@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('Temperature', () {
     test('constructors', () {
       // default ctor, K 0

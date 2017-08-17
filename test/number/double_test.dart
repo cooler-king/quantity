@@ -58,7 +58,7 @@ main() {
       Double d2 = new Double(14.321);
 
       // + int
-      var sum = d + 4;
+      Double sum = d + 4;
       expect(sum is Double, true);
       expect(sum.value.toDouble(), 46.056);
       sum = d + (-4);
@@ -130,7 +130,7 @@ main() {
       Double d2 = new Double(14.321);
 
       // - int
-      var diff = d - 3;
+      Double diff = d - 3;
       expect(diff is Double, true);
       expect(diff.value.toDouble(), 39.056);
       diff = d - (-4);
@@ -148,17 +148,17 @@ main() {
       // - Double
       diff = d - d2;
       expect(diff is Double, true);
-      expect((diff as Double).value, closeTo(27.735, 0.000001));
+      expect(diff.value, closeTo(27.735, 0.000001));
       diff = d2 - d;
       expect(diff is Double, true);
-      expect((diff as Double).value, closeTo(-27.735, 0.000001));
+      expect(diff.value, closeTo(-27.735, 0.000001));
       Double d3 = new Double(-1.23);
       diff = d2 - d3;
       expect(diff is Double, true);
-      expect((diff as Double).value, closeTo(15.551, 0.000001));
+      expect(diff.value, closeTo(15.551, 0.000001));
       diff = d3 - d2;
       expect(diff is Double, true);
-      expect((diff as Double).value, closeTo(-15.551, 0.000001));
+      expect(diff.value, closeTo(-15.551, 0.000001));
 
       // - Integer
       var a = new Integer(4);
@@ -210,7 +210,7 @@ main() {
       Double d2 = new Double(3.4);
 
       // * int
-      var prod = d * 3;
+      Double prod = d * 3;
       expect(prod is Double, true);
       expect(prod.value.toDouble(), closeTo(3.6, 0.000001));
       prod = d * (-6);
@@ -282,7 +282,7 @@ main() {
       Double d2 = new Double(3.4);
 
       // / int
-      var quot = d / 3;
+      Double quot = d / 3;
       expect(quot is Double, true);
       expect(quot.value.toDouble(), closeTo(0.4, 0.000001));
       quot = d / (-6);

@@ -8,9 +8,9 @@ part of number;
 class Imaginary extends Number {
   final Real value;
 
-  Imaginary(val)
+  Imaginary(dynamic val)
       : this.value = (val is num)
-            ? ((val is int) ? new Integer(val as int) : new Double(val as double))
+            ? ((val is int) ? new Integer(val) : new Double(val as double))
             : (val is Real) ? val : Double.zero;
 
   const Imaginary.constant(this.value) : super.constant();
@@ -42,7 +42,7 @@ class Imaginary extends Number {
     return hashObjects([0, value]);
   }
 
-  Number operator +(addend) {
+  Number operator +(dynamic addend) {
     if (addend is Imaginary) return new Imaginary((value + addend.value).toDouble());
     if (addend is Complex) return new Complex(addend.real, value + addend.imag);
     if (addend is Real) return new Complex(addend, this);
@@ -52,7 +52,7 @@ class Imaginary extends Number {
 
   Number operator -() => new Imaginary(-value);
 
-  Number operator -(subtrahend) {
+  Number operator -(dynamic subtrahend) {
     if (subtrahend
         is num) return new Complex(subtrahend is int ? new Integer(-subtrahend) : new Double(-subtrahend), this);
     if (subtrahend is Real) return new Complex(-subtrahend, this);
@@ -62,7 +62,7 @@ class Imaginary extends Number {
     return this;
   }
 
-  Number operator *(multiplier) {
+  Number operator *(dynamic multiplier) {
     // i * i = -1
     if (multiplier is Imaginary) return value * multiplier.value * -1;
     if (multiplier is Complex) return new Complex(value * multiplier.imag * -1.0, value * multiplier.real);
@@ -72,7 +72,7 @@ class Imaginary extends Number {
     return new Imaginary(0);
   }
 
-  Number operator /(divisor) {
+  Number operator /(dynamic divisor) {
     if (divisor is num) return new Imaginary(value / divisor);
     if (divisor is Real) return new Imaginary(value / divisor.value);
     if (divisor is Imaginary) return value / divisor.value;
@@ -90,7 +90,7 @@ class Imaginary extends Number {
 
   ///  The truncating division operator.
   ///
-  Number operator ~/(divisor) {
+  Number operator ~/(dynamic divisor) {
     if (divisor == 0) return value < 0 ? new Imaginary(Double.negInfinity) : new Imaginary(Double.infinity);
     if (divisor is num) return new Imaginary(value ~/ divisor);
     if (divisor is Imaginary) return value ~/ divisor.value;
@@ -109,7 +109,7 @@ class Imaginary extends Number {
 
   /// The modulo operator.
   ///
-  Number operator %(divisor) {
+  Number operator %(dynamic divisor) {
     if (divisor == 0) return Double.NaN;
 
     if (divisor is num) return new Imaginary(value % divisor);
@@ -130,9 +130,9 @@ class Imaginary extends Number {
   ///
   /// See http://mathworld.wolfram.com/ComplexNumber.html
   ///
-  Number operator ^(exponent) {
-    if (exponent is num) return new Double(Math.pow(value.value, exponent));
-    if (exponent is Real) return new Double(Math.pow(value.value, exponent.value));
+  Number operator ^(dynamic exponent) {
+    if (exponent is num) return new Double(Math.pow(value.value, exponent).toDouble());
+    if (exponent is Real) return new Double(Math.pow(value.value, exponent.value).toDouble());
     if (exponent is Complex) {
       // a^(b+ic) = a^b * ( cos(c * ln(a)) + i * sin(c * ln(a)) )
       Number coeff = this ^ exponent.real;
@@ -165,7 +165,7 @@ class Imaginary extends Number {
   /// For all other types of numbers the comparison is made in the real dimension, so this [Imaginary] number
   /// is regarded as zero.
   ///
-  bool operator >(obj) {
+  bool operator >(dynamic obj) {
     if (obj is num) return 0 > obj;
     if (obj is Real) return 0 > obj.value;
     if (obj is Imaginary) return value > obj.value;
@@ -175,14 +175,14 @@ class Imaginary extends Number {
     return false;
   }
 
-  bool operator >=(obj) {
+  bool operator >=(dynamic obj) {
     if (this == obj) return true;
     return this > obj;
   }
 
-  bool operator <(obj) => !(this >= obj);
+  bool operator <(dynamic obj) => !(this >= obj);
 
-  bool operator <=(obj) => !(this < obj);
+  bool operator <=(dynamic obj) => !(this < obj);
 
   /// The real absolute value of a purely imaginary number is always zero.
   ///
@@ -195,7 +195,7 @@ class Imaginary extends Number {
   Number ceil() => Integer.zero;
 
   @override
-  Number clamp(lowerLimit, upperLimit) {
+  Number clamp(dynamic lowerLimit, dynamic upperLimit) {
     //TODO what does this mean?
     throw new UnsupportedError("clamping of Imaginary number is undefined");
   }
@@ -219,7 +219,7 @@ class Imaginary extends Number {
   Number reciprocal() => Integer.one / this;
 
   @override
-  Number remainder(divisor) {
+  Number remainder(dynamic divisor) {
     return new Imaginary(value.remainder(divisor));
   }
 
@@ -232,7 +232,7 @@ class Imaginary extends Number {
   ///     {"imag":{"d":456.7}}
   ///
   @override
-  Map toJson() {
-    return {"imag": value.toJson()};
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{"imag": value.toJson()};
   }
 }

@@ -1,27 +1,27 @@
 part of quantity_ext;
 
 // Metric units
-final MassUnits yottagrams = Mass.grams.yotta();
-final MassUnits zettagrams = Mass.grams.zetta();
-final MassUnits exagrams = Mass.grams.exa();
-final MassUnits petagrams = Mass.grams.peta();
-final MassUnits teragrams = Mass.grams.tera();
-final MassUnits gigagrams = Mass.grams.giga();
-final MassUnits megagrams = Mass.grams.mega();
+final MassUnits yottagrams = Mass.grams.yotta() as MassUnits;
+final MassUnits zettagrams = Mass.grams.zetta() as MassUnits;
+final MassUnits exagrams = Mass.grams.exa() as MassUnits;
+final MassUnits petagrams = Mass.grams.peta() as MassUnits;
+final MassUnits teragrams = Mass.grams.tera() as MassUnits;
+final MassUnits gigagrams = Mass.grams.giga() as MassUnits;
+final MassUnits megagrams = Mass.grams.mega() as MassUnits;
 final MassUnits kilograms = Mass.kilograms;
-final MassUnits hectograms = Mass.grams.hecto();
-final MassUnits dekagrams = Mass.grams.deka();
+final MassUnits hectograms = Mass.grams.hecto() as MassUnits;
+final MassUnits dekagrams = Mass.grams.deka() as MassUnits;
 final MassUnits grams = Mass.grams;
-final MassUnits decigrams = Mass.grams.deci();
-final MassUnits centigrams = Mass.grams.centi();
-final MassUnits milligrams = Mass.grams.milli();
-final MassUnits micrograms = Mass.grams.micro();
-final MassUnits nanograms = Mass.grams.nano();
-final MassUnits picograms = Mass.grams.pico();
-final MassUnits femtograms = Mass.grams.femto();
-final MassUnits attograms = Mass.grams.atto();
-final MassUnits zeptograms = Mass.grams.zepto();
-final MassUnits yoctograms = Mass.grams.yocto();
+final MassUnits decigrams = Mass.grams.deci() as MassUnits;
+final MassUnits centigrams = Mass.grams.centi() as MassUnits;
+final MassUnits milligrams = Mass.grams.milli() as MassUnits;
+final MassUnits micrograms = Mass.grams.micro() as MassUnits;
+final MassUnits nanograms = Mass.grams.nano() as MassUnits;
+final MassUnits picograms = Mass.grams.pico() as MassUnits;
+final MassUnits femtograms = Mass.grams.femto() as MassUnits;
+final MassUnits attograms = Mass.grams.atto() as MassUnits;
+final MassUnits zeptograms = Mass.grams.zepto() as MassUnits;
+final MassUnits yoctograms = Mass.grams.yocto() as MassUnits;
 
 // Metric abbreviations
 final MassUnits Yg = yottagrams;

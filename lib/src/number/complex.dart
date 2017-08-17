@@ -9,7 +9,7 @@ class Complex extends Number {
   Complex(this.real, this.imaginary);
   const Complex.constant(this.real, this.imaginary) : super.constant();
 
-  Complex.coeff(realValue, imagValue)
+  Complex.coeff(dynamic realValue, dynamic imagValue)
       : real = new Double.constant(realValue.toDouble()),
         imaginary = new Imaginary.constant(imagValue is num ? new Double(imagValue.toDouble()) : imagValue);
 
@@ -94,7 +94,7 @@ class Complex extends Number {
   Number operator -() => new Complex(-real, -imaginary);
 
   @override
-  Number operator -(subtrahend) {
+  Number operator -(dynamic subtrahend) {
     if (subtrahend is Complex) return new Complex(real - subtrahend.real.value, imaginary - subtrahend.imaginary);
     if (subtrahend is Imaginary) return new Complex(real, imaginary - subtrahend);
     if (subtrahend is num) return new Complex(real - subtrahend, imaginary);
@@ -107,7 +107,7 @@ class Complex extends Number {
   Number operator *(multiplier) {
     // i * i = -1
     if (multiplier is num) return new Complex(real * multiplier, imaginary * multiplier);
-    if (multiplier is Real) return new Complex(multiplier * real, new Imaginary(multiplier.value * imaginary));
+    if (multiplier is Real) return new Complex(multiplier * real, new Imaginary(multiplier.value * imaginary.value.toDouble()));
     if (multiplier is Imaginary)
         // (0+bi)(c+di)=(-bd)+i(bc)
         return new Complex(imaginary * multiplier.value * -1, real * multiplier.value);
@@ -221,7 +221,7 @@ class Complex extends Number {
   /// The imaginary part of this complex number is ignored.
   ///
   @override
-  bool operator >(obj) => real > obj;
+  bool operator >(dynamic obj) => real > obj;
 
   /// Returns true if the real component of this Complex number is greater
   /// than or equal to [obj].
@@ -229,7 +229,7 @@ class Complex extends Number {
   /// The imaginary part of this complex number is ignored.
   ///
   @override
-  bool operator >=(obj) => real >= obj;
+  bool operator >=(dynamic obj) => real >= obj;
 
   /// Returns true if the real component of this Complex number is
   /// less than [obj].
@@ -237,7 +237,7 @@ class Complex extends Number {
   /// The imaginary part of this complex number is ignored.
   ///
   @override
-  bool operator <(obj) => real < obj;
+  bool operator <(dynamic obj) => real < obj;
 
   /// Returns true if the real component of this Complex number is
   /// less than or equal to [obj].
@@ -245,7 +245,7 @@ class Complex extends Number {
   /// The imaginary part of this complex number is ignored.
   ///
   @override
-  bool operator <=(obj) => real <= obj;
+  bool operator <=(dynamic obj) => real <= obj;
 
   /// The absolute value of a Complex number is its distance from zero in the
   /// Complex number space (e.g. the absolute value of 3 + 4i = 5).  The absolute
@@ -259,7 +259,7 @@ class Complex extends Number {
   Number ceil() => real.ceil();
 
   @override
-  Number clamp(lowerLimit, upperLimit) => real.clamp(lowerLimit, upperLimit);
+  Number clamp(dynamic lowerLimit, dynamic upperLimit) => real.clamp(lowerLimit, upperLimit);
 
   @override
   Number floor() => real.floor();
@@ -274,7 +274,7 @@ class Complex extends Number {
   /// this Complex number only.
   ///
   @override
-  Number remainder(divisor) => real.remainder(divisor);
+  Number remainder(dynamic divisor) => real.remainder(divisor);
 
   @override
   Number reciprocal() {
@@ -292,7 +292,7 @@ class Complex extends Number {
   /// Example:
   ///     {"real":{"i":5},"imag":{"d":3.3}}
   ///
-  Map toJson() {
-    return {"real": real.toJson(), "imag": imaginary.toJson()};
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{"real": real.toJson(), "imag": imaginary.toJson()};
   }
 }

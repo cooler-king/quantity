@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('TemperatureInterval', () {
     test('constructors', () {
       // default ctor, K 0
@@ -78,7 +78,7 @@ main() {
 
       // Subtracting Temperature from TemperatureInterval unsupported
       var c = new Temperature(C: 34);
-      var exception;
+      dynamic exception;
       try {
         diff = a - c;
       } catch (e) {

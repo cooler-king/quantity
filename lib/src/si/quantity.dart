@@ -55,7 +55,7 @@ part of quantity_si;
 /// is constructed with any uncertainty and off otherwise.  The setCalcUncertainty
 /// method may be called at any point to enable/disable this capability.
 ///
-abstract class Quantity implements Comparable {
+abstract class Quantity implements Comparable<dynamic> {
   /// The value of the quantity in the [base units](http://physics.nist.gov/cuu/Units/current.html),
   /// of the International System of Units (SI).
   ///
@@ -103,8 +103,8 @@ abstract class Quantity implements Comparable {
   /// A private constructor to support MiscQuantity:  dimensions are
   /// known, units are not.
   ///
-  Quantity._internal([value = 0.0, Dimensions dimensions, double uncert = 0.0])
-      : this.valueSI = (value is num) ? numToNumber(value) : value,
+  Quantity._internal([dynamic value = 0.0, Dimensions dimensions, double uncert = 0.0])
+      : this.valueSI = (value is num) ? numToNumber(value) : value is Number ? value : null,
         this.preferredUnits = null,
         this.dimensions = dimensions,
         this._ur = uncert {}
@@ -345,7 +345,7 @@ abstract class Quantity implements Comparable {
   /// quantities' relative standard uncertainties.  If [multiplier] is numeric
   /// the uncertainty is unchanged.
   ///
-  Quantity operator *(multiplier) {
+  Quantity operator *(dynamic multiplier) {
     // Product uncertainty
     double productUr = _ur;
 
@@ -357,7 +357,7 @@ abstract class Quantity implements Comparable {
 
     // Branch on Quantity, num, Number
     if (multiplier is Quantity) {
-      Quantity q2 = multiplier as Quantity;
+      Quantity q2 = multiplier;
       productDimensions = dimensions * q2.dimensions;
       productValue = valueSI * q2.valueSI;
       productUr = (_ur != 0.0 || q2._ur != 0.0) ? Math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
@@ -383,9 +383,9 @@ abstract class Quantity implements Comparable {
   /// defined as the square root of the sum of the squares of the two quantities'
   /// relative standard uncertainties.
   ///
-  Quantity operator /(divisor) {
+  Quantity operator /(dynamic divisor) {
     if (divisor is Quantity) {
-      return this * (divisor as Quantity).inverse();
+      return this * divisor.inverse();
     } else if (divisor is num || divisor is Number) {
       var resultValue = valueSI / divisor;
       if (dynamicQuantityTyping) {
@@ -407,7 +407,7 @@ abstract class Quantity implements Comparable {
   ///
   /// See [NIST Reference on Constants, Units, and Uncertainty: Combining uncertainty components](http://physics.nist.gov/cuu/Uncertainty/combination.html)
   ///
-  Quantity operator ^(exponent) {
+  Quantity operator ^(dynamic exponent) {
     if (exponent is! num &&
         exponent is! Number &&
         exponent is! Scalar) throw new QuantityException("Cannot raise a quantity to a non-numeric power");
@@ -500,14 +500,9 @@ abstract class Quantity implements Comparable {
   /// Returns a negative integer, zero, or a positive integer as this Quantity is
   /// less than, equal to, or greater than [q2].
   ///
-  int compareTo(Comparable q2) {
-    // Scalar can be compared to num or Number
-    if (this is Scalar && (q2 is num || q2 is Number)) {
-      return valueSI.compareTo(q2);
-    }
-
-    if (q2
-        is! Quantity) throw new QuantityException("A Quantity cannot be compared to anything besides another Quantity");
+  @override
+  int compareTo(dynamic q2) {
+    if (q2 is! Quantity) throw new QuantityException("A Quantity cannot be compared to anything besides another Quantity");
     return valueSI.compareTo((q2 as Quantity).valueSI);
   }
 

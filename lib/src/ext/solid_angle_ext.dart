@@ -1,27 +1,27 @@
 part of quantity_ext;
 
 // Metric units
-final SolidAngleUnits yottasteradians = SolidAngle.steradians.yotta();
-final SolidAngleUnits zettasteradians = SolidAngle.steradians.zetta();
-final SolidAngleUnits exasteradians = SolidAngle.steradians.exa();
-final SolidAngleUnits petasteradians = SolidAngle.steradians.peta();
-final SolidAngleUnits terasteradians = SolidAngle.steradians.tera();
-final SolidAngleUnits gigasteradians = SolidAngle.steradians.giga();
-final SolidAngleUnits megasteradians = SolidAngle.steradians.mega();
-final SolidAngleUnits kilosteradians = SolidAngle.steradians.kilo();
-final SolidAngleUnits hectosteradians = SolidAngle.steradians.hecto();
-final SolidAngleUnits dekasteradians = SolidAngle.steradians.deka();
+final SolidAngleUnits yottasteradians = SolidAngle.steradians.yotta() as SolidAngleUnits;
+final SolidAngleUnits zettasteradians = SolidAngle.steradians.zetta() as SolidAngleUnits;
+final SolidAngleUnits exasteradians = SolidAngle.steradians.exa() as SolidAngleUnits;
+final SolidAngleUnits petasteradians = SolidAngle.steradians.peta() as SolidAngleUnits;
+final SolidAngleUnits terasteradians = SolidAngle.steradians.tera() as SolidAngleUnits;
+final SolidAngleUnits gigasteradians = SolidAngle.steradians.giga() as SolidAngleUnits;
+final SolidAngleUnits megasteradians = SolidAngle.steradians.mega() as SolidAngleUnits;
+final SolidAngleUnits kilosteradians = SolidAngle.steradians.kilo() as SolidAngleUnits;
+final SolidAngleUnits hectosteradians = SolidAngle.steradians.hecto() as SolidAngleUnits;
+final SolidAngleUnits dekasteradians = SolidAngle.steradians.deka() as SolidAngleUnits;
 final SolidAngleUnits steradians = SolidAngle.steradians;
-final SolidAngleUnits decisteradians = SolidAngle.steradians.deci();
-final SolidAngleUnits centisteradians = SolidAngle.steradians.centi();
-final SolidAngleUnits millisteradians = SolidAngle.steradians.milli();
-final SolidAngleUnits microsteradians = SolidAngle.steradians.micro();
-final SolidAngleUnits nanosteradians = SolidAngle.steradians.nano();
-final SolidAngleUnits picosteradians = SolidAngle.steradians.pico();
-final SolidAngleUnits femtosteradians = SolidAngle.steradians.femto();
-final SolidAngleUnits attosteradians = SolidAngle.steradians.atto();
-final SolidAngleUnits zeptosteradians = SolidAngle.steradians.zepto();
-final SolidAngleUnits yoctosteradians = SolidAngle.steradians.yocto();
+final SolidAngleUnits decisteradians = SolidAngle.steradians.deci() as SolidAngleUnits;
+final SolidAngleUnits centisteradians = SolidAngle.steradians.centi() as SolidAngleUnits;
+final SolidAngleUnits millisteradians = SolidAngle.steradians.milli() as SolidAngleUnits;
+final SolidAngleUnits microsteradians = SolidAngle.steradians.micro() as SolidAngleUnits;
+final SolidAngleUnits nanosteradians = SolidAngle.steradians.nano() as SolidAngleUnits;
+final SolidAngleUnits picosteradians = SolidAngle.steradians.pico() as SolidAngleUnits;
+final SolidAngleUnits femtosteradians = SolidAngle.steradians.femto() as SolidAngleUnits;
+final SolidAngleUnits attosteradians = SolidAngle.steradians.atto() as SolidAngleUnits;
+final SolidAngleUnits zeptosteradians = SolidAngle.steradians.zepto() as SolidAngleUnits;
+final SolidAngleUnits yoctosteradians = SolidAngle.steradians.yocto() as SolidAngleUnits;
 
 // non-SI units
 

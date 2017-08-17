@@ -101,8 +101,8 @@ class Dimensions {
   /// Two Dimensions objects are only equal if they have exactly equal
   /// values for each component dimension.
   ///
-  bool operator ==(Dimensions d2) {
-    if (d2 == null) return false;
+  bool operator ==(dynamic d2) {
+    if (d2 == null || d2 is! Dimensions) return false;
     if (identical(this, d2)) return true;
 
     // Check size

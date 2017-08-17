@@ -394,17 +394,17 @@ class Precise extends Real {
   /// Truncating division operator.
   ///
   @override
-  Number operator ~/(divisor) => (this / divisor).truncate();
+  Number operator ~/(dynamic divisor) => (this / divisor).truncate();
 
   /// Modulo operator.
   ///
   @override
-  Number operator %(divisor) => remainder(divisor).abs();
+  Number operator %(dynamic divisor) => remainder(divisor).abs();
 
   /// Equals operator.
   ///
   @override
-  bool operator ==(other) {
+  bool operator ==(dynamic other) {
     Precise p2 = toPrecise(other);
     if (_neg != p2._neg) return false;
     var placeExtents = determinePlaceExtents(this, p2);
@@ -428,7 +428,7 @@ class Precise extends Real {
   /// Less than operator.
   ///
   @override
-  bool operator <(other) {
+  bool operator <(dynamic other) {
     Precise p2 = toPrecise(other);
     if (p2 == null) p2 = Precise.zero;
     if (_neg && !p2._neg) return true;
@@ -447,12 +447,12 @@ class Precise extends Real {
   /// Less than or equals operator.
   ///
   @override
-  bool operator <=(other) => !(this > other);
+  bool operator <=(dynamic other) => !(this > other);
 
   /// Greater than operator.
   ///
   @override
-  bool operator >(other) {
+  bool operator >(dynamic other) {
     Precise p2 = toPrecise(other);
     if (p2 == null) p2 = Precise.zero;
     if (_neg && !p2._neg) return false;
@@ -471,7 +471,7 @@ class Precise extends Real {
   /// Power operator.
   ///
   @override
-  Number operator ^(exponent) {
+  Number operator ^(dynamic exponent) {
     if (this == 0) {
       if (exponent == 0) return Double.NaN;
       return Precise.zero;
@@ -501,7 +501,7 @@ class Precise extends Real {
 
   /// Converts a num, Number or String into a Precise object.
   ///
-  Precise toPrecise(obj) {
+  Precise toPrecise(dynamic obj) {
     if (obj is Precise) return obj;
     if (obj is num) return new Precise.num(obj);
     if (obj is Number) return new Precise.num(obj.toDouble());
@@ -511,15 +511,15 @@ class Precise extends Real {
   /// Greater than or equals operator.
   ///
   @override
-  bool operator >=(other) => !(this < other);
+  bool operator >=(dynamic other) => !(this < other);
 
   /// Support [dart:json] stringify.
   ///
   /// Map Contents:
   ///     "precise" : string representation of the number
   ///
-  Map toJson() {
-    return {"precise": toString()};
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{"precise": toString()};
   }
 
   @override

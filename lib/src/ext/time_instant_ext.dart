@@ -201,7 +201,7 @@ final TimeInstantUnits JD_UTC =
   // for the particular UTC day in question
   double frac = (d - (jd0 * 86400.0)) / secondsInUtcDay(d);
 
-  return 2436204.5 + jd0 + frac;
+  return new Double(2436204.5 + jd0 + frac);
 }, (val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
 
@@ -251,7 +251,7 @@ final TimeInstantUnits JD_UT1 =
   // for the particular UTC day in question
   double frac = (d - (jd0 * 86400.0)) / secsInDay;
 
-  return 2436204.5 + jd0 + frac;
+  return new Double(2436204.5 + jd0 + frac);
 }, (val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
 

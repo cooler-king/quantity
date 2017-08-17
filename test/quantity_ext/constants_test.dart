@@ -65,7 +65,7 @@ Map<String, Quantity> nistNameConstantMap = {
   "Wien wavelength displacement law constant": wienDisplacement
 };
 
-main() {
+void main() {
   group('constants', () {
     test('check against NIST values', () {
       List<String> lines = new File('test/quantity_ext/txt/nist_constants.txt').readAsLinesSync();

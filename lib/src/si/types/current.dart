@@ -13,7 +13,7 @@ class Current extends Quantity {
   static final CurrentUnits amperes = new CurrentUnits("amperes", "A", null, null, 1.0, true);
 
   /// A common metric derivative.
-  static final CurrentUnits milliamperes = amperes.milli();
+  static final CurrentUnits milliamperes = amperes.milli() as CurrentUnits;
 
   /// Construct a Current with amperes ([A]) or milliamperes ([mA]).
   ///

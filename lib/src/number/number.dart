@@ -2,7 +2,7 @@ part of number;
 
 /// The abstract base class for all Number types.
 ///
-abstract class Number implements Comparable {
+abstract class Number implements Comparable<dynamic> {
   const Number.constant();
   Number();
 
@@ -11,7 +11,7 @@ abstract class Number implements Comparable {
   /// Two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
   ///
-  bool operator ==(obj);
+  bool operator ==(dynamic obj);
 
   /// The hashcodes for two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
@@ -21,20 +21,20 @@ abstract class Number implements Comparable {
   ///
   int get hashCode;
 
-  Number operator +(addend);
+  Number operator +(dynamic addend);
   Number operator -();
-  Number operator -(subtrahend);
-  Number operator *(multiplicand);
-  Number operator /(divisor);
-  Number operator ~/(divisor);
-  Number operator %(divisor);
+  Number operator -(dynamic subtrahend);
+  Number operator *(dynamic multiplicand);
+  Number operator /(dynamic divisor);
+  Number operator ~/(dynamic divisor);
+  Number operator %(dynamic divisor);
 
-  Number operator ^(exponent);
+  Number operator ^(dynamic exponent);
 
-  bool operator >(obj);
-  bool operator >=(obj);
-  bool operator <(obj);
-  bool operator <=(obj);
+  bool operator >(dynamic obj);
+  bool operator >=(dynamic obj);
+  bool operator <(dynamic obj);
+  bool operator <=(dynamic obj);
 
   // Mirror num's abstract properties
   bool get isFinite => !isInfinite;
@@ -71,7 +71,7 @@ abstract class Number implements Comparable {
   ///
   /// `lowerLimit` and `upperLimit` are expected to be `num` or `Number' objects.
   ///
-  Number clamp(lowerLimit, upperLimit);
+  Number clamp(dynamic lowerLimit, dynamic upperLimit);
 
   /// Returns the greatest Number with an integer value no greater than this Number.
   ///
@@ -84,7 +84,7 @@ abstract class Number implements Comparable {
   /// The result r of this operation satisfies: this == (this ~/ other) * other + r.
   /// As a consequence the remainder r has the same sign as the [operator /(divisor)].
   ///
-  Number remainder(divisor);
+  Number remainder(dynamic divisor);
 
   /// Returns the integer Number closest to this Number.
   ///
@@ -118,7 +118,8 @@ abstract class Number implements Comparable {
   /// [n2] is expected to be a num or Number.  If it is not it will
   /// be considered to have a value of 0.
   ///
-  int compareTo(Comparable n2) {
+  @override
+  int compareTo(dynamic n2) {
     if (n2 is Number) return Comparable.compare(this.toDouble(), n2.toDouble());
     if (n2 is num) return Comparable.compare(this.toDouble(), n2);
 

@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_ext.dart';
 
-main() {
+void main() {
   group('time instant ext', () {
     test('shortcuts', () {
       expect(identical(TAI, TimeInstant.TAI), true);

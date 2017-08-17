@@ -97,7 +97,7 @@ class QuantityRange<Q extends Quantity> {
   /// Two quantity ranges are considered equal only if their endpoints are exactly equal.
   ///
   @override
-  bool operator ==(obj) {
+  bool operator ==(dynamic obj) {
     if (obj is! QuantityRange) return false;
     return (q1 == obj.q1) && (q2 == obj.q2);
   }

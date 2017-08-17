@@ -1,27 +1,27 @@
 part of quantity_ext;
 
 // Metric units
-final LengthUnits yottameters = Length.meters.yotta();
-final LengthUnits zettameters = Length.meters.zetta();
-final LengthUnits exameters = Length.meters.exa();
-final LengthUnits petameters = Length.meters.peta();
-final LengthUnits terameters = Length.meters.tera();
-final LengthUnits gigameters = Length.meters.giga();
-final LengthUnits megameters = Length.meters.mega();
-final LengthUnits kilometers = Length.meters.kilo();
-final LengthUnits hectometers = Length.meters.hecto();
-final LengthUnits dekameters = Length.meters.deka();
+final LengthUnits yottameters = Length.meters.yotta() as LengthUnits;
+final LengthUnits zettameters = Length.meters.zetta() as LengthUnits;
+final LengthUnits exameters = Length.meters.exa() as LengthUnits;
+final LengthUnits petameters = Length.meters.peta() as LengthUnits;
+final LengthUnits terameters = Length.meters.tera() as LengthUnits;
+final LengthUnits gigameters = Length.meters.giga() as LengthUnits;
+final LengthUnits megameters = Length.meters.mega() as LengthUnits;
+final LengthUnits kilometers = Length.meters.kilo() as LengthUnits;
+final LengthUnits hectometers = Length.meters.hecto() as LengthUnits;
+final LengthUnits dekameters = Length.meters.deka() as LengthUnits;
 final LengthUnits meters = Length.meters;
-final LengthUnits decimeters = Length.meters.deci();
-final LengthUnits centimeters = Length.meters.centi();
+final LengthUnits decimeters = Length.meters.deci() as LengthUnits;
+final LengthUnits centimeters = Length.meters.centi() as LengthUnits;
 final LengthUnits millimeters = Length.millimeters;
-final LengthUnits micrometers = Length.meters.micro();
+final LengthUnits micrometers = Length.meters.micro() as LengthUnits;
 final LengthUnits nanometers = Length.nanometers;
-final LengthUnits picometers = Length.meters.pico();
-final LengthUnits femtometers = Length.meters.femto();
-final LengthUnits attometers = Length.meters.atto();
-final LengthUnits zeptometers = Length.meters.zepto();
-final LengthUnits yoctometers = Length.meters.yocto();
+final LengthUnits picometers = Length.meters.pico() as LengthUnits;
+final LengthUnits femtometers = Length.meters.femto() as LengthUnits;
+final LengthUnits attometers = Length.meters.atto() as LengthUnits;
+final LengthUnits zeptometers = Length.meters.zepto() as LengthUnits;
+final LengthUnits yoctometers = Length.meters.yocto() as LengthUnits;
 
 final LengthUnits astronomicalUnits = Length.astronomicalUnits;
 final LengthUnits fermis = new LengthUnits("fermis", null, null, null, 1.0e-15, true);
@@ -47,7 +47,7 @@ final LengthUnits leaguesStatute =
 final LengthUnits lightYears = new LengthUnits("light years", "LY", null, null, 9.46055e15, false);
 final LengthUnits linksEngineer = new LengthUnits("links (engineer)", null, null, "link (engineer)", 3.048e-1, false);
 final LengthUnits linksSurveyor = new LengthUnits("links (surveyor)", null, null, "link (surveyor)", 2.01168e-1, false);
-final LengthUnits microns = Length.meters.micro();
+final LengthUnits microns = Length.meters.micro() as LengthUnits;
 final LengthUnits mils = new LengthUnits("mils", null, null, null, 2.54e-5, false);
 final LengthUnits miles = new LengthUnits("miles", "mi", null, null, 1.609344e3, false);
 final LengthUnits nauticalMilesUk =

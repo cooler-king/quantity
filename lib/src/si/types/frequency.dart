@@ -13,9 +13,9 @@ class Frequency extends Quantity {
   static final FrequencyUnits hertz = new FrequencyUnits("hertz", "Hz", null, "hertz", 1.0, true);
 
   // convenience units
-  static final FrequencyUnits kilohertz = hertz.kilo();
-  static final FrequencyUnits megahertz = hertz.mega();
-  static final FrequencyUnits gigahertz = hertz.giga();
+  static final FrequencyUnits kilohertz = hertz.kilo() as FrequencyUnits;
+  static final FrequencyUnits megahertz = hertz.mega() as FrequencyUnits;
+  static final FrequencyUnits gigahertz = hertz.giga() as FrequencyUnits;
 
   /// Construct a Frequency with hertz ([Hz]), kilohertz ([kHz]), megahertz ([MHz])
   /// or gigahertz ([GHz]).

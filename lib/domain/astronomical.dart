@@ -30,7 +30,7 @@ export 'package:quantity/quantity.dart'
 
 export 'package:quantity/domain/thermodynamic.dart' show wienDisplacement;
 
-SpectralIrradianceUnits microjanskys = janskys.micro();
+SpectralIrradianceUnits microjanskys = janskys.micro() as SpectralIrradianceUnits;
 
 // ---------------------
 
