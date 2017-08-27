@@ -21,15 +21,15 @@ class Concentration extends Quantity {
   Concentration({dynamic mol_per_m3, double uncert: 0.0})
       : super(mol_per_m3 ?? 0.0, Concentration.molesPerCubicMeter, uncert);
 
-  Concentration._internal(conv) : super._internal(conv, Concentration.concentrationDimensions);
+  Concentration._internal(dynamic conv) : super._internal(conv, Concentration.concentrationDimensions);
 
   /// Constructs a Concentration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Concentration.inUnits(value, ConcentrationUnits units, [double uncert = 0.0])
+  Concentration.inUnits(dynamic value, ConcentrationUnits units, [double uncert = 0.0])
       : super(value, units ?? Concentration.molesPerCubicMeter, uncert);
 
-  const Concentration.constant(Number valueSI, {ConcentrationUnits  units, double uncert: 0.0})
+  const Concentration.constant(Number valueSI, {ConcentrationUnits units, double uncert: 0.0})
       : super.constant(valueSI, Concentration.concentrationDimensions, units, uncert);
 }
 

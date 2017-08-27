@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('Double', () {
     test('constants', () {
       Double d = const Double.constant(42.0);

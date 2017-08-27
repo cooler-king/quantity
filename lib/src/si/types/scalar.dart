@@ -22,13 +22,13 @@ class Scalar extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Scalar({value, percent, double uncert: 0.0})
+  Scalar({dynamic value, dynamic percent, double uncert: 0.0})
       : super(percent ?? (value ?? 0.0), percent != null ? Scalar.percent : Scalar.one, uncert);
 
-  Scalar._internal(conv) : super._internal(conv, Scalar.scalarDimensions);
+  Scalar._internal(dynamic conv) : super._internal(conv, Scalar.scalarDimensions);
 
   // CONSTRUCTORS
-  Scalar.inUnits(value, ScalarUnits units, [double uncert = 0.0]) : super(value, units ?? Scalar.one, uncert);
+  Scalar.inUnits(dynamic value, ScalarUnits units, [double uncert = 0.0]) : super(value, units ?? Scalar.one, uncert);
 
   const Scalar.constant(Number value, {ScalarUnits units, double uncert: 0.0})
       : super.constant(value, Scalar.scalarDimensions, units, uncert);

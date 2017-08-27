@@ -6,6 +6,25 @@ abstract class Number implements Comparable<dynamic> {
   const Number.constant();
   Number();
 
+  /// Detect the type of Number by inspecting map contents and create it.
+  /// Recognized formats are:
+  ///     {"i": int value}
+  ///     {"d": double value}
+  ///     {"pd": arbitrary precision string}
+  ///     {"real": {i or d map}, "imag": {i or d map}}
+  ///     {"imag": {i or d map}}
+  ///
+  /// If the map contents are not recognized [Integer.zero] will be returned.
+  factory Number.fromMap(Map<String, dynamic> m) {
+    if (m.containsKey("d") && m["d"] is num) return new Double.fromMap(m as Map<String, num>);
+    if (m.containsKey("i") && m["i"] is int) return new Integer.fromMap(m as Map<String, int>);
+    if (m.containsKey("precise") && m["precise"] is Map<String, String>)
+      return new Precise.fromMap(m as Map<String, String>);
+    if (m.containsKey("real") && m is Map<String, Map>) return new Complex.fromMap(m);
+    if (m.containsKey("imag") && m is Map<String, Map>) return new Imaginary.fromMap(m);
+    return Integer.zero;
+  }
+
   // Abstract operators
 
   /// Two Numbers will be equal when the represented values are equal,
@@ -125,15 +144,5 @@ abstract class Number implements Comparable<dynamic> {
 
     // If n2 is not a num or Number, treat it as a zero
     return Comparable.compare(this.toDouble(), 0);
-  }
-
-  /// Detect the type of Number by inspecting
-  /// map contents and create it.
-  ///
-  static Number _fromMap(Map<String, dynamic> m) {
-    if (m.containsKey("imag")) return new Imaginary.fromMap(m);
-    if (m.containsKey("real")) return new Complex.fromMap(m);
-    if (m.containsKey("pd")) return null; //return new Precise()
-    return Integer.zero;
   }
 }

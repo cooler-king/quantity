@@ -19,15 +19,15 @@ class CatalyticActivity extends Quantity {
   ///
   CatalyticActivity({dynamic kat, double uncert: 0.0}) : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
 
-  CatalyticActivity._internal(conv) : super._internal(conv, CatalyticActivity.catalyticActivityDimensions);
+  CatalyticActivity._internal(dynamic conv) : super._internal(conv, CatalyticActivity.catalyticActivityDimensions);
 
   /// Constructs a CatalyticActivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  CatalyticActivity.inUnits(value, CatalyticActivityUnits units, [double uncert = 0.0])
+  CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits units, [double uncert = 0.0])
       : super(value, units ?? CatalyticActivity.katals, uncert);
 
-  const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits  units, double uncert: 0.0})
+  const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits units, double uncert: 0.0})
       : super.constant(valueSI, CatalyticActivity.catalyticActivityDimensions, units, uncert);
 }
 

@@ -25,15 +25,15 @@ class AngularSpeed extends Quantity {
       : super(rad_per_s ?? (deg_per_s ?? 0.0),
             deg_per_s != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
 
-  AngularSpeed._internal(conv) : super._internal(conv, AngularSpeed.angularSpeedDimensions);
+  AngularSpeed._internal(dynamic conv) : super._internal(conv, AngularSpeed.angularSpeedDimensions);
 
   /// Constructs a AngularSpeed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  AngularSpeed.inUnits(value, AngularSpeedUnits units, [double uncert = 0.0])
+  AngularSpeed.inUnits(dynamic value, AngularSpeedUnits units, [double uncert = 0.0])
       : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
 
-  const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits  units, double uncert: 0.0})
+  const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits units, double uncert: 0.0})
       : super.constant(valueSI, AngularSpeed.angularSpeedDimensions, units, uncert);
 }
 

@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('Imaginary', () {
     test('zeros', () {
       Imaginary imag0a = new Imaginary(0);

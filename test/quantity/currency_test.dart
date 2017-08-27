@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('Currency', () {
     test('operator +', () {
       Currency c1 = new Currency(USD: 12.34);

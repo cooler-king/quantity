@@ -70,17 +70,17 @@ class Time extends Quantity {
                         : (h != null ? Time.hoursMeanSolar : (min != null ? Time.minutesMeanSolar : Time.seconds)))),
             uncert);
 
-  Time._internal(conv) : super._internal(conv, Time.timeDimensions);
+  Time._internal(dynamic conv) : super._internal(conv, Time.timeDimensions);
 
   /// Constructs a Time based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Time.inUnits(value, TimeUnits units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
+  Time.inUnits(dynamic value, TimeUnits units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
 
   const Time.constant(Number valueSI, {TimeUnits units, double uncert: 0.0})
       : super.constant(valueSI, Time.timeDimensions, units, uncert);
 
-  /// Construct a Time object from an existin dart:core Duration object.
+  /// Construct a Time object from an existing dart:core Duration object.
   ///
   Time.fromDuration(Duration d) : super((d != null) ? d.inMicroseconds.toDouble() / 1.0e6 : 0.0, Time.seconds);
 

@@ -68,7 +68,7 @@ class Angle extends Quantity {
   Angle({dynamic rad, dynamic deg, double uncert: 0.0})
       : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
 
-  Angle._internal(conv) : super._internal(conv, Angle.angleDimensions);
+  Angle._internal(dynamic conv) : super._internal(conv, Angle.angleDimensions);
 
   /// Constructs an Angle based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -83,9 +83,9 @@ class Angle extends Quantity {
   /// The internal value is automatically bounded between -PI and PI
   /// radians (-180 to 180 degrees)
   ///
-  Angle.inUnits(value, AngleUnits units, [double uncert = 0.0]) : super(value, units ?? Angle.radians, uncert);
+  Angle.inUnits(dynamic value, AngleUnits units, [double uncert = 0.0]) : super(value, units ?? Angle.radians, uncert);
 
-  const Angle.constant(Number valueSI, {AngleUnits  units, double uncert: 0.0})
+  const Angle.constant(Number valueSI, {AngleUnits units, double uncert: 0.0})
       : super.constant(valueSI, Angle.angleDimensions, units, uncert);
 
   ///  This constructor creates an angle value from the three values

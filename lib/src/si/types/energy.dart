@@ -25,14 +25,15 @@ class Energy extends Quantity {
   Energy({dynamic J, dynamic eV, double uncert: 0.0})
       : super(J ?? (eV ?? 0.0), eV != null ? Energy.electronVolts : Energy.joules, uncert);
 
-  Energy._internal(conv) : super._internal(conv, Energy.energyDimensions);
+  Energy._internal(dynamic conv) : super._internal(conv, Energy.energyDimensions);
 
   /// Constructs a Energy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Energy.inUnits(value, EnergyUnits units, [double uncert = 0.0]) : super(value, units ?? Energy.joules, uncert);
+  Energy.inUnits(dynamic value, EnergyUnits units, [double uncert = 0.0])
+      : super(value, units ?? Energy.joules, uncert);
 
-  const Energy.constant(Number valueSI, {EnergyUnits  units, double uncert: 0.0})
+  const Energy.constant(Number valueSI, {EnergyUnits units, double uncert: 0.0})
       : super.constant(valueSI, Energy.energyDimensions, units, uncert);
 
   /// Returns the [Mass] equivalent of this Energy using the famous E=mc^2 relationship.

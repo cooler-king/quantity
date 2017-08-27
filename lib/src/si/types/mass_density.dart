@@ -21,15 +21,15 @@ class MassDensity extends Quantity {
   MassDensity({dynamic kg_per_m3, double uncert: 0.0})
       : super(kg_per_m3 ?? 0.0, MassDensity.kilogramsPerCubicMeter, uncert);
 
-  MassDensity._internal(conv) : super._internal(conv, MassDensity.massDensityDimensions);
+  MassDensity._internal(dynamic conv) : super._internal(conv, MassDensity.massDensityDimensions);
 
   /// Constructs a MassDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  MassDensity.inUnits(value, MassDensityUnits units, [double uncert = 0.0])
+  MassDensity.inUnits(dynamic value, MassDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? MassDensity.kilogramsPerCubicMeter, uncert);
 
-  const MassDensity.constant(Number valueSI, {MassDensityUnits  units, double uncert: 0.0})
+  const MassDensity.constant(Number valueSI, {MassDensityUnits units, double uncert: 0.0})
       : super.constant(valueSI, MassDensity.massDensityDimensions, units, uncert);
 }
 

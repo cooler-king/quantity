@@ -21,15 +21,15 @@ class Inductance extends Quantity {
   ///
   Inductance({dynamic H, double uncert: 0.0}) : super(H ?? 0.0, Illuminance.lux, uncert);
 
-  Inductance._internal(conv) : super._internal(conv, Inductance.inductanceDimensions);
+  Inductance._internal(dynamic conv) : super._internal(conv, Inductance.inductanceDimensions);
 
   /// Constructs a Inductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Inductance.inUnits(value, InductanceUnits units, [double uncert = 0.0])
+  Inductance.inUnits(dynamic value, InductanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Inductance.henries, uncert);
 
-  const Inductance.constant(Number valueSI, {InductanceUnits  units, double uncert: 0.0})
+  const Inductance.constant(Number valueSI, {InductanceUnits units, double uncert: 0.0})
       : super.constant(valueSI, Inductance.inductanceDimensions, units, uncert);
 }
 

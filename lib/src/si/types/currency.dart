@@ -31,15 +31,15 @@ class Currency extends Quantity {
   ///
   Currency({dynamic USD, double uncert: 0.0}) : super(USD ?? 0.0, Currency.dollarsUS, uncert);
 
-  Currency._internal(conv) : super._internal(conv, Currency.currencyDimensions);
+  Currency._internal(dynamic conv) : super._internal(conv, Currency.currencyDimensions);
 
   /// Constructs a Currency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Currency.inUnits(value, CurrencyUnits units, [double uncert = 0.0])
+  Currency.inUnits(dynamic value, CurrencyUnits units, [double uncert = 0.0])
       : super(value, units ?? Currency.dollarsUS, uncert);
 
-  const Currency.constant(Number valueSI, {CurrencyUnits  units, double uncert: 0.0})
+  const Currency.constant(Number valueSI, {CurrencyUnits units, double uncert: 0.0})
       : super.constant(valueSI, Currency.currencyDimensions, units, uncert);
 }
 

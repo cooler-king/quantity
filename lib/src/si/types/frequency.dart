@@ -30,15 +30,15 @@ class Frequency extends Quantity {
                 : (MHz != null ? Frequency.megahertz : (GHz != null ? Frequency.gigahertz : Frequency.hertz)),
             uncert);
 
-  Frequency._internal(conv) : super._internal(conv, Frequency.frequencyDimensions);
+  Frequency._internal(dynamic conv) : super._internal(conv, Frequency.frequencyDimensions);
 
   /// Constructs a Frequency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Frequency.inUnits(value, FrequencyUnits units, [double uncert = 0.0])
+  Frequency.inUnits(dynamic value, FrequencyUnits units, [double uncert = 0.0])
       : super(value, units ?? Frequency.hertz, uncert);
 
-  const Frequency.constant(Number valueSI, {FrequencyUnits  units, double uncert: 0.0})
+  const Frequency.constant(Number valueSI, {FrequencyUnits units, double uncert: 0.0})
       : super.constant(valueSI, Frequency.frequencyDimensions, units, uncert);
 }
 

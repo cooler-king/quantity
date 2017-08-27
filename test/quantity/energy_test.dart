@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 
-main() {
+void main() {
   group('Energy', () {
     test('toMass', () {
       Energy e = new Energy(J: 1);

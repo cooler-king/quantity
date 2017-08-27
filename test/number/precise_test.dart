@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('Digit', () {
     test('constructors', () {
       Digit d1 = new Digit(0);

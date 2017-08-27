@@ -22,14 +22,15 @@ class Current extends Quantity {
   Current({dynamic A, dynamic mA, double uncert: 0.0})
       : super(A ?? (mA ?? 0.0), mA != null ? Current.milliamperes : Current.amperes, uncert);
 
-  Current._internal(conv) : super._internal(conv, Current.electricCurrentDimensions);
+  Current._internal(dynamic conv) : super._internal(conv, Current.electricCurrentDimensions);
 
   /// Constructs a Current based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Current.inUnits(value, CurrentUnits units, [double uncert = 0.0]) : super(value, units ?? Current.amperes, uncert);
+  Current.inUnits(dynamic value, CurrentUnits units, [double uncert = 0.0])
+      : super(value, units ?? Current.amperes, uncert);
 
-  const Current.constant(Number valueSI, {CurrentUnits  units, double uncert: 0.0})
+  const Current.constant(Number valueSI, {CurrentUnits units, double uncert: 0.0})
       : super.constant(valueSI, Current.electricCurrentDimensions, units, uncert);
 }
 

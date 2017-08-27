@@ -461,7 +461,7 @@ class Dimensions {
   /// If no specific Quantity type is found with dimensions that match these dimensions
   /// a new instance of the [MiscQuantity] class will be returned.
   ///
-  Quantity toQuantity([value = 0.0, Units units, double uncert = 0.0]) {
+  Quantity toQuantity([dynamic value = 0.0, Units units, double uncert = 0.0]) {
     // Check units match dimensions, if provided
     if (units is Quantity) {
       if (this != (units as Quantity).dimensions)

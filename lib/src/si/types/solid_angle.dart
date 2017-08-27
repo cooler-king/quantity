@@ -18,10 +18,10 @@ class SolidAngle extends Quantity {
   ///
   SolidAngle({dynamic sr, double uncert: 0.0}) : super(sr ?? 0.0, SolidAngle.steradians, uncert);
 
-  SolidAngle._internal(conv) : super._internal(conv, SolidAngle.solidAngleDimensions);
+  SolidAngle._internal(dynamic conv) : super._internal(conv, SolidAngle.solidAngleDimensions);
 
   // CONSTRUCTORS
-  SolidAngle.inUnits(value, SolidAngleUnits units, [double uncert = 0.0])
+  SolidAngle.inUnits(dynamic value, SolidAngleUnits units, [double uncert = 0.0])
       : super(value, units ?? SolidAngle.steradians, uncert);
 
   const SolidAngle.constant(Number value, [SolidAngleUnits units = null])

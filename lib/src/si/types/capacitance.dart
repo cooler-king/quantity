@@ -19,15 +19,15 @@ class Capacitance extends Quantity {
   ///
   Capacitance({dynamic F, double uncert: 0.0}) : super(F ?? 0.0, Capacitance.farads, uncert);
 
-  Capacitance._internal(conv) : super._internal(conv, Capacitance.electricCapacitanceDimensions);
+  Capacitance._internal(dynamic conv) : super._internal(conv, Capacitance.electricCapacitanceDimensions);
 
   /// Constructs a Capacitance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Capacitance.inUnits(value, CapacitanceUnits units, [double uncert = 0.0])
+  Capacitance.inUnits(dynamic value, CapacitanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Capacitance.farads, uncert);
 
-  const Capacitance.constant(Number valueSI, {CapacitanceUnits  units, double uncert: 0.0})
+  const Capacitance.constant(Number valueSI, {CapacitanceUnits units, double uncert: 0.0})
       : super.constant(valueSI, Capacitance.electricCapacitanceDimensions, units, uncert);
 }
 

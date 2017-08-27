@@ -21,15 +21,16 @@ class ElectricFieldStrength extends Quantity {
   ElectricFieldStrength({dynamic V_per_m, double uncert: 0.0})
       : super(V_per_m ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
-  ElectricFieldStrength._internal(conv) : super._internal(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
+  ElectricFieldStrength._internal(dynamic conv)
+      : super._internal(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
 
   /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  ElectricFieldStrength.inUnits(value, ElectricFieldStrengthUnits units, [double uncert = 0.0])
+  ElectricFieldStrength.inUnits(dynamic value, ElectricFieldStrengthUnits units, [double uncert = 0.0])
       : super(value, units ?? ElectricFieldStrength.voltsPerMeter, uncert);
 
-  const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits  units, double uncert: 0.0})
+  const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits units, double uncert: 0.0})
       : super.constant(valueSI, ElectricFieldStrength.electricFieldStrengthDimensions, units, uncert);
 }
 

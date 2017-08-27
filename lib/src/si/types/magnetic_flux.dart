@@ -19,15 +19,15 @@ class MagneticFlux extends Quantity {
   ///
   MagneticFlux({dynamic Wb, double uncert: 0.0}) : super(Wb ?? 0.0, MagneticFlux.webers, uncert);
 
-  MagneticFlux._internal(conv) : super._internal(conv, MagneticFlux.magneticFluxDimensions);
+  MagneticFlux._internal(dynamic conv) : super._internal(conv, MagneticFlux.magneticFluxDimensions);
 
   /// Constructs a MagneticFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  MagneticFlux.inUnits(value, MagneticFluxUnits units, [double uncert = 0.0])
+  MagneticFlux.inUnits(dynamic value, MagneticFluxUnits units, [double uncert = 0.0])
       : super(value, units ?? MagneticFlux.webers, uncert);
 
-  const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits  units, double uncert: 0.0})
+  const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits units, double uncert: 0.0})
       : super.constant(valueSI, MagneticFlux.magneticFluxDimensions, units, uncert);
 }
 

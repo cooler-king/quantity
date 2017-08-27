@@ -27,19 +27,19 @@ class AbsorbedDoseRate extends Quantity {
       : super(Gy_per_s ?? (rads_per_s ?? 0.0),
             rads_per_s != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
 
-  AbsorbedDoseRate._internal(conv) : super._internal(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
+  AbsorbedDoseRate._internal(dynamic conv) : super._internal(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
 
   /// Constructs an AbsorbedDoseRate based on the [value]
   /// and the conversion factor intrinsic to the provided [units].
   ///
-  AbsorbedDoseRate.inUnits(value, AbsorbedDoseRateUnits units, [double uncert = 0.0])
+  AbsorbedDoseRate.inUnits(dynamic value, AbsorbedDoseRateUnits units, [double uncert = 0.0])
       : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert);
 
   /// Construct a constant AbsorbedDoseRate with its SI value.
   ///
   ///
   ///
-  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits  units, double uncert: 0.0})
+  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, double uncert: 0.0})
       : super.constant(valueSI, AbsorbedDoseRate.absorbedDoseRateDimensions, units, uncert);
 }
 

@@ -21,15 +21,15 @@ class Activity extends Quantity {
   ///
   Activity({dynamic Bq, dynamic Ci, double uncert: 0.0}) : super(Bq ?? (Ci ?? 0.0), Activity.becquerels, uncert);
 
-  Activity._internal(conv) : super._internal(conv, Activity.activityDimensions);
+  Activity._internal(dynamic conv) : super._internal(conv, Activity.activityDimensions);
 
   /// Constructs a Activity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Activity.inUnits(value, ActivityUnits units, [double uncert = 0.0])
+  Activity.inUnits(dynamic value, ActivityUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : Activity.becquerels, uncert);
 
-  const Activity.constant(Number valueSI, {ActivityUnits  units, double uncert: 0.0})
+  const Activity.constant(Number valueSI, {ActivityUnits units, double uncert: 0.0})
       : super.constant(valueSI, Activity.activityDimensions, units, uncert);
 }
 

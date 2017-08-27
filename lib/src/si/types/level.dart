@@ -46,14 +46,14 @@ abstract class Level extends Quantity {
   ///
   Level({dynamic Np, double uncert: 0.0}) : super(Np ?? 0.0, Level.nepers, uncert);
 
-  Level._internal(conv) : super._internal(conv, Level.levelDimensions);
+  Level._internal(dynamic conv) : super._internal(conv, Level.levelDimensions);
 
   /// Constructs a Level based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Level.inUnits(value, LevelUnits units, [double uncert = 0.0]) : super(value, units ?? Level.nepers, uncert);
+  Level.inUnits(dynamic value, LevelUnits units, [double uncert = 0.0]) : super(value, units ?? Level.nepers, uncert);
 
-  const Level.constant(Number valueSI, {LevelUnits  units, double uncert: 0.0})
+  const Level.constant(Number valueSI, {LevelUnits units, double uncert: 0.0})
       : super.constant(valueSI, Level.levelDimensions, units, uncert);
 }
 
@@ -99,12 +99,12 @@ class LevelUnits extends Level with Units {
 class PowerLevel extends Level {
   PowerLevel(Power p, Power refP) : super(Np: 0.5 * Math.log((p.mks / refP.mks).toDouble()));
 
-  PowerLevel.inUnits(value, LevelUnits units, [double uncert = 0.0]) : super.inUnits(value, units, uncert);
+  PowerLevel.inUnits(dynamic value, LevelUnits units, [double uncert = 0.0]) : super.inUnits(value, units, uncert);
 
   double get ratio => Math.exp(2.0 * valueSI.toDouble());
 
   @override
-  Quantity operator +(addend) {
+  Quantity operator +(dynamic addend) {
     if (addend is PowerLevel) {
       return new PowerLevel.inUnits(0.5 * Math.log(ratio + addend.ratio), Level.nepers);
     } else {
@@ -113,7 +113,7 @@ class PowerLevel extends Level {
   }
 
   @override
-  Quantity operator -(subtrahend) {
+  Quantity operator -(dynamic subtrahend) {
     if (subtrahend is PowerLevel) {
       return new PowerLevel.inUnits(0.5 * Math.log(ratio - subtrahend.ratio), Level.nepers);
     } else {
@@ -132,12 +132,12 @@ class PowerLevel extends Level {
 class FieldLevel extends Level {
   FieldLevel(Quantity q1, Quantity refQ) : super(Np: 0.5 * Math.log((q1.mks / refQ.mks).toDouble()));
 
-  FieldLevel.inUnits(value, LevelUnits units, [double uncert = 0.0]) : super.inUnits(value, units, uncert);
+  FieldLevel.inUnits(dynamic value, LevelUnits units, [double uncert = 0.0]) : super.inUnits(value, units, uncert);
 
   double get ratio => Math.exp(valueSI.toDouble());
 
   @override
-  Quantity operator +(addend) {
+  Quantity operator +(dynamic addend) {
     if (addend is FieldLevel) {
       return new FieldLevel.inUnits(Math.log(ratio + addend.ratio), Level.nepers);
     } else {
@@ -146,7 +146,7 @@ class FieldLevel extends Level {
   }
 
   @override
-  Quantity operator -(subtrahend) {
+  Quantity operator -(dynamic subtrahend) {
     if (subtrahend is FieldLevel) {
       return new FieldLevel.inUnits(Math.log(ratio - subtrahend.ratio), Level.nepers);
     } else {

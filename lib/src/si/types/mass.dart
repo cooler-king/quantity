@@ -37,14 +37,14 @@ class Mass extends Quantity {
       : super(kg ?? (g ?? (u ?? 0.0)),
             g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
 
-  Mass._internal(conv) : super._internal(conv, Mass.massDimensions);
+  Mass._internal(dynamic conv) : super._internal(conv, Mass.massDimensions);
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Mass.inUnits(value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
+  Mass.inUnits(dynamic value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
 
-  const Mass.constant(Number valueSI, {MassUnits  units, double uncert: 0.0})
+  const Mass.constant(Number valueSI, {MassUnits units, double uncert: 0.0})
       : super.constant(valueSI, Mass.massDimensions, units, uncert);
 
   /// Returns the [Energy] equivalent of this Mass using the famous E=mc^2 relationship.

@@ -25,15 +25,15 @@ class DoseEquivalent extends Quantity {
       : super(Sv != null ? Sv : (rems != null ? rems : 0.0),
             rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts, uncert);
 
-  DoseEquivalent._internal(conv) : super._internal(conv, DoseEquivalent.doseEquivalentDimensions);
+  DoseEquivalent._internal(dynamic conv) : super._internal(conv, DoseEquivalent.doseEquivalentDimensions);
 
   /// Constructs a DoseEquivalent based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  DoseEquivalent.inUnits(value, DoseEquivalentUnits units, [double uncert = 0.0])
+  DoseEquivalent.inUnits(dynamic value, DoseEquivalentUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : DoseEquivalent.seiverts, uncert);
 
-  const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits  units, double uncert: 0.0})
+  const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits units, double uncert: 0.0})
       : super.constant(valueSI, DoseEquivalent.doseEquivalentDimensions, units, uncert);
 }
 

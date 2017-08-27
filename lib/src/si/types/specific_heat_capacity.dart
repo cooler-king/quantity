@@ -23,15 +23,16 @@ class SpecificHeatCapacity extends Quantity {
   SpecificHeatCapacity({dynamic J_per_kgK, double uncert: 0.0})
       : super(J_per_kgK ?? 0.0, SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
-  SpecificHeatCapacity._internal(conv) : super._internal(conv, SpecificHeatCapacity.specificHeatCapacityDimensions);
+  SpecificHeatCapacity._internal(dynamic conv)
+      : super._internal(conv, SpecificHeatCapacity.specificHeatCapacityDimensions);
 
   /// Constructs a SpecificHeatCapacity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  SpecificHeatCapacity.inUnits(value, SpecificHeatCapacityUnits units, [double uncert = 0.0])
+  SpecificHeatCapacity.inUnits(dynamic value, SpecificHeatCapacityUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
-  const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits  units, double uncert: 0.0})
+  const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits units, double uncert: 0.0})
       : super.constant(valueSI, SpecificHeatCapacity.specificHeatCapacityDimensions, units, uncert);
 }
 

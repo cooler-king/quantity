@@ -7,9 +7,9 @@ abstract class Real extends Number {
 
   Real();
 
-  //factory Real.fromMap(Map<String, dynamic> map) {
-  //  if (map == null) return Integer.zero;
-  //}
+  factory Real.fromMap(Map<String, dynamic> m) {
+    return m?.containsKey("d") || m?.containsKey("i") ?? false ? new Number.fromMap(m) as Real : Integer.zero;
+  }
 
   /// All Real subclasses must be able to provide their value as a [dart:core] [num].
   num get value;
@@ -30,13 +30,12 @@ abstract class Real extends Number {
   @override
   Real operator -();
 
-
   /// Addition operator.
   ///
   /// [addend] is expected to be a `num` or `Number`.  If it is not it is assumed to be 0.
   ///
   @override
-  Number operator +(addend) {
+  Number operator +(dynamic addend) {
     if (addend is num) return new Double((value + addend).toDouble());
     if (addend is Precise) return addend + this;
     if (addend is Real) return new Double((value + addend.value).toDouble());
@@ -46,7 +45,7 @@ abstract class Real extends Number {
   }
 
   @override
-  Number operator -(subtrahend) {
+  Number operator -(dynamic subtrahend) {
     if (subtrahend is num) return new Double((value - subtrahend).toDouble());
     if (subtrahend is Precise) return (-subtrahend) + this;
     if (subtrahend is Real) return new Double((value - subtrahend.value).toDouble());
@@ -74,7 +73,7 @@ abstract class Real extends Number {
   }
 
   @override
-  Number operator /(divisor) {
+  Number operator /(dynamic divisor) {
     if (divisor is num) return new Double(value / divisor);
     if (divisor is Precise) return (new Precise.num(this.value)) / divisor;
     if (divisor is Real) return new Double(value / divisor.value);
@@ -96,7 +95,7 @@ abstract class Real extends Number {
   /// The imaginary component is *not* truncated; only the real portion of the result is truncated.
   ///
   @override
-  Number operator ~/(divisor) {
+  Number operator ~/(dynamic divisor) {
     if (divisor == 0) return Double.infinity;
     if (divisor is num) return new Integer(value ~/ divisor);
     if (divisor is Precise) return (new Precise.num(this.value) / divisor).truncate();
@@ -119,7 +118,7 @@ abstract class Real extends Number {
   /// When dividing by an [Imaginary] or [Complex] number...
   ///
   @override
-  Number operator %(divisor) {
+  Number operator %(dynamic divisor) {
     if (divisor is num) return new Double((value % divisor).toDouble());
     if (divisor is Real) return new Double((value % divisor.value).toDouble());
     if (divisor is Complex) {
@@ -184,13 +183,13 @@ abstract class Real extends Number {
   }
 
   @override
-  bool operator >=(obj) => (this == obj) ? true : this > obj;
+  bool operator >=(dynamic obj) => (this == obj) ? true : this > obj;
 
   @override
-  bool operator <(obj) => !(this >= obj);
+  bool operator <(dynamic obj) => !(this >= obj);
 
   @override
-  bool operator <=(obj) => !(this > obj);
+  bool operator <=(dynamic obj) => !(this > obj);
 
   @override
   Number abs() =>

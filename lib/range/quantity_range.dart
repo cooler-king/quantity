@@ -17,8 +17,8 @@ class QuantityRange<Q extends Quantity> {
   Q _span;
 
   QuantityRange(this.q1, this.q2) {
-    if (q1 is! Quantity ||
-        q2 is! Quantity) throw new QuantityException("QuantityRange endpoints must be Quantity objects");
+    if (q1 is! Quantity || q2 is! Quantity)
+      throw new QuantityException("QuantityRange endpoints must be Quantity objects");
   }
 
   // The minimum value in this range

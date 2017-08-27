@@ -21,15 +21,15 @@ class Luminance extends Quantity {
   Luminance({dynamic cd_per_m2, double uncert: 0.0})
       : super(cd_per_m2 ?? 0.0, Luminance.candelasPerSquareMeter, uncert);
 
-  Luminance._internal(conv) : super._internal(conv, Luminance.luminanceDimensions);
+  Luminance._internal(dynamic conv) : super._internal(conv, Luminance.luminanceDimensions);
 
   /// Constructs a Luminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Luminance.inUnits(value, LuminanceUnits units, [double uncert = 0.0])
+  Luminance.inUnits(dynamic value, LuminanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Luminance.candelasPerSquareMeter, uncert);
 
-  const Luminance.constant(Number valueSI, {LuminanceUnits  units, double uncert: 0.0})
+  const Luminance.constant(Number valueSI, {LuminanceUnits units, double uncert: 0.0})
       : super.constant(valueSI, Luminance.luminanceDimensions, units, uncert);
 }
 

@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:test/test.dart';
 import 'package:quantity/domain/universal.dart';
 
-main() {
+void main() {
   group('Universal', () {
     test('constants', () {
       expect(characteristicImpedanceOfVacuum is Resistance, true);

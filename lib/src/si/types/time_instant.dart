@@ -161,12 +161,12 @@ class TimeInstant extends Quantity {
   TimeInstant({dynamic TAI, dynamic UTC, double uncert: 0.0})
       : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
 
-  TimeInstant._internal(conv) : super._internal(conv, TimeInstant.timeInstantDimensions);
+  TimeInstant._internal(dynamic conv) : super._internal(conv, TimeInstant.timeInstantDimensions);
 
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  TimeInstant.inUnits(value, TimeInstantUnits units, [double uncert = 0.0])
+  TimeInstant.inUnits(dynamic value, TimeInstantUnits units, [double uncert = 0.0])
       : super(value, units ?? TimeInstant.TAI, uncert);
 
   /// Constructs a constant TimeInstant object.
@@ -276,9 +276,9 @@ class TimeInstantUnits extends TimeInstant with Units {
   /// (that is implicitly in these units).
   ///
   @override
-  Number toMks(value) {
+  Number toMks(dynamic value) {
     if (_toMks != null) {
-      return Function.apply(_toMks, [value]) as Number;
+      return Function.apply(_toMks, <dynamic>[value]) as Number;
     } else {
       return super.toMks(value);
     }
@@ -288,9 +288,9 @@ class TimeInstantUnits extends TimeInstant with Units {
   /// object of [mks] (that is expected to be in SI-MKS units).
   ///
   @override
-  Number fromMks(mks) {
+  Number fromMks(dynamic mks) {
     if (_fromMks != null) {
-      return Function.apply(_fromMks, [mks]) as Number;
+      return Function.apply(_fromMks, <dynamic>[mks]) as Number;
     } else {
       return super.fromMks(mks);
     }

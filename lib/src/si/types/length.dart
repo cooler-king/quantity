@@ -47,14 +47,15 @@ class Length extends Quantity {
                     : (ua != null ? Length.astronomicalUnits : (NM != null ? Length.nauticalMiles : Length.meters))),
             uncert);
 
-  Length._internal(conv) : super._internal(conv, Length.lengthDimensions);
+  Length._internal(dynamic conv) : super._internal(conv, Length.lengthDimensions);
 
   /// Constructs a Length based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Length.inUnits(value, LengthUnits units, [double uncert = 0.0]) : super(value, units ?? Length.meters, uncert);
+  Length.inUnits(dynamic value, LengthUnits units, [double uncert = 0.0])
+      : super(value, units ?? Length.meters, uncert);
 
-  const Length.constant(Number valueSI, {LengthUnits  units, double uncert: 0.0})
+  const Length.constant(Number valueSI, {LengthUnits units, double uncert: 0.0})
       : super.constant(valueSI, Length.lengthDimensions, units, uncert);
 }
 

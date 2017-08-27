@@ -27,14 +27,14 @@ class Power extends Quantity {
       : super(W ?? (kW ?? (MW ?? 0.0)), kW != null ? Power.kilowatts : (MW != null ? Power.megawatts : Power.watts),
             uncert);
 
-  Power._internal(conv) : super._internal(conv, Power.powerDimensions);
+  Power._internal(dynamic conv) : super._internal(conv, Power.powerDimensions);
 
   /// Constructs a Power based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Power.inUnits(value, PowerUnits units, [double uncert = 0.0]) : super(value, units ?? Power.watts, uncert);
+  Power.inUnits(dynamic value, PowerUnits units, [double uncert = 0.0]) : super(value, units ?? Power.watts, uncert);
 
-  const Power.constant(Number valueSI, {PowerUnits  units, double uncert: 0.0})
+  const Power.constant(Number valueSI, {PowerUnits units, double uncert: 0.0})
       : super.constant(valueSI, Power.powerDimensions, units, uncert);
 }
 
@@ -81,6 +81,6 @@ class PowerUnits extends Power with Units {
 }
 
 class RadiantFlux extends Power {
-  const RadiantFlux.constant(Number valueSI, {PowerUnits  units, double uncert: 0.0})
+  const RadiantFlux.constant(Number valueSI, {PowerUnits units, double uncert: 0.0})
       : super.constant(valueSI, units: units, uncert: uncert);
 }

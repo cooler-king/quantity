@@ -84,15 +84,15 @@ class Information extends Quantity {
   Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert: 0.0})
       : super(bits ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0)))), Information.bits, uncert);
 
-  Information._internal(conv) : super._internal(conv, Information.informationDimensions);
+  Information._internal(dynamic conv) : super._internal(conv, Information.informationDimensions);
 
   /// Constructs a Information based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Information.inUnits(value, InformationUnits units, [double uncert = 0.0])
+  Information.inUnits(dynamic value, InformationUnits units, [double uncert = 0.0])
       : super(value, units ?? Information.bits, uncert);
 
-  const Information.constant(Number valueSI, {InformationUnits  units, double uncert: 0.0})
+  const Information.constant(Number valueSI, {InformationUnits units, double uncert: 0.0})
       : super.constant(valueSI, Information.informationDimensions, units, uncert);
 }
 

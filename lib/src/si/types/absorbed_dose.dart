@@ -25,12 +25,12 @@ class AbsorbedDose extends Quantity {
   AbsorbedDose({dynamic Gy, dynamic rads, double uncert: 0.0})
       : super(Gy ?? (rads ?? 0.0), rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert);
 
-  AbsorbedDose._internal(conv) : super._internal(conv, AbsorbedDose.absorbedDoseDimensions);
+  AbsorbedDose._internal(dynamic conv) : super._internal(conv, AbsorbedDose.absorbedDoseDimensions);
 
   /// Constructs an AbsorbedDose based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  AbsorbedDose.inUnits(value, AbsorbedDoseUnits units, [double uncert = 0.0])
+  AbsorbedDose.inUnits(dynamic value, AbsorbedDoseUnits units, [double uncert = 0.0])
       : super(value, units ?? AbsorbedDose.grays, uncert);
 
   const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits units, double uncert: 0.0})

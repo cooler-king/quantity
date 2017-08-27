@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:quantity/domain/thermodynamic.dart';
 
-main() {
+void main() {
   group('Thermodynamic', () {
     test('units', () {
       expect(unifiedAtomicMassUnits is MassUnits, true);

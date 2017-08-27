@@ -21,12 +21,12 @@ class VolumeFlowRate extends Quantity {
   VolumeFlowRate({dynamic m3_per_s, double uncert: 0.0})
       : super(m3_per_s ?? 0.0, VolumeFlowRate.cubicMetersPerSecond, uncert);
 
-  VolumeFlowRate._internal(conv) : super._internal(conv, VolumeFlowRate.volumeFlowRateDimensions);
+  VolumeFlowRate._internal(dynamic conv) : super._internal(conv, VolumeFlowRate.volumeFlowRateDimensions);
 
   /// Constructs a VolumeFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  VolumeFlowRate.inUnits(value, VolumeFlowRateUnits units, [double uncert = 0.0])
+  VolumeFlowRate.inUnits(dynamic value, VolumeFlowRateUnits units, [double uncert = 0.0])
       : super(value, units ?? VolumeFlowRate.cubicMetersPerSecond, uncert);
 
   const VolumeFlowRate.constant(Number valueSI, {VolumeFlowRateUnits units, double uncert: 0.0})

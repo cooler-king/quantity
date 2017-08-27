@@ -26,12 +26,12 @@ class Temperature extends Quantity {
   Temperature({dynamic K, dynamic C, double uncert: 0.0})
       : super(K ?? (C ?? 0.0), C != null ? Temperature.degreesCelsius : Temperature.kelvins, uncert);
 
-  Temperature._internal(conv) : super._internal(conv, Temperature.temperatureDimensions);
+  Temperature._internal(dynamic conv) : super._internal(conv, Temperature.temperatureDimensions);
 
   /// Constructs a Temperature based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Temperature.inUnits(value, TemperatureUnits units, [double uncert = 0.0])
+  Temperature.inUnits(dynamic value, TemperatureUnits units, [double uncert = 0.0])
       : super(value, units ?? Temperature.kelvins, uncert);
 
   const Temperature.constant(Number valueSI, {TemperatureUnits units, double uncert: 0.0})
@@ -56,7 +56,7 @@ class Temperature extends Quantity {
   /// * Subtracting a `TemperatureInterval` returns a [Temperature] object.
   ///
   @override
-  operator -(subtrahend) {
+  operator -(dynamic subtrahend) {
     if (subtrahend is TemperatureInterval) {
       var newValueSI = valueSI - subtrahend.valueSI;
       var ur = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);

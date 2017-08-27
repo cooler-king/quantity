@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 
-main() {
+void main() {
   group('Dimensions', () {
     test('base dimensions', () {
       expect(Dimensions.baseLengthKey, "Length");

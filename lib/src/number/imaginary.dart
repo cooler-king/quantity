@@ -15,6 +15,12 @@ class Imaginary extends Number {
 
   const Imaginary.constant(this.value) : super.constant();
 
+  factory Imaginary.fromMap(Map<String, Map> m) {
+    return (m?.containsKey("imag") ?? false)
+        ? new Imaginary.fromMap(m["imag"] as Map<String, Map>)
+        : new Imaginary.constant(Integer.zero);
+  }
+
   double toDouble() => 0.0;
   int toInt() => 0;
   Complex toComplex() => new Complex(Double.zero, this);
@@ -25,11 +31,8 @@ class Imaginary extends Number {
 
   bool get isInteger => value.isInteger;
 
-  Imaginary.fromMap(Map<String, dynamic> m)
-      : this.value = (m.containsKey("imag")) ? Number._fromMap(m["imag"] as Map<String, dynamic>) as Real : Double.zero;
-
   @override
-  bool operator ==(obj) {
+  bool operator ==(dynamic obj) {
     if (obj is Imaginary) return value == obj.value;
     if (obj is Complex) return obj.real == 0.0 && this == obj.imaginary;
     if (obj is Real || obj is num) return value == 0.0 && obj == 0.0;

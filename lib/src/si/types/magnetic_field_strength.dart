@@ -21,15 +21,16 @@ class MagneticFieldStrength extends Quantity {
   MagneticFieldStrength({dynamic A_per_m, double uncert: 0.0})
       : super(A_per_m ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
-  MagneticFieldStrength._internal(conv) : super._internal(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
+  MagneticFieldStrength._internal(dynamic conv)
+      : super._internal(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  MagneticFieldStrength.inUnits(value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
+  MagneticFieldStrength.inUnits(dynamic value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
       : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
 
-  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits  units, double uncert: 0.0})
+  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, double uncert: 0.0})
       : super.constant(valueSI, MagneticFieldStrength.magneticFieldStrengthDimensions, units, uncert);
 }
 

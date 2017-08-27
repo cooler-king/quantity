@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('Quantity Library', () {
     test('createTypedQuantityInstance', () {
       Quantity q = createTypedQuantityInstance(Length, 5.6, Length.meters);

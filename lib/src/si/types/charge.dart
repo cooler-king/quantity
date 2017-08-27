@@ -20,14 +20,15 @@ class Charge extends Quantity {
   ///
   Charge({dynamic C, double uncert: 0.0}) : super(C ?? 0.0, Charge.coulombs, uncert);
 
-  Charge._internal(conv) : super._internal(conv, Charge.electricChargeDimensions);
+  Charge._internal(dynamic conv) : super._internal(conv, Charge.electricChargeDimensions);
 
   /// Constructs a Charge based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Charge.inUnits(value, ChargeUnits units, [double uncert = 0.0]) : super(value, units ?? Charge.coulombs, uncert);
+  Charge.inUnits(dynamic value, ChargeUnits units, [double uncert = 0.0])
+      : super(value, units ?? Charge.coulombs, uncert);
 
-  const Charge.constant(Number valueSI, {ChargeUnits  units, double uncert: 0.0})
+  const Charge.constant(Number valueSI, {ChargeUnits units, double uncert: 0.0})
       : super.constant(valueSI, Charge.electricChargeDimensions, units, uncert);
 }
 

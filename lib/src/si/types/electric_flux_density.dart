@@ -22,15 +22,16 @@ class ElectricFluxDensity extends Quantity {
   ElectricFluxDensity({dynamic C_per_m2, double uncert: 0.0})
       : super(C_per_m2 ?? 0.0, ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
-  ElectricFluxDensity._internal(conv) : super._internal(conv, ElectricFluxDensity.electricFluxDensityDimensions);
+  ElectricFluxDensity._internal(dynamic conv)
+      : super._internal(conv, ElectricFluxDensity.electricFluxDensityDimensions);
 
   /// Constructs a ElectricFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  ElectricFluxDensity.inUnits(value, ElectricFluxDensityUnits units, [double uncert = 0.0])
+  ElectricFluxDensity.inUnits(dynamic value, ElectricFluxDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
-  const ElectricFluxDensity.constant(Number valueSI, {ElectricFluxDensityUnits  units, double uncert: 0.0})
+  const ElectricFluxDensity.constant(Number valueSI, {ElectricFluxDensityUnits units, double uncert: 0.0})
       : super.constant(valueSI, ElectricFluxDensity.electricFluxDensityDimensions, units, uncert);
 }
 

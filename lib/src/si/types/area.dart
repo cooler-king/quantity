@@ -33,14 +33,15 @@ class Area extends Quantity {
       : super(m2 ?? (ha ?? (b ?? 0.0)), ha != null ? Area.hectares : (b != null ? Area.barns : Area.squareMeters),
             uncert);
 
-  Area._internal(conv) : super._internal(conv, Area.areaDimensions);
+  Area._internal(dynamic conv) : super._internal(conv, Area.areaDimensions);
 
   /// Constructs a Area based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Area.inUnits(value, AreaUnits units, [double uncert = 0.0]) : super(value, units ?? Area.squareMeters, uncert);
+  Area.inUnits(dynamic value, AreaUnits units, [double uncert = 0.0])
+      : super(value, units ?? Area.squareMeters, uncert);
 
-  const Area.constant(Number valueSI, {AreaUnits  units, double uncert: 0.0})
+  const Area.constant(Number valueSI, {AreaUnits units, double uncert: 0.0})
       : super.constant(valueSI, Area.areaDimensions, units, uncert);
 
   Area.fromLengths(Length l1, Length l2)

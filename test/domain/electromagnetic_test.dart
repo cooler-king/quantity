@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:test/test.dart';
 import 'package:quantity/domain/electromagnetic.dart';
 
-main() {
+void main() {
   group('Electromagnetic', () {
     test('constants', () {
       expect(elementaryCharge is Charge, true);

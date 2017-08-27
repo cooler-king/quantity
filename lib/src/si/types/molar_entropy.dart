@@ -24,15 +24,15 @@ class MolarEntropy extends Quantity {
   MolarEntropy({dynamic J_per_molK, double uncert: 0.0})
       : super(J_per_molK ?? 0.0, MolarEntropy.joulesPerMoleKelvin, uncert);
 
-  MolarEntropy._internal(conv) : super._internal(conv, MolarEntropy.molarEntropyDimensions);
+  MolarEntropy._internal(dynamic conv) : super._internal(conv, MolarEntropy.molarEntropyDimensions);
 
   /// Constructs a MolarEntropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  MolarEntropy.inUnits(value, MolarEntropyUnits units, [double uncert = 0.0])
+  MolarEntropy.inUnits(dynamic value, MolarEntropyUnits units, [double uncert = 0.0])
       : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert);
 
-  const MolarEntropy.constant(Number valueSI, {MolarEntropyUnits  units, double uncert: 0.0})
+  const MolarEntropy.constant(Number valueSI, {MolarEntropyUnits units, double uncert: 0.0})
       : super.constant(valueSI, MolarEntropy.molarEntropyDimensions, units, uncert);
 }
 

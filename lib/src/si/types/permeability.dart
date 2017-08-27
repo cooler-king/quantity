@@ -26,15 +26,15 @@ class Permeability extends Quantity {
       : super(H_per_m ?? (N_per_A2 ?? 0.0),
             N_per_A2 != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter, uncert);
 
-  Permeability._internal(conv) : super._internal(conv, Permeability.permeabilityDimensions);
+  Permeability._internal(dynamic conv) : super._internal(conv, Permeability.permeabilityDimensions);
 
   /// Constructs a Permeability based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Permeability.inUnits(value, PermeabilityUnits units, [double uncert = 0.0])
+  Permeability.inUnits(dynamic value, PermeabilityUnits units, [double uncert = 0.0])
       : super(value, units ?? Permeability.henriesPerMeter, uncert);
 
-  const Permeability.constant(Number valueSI, {PermeabilityUnits  units, double uncert: 0.0})
+  const Permeability.constant(Number valueSI, {PermeabilityUnits units, double uncert: 0.0})
       : super.constant(valueSI, Permeability.permeabilityDimensions, units, uncert);
 }
 

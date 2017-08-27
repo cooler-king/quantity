@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:quantity/domain/astronomical.dart';
 
-main() {
+void main() {
   group('Astronomical', () {
     test('units', () {
       expect(gees is AccelerationUnits, true);

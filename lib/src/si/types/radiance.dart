@@ -22,15 +22,15 @@ class Radiance extends Quantity {
   Radiance({dynamic W_per_m2sr, double uncert: 0.0})
       : super(W_per_m2sr ?? 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
 
-  Radiance._internal(conv) : super._internal(conv, Radiance.radianceDimensions);
+  Radiance._internal(dynamic conv) : super._internal(conv, Radiance.radianceDimensions);
 
   /// Constructs a Radiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Radiance.inUnits(value, RadianceUnits units, [double uncert = 0.0])
+  Radiance.inUnits(dynamic value, RadianceUnits units, [double uncert = 0.0])
       : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert);
 
-  const Radiance.constant(Number valueSI, {RadianceUnits  units, double uncert: 0.0})
+  const Radiance.constant(Number valueSI, {RadianceUnits units, double uncert: 0.0})
       : super.constant(valueSI, Radiance.radianceDimensions, units, uncert);
 }
 

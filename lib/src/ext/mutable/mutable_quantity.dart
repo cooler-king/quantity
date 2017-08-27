@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// Create a [MutableQuantity] with the same value, dimensions and uncertainty as [q].
 MutableQuantity toMutable(Quantity q) => new MutableQuantity()..setEqualTo(q);
 
 /// _MutableQuantity is a work in progress._
@@ -18,7 +19,7 @@ class MutableQuantity implements Quantity {
   Number get valueSI => _valueSI;
   void set valueSI(value) {
     if (!mutable) throw new ImmutableQuantityException(q: this);
-    valueSI = objToNumber(value);
+    _valueSI = objToNumber(value);
     //TODO event
   }
 
@@ -242,7 +243,7 @@ class MutableQuantity implements Quantity {
 
   Quantity randomSample() => snapshot.randomSample();
 
-  Map toJson() => snapshot.toJson();
+  Map<String, dynamic> toJson() => snapshot.toJson();
 
   Number valueInUnits(Units units) => snapshot.valueInUnits(units);
 
@@ -254,13 +255,13 @@ class MutableQuantity implements Quantity {
     return this;
   }
 
-  Quantity operator +(addend) => snapshot + addend;
+  Quantity operator +(dynamic addend) => snapshot + addend;
 
-  Quantity operator -(subtrahend) => snapshot - subtrahend;
+  Quantity operator -(dynamic subtrahend) => snapshot - subtrahend;
 
-  Quantity operator *(multiplier) => snapshot * multiplier;
+  Quantity operator *(dynamic multiplier) => snapshot * multiplier;
 
-  Quantity operator /(divisor) => snapshot / divisor;
+  Quantity operator /(dynamic divisor) => snapshot / divisor;
 
   bool operator <(Quantity other) => snapshot.compareTo(other) < 0;
 
@@ -270,5 +271,24 @@ class MutableQuantity implements Quantity {
 
   bool operator >=(Quantity other) => snapshot.compareTo(other) >= 0;
 
-  Quantity operator ^(exp) => snapshot ^ exp;
+  Quantity operator ^(dynamic exp) => snapshot ^ exp;
+
+  /// Whether or not this Quantity has scalar dimensions, including having no angle or
+  /// solid angle dimensions.
+  ///
+  /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
+  /// International System of Units (SI) sense, which allows non-zero angular and
+  /// solid angular dimensions.
+  ///
+  bool get isScalar => dimensions.isScalar;
+
+  /// Whether or not this Quantity has scalar dimensions in the strict
+  /// International System of Units (SI) sense, which allows non-zero angle and
+  /// solid angle dimensions.
+  ///
+  /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
+  /// International System of Units sense, which allows non-zero angular and
+  /// solid angular dimensions.
+  ///
+  bool get isScalarSI => dimensions.isScalarSI;
 }

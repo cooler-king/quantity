@@ -22,12 +22,13 @@ class ThermalConductivity extends Quantity {
   ThermalConductivity({dynamic W_per_mK, double uncert: 0.0})
       : super(W_per_mK ?? 0.0, ThermalConductivity.wattsPerMeterKelvin, uncert);
 
-  ThermalConductivity._internal(conv) : super._internal(conv, ThermalConductivity.thermalConductivityDimensions);
+  ThermalConductivity._internal(dynamic conv)
+      : super._internal(conv, ThermalConductivity.thermalConductivityDimensions);
 
   /// Constructs a ThermalConductivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  ThermalConductivity.inUnits(value, ThermalConductivityUnits units, [double uncert = 0.0])
+  ThermalConductivity.inUnits(dynamic value, ThermalConductivityUnits units, [double uncert = 0.0])
       : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert);
 
   const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits units, double uncert: 0.0})

@@ -17,6 +17,17 @@ class Integer extends Real {
   const Integer.constant(this._value) : super.constant();
   Integer.parse(String str, {int radix: 10}) : _value = int.parse(str, radix: radix);
 
+  /// Construct an Integer from a Map:
+  ///     { "i": integer value }
+  ///
+  /// If the map contents are not recognized, [Integer.zero] is returned.
+  factory Integer.fromMap(Map<String, int> m) {
+    if (m?.containsKey("i") ?? false) {
+      return new Integer(m["i"]);
+    }
+    return Integer.zero;
+  }
+
   @override
   int get value => _value;
 
@@ -33,7 +44,7 @@ class Integer extends Real {
   /// integer value (and no imagainary component) are considered
   /// equal.
   ///
-  bool operator ==(obj) {
+  bool operator ==(dynamic obj) {
     if (obj is Number || obj is num) return obj == value;
     if (obj is Complex) return obj.real == value && obj.imaginary == 0.0;
     if (obj is Imaginary) return value == 0.0 && obj == 0.0;
@@ -49,7 +60,7 @@ class Integer extends Real {
   bool get isInteger => true;
 
   @override
-  Number operator +(addend) {
+  Number operator +(dynamic addend) {
     if (addend is int) return new Integer(addend + value);
     if (addend is Integer) return new Integer(addend.value + value);
     return super + addend;
@@ -61,14 +72,14 @@ class Integer extends Real {
   Integer operator -() => new Integer(-value);
 
   @override
-  Number operator -(subtrahend) {
+  Number operator -(dynamic subtrahend) {
     if (subtrahend is int) return new Integer(value - subtrahend);
     if (subtrahend is Integer) return new Integer(value - subtrahend.value);
     return super - subtrahend;
   }
 
   @override
-  Number operator *(multiplier) {
+  Number operator *(dynamic multiplier) {
     if (multiplier is int) return new Integer(multiplier * value);
     if (multiplier is Integer) return new Integer(multiplier.value * value);
     return super * multiplier;
@@ -76,7 +87,7 @@ class Integer extends Real {
 
   /// The modulo operator.
   ///
-  Number operator %(divisor) {
+  Number operator %(dynamic divisor) {
     if (divisor is int) return new Integer(_value % divisor);
     if (divisor is Integer) return new Integer(_value % divisor._value);
     return super % divisor;
@@ -86,7 +97,7 @@ class Integer extends Real {
 
   /// Bitwise AND.
   ///
-  Number operator &(n) {
+  Number operator &(dynamic n) {
     if (n is int) return new Integer(_value & n);
     if (n is Integer) return new Integer(_value & n._value);
     throw new UnsupportedError("Bitwise AND operations are only supported for int and Integer objects");
@@ -94,7 +105,7 @@ class Integer extends Real {
 
   /// Bitwise OR.
   ///
-  Number operator |(n) {
+  Number operator |(dynamic n) {
     if (n is int) return new Integer(_value | n);
     if (n is Integer) return new Integer(_value | n._value);
     throw new UnsupportedError("Bitwise OR operations are only supported for int and Integer objects");
@@ -104,7 +115,7 @@ class Integer extends Real {
   ///
   /// The caret operator is overridden to provide a power operator for all numbers.
   ///
-  Integer bitwiseXor(n) {
+  Integer bitwiseXor(dynamic n) {
     if (n is int) return new Integer(_value ^ n);
     if (n is Integer) return new Integer(_value ^ n._value);
     throw new UnsupportedError("Bitwise XOR operations are only supported for int and Integer objects");
@@ -121,7 +132,7 @@ class Integer extends Real {
   Number ceil() => this;
 
   @override
-  Number clamp(lowerLimit, upperLimit) {
+  Number clamp(dynamic lowerLimit, dynamic upperLimit) {
     num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
     num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
     return new Integer(value?.clamp(lower, upper)?.toInt() ?? lower.toInt());
@@ -138,8 +149,8 @@ class Integer extends Real {
   /// Map Contents:
   ///     "i" : int value
   ///
-  Map toJson() {
-    return {"i": value};
+  Map<String, int> toJson() {
+    return <String, int>{"i": value};
   }
 }
 

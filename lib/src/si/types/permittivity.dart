@@ -20,15 +20,15 @@ class Permittivity extends Quantity {
   ///
   Permittivity({dynamic F_per_m, double uncert: 0.0}) : super(F_per_m ?? 0.0, Permittivity.faradsPerMeter, uncert);
 
-  Permittivity._internal(conv) : super._internal(conv, Permittivity.permittivityDimensions);
+  Permittivity._internal(dynamic conv) : super._internal(conv, Permittivity.permittivityDimensions);
 
   /// Constructs a Permittivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Permittivity.inUnits(value, PermittivityUnits units, [double uncert = 0.0])
+  Permittivity.inUnits(dynamic value, PermittivityUnits units, [double uncert = 0.0])
       : super(value, units ?? Permittivity.faradsPerMeter, uncert);
 
-  const Permittivity.constant(Number valueSI, {PermittivityUnits  units, double uncert: 0.0})
+  const Permittivity.constant(Number valueSI, {PermittivityUnits units, double uncert: 0.0})
       : super.constant(valueSI, Permittivity.permittivityDimensions, units, uncert);
 }
 

@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('hashCodes', () {
     test('int and Integer', () {
       var d = const Integer.constant(42);

@@ -21,15 +21,15 @@ class Acceleration extends Quantity {
   Acceleration({dynamic m_per_s2, double uncert: 0.0})
       : super(m_per_s2 ?? 0.0, Acceleration.metersPerSecondSquared, uncert);
 
-  Acceleration._internal(conv) : super._internal(conv, Acceleration.accelerationDimensions);
+  Acceleration._internal(dynamic conv) : super._internal(conv, Acceleration.accelerationDimensions);
 
   /// Constructs a Acceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Acceleration.inUnits(value, AccelerationUnits units, [double uncert = 0.0])
+  Acceleration.inUnits(dynamic value, AccelerationUnits units, [double uncert = 0.0])
       : super(value, units ?? Acceleration.metersPerSecondSquared, uncert);
 
-  const Acceleration.constant(Number valueSI, {AccelerationUnits  units, double uncert: 0.0})
+  const Acceleration.constant(Number valueSI, {AccelerationUnits units, double uncert: 0.0})
       : super.constant(valueSI, Acceleration.accelerationDimensions, units, uncert);
 }
 

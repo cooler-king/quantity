@@ -19,14 +19,14 @@ class Force extends Quantity {
   ///
   Force({dynamic N, double uncert: 0.0}) : super(N ?? 0.0, Force.newtons, uncert);
 
-  Force._internal(conv) : super._internal(conv, Force.forceDimensions);
+  Force._internal(dynamic conv) : super._internal(conv, Force.forceDimensions);
 
   /// Constructs a Force based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Force.inUnits(value, ForceUnits units, [double uncert = 0.0]) : super(value, units ?? Force.newtons, uncert);
+  Force.inUnits(dynamic value, ForceUnits units, [double uncert = 0.0]) : super(value, units ?? Force.newtons, uncert);
 
-  const Force.constant(Number valueSI, {ForceUnits  units, double uncert: 0.0})
+  const Force.constant(Number valueSI, {ForceUnits units, double uncert: 0.0})
       : super.constant(valueSI, Force.forceDimensions, units, uncert);
 
   Force.ma(Mass m, Acceleration a)

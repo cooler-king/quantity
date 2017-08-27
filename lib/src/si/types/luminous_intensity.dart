@@ -21,15 +21,15 @@ class LuminousIntensity extends Quantity {
   ///
   LuminousIntensity({dynamic cd, double uncert: 0.0}) : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
 
-  LuminousIntensity._internal(conv) : super._internal(conv, LuminousIntensity.luminousIntensityDimensions);
+  LuminousIntensity._internal(dynamic conv) : super._internal(conv, LuminousIntensity.luminousIntensityDimensions);
 
   /// Constructs a LuminousIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  LuminousIntensity.inUnits(value, LuminousIntensityUnits units, [double uncert = 0.0])
+  LuminousIntensity.inUnits(dynamic value, LuminousIntensityUnits units, [double uncert = 0.0])
       : super(value, units ?? LuminousIntensity.candelas, uncert);
 
-  const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits  units, double uncert: 0.0})
+  const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits units, double uncert: 0.0})
       : super.constant(valueSI, LuminousIntensity.luminousIntensityDimensions, units, uncert);
 }
 

@@ -19,6 +19,17 @@ class Double extends Real {
   const Double.constant(this._value) : super.constant();
   Double.fromInt(int val) : _value = val.toDouble();
 
+  /// Construct an Double from a Map:
+  ///     { "d": integer value }
+  ///
+  /// If the map contents are not recognized, [Double.zero] is returned.
+  factory Double.fromMap(Map<String, num> m) {
+    if (m?.containsKey("d") ?? false) {
+      return new Double(m["d"]?.toDouble() ?? 0.0);
+    }
+    return Double.zero;
+  }
+
   @override
   double get value => _value;
 
@@ -37,7 +48,7 @@ class Double extends Real {
     return (new Precise.num(_value)).hashCode;
   }
 
-  bool operator ==(obj) {
+  bool operator ==(dynamic obj) {
     if (obj == double.NAN) return value == double.NAN;
     if (obj is Real || obj is num) return obj == value;
     if (obj is Imaginary) return value == 0.0 && obj.value == 0.0;
@@ -50,7 +61,7 @@ class Double extends Real {
   Double operator -() => new Double(-value);
 
   @override
-  Number clamp(lowerLimit, upperLimit) {
+  Number clamp(dynamic lowerLimit, dynamic upperLimit) {
     num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
     num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
     return new Double(value?.clamp(lower, upper)?.toDouble() ?? 0.0);
@@ -69,6 +80,6 @@ class Double extends Real {
   ///     "d" : double value
   ///
   Map<String, dynamic> toJson() {
-    return {"d": value};
+    return <String, dynamic>{"d": value};
   }
 }

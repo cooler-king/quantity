@@ -24,16 +24,17 @@ class ElectricPotentialDifference extends Quantity {
   ElectricPotentialDifference({dynamic V, double uncert: 0.0})
       : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
 
-  ElectricPotentialDifference._internal(conv)
+  ElectricPotentialDifference._internal(dynamic conv)
       : super._internal(conv, ElectricPotentialDifference.electricPotentialDifferenceDimensions);
 
   /// Constructs a ElectricPotentialDifference based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  ElectricPotentialDifference.inUnits(value, ElectricPotentialDifferenceUnits units, [double uncert = 0.0])
+  ElectricPotentialDifference.inUnits(dynamic value, ElectricPotentialDifferenceUnits units, [double uncert = 0.0])
       : super(value, units ?? ElectricPotentialDifference.volts, uncert);
 
-  const ElectricPotentialDifference.constant(Number valueSI, {ElectricPotentialDifferenceUnits  units, double uncert: 0.0})
+  const ElectricPotentialDifference.constant(Number valueSI,
+      {ElectricPotentialDifferenceUnits units, double uncert: 0.0})
       : super.constant(valueSI, ElectricPotentialDifference.electricPotentialDifferenceDimensions, units, uncert);
 }
 

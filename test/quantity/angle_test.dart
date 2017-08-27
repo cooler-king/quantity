@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('Angle', () {
     test('constructors', () {
       // Default ctor: rad 0

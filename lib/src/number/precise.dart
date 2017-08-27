@@ -8,8 +8,9 @@ part of number;
 /// where those errors can be significant.
 ///
 /// This class enables arbitrary precision calculations in both Dart and when transpiled to JavaScript by
-/// representing numbers as digits that stay within the limitations of the underlying number.  In JavaScript
-/// the maximum value of a number, because they are 64-bit floating
+/// representing numbers as digits that stay within the limitations of the underlying number system.
+///
+/// In JavaScript the maximum value of a number, because they are 64-bit floating
 /// point values, is 2^53, or 9007199254740992, and the maximum number of significant digits as a result is 16.
 ///
 class Precise extends Real {
@@ -64,7 +65,7 @@ class Precise extends Real {
           decimalPoint = true;
           continue;
         } else {
-          throw "Precise cannot parse string with multiple decimal points";
+          throw "Precise cannot parse a string with multiple decimal points";
         }
       }
 
@@ -79,6 +80,10 @@ class Precise extends Real {
 
   factory Precise.num(num value, {int sigDigits: 50}) =>
       value != null ? new Precise(value.toString(), sigDigits: sigDigits) : Precise.zero;
+
+  factory Precise.fromMap(Map<String, String> m) {
+    return m?.containsKey("precise") ?? false ? new Precise(m["precise"]) : Precise.zero;
+  }
 
   /// Creates a new arbitrary precision number directly from digits.
   ///
@@ -208,7 +213,7 @@ class Precise extends Real {
   /// Addition operator.
   ///
   @override
-  Precise operator +(addend) {
+  Precise operator +(dynamic addend) {
     Precise preciseAddend = toPrecise(addend);
 
     // Divert to subtraction if signs are not the same
@@ -283,7 +288,7 @@ class Precise extends Real {
   /// Multiplication operator.
   ///
   @override
-  Precise operator *(multiplier) {
+  Precise operator *(dynamic multiplier) {
     Precise preciseMultiplier = toPrecise(multiplier);
 
     Precise product = Precise.zero;
@@ -325,7 +330,7 @@ class Precise extends Real {
   /// Division operator.
   ///
   @override
-  Number operator /(divisor) {
+  Number operator /(dynamic divisor) {
     Precise preciseDivisor = toPrecise(divisor);
 
     bool negResult = _neg != preciseDivisor._neg;
@@ -526,9 +531,7 @@ class Precise extends Real {
   /// Map Contents:
   ///     "precise" : string representation of the number
   ///
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{"precise": toString()};
-  }
+  Map<String, dynamic> toJson() => <String, dynamic>{"precise": toString()};
 
   @override
   String toString() {
@@ -577,7 +580,7 @@ class Precise extends Real {
   }
 
   @override
-  Precise clamp(lowerLimit, upperLimit) {
+  Precise clamp(dynamic lowerLimit, dynamic upperLimit) {
     if (this < lowerLimit) return toPrecise(lowerLimit);
     if (this > upperLimit) return toPrecise(upperLimit);
     return this;
@@ -594,7 +597,7 @@ class Precise extends Real {
   Number reciprocal() => Precise.one / this;
 
   @override
-  Precise remainder(divisor) => this - ((this ~/ divisor) * divisor);
+  Precise remainder(dynamic divisor) => this - ((this ~/ divisor) * divisor);
 
   /// Returns the Precise integer value closest to this Precise value.
   ///
@@ -658,7 +661,8 @@ class Digit {
   static final Digit eight = new Digit(8);
   static final Digit nine = new Digit(9);
 
-  static final List<Digit> list = new List.unmodifiable([zero, one, two, three, four, five, six, seven, eight, nine]);
+  static final List<Digit> list =
+      new List.unmodifiable(<Digit>[zero, one, two, three, four, five, six, seven, eight, nine]);
 
   static final int codeUnit0 = "0".codeUnitAt(0);
 
@@ -676,7 +680,7 @@ class Digit {
     return new Digit(digitChar.codeUnitAt(0) - codeUnit0);
   }
   @override
-  bool operator ==(other) {
+  bool operator ==(dynamic other) {
     if (other is Digit) return value.getUint8(0) == other.value.getUint8(0);
     if (other is num) return value.getUint8(0) == other;
     if (other is Number) return other == value.getUint8(0);

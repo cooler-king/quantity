@@ -13,9 +13,11 @@ class Complex extends Number {
       : real = new Double.constant(realValue),
         imaginary = new Imaginary.constant(new Double(imagValue));
 
-  Complex.fromMap(Map<String, dynamic> m)
-      : real = m["real"].toJson(),
-        imaginary = m["imag"].toJson();
+  Complex.fromMap(Map<String, Map> m)
+      : real = m?.containsKey("real") ?? false ? new Real.fromMap(m["real"] as Map<String, Map>) : Double.zero,
+        imaginary = m?.containsKey("real") ?? false
+            ? new Imaginary.fromMap(m["imag"] as Map<String, Map>)
+            : new Imaginary.constant(Integer.zero);
 
   /// [imag] is a convenient getter for the [imaginary] value
   Imaginary get imag => imaginary;
@@ -95,7 +97,8 @@ class Complex extends Number {
 
   @override
   Number operator -(dynamic subtrahend) {
-    if (subtrahend is Complex) return new Complex(real - subtrahend.real.value as Real, imaginary - subtrahend.imaginary as Imaginary);
+    if (subtrahend is Complex)
+      return new Complex(real - subtrahend.real.value as Real, imaginary - subtrahend.imaginary as Imaginary);
     if (subtrahend is Imaginary) return new Complex(real, imaginary - subtrahend as Imaginary);
     if (subtrahend is num) return new Complex(real - subtrahend as Real, imaginary);
     if (subtrahend is Real) return new Complex(real - subtrahend.value as Real, imaginary);
@@ -107,14 +110,15 @@ class Complex extends Number {
   Number operator *(dynamic multiplier) {
     // i * i = -1
     if (multiplier is num) return new Complex(real * multiplier as Real, imaginary * multiplier as Imaginary);
-    if (multiplier is Real) return new Complex(multiplier * real as Real, new Imaginary(multiplier.value * imaginary.value.toDouble()));
+    if (multiplier is Real)
+      return new Complex(multiplier * real as Real, new Imaginary(multiplier.value * imaginary.value.toDouble()));
     if (multiplier is Imaginary)
-        // (0+bi)(c+di)=(-bd)+i(bc)
-        return new Complex(imaginary * multiplier.value * -1 as Real, real * multiplier.value as Imaginary);
+      // (0+bi)(c+di)=(-bd)+i(bc)
+      return new Complex(imaginary * multiplier.value * -1 as Real, real * multiplier.value as Imaginary);
     if (multiplier is Complex)
-        // (a+bi)(c+di)=(ac-bd)+i(ad+bc)
-        return new Complex(real * multiplier.real - imaginary * multiplier.imaginary as Real,
-            real * multiplier.imaginary + imaginary * multiplier.real as Imaginary);
+      // (a+bi)(c+di)=(ac-bd)+i(ad+bc)
+      return new Complex(real * multiplier.real - imaginary * multiplier.imaginary as Real,
+          real * multiplier.imaginary + imaginary * multiplier.real as Imaginary);
 
     // Treat multiplier as zero
     return Double.zero;

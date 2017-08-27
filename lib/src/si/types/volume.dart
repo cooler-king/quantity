@@ -23,12 +23,13 @@ class Volume extends Quantity {
   Volume({dynamic m3, dynamic L, double uncert: 0.0})
       : super(m3 ?? (L ?? 0.0), L != null ? Volume.liters : Volume.cubicMeters, uncert);
 
-  Volume._internal(conv) : super._internal(conv, Volume.volumeDimensions);
+  Volume._internal(dynamic conv) : super._internal(conv, Volume.volumeDimensions);
 
   /// Constructs a Volume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Volume.inUnits(value, VolumeUnits units, [double uncert = 0.0]) : super(value, units ?? Volume.cubicMeters, uncert);
+  Volume.inUnits(dynamic value, VolumeUnits units, [double uncert = 0.0])
+      : super(value, units ?? Volume.cubicMeters, uncert);
 
   const Volume.constant(Number valueSI, {VolumeUnits units, double uncert: 0.0})
       : super.constant(valueSI, Volume.volumeDimensions, units, uncert);

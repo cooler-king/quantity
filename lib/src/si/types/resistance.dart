@@ -19,15 +19,15 @@ class Resistance extends Quantity {
   ///
   Resistance({dynamic ohms, double uncert: 0.0}) : super(ohms ?? 0.0, Resistance.ohms, uncert);
 
-  Resistance._internal(conv) : super._internal(conv, Resistance.electricResistanceDimensions);
+  Resistance._internal(dynamic conv) : super._internal(conv, Resistance.electricResistanceDimensions);
 
   /// Constructs a Resistance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Resistance.inUnits(value, ResistanceUnits units, [double uncert = 0.0])
+  Resistance.inUnits(dynamic value, ResistanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Resistance.ohms, uncert);
 
-  const Resistance.constant(Number valueSI, {ResistanceUnits  units, double uncert: 0.0})
+  const Resistance.constant(Number valueSI, {ResistanceUnits units, double uncert: 0.0})
       : super.constant(valueSI, Resistance.electricResistanceDimensions, units, uncert);
 }
 

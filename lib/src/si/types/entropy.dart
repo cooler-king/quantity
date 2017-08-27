@@ -23,15 +23,15 @@ class Entropy extends Quantity {
   ///
   Entropy({dynamic J_per_K, double uncert: 0.0}) : super(J_per_K ?? 0.0, Entropy.joulesPerKelvin, uncert);
 
-  Entropy._internal(conv) : super._internal(conv, Entropy.entropyDimensions);
+  Entropy._internal(dynamic conv) : super._internal(conv, Entropy.entropyDimensions);
 
   /// Constructs a Entropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Entropy.inUnits(value, EntropyUnits units, [double uncert = 0.0])
+  Entropy.inUnits(dynamic value, EntropyUnits units, [double uncert = 0.0])
       : super(value, units ?? Entropy.joulesPerKelvin, uncert);
 
-  const Entropy.constant(Number valueSI, {EntropyUnits  units, double uncert: 0.0})
+  const Entropy.constant(Number valueSI, {EntropyUnits units, double uncert: 0.0})
       : super.constant(valueSI, Entropy.entropyDimensions, units, uncert);
 }
 

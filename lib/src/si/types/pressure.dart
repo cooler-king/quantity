@@ -26,14 +26,15 @@ class Pressure extends Quantity {
   Pressure({dynamic Pa, dynamic bars, double uncert: 0.0})
       : super(Pa ?? (bars ?? 0.0), bars != null ? Pressure.bars : Pressure.pascals, uncert);
 
-  Pressure._internal(conv) : super._internal(conv, Pressure.pressureDimensions);
+  Pressure._internal(dynamic conv) : super._internal(conv, Pressure.pressureDimensions);
 
   /// Constructs a Pressure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Pressure.inUnits(value, PressureUnits units, [double uncert = 0.0]) : super(value, units ?? Pressure.pascals, uncert);
+  Pressure.inUnits(dynamic value, PressureUnits units, [double uncert = 0.0])
+      : super(value, units ?? Pressure.pascals, uncert);
 
-  const Pressure.constant(Number valueSI, {PressureUnits  units, double uncert: 0.0})
+  const Pressure.constant(Number valueSI, {PressureUnits units, double uncert: 0.0})
       : super.constant(valueSI, Pressure.pressureDimensions, units, uncert);
 }
 

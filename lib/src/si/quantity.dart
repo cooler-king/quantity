@@ -125,17 +125,17 @@ abstract class Quantity implements Comparable<dynamic> {
   /// solid angle dimensions.
   ///
   /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
-  /// Internation System of Units (SI) sense, which allows non-zero angular and
+  /// International System of Units (SI) sense, which allows non-zero angular and
   /// solid angular dimensions.
   ///
   bool get isScalar => dimensions.isScalar;
 
   /// Whether or not this Quantity has scalar dimensions in the strict
-  /// Internation System of Units (SI) sense, which allows non-zero angle and
+  /// International System of Units (SI) sense, which allows non-zero angle and
   /// solid angle dimensions.
   ///
   /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
-  /// Internation System of Units sense, which allows non-zero angular and
+  /// International System of Units sense, which allows non-zero angular and
   /// solid angular dimensions.
   ///
   bool get isScalarSI => dimensions.isScalarSI;
@@ -246,7 +246,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// [NIST Reference on Constants, Units, and Uncertainty: Combining
   /// Uncertainty Components](http://physics.nist.gov/cuu/Uncertainty/combination.html)
   ///
-  Quantity operator +(addend) {
+  Quantity operator +(dynamic addend) {
     if (addend == null) throw new QuantityException("Cannot add NULL to Quantity");
 
     // Scalars allow addition of numbers
@@ -1024,8 +1024,8 @@ abstract class Quantity implements Comparable<dynamic> {
 
   /// Support [dart:json] stringify.
   ///
-  Map toJson() {
-    Map m = {};
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> m = <String, dynamic>{};
 
     // Use value in preferred units, if available, for
     // better readability

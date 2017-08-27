@@ -24,15 +24,15 @@ class LuminousFlux extends Quantity {
   ///
   LuminousFlux({dynamic lm, double uncert: 0.0}) : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
 
-  LuminousFlux._internal(conv) : super._internal(conv, LuminousFlux.luminousFluxDimensions);
+  LuminousFlux._internal(dynamic conv) : super._internal(conv, LuminousFlux.luminousFluxDimensions);
 
   /// Constructs a LuminousFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  LuminousFlux.inUnits(value, LuminousFluxUnits units, [double uncert = 0.0])
+  LuminousFlux.inUnits(dynamic value, LuminousFluxUnits units, [double uncert = 0.0])
       : super(value, units ?? LuminousFlux.lumens, uncert);
 
-  const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits  units, double uncert: 0.0})
+  const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits units, double uncert: 0.0})
       : super.constant(valueSI, LuminousFlux.luminousFluxDimensions, units, uncert);
 }
 
