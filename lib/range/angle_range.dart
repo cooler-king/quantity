@@ -179,8 +179,7 @@ class AngleRange extends QuantityRange<Angle> {
     return false;
   }
 
-  /// Find the angle within this range closest to the specified
-  /// [angle].
+  /// Find the angle within this range closest to the specified [angle].
   ///
   /// If [strict] is true, then only the actual range is used
   /// regardless of whether it falls within the nominal 0-360 degree

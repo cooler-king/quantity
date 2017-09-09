@@ -123,7 +123,17 @@ void main() {
       expect(range.contains360(new Angle(deg: -289.9), true), true);
     });
 
-    test('operator ==', () {
+    test('angleClosestTo', () {
+      Angle ang15 = new Angle(deg: 15);
+      Angle ang45 = new Angle(deg: 45);
+      AngleRange range = new AngleRange(ang15, ang45);
+      expect(range.angleClosestTo(angle0), ang15);
+      expect(range.angleClosestTo(angle90), ang45);
+      expect(range.angleClosestTo(angle180), ang45);
+      expect(range.angleClosestTo(angle270), ang15);
+    });
+
+      test('operator ==', () {
       var a1 = new Angle(rad: 1.5);
       var a2 = new Angle(deg: 234.5);
       var a3 = new Angle(rad: 1.5);
