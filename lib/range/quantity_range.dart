@@ -1,9 +1,9 @@
 part of quantity_range;
 
 //TODO k value?
-QuantityRange uncertaintyRangeForQuantity(Quantity q) {
-  Quantity std = q.standardUncertainty;
-  return new QuantityRange(q - std, q + std);
+QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q) {
+  final Quantity std = q.standardUncertainty;
+  return new QuantityRange<Quantity>(q - std, q + std);
 }
 
 class QuantityRange<Q extends Quantity> {
@@ -16,45 +16,30 @@ class QuantityRange<Q extends Quantity> {
   Q _centerValue;
   Q _span;
 
+  /// Constructs a new quantity range, from [q1] to [q2].
   QuantityRange(this.q1, this.q2) {
     if (q1 is! Quantity || q2 is! Quantity)
-      throw new QuantityException("QuantityRange endpoints must be Quantity objects");
+      throw const QuantityException('QuantityRange endpoints must be Quantity objects');
   }
 
-  // The minimum value in this range
-  Q get minValue {
-    if (_minValue == null) _minValue = (q1.valueSI <= q2.valueSI) ? q1 : q2;
-    return _minValue;
-  }
+  /// The minimum value in this range.
+  Q get minValue => _minValue ??= (q1.valueSI <= q2.valueSI) ? q1 : q2;
 
-  // The maximum value in this range, in degrees
-  Q get maxValue {
-    if (_maxValue == null) _maxValue = (q1.valueSI > q2.valueSI) ? q1 : q2;
-    return _maxValue;
-  }
+  /// The maximum value in this range.
+  Q get maxValue => _maxValue ??= (q1.valueSI > q2.valueSI) ? q1 : q2;
 
-  // The value at the center of the range
-  Q get centerValue {
-    if (_centerValue == null) _centerValue = ((q1 + q2) / 2.0) as Q;
-    return _centerValue;
-  }
+  /// The value at the center of the range.
+  Q get centerValue => _centerValue ??= ((q1 + q2) / 2.0) as Q;
 
   /// The magnitude of the range.
-  ///
-  /// This value is always positive (or zero).  Get [delta] to get the
-  /// signed version of the range.
-  ///
-  Q get span {
-    if (_span == null) _span = (q2 - q1).abs() as Q;
-    return _span;
-  }
+  /// This value is always positive (or zero).  Get [delta] for the signed version of the range.
+  Q get span => _span ??= (q2 - q1).abs() as Q;
 
   /// The change in value from start to end, which may be negative.
   Q get delta => q2 - q1 as Q;
 
   /// Returns true if this range overlaps [range2]
   /// (exclusive of the endpoints).
-  ///
   bool overlaps(QuantityRange<Q> range2) {
     if (range2.minValue <= minValue) {
       return range2.maxValue > minValue;
@@ -65,7 +50,6 @@ class QuantityRange<Q extends Quantity> {
 
   /// True if this range contains [quantity], with a tolerance, [epsilon], of
   /// rounding errors of 1.0e-10 and [inclusive] of the endpoints by default.
-  ///
   bool contains(Q quantity, [bool inclusive = true, double epsilon = 1.0e-10]) {
     if (inclusive && (quantity == q1 || quantity == q2)) return true;
     if (epsilon == 0.0) {
@@ -84,18 +68,14 @@ class QuantityRange<Q extends Quantity> {
   }
 
   /// True only if this range completely encompasses range2.
-  ///
   bool encompasses(QuantityRange<Q> range2) => (minValue <= range2.minValue) && (maxValue >= range2.maxValue);
 
-  /// Returns a String representation of this range in the form "<Q1> to <Q2>".
-  ///
+  /// Returns a String representation of this range in the form '<Q1> to <Q2>'.
   @override
-  String toString() {
-    return "${q1} to ${q2}";
-  }
+  String toString() => '$q1 to $q2';
+  
 
   /// Two quantity ranges are considered equal only if their endpoints are exactly equal.
-  ///
   @override
   bool operator ==(dynamic obj) {
     if (obj is! QuantityRange) return false;
@@ -103,7 +83,6 @@ class QuantityRange<Q extends Quantity> {
   }
 
   /// Two equal quantity ranges will have the same hash code.
-  ///
   @override
-  int get hashCode => hashObjects([q1, q2]);
+  int get hashCode => hashObjects(<Object>[q1, q2]);
 }

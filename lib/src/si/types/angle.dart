@@ -12,7 +12,7 @@ double sine(Angle a) => a.sine();
 double tangent(Angle a) => a.tangent();
 
 // Constant
-const double twoPi = 2.0 * Math.PI;
+const double twoPi = 2.0 * math.PI;
 
 /// A planar (2-dimensional) angle, which has dimensions of _1_ and is a
 /// measure of the ratio of the length of a circular arc to its radius.
@@ -36,22 +36,22 @@ const double twoPi = 2.0 * Math.PI;
 ///
 class Angle extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions angleDimensions = const Dimensions.constant(const {"Angle": 1}, type: Angle);
+  static const Dimensions angleDimensions = const Dimensions.constant(const <String, int>{'Angle': 1}, qType: Angle);
 
   /// The standard SI unit.
-  static final AngleUnits radians = new AngleUnits("radians", null, "rad", null, Integer.one, true);
+  static final AngleUnits radians = new AngleUnits('radians', null, 'rad', null, Integer.one, true);
 
   /// Accepted for use with the SI.
   static final AngleUnits degrees =
-      new AngleUnits("degrees", "\u{00b0}", "deg", null, const Double.constant(1.7453292519943e-2), false);
+      new AngleUnits('degrees', '\u{00b0}', 'deg', null, const Double.constant(1.7453292519943e-2), false);
 
   /// Accepted for use with the SI.
   static final AngleUnits minutesArc =
-      new AngleUnits("arc minutes", "\'", "arc min", null, const Double.constant(2.9088821e-4), false);
+      new AngleUnits('arc minutes', '\'', 'arc min', null, const Double.constant(2.9088821e-4), false);
 
   /// Accepted for use with the SI.
   static final AngleUnits secondsArc =
-      new AngleUnits("arc seconds", "\"", "arc sec", null, const Double.constant(4.8481368e-6), false);
+      new AngleUnits('arc seconds', '\'', 'arc sec', null, const Double.constant(4.8481368e-6), false);
 
   // convenience units
 
@@ -102,11 +102,11 @@ class Angle extends Quantity {
   /// If this Angle is already within that range then it is returned directly.
   ///
   Angle get angle180 {
-    if (valueSI >= -Math.PI && valueSI <= Math.PI) return this;
+    if (valueSI >= -math.PI && valueSI <= math.PI) return this;
 
     double rad = valueSI.toDouble();
-    while (rad < -Math.PI) rad += twoPi;
-    while (rad > Math.PI) rad -= twoPi;
+    while (rad < -math.PI) rad += twoPi;
+    while (rad > math.PI) rad -= twoPi;
     return new Angle(rad: rad);
   }
 
@@ -125,33 +125,33 @@ class Angle extends Quantity {
 
   /// Calculates the cosine of this angle.
   ///
-  double cosine() => Math.cos(mks.toDouble());
+  double cosine() => math.cos(mks.toDouble());
 
   /// Calculates the sine of this angle.
   ///
-  double sine() => Math.sin(mks.toDouble());
+  double sine() => math.sin(mks.toDouble());
 
   /// Calculates the tangent of this angle.
   ///
-  double tangent() => Math.tan(mks.toDouble());
+  double tangent() => math.tan(mks.toDouble());
 
   /// Calculates and returns the secant of this angle.
   ///
   /// The secant of an angle is equivalent to 1 over the cosine.
   ///
-  double secant() => 1.0 / Math.cos(mks.toDouble());
+  double secant() => 1.0 / math.cos(mks.toDouble());
 
   /// Calculates and returns the cosecant of this angle.
   ///
   /// The cosecant of an angle is equivalent to 1 over the sine.
   ///
-  double cosecant() => 1.0 / Math.sin(mks.toDouble());
+  double cosecant() => 1.0 / math.sin(mks.toDouble());
 
   ///  Calculates and returns the cotangent of this angle.
   ///
   /// The cotangent is equivalent to 1 over the tangent.
   ///
-  double cotangent() => 1.0 / Math.tan(mks.toDouble());
+  double cotangent() => 1.0 / math.tan(mks.toDouble());
 
   /// Returns an array of three values representing the value of this Angle
   /// in degrees, minutes arc and seconds arc.  The first value (degrees) may
@@ -218,18 +218,19 @@ class AngleUnits extends Angle with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Angle;
 
   /// Derive new AngleUnits using this AngleUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new AngleUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+    new AngleUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

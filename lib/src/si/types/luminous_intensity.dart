@@ -10,10 +10,10 @@ part of quantity_si;
 class LuminousIntensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions luminousIntensityDimensions =
-      const Dimensions.constant(const {"Intensity": 1}, type: LuminousIntensity);
+      const Dimensions.constant(const <String, int>{'Intensity': 1}, qType: LuminousIntensity);
 
   /// The standard SI unit.
-  static final LuminousIntensityUnits candelas = new LuminousIntensityUnits("candelas", "cd", null, null, 1.0, true);
+  static final LuminousIntensityUnits candelas = new LuminousIntensityUnits('candelas', 'cd', null, null, 1.0, true);
 
   /// Construct a LuminousIntensity with candelas ([cd]).
   ///
@@ -49,18 +49,19 @@ class LuminousIntensityUnits extends LuminousIntensity with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => LuminousIntensity;
 
   /// Derive new LuminousIntensityUnits using this LuminousIntensityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new LuminousIntensityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new LuminousIntensityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
-  }
+        offset);
+  
 }

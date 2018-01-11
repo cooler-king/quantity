@@ -8,16 +8,16 @@ part of quantity_si;
 ///
 class Mass extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions massDimensions = const Dimensions.constant(const {"Mass": 1}, type: Mass);
+  static const Dimensions massDimensions = const Dimensions.constant(const <String, int>{'Mass': 1}, qType: Mass);
 
   /// The standard SI unit.
-  static final MassUnits kilograms = new MassUnits("kilograms", "kg", null, null, 1.0, false);
+  static final MassUnits kilograms = new MassUnits('kilograms', 'kg', null, null, 1.0, false);
 
   /// Note: kilograms are the standard MKS unit for mass, but grams is used here
   /// to generate the appropriate prefixes.  Gram conversion value is set to 0.001
   /// in order to generate the correct units.
   ///
-  static final MassUnits grams = new MassUnits("grams", "g", null, null, 0.001, true);
+  static final MassUnits grams = new MassUnits('grams', 'g', null, null, 0.001, true);
 
   /// Accepted for use with the SI.
   static final MassUnits metricTons = grams.mega() as MassUnits;
@@ -27,7 +27,7 @@ class Mass extends Quantity {
 
   /// Accepted for use with the SI.
   static final MassUnits unifiedAtomicMassUnits =
-      new MassUnits("unified atomic mass units", null, "u", null, 1.66053886e-27, false);
+      new MassUnits('unified atomic mass units', null, 'u', null, 1.66053886e-27, false);
 
   /// Construct a Mass with kilograms ([kg]), grams ([g]) or unified atomic mass units ([u]).
   ///
@@ -51,11 +51,11 @@ class Mass extends Quantity {
   ///
   Energy toEnergy() {
     if (valueSI is Precise) {
-      var c = new Precise("2.99792458e8");
-      return new Energy(J: valueSI * c * c, uncert: this._ur);
+      final Precise c = new Precise('2.99792458e8');
+      return new Energy(J: valueSI * c * c, uncert: _ur);
     } else {
-      double c = 2.99792458e8;
-      return new Energy(J: valueSI * c * c, uncert: this._ur);
+      final double c = 2.99792458e8;
+      return new Energy(J: valueSI * c * c, uncert: _ur);
     }
   }
 }
@@ -76,18 +76,19 @@ class MassUnits extends Mass with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Mass;
 
   /// Derive new MassUnits using this MassUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new MassUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new MassUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

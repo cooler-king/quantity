@@ -10,8 +10,8 @@ part of quantity_si;
 class MolarEntropy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions molarEntropyDimensions = const Dimensions.constant(
-      const {"Mass": 1, "Length": 2, "Time": -2, "Amount": -1, "Temperature": -1},
-      type: MolarEntropy);
+      const <String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1, 'Temperature': -1},
+      qType: MolarEntropy);
 
   /// The standard SI unit.
   static final MolarEntropyUnits joulesPerMoleKelvin = new MolarEntropyUnits.energyAmountTemperature(
@@ -53,30 +53,31 @@ class MolarEntropyUnits extends MolarEntropy with Units {
 
   MolarEntropyUnits.energyAmountTemperature(EnergyUnits eu, AmountOfSubstanceUnits aosu, TemperatureIntervalUnits tu)
       : super._internal(eu.valueSI / (aosu.valueSI * tu.valueSI)) {
-    this.name = "${eu.name} per ${aosu.singular} ${tu.singular}";
-    this.singular = "${eu.singular} per ${aosu.singular} ${tu.singular}";
-    this._convToMKS = eu.valueSI / (aosu.valueSI * tu.valueSI);
-    this._abbrev1 =
-        eu._abbrev1 != null && aosu._abbrev1 != null ? "${eu._abbrev1} / ${aosu._abbrev1} ${tu._abbrev1}" : null;
-    this._abbrev2 =
-        eu._abbrev2 != null && aosu._abbrev2 != null ? "${eu._abbrev2}/${aosu._abbrev2}${tu._abbrev2}" : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${eu.name} per ${aosu.singular} ${tu.singular}';
+    singular = '${eu.singular} per ${aosu.singular} ${tu.singular}';
+    _convToMKS = eu.valueSI / (aosu.valueSI * tu.valueSI);
+    _abbrev1 =
+        eu._abbrev1 != null && aosu._abbrev1 != null ? '${eu._abbrev1} / ${aosu._abbrev1} ${tu._abbrev1}' : null;
+    _abbrev2 =
+        eu._abbrev2 != null && aosu._abbrev2 != null ? '${eu._abbrev2}/${aosu._abbrev2}${tu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => MolarEntropy;
 
   /// Derive new MolarEntropyUnits using this MolarEntropyUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new MolarEntropyUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new MolarEntropyUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

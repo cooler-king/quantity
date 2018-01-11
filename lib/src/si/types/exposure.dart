@@ -8,13 +8,13 @@ part of quantity_si;
 class Exposure extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions exposureDimensions =
-      const Dimensions.constant(const {"Current": 1, "Mass": -1, "Time": 1}, type: Exposure);
+      const Dimensions.constant(const <String, int>{'Current': 1, 'Mass': -1, 'Time': 1}, qType: Exposure);
 
   /// The standard SI unit.
   static final ExposureUnits coulombsPerKilogram = new ExposureUnits.chargeMass(Charge.coulombs, Mass.kilograms);
 
   /// Accepted for use with the SI, subject to further review.
-  static final ExposureUnits roentgens = new ExposureUnits("roentgens", null, "R", null, 2.58e-4, false);
+  static final ExposureUnits roentgens = new ExposureUnits('roentgens', null, 'R', null, 2.58e-4, false);
 
   /// Construct an Exposure with coulombs per kilogram ([C_per_kg]) or roentgens ([R]).
   ///
@@ -51,28 +51,29 @@ class ExposureUnits extends Exposure with Units {
   }
 
   ExposureUnits.chargeMass(ChargeUnits ecu, MassUnits mu) : super._internal(ecu.valueSI * mu.valueSI) {
-    this.name = "${ecu.name} per ${mu.singular}";
-    this.singular = "${ecu.singular} per ${mu.singular}";
+    this.name = '${ecu.name} per ${mu.singular}';
+    this.singular = '${ecu.singular} per ${mu.singular}';
     this._convToMKS = ecu.valueSI * mu.valueSI;
-    this._abbrev1 = ecu._abbrev1 != null && mu._abbrev1 != null ? "${ecu._abbrev1} / ${mu._abbrev1}" : null;
-    this._abbrev2 = ecu._abbrev2 != null && mu._abbrev2 != null ? "${ecu._abbrev2}${mu._abbrev2}" : null;
+    this._abbrev1 = ecu._abbrev1 != null && mu._abbrev1 != null ? '${ecu._abbrev1} / ${mu._abbrev1}' : null;
+    this._abbrev2 = ecu._abbrev2 != null && mu._abbrev2 != null ? '${ecu._abbrev2}${mu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Exposure;
 
   /// Derive new ExposureUnits using this ExposureUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ExposureUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ExposureUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

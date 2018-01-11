@@ -17,7 +17,7 @@ void main() {
       // Default ctor: rad +
       a = new Angle(rad: 2.4);
       expect(a, isNotNull);
-      expect(a.valueSI == 2.4, true);
+      expect(a.valueSI?.toDouble() == 2.4, true);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -25,7 +25,7 @@ void main() {
       // Default ctor: rad -
       a = new Angle(rad: -999.9);
       expect(a, isNotNull);
-      expect(a.valueSI == -999.9, true);
+      expect(a.valueSI.toDouble() == -999.9, true);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -33,7 +33,7 @@ void main() {
       // Default ctor: rad Integer
       a = new Angle(rad: new Integer(4));
       expect(a, isNotNull);
-      expect(a.valueSI == 4, true);
+      expect(a.valueSI.toDouble() == 4, true);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -41,7 +41,7 @@ void main() {
       // Default ctor: rad Double
       a = new Angle(rad: new Double(-67.876));
       expect(a, isNotNull);
-      expect(a.valueSI == -67.876, true);
+      expect(a.valueSI.toDouble() == -67.876, true);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);

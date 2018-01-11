@@ -8,7 +8,7 @@ part of quantity_si;
 class CatalyticActivity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions catalyticActivityDimensions =
-      const Dimensions.constant(const {"Amount": 1, "Time": -1}, type: CatalyticActivity);
+      const Dimensions.constant(const <String, int>{"Amount": 1, "Time": -1}, qType: CatalyticActivity);
 
   /// The standard SI unit **/
   static final CatalyticActivityUnits katals = new CatalyticActivityUnits("katals", "kat", null, "katal", 1.0, true);
@@ -39,7 +39,7 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
+    _convToMKS = objToNumber(conv);
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
@@ -47,18 +47,19 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => CatalyticActivity;
 
   /// Derive new CatalyticActivityUnits using this CatalyticActivityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new CatalyticActivityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new CatalyticActivityUnits(
+        "$fullPrefix$name",
+        _abbrev1 != null ? "$abbrevPrefix$_abbrev1" : null,
+        _abbrev2 != null ? "$abbrevPrefix$_abbrev2" : null,
+        "$fullPrefix$singular",
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

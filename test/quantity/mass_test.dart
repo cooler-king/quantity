@@ -5,7 +5,7 @@ void main() {
   group('Mass', () {
     test('toEnergy', () {
       Mass m = new Mass(kg: 1);
-      var e = m.toEnergy();
+      Energy e = m.toEnergy();
 
       expect(e is Energy, true);
       expect(e.valueSI.toDouble(), 8.9875517873681764e16);

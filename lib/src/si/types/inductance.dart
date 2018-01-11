@@ -10,10 +10,10 @@ part of quantity_si;
 class Inductance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions inductanceDimensions =
-      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Current": -2, "Time": -2}, type: Inductance);
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Current': -2, 'Time': -2}, qType: Inductance);
 
   /// The standard SI unit.
-  static final InductanceUnits henries = new InductanceUnits("henries", null, "H", "henry", 1.0, true);
+  static final InductanceUnits henries = new InductanceUnits('henries', null, 'H', 'henry', 1.0, true);
 
   /// Construct an Inductance with henries ([H]).
   ///
@@ -49,18 +49,19 @@ class InductanceUnits extends Inductance with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Inductance;
 
   /// Derive new InductanceUnits using this InductanceUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new InductanceUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new InductanceUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

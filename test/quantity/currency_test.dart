@@ -5,9 +5,9 @@ import 'package:quantity/number.dart';
 void main() {
   group('Currency', () {
     test('operator +', () {
-      Currency c1 = new Currency(USD: 12.34);
-      Currency c2 = new Currency(USD: 56.78);
-      var sum = c1 + c2;
+      final Currency c1 = new Currency(USD: 12.34);
+      final Currency c2 = new Currency(USD: 56.78);
+      dynamic sum = c1 + c2;
       expect(sum is Currency, true);
       expect(sum.valueSI.toDouble(), 69.12);
 
@@ -23,9 +23,9 @@ void main() {
     });
 
     test('operator -', () {
-      Currency c1 = new Currency(USD: 12.34);
-      Currency c2 = new Currency(USD: 56.78);
-      var diff = c2 - c1;
+      final Currency c1 = new Currency(USD: 12.34);
+      final Currency c2 = new Currency(USD: 56.78);
+      dynamic diff = c2 - c1;
       expect(diff is Currency, true);
       expect(diff.valueSI.toDouble(), 44.44);
       diff = c1 - c2;
@@ -44,9 +44,9 @@ void main() {
     });
 
     test('operator *', () {
-      Currency c1 = new Currency(USD: 12.34);
+      final Currency c1 = new Currency(USD: 12.34);
 
-      var prod = c1 * 2;
+      dynamic prod = c1 * 2;
       expect(prod is Currency, true);
       expect(prod.valueSI.toDouble(), closeTo(24.68, 0.00001));
 
@@ -64,9 +64,9 @@ void main() {
     });
 
     test('operator /', () {
-      Currency c1 = new Currency(USD: 12.34);
+      final Currency c1 = new Currency(USD: 12.34);
 
-      var prod = c1 / 2;
+      dynamic prod = c1 / 2;
       expect(prod is Currency, true);
       expect(prod.valueSI.toDouble(), closeTo(6.17, 0.00001));
 

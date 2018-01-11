@@ -8,7 +8,7 @@ part of quantity_si;
 class Permeability extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions permeabilityDimensions =
-      const Dimensions.constant(const {"Length": 1, "Mass": 1, "Time": -2, "Current": -2}, type: Permeability);
+      const Dimensions.constant(const <String, int>{'Length': 1, 'Mass': 1, 'Time': -2, 'Current': -2}, qType: Permeability);
 
   /// The standard SI unit.
   static final PermeabilityUnits henriesPerMeter =
@@ -54,38 +54,39 @@ class PermeabilityUnits extends Permeability with Units {
   }
 
   PermeabilityUnits.inductanceLength(InductanceUnits iu, LengthUnits lu) : super._internal(iu.valueSI / lu.valueSI) {
-    this.name = "${iu.name} per ${lu.singular}";
-    this.singular = "${iu.singular} per ${lu.singular}";
+    this.name = '${iu.name} per ${lu.singular}';
+    this.singular = '${iu.singular} per ${lu.singular}';
     this._convToMKS = iu.valueSI / lu.valueSI;
-    this._abbrev1 = iu._abbrev1 != null && lu._abbrev1 != null ? "${iu._abbrev1} / ${lu._abbrev1}" : null;
-    this._abbrev2 = iu._abbrev2 != null && lu._abbrev2 != null ? "${iu._abbrev2}/${lu._abbrev2}" : null;
+    this._abbrev1 = iu._abbrev1 != null && lu._abbrev1 != null ? '${iu._abbrev1} / ${lu._abbrev1}' : null;
+    this._abbrev2 = iu._abbrev2 != null && lu._abbrev2 != null ? '${iu._abbrev2}/${lu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   PermeabilityUnits.forceCurrent(ForceUnits fu, CurrentUnits ecu) : super._internal(fu.valueSI / (ecu.valueSI ^ 2)) {
-    this.name = "${fu.name} per ${ecu.singular} squared";
-    this.singular = "${fu.singular} per ${ecu.singular} squared";
+    this.name = '${fu.name} per ${ecu.singular} squared';
+    this.singular = '${fu.singular} per ${ecu.singular} squared';
     this._convToMKS = fu.valueSI / (ecu.valueSI ^ 2);
-    this._abbrev1 = fu._abbrev1 != null && ecu._abbrev1 != null ? "${fu._abbrev1} / ${ecu._abbrev1}^2" : null;
-    this._abbrev2 = fu._abbrev2 != null && ecu._abbrev2 != null ? "${fu._abbrev2}/${ecu._abbrev2}2" : null;
+    this._abbrev1 = fu._abbrev1 != null && ecu._abbrev1 != null ? '${fu._abbrev1} / ${ecu._abbrev1}^2' : null;
+    this._abbrev2 = fu._abbrev2 != null && ecu._abbrev2 != null ? '${fu._abbrev2}/${ecu._abbrev2}2' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Permeability;
 
   /// Derive new PermeabilityUnits using this PermeabilityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new PermeabilityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new PermeabilityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

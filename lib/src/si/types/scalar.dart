@@ -7,16 +7,16 @@ part of quantity_si;
 ///
 class Scalar extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions scalarDimensions = const Dimensions.constant(const {}, type: Scalar);
+  static const Dimensions scalarDimensions = const Dimensions.constant(const <String, int>{}, qType: Scalar);
 
   // Units
 
-  /// The standard SI unit; may be represented by "1" but is typically not displayed at all.
-  static final ScalarUnits one = new ScalarUnits("1", null, null, "1", Double.one, false);
+  /// The standard SI unit; may be represented by '1' but is typically not displayed at all.
+  static final ScalarUnits one = new ScalarUnits('1', null, null, '1', Double.one, false);
 
   /// Acceptable for use with the SI; percent (%) represents the number 0.01
   static final ScalarUnits percent =
-      new ScalarUnits("percent", null, "%", "percent", const Double.constant(0.01), false);
+      new ScalarUnits('percent', null, '%', 'percent', const Double.constant(0.01), false);
 
   /// Construct a Scalar with [value] or [percent].
   ///
@@ -72,18 +72,19 @@ class ScalarUnits extends Scalar with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Scalar;
 
   /// Derive new ScalarUnits using this ScalarUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ScalarUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ScalarUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

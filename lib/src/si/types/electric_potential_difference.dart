@@ -10,12 +10,12 @@ part of quantity_si;
 class ElectricPotentialDifference extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricPotentialDifferenceDimensions = const Dimensions.constant(
-      const {"Current": -1, "Time": -3, "Length": 2, "Mass": 1},
-      type: ElectricPotentialDifference);
+      const <String, int>{'Current': -1, 'Time': -3, 'Length': 2, 'Mass': 1},
+      qType: ElectricPotentialDifference);
 
   /// The standard SI unit.
   static final ElectricPotentialDifferenceUnits volts =
-      new ElectricPotentialDifferenceUnits("volts", null, "V", null, 1.0, true);
+      new ElectricPotentialDifferenceUnits('volts', null, 'V', null, 1.0, true);
 
   /// Construct an ElectricPotentialDifference with volts ([V]).
   ///
@@ -54,18 +54,19 @@ class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with 
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => ElectricPotentialDifference;
 
   /// Derive new ElectricPotentialDifferenceUnits using this ElectricPotentialDifferenceUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ElectricPotentialDifferenceUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ElectricPotentialDifferenceUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

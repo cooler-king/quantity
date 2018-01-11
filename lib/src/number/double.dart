@@ -20,12 +20,12 @@ class Double extends Real {
   Double.fromInt(int val) : _value = val.toDouble();
 
   /// Construct an Double from a Map:
-  ///     { "d": integer value }
+  ///     { 'd': integer value }
   ///
   /// If the map contents are not recognized, [Double.zero] is returned.
   factory Double.fromMap(Map<String, num> m) {
-    if (m?.containsKey("d") ?? false) {
-      return new Double(m["d"]?.toDouble() ?? 0.0);
+    if (m?.containsKey('d') ?? false) {
+      return new Double(m['d']?.toDouble() ?? 0.0);
     }
     return Double.zero;
   }
@@ -33,8 +33,10 @@ class Double extends Real {
   @override
   double get value => _value;
 
+  @override
   double toDouble() => _value;
 
+  @override
   int toInt() => _value.toInt();
 
   /// If an integer value returns the same hash as the [int] with the same value.
@@ -48,6 +50,7 @@ class Double extends Real {
     return (new Precise.num(_value)).hashCode;
   }
 
+  @override
   bool operator ==(dynamic obj) {
     if (obj == double.NAN) return value == double.NAN;
     if (obj is Real || obj is num) return obj == value;
@@ -67,19 +70,20 @@ class Double extends Real {
     return new Double(value?.clamp(lower, upper)?.toDouble() ?? 0.0);
   }
 
+  @override
   Number reciprocal() {
     if (value != 0.0) return new Double(1.0 / value);
     return Double.zero;
   }
 
+  @override
   bool get isInteger => value.truncate() == value;
 
   /// Support [dart:json] stringify.
   ///
   /// Map Contents:
-  ///     "d" : double value
+  ///     'd' : double value
   ///
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{"d": value};
-  }
+  @override
+  Map<String, dynamic> toJson() => <String, dynamic>{'d': value};
 }

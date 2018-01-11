@@ -8,10 +8,10 @@ part of quantity_si;
 class AmountOfSubstance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions amountOfSubstanceDimensions =
-      const Dimensions.constant(const {"Amount": 1}, type: AmountOfSubstance);
+      const Dimensions.constant(const <String, int>{'Amount': 1}, qType: AmountOfSubstance);
 
   /// The standard SI unit.
-  static final AmountOfSubstanceUnits moles = new AmountOfSubstanceUnits("moles", null, "mol", null, 1.0, true);
+  static final AmountOfSubstanceUnits moles = new AmountOfSubstanceUnits('moles', null, 'mol', null, 1.0, true);
 
   /// A common metric derivative of the standard SI unit.
   static final AmountOfSubstanceUnits kilomoles = moles.kilo() as AmountOfSubstanceUnits;
@@ -52,18 +52,19 @@ class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => AmountOfSubstance;
 
   /// Derive new AmountOfSubstanceUnits using this AmountOfSubstanceUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new AmountOfSubstanceUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new AmountOfSubstanceUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

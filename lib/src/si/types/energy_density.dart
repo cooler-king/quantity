@@ -8,7 +8,7 @@ part of quantity_si;
 class EnergyDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions energyDensityDimensions =
-      const Dimensions.constant(const {"Length": -1, "Mass": 1, "Time": -2}, type: EnergyDensity);
+      const Dimensions.constant(const <String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: EnergyDensity);
 
   /// The standard SI unit.
   static final EnergyDensityUnits joulesPerCubicMeter =
@@ -49,29 +49,29 @@ class EnergyDensityUnits extends EnergyDensity with Units {
   }
 
   EnergyDensityUnits.energyVolume(EnergyUnits eu, VolumeUnits vu) : super._internal(eu.valueSI * vu.valueSI) {
-    this.name = "${eu.name} per ${vu.singular}";
-    this.singular = "${eu.singular} per ${vu.singular}";
+    this.name = '${eu.name} per ${vu.singular}';
+    this.singular = '${eu.singular} per ${vu.singular}';
     this._convToMKS = eu.valueSI * vu.valueSI;
-    this._abbrev1 = eu._abbrev1 != null && vu._abbrev1 != null ? "${eu._abbrev1} / ${vu._abbrev1}" : null;
-    this._abbrev2 = eu._abbrev2 != null && vu._abbrev2 != null ? "${eu._abbrev2}/${vu._abbrev2}" : null;
-    ;
+    this._abbrev1 = eu._abbrev1 != null && vu._abbrev1 != null ? '${eu._abbrev1} / ${vu._abbrev1}' : null;
+    this._abbrev2 = eu._abbrev2 != null && vu._abbrev2 != null ? '${eu._abbrev2}/${vu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => EnergyDensity;
 
   /// Derive new EnergyDensityUnits using this EnergyDensityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new EnergyDensityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new EnergyDensityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

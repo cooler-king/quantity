@@ -7,14 +7,14 @@ part of quantity_si;
 ///
 class Volume extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions volumeDimensions = const Dimensions.constant(const {"Length": -3}, type: Volume);
+  static const Dimensions volumeDimensions = const Dimensions.constant(const <String, int>{'Length': -3}, qType: Volume);
 
   /// The standard SI unit
   static final VolumeUnits cubicMeters = new VolumeUnits.length(Length.meters);
 
   /// Accepted for use with the SI
   /// equal to one thousandth of a cubic meter
-  static final VolumeUnits liters = new VolumeUnits("liters", null, "L", null, 1.0e-3, true);
+  static final VolumeUnits liters = new VolumeUnits('liters', null, 'L', null, 1.0e-3, true);
 
   /// Construct a Volume with cubiic meters ([m3]) or liters ([L]).
   ///
@@ -51,29 +51,29 @@ class VolumeUnits extends Volume with Units {
   }
 
   VolumeUnits.length(LengthUnits lu) : super._internal(lu.valueSI ^ 3) {
-    this.name = "cubic ${lu.name}";
-    this.singular = "cubic ${lu.singular}";
+    this.name = 'cubic ${lu.name}';
+    this.singular = 'cubic ${lu.singular}';
     this._convToMKS = lu.valueSI ^ 3;
-    this._abbrev1 = lu._abbrev1 != null ? "${lu._abbrev1}3" : null;
-    this._abbrev2 = lu._abbrev2 != null ? "${lu._abbrev2}3" : null;
-    ;
+    this._abbrev1 = lu._abbrev1 != null ? '${lu._abbrev1}3' : null;
+    this._abbrev2 = lu._abbrev2 != null ? '${lu._abbrev2}3' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Volume;
 
   /// Derive new VolumeUnits using this VolumeUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new VolumeUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new VolumeUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

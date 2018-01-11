@@ -9,7 +9,7 @@ part of quantity_si;
 class AngularMomentum extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions angularMometumDimensions =
-      const Dimensions.constant(const {"Angle": 1, "Length": 1, "Time": -1}, type: AngularMomentum);
+      const Dimensions.constant(const <String, int>{'Angle': 1, 'Length': 1, 'Time': -1}, qType: AngularMomentum);
 
   /// The standard SI unit
   static final AngularMomentumUnits jouleSecond = new AngularMomentumUnits.energyTime(Energy.joules, Time.seconds);
@@ -48,29 +48,29 @@ class AngularMomentumUnits extends AngularMomentum with Units {
   }
 
   AngularMomentumUnits.energyTime(EnergyUnits eu, TimeUnits tu) : super._internal(eu.valueSI * tu.valueSI) {
-    this.name = "${eu.singular} ${tu.name}";
-    this.singular = "${eu.singular} ${tu.singular}";
-    this._convToMKS = eu.valueSI * tu.valueSI;
-    this._abbrev1 = eu._abbrev1 != null && tu._abbrev1 != null ? "${eu._abbrev1} ${tu._abbrev1}" : null;
-    this._abbrev2 = eu._abbrev2 != null && tu._abbrev2 != null ? "${eu._abbrev2}${tu._abbrev2}" : null;
-    ;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${eu.singular} ${tu.name}';
+    singular = '${eu.singular} ${tu.singular}';
+    _convToMKS = eu.valueSI * tu.valueSI;
+    _abbrev1 = eu._abbrev1 != null && tu._abbrev1 != null ? '${eu._abbrev1} ${tu._abbrev1}' : null;
+    _abbrev2 = eu._abbrev2 != null && tu._abbrev2 != null ? '${eu._abbrev2}${tu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => AngularMomentum;
 
   /// Derive new AngularMomentumUnits using this AngularMomentumUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new AngularMomentumUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new AngularMomentumUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
-  }
+        offset);
+  
 }

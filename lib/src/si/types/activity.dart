@@ -7,13 +7,13 @@ part of quantity_si;
 ///
 class Activity extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions activityDimensions = const Dimensions.constant(const {"Time": -1}, type: Activity);
+  static const Dimensions activityDimensions = const Dimensions.constant(const <String, int>{'Time': -1}, qType: Activity);
 
   /// The standard SI unit.
-  static final ActivityUnits becquerels = new ActivityUnits("becquerels", null, "Bq", null, 1.0, true);
+  static final ActivityUnits becquerels = new ActivityUnits('becquerels', null, 'Bq', null, 1.0, true);
 
   /// Accepted for use with the SI, subject to further review.
-  static final ActivityUnits curies = new ActivityUnits("curies", null, "Ci", null, 3.7e10, false);
+  static final ActivityUnits curies = new ActivityUnits('curies', null, 'Ci', null, 3.7e10, false);
 
   /// Construct an Activity with either becquerels ([Bq]) or curies ([Ci]).
   ///
@@ -49,29 +49,29 @@ class ActivityUnits extends Activity with Units {
   }
 
   ActivityUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super._internal(lu.valueSI * su.valueSI) {
-    this.name = "${lu.name} per ${su.singular} squared";
-    this.singular = "${lu.singular} per ${su.singular} squared";
+    this.name = '${lu.name} per ${su.singular} squared';
+    this.singular = '${lu.singular} per ${su.singular} squared';
     this._convToMKS = lu.valueSI * su.valueSI;
-    this._abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? "${lu._abbrev1} / ${su._abbrev1}" : null;
-    this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? "${lu._abbrev2}${su._abbrev2}" : null;
-    ;
+    this._abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? '${lu._abbrev1} / ${su._abbrev1}' : null;
+    this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? '${lu._abbrev2}${su._abbrev2}' : null;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Activity;
 
   /// Derive new ActivityUnits using this ActivityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ActivityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ActivityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

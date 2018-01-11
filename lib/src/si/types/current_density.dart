@@ -8,7 +8,7 @@ part of quantity_si;
 class CurrentDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricCurrentDensityDimensions =
-      const Dimensions.constant(const {"Current": 1, "Length": -2}, type: CurrentDensity);
+      const Dimensions.constant(const <String, int>{'Current': 1, 'Length': -2}, qType: CurrentDensity);
 
   /// The standard SI unit.
   static final CurrentDensityUnits amperesPerSquareMeter =
@@ -49,29 +49,29 @@ class CurrentDensityUnits extends CurrentDensity with Units {
   }
 
   CurrentDensityUnits.currentArea(CurrentUnits ecu, AreaUnits au) : super._internal(ecu.valueSI * au.valueSI) {
-    this.name = "${ecu.name} per ${au.singular}";
-    this.singular = "${ecu.singular} per ${au.singular}";
+    this.name = '${ecu.name} per ${au.singular}';
+    this.singular = '${ecu.singular} per ${au.singular}';
     this._convToMKS = ecu.valueSI * au.valueSI;
-    this._abbrev1 = ecu._abbrev1 != null && au._abbrev1 != null ? "${ecu._abbrev1} / ${au._abbrev1}" : null;
-    this._abbrev2 = ecu._abbrev2 != null && au._abbrev2 != null ? "${ecu._abbrev2}/${au._abbrev2}" : null;
-    ;
+    this._abbrev1 = ecu._abbrev1 != null && au._abbrev1 != null ? '${ecu._abbrev1} / ${au._abbrev1}' : null;
+    this._abbrev2 = ecu._abbrev2 != null && au._abbrev2 != null ? '${ecu._abbrev2}/${au._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => CurrentDensity;
 
   /// Derive new CurrentDensityUnits using this CurrentDensityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new CurrentDensityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new CurrentDensityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

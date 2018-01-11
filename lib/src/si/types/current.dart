@@ -7,10 +7,10 @@ part of quantity_si;
 ///
 class Current extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions electricCurrentDimensions = const Dimensions.constant(const {"Current": 1}, type: Current);
+  static const Dimensions electricCurrentDimensions = const Dimensions.constant(const <String, int>{'Current': 1}, qType: Current);
 
   /// The standard SI unit.
-  static final CurrentUnits amperes = new CurrentUnits("amperes", "A", null, null, 1.0, true);
+  static final CurrentUnits amperes = new CurrentUnits('amperes', 'A', null, null, 1.0, true);
 
   /// A common metric derivative.
   static final CurrentUnits milliamperes = amperes.milli() as CurrentUnits;
@@ -50,18 +50,19 @@ class CurrentUnits extends Current with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Current;
 
   /// Derive new CurrentUnits using this CurrentUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new CurrentUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new CurrentUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
-  }
+        offset);
+  
 }

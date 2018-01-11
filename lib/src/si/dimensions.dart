@@ -23,7 +23,6 @@ part of quantity_si;
 /// dimensions and determine quantity types.  To test whether two Dimensions
 /// objects are equal strictly in terms of the base SI dimensions, the
 /// equalsSI method may be used.
-///
 class Dimensions {
   /// The dimensions (base dimension key -> base dimension exponent)
   final Map<String, num> _dimensionMap;
@@ -33,38 +32,38 @@ class Dimensions {
   // ==basic SI dimensions==
 
   /// Identifier for Base SI Quantity: Length
-  static const String baseLengthKey = "Length";
+  static const String baseLengthKey = 'Length';
 
   /// Identifier for Base SI Quantity: Mass
-  static const String baseMassKey = "Mass";
+  static const String baseMassKey = 'Mass';
 
   /// Identifier for Base SI Quantity: Time Interval
-  static const String baseTimeKey = "Time";
+  static const String baseTimeKey = 'Time';
 
   /// Identifier for Base SI Quantity: Temperature
-  static const String baseTemperatureKey = "Temperature";
+  static const String baseTemperatureKey = 'Temperature';
 
   /// Identifier for Base SI Quantity: Current
-  static const String baseCurrentKey = "Current";
+  static const String baseCurrentKey = 'Current';
 
   /// Identifier for Base SI Quantity: (Luminous) Intensity
-  static const String baseIntensityKey = "Intensity";
+  static const String baseIntensityKey = 'Intensity';
 
   /// Identifier for Base SI Quantity: Amount of Substance
-  static const String baseAmountKey = "Amount";
+  static const String baseAmountKey = 'Amount';
 
   // ==special derived==
 
   /// Identifier for Special Derived Dimensionless SI Quantity: Angle
-  static const String baseAngleKey = "Angle";
+  static const String baseAngleKey = 'Angle';
 
   /// Identifier for Special Derived Dimensionless SI Quantity: Solid Angle
-  static const String baseSolidAngleKey = "Solid Angle";
+  static const String baseSolidAngleKey = 'Solid Angle';
 
   /// No-arg constructor sets all dimensions to zero (that is, a scalar quantity).
   ///
   Dimensions()
-      : _dimensionMap = {},
+      : _dimensionMap = <String, num>{},
         qType = Scalar;
 
   /// Optional associated Quantity type
@@ -73,15 +72,13 @@ class Dimensions {
   /// Constructs a constant Dimensions object with a map of base dimension
   /// keys to exponents
   ///
-  const Dimensions.constant(Map<String, num> dims, {Type type})
-      : _dimensionMap = dims,
-        qType = type;
+  const Dimensions.constant(Map<String, num> dims, {this.qType}) : _dimensionMap = dims;
 
   /// Constructs a Dimensions object with a map of base dimension keys to
   /// base dimension exponents.
   ///
   Dimensions.fromMap(Map<String, num> typeValuePairs)
-      : _dimensionMap = new Map.from(typeValuePairs),
+      : _dimensionMap = new Map<String, num>.from(typeValuePairs),
         qType = null;
 
   /// Creates a new Dimensions object by copying an existing Dimensions object.
@@ -100,9 +97,9 @@ class Dimensions {
   /// Tests the equality of this Dimensions object and another Dimensions object.
   /// Two Dimensions objects are only equal if they have exactly equal
   /// values for each component dimension.
-  ///
+  @override
   bool operator ==(dynamic d2) {
-    if (d2 == null || d2 is! Dimensions) return false;
+    if (d2 is! Dimensions) return false;
     if (identical(this, d2)) return true;
 
     // Check size
@@ -119,22 +116,21 @@ class Dimensions {
 
   /// Returns a hash code consistent with [operator ==] by constructing a
   /// string key based on the dimension component values.
-  ///
+  @override
   int get hashCode {
     if (_dimensionMap.isEmpty) return 0;
 
     // Construct a unique string key and take its hashcode
-    var buffer = new StringBuffer();
-
-    buffer.write("L${getComponentExponent(Dimensions.baseLengthKey)}");
-    buffer.write("M${getComponentExponent(Dimensions.baseMassKey)}");
-    buffer.write("T${getComponentExponent(Dimensions.baseTimeKey)}");
-    buffer.write("C${getComponentExponent(Dimensions.baseCurrentKey)}");
-    buffer.write("I${getComponentExponent(Dimensions.baseIntensityKey)}");
-    buffer.write("TP${getComponentExponent(Dimensions.baseTemperatureKey)}");
-    buffer.write("AM${getComponentExponent(Dimensions.baseAmountKey)}");
-    buffer.write("A${getComponentExponent(Dimensions.baseAngleKey)}");
-    buffer.write("S${getComponentExponent(Dimensions.baseSolidAngleKey)}");
+    final StringBuffer buffer = (new StringBuffer())
+      ..write('L${getComponentExponent(Dimensions.baseLengthKey)}')
+      ..write('M${getComponentExponent(Dimensions.baseMassKey)}')
+      ..write('T${getComponentExponent(Dimensions.baseTimeKey)}')
+      ..write('C${getComponentExponent(Dimensions.baseCurrentKey)}')
+      ..write('I${getComponentExponent(Dimensions.baseIntensityKey)}')
+      ..write('TP${getComponentExponent(Dimensions.baseTemperatureKey)}')
+      ..write('AM${getComponentExponent(Dimensions.baseAmountKey)}')
+      ..write('A${getComponentExponent(Dimensions.baseAngleKey)}')
+      ..write('S${getComponentExponent(Dimensions.baseSolidAngleKey)}');
 
     return buffer.toString().hashCode;
   }
@@ -150,8 +146,8 @@ class Dimensions {
     if (d2 == null) return false;
     if (d2 == this) return true;
 
-    var copy1 = new Dimensions.copy(this);
-    var copy2 = new Dimensions.copy(d2);
+    final Dimensions copy1 = new Dimensions.copy(this);
+    final Dimensions copy2 = new Dimensions.copy(d2);
 
     // Remove Angle and SolidAngle from consideration
     copy1._dimensionMap.remove(Dimensions.baseAngleKey);
@@ -206,13 +202,13 @@ class Dimensions {
     if (other._dimensionMap.isEmpty) return this;
 
     // Copy.  Clear the type hint.
-    var result = new Dimensions.copy(this, includeTypeHint: false);
+    final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
 
     // Add other's dimensions to my dimensions
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (var key in other._dimensionMap.keys) {
+    for (String key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       newValue = otherValue + myValue;
@@ -240,13 +236,13 @@ class Dimensions {
     if (other._dimensionMap.isEmpty) return this;
 
     // Copy.  Clear the type hint.
-    var result = new Dimensions.copy(this, includeTypeHint: false);
+    final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
 
     // Add other's dimensions to my dimensions
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (var key in other._dimensionMap.keys) {
+    for (String key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       if (myValue == null) {
@@ -273,9 +269,9 @@ class Dimensions {
   /// (time: +1).
   ///
   Dimensions inverse() {
-    Map<String, num> invertedMap = <String, num>{};
+    final Map<String, num> invertedMap = <String, num>{};
     for (String t in _dimensionMap.keys) {
-      num value = _dimensionMap[t];
+      final num value = _dimensionMap[t];
       if (value != null) invertedMap[t] = value * -1;
     }
 
@@ -292,11 +288,11 @@ class Dimensions {
     if (exp == 1) return this;
 
     // Make a copy of this Object.  Clear the type hint.
-    var result = new Dimensions.copy(this, includeTypeHint: false);
+    final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
 
-    List<String> keysToRemove = [];
-    num value = null;
-    for (var k in result._dimensionMap.keys) {
+    final List<String> keysToRemove = <String>[];
+    num value;
+    for (String k in result._dimensionMap.keys) {
       value = result._dimensionMap[k];
       if (value != null && value != 0) {
         result._dimensionMap[k] = value * exp;
@@ -306,7 +302,7 @@ class Dimensions {
     }
 
     // Remove 0's
-    for (var k in keysToRemove) {
+    for (String k in keysToRemove) {
       result._dimensionMap.remove(k);
     }
 
@@ -340,7 +336,7 @@ class Dimensions {
     if (numDims > 5) return MiscQuantity;
 
     // Bin Possibilities By Length Dimension and number of components
-    num lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
+    final num lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
     if (lengthExp is! int) return MiscQuantity; // non-integer exponents means MiscQuantity
 
     if (lengthExp == -3) {
@@ -465,7 +461,7 @@ class Dimensions {
     // Check units match dimensions, if provided
     if (units is Quantity) {
       if (this != (units as Quantity).dimensions)
-        throw new DimensionsException("The dimensions of the provided units must equal the dimensions");
+        throw new DimensionsException('The dimensions of the provided units must equal the dimensions');
     }
 
     //TODO need to provide units (metric units as default?)
@@ -473,7 +469,7 @@ class Dimensions {
     try {
       return createTypedQuantityInstance(qType ?? determineQuantityType(this), value, units, uncert);
     } catch (e) {
-      _logger.warning("Fallback MiscQuantity instance created for ${this}");
+      _logger.warning('Fallback MiscQuantity instance created for ${this}');
 
       // Can always return a MiscQuantity
       if (units != null) {
@@ -484,25 +480,23 @@ class Dimensions {
     }
   }
 
-  /// Returns a String reprentation of this Dimensions object in the
-  /// form:
+  /// Returns a String representation of this Dimensions object in the form:
   ///
-  ///     "Dimensions [<type>=<value>; <type2>=<value2> ... ]"
-  ///
+  ///     'Dimensions [<type>=<value>; <type2>=<value2> ... ]'
+  @override
   String toString() {
-    var buffer = new StringBuffer();
-    buffer.write(" Dimensions [");
+    final StringBuffer buffer = (new StringBuffer())..write(' Dimensions [');
     bool first = true;
-    for (var t in _dimensionMap.keys) {
+    for (String t in _dimensionMap.keys) {
       if (!first) {
-        buffer.write("; ");
+        buffer.write('; ');
       } else {
         first = false;
       }
-      buffer.write("$t=${_dimensionMap[t]}");
+      buffer.write('$t=${_dimensionMap[t]}');
     }
 
-    buffer.write("]");
+    buffer.write(']');
     return buffer.toString();
   }
 }

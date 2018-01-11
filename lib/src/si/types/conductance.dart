@@ -8,11 +8,11 @@ part of quantity_si;
 class Conductance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricConductanceDimensions =
-      const Dimensions.constant(const {"Current": 2, "Time": 3, "Length": -2, "Mass": -1}, type: Conductance);
+      const Dimensions.constant(const <String, int>{'Current': 2, 'Time': 3, 'Length': -2, 'Mass': -1}, qType: Conductance);
 
   /// The standard SI unit.
   /// Note: singular still has an 's'
-  static final ConductanceUnits siemens = new ConductanceUnits("siemens", null, "S", "siemens", 1.0, true);
+  static final ConductanceUnits siemens = new ConductanceUnits('siemens', null, 'S', 'siemens', 1.0, true);
 
   /// Construct a Conductance with siemens ([S]).
   ///
@@ -48,18 +48,19 @@ class ConductanceUnits extends Conductance with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Conductance;
 
   /// Derive new ConductanceUnits using this ConductanceUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ConductanceUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ConductanceUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

@@ -8,7 +8,7 @@ part of quantity_si;
 class AbsorbedDoseRate extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions absorbedDoseRateDimensions =
-      const Dimensions.constant(const {"Length": 2, "Time": -3}, type: AbsorbedDoseRate);
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -3}, qType: AbsorbedDoseRate);
 
   /// The standard SI unit.
   static final AbsorbedDoseRateUnits graysPerSecond =
@@ -60,29 +60,29 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
 
   AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDoseUnits adu, TimeUnits tu)
       : super._internal(adu.valueSI * tu.valueSI) {
-    this.name = "${adu.name} per ${tu.singular} squared";
-    this.singular = "${adu.singular} per ${tu.singular} squared";
+    this.name = '${adu.name} per ${tu.singular} squared';
+    this.singular = '${adu.singular} per ${tu.singular} squared';
     this._convToMKS = adu.valueSI * tu.valueSI;
-    this._abbrev1 = adu._abbrev1 != null && tu._abbrev1 != null ? "${adu._abbrev1} / ${tu._abbrev1}" : null;
-    this._abbrev2 = adu._abbrev2 != null && tu._abbrev2 != null ? "${adu._abbrev2}${tu._abbrev2}" : null;
-    ;
+    this._abbrev1 = adu._abbrev1 != null && tu._abbrev1 != null ? '${adu._abbrev1} / ${tu._abbrev1}' : null;
+    this._abbrev2 = adu._abbrev2 != null && tu._abbrev2 != null ? '${adu._abbrev2}${tu._abbrev2}' : null;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => AbsorbedDoseRate;
 
   /// Derive new AbsorbedDoseRateUnits using this AbsorbedDoseRateUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new AbsorbedDoseRateUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new AbsorbedDoseRateUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

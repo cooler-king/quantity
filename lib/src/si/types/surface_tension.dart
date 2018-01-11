@@ -8,7 +8,7 @@ part of quantity_si;
 class SurfaceTension extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions surfaceTensionDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Time": -2}, type: SurfaceTension);
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -2}, qType: SurfaceTension);
 
   /// The standard SI unit.
   static final SurfaceTensionUnits newtonsPerMeter = new SurfaceTensionUnits.forceLength(Force.newtons, Length.meters);
@@ -47,28 +47,29 @@ class SurfaceTensionUnits extends SurfaceTension with Units {
   }
 
   SurfaceTensionUnits.forceLength(ForceUnits fu, LengthUnits lu) : super._internal(fu.valueSI / lu.valueSI) {
-    this.name = "${fu.name} per ${lu.singular}";
-    this.singular = "${fu.singular} per ${lu.singular}";
+    this.name = '${fu.name} per ${lu.singular}';
+    this.singular = '${fu.singular} per ${lu.singular}';
     this._convToMKS = fu.valueSI / lu.valueSI;
-    this._abbrev1 = fu._abbrev1 != null && lu._abbrev1 != null ? "${fu._abbrev1} / ${lu._abbrev1}" : null;
-    this._abbrev2 = fu._abbrev2 != null && lu._abbrev2 != null ? "${fu._abbrev2}/${lu._abbrev2}" : null;
+    this._abbrev1 = fu._abbrev1 != null && lu._abbrev1 != null ? '${fu._abbrev1} / ${lu._abbrev1}' : null;
+    this._abbrev2 = fu._abbrev2 != null && lu._abbrev2 != null ? '${fu._abbrev2}/${lu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => SurfaceTension;
 
   /// Derive new SurfaceTensionUnits using this SurfaceTensionUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new SurfaceTensionUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new SurfaceTensionUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

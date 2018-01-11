@@ -15,9 +15,9 @@ final AreaUnits barns = Area.barns;
 /// equals 1 square hectometer, or 10 000 square meters.
 final AreaUnits hectares = Area.hectares;
 
-final AreaUnits acres = new AreaUnits("acres", null, null, null, 4.0468564224e3, false);
+final AreaUnits acres = new AreaUnits('acres', null, null, null, 4.0468564224e3, false);
 
-final AreaUnits circularMils = new AreaUnits("circular mils", null, null, null, 5.0670748e-10, false);
+final AreaUnits circularMils = new AreaUnits('circular mils', null, null, null, 5.0670748e-10, false);
 
 final AreaUnits squareFeet = new AreaUnits.lengthSquared(feet);
 
@@ -29,7 +29,7 @@ final AreaUnits squareCentimeters = new AreaUnits.lengthSquared(centimeters);
 
 final AreaUnits squareMiles = new AreaUnits.lengthSquared(miles);
 
-final AreaUnits townships = new AreaUnits("townships", null, null, null, 9.3239572e7, false);
+final AreaUnits townships = new AreaUnits('townships', null, null, null, 9.3239572e7, false);
 
 final AreaUnits squareYards = new AreaUnits.lengthSquared(yards);
 

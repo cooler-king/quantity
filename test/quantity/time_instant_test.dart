@@ -27,13 +27,13 @@ void main() {
     test('FiscalYear', () {
       FiscalYear fy = new FiscalYear(2013);
       expect(fy, isNotNull);
-      expect(fy.toString(), "FY13");
+      expect(fy.toString(), 'FY13');
     });
 
     test('CalendarYear', () {
       CalendarYear cy = new CalendarYear(2013);
       expect(cy, isNotNull);
-      expect(cy.toString(), "2013");
+      expect(cy.toString(), '2013');
     });
   });
 }

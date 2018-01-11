@@ -8,10 +8,10 @@ part of quantity_si;
 class MagneticFlux extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions magneticFluxDimensions =
-      const Dimensions.constant(const {"Length": 2, "Time": -2, "Current": -1, "Mass": 1}, type: MagneticFlux);
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2, 'Current': -1, 'Mass': 1}, qType: MagneticFlux);
 
   /// The standard SI unit.
-  static final MagneticFluxUnits webers = new MagneticFluxUnits("webers", null, "Wb", null, 1.0, true);
+  static final MagneticFluxUnits webers = new MagneticFluxUnits('webers', null, 'Wb', null, 1.0, true);
 
   /// Construct a MagneticFlux with webers ([Wb]).
   ///
@@ -47,18 +47,19 @@ class MagneticFluxUnits extends MagneticFlux with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => MagneticFlux;
 
   /// Derive new MagneticFluxUnits using this MagneticFluxUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new MagneticFluxUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new MagneticFluxUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

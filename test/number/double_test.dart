@@ -115,14 +115,14 @@ void main() {
       expect((sum as Complex).imag.value.toDouble(), -9.6);
 
       // + Precise
-      Precise p = new Precise("123.456");
+      Precise p = new Precise('123.456');
       sum = d + p;
       expect(sum is Precise, true);
-      expect(sum, new Precise("165.512"));
-      p = new Precise("-0.024");
+      expect(sum, new Precise('165.512'));
+      p = new Precise('-0.024');
       sum = d + p;
       expect(sum is Precise, true);
-      expect(sum, new Precise("42.032"));
+      expect(sum, new Precise('42.032'));
     });
 
     test('operator -', () {
@@ -195,14 +195,14 @@ void main() {
       expect((diff as Complex).imag.value.toDouble(), 9.6);
 
       // - Precise
-      Precise p = new Precise("1.013");
+      Precise p = new Precise('1.013');
       diff = d - p;
       expect(diff is Precise, true);
-      expect(diff, new Precise("41.043"));
-      p = new Precise("-1.013");
+      expect(diff, new Precise('41.043'));
+      p = new Precise('-1.013');
       diff = d - p;
       expect(diff is Precise, true);
-      expect(diff, new Precise("43.069"));
+      expect(diff, new Precise('43.069'));
     });
 
     test('operator *', () {
@@ -267,14 +267,14 @@ void main() {
       expect((prod as Complex).imag.value.toDouble(), -11.52);
 
       // * Precise
-      Precise p = new Precise("1.013");
+      Precise p = new Precise('1.013');
       prod = d * p;
       expect(prod is Precise, true);
-      expect(prod, new Precise("1.2156"));
-      p = new Precise("-1.013");
+      expect(prod, new Precise('1.2156'));
+      p = new Precise('-1.013');
       prod = d * p;
       expect(prod is Precise, true);
-      expect(prod, new Precise("-1.2156"));
+      expect(prod, new Precise('-1.2156'));
     });
 
     test('operator /', () {
@@ -340,14 +340,14 @@ void main() {
       expect((quot as Complex).imag.value.toDouble(), 1.6);
 
       // / Precise
-      Precise p = new Precise("4.8");
+      Precise p = new Precise('4.8');
       quot = d / p;
       expect(quot is Precise, true);
-      expect(quot, new Precise("0.25"));
-      p = new Precise("-4.8");
+      expect(quot, new Precise('0.25'));
+      p = new Precise('-4.8');
       quot = d / p;
       expect(quot is Precise, true);
-      expect(quot, new Precise("-0.25"));
+      expect(quot, new Precise('-0.25'));
     });
   });
 }

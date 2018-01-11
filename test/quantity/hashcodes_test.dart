@@ -21,7 +21,7 @@ void main() {
       var f = new Energy(J: new Complex(new Double(5.0), new Imaginary(0)));
       expect(a.hashCode, f.hashCode);
 
-      var g = new Energy(J: new Precise("5.0"));
+      var g = new Energy(J: new Precise('5.0'));
       expect(a.hashCode, g.hashCode);
 
       var h = new Energy(J: new Precise.num(5));
@@ -48,7 +48,7 @@ void main() {
       var f = new Energy(J: new Complex(new Double(5.01), new Imaginary(0)));
       expect(a.hashCode == f.hashCode, false);
 
-      var g = new Energy(J: new Precise("5.000000000000000000000000000001"));
+      var g = new Energy(J: new Precise('5.000000000000000000000000000001'));
       expect(a.hashCode == g.hashCode, false);
 
       var h = new Energy(J: new Precise.num(-5));
@@ -79,7 +79,7 @@ void main() {
       var f = new Scalar(value: new Complex(new Double(5.0), new Imaginary(0)));
       expect(f.hashCode, 5.hashCode);
 
-      var g = new Scalar(value: new Precise("5.0000000000000000000"));
+      var g = new Scalar(value: new Precise('5.0000000000000000000'));
       expect(g.hashCode, 5.hashCode);
 
       var h = new Scalar(value: new Precise.num(-5));
@@ -93,16 +93,16 @@ void main() {
     });
 
     test('scalar in map', () {
-      Map<int, String> m = {0: "zero", 5: "five", 10: "ten"};
+      Map<int, String> m = {0: 'zero', 5: 'five', 10: 'ten'};
 
-      expect(m[0], "zero");
-      expect(m[new Scalar(value: 0)], "zero");
+      expect(m[0], 'zero');
+      expect(m[new Scalar(value: 0)], 'zero');
 
-      expect(m[5], "five");
-      expect(m[new Scalar(value: new Integer(5))], "five");
+      expect(m[5], 'five');
+      expect(m[new Scalar(value: new Integer(5))], 'five');
 
-      expect(m[10], "ten");
-      expect(m[new Scalar(value: new Double(10.0))], "ten");
+      expect(m[10], 'ten');
+      expect(m[new Scalar(value: new Double(10.0))], 'ten');
 
       expect(m[new Scalar(value: new Double(10.000001))], isNull);
     });

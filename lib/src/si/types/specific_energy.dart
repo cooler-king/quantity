@@ -10,7 +10,7 @@ part of quantity_si;
 class SpecificEnergy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions specificEnergyDimensions =
-      const Dimensions.constant(const {"Length": 2, "Time": -2}, type: SpecificEnergy);
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: SpecificEnergy);
 
   /// The standard SI unit.
   static final SpecificEnergyUnits joulesPerKilogram =
@@ -51,49 +51,50 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
   }
 
   SpecificEnergyUnits.energyMass(EnergyUnits eu, MassUnits mu) : super._internal(eu.valueSI / mu.valueSI) {
-    this.name = "${eu.name} per ${mu.singular}";
-    this.singular = "${eu.singular} per ${mu.singular}";
+    this.name = '${eu.name} per ${mu.singular}';
+    this.singular = '${eu.singular} per ${mu.singular}';
     this._convToMKS = eu.valueSI / mu.valueSI;
-    this._abbrev1 = eu._abbrev1 != null && mu._abbrev1 != null ? "${eu._abbrev1} / ${mu._abbrev1}" : null;
-    this._abbrev2 = eu._abbrev2 != null && mu._abbrev2 != null ? "${eu._abbrev2}/${mu._abbrev2}" : null;
+    this._abbrev1 = eu._abbrev1 != null && mu._abbrev1 != null ? '${eu._abbrev1} / ${mu._abbrev1}' : null;
+    this._abbrev2 = eu._abbrev2 != null && mu._abbrev2 != null ? '${eu._abbrev2}/${mu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   SpecificEnergyUnits.lengthTime(LengthUnits lu, TimeUnits tu)
       : super._internal(lu.valueSI * lu.valueSI / (tu.valueSI * tu.valueSI)) {
-    this.name = "${lu.name} squared per ${tu.singular} squared";
-    this.singular = "${lu.singular} squared per ${tu.singular} squared";
+    this.name = '${lu.name} squared per ${tu.singular} squared';
+    this.singular = '${lu.singular} squared per ${tu.singular} squared';
     this._convToMKS = lu.valueSI * lu.valueSI / (tu.valueSI * tu.valueSI);
-    this._abbrev1 = lu._abbrev1 != null && tu._abbrev1 != null ? "${lu._abbrev1} sq./ ${tu._abbrev1} sq." : null;
-    this._abbrev2 = lu._abbrev2 != null && tu._abbrev2 != null ? "${lu._abbrev2}^2/${tu._abbrev2}^2" : null;
+    this._abbrev1 = lu._abbrev1 != null && tu._abbrev1 != null ? '${lu._abbrev1} sq./ ${tu._abbrev1} sq.' : null;
+    this._abbrev2 = lu._abbrev2 != null && tu._abbrev2 != null ? '${lu._abbrev2}^2/${tu._abbrev2}^2' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   SpecificEnergyUnits.speed(SpeedUnits su) : super._internal(su.valueSI) {
-    this.name = "${su.name} squared";
-    this.singular = "${su.singular} squared";
+    this.name = '${su.name} squared';
+    this.singular = '${su.singular} squared';
     this._convToMKS = su.valueSI;
-    this._abbrev1 = su._abbrev1 != null ? "${su._abbrev1} sq." : null;
-    this._abbrev2 = su._abbrev2 != null ? "${su._abbrev2}^2" : null;
+    this._abbrev1 = su._abbrev1 != null ? '${su._abbrev1} sq.' : null;
+    this._abbrev2 = su._abbrev2 != null ? '${su._abbrev2}^2' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => SpecificEnergy;
 
   /// Derive new SpecificEnergyUnits using this SpecificEnergyUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new SpecificEnergyUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new SpecificEnergyUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

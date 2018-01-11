@@ -7,7 +7,7 @@ part of quantity_si;
 ///
 class WaveNumber extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions waveNumberDimensions = const Dimensions.constant(const {"Length": -1}, type: WaveNumber);
+  static const Dimensions waveNumberDimensions = const Dimensions.constant(const <String, int>{'Length': -1}, qType: WaveNumber);
 
   /// The standard SI unit.
   static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.length(Length.meters);
@@ -47,28 +47,29 @@ class WaveNumberUnits extends WaveNumber with Units {
   }
 
   WaveNumberUnits.length(LengthUnits lu) : super._internal(Integer.one / lu.valueSI) {
-    this.name = "reciprocal ${lu.name}";
-    this.singular = "reciprocal ${lu.singular}";
+    this.name = 'reciprocal ${lu.name}';
+    this.singular = 'reciprocal ${lu.singular}';
     this._convToMKS = Integer.one / lu.valueSI;
-    this._abbrev1 = lu._abbrev1 != null ? "1 / ${lu._abbrev1}" : null;
-    this._abbrev2 = lu._abbrev2 != null ? "${lu._abbrev2}-1" : null;
+    this._abbrev1 = lu._abbrev1 != null ? '1 / ${lu._abbrev1}' : null;
+    this._abbrev2 = lu._abbrev2 != null ? '${lu._abbrev2}-1' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => WaveNumber;
 
   /// Derive new WaveNumberUnits using this WaveNumberUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new WaveNumberUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new WaveNumberUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

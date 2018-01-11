@@ -50,20 +50,20 @@ final TemperatureUnits degreesCelsius = Temperature.degreesCelsius;
 const double fiveNinths = 5.0 / 9.0;
 
 final TemperatureUnits Fahrenheit = new TemperatureUnits(
-    "degrees Fahrenheit", "F", null, "degree Fahrenheit", fiveNinths, false, 273.15 - (fiveNinths * 32.0));
+    'degrees Fahrenheit', 'F', null, 'degree Fahrenheit', fiveNinths, false, 273.15 - (fiveNinths * 32.0));
 
 final TemperatureUnits Rankine =
-    new TemperatureUnits("degrees Rankine", "deg R", null, "degree Rankine", fiveNinths, false, 0.0);
+    new TemperatureUnits('degrees Rankine', 'deg R', null, 'degree Rankine', fiveNinths, false, 0.0);
 
 final TemperatureIntervalUnits degreesFahrenheit =
-    new TemperatureIntervalUnits("degrees Fahrenheit", "deg F", null, "degree Fahrenheit", fiveNinths, false, 0.0);
+    new TemperatureIntervalUnits('degrees Fahrenheit', 'deg F', null, 'degree Fahrenheit', fiveNinths, false, 0.0);
 
-final degF = degreesFahrenheit;
+final TemperatureIntervalUnits degF = degreesFahrenheit;
 
 final TemperatureIntervalUnits degreesRankine =
-    new TemperatureIntervalUnits("degrees Rankine", "deg R", null, "degree Rankine", fiveNinths, false, 0.0);
+    new TemperatureIntervalUnits('degrees Rankine', 'deg R', null, 'degree Rankine', fiveNinths, false, 0.0);
 
-final degR = degreesRankine;
+final TemperatureIntervalUnits degR = degreesRankine;
 
 // Constants
 const Temperature planckTemperature =

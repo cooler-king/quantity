@@ -8,84 +8,84 @@ import 'package:quantity/domain/thermodynamic.dart';
 import 'package:quantity/domain/universal.dart';
 
 Map<String, Quantity> nistNameConstantMap = {
-  "alpha particle mass": alphaParticleMass,
-  "atomic mass constant": atomicMass,
-  "Avogadro constant": avogadro,
-  "Angstrom star": angstromStar,
-  "Bohr magneton": bohrMagneton,
-  "Bohr radius": bohrRadius,
-  "Boltzmann constant": boltzmannConstant,
-  "characteristic impedance of vacuum": characteristicImpedanceOfVacuum,
-  "classical electron radius": classicalElectronRadius,
-  "Compton wavelength": comptonWavelength,
-  "conductance quantum": conductanceQuantum,
-  "deuteron mass": deuteronMass,
-  "electric constant": electricConstant,
-  "electron g factor": electronGFactor,
-  "electron mass": electronMass,
-  "elementary charge": elementaryCharge,
-  "Faraday constant": faradayConstant,
-  "fine-structure constant": fineStructureConstant,
-  "first radiation constant": firstRadiationConstant,
-  "Hartree energy": hartreeEnergy,
-  "helion mass": helionMass,
-  "molar gas constant": gasConstantMolar,
-  "Josephson constant": josephsonConstant,
-  "Loschmidt constant (273.15 K, 101.325 kPa)": loschmidtStdAtm,
-  "mag. constant": magneticConstant,
-  "mag. flux quantum": magneticFluxQuantum,
-  "molar Planck constant": molarPlanck,
-  "molar volume of ideal gas (273.15 K, 100 kPa)": molarVolume100kPa,
-  "molar volume of ideal gas (273.15 K, 101.325 kPa)": molarVolumeStdAtm,
-  "muon g factor": muonGFactor,
-  "muon mass": muonMass,
-  "neutron g factor": neutronGFactor,
-  "neutron mass": neutronMass,
-  "Newtonian constant of gravitation": newtonianConstantOfGravitation,
-  "nuclear magneton": nuclearMagneton,
-  "Planck constant": planckConstant,
-  "Planck constant over 2 pi": hBar,
-  "Planck length": planckLength,
-  "Planck mass": planckMass,
-  "Planck temperature": planckTemperature,
-  "Planck time": planckTime,
-  "proton g factor": protonGFactor,
-  "proton mass": protonMass,
-  "Rydberg constant": rydberg,
-  "Sackur-Tetrode constant (1 K, 100 kPa)": sackurTetrode100kPa,
-  "Sackur-Tetrode constant (1 K, 101.325 kPa)": sackurTetrodeStdAtm,
-  "second radiation constant": secondRadiationConstant,
-  "speed of light in vacuum": speedOfLightVacuum,
-  "Stefan-Boltzmann constant": stefanBoltzmann,
-  "tau Compton wavelength": tauComptonWavelength,
-  "tau mass": tauMass,
-  "Thomson cross section": thomsonCrossSection,
-  "von Klitzing constant": vonKlitzingConstant,
-  "weak mixing angle": weakMixingAngle,
-  "Wien wavelength displacement law constant": wienDisplacement
+  'alpha particle mass': alphaParticleMass,
+  'atomic mass constant': atomicMass,
+  'Avogadro constant': avogadro,
+  'Angstrom star': angstromStar,
+  'Bohr magneton': bohrMagneton,
+  'Bohr radius': bohrRadius,
+  'Boltzmann constant': boltzmannConstant,
+  'characteristic impedance of vacuum': characteristicImpedanceOfVacuum,
+  'classical electron radius': classicalElectronRadius,
+  'Compton wavelength': comptonWavelength,
+  'conductance quantum': conductanceQuantum,
+  'deuteron mass': deuteronMass,
+  'electric constant': electricConstant,
+  'electron g factor': electronGFactor,
+  'electron mass': electronMass,
+  'elementary charge': elementaryCharge,
+  'Faraday constant': faradayConstant,
+  'fine-structure constant': fineStructureConstant,
+  'first radiation constant': firstRadiationConstant,
+  'Hartree energy': hartreeEnergy,
+  'helion mass': helionMass,
+  'molar gas constant': gasConstantMolar,
+  'Josephson constant': josephsonConstant,
+  'Loschmidt constant (273.15 K, 101.325 kPa)': loschmidtStdAtm,
+  'mag. constant': magneticConstant,
+  'mag. flux quantum': magneticFluxQuantum,
+  'molar Planck constant': molarPlanck,
+  'molar volume of ideal gas (273.15 K, 100 kPa)': molarVolume100kPa,
+  'molar volume of ideal gas (273.15 K, 101.325 kPa)': molarVolumeStdAtm,
+  'muon g factor': muonGFactor,
+  'muon mass': muonMass,
+  'neutron g factor': neutronGFactor,
+  'neutron mass': neutronMass,
+  'Newtonian constant of gravitation': newtonianConstantOfGravitation,
+  'nuclear magneton': nuclearMagneton,
+  'Planck constant': planckConstant,
+  'Planck constant over 2 pi': hBar,
+  'Planck length': planckLength,
+  'Planck mass': planckMass,
+  'Planck temperature': planckTemperature,
+  'Planck time': planckTime,
+  'proton g factor': protonGFactor,
+  'proton mass': protonMass,
+  'Rydberg constant': rydberg,
+  'Sackur-Tetrode constant (1 K, 100 kPa)': sackurTetrode100kPa,
+  'Sackur-Tetrode constant (1 K, 101.325 kPa)': sackurTetrodeStdAtm,
+  'second radiation constant': secondRadiationConstant,
+  'speed of light in vacuum': speedOfLightVacuum,
+  'Stefan-Boltzmann constant': stefanBoltzmann,
+  'tau Compton wavelength': tauComptonWavelength,
+  'tau mass': tauMass,
+  'Thomson cross section': thomsonCrossSection,
+  'von Klitzing constant': vonKlitzingConstant,
+  'weak mixing angle': weakMixingAngle,
+  'Wien wavelength displacement law constant': wienDisplacement
 };
 
 void main() {
   group('constants', () {
     test('check against NIST values', () {
-      List<String> lines = new File('test/quantity_ext/txt/nist_constants.txt').readAsLinesSync();
+      final List<String> lines = new File('test/quantity_ext/txt/nist_constants.txt').readAsLinesSync();
       double value, uncert;
-      for (var line in lines) {
-        String name = line.substring(0, 60).trim();
+      for (String line in lines) {
+        final String name = line.substring(0, 60).trim();
         String valueStr = line.substring(60, 85);
 
         bool approxValue = false;
-        valueStr = valueStr.replaceAll(" ", "");
-        if (valueStr.contains("...")) {
-          valueStr = valueStr.replaceAll("...", "");
+        valueStr = valueStr.replaceAll(' ', '');
+        if (valueStr.contains('...')) {
+          valueStr = valueStr.replaceAll('...', '');
           uncert = 0.0;
           approxValue = true;
         } else {
           String uncertStr = line.substring(85, 110);
-          if (uncertStr.contains("exact")) {
+          if (uncertStr.contains('exact')) {
             uncert = 0.0;
           } else {
-            uncertStr = uncertStr.replaceAll(" ", "");
+            uncertStr = uncertStr.replaceAll(' ', '');
             uncert = double.parse(uncertStr);
           }
         }
@@ -93,7 +93,7 @@ void main() {
         value = double.parse(valueStr);
 
         if (nistNameConstantMap.containsKey(name)) {
-          Quantity q = nistNameConstantMap[name];
+          final Quantity q = nistNameConstantMap[name];
           if (approxValue) {
             expect(q.valueSI.toDouble() / value, closeTo(1.0, 0.000001));
           } else {

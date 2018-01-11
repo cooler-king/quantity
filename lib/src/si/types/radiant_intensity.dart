@@ -8,7 +8,7 @@ part of quantity_si;
 class RadiantIntensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions radiantIntensityDimensions =
-      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -3, "Solid Angle": -1}, type: RadiantIntensity);
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3, 'Solid Angle': -1}, qType: RadiantIntensity);
 
   /// The standard SI unit.
   static final RadiantIntensityUnits wattsPerSteradian =
@@ -50,28 +50,29 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
 
   RadiantIntensityUnits.powerSolidAngle(PowerUnits pu, SolidAngleUnits sau)
       : super._internal(pu.valueSI / sau.valueSI) {
-    this.name = "${pu.name} per ${sau.singular}";
-    this.singular = "${pu.singular} per ${sau.singular}";
+    this.name = '${pu.name} per ${sau.singular}';
+    this.singular = '${pu.singular} per ${sau.singular}';
     this._convToMKS = pu.valueSI / sau.valueSI;
-    this._abbrev1 = pu._abbrev1 != null && sau._abbrev1 != null ? "${pu._abbrev1} / ${sau._abbrev1}" : null;
-    this._abbrev2 = pu._abbrev2 != null && sau._abbrev2 != null ? "${pu._abbrev2}/${sau._abbrev2}" : null;
+    this._abbrev1 = pu._abbrev1 != null && sau._abbrev1 != null ? '${pu._abbrev1} / ${sau._abbrev1}' : null;
+    this._abbrev2 = pu._abbrev2 != null && sau._abbrev2 != null ? '${pu._abbrev2}/${sau._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => RadiantIntensity;
 
   /// Derive new RadiantIntensityUnits using this RadiantIntensityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new RadiantIntensityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new RadiantIntensityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

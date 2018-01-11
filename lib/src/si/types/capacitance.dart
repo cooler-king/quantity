@@ -8,10 +8,10 @@ part of quantity_si;
 class Capacitance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricCapacitanceDimensions =
-      const Dimensions.constant(const {"Time": 4, "Current": 2, "Length": -2, "Mass": -1}, type: Capacitance);
+      const Dimensions.constant(const <String, int>{'Time': 4, 'Current': 2, 'Length': -2, 'Mass': -1}, qType: Capacitance);
 
   /// The standard SI unit.
-  static final CapacitanceUnits farads = new CapacitanceUnits("farads", null, "F", null, 1.0, true);
+  static final CapacitanceUnits farads = new CapacitanceUnits('farads', null, 'F', null, 1.0, true);
 
   /// Construct a Capacitance with farads ([F]).
   ///
@@ -47,18 +47,19 @@ class CapacitanceUnits extends Capacitance with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Capacitance;
 
   /// Derive new CapacitanceUnits using this CapacitanceUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new CapacitanceUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new CapacitanceUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

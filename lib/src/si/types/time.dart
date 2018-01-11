@@ -13,23 +13,23 @@ part of quantity_si;
 ///
 class Time extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions timeDimensions = const Dimensions.constant(const {"Time": 1}, type: Time);
+  static const Dimensions timeDimensions = const Dimensions.constant(const <String, int>{'Time': 1}, qType: Time);
 
   // units
 
   /// the standard SI unit
-  static final TimeUnits seconds = new TimeUnits("seconds", "sec", "s", null, Double.one, true);
+  static final TimeUnits seconds = new TimeUnits('seconds', 'sec', 's', null, Double.one, true);
 
   /// accepted for use with the SI
-  static final TimeUnits daysMeanSolar = new TimeUnits("days", "days", "d", null, const Double.constant(8.64e4), false);
+  static final TimeUnits daysMeanSolar = new TimeUnits('days', 'days', 'd', null, const Double.constant(8.64e4), false);
 
   /// accepted for use with the SI
   static final TimeUnits hoursMeanSolar =
-      new TimeUnits("hours", "hrs", "h", null, const Double.constant(3.60e3), false);
+      new TimeUnits('hours', 'hrs', 'h', null, const Double.constant(3.60e3), false);
 
   /// accepted for use with the SI
   static final TimeUnits minutesMeanSolar =
-      new TimeUnits("minutes", "minutes", "min", null, const Double.constant(6.0e1), false);
+      new TimeUnits('minutes', 'minutes', 'min', null, const Double.constant(6.0e1), false);
 
   // common metric derivations
 
@@ -107,18 +107,18 @@ class TimeUnits extends Time with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Time;
 
   /// Derive new TimeUnits using this TimeUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new TimeUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TimeUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

@@ -8,7 +8,7 @@ part of quantity_si;
 class EnergyFlux extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions energyFluxDimensions =
-      const Dimensions.constant(const {"Length": 2, "Mass": 1, "Time": -3}, type: EnergyFlux);
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: EnergyFlux);
 
   /// The standard SI unit.
   static final EnergyFluxUnits wattsPerSquareMeter = new EnergyFluxUnits.powerArea(Power.watts, Area.squareMeters);
@@ -47,29 +47,29 @@ class EnergyFluxUnits extends EnergyFlux with Units {
   }
 
   EnergyFluxUnits.powerArea(PowerUnits pu, AreaUnits au) : super._internal(pu.valueSI * au.valueSI) {
-    this.name = "${pu.name} per ${au.singular}";
-    this.singular = "${pu.singular} per ${au.singular}";
+    this.name = '${pu.name} per ${au.singular}';
+    this.singular = '${pu.singular} per ${au.singular}';
     this._convToMKS = pu.valueSI * au.valueSI;
-    this._abbrev1 = pu._abbrev1 != null && au._abbrev1 != null ? "${pu._abbrev1} / ${au._abbrev1}" : null;
-    this._abbrev2 = pu._abbrev2 != null && au._abbrev2 != null ? "${pu._abbrev2}/${au._abbrev2}" : null;
-    ;
+    this._abbrev1 = pu._abbrev1 != null && au._abbrev1 != null ? '${pu._abbrev1} / ${au._abbrev1}' : null;
+    this._abbrev2 = pu._abbrev2 != null && au._abbrev2 != null ? '${pu._abbrev2}/${au._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => EnergyFlux;
 
   /// Derive new EnergyFluxUnits using this EnergyFluxUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new EnergyFluxUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new EnergyFluxUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

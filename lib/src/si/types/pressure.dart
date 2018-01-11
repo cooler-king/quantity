@@ -11,13 +11,13 @@ part of quantity_si;
 class Pressure extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions pressureDimensions =
-      const Dimensions.constant(const {"Length": -1, "Mass": 1, "Time": -2}, type: Pressure);
+      const Dimensions.constant(const <String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: Pressure);
 
   /// The standard SI unit.
-  static final PressureUnits pascals = new PressureUnits("pascals", null, "Pa", null, 1.0, true);
+  static final PressureUnits pascals = new PressureUnits('pascals', null, 'Pa', null, 1.0, true);
 
   /// Accepted for use with the SI, subject to further review.
-  static final PressureUnits bars = new PressureUnits("bars", null, null, null, 1.0e5, true);
+  static final PressureUnits bars = new PressureUnits('bars', null, null, null, 1.0e5, true);
 
   /// Construct a pressure with pascals ([Pa]) or [bars].
   ///
@@ -54,28 +54,29 @@ class PressureUnits extends Pressure with Units {
   }
 
   PressureUnits.forceArea(ForceUnits fu, AreaUnits au) : super._internal(fu.valueSI * au.valueSI) {
-    this.name = "${fu.name} per ${au.singular}";
-    this.singular = "${fu.singular} per ${au.singular}";
+    this.name = '${fu.name} per ${au.singular}';
+    this.singular = '${fu.singular} per ${au.singular}';
     this._convToMKS = fu.valueSI * au.valueSI;
-    this._abbrev1 = fu._abbrev1 != null && au._abbrev1 != null ? "${fu._abbrev1} / ${au._abbrev1}" : null;
-    this._abbrev2 = fu._abbrev2 != null && au._abbrev2 != null ? "${fu._abbrev2}${au._abbrev2}" : null;
+    this._abbrev1 = fu._abbrev1 != null && au._abbrev1 != null ? '${fu._abbrev1} / ${au._abbrev1}' : null;
+    this._abbrev2 = fu._abbrev2 != null && au._abbrev2 != null ? '${fu._abbrev2}${au._abbrev2}' : null;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Pressure;
 
   /// Derive new PressureUnits using this PressureUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new PressureUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new PressureUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

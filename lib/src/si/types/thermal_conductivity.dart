@@ -8,8 +8,8 @@ part of quantity_si;
 class ThermalConductivity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions thermalConductivityDimensions = const Dimensions.constant(
-      const {"Length": 1, "Mass": 1, "Time": -3, "Temperature": -1},
-      type: ThermalConductivity);
+      const <String, int>{'Length': 1, 'Mass': 1, 'Time': -3, 'Temperature': -1},
+      qType: ThermalConductivity);
 
   /// The standard SI unit.
   static final ThermalConductivityUnits wattsPerMeterKelvin =
@@ -52,29 +52,30 @@ class ThermalConductivityUnits extends ThermalConductivity with Units {
 
   ThermalConductivityUnits.powerLengthTemperature(PowerUnits pu, LengthUnits lu, TemperatureIntervalUnits tiu)
       : super._internal(pu.valueSI / (lu.valueSI * tiu.valueSI)) {
-    this.name = "${pu.name} per ${lu.singular} ${tiu.singular}";
-    this.singular = "${pu.singular} per ${lu.singular} ${tiu.singular}";
+    this.name = '${pu.name} per ${lu.singular} ${tiu.singular}';
+    this.singular = '${pu.singular} per ${lu.singular} ${tiu.singular}';
     this._convToMKS = pu.valueSI / (lu.valueSI * tiu.valueSI);
     this._abbrev1 =
-        pu._abbrev1 != null && lu._abbrev1 != null ? "${pu._abbrev1} / ${lu._abbrev1} ${tiu._abbrev1}" : null;
-    this._abbrev2 = pu._abbrev2 != null && lu._abbrev2 != null ? "${pu._abbrev2}/${lu._abbrev2}${tiu._abbrev2}" : null;
+        pu._abbrev1 != null && lu._abbrev1 != null ? '${pu._abbrev1} / ${lu._abbrev1} ${tiu._abbrev1}' : null;
+    this._abbrev2 = pu._abbrev2 != null && lu._abbrev2 != null ? '${pu._abbrev2}/${lu._abbrev2}${tiu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => ThermalConductivity;
 
   /// Derive new ThermalConductivityUnits using this ThermalConductivityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ThermalConductivityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ThermalConductivityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

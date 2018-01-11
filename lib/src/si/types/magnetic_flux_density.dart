@@ -9,10 +9,10 @@ part of quantity_si;
 class MagneticFluxDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions magneticFluxDensityDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Current": -1, "Time": -2}, type: MagneticFluxDensity);
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Current': -1, 'Time': -2}, qType: MagneticFluxDensity);
 
   /// The standard SI unit.
-  static final MagneticFluxDensityUnits teslas = new MagneticFluxDensityUnits("teslas", null, "T", null, 1.0, true);
+  static final MagneticFluxDensityUnits teslas = new MagneticFluxDensityUnits('teslas', null, 'T', null, 1.0, true);
 
   /// Construct a MagneticFluxDensity with teslas ([T]).
   ///
@@ -49,18 +49,19 @@ class MagneticFluxDensityUnits extends MagneticFluxDensity with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => MagneticFluxDensity;
 
   /// Derive new MagneticFluxDensityUnits using this MagneticFluxDensityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new MagneticFluxDensityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new MagneticFluxDensityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

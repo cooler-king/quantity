@@ -4,7 +4,7 @@ part of quantity_range;
 /// implicit direction.
 ///
 class AngleRange extends QuantityRange<Angle> {
-  /// Contructs an angle range.
+  /// Constructs an angle range.
   AngleRange(Angle startAngle, Angle endAngle) : super(startAngle, endAngle);
 
   /// Constructs an angle range in radians.
@@ -15,9 +15,11 @@ class AngleRange extends QuantityRange<Angle> {
   AngleRange.degrees(double startAngleDeg, double endAngleDeg)
       : super(new Angle(deg: startAngleDeg), new Angle(deg: endAngleDeg));
 
-  Angle get startAngle => this.q1;
+  /// The starting angle in the range.
+  Angle get startAngle => q1;
 
-  Angle get endAngle => this.q2;
+  /// The ending angle in the range.
+  Angle get endAngle => q2;
 
   /// True if the range represents a clockwise direction.
   bool get isClockwise => q2 > q1;
@@ -36,9 +38,8 @@ class AngleRange extends QuantityRange<Angle> {
 
   /// A range is considered tiny if its width is less than or equal to
   /// [epsilon], which is 0.001 degree by default.
-  ///
   bool isTiny({Angle epsilon}) {
-    if (epsilon == null) epsilon = new Angle(deg: 0.001);
+    epsilon ??= new Angle(deg: 0.001);
     if (span <= epsilon) return true;
     return false;
   }
@@ -59,29 +60,27 @@ class AngleRange extends QuantityRange<Angle> {
   /// The ranges are projected onto the 0-360 degree range.
   ///
   bool overlaps360(AngleRange range2) {
-    if (this.overlaps(range2)) return true;
+    if (overlaps(range2)) return true;
 
     // No direct overlap... check if the projections overlap
-    List<AngleRange> list1 = [];
-    Angle min360 = minValue.angle360;
+    final List<AngleRange> list1 = <AngleRange>[];
+    final Angle min360 = minValue.angle360;
     Angle max360 = maxValue.angle360;
     if (max360 < min360) {
       max360 = (max360 + new Angle(rad: twoPi)) as Angle;
-      list1.add(new AngleRange(min360, new Angle(rad: twoPi)));
-      list1.add(new AngleRange(new Angle(rad: 0), max360));
+      list1..add(new AngleRange(min360, new Angle(rad: twoPi)))..add(new AngleRange(new Angle(rad: 0), max360));
     } else {
       list1.add(new AngleRange(min360, max360));
     }
 
-    List<AngleRange> list2 = [];
-    Angle min360_2 = range2.minValue.angle360;
-    Angle max360_2 = range2.maxValue.angle360;
-    if (max360_2 < min360_2) {
-      max360_2 = max360_2 + new Angle(rad: twoPi) as Angle;
-      list2.add(new AngleRange(min360_2, new Angle(rad: twoPi)));
-      list2.add(new AngleRange(new Angle(rad: 0), max360_2));
+    final List<AngleRange> list2 = <AngleRange>[];
+    final Angle min360two = range2.minValue.angle360;
+    Angle max360two = range2.maxValue.angle360;
+    if (max360two < min360two) {
+      max360two = max360two + new Angle(rad: twoPi) as Angle;
+      list2..add(new AngleRange(min360two, new Angle(rad: twoPi)))..add(new AngleRange(new Angle(rad: 0), max360two));
     } else {
-      list2.add(new AngleRange(min360_2, max360_2));
+      list2.add(new AngleRange(min360two, max360two));
     }
 
     for (AngleRange range1 in list1) {
@@ -104,18 +103,18 @@ class AngleRange extends QuantityRange<Angle> {
     Angle start = q1;
     Angle end = q2;
     if (reverse != null && reverse) {
-      Angle temp = q1;
+      final Angle temp = q1;
       start = end;
       end = temp;
     }
     if (scale != null) {
-      Angle delta = ((end - start) * (scale / 2.0)) as Angle;
+      final Angle delta = ((end - start) * (scale / 2.0)) as Angle;
       start = (centerValue - delta) as Angle;
       end = (centerValue + delta) as Angle;
     }
     if (rotate != null) {
-      Angle newCenter = centerValue + rotate as Angle;
-      Angle delta = (end - start) / 2.0 as Angle;
+      final Angle newCenter = centerValue + rotate as Angle;
+      final Angle delta = (end - start) / 2.0 as Angle;
       start = newCenter - delta as Angle;
       end = newCenter + delta as Angle;
     }
@@ -128,31 +127,30 @@ class AngleRange extends QuantityRange<Angle> {
   /// Note that there may be either one or two ranges in the returned list,
   /// depending on whether or not the projection of this range crosses
   /// 0 degrees.
-  ///
   List<AngleRange> get ranges360 {
-    if (revolutions.abs() > 0) return [new AngleRange(angle0, angle360)];
+    if (revolutions.abs() > 0) return <AngleRange>[new AngleRange(angle0, angle360)];
 
-    List<AngleRange> rangeList = [];
+    final List<AngleRange> rangeList = <AngleRange>[];
 
     if (startAngle < endAngle) {
       // clockwise
-      Angle start360 = startAngle.angle360;
-      Angle delta = start360 - startAngle as Angle;
-      Angle endPlusDelta = endAngle + delta as Angle;
+      final Angle start360 = startAngle.angle360;
+      final Angle delta = start360 - startAngle as Angle;
+      final Angle endPlusDelta = endAngle + delta as Angle;
       if (endPlusDelta.valueSI > twoPi) {
-        rangeList.add(new AngleRange(angle0, endPlusDelta.angle360));
-        rangeList.add(new AngleRange(start360, angle360));
+        rangeList..add(new AngleRange(angle0, endPlusDelta.angle360))..add(new AngleRange(start360, angle360));
       } else {
         rangeList.add(new AngleRange(start360, endPlusDelta));
       }
     } else {
       // counterclockwise
-      Angle end360 = endAngle.angle360;
-      Angle delta = end360 - endAngle as Angle;
-      Angle startPlusDelta = startAngle + delta as Angle;
+      final Angle end360 = endAngle.angle360;
+      final Angle delta = end360 - endAngle as Angle;
+      final Angle startPlusDelta = startAngle + delta as Angle;
       if (startPlusDelta.valueSI > twoPi) {
-        rangeList.add(new AngleRange(angle360, end360));
-        rangeList.add(new AngleRange(startPlusDelta - angle360 as Angle, angle0));
+        rangeList
+          ..add(new AngleRange(angle360, end360))
+          ..add(new AngleRange(startPlusDelta - angle360 as Angle, angle0));
       } else {
         rangeList.add(new AngleRange(end360, startPlusDelta));
       }
@@ -172,8 +170,8 @@ class AngleRange extends QuantityRange<Angle> {
   ///
   bool contains360(Angle angle, [bool inclusive = true, double epsilon = 1.0e-10]) {
     if (contains(angle, inclusive, epsilon) || revolutions.abs() > 0) return true;
-    Angle ang360 = angle.angle360;
-    for (var range in this.ranges360) {
+    final Angle ang360 = angle.angle360;
+    for (AngleRange range in ranges360) {
       if (range.contains(ang360, inclusive, epsilon)) return true;
     }
     return false;
@@ -187,7 +185,7 @@ class AngleRange extends QuantityRange<Angle> {
   /// ranges were projected onto a single circle is returned.
   ///
   Angle angleClosestTo(Angle angle, [bool strict = false]) {
-    var ang = angle ?? angle0;
+    final Angle ang = angle ?? angle0;
 
     // Contains?
     if (!strict && contains360(ang)) {
@@ -198,13 +196,13 @@ class AngleRange extends QuantityRange<Angle> {
 
     // Not contained... return closest endpoint
     if (!strict) {
-      Angle angRev0 = ang.angle360;
+      final Angle angRev0 = ang.angle360;
       Angle closest;
       num minDeltaRad = angle360.mks.toDouble();
-      List<AngleRange> ranges = this.ranges360;
+      final List<AngleRange> ranges = ranges360;
       num deltaStartRad = 0;
       num deltaEndRad = 0;
-      for (var range in ranges) {
+      for (AngleRange range in ranges) {
         deltaStartRad = (range.startAngle.mks.toDouble() - angRev0.mks.toDouble()).abs();
         deltaEndRad = (range.endAngle.mks.toDouble() - angRev0.mks.toDouble()).abs();
         if (deltaStartRad < minDeltaRad) {
@@ -218,8 +216,8 @@ class AngleRange extends QuantityRange<Angle> {
       }
       return closest;
     } else {
-      num deltaStartRad = (startAngle.mks.toDouble() - ang.mks.toDouble()).abs();
-      num deltaEndRad = (endAngle.mks.toDouble() - ang.mks.toDouble()).abs();
+      final num deltaStartRad = (startAngle.mks.toDouble() - ang.mks.toDouble()).abs();
+      final num deltaEndRad = (endAngle.mks.toDouble() - ang.mks.toDouble()).abs();
       return (deltaStartRad <= deltaEndRad) ? new Angle(rad: deltaStartRad) : new Angle(rad: deltaEndRad);
     }
   }

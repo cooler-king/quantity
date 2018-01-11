@@ -8,15 +8,15 @@ part of quantity_si;
 class AbsorbedDose extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions absorbedDoseDimensions =
-      const Dimensions.constant(const {"Length": 2, "Time": -2}, type: AbsorbedDose);
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: AbsorbedDose);
 
   /// The standard SI unit.
-  static final AbsorbedDoseUnits grays = new AbsorbedDoseUnits("grays", null, "Gy", null, 1.0, true);
+  static final AbsorbedDoseUnits grays = new AbsorbedDoseUnits('grays', null, 'Gy', null, 1.0, true);
 
   /// Accepted for use with the SI, subject to further review.
-  // Note:  do not use "rad" for singular to avoid confusion with
+  // Note:  do not use 'rad' for singular to avoid confusion with
   // Angle's radians during parsing & output
-  static final AbsorbedDoseUnits rads = new AbsorbedDoseUnits("rads", null, null, "rads", 1.0e-2, true);
+  static final AbsorbedDoseUnits rads = new AbsorbedDoseUnits('rads', null, null, 'rads', 1.0e-2, true);
 
   /// Construct an AbsorbedDose with either grays ([Gy]) or rads ([rads]).
   ///
@@ -37,9 +37,7 @@ class AbsorbedDose extends Quantity {
       : super.constant(valueSI, AbsorbedDose.absorbedDoseDimensions, units, uncert);
 }
 
-/**
- * Units acceptable for use in describing AbsorbedDose quantities.
- */
+/// Units acceptable for use in describing AbsorbedDose quantities.
 class AbsorbedDoseUnits extends AbsorbedDose with Units {
   AbsorbedDoseUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
@@ -54,30 +52,29 @@ class AbsorbedDoseUnits extends AbsorbedDose with Units {
   }
 
   AbsorbedDoseUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super._internal(lu.valueSI * su.valueSI) {
-    this.name = "${lu.name} per ${su.singular} squared";
-    this.singular = "${lu.singular} per ${su.singular} squared";
+    this.name = '${lu.name} per ${su.singular} squared';
+    this.singular = '${lu.singular} per ${su.singular} squared';
     this._convToMKS = lu.valueSI * su.valueSI;
-    this._abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? "${lu._abbrev1} / ${su._abbrev1}" : null;
-    this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? "${lu._abbrev2}${su._abbrev2}" : null;
-    ;
+    this._abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? '${lu._abbrev1} / ${su._abbrev1}' : null;
+    this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? '${lu._abbrev2}${su._abbrev2}' : null;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => AbsorbedDose;
 
-  /**
-   * Derive new AbsorbedDoseUnits using this AbsorbedDoseUnits object as the base.
-   */
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new AbsorbedDoseUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  /// Derive new AbsorbedDoseUnits using this AbsorbedDoseUnits object as the base.
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new AbsorbedDoseUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

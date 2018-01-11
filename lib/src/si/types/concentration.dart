@@ -8,7 +8,7 @@ part of quantity_si;
 class Concentration extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions concentrationDimensions =
-      const Dimensions.constant(const {"Amount": 1, "Length": -3}, type: Concentration);
+      const Dimensions.constant(const <String, int>{'Amount': 1, 'Length': -3}, qType: Concentration);
 
   /// The standard SI unit **/
   static final ConcentrationUnits molesPerCubicMeter =
@@ -50,29 +50,29 @@ class ConcentrationUnits extends Concentration with Units {
 
   ConcentrationUnits.amountVolume(AmountOfSubstanceUnits asu, VolumeUnits vu)
       : super._internal(asu.valueSI * vu.valueSI) {
-    this.name = "${asu.name} per ${vu.singular}";
-    this.singular = "${asu.singular} per ${vu.singular}";
+    this.name = '${asu.name} per ${vu.singular}';
+    this.singular = '${asu.singular} per ${vu.singular}';
     this._convToMKS = asu.valueSI * vu.valueSI;
-    this._abbrev1 = asu._abbrev1 != null && vu._abbrev1 != null ? "${asu._abbrev1} / ${vu._abbrev1}" : null;
-    this._abbrev2 = asu._abbrev2 != null && vu._abbrev2 != null ? "${asu._abbrev2}/${vu._abbrev2}" : null;
-    ;
+    this._abbrev1 = asu._abbrev1 != null && vu._abbrev1 != null ? '${asu._abbrev1} / ${vu._abbrev1}' : null;
+    this._abbrev2 = asu._abbrev2 != null && vu._abbrev2 != null ? '${asu._abbrev2}/${vu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Concentration;
 
   /// Derive new ConcentrationUnits using this ConcentrationUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ConcentrationUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ConcentrationUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
-  }
+        offset);
+
 }

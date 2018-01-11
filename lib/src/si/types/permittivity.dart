@@ -8,7 +8,7 @@ part of quantity_si;
 class Permittivity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions permittivityDimensions =
-      const Dimensions.constant(const {"Length": -3, "Time": 4, "Current": 2, "Mass": -1}, type: Permittivity);
+      const Dimensions.constant(const <String, int>{'Length': -3, 'Time': 4, 'Current': 2, 'Mass': -1}, qType: Permittivity);
 
   /// The standard SI unit.
   static final PermittivityUnits faradsPerMeter =
@@ -49,28 +49,29 @@ class PermittivityUnits extends Permittivity with Units {
 
   PermittivityUnits.capacitanceLength(CapacitanceUnits ecu, LengthUnits lu)
       : super._internal(ecu.valueSI / lu.valueSI) {
-    this.name = "${ecu.name} per ${lu.singular}";
-    this.singular = "${ecu.singular} per ${lu.singular}";
-    this._convToMKS = ecu.valueSI / lu.valueSI;
-    this._abbrev1 = ecu._abbrev1 != null && lu._abbrev1 != null ? "${ecu._abbrev1} / ${lu._abbrev1}" : null;
-    this._abbrev2 = ecu._abbrev2 != null && lu._abbrev2 != null ? "${ecu._abbrev2}/${lu._abbrev2}" : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${ecu.name} per ${lu.singular}';
+    singular = '${ecu.singular} per ${lu.singular}';
+    _convToMKS = ecu.valueSI / lu.valueSI;
+    _abbrev1 = ecu._abbrev1 != null && lu._abbrev1 != null ? '${ecu._abbrev1} / ${lu._abbrev1}' : null;
+    _abbrev2 = ecu._abbrev2 != null && lu._abbrev2 != null ? '${ecu._abbrev2}/${lu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Permittivity;
 
   /// Derive new PermittivityUnits using this PermittivityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new PermittivityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new PermittivityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
-  }
+        offset);
 }
+

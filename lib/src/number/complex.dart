@@ -13,11 +13,11 @@ class Complex extends Number {
       : real = new Double.constant(realValue),
         imaginary = new Imaginary.constant(new Double(imagValue));
 
-  Complex.fromMap(Map<String, Map> m)
-      : real = m?.containsKey("real") ?? false ? new Real.fromMap(m["real"] as Map<String, Map>) : Double.zero,
-        imaginary = m?.containsKey("real") ?? false
-            ? new Imaginary.fromMap(m["imag"] as Map<String, Map>)
-            : new Imaginary.constant(Integer.zero);
+  Complex.fromMap(Map<String, Map<String, dynamic>> m)
+      : real = m?.containsKey('real') ?? false ? new Real.fromMap(m['real'] as Map<String, Map>) : Double.zero,
+        imaginary = m?.containsKey('real') ?? false
+            ? new Imaginary.fromMap(m['imag'])
+            : const Imaginary.constant(Integer.zero);
 
   /// [imag] is a convenient getter for the [imaginary] value
   Imaginary get imag => imaginary;
@@ -27,7 +27,7 @@ class Complex extends Number {
   /// Complex modulus represents the magnitude of this complex number in the complex plane.
   ///
   Double get complexModulus =>
-      new Double(Math.sqrt(real.value * real.value + imaginary.value.value * imaginary.value.value));
+      new Double(sqrt(real.value * real.value + imaginary.value.value * imaginary.value.value));
 
   /// Complex norm is synonymous with complex modulus.
   ///
@@ -37,7 +37,7 @@ class Complex extends Number {
 
   /// In radians.
   ///
-  Double get complexArgument => new Double(Math.atan2(imaginary.value.value, real.value));
+  Double get complexArgument => new Double(atan2(imaginary.value.value, real.value));
 
   /// Phase is synonymous with complex argument.
   ///
@@ -53,7 +53,7 @@ class Complex extends Number {
   bool get isNegative => real.value < 0;
 
   @override
-  bool get isInteger => (imaginary == null || imaginary == 0) && real.isInteger;
+  bool get isInteger => (imaginary == null || imaginary.toDouble() == 0) && real.isInteger;
 
   @override
   double toDouble() => real.toDouble();
@@ -63,11 +63,11 @@ class Complex extends Number {
 
   @override
   int get hashCode {
-    if (imaginary == 0 || imaginary == null) {
+    if (imaginary == null || imaginary.toDouble() == 0) {
       if (real is Precise) return real.hashCode;
       return new Precise.num(real.toDouble()).hashCode;
     } else {
-      if (real == null || real == 0) return hashObjects([0, imaginary.value]);
+      if (real == null || real.toDouble() == 0) return hashObjects([0, imaginary.value]);
       return hashObjects([real, imaginary.value]);
     }
   }
@@ -84,9 +84,9 @@ class Complex extends Number {
   @override
   Number operator +(dynamic addend) {
     if (addend is Complex) return new Complex(real + addend.real as Real, imaginary + addend.imaginary as Imaginary);
-    if (addend is Imaginary) return new Complex(this.real, new Imaginary(imaginary.value + addend.value));
-    if (addend is Real) return new Complex(real + addend as Real, this.imaginary);
-    if (addend is num) return new Complex(real + addend as Real, this.imaginary);
+    if (addend is Imaginary) return new Complex(real, new Imaginary(imaginary.value + addend.value));
+    if (addend is Real) return new Complex(real + addend as Real, imaginary);
+    if (addend is num) return new Complex(real + addend as Real, imaginary);
 
     // Treat addend as zero
     return this;
@@ -131,7 +131,7 @@ class Complex extends Number {
     if (divisor is Imaginary) return new Complex(imaginary / divisor.value as Real, -real / divisor.value as Imaginary);
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
-      Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
+      final Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       return new Complex((real * divisor.real + imaginary * divisor.imaginary) / c2d2 as Real,
           (imaginary * divisor.real - real * divisor.imaginary) / c2d2 as Imaginary);
     }
@@ -166,11 +166,8 @@ class Complex extends Number {
         imaginary < 0 ? new Imaginary(Double.negInfinity) : new Imaginary(Double.infinity));
   }
 
-  /**
-   *  The modulo operator.
-   *
-   *  See http://math.stackexchange.com/questions/274694/modulo-complex-number
-   */
+  /// The modulo operator.
+  /// See http://math.stackexchange.com/questions/274694/modulo-complex-number
   @override
   Number operator %(dynamic divisor) {
     //TODO complex modulo operator
@@ -204,13 +201,13 @@ class Complex extends Number {
   @override
   Number operator ^(dynamic exponent) {
     if (exponent is num) {
-      double scaledPhase = exponent.toDouble() * phase.value;
-      Number expModulus = (complexModulus ^ exponent);
-      return new Complex(expModulus * Math.cos(scaledPhase) as Real, new Imaginary(expModulus * Math.sin(scaledPhase)));
+      final double scaledPhase = exponent.toDouble() * phase.value;
+      final Number expModulus = (complexModulus ^ exponent);
+      return new Complex(expModulus * cos(scaledPhase) as Real, new Imaginary(expModulus * sin(scaledPhase)));
     } else if (exponent is Real) {
-      double scaledPhase = (exponent * phase.value).toDouble();
-      Number expModulus = (complexModulus ^ exponent.value);
-      return new Complex(expModulus * Math.cos(scaledPhase) as Real, new Imaginary(expModulus * Math.sin(scaledPhase)));
+      final double scaledPhase = (exponent * phase.value).toDouble();
+      final Number expModulus = (complexModulus ^ exponent.value);
+      return new Complex(expModulus * cos(scaledPhase) as Real, new Imaginary(expModulus * sin(scaledPhase)));
     } else if (exponent is Complex) {
       //TODO see http://mathworld.wolfram.com/ComplexNumber.html
     } else if (exponent is Imaginary) {
@@ -283,20 +280,21 @@ class Complex extends Number {
   @override
   Number reciprocal() {
     // (a - bi) / (a^2 + b^2)
-    num a2b2 = Math.pow(real.value, 2) + Math.pow(imaginary.value.value, 2);
+    final num a2b2 = pow(real.value, 2) + pow(imaginary.value.value, 2);
     return new Complex((real / a2b2) as Real, new Imaginary(imaginary.value / -a2b2));
   }
 
   /// Support [dart:json] stringify.
   ///
   /// Map Contents:
-  ///     "real" : toJson map of real number
-  ///     "imag" : toJson map of imaginary number
+  ///     'real' : toJson map of real number
+  ///     'imag' : toJson map of imaginary number
   ///
   /// Example:
-  ///     {"real":{"i":5},"imag":{"d":3.3}}
+  ///     {'real':{'i':5},'imag':{'d':3.3}}
   ///
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{"real": real.toJson(), "imag": imaginary.toJson()};
-  }
+  @override
+  Map<String, dynamic> toJson() =>
+    <String, dynamic>{'real': real.toJson(), 'imag': imaginary.toJson()};
+
 }

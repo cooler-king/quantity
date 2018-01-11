@@ -8,7 +8,7 @@ part of quantity_si;
 class InformationRate extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions informationRateDimensions =
-      const Dimensions.constant(const {"Time": -1}, type: InformationRate);
+      const Dimensions.constant(const <String, int>{'Time': -1}, qType: InformationRate);
 
   /// The standard SI unit
   static final InformationRateUnits bitsPerSecond = new InformationRateUnits.massTime(Information.bits, Time.seconds);
@@ -71,26 +71,27 @@ class InformationRateUnits extends InformationRate with Units {
   }
 
   InformationRateUnits.massTime(InformationUnits iu, TimeUnits tu) : super._internal(iu.valueSI * tu.valueSI) {
-    this.name = "${iu.name} per ${tu.singular}";
-    this.singular = "${iu.singular} per ${tu.singular}";
+    this.name = '${iu.name} per ${tu.singular}';
+    this.singular = '${iu.singular} per ${tu.singular}';
     this._convToMKS = iu.valueSI * tu.valueSI;
-    this._abbrev1 = iu._abbrev1 != null && tu._abbrev1 != null ? "${iu._abbrev1} / ${tu._abbrev1}" : null;
-    this._abbrev2 = iu._abbrev2 != null && tu._abbrev2 != null ? "${iu._abbrev2}${tu._abbrev2}" : null;
+    this._abbrev1 = iu._abbrev1 != null && tu._abbrev1 != null ? '${iu._abbrev1} / ${tu._abbrev1}' : null;
+    this._abbrev2 = iu._abbrev2 != null && tu._abbrev2 != null ? '${iu._abbrev2}${tu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => InformationRate;
 
   /// Derive new InformationRateUnits using this InformationRateUnits object as the base.
-  ///
+  @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) {
     return new InformationRateUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);

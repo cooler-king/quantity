@@ -8,7 +8,7 @@ part of quantity_si;
 class ElectricFieldStrength extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricFieldStrengthDimensions =
-      const Dimensions.constant(const {"Current": -1, "Time": -3, "Length": 1, "Mass": 1}, type: ElectricFieldStrength);
+      const Dimensions.constant(const <String, int>{'Current': -1, 'Time': -3, 'Length': 1, 'Mass': 1}, qType: ElectricFieldStrength);
 
   /// The standard SI unit.
   static final ElectricFieldStrengthUnits voltsPerMeter =
@@ -51,29 +51,29 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
 
   ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifferenceUnits epdu, LengthUnits lu)
       : super._internal(epdu.valueSI * lu.valueSI) {
-    this.name = "${epdu.name} per ${lu.singular}";
-    this.singular = "${epdu.singular} per ${lu.singular}";
+    this.name = '${epdu.name} per ${lu.singular}';
+    this.singular = '${epdu.singular} per ${lu.singular}';
     this._convToMKS = epdu.valueSI * lu.valueSI;
-    this._abbrev1 = epdu._abbrev1 != null && lu._abbrev1 != null ? "${epdu._abbrev1} / ${lu._abbrev1}" : null;
-    this._abbrev2 = epdu._abbrev2 != null && lu._abbrev2 != null ? "${epdu._abbrev2}/${lu._abbrev2}" : null;
-    ;
+    this._abbrev1 = epdu._abbrev1 != null && lu._abbrev1 != null ? '${epdu._abbrev1} / ${lu._abbrev1}' : null;
+    this._abbrev2 = epdu._abbrev2 != null && lu._abbrev2 != null ? '${epdu._abbrev2}/${lu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => ElectricFieldStrength;
 
   /// Derive new ElectricFieldStrengthUnits using this ElectricFieldStrengthUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ElectricFieldStrengthUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ElectricFieldStrengthUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

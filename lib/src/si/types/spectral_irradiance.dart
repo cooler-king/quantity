@@ -8,11 +8,11 @@ part of quantity_si;
 class SpectralIrradiance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions spectralIrradianceDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Time": -2}, type: SpectralIrradiance);
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -2}, qType: SpectralIrradiance);
 
   /// The standard SI unit.
   static final SpectralIrradianceUnits wattsPerSquareMeterPerHertz =
-      new SpectralIrradianceUnits("watts per square meter per hertz", "W m-2 Hz-1", null, null, 1.0, true);
+      new SpectralIrradianceUnits('watts per square meter per hertz', 'W m-2 Hz-1', null, null, 1.0, true);
 
   /// Construct a SpectralIrradiance with watts per square meter per hertz ([W_per_m2_per_Hz]).
   ///
@@ -49,18 +49,19 @@ class SpectralIrradianceUnits extends SpectralIrradiance with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => SpectralIrradiance;
 
   /// Derive new SpectralIrradianceUnits using this SpectralIrradianceUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new SpectralIrradianceUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new SpectralIrradianceUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

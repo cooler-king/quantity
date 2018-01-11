@@ -7,10 +7,10 @@ part of quantity_si;
 ///
 class Length extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions lengthDimensions = const Dimensions.constant(const {"Length": 1}, type: Length);
+  static const Dimensions lengthDimensions = const Dimensions.constant(const <String, int>{'Length': 1}, qType: Length);
 
   /// The standard SI unit.
-  static final LengthUnits meters = new LengthUnits("meters", "m", null, null, 1.0, true);
+  static final LengthUnits meters = new LengthUnits('meters', 'm', null, null, 1.0, true);
 
   /// Accepted for use with the SI... the value of the astronomical unit must be
   /// obtained by experiment and is therefore not known exactly... its value is
@@ -18,13 +18,13 @@ class Length extends Quantity {
   /// the heliocentric gravitation constant is 0.017 202 098 85 squared [in units
   /// of ua+3 d-2, where d is day].
   static final LengthUnits astronomicalUnits =
-      new LengthUnits("astronomical units", "AU", "ua", null, 1.495978707e11, false);
+      new LengthUnits('astronomical units', 'AU', 'ua', null, 1.495978707e11, false);
 
   /// Accepted for use with the SI, subject to further review.
-  static final LengthUnits angstroms = new LengthUnits("angstroms", "\u212b", "\u00c5", null, 1.0e-10, true);
+  static final LengthUnits angstroms = new LengthUnits('angstroms', '\u212b', '\u00c5', null, 1.0e-10, true);
 
   /// Accepted for use with the SI, subject to further review.
-  static final LengthUnits nauticalMiles = new LengthUnits("nautical miles", null, "NM", null, 1.852e3, false);
+  static final LengthUnits nauticalMiles = new LengthUnits('nautical miles', null, 'NM', null, 1.852e3, false);
 
   // Convenience Units
   static final LengthUnits kilometers = Length.meters.kilo() as LengthUnits;
@@ -75,18 +75,19 @@ class LengthUnits extends Length with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Length;
 
   /// Derive new LengthUnits using this LengthUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new LengthUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new LengthUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

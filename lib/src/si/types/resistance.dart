@@ -8,10 +8,10 @@ part of quantity_si;
 class Resistance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricResistanceDimensions =
-      const Dimensions.constant(const {"Current": -2, "Time": -3, "Length": 2, "Mass": 1}, type: Resistance);
+      const Dimensions.constant(const <String, int>{'Current': -2, 'Time': -3, 'Length': 2, 'Mass': 1}, qType: Resistance);
 
   /// The standard SI unit.
-  static final ResistanceUnits ohms = new ResistanceUnits("ohms", "\u2126", "\u03a9", null, 1.0, true);
+  static final ResistanceUnits ohms = new ResistanceUnits('ohms', '\u2126', '\u03a9', null, 1.0, true);
 
   /// Construct a Resistance with [ohms].
   ///
@@ -47,18 +47,19 @@ class ResistanceUnits extends Resistance with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Resistance;
 
   /// Derive new ResistanceUnits using this ResistanceUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ResistanceUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ResistanceUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

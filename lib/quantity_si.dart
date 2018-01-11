@@ -6,7 +6,7 @@
 library quantity_si;
 
 import 'dart:collection';
-import 'dart:math' as Math;
+import 'dart:math' as math;
 import 'package:quantity/number.dart';
 import 'package:logging/logging.dart';
 import 'package:intl/intl.dart' show NumberFormat;
@@ -99,7 +99,7 @@ part 'src/si/types/volume_flow_rate.dart';
 part 'src/si/types/wave_number.dart';
 
 /// Logger for use across entire library
-Logger _logger = new Logger("quantity core");
+Logger _logger = new Logger('quantity core');
 
 /// Dynamic quantity typing may be turned off for increased
 /// efficiency.  If false, the result of operations where
@@ -230,13 +230,10 @@ final LinkedHashMap<Type, QuantityInstantiator> _typeInstantiatorMap =
 
 ///  Returns whether or not [q] is one of the seven SI base quantities.
 ///
-///  * If a quantity is not one of the seven base SI quantities, then it is
-///  a derived quantity.
+///  * If a quantity is not one of the seven base SI quantities, then it is a derived quantity.
 ///  * The seven base SI Quantities are [Length], [Mass], [Duration],
-///  [Temperature], [ElectricCurrent], [LuminousIntensity] and [AmountOfSubstance].
-///
-bool siBaseQuantity(Quantity q) {
-  return (q is Length ||
+///  [Temperature], [Current], [LuminousIntensity] and [AmountOfSubstance].
+bool siBaseQuantity(Quantity q) => (q is Length ||
       q is Mass ||
       q is Time ||
       q is Current ||
@@ -244,14 +241,13 @@ bool siBaseQuantity(Quantity q) {
       q is Temperature ||
       q is AmountOfSubstance ||
       q is LuminousIntensity);
-}
+
 
 /// Returns whether or not the magnitude of the difference between two
 /// quantities is less than or equal to the specified [tolerance].
-///
 bool areWithin(Quantity q1, Quantity q2, Quantity tolerance) {
   if (q1.dimensions != q2.dimensions || q2.dimensions != tolerance.dimensions) {
-    throw new DimensionsException("The two quantities and tolerance must have the same dimensions");
+    throw new DimensionsException('The two quantities and tolerance must have the same dimensions');
   }
 
   return (q1 - q2).abs().valueSI <= tolerance.valueSI;
@@ -267,7 +263,6 @@ bool areWithin(Quantity q1, Quantity q2, Quantity tolerance) {
 /// * The two auxiliary angle-related base quantities (Angle and SolidAngle)
 ///   will return true as they are not proper base quantities but special
 ///   cases of Scalar quantities used by convention.
-///
 bool siDerivedQuantity(Quantity q) => !siBaseQuantity(q);
 
 /// Returns an iterable of Type objects representing all of the quantity types
@@ -276,8 +271,6 @@ bool siDerivedQuantity(Quantity q) => !siBaseQuantity(q);
 ///  * The Iterable provides the types in alphabetical order.
 ///  * [MiscQuantity] is not included (as it is a catch-all for
 ///    all quantity types that are NOT explicitly supported).
-///
-///
 Iterable<Type> get allQuantityTypes => _typeInstantiatorMap.keys;
 
 /// Creates a new instance of a typed quantity of type [t] having the specified
@@ -287,9 +280,8 @@ Iterable<Type> get allQuantityTypes => _typeInstantiatorMap.keys;
 /// of [units] will be created and returned instead.
 ///
 /// The quantity's relative [uncert]ainty can optionally be provided (defaults to 0).
-///
 Quantity createTypedQuantityInstance(Type t, dynamic value, Units units, [double uncert = 0.0]) {
-  QuantityInstantiator qi = _typeInstantiatorMap[t];
+  final QuantityInstantiator qi = _typeInstantiatorMap[t];
   if (qi != null) return Function.apply(qi, <dynamic>[value, units, uncert]) as Quantity;
 
   // Fall back to MiscQuantity

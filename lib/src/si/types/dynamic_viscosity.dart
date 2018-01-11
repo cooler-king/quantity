@@ -9,7 +9,7 @@ part of quantity_si;
 class DynamicViscosity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions dynamicViscosityDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Length": -1, "Time": -1}, type: DynamicViscosity);
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': -1, 'Time': -1}, qType: DynamicViscosity);
 
   /// The standard SI unit.
   static final DynamicViscosityUnits pascalSeconds =
@@ -52,29 +52,29 @@ class DynamicViscosityUnits extends DynamicViscosity with Units {
   }
 
   DynamicViscosityUnits.pressureTime(PressureUnits pu, TimeUnits tu) : super._internal(pu.valueSI * tu.valueSI) {
-    this.name = "${pu.singular} ${tu.name}";
-    this.singular = "${pu.singular} ${tu.singular}";
+    this.name = '${pu.singular} ${tu.name}';
+    this.singular = '${pu.singular} ${tu.singular}';
     this._convToMKS = pu.valueSI * tu.valueSI;
-    this._abbrev1 = pu._abbrev1 != null && tu._abbrev1 != null ? "${pu._abbrev1} ${tu._abbrev1}" : null;
-    this._abbrev2 = pu._abbrev2 != null && tu._abbrev2 != null ? "${pu._abbrev2}${tu._abbrev2}" : null;
-    ;
+    this._abbrev1 = pu._abbrev1 != null && tu._abbrev1 != null ? '${pu._abbrev1} ${tu._abbrev1}' : null;
+    this._abbrev2 = pu._abbrev2 != null && tu._abbrev2 != null ? '${pu._abbrev2}${tu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => DynamicViscosity;
 
   /// Derive new DynamicViscosityUnits using this DynamicViscosityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new DynamicViscosityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new DynamicViscosityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

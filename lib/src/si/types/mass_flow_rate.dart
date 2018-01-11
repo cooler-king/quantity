@@ -8,7 +8,7 @@ part of quantity_si;
 class MassFlowRate extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions massFlowRateDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Time": -1}, type: MassFlowRate);
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -1}, qType: MassFlowRate);
 
   /// The standard SI unit.
   static final MassFlowRateUnits kilogramsPerSecond = new MassFlowRateUnits.massTime(Mass.kilograms, Time.seconds);
@@ -48,28 +48,29 @@ class MassFlowRateUnits extends MassFlowRate with Units {
   }
 
   MassFlowRateUnits.massTime(MassUnits mu, TimeUnits tu) : super._internal(mu.valueSI * tu.valueSI) {
-    this.name = "${mu.name} per ${tu.singular}";
-    this.singular = "${mu.singular} per ${tu.singular}";
+    this.name = '${mu.name} per ${tu.singular}';
+    this.singular = '${mu.singular} per ${tu.singular}';
     this._convToMKS = mu.valueSI * tu.valueSI;
-    this._abbrev1 = mu._abbrev1 != null && tu._abbrev1 != null ? "${mu._abbrev1} / ${tu._abbrev1}" : null;
-    this._abbrev2 = mu._abbrev2 != null && tu._abbrev2 != null ? "${mu._abbrev2}${tu._abbrev2}" : null;
+    this._abbrev1 = mu._abbrev1 != null && tu._abbrev1 != null ? '${mu._abbrev1} / ${tu._abbrev1}' : null;
+    this._abbrev2 = mu._abbrev2 != null && tu._abbrev2 != null ? '${mu._abbrev2}${tu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => MassFlowRate;
 
   /// Derive new MassFlowRateUnits using this MassFlowRateUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new MassFlowRateUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new MassFlowRateUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

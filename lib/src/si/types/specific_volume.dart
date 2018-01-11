@@ -8,7 +8,7 @@ part of quantity_si;
 class SpecificVolume extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions specificVolumeDimensions =
-      const Dimensions.constant(const {"Length": 3, "Mass": -1}, type: SpecificVolume);
+      const Dimensions.constant(const <String, int>{'Length': 3, 'Mass': -1}, qType: SpecificVolume);
 
   /// The standard SI unit.
   static final SpecificVolumeUnits cubicMetersPerKilogram =
@@ -49,28 +49,29 @@ class SpecificVolumeUnits extends SpecificVolume with Units {
   }
 
   SpecificVolumeUnits.lengthMass(LengthUnits lu, MassUnits mu) : super._internal(lu.valueSI / mu.valueSI) {
-    this.name = "${lu.name} per ${mu.singular}";
-    this.singular = "${lu.singular} per ${mu.singular}";
+    this.name = '${lu.name} per ${mu.singular}';
+    this.singular = '${lu.singular} per ${mu.singular}';
     this._convToMKS = lu.valueSI / mu.valueSI;
-    this._abbrev1 = lu._abbrev1 != null && mu._abbrev1 != null ? "${lu._abbrev1} / ${mu._abbrev1}" : null;
-    this._abbrev2 = lu._abbrev2 != null && mu._abbrev2 != null ? "${lu._abbrev2}${mu._abbrev2}" : null;
+    this._abbrev1 = lu._abbrev1 != null && mu._abbrev1 != null ? '${lu._abbrev1} / ${mu._abbrev1}' : null;
+    this._abbrev2 = lu._abbrev2 != null && mu._abbrev2 != null ? '${lu._abbrev2}${mu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => SpecificVolume;
 
   /// Derive new SpecificVolumeUnits using this SpecificVolumeUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new SpecificVolumeUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new SpecificVolumeUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

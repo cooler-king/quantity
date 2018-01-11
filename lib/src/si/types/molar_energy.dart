@@ -8,7 +8,7 @@ part of quantity_si;
 class MolarEnergy extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions molarEnergyDimensions =
-      const Dimensions.constant(const {"Mass": 1, "Length": 2, "Time": -2, "Amount": -1}, type: MolarEnergy);
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1}, qType: MolarEnergy);
 
   /// The standard SI unit.
   static final MolarEnergyUnits joulesPerMole =
@@ -49,28 +49,29 @@ class MolarEnergyUnits extends MolarEnergy with Units {
 
   MolarEnergyUnits.energyAmount(EnergyUnits eu, AmountOfSubstanceUnits aosu)
       : super._internal(eu.valueSI * aosu.valueSI) {
-    this.name = "${eu.name} per ${aosu.singular}";
-    this.singular = "${eu.singular} per ${aosu.singular}";
+    this.name = '${eu.name} per ${aosu.singular}';
+    this.singular = '${eu.singular} per ${aosu.singular}';
     this._convToMKS = eu.valueSI * aosu.valueSI;
-    this._abbrev1 = eu._abbrev1 != null && aosu._abbrev1 != null ? "${eu._abbrev1} / ${aosu._abbrev1}" : null;
-    this._abbrev2 = eu._abbrev2 != null && aosu._abbrev2 != null ? "${eu._abbrev2}${aosu._abbrev2}" : null;
+    this._abbrev1 = eu._abbrev1 != null && aosu._abbrev1 != null ? '${eu._abbrev1} / ${aosu._abbrev1}' : null;
+    this._abbrev2 = eu._abbrev2 != null && aosu._abbrev2 != null ? '${eu._abbrev2}${aosu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => MolarEnergy;
 
   /// Derive new MolarEnergyUnits using this MolarEnergyUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new MolarEnergyUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new MolarEnergyUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

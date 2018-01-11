@@ -8,7 +8,7 @@ part of quantity_si;
 class ChargeDensity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions electricChargeDensityDimensions =
-      const Dimensions.constant(const {"Current": 1, "Time": 1, "Length": -3}, type: ChargeDensity);
+      const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1, 'Length': -3}, qType: ChargeDensity);
 
   /// The standard SI unit.
   static final ChargeDensityUnits coulombsPerCubicMeter =
@@ -49,29 +49,29 @@ class ChargeDensityUnits extends ChargeDensity with Units {
   }
 
   ChargeDensityUnits.chargeVolume(ChargeUnits ecu, VolumeUnits vu) : super._internal(ecu.valueSI * vu.valueSI) {
-    this.name = "${ecu.name} per ${vu.singular}";
-    this.singular = "${ecu.singular} per ${vu.singular}";
+    this.name = '${ecu.name} per ${vu.singular}';
+    this.singular = '${ecu.singular} per ${vu.singular}';
     this._convToMKS = ecu.valueSI * vu.valueSI;
-    this._abbrev1 = ecu._abbrev1 != null && vu._abbrev1 != null ? "${ecu._abbrev1}/${vu._abbrev1}" : null;
-    this._abbrev2 = ecu._abbrev2 != null && vu._abbrev2 != null ? "${ecu._abbrev2}/${vu._abbrev2}" : null;
-    ;
+    this._abbrev1 = ecu._abbrev1 != null && vu._abbrev1 != null ? '${ecu._abbrev1}/${vu._abbrev1}' : null;
+    this._abbrev2 = ecu._abbrev2 != null && vu._abbrev2 != null ? '${ecu._abbrev2}/${vu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => ChargeDensity;
 
   /// Derive new ChargeDensityUnits using this ChargeDensityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new ChargeDensityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new ChargeDensityUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

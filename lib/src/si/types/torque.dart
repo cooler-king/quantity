@@ -10,7 +10,7 @@ part of quantity_si;
 class Torque extends Quantity {
   /// Dimensions for this type of quantity (energy per angle rather than LengthxForce)
   static const Dimensions torqueDimensions =
-      const Dimensions.constant(const {"Length": 2, "Time": -2, "Mass": 1, "Angle": -1}, type: Torque);
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1}, qType: Torque);
 
   /// The standard SI unit.
   static final TorqueUnits newtonMeters = new TorqueUnits.forceLength(Force.newtons, Length.meters);
@@ -49,28 +49,29 @@ class TorqueUnits extends Torque with Units {
   }
 
   TorqueUnits.forceLength(ForceUnits fu, LengthUnits lu) : super._internal(fu.valueSI * lu.valueSI) {
-    this.name = "${fu.singular} ${lu.name}";
-    this.singular = "${fu.singular} ${lu.singular}";
+    this.name = '${fu.singular} ${lu.name}';
+    this.singular = '${fu.singular} ${lu.singular}';
     this._convToMKS = fu.valueSI * lu.valueSI;
-    this._abbrev1 = fu._abbrev1 != null && lu._abbrev1 != null ? "${fu._abbrev1} ${lu._abbrev1}" : null;
-    this._abbrev2 = fu._abbrev2 != null && lu._abbrev2 != null ? "${fu._abbrev2}${lu._abbrev2}" : null;
+    this._abbrev1 = fu._abbrev1 != null && lu._abbrev1 != null ? '${fu._abbrev1} ${lu._abbrev1}' : null;
+    this._abbrev2 = fu._abbrev2 != null && lu._abbrev2 != null ? '${fu._abbrev2}${lu._abbrev2}' : null;
     this.metricBase = false;
     this.offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Torque;
 
   /// Derive new TorqueUnits using this TorqueUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new TorqueUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new TorqueUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

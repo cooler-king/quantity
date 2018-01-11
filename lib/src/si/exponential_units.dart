@@ -17,16 +17,15 @@ class ExponentialUnits {
     this._units = units;
 
     if (exp is num) {
-      this._exp = exp;
+      _exp = exp;
     } else if (exp is Number) {
-      this._exp = exp.toDouble();
+      _exp = exp.toDouble();
     } else {
-      throw new QuantityException("exp must be a num or Number");
+      throw const QuantityException('exp must be a num or Number');
     }
   }
 
   /// Create new ExponentialUnits with the same values as [expUnits2].
-  ///
   ExponentialUnits.copy(ExponentialUnits expUnits2) : this(expUnits2._units, expUnits2._exp);
 
   ExponentialUnits get reciprocal => new ExponentialUnits(_units, (_exp * -1.0));

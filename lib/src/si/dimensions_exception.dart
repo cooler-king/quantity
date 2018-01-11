@@ -6,5 +6,5 @@ part of quantity_si;
 class DimensionsException extends QuantityException {
   /// Constructs a new DimensionsException with an optional message.
   ///
-  DimensionsException([String str = ""]) : super(str);
+  DimensionsException([String str = '']) : super(str);
 }

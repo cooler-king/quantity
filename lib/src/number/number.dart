@@ -3,25 +3,26 @@ part of number;
 /// The abstract base class for all Number types.
 ///
 abstract class Number implements Comparable<dynamic> {
-  const Number.constant();
   Number();
+
+  const Number.constant();
 
   /// Detect the type of Number by inspecting map contents and create it.
   /// Recognized formats are:
-  ///     {"i": int value}
-  ///     {"d": double value}
-  ///     {"pd": arbitrary precision string}
-  ///     {"real": {i or d map}, "imag": {i or d map}}
-  ///     {"imag": {i or d map}}
+  ///     {'i': int value}
+  ///     {'d': double value}
+  ///     {'pd': arbitrary precision string}
+  ///     {'real': {i or d map}, 'imag': {i or d map}}
+  ///     {'imag': {i or d map}}
   ///
   /// If the map contents are not recognized [Integer.zero] will be returned.
   factory Number.fromMap(Map<String, dynamic> m) {
-    if (m.containsKey("d") && m["d"] is num) return new Double.fromMap(m as Map<String, num>);
-    if (m.containsKey("i") && m["i"] is int) return new Integer.fromMap(m as Map<String, int>);
-    if (m.containsKey("precise") && m["precise"] is Map<String, String>)
+    if (m.containsKey('d') && m['d'] is num) return new Double.fromMap(m as Map<String, num>);
+    if (m.containsKey('i') && m['i'] is int) return new Integer.fromMap(m as Map<String, int>);
+    if (m.containsKey('precise') && m['precise'] is Map<String, String>)
       return new Precise.fromMap(m as Map<String, String>);
-    if (m.containsKey("real") && m is Map<String, Map>) return new Complex.fromMap(m);
-    if (m.containsKey("imag") && m is Map<String, Map>) return new Imaginary.fromMap(m);
+    if (m.containsKey('real') && m is Map<String, Map<String, dynamic>>) return new Complex.fromMap(m);
+    if (m.containsKey('imag') && m is Map<String, Map<String, dynamic>>) return new Imaginary.fromMap(m);
     return Integer.zero;
   }
 
@@ -29,7 +30,7 @@ abstract class Number implements Comparable<dynamic> {
 
   /// Two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
-  ///
+  @override
   bool operator ==(dynamic obj);
 
   /// The hashcodes for two Numbers will be equal when the represented values are equal,
@@ -37,7 +38,7 @@ abstract class Number implements Comparable<dynamic> {
   ///
   /// Additionally, Numbers having integer values will have the same hashcode as
   /// the corresponding dart:core `int`.
-  ///
+  @override
   int get hashCode;
 
   Number operator +(dynamic addend);
@@ -122,14 +123,12 @@ abstract class Number implements Comparable<dynamic> {
   Number reciprocal();
 
   /// Subclasses must support dart:json for stringify.
-  ///
-  Map toJson();
+  Map<String, dynamic> toJson();
 
   /// True if the Number represents an integer value.
   ///
   /// Note that the Number does not have to be of type
   /// Integer for this to be true.
-  ///
   bool get isInteger;
 
   /// Compares this Number to another Number by comparing values.
@@ -139,10 +138,10 @@ abstract class Number implements Comparable<dynamic> {
   ///
   @override
   int compareTo(dynamic n2) {
-    if (n2 is Number) return Comparable.compare(this.toDouble(), n2.toDouble());
-    if (n2 is num) return Comparable.compare(this.toDouble(), n2);
+    if (n2 is Number) return Comparable.compare(toDouble(), n2.toDouble());
+    if (n2 is num) return Comparable.compare(toDouble(), n2);
 
     // If n2 is not a num or Number, treat it as a zero
-    return Comparable.compare(this.toDouble(), 0);
+    return Comparable.compare(toDouble(), 0);
   }
 }

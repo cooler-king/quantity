@@ -9,13 +9,13 @@ part of quantity_si;
 ///
 class Currency extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions currencyDimensions = const Dimensions.constant(const {}, type: Currency);
+  static const Dimensions currencyDimensions = const Dimensions.constant(const <String, int>{}, qType: Currency);
 
   /// The unit of currency in the United States
-  static final CurrencyUnits dollarsUS = new CurrencyUnits("United States Dollars", "\$", "USD", null, 1.0, false);
+  static final CurrencyUnits dollarsUS = new CurrencyUnits('United States Dollars', '\$', 'USD', null, 1.0, false);
 
   /// 1 U.S. Cent is equal to 0.01 U.S. Dollar
-  static final CurrencyUnits centsUS = new CurrencyUnits("United States Cents", "cents", null, null, 0.01, false);
+  static final CurrencyUnits centsUS = new CurrencyUnits('United States Cents', 'cents', null, null, 0.01, false);
 
   // TODO put other main currencies in here?  EUR, JPY, etc? pound, chinese
   // or in ext because they are data-dependent
@@ -59,18 +59,19 @@ class CurrencyUnits extends Currency with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Currency;
 
   /// Derive new CurrencyUnits using this CurrencyUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new CurrencyUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new CurrencyUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
         this.offset);
-  }
+
 }

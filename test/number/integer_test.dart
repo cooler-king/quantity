@@ -84,10 +84,10 @@ void main() {
       expect((sum as Complex).imag.value.toDouble(), -9.6);
 
       // + Precise
-      var p = new Precise("34.21");
+      var p = new Precise('34.21');
       expect((d + p) is Precise, true);
       expect(((d + p) as Precise).value == 76.21, true);
-      p = new Precise("-21.7");
+      p = new Precise('-21.7');
       expect((d + p) is Precise, true);
       expect(((d + p) as Precise).value == 20.3, true);
     });

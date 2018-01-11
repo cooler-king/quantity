@@ -10,7 +10,7 @@ part of quantity_si;
 class SpecificHeatCapacity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions specificHeatCapacityDimensions =
-      const Dimensions.constant(const {"Length": 2, "Time": -2, "Temperature": -1}, type: SpecificHeatCapacity);
+      const Dimensions.constant(const <String, int>{"Length": 2, "Time": -2, "Temperature": -1}, qType: SpecificHeatCapacity);
 
   /// The standard SI unit.
   static final SpecificHeatCapacityUnits joulesPerKilogramKelvin =
@@ -44,7 +44,7 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
+    _convToMKS = objToNumber(conv);
     this._abbrev1 = abbrev1;
     this._abbrev2 = abbrev2;
     this.metricBase = metricBase;
@@ -64,18 +64,19 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => SpecificHeatCapacity;
 
   /// Derive new SpecificHeatCapacityUnits using this SpecificHeatCapacityUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new SpecificHeatCapacityUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new SpecificHeatCapacityUnits(
+        "$fullPrefix$name",
+        _abbrev1 != null ? "$abbrevPrefix$_abbrev1" : null,
+        _abbrev2 != null ? "$abbrevPrefix$_abbrev2" : null,
+        "$fullPrefix$singular",
         valueSI * conv,
         false,
         this.offset);
-  }
+  
 }

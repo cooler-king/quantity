@@ -22,7 +22,7 @@ class FiscalYear extends TimePeriod {
             new TimeInstant.dateTime(new DateTime(yr4(year), 13 + monthOffset)));
 
   @override
-  String toString() => "FY${'$_year'.substring(2)}";
+  String toString() => 'FY${'$_year'.substring(2)}';
 }
 
 class CalendarYear extends TimePeriod {
@@ -33,7 +33,7 @@ class CalendarYear extends TimePeriod {
         super(new TimeInstant.dateTime(new DateTime(year, 1)), new TimeInstant.dateTime(new DateTime(year + 1)));
 
   @override
-  String toString() => "$_year";
+  String toString() => '$_year';
 }
 
 /// Returns a four digit year from [year] which may be only 2 digits, assuming that
