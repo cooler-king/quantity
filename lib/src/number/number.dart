@@ -56,7 +56,7 @@ abstract class Number implements Comparable<dynamic> {
   bool operator <(dynamic obj);
   bool operator <=(dynamic obj);
 
-  // Mirror num's abstract properties
+  // Mirror num's abstract properties.
   bool get isFinite => !isInfinite;
   bool get isInfinite;
   bool get isNaN;
@@ -72,7 +72,7 @@ abstract class Number implements Comparable<dynamic> {
   num get sign {
     if (isNaN) return double.NAN;
     if (isNegative) return isInteger ? -1 : -1.0;
-    if (this == 0) return isInteger ? 0 : 0.0;
+    if (toDouble() == 0) return isInteger ? 0 : 0.0;
     return isInteger ? 1 : 1.0;
   }
 

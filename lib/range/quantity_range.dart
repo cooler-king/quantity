@@ -1,13 +1,18 @@
 part of quantity_range;
 
 //TODO k value?
+/// Creates a [QuantityRange] that represents the standard uncertainty of [q].
 QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q) {
   final Quantity std = q.standardUncertainty;
   return new QuantityRange<Quantity>(q - std, q + std);
 }
 
+/// Represents a range of quantity values.
 class QuantityRange<Q extends Quantity> {
+  /// The starting quantity of the range.
   Q q1;
+
+  /// The ending quantity of the range.
   Q q2;
 
   // Derived values (calculated on first use)
@@ -73,7 +78,6 @@ class QuantityRange<Q extends Quantity> {
   /// Returns a String representation of this range in the form '<Q1> to <Q2>'.
   @override
   String toString() => '$q1 to $q2';
-  
 
   /// Two quantity ranges are considered equal only if their endpoints are exactly equal.
   @override

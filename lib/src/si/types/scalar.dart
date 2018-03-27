@@ -36,9 +36,11 @@ class Scalar extends Quantity {
   /// Scalar's hash code is identical to the hash code of its SI value
   /// in order to support functional equality of [Scalar] quantities,
   /// [Number]s and [num]s.
-  ///
   @override
   int get hashCode => valueSI.hashCode;
+
+  @override
+  bool operator ==(Object other) => hashCode == other.hashCode;
 
   /// Compares this Scalar to [q2] by comparing MKS values or if q2 is a [num] or [Number], by comparing
   /// the values directly.  If [q2] is a Quantity it need not have Scalar dimensions.
@@ -59,14 +61,15 @@ class Scalar extends Quantity {
 /// Units acceptable for use in describing Scalar quantities.
 ///
 class ScalarUnits extends Scalar with Units {
+  /// Constructs a new instance.
   ScalarUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -85,6 +88,6 @@ class ScalarUnits extends Scalar with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

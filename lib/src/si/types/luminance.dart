@@ -14,12 +14,12 @@ class Luminance extends Quantity {
   static final LuminanceUnits candelasPerSquareMeter =
       new LuminanceUnits.intensityArea(LuminousIntensity.candelas, Area.squareMeters);
 
-  /// Construct a Luminance with candelas per square meter ([cd_per_m2]).
+  /// Construct a Luminance with candelas per square meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Luminance({dynamic cd_per_m2, double uncert: 0.0})
-      : super(cd_per_m2 ?? 0.0, Luminance.candelasPerSquareMeter, uncert);
+  Luminance({dynamic candelasPerSquareMeter, double uncert: 0.0})
+      : super(candelasPerSquareMeter ?? 0.0, Luminance.candelasPerSquareMeter, uncert);
 
   Luminance._internal(dynamic conv) : super._internal(conv, Luminance.luminanceDimensions);
 
@@ -41,9 +41,9 @@ class LuminanceUnits extends Luminance with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }

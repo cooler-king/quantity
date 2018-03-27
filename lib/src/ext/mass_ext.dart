@@ -14,6 +14,8 @@ final MassUnits dekagrams = Mass.grams.deka() as MassUnits;
 final MassUnits grams = Mass.grams;
 final MassUnits decigrams = Mass.grams.deci() as MassUnits;
 final MassUnits centigrams = Mass.grams.centi() as MassUnits;
+
+/// One thousandth of a gram.
 final MassUnits milligrams = Mass.grams.milli() as MassUnits;
 final MassUnits micrograms = Mass.grams.micro() as MassUnits;
 final MassUnits nanograms = Mass.grams.nano() as MassUnits;
@@ -24,12 +26,27 @@ final MassUnits zeptograms = Mass.grams.zepto() as MassUnits;
 final MassUnits yoctograms = Mass.grams.yocto() as MassUnits;
 
 // Metric abbreviations
+
+// ignore:non_constant_identifier_names
 final MassUnits Yg = yottagrams;
+
+
+// ignore:non_constant_identifier_names
 final MassUnits Zg = zettagrams;
+
+// ignore:non_constant_identifier_names
 final MassUnits Eg = exagrams;
+
+// ignore:non_constant_identifier_names
 final MassUnits Pg = petagrams;
+
+// ignore:non_constant_identifier_names
 final MassUnits Tg = teragrams;
+
+// ignore:non_constant_identifier_names
 final MassUnits Gg = gigagrams;
+
+// ignore:non_constant_identifier_names
 final MassUnits Mg = megagrams;
 final MassUnits kg = kilograms;
 final MassUnits hg = hectograms;

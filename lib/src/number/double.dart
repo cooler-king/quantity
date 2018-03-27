@@ -1,8 +1,6 @@
 part of number;
 
-/// Wraps Dart's core [double] type, so that it can share a common base
-/// type with other [Number]s.
-///
+/// Wraps Dart's core [double] type, so that it can share a common base type with other [Number]s.
 class Double extends Real {
   final double _value;
 
@@ -13,10 +11,14 @@ class Double extends Real {
   static const Double thousand = const Double.constant(1000.0);
   static const Double infinity = const Double.constant(double.INFINITY);
   static const Double negInfinity = const Double.constant(double.NEGATIVE_INFINITY);
+
+  // ignore: constant_identifier_names
   static const Double NaN = const Double.constant(double.NAN);
 
   Double(this._value);
+
   const Double.constant(this._value) : super.constant();
+
   Double.fromInt(int val) : _value = val.toDouble();
 
   /// Construct an Double from a Map:
@@ -24,7 +26,7 @@ class Double extends Real {
   ///
   /// If the map contents are not recognized, [Double.zero] is returned.
   factory Double.fromMap(Map<String, num> m) {
-    if (m?.containsKey('d') ?? false) {
+    if (m?.containsKey('d') == true) {
       return new Double(m['d']?.toDouble() ?? 0.0);
     }
     return Double.zero;
@@ -40,9 +42,7 @@ class Double extends Real {
   int toInt() => _value.toInt();
 
   /// If an integer value returns the same hash as the [int] with the same value.
-  ///
   /// Otherwise returns the same hash as the [Precise] number representing the value.
-  ///
   @override
   int get hashCode {
     if (_value.isNaN || _value.isInfinite) return _value.hashCode;
@@ -54,8 +54,8 @@ class Double extends Real {
   bool operator ==(dynamic obj) {
     if (obj == double.NAN) return value == double.NAN;
     if (obj is Real || obj is num) return obj == value;
-    if (obj is Imaginary) return value == 0.0 && obj.value == 0.0;
-    if (obj is Complex) return obj.real == value && obj.imaginary == 0.0;
+    if (obj is Imaginary) return value == 0.0 && obj.value?.toDouble() == 0.0;
+    if (obj is Complex) return obj.real?.toDouble() == value && obj.imaginary?.toDouble() == 0.0;
 
     return false;
   }
@@ -65,8 +65,8 @@ class Double extends Real {
 
   @override
   Number clamp(dynamic lowerLimit, dynamic upperLimit) {
-    num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
-    num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
+    final num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
+    final num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
     return new Double(value?.clamp(lower, upper)?.toDouble() ?? 0.0);
   }
 
@@ -83,7 +83,6 @@ class Double extends Real {
   ///
   /// Map Contents:
   ///     'd' : double value
-  ///
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{'d': value};
 }

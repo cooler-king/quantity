@@ -30,5 +30,7 @@ final CurrentUnits attoamperes = Current.amperes.atto() as CurrentUnits;
 final CurrentUnits zeptoamperes = Current.amperes.zepto() as CurrentUnits;
 final CurrentUnits yoctoamperes = Current.amperes.yocto() as CurrentUnits;
 
-// Synonyms
+// Synonyms.
+
+/// A synonym for [amperes].
 final CurrentUnits amps = Current.amperes;

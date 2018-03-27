@@ -29,7 +29,7 @@ part of quantity_si;
 ///
 /// ## Immutable
 /// Quantity values are immutable; they may not be changed after creation.
-/// Use [MutableQuantity] in the quantity_ext library for situations where
+/// Use `MutableQuantity` in the quantity_ext library for situations where
 /// changing a Quantity object's value or units is required.
 ///
 /// ## Value Representation,  Arbitrary Precision
@@ -64,7 +64,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// The [mks] getter offers a shorthand way to retrieve this value.
   final Number valueSI;
 
-  // Dimensions
+  /// Dimensions.
   final Dimensions dimensions;
 
   /// Sets whether or not uncertainty is to be calculated within mathematical methods.
@@ -75,7 +75,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// Preferred units for display
   final Units preferredUnits;
 
-  /// This constructor sets the [value] (as expressed in the accompanying [units])
+  /// This constructor sets the [value] (as expressed in the accompanying units)
   /// and the relative standard [uncert]ainty.  The value is may be set using any
   /// `num` or `Number` object, including [Precise] for arbitrary precision.
   ///
@@ -232,8 +232,8 @@ abstract class Quantity implements Comparable<dynamic> {
   /// standard uncertainty divided by the absolute value of the sum of the
   /// quantities.  The standard uncertainty is the square root of the sum
   /// of the squares of the two quantities' standard uncertainties. See
-  /// [NIST Reference on Constants, Units, and Uncertainty: Combining
-  /// Uncertainty Components](http://physics.nist.gov/cuu/Uncertainty/combination.html)
+  /// (NIST Reference on Constants, Units, and Uncertainty: Combining
+  /// Uncertainty Components](http://physics.nist.gov/cuu/Uncertainty/combination.html))
   Quantity operator +(dynamic addend) {
     if (addend == null) throw const QuantityException('Cannot add NULL to Quantity');
 

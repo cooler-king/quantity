@@ -1,4 +1,4 @@
-import 'dart:math' as Math;
+import 'dart:math';
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
@@ -75,14 +75,14 @@ void main() {
       a = new Angle(deg: 90.0);
       expect(a, isNotNull);
       expect(a.valueSI is Double, true);
-      expect(a.valueSI.toDouble(), closeTo(Math.PI / 2.0, 0.0001));
+      expect(a.valueSI.toDouble(), closeTo(PI / 2.0, 0.0001));
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);
 
       // Default ctor: deg -
       a = new Angle(deg: -270);
       expect(a, isNotNull);
-      expect(a.valueSI.toDouble(), closeTo(-3 * Math.PI / 2, 0.0001));
+      expect(a.valueSI.toDouble(), closeTo(-3 * PI / 2, 0.0001));
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);

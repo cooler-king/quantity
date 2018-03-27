@@ -14,11 +14,11 @@ class MolarEnergy extends Quantity {
   static final MolarEnergyUnits joulesPerMole =
       new MolarEnergyUnits.energyAmount(Energy.joules, AmountOfSubstance.moles);
 
-  /// Construct a MolarEnergy with joules per mole ([J_per_mol]).
+  /// Construct a MolarEnergy with joules per mole.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MolarEnergy({dynamic J_per_mol, double uncert: 0.0}) : super(J_per_mol ?? 0.0, MolarEnergy.joulesPerMole, uncert);
+  MolarEnergy({dynamic joulesPerMole, double uncert: 0.0}) : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert);
 
   MolarEnergy._internal(dynamic conv) : super._internal(conv, MolarEnergy.molarEnergyDimensions);
 
@@ -35,27 +35,29 @@ class MolarEnergy extends Quantity {
 /// Units acceptable for use in describing MolarEnergy quantities.
 ///
 class MolarEnergyUnits extends MolarEnergy with Units {
+  /// Constructs a new instance.
   MolarEnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on energy and amount of substance units.
   MolarEnergyUnits.energyAmount(EnergyUnits eu, AmountOfSubstanceUnits aosu)
       : super._internal(eu.valueSI * aosu.valueSI) {
-    this.name = '${eu.name} per ${aosu.singular}';
-    this.singular = '${eu.singular} per ${aosu.singular}';
-    this._convToMKS = eu.valueSI * aosu.valueSI;
-    this._abbrev1 = eu._abbrev1 != null && aosu._abbrev1 != null ? '${eu._abbrev1} / ${aosu._abbrev1}' : null;
-    this._abbrev2 = eu._abbrev2 != null && aosu._abbrev2 != null ? '${eu._abbrev2}${aosu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${eu.name} per ${aosu.singular}';
+    singular = '${eu.singular} per ${aosu.singular}';
+    _convToMKS = eu.valueSI * aosu.valueSI;
+    _abbrev1 = eu._abbrev1 != null && aosu._abbrev1 != null ? '${eu._abbrev1} / ${aosu._abbrev1}' : null;
+    _abbrev2 = eu._abbrev2 != null && aosu._abbrev2 != null ? '${eu._abbrev2}${aosu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -72,6 +74,6 @@ class MolarEnergyUnits extends MolarEnergy with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

@@ -34,7 +34,7 @@ class MiscQuantity extends Quantity {
   ///
   Number getValue(Units units) {
     if (dimensions != (units as Quantity).dimensions) {
-      throw new DimensionsException("The units provided do not have proper dimensions for this Quantity.");
+      throw new DimensionsException('The units provided do not have proper dimensions for this Quantity.');
     }
     return super.valueInUnits(units);
   }

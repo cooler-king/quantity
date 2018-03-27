@@ -22,6 +22,7 @@ class Frequency extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   Frequency({dynamic Hz, dynamic kHz, dynamic MHz, dynamic GHz, double uncert: 0.0})
       : super(
             Hz ?? (kHz ?? (MHz ?? (GHz ?? 0.0))),
@@ -45,14 +46,15 @@ class Frequency extends Quantity {
 /// Units acceptable for use in describing Frequency quantities.
 ///
 class FrequencyUnits extends Frequency with Units {
+  /// Constructs a new instance.
   FrequencyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -71,6 +73,6 @@ class FrequencyUnits extends Frequency with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

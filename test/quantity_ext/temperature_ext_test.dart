@@ -9,7 +9,8 @@ void main() {
       expect(f.valueSI.toDouble(), closeTo(256.05555555, 0.000001));
 
       final Temperature k = new Temperature(K: 200.4);
-      final Temperature sum = f + k;
+      final dynamic sum = f + k;
+      expect(sum is Temperature, true);
       expect(sum.valueSI.toDouble(), closeTo(456.4555555555555, 0.000001));
     });
 
@@ -18,7 +19,8 @@ void main() {
       expect(r.valueSI.toDouble(), closeTo(55.555555555, 0.000001));
 
       final Temperature k = new Temperature(K: 200.4);
-      final Temperature sum = r + k;
+      final dynamic sum = r + k;
+      expect(sum is Temperature, true);
       expect(sum.valueSI.toDouble(), closeTo(255.9555555555, 0.000001));
     });
 
@@ -27,7 +29,8 @@ void main() {
       expect(f.valueSI.toDouble(), closeTo(0.6833333333333333, 0.000001));
 
       final TemperatureInterval k = new TemperatureInterval(K: 200.4);
-      final TemperatureInterval sum = f + k;
+      final dynamic sum = f + k;
+      expect(sum is TemperatureInterval, true);
       expect(sum.valueSI.toDouble(), closeTo(201.0833333333333, 0.000001));
     });
 
@@ -36,7 +39,8 @@ void main() {
       expect(r.valueSI.toDouble(), closeTo(55.555555555, 0.000001));
 
       final TemperatureInterval k = new TemperatureInterval(K: 200.4);
-      final TemperatureInterval  sum = r + k;
+      final dynamic  sum = r + k;
+      expect(sum is TemperatureInterval, true);
       expect(sum.valueSI.toDouble(), closeTo(255.9555555555, 0.000001));
     });
   });

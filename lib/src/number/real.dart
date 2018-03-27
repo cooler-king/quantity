@@ -1,16 +1,17 @@
 part of number;
 
 /// Provides a common handle for all Real Numbers.
-///
 abstract class Real extends Number {
+  /// The default constructor.
   Real();
 
+  /// Creates a constant real number.
   const Real.constant() : super.constant();
 
+  /// Constructs a new instance using the value for property `d` (decimal) or `i` (integer) in Map [m].
   factory Real.fromMap(Map<String, dynamic> m) =>
-     m?.containsKey('d') || m?.containsKey('i') ?? false ? new Number.fromMap(m) as Real : Integer.zero;
-  
-  
+      m?.containsKey('d') || m?.containsKey('i') ?? false ? new Number.fromMap(m) as Real : Integer.zero;
+
   /// All Real subclasses must be able to provide their value as a [dart:core] [num].
   num get value;
 

@@ -38,26 +38,28 @@ class Volume extends Quantity {
 /// Units acceptable for use in describing Volume quantities.
 ///
 class VolumeUnits extends Volume with Units {
+  /// Constructs a new instance.
   VolumeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on length units.
   VolumeUnits.length(LengthUnits lu) : super._internal(lu.valueSI ^ 3) {
-    this.name = 'cubic ${lu.name}';
-    this.singular = 'cubic ${lu.singular}';
-    this._convToMKS = lu.valueSI ^ 3;
-    this._abbrev1 = lu._abbrev1 != null ? '${lu._abbrev1}3' : null;
-    this._abbrev2 = lu._abbrev2 != null ? '${lu._abbrev2}3' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = 'cubic ${lu.name}';
+    singular = 'cubic ${lu.singular}';
+    _convToMKS = lu.valueSI ^ 3;
+    _abbrev1 = lu._abbrev1 != null ? '${lu._abbrev1}3' : null;
+    _abbrev2 = lu._abbrev2 != null ? '${lu._abbrev2}3' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -74,6 +76,6 @@ class VolumeUnits extends Volume with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

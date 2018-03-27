@@ -14,7 +14,7 @@ class ExponentialUnits {
   /// a [QuantityException] will be thrown.
   ///
   ExponentialUnits(Units units, dynamic exp) {
-    this._units = units;
+    _units = units;
 
     if (exp is num) {
       _exp = exp;

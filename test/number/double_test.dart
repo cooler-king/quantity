@@ -5,7 +5,7 @@ import 'package:quantity/number.dart';
 void main() {
   group('Double', () {
     test('constants', () {
-      Double d = const Double.constant(42.0);
+      final Double d = const Double.constant(42.0);
       expect(d.value, 42.0);
       expect(Double.zero.value, 0.0);
       expect(Double.one.value, 1.0);
@@ -18,10 +18,10 @@ void main() {
     });
 
     test('isNaN', () {
-      Double d = const Double.constant(42.0);
-      Double d2 = Double.NaN;
-      Double d3 = Double.infinity;
-      Double d4 = new Double(double.NAN);
+      final Double d = const Double.constant(42.0);
+      final Double d2 = Double.NaN;
+      final Double d3 = Double.infinity;
+      final Double d4 = new Double(double.NAN);
 
       expect(d.isNaN, false);
       expect(d2.isNaN, true);
@@ -30,32 +30,37 @@ void main() {
     });
 
     test('operator ==', () {
-      Double d = new Double(42.056);
-      Double d2 = new Double(14.321);
-      Double d3 = new Double(42.056);
-      Double d4 = new Double(42.0);
-      Double d5 = new Double(42.toDouble());
+      final Double d = new Double(42.056);
+      final Double d2 = new Double(14.321);
+      final Double d3 = new Double(42.056);
+      final Double d4 = new Double(42.0);
+      final Double d5 = new Double(42.toDouble());
       expect(d == d, true);
       expect(d == d2, false);
       expect(d == d3, true);
-      expect(d == 42.056, true);
-      expect(d == 42.0560001, false);
+      expect(d?.toDouble() == 42.056, true);
+      expect(d?.toDouble() == 42.0560001, false);
       expect(d4 == d5, true);
 
       // equality with nums
+      // ignore: unrelated_type_equality_checks
       expect(d4 == 42, true);
+      // ignore: unrelated_type_equality_checks
       expect(d5 == 42, true);
+      // ignore: unrelated_type_equality_checks
       expect(d4 == 42.0, true);
+      // ignore: unrelated_type_equality_checks
       expect(d5 == 42.0, true);
 
       // equality with complex
-      Complex c1 = new Complex(new Double(42.0), new Imaginary(0.0));
+      final Complex c1 = new Complex(new Double(42.0), new Imaginary(0.0));
+      // ignore: unrelated_type_equality_checks
       expect(d4 == c1, true);
     });
 
     test('operator +', () {
-      Double d = new Double(42.056);
-      Double d2 = new Double(14.321);
+      final Double d = new Double(42.056);
+      final Double d2 = new Double(14.321);
 
       // + int
       Number sum = d + 4;
@@ -78,12 +83,12 @@ void main() {
       expect(((d + d2) as Double).value, closeTo(56.377, 0.000001));
       expect((d + 77.7777) is Double, true);
       expect(((d + 77.7777) as Double).value, closeTo(119.8337, 0.000001));
-      Double d3 = new Double(-1.4);
+      final Double d3 = new Double(-1.4);
       expect((d + d3) is Double, true);
       expect(((d + d3) as Double).value, closeTo(40.656, 0.000001));
 
       // + Integer
-      var a = new Integer(4);
+      Integer a = new Integer(4);
       sum = d + a;
       expect(sum is Double, true);
       expect(sum, new Double(46.056));
@@ -126,8 +131,8 @@ void main() {
     });
 
     test('operator -', () {
-      Double d = new Double(42.056);
-      Double d2 = new Double(14.321);
+      final Double d = new Double(42.056);
+      final Double d2 = new Double(14.321);
 
       // - int
       Number diff = d - 3;
@@ -152,7 +157,7 @@ void main() {
       diff = d2 - d;
       expect(diff is Double, true);
       expect((diff as Double).value, closeTo(-27.735, 0.000001));
-      Double d3 = new Double(-1.23);
+      final Double d3 = new Double(-1.23);
       diff = d2 - d3;
       expect(diff is Double, true);
       expect((diff as Double).value, closeTo(15.551, 0.000001));
@@ -161,7 +166,7 @@ void main() {
       expect((diff as Double).value, closeTo(-15.551, 0.000001));
 
       // - Integer
-      var a = new Integer(4);
+      Integer a = new Integer(4);
       diff = d - a;
       expect(diff is Double, true);
       expect(diff, new Double(38.056));
@@ -206,8 +211,8 @@ void main() {
     });
 
     test('operator *', () {
-      Double d = new Double(1.2);
-      Double d2 = new Double(3.4);
+      final Double d = new Double(1.2);
+      final Double d2 = new Double(3.4);
 
       // * int
       Number prod = d * 3;
@@ -229,13 +234,13 @@ void main() {
       prod = d * d2;
       expect(prod is Double, true);
       expect((prod as Double).value, closeTo(4.08, 0.000001));
-      Double d3 = new Double(-0.6);
+      final Double d3 = new Double(-0.6);
       prod = d2 * d3;
       expect(prod is Double, true);
       expect((prod as Double).value, closeTo(-2.04, 0.000001));
 
       // * Integer
-      var a = new Integer(4);
+      Integer a = new Integer(4);
       prod = d * a;
       expect(prod is Double, true);
       expect(prod, new Double(4.8));
@@ -278,8 +283,8 @@ void main() {
     });
 
     test('operator /', () {
-      Double d = new Double(1.2);
-      Double d2 = new Double(3.4);
+      final Double d = new Double(1.2);
+      final Double d2 = new Double(3.4);
 
       // / int
       Number quot = d / 3;
@@ -301,13 +306,13 @@ void main() {
       quot = d / d2;
       expect(quot is Double, true);
       expect((quot as Double).value, closeTo(0.3529411764705882, 0.000001));
-      Double d3 = new Double(-0.6);
+      final Double d3 = new Double(-0.6);
       quot = d2 / d3;
       expect(quot is Double, true);
       expect((quot as Double).value, closeTo(-5.666666666666667, 0.000001));
 
       // / Integer
-      var a = new Integer(4);
+      Integer a = new Integer(4);
       quot = d / a;
       expect(quot is Double, true);
       expect(quot, new Double(0.3));

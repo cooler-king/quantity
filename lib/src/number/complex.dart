@@ -3,7 +3,10 @@ part of number;
 /// Complex numbers have both a real and an imaginary part.
 ///
 class Complex extends Number {
+  /// The real number component of the complex number.
   final Real real;
+
+  /// The imaginary number component of the complex number.
   final Imaginary imaginary;
 
   Complex(this.real, this.imaginary);
@@ -14,9 +17,9 @@ class Complex extends Number {
         imaginary = new Imaginary.constant(new Double(imagValue));
 
   Complex.fromMap(Map<String, Map<String, dynamic>> m)
-      : real = m?.containsKey('real') ?? false ? new Real.fromMap(m['real'] as Map<String, Map>) : Double.zero,
+      : real = (m?.containsKey('real') ?? false) ? new Real.fromMap(m['real']) : Double.zero,
         imaginary = m?.containsKey('real') ?? false
-            ? new Imaginary.fromMap(m['imag'])
+            ? new Imaginary.constant(new Real.fromMap(m['imag']))
             : const Imaginary.constant(Integer.zero);
 
   /// [imag] is a convenient getter for the [imaginary] value
@@ -63,21 +66,21 @@ class Complex extends Number {
 
   @override
   int get hashCode {
-    if (imaginary == null || imaginary.toDouble() == 0) {
+    if (imaginary == null || imaginary.value.toDouble() == 0) {
       if (real is Precise) return real.hashCode;
       return new Precise.num(real.toDouble()).hashCode;
     } else {
-      if (real == null || real.toDouble() == 0) return hashObjects([0, imaginary.value]);
-      return hashObjects([real, imaginary.value]);
+      if (real == null || real.toDouble() == 0) return hashObjects(<Object>[0, imaginary.value]);
+      return hashObjects(<Object>[real, imaginary.value]);
     }
   }
 
   @override
   bool operator ==(dynamic obj) {
-    if (obj is num) return real == obj && imaginary.value == 0.0;
+    if (obj is num) return real.value == obj && imaginary.value.value == 0.0;
     if (obj is Complex) return real == obj.real && imaginary == obj.imaginary;
-    if (obj is Imaginary) return real == 0.0 && imaginary == obj;
-    if (obj is Real) return real == obj && imaginary.value == 0.0;
+    if (obj is Imaginary) return real.value == 0.0 && imaginary.value == obj;
+    if (obj is Real) return real == obj && imaginary.value.value == 0.0;
     return false;
   }
 
@@ -156,7 +159,7 @@ class Complex extends Number {
     if (divisor is Real) new Complex(real ~/ divisor as Real, imaginary ~/ divisor as Imaginary);
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
-      Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
+      final Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       return new Complex(((real * divisor.real + imaginary * divisor.imaginary) / c2d2).truncate() as Real,
           new Imaginary(((imaginary * divisor.real - real * divisor.imaginary) / c2d2).truncate()));
     }
@@ -294,7 +297,5 @@ class Complex extends Number {
   ///     {'real':{'i':5},'imag':{'d':3.3}}
   ///
   @override
-  Map<String, dynamic> toJson() =>
-    <String, dynamic>{'real': real.toJson(), 'imag': imaginary.toJson()};
-
+  Map<String, dynamic> toJson() => <String, dynamic>{'real': real.toJson(), 'imag': imaginary.toJson()};
 }

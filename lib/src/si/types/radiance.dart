@@ -15,12 +15,12 @@ class Radiance extends Quantity {
   static final RadianceUnits wattsPerSquareMeterSteradian =
       new RadianceUnits.powerAreaSolidAngle(Power.watts, Area.squareMeters, SolidAngle.steradians);
 
-  /// Construct a Radiance with watts per square meter steradian ([W_per_m2sr]).
+  /// Construct a Radiance with watts per square meter steradian.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Radiance({dynamic W_per_m2sr, double uncert: 0.0})
-      : super(W_per_m2sr ?? 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
+  Radiance({dynamic wattsPerSquareMeterSteradian, double uncert: 0.0})
+      : super(wattsPerSquareMeterSteradian ?? 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
 
   Radiance._internal(dynamic conv) : super._internal(conv, Radiance.radianceDimensions);
 
@@ -42,24 +42,24 @@ class RadianceUnits extends Radiance with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   RadianceUnits.powerAreaSolidAngle(PowerUnits ecu, AreaUnits mu, SolidAngleUnits sau)
       : super._internal(ecu.valueSI / (mu.valueSI * sau.valueSI)) {
-    this.name = '${ecu.name} per ${mu.singular} ${sau.singular}';
-    this.singular = '${ecu.singular} per ${mu.singular} ${sau.singular}';
-    this._convToMKS = ecu.valueSI / (mu.valueSI * sau.valueSI);
-    this._abbrev1 =
+    name = '${ecu.name} per ${mu.singular} ${sau.singular}';
+    singular = '${ecu.singular} per ${mu.singular} ${sau.singular}';
+    _convToMKS = ecu.valueSI / (mu.valueSI * sau.valueSI);
+    _abbrev1 =
         ecu._abbrev1 != null && mu._abbrev1 != null ? '${ecu._abbrev1} / ${mu._abbrev1} ${sau.singular}' : null;
-    this._abbrev2 =
+    _abbrev2 =
         ecu._abbrev2 != null && mu._abbrev2 != null ? '${ecu._abbrev2}/${mu._abbrev2}${sau.singular}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -76,6 +76,6 @@ class RadianceUnits extends Radiance with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

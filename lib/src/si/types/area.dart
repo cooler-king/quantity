@@ -50,26 +50,28 @@ class Area extends Quantity {
 /// Units acceptable for use in describing Area quantities.
 ///
 class AreaUnits extends Area with Units {
+  /// Constructs a new instance.
   AreaUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
     _convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on length units.
   AreaUnits.lengthSquared(LengthUnits lu) : super._internal(lu.valueSI * lu.valueSI) {
-    this.name = 'square ${lu.name}';
-    this.singular = 'square ${lu.singular}';
-    this._convToMKS = lu.valueSI * lu.valueSI;
-    this._abbrev1 = lu._abbrev1 != null && lu._abbrev1 != null ? '${lu._abbrev1}2' : null;
-    this._abbrev2 = lu._abbrev2 != null && lu._abbrev2 != null ? '${lu._abbrev2}2' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = 'square ${lu.name}';
+    singular = 'square ${lu.singular}';
+    _convToMKS = lu.valueSI * lu.valueSI;
+    _abbrev1 = lu._abbrev1 != null && lu._abbrev1 != null ? '${lu._abbrev1}2' : null;
+    _abbrev2 = lu._abbrev2 != null && lu._abbrev2 != null ? '${lu._abbrev2}2' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply

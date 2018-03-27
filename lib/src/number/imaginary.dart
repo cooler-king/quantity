@@ -24,7 +24,6 @@ class Imaginary extends Number {
   @override
   int toInt() => 0;
 
-  @override
   Complex toComplex() => new Complex(Double.zero, this);
 
   @override
@@ -42,16 +41,16 @@ class Imaginary extends Number {
   @override
   bool operator ==(dynamic obj) {
     if (obj is Imaginary) return value == obj.value;
-    if (obj is Complex) return obj.real == 0.0 && this == obj.imaginary;
-    if (obj is Real || obj is num) return value == 0.0 && obj == 0.0;
+    if (obj is Complex) return obj.real.value == 0.0 && this == obj.imaginary;
+    if (obj is Real || obj is num) return value.toDouble() == 0.0 && obj == 0.0;
 
     return false;
   }
 
   @override
   int get hashCode {
-    if (value == 0) return 0.hashCode;
-    return hashObjects([0, value]);
+    if (value.toDouble() == 0) return 0.hashCode;
+    return hashObjects(<Object>[0, value]);
   }
 
   @override
@@ -145,7 +144,7 @@ class Imaginary extends Number {
   ///
   /// In order to provide a convenient power operator for all [Number]s, the number library
   /// overrides the caret operator.  In Dart the caret operator is ordinarily used
-  /// for bitwise XOR operations on [int]s.  The Integer class provides the [bitwiseXor] method
+  /// for bitwise XOR operations on [int]s.  The Integer class provides the `bitwiseXor` method
   /// as a substitute.
   ///
   /// See http://mathworld.wolfram.com/ComplexNumber.html
@@ -254,4 +253,7 @@ class Imaginary extends Number {
   ///
   @override
   Map<String, dynamic> toJson() => <String, dynamic>{'imag': value.toJson()};
+
+  @override
+  String toString() => '${value}i';
 }

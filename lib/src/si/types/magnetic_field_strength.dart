@@ -14,12 +14,12 @@ class MagneticFieldStrength extends Quantity {
   static final MagneticFieldStrengthUnits amperesPerMeter =
       new MagneticFieldStrengthUnits.currentLength(Current.amperes, Length.meters);
 
-  /// Construct a MagneticFieldStrength with amperes per meter ([A_per_m]).
+  /// Construct a MagneticFieldStrength with amperes per meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MagneticFieldStrength({dynamic A_per_m, double uncert: 0.0})
-      : super(A_per_m ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
+  MagneticFieldStrength({dynamic amperesPerMeter, double uncert: 0.0})
+      : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
   MagneticFieldStrength._internal(dynamic conv)
       : super._internal(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
@@ -30,6 +30,7 @@ class MagneticFieldStrength extends Quantity {
   MagneticFieldStrength.inUnits(dynamic value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
       : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
 
+  /// Constructs a constant MagneticFieldStrength.
   const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, double uncert: 0.0})
       : super.constant(valueSI, MagneticFieldStrength.magneticFieldStrengthDimensions, units, uncert);
 }
@@ -37,27 +38,29 @@ class MagneticFieldStrength extends Quantity {
 /// Units acceptable for use in describing MagneticFieldStrength quantities.
 ///
 class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
+  /// Constructs a new instance.
   MagneticFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on electric current and length units.
   MagneticFieldStrengthUnits.currentLength(CurrentUnits ecu, LengthUnits lu)
       : super._internal(ecu.valueSI * lu.valueSI) {
-    this.name = '${ecu.name} per ${lu.singular}';
-    this.singular = '${ecu.singular} per ${lu.singular}';
-    this._convToMKS = ecu.valueSI * lu.valueSI;
-    this._abbrev1 = ecu._abbrev1 != null && lu._abbrev1 != null ? '${ecu._abbrev1} / ${lu._abbrev1}' : null;
-    this._abbrev2 = ecu._abbrev2 != null && lu._abbrev2 != null ? '${ecu._abbrev2}${lu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${ecu.name} per ${lu.singular}';
+    singular = '${ecu.singular} per ${lu.singular}';
+    _convToMKS = ecu.valueSI * lu.valueSI;
+    _abbrev1 = ecu._abbrev1 != null && lu._abbrev1 != null ? '${ecu._abbrev1} / ${lu._abbrev1}' : null;
+    _abbrev2 = ecu._abbrev2 != null && lu._abbrev2 != null ? '${ecu._abbrev2}${lu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -74,6 +77,6 @@ class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
 
 }

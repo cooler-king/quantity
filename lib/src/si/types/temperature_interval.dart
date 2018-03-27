@@ -46,12 +46,12 @@ class TemperatureInterval extends Quantity {
   @override
   Quantity operator +(dynamic addend) {
     if (addend is TemperatureInterval) {
-      var newValueSI = valueSI + addend.valueSI;
-      var ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      final Number newValueSI = valueSI + addend.valueSI;
+      final double ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
       return new TemperatureInterval(K: newValueSI, uncert: ur);
     } else if (addend is Temperature) {
-      var newValueSI = valueSI + addend.valueSI;
-      var ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      final Number newValueSI = valueSI + addend.valueSI;
+      final double ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
       return new Temperature(K: newValueSI, uncert: ur);
     } else {
       return super + addend;
@@ -91,8 +91,8 @@ class TemperatureIntervalUnits extends TemperatureInterval with Units {
     this.name = name;
     this.singular = singular;
     _convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }

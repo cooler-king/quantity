@@ -14,11 +14,11 @@ class Permittivity extends Quantity {
   static final PermittivityUnits faradsPerMeter =
       new PermittivityUnits.capacitanceLength(Capacitance.farads, Length.meters);
 
-  /// Construct a Permittivity with farads per meter ([F_per_m]).
+  /// Construct a Permittivity with farads per meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Permittivity({dynamic F_per_m, double uncert: 0.0}) : super(F_per_m ?? 0.0, Permittivity.faradsPerMeter, uncert);
+  Permittivity({dynamic faradsPerMeter, double uncert: 0.0}) : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert);
 
   Permittivity._internal(dynamic conv) : super._internal(conv, Permittivity.permittivityDimensions);
 
@@ -35,18 +35,20 @@ class Permittivity extends Quantity {
 /// Units acceptable for use in describing Permittivity quantities.
 ///
 class PermittivityUnits extends Permittivity with Units {
+  /// Constructs a new instance.
   PermittivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on capacitance and length units.
   PermittivityUnits.capacitanceLength(CapacitanceUnits ecu, LengthUnits lu)
       : super._internal(ecu.valueSI / lu.valueSI) {
     name = '${ecu.name} per ${lu.singular}';

@@ -39,14 +39,15 @@ class LuminousFlux extends Quantity {
 /// Units acceptable for use in describing LuminousFlux quantities.
 ///
 class LuminousFluxUnits extends LuminousFlux with Units {
+  /// Constructs a new instance.
   LuminousFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }

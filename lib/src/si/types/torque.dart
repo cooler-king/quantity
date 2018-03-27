@@ -19,6 +19,7 @@ class Torque extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   Torque({dynamic Nm, double uncert: 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
 
   Torque._internal(dynamic conv) : super._internal(conv, Torque.torqueDimensions);
@@ -41,21 +42,21 @@ class TorqueUnits extends Torque with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   TorqueUnits.forceLength(ForceUnits fu, LengthUnits lu) : super._internal(fu.valueSI * lu.valueSI) {
-    this.name = '${fu.singular} ${lu.name}';
-    this.singular = '${fu.singular} ${lu.singular}';
-    this._convToMKS = fu.valueSI * lu.valueSI;
-    this._abbrev1 = fu._abbrev1 != null && lu._abbrev1 != null ? '${fu._abbrev1} ${lu._abbrev1}' : null;
-    this._abbrev2 = fu._abbrev2 != null && lu._abbrev2 != null ? '${fu._abbrev2}${lu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${fu.singular} ${lu.name}';
+    singular = '${fu.singular} ${lu.singular}';
+    _convToMKS = fu.valueSI * lu.valueSI;
+    _abbrev1 = fu._abbrev1 != null && lu._abbrev1 != null ? '${fu._abbrev1} ${lu._abbrev1}' : null;
+    _abbrev2 = fu._abbrev2 != null && lu._abbrev2 != null ? '${fu._abbrev2}${lu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -72,6 +73,6 @@ class TorqueUnits extends Torque with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

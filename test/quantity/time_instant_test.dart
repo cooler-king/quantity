@@ -5,7 +5,7 @@ import 'package:quantity/number.dart';
 void main() {
   group('TimeInstant', () {
     test('constructors', () {
-      TimeInstant t = new TimeInstant(TAI: 1234.5);
+      final TimeInstant t = new TimeInstant(TAI: 1234.5);
       expect(t, isNotNull);
 
       expect(t.valueSI is Double, true);
@@ -16,8 +16,8 @@ void main() {
     });
 
     test('nearestDateTime', () {
-      TimeInstant t = new TimeInstant.dateTime(new DateTime(2015, 9, 23));
-      DateTime nearest = t.nearestDateTime;
+      final TimeInstant t = new TimeInstant.dateTime(new DateTime(2015, 9, 23));
+      final DateTime nearest = t.nearestDateTime;
       expect(nearest, isNotNull);
       expect(nearest.year, 2015);
       expect(nearest.month, 9);
@@ -25,13 +25,13 @@ void main() {
     });
 
     test('FiscalYear', () {
-      FiscalYear fy = new FiscalYear(2013);
+      final FiscalYear fy = new FiscalYear(2013);
       expect(fy, isNotNull);
       expect(fy.toString(), 'FY13');
     });
 
     test('CalendarYear', () {
-      CalendarYear cy = new CalendarYear(2013);
+      final CalendarYear cy = new CalendarYear(2013);
       expect(cy, isNotNull);
       expect(cy.toString(), '2013');
     });

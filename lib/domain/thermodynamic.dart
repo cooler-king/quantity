@@ -24,7 +24,13 @@ export 'package:quantity/quantity.dart'
 const MiscQuantity avogadro = const MiscQuantity.constant(
     const Double.constant(6.022140857e23), const Dimensions.constant(const <String, int>{'Amount': -1}),
     uncert: 1.2287988899161014e-8);
+
+/// The common symbol for Avogadro's Number.
+// ignore: constant_identifier_names
 const MiscQuantity NA = avogadro;
+
+/// An alternative symbol for Avogadro's Number.
+// ignore: constant_identifier_names
 const MiscQuantity L = avogadro;
 
 /// Boltzmann constant ('k')

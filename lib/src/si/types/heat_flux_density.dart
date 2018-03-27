@@ -16,12 +16,12 @@ class HeatFluxDensity extends Quantity {
   static final HeatFluxDensityUnits wattsPerSquareMeter =
       new HeatFluxDensityUnits.powerArea(Power.watts, Area.squareMeters);
 
-  /// Construct a HeatFluxDensity with watts per square meter ([W_per_m2]).
+  /// Construct a HeatFluxDensity with watts per square meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  HeatFluxDensity({dynamic W_per_m2, double uncert: 0.0})
-      : super(W_per_m2 ?? 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
+  HeatFluxDensity({dynamic wattsPerSquareMeter, double uncert: 0.0})
+      : super(wattsPerSquareMeter ?? 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
 
   HeatFluxDensity._internal(dynamic conv) : super._internal(conv, HeatFluxDensity.heatFluxDensityDimensions);
 
@@ -43,21 +43,21 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   HeatFluxDensityUnits.powerArea(PowerUnits pu, AreaUnits au) : super._internal(pu.valueSI * au.valueSI) {
-    this.name = '${pu.name} per ${au.singular}';
-    this.singular = '${pu.singular} per ${au.singular}';
-    this._convToMKS = pu.valueSI * au.valueSI;
-    this._abbrev1 = pu._abbrev1 != null && au._abbrev1 != null ? '${pu._abbrev1} / ${au._abbrev1}' : null;
-    this._abbrev2 = pu._abbrev2 != null && au._abbrev2 != null ? '${pu._abbrev2}${au._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${pu.name} per ${au.singular}';
+    singular = '${pu.singular} per ${au.singular}';
+    _convToMKS = pu.valueSI * au.valueSI;
+    _abbrev1 = pu._abbrev1 != null && au._abbrev1 != null ? '${pu._abbrev1} / ${au._abbrev1}' : null;
+    _abbrev2 = pu._abbrev2 != null && au._abbrev2 != null ? '${pu._abbrev2}${au._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -74,6 +74,6 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

@@ -17,12 +17,12 @@ class MolarEntropy extends Quantity {
   static final MolarEntropyUnits joulesPerMoleKelvin = new MolarEntropyUnits.energyAmountTemperature(
       Energy.joules, AmountOfSubstance.moles, TemperatureInterval.kelvins);
 
-  /// Construct a MolarEntropy with joules per mole kelvin ([J_per_molK]).
+  /// Construct a MolarEntropy with joules per mole kelvin.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MolarEntropy({dynamic J_per_molK, double uncert: 0.0})
-      : super(J_per_molK ?? 0.0, MolarEntropy.joulesPerMoleKelvin, uncert);
+  MolarEntropy({dynamic joulesPerMoleKelvin, double uncert: 0.0})
+      : super(joulesPerMoleKelvin ?? 0.0, MolarEntropy.joulesPerMoleKelvin, uncert);
 
   MolarEntropy._internal(dynamic conv) : super._internal(conv, MolarEntropy.molarEntropyDimensions);
 
@@ -44,9 +44,9 @@ class MolarEntropyUnits extends MolarEntropy with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -78,6 +78,6 @@ class MolarEntropyUnits extends MolarEntropy with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

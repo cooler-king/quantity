@@ -40,10 +40,10 @@ class Energy extends Quantity {
   Mass toMass() {
     if (valueSI is Precise) {
       final Precise c = new Precise('2.99792458e8');
-      return new Mass(kg: valueSI / (c * c), uncert: this._ur);
+      return new Mass(kg: valueSI / (c * c), uncert: _ur);
     } else {
       final double c = 2.99792458e8;
-      return new Mass(kg: valueSI / (c * c), uncert: this._ur);
+      return new Mass(kg: valueSI / (c * c), uncert: _ur);
     }
   }
 }
@@ -51,26 +51,28 @@ class Energy extends Quantity {
 /// Units acceptable for use in describing Energy quantities.
 ///
 class EnergyUnits extends Energy with Units {
+  /// Constructs a new instance.
   EnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on power and time units.
   EnergyUnits.powerTime(PowerUnits pu, TimeUnits tu) : super._internal(pu.valueSI * tu.valueSI) {
-    this.name = '${pu.singular} ${tu.name}';
-    this.singular = '${pu.singular} ${tu.singular}';
-    this._convToMKS = pu.valueSI * tu.valueSI;
-    this._abbrev1 = pu._abbrev1 != null && tu._abbrev1 != null ? '${pu._abbrev1} ${tu._abbrev1}' : null;
-    this._abbrev2 = pu._abbrev2 != null && tu._abbrev2 != null ? '${pu._abbrev2}${tu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${pu.singular} ${tu.name}';
+    singular = '${pu.singular} ${tu.singular}';
+    _convToMKS = pu.valueSI * tu.valueSI;
+    _abbrev1 = pu._abbrev1 != null && tu._abbrev1 != null ? '${pu._abbrev1} ${tu._abbrev1}' : null;
+    _abbrev2 = pu._abbrev2 != null && tu._abbrev2 != null ? '${pu._abbrev2}${tu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -87,6 +89,6 @@ class EnergyUnits extends Energy with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
 
 }

@@ -31,6 +31,7 @@ class InformationRate extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   InformationRate({dynamic bps, dynamic kbps, dynamic Mbps, dynamic Gbps, dynamic Tbps, double uncert: 0.0})
       : super(
             bps ?? (kbps ?? (Mbps ?? (Gbps ?? (Tbps ?? 0.0)))),
@@ -63,21 +64,21 @@ class InformationRateUnits extends InformationRate with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   InformationRateUnits.massTime(InformationUnits iu, TimeUnits tu) : super._internal(iu.valueSI * tu.valueSI) {
-    this.name = '${iu.name} per ${tu.singular}';
-    this.singular = '${iu.singular} per ${tu.singular}';
-    this._convToMKS = iu.valueSI * tu.valueSI;
-    this._abbrev1 = iu._abbrev1 != null && tu._abbrev1 != null ? '${iu._abbrev1} / ${tu._abbrev1}' : null;
-    this._abbrev2 = iu._abbrev2 != null && tu._abbrev2 != null ? '${iu._abbrev2}${tu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${iu.name} per ${tu.singular}';
+    singular = '${iu.singular} per ${tu.singular}';
+    _convToMKS = iu.valueSI * tu.valueSI;
+    _abbrev1 = iu._abbrev1 != null && tu._abbrev1 != null ? '${iu._abbrev1} / ${tu._abbrev1}' : null;
+    _abbrev2 = iu._abbrev2 != null && tu._abbrev2 != null ? '${iu._abbrev2}${tu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -86,14 +87,12 @@ class InformationRateUnits extends InformationRate with Units {
 
   /// Derive new InformationRateUnits using this InformationRateUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new InformationRateUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        this.offset);
-  }
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new InformationRateUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

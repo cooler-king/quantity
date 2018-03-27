@@ -22,6 +22,7 @@ class AbsorbedDose extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   AbsorbedDose({dynamic Gy, dynamic rads, double uncert: 0.0})
       : super(Gy ?? (rads ?? 0.0), rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert);
 
@@ -39,26 +40,28 @@ class AbsorbedDose extends Quantity {
 
 /// Units acceptable for use in describing AbsorbedDose quantities.
 class AbsorbedDoseUnits extends AbsorbedDose with Units {
+  /// Constructs a new instance.
   AbsorbedDoseUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on length and time units.
   AbsorbedDoseUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super._internal(lu.valueSI * su.valueSI) {
-    this.name = '${lu.name} per ${su.singular} squared';
-    this.singular = '${lu.singular} per ${su.singular} squared';
-    this._convToMKS = lu.valueSI * su.valueSI;
-    this._abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? '${lu._abbrev1} / ${su._abbrev1}' : null;
-    this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? '${lu._abbrev2}${su._abbrev2}' : null;
-    this.metricBase = metricBase;
-    this.offset = offset.toDouble();
+    name = '${lu.name} per ${su.singular} squared';
+    singular = '${lu.singular} per ${su.singular} squared';
+    _convToMKS = lu.valueSI * su.valueSI;
+    _abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? '${lu._abbrev1} / ${su._abbrev1}' : null;
+    _abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? '${lu._abbrev2}${su._abbrev2}' : null;
+    metricBase = metricBase;
+    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -75,6 +78,6 @@ class AbsorbedDoseUnits extends AbsorbedDose with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

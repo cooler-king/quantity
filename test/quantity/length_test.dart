@@ -178,7 +178,7 @@ void main() {
       expect(ee.dimensions.equalsSI(Speed.speedDimensions), true);
       expect(ee is Speed, true);
 
-      final dynamic  ff = b / new Speed(m_per_s: 10.5);
+      final dynamic  ff = b / new Speed(metersPerSecond: 10.5);
       expect(ff.valueSI == 4, true);
       expect(ff.valueSI is Integer, true);
       expect(ff.dimensions.equalsSI(Time.timeDimensions), true);

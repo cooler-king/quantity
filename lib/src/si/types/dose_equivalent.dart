@@ -21,6 +21,7 @@ class DoseEquivalent extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   DoseEquivalent({dynamic Sv, dynamic rems, double uncert: 0.0})
       : super(Sv != null ? Sv : (rems != null ? rems : 0.0),
             rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts, uncert);
@@ -40,14 +41,15 @@ class DoseEquivalent extends Quantity {
 /// Units acceptable for use in describing DoseEquivalent quantities.
 ///
 class DoseEquivalentUnits extends DoseEquivalent with Units {
+  /// Constructs a new instance.
   DoseEquivalentUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
     _convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -66,6 +68,6 @@ class DoseEquivalentUnits extends DoseEquivalent with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

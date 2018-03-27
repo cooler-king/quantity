@@ -14,12 +14,12 @@ class SpectralIrradiance extends Quantity {
   static final SpectralIrradianceUnits wattsPerSquareMeterPerHertz =
       new SpectralIrradianceUnits('watts per square meter per hertz', 'W m-2 Hz-1', null, null, 1.0, true);
 
-  /// Construct a SpectralIrradiance with watts per square meter per hertz ([W_per_m2_per_Hz]).
+  /// Construct a SpectralIrradiance with watts per square meter per hertz.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  SpectralIrradiance({dynamic W_per_m2_per_Hz, double uncert: 0.0})
-      : super(W_per_m2_per_Hz ?? 0.0, SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
+  SpectralIrradiance({dynamic wattsPerSquareMeterPerHertz, double uncert: 0.0})
+      : super(wattsPerSquareMeterPerHertz ?? 0.0, SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
   SpectralIrradiance._internal(dynamic conv) : super._internal(conv, SpectralIrradiance.spectralIrradianceDimensions);
 
@@ -36,14 +36,15 @@ class SpectralIrradiance extends Quantity {
 /// Units acceptable for use in describing SpectralIrradiance quantities.
 ///
 class SpectralIrradianceUnits extends SpectralIrradiance with Units {
+  /// Constructs a new instance.
   SpectralIrradianceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -62,6 +63,6 @@ class SpectralIrradianceUnits extends SpectralIrradiance with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

@@ -229,10 +229,11 @@ class MutableQuantity implements Quantity {
   /// Therefore MutableQuantity instances with the
   /// same value and dimensions as another quantity will not have
   /// the same hash code.
-  ///
+  @override
+  int get hashCode => hashObjects(<Object>[this]);
 
   @override
-  int get hashCode => super.hashCode;
+  bool operator ==(Object other) => hashCode == other.hashCode;
 
   /// Inverts this MutableQuantity in place and returns itself.
   void invert() {

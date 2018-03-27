@@ -1,26 +1,68 @@
 part of quantity_ext;
 
 // Metric units
+
+/// A unit of 10^24 meters.
 final LengthUnits yottameters = Length.meters.yotta() as LengthUnits;
+
+/// A unit of 10^21 meters.
 final LengthUnits zettameters = Length.meters.zetta() as LengthUnits;
+
+/// A unit of 10^18 meters.
 final LengthUnits exameters = Length.meters.exa() as LengthUnits;
+
+/// A unit of 10^15 meters.
 final LengthUnits petameters = Length.meters.peta() as LengthUnits;
+
+/// A unit of 10^12 meters.
 final LengthUnits terameters = Length.meters.tera() as LengthUnits;
+
+/// A unit of one billion meters.
 final LengthUnits gigameters = Length.meters.giga() as LengthUnits;
+
+/// A unit of one million meters.
 final LengthUnits megameters = Length.meters.mega() as LengthUnits;
+
+/// A unit of one thousand meters.
 final LengthUnits kilometers = Length.meters.kilo() as LengthUnits;
+
+/// A unit of one hundred meters.
 final LengthUnits hectometers = Length.meters.hecto() as LengthUnits;
+
+/// A unit of ten meters.
 final LengthUnits dekameters = Length.meters.deka() as LengthUnits;
+
+/// A synonym for the SI-MSH base unit of length.
 final LengthUnits meters = Length.meters;
+
+/// A unit of one tenth of a meter.
 final LengthUnits decimeters = Length.meters.deci() as LengthUnits;
+
+/// A unit of one hundredth of a meter.
 final LengthUnits centimeters = Length.meters.centi() as LengthUnits;
+
+/// A unit of one thousandth of a meter.
 final LengthUnits millimeters = Length.millimeters;
+
+/// A unit of one millionth of a meter.
 final LengthUnits micrometers = Length.meters.micro() as LengthUnits;
+
+/// A unit of one billionth of a meter.
 final LengthUnits nanometers = Length.nanometers;
+
+/// A unit of 10^-12 meters.
 final LengthUnits picometers = Length.meters.pico() as LengthUnits;
+
+/// A unit of 10^-15 meters.
 final LengthUnits femtometers = Length.meters.femto() as LengthUnits;
+
+/// A unit of 10^-18 meters.
 final LengthUnits attometers = Length.meters.atto() as LengthUnits;
+
+/// A unit of 10^-21 meters.
 final LengthUnits zeptometers = Length.meters.zepto() as LengthUnits;
+
+/// A unit of 10^-24 meters.
 final LengthUnits yoctometers = Length.meters.yocto() as LengthUnits;
 
 final LengthUnits astronomicalUnits = Length.astronomicalUnits;
@@ -44,9 +86,13 @@ final LengthUnits leaguesNautical =
     new LengthUnits('leagues (nautical)', null, null, 'league (nautical)', 5.556e3, false);
 final LengthUnits leaguesStatute =
     new LengthUnits('leagues (statute)', null, null, 'league (statute)', 4.828032e3, false);
+
+/// The distance light travels in one year.
 final LengthUnits lightYears = new LengthUnits('light years', 'LY', null, null, 9.46055e15, false);
 final LengthUnits linksEngineer = new LengthUnits('links (engineer)', null, null, 'link (engineer)', 3.048e-1, false);
 final LengthUnits linksSurveyor = new LengthUnits('links (surveyor)', null, null, 'link (surveyor)', 2.01168e-1, false);
+
+/// A synonym for micrometers.
 final LengthUnits microns = Length.meters.micro() as LengthUnits;
 final LengthUnits mils = new LengthUnits('mils', null, null, null, 2.54e-5, false);
 final LengthUnits miles = new LengthUnits('miles', 'mi', null, null, 1.609344e3, false);
@@ -66,10 +112,17 @@ final LengthUnits xUnits = new LengthUnits('X units', 'Siegbahn', 'Xu', null, 1.
 final LengthUnits angstromStars = new LengthUnits('Angstrom stars', 'A*', null, null, 1.00001495e-10, false);
 
 // CONSTANTS
+
+/// A constant representing zero length.
 const Length lengthZero = const Length.constant(Double.zero);
 
+/// The threshold length at which classical ideas about gravity and space-time cease to be valid,
+/// and quantum effects dominate.
 const Length planckLength = const Length.constant(const Double.constant(1.616229e-35), uncert: 2.3511519716574815e-5);
+
+/// Often used to represent the wavelengths of X rays and the distances between atoms in crystals.
 const Length angstromStar = const Length.constant(const Double.constant(1.00001495e-10), uncert: 8.999865452011492e-7);
+
 const Length bohrRadius =
     const Length.constant(const Double.constant(0.52917721067e-10), uncert: 2.2676713505493936e-10);
 const Length comptonWavelength =

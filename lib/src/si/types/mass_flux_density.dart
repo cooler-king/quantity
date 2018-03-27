@@ -14,12 +14,12 @@ class MassFluxDensity extends Quantity {
   static final MassFluxDensityUnits kilogramsPerSecondPerSquareMeter =
       new MassFluxDensityUnits.massTimeArea(Mass.kilograms, Time.seconds, Area.squareMeters);
 
-  /// Construct a MassFluxDensity with kilograms per second per square meter ([kg_per_s_per_m2]).
+  /// Construct a MassFluxDensity with kilograms per second per square meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MassFluxDensity({dynamic kg_per_s_per_m2, double uncert: 0.0})
-      : super(kg_per_s_per_m2 ?? 0.0, MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
+  MassFluxDensity({dynamic kilogramsPerSecondPerSquareMeter, double uncert: 0.0})
+      : super(kilogramsPerSecondPerSquareMeter ?? 0.0, MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
 
   MassFluxDensity._internal(dynamic conv) : super._internal(conv, MassFluxDensity.massFluxDensityDimensions);
 
@@ -36,18 +36,20 @@ class MassFluxDensity extends Quantity {
 /// Units acceptable for use in describing MassFluxDensity quantities.
 ///
 class MassFluxDensityUnits extends MassFluxDensity with Units {
+  /// Constructs a new instance.
   MassFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on mass, time and area units.
   MassFluxDensityUnits.massTimeArea(MassUnits mu, TimeUnits tu, AreaUnits au)
       : super._internal(mu.valueSI / (tu.valueSI * au.valueSI)) {
     name = '${mu.name} per ${tu.singular} per ${au.singular}';
@@ -74,6 +76,6 @@ class MassFluxDensityUnits extends MassFluxDensity with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

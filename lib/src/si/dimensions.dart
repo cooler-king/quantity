@@ -61,7 +61,6 @@ class Dimensions {
   static const String baseSolidAngleKey = 'Solid Angle';
 
   /// No-arg constructor sets all dimensions to zero (that is, a scalar quantity).
-  ///
   Dimensions()
       : _dimensionMap = <String, num>{},
         qType = Scalar;
@@ -69,14 +68,10 @@ class Dimensions {
   /// Optional associated Quantity type
   final Type qType;
 
-  /// Constructs a constant Dimensions object with a map of base dimension
-  /// keys to exponents
-  ///
+  /// Constructs a constant Dimensions object with a map of base dimension keys to exponents
   const Dimensions.constant(Map<String, num> dims, {this.qType}) : _dimensionMap = dims;
 
-  /// Constructs a Dimensions object with a map of base dimension keys to
-  /// base dimension exponents.
-  ///
+  /// Constructs a Dimensions object with a map of base dimension keys to base dimension exponents.
   Dimensions.fromMap(Map<String, num> typeValuePairs)
       : _dimensionMap = new Map<String, num>.from(typeValuePairs),
         qType = null;
@@ -84,14 +79,11 @@ class Dimensions {
   /// Creates a new Dimensions object by copying an existing Dimensions object.
   ///
   /// This is a deep copy that clones the internal _dimensionMap HashMap
-  /// object (which in turn contains only immutable objects of classes
-  /// String and num).
+  /// object (which in turn contains only immutable objects of classes String and num).
   ///
-  /// Any type hint is preserved by default but can be cleared by
-  /// setting `includeTypeHint` to false.
-  ///
+  /// Any type hint is preserved by default but can be cleared by setting `includeTypeHint` to false.
   Dimensions.copy(Dimensions d2, {bool includeTypeHint: true})
-      : _dimensionMap = new Map.from(d2._dimensionMap),
+      : _dimensionMap = new Map<String, num>.from(d2._dimensionMap),
         qType = includeTypeHint ? d2.qType : null;
 
   /// Tests the equality of this Dimensions object and another Dimensions object.
@@ -99,19 +91,21 @@ class Dimensions {
   /// values for each component dimension.
   @override
   bool operator ==(dynamic d2) {
-    if (d2 is! Dimensions) return false;
-    if (identical(this, d2)) return true;
+    if (d2 is Dimensions) {
+      if (identical(this, d2)) return true;
 
-    // Check size
-    if (_dimensionMap.keys.length != d2._dimensionMap.keys.length) return false;
+      // Check size
+      if (_dimensionMap.keys.length != d2._dimensionMap.keys.length) return false;
 
-    // Check Values
-    for (var key in _dimensionMap.keys) {
-      if (!(d2 as Dimensions)._dimensionMap.containsKey(key) ||
-          (_dimensionMap[key] != (d2 as Dimensions)._dimensionMap[key])) return false;
+      // Check Values
+      for (String key in _dimensionMap.keys) {
+        if (!d2._dimensionMap.containsKey(key) || (_dimensionMap[key] != d2._dimensionMap[key])) return false;
+      }
+
+      return true;
+    } else {
+      return false;
     }
-
-    return true;
   }
 
   /// Returns a hash code consistent with [operator ==] by constructing a
@@ -141,7 +135,6 @@ class Dimensions {
   ///
   /// Two Dimensions objects are only equal if they have exactly equal
   /// exponents for each base component dimension.
-  ///
   bool equalsSI(Dimensions d2) {
     if (d2 == null) return false;
     if (d2 == this) return true;
@@ -150,10 +143,8 @@ class Dimensions {
     final Dimensions copy2 = new Dimensions.copy(d2);
 
     // Remove Angle and SolidAngle from consideration
-    copy1._dimensionMap.remove(Dimensions.baseAngleKey);
-    copy1._dimensionMap.remove(Dimensions.baseSolidAngleKey);
-    copy2._dimensionMap.remove(Dimensions.baseAngleKey);
-    copy2._dimensionMap.remove(Dimensions.baseSolidAngleKey);
+    copy1._dimensionMap..remove(Dimensions.baseAngleKey)..remove(Dimensions.baseSolidAngleKey);
+    copy2._dimensionMap..remove(Dimensions.baseAngleKey)..remove(Dimensions.baseSolidAngleKey);
 
     return (copy1 == copy2);
   }
@@ -162,19 +153,17 @@ class Dimensions {
   /// solid angle dimensions.
   ///
   /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
-  /// Internation System of Units (SI) sense, which allows non-zero angular and
+  /// International System of Units (SI) sense, which allows non-zero angular and
   /// solid angular dimensions.
-  ///
   bool get isScalar => _dimensionMap.isEmpty;
 
   /// Whether or not these are scalar dimensions, in the strict
-  /// Internation System of Units (SI) sense, which allows non-zero angle and
+  /// International System of Units (SI) sense, which allows non-zero angle and
   /// solid angle dimensions.
   ///
   /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
-  /// Internation System of Units sense, which allows non-zero angular and
+  /// International System of Units sense, which allows non-zero angular and
   /// solid angular dimensions.
-  ///
   bool get isScalarSI {
     if (getComponentExponent(Dimensions.baseLengthKey) != 0) return false;
     if (getComponentExponent(Dimensions.baseMassKey) != 0) return false;
@@ -187,7 +176,6 @@ class Dimensions {
   }
 
   /// Gets the exponent value for the specified base dimension [component] key.
-  ///
   num getComponentExponent(String component) => _dimensionMap[component] ?? 0;
 
   /// Returns the product of this Dimensions object and [other] Dimensions.
@@ -196,7 +184,6 @@ class Dimensions {
   /// multiplied) is accomplished by adding component exponents.  For example,
   /// a time (time +1) multiplied by a frequency (time -1) yields a scalar
   /// (1 + (-1) = 0).
-  ///
   Dimensions operator *(Dimensions other) {
     // Return self if other is Scalar.
     if (other._dimensionMap.isEmpty) return this;
@@ -230,7 +217,6 @@ class Dimensions {
   /// divided) is accomplished by subtracting the component dimensions of the
   /// divisor (bottom).  For example, a volume (length: +3) divided by a length
   /// (length: +1) yields an area (length: +2) or (3 - (+1) = 2).
-  ///
   Dimensions operator /(Dimensions other) {
     // Return self if other is Scalar.
     if (other._dimensionMap.isEmpty) return this;
@@ -267,7 +253,6 @@ class Dimensions {
   /// accomplished by simply negating the sign of each dimension component.
   /// For example the inverse of frequency dimensions (time: -1) is duration
   /// (time: +1).
-  ///
   Dimensions inverse() {
     final Map<String, num> invertedMap = <String, num>{};
     for (String t in _dimensionMap.keys) {
@@ -282,7 +267,6 @@ class Dimensions {
   ///
   /// Each base dimension component exponent is multiplied by [exp] to achieve
   /// the desired result.
-  ///
   Dimensions operator ^(num exp) {
     if (exp == 0) return new Dimensions();
     if (exp == 1) return this;
@@ -302,9 +286,7 @@ class Dimensions {
     }
 
     // Remove 0's
-    for (String k in keysToRemove) {
-      result._dimensionMap.remove(k);
-    }
+    keysToRemove.forEach(result._dimensionMap.remove);
 
     return result;
   }
@@ -321,13 +303,12 @@ class Dimensions {
   ///   be modified to include the new subclasses.
   /// * Some distinct Quantity types have identical dimensions.  In this case
   ///   the first Quantity type discovered is returned.
-  ///
   //TODO would a static dimensionsTypeMap be better?
   static Type determineQuantityType(Dimensions dim) {
     if (dim == null) return MiscQuantity;
 
     // Get the number of dimension components
-    int numDims = dim._dimensionMap.length;
+    final int numDims = dim._dimensionMap.length;
 
     // Check Scalar first for all 0's case
     if (numDims == 0) return Scalar;
@@ -456,7 +437,6 @@ class Dimensions {
   ///
   /// If no specific Quantity type is found with dimensions that match these dimensions
   /// a new instance of the [MiscQuantity] class will be returned.
-  ///
   Quantity toQuantity([dynamic value = 0.0, Units units, double uncert = 0.0]) {
     // Check units match dimensions, if provided
     if (units is Quantity) {

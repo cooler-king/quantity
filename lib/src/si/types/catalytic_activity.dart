@@ -8,10 +8,10 @@ part of quantity_si;
 class CatalyticActivity extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions catalyticActivityDimensions =
-      const Dimensions.constant(const <String, int>{"Amount": 1, "Time": -1}, qType: CatalyticActivity);
+      const Dimensions.constant(const <String, int>{'Amount': 1, 'Time': -1}, qType: CatalyticActivity);
 
   /// The standard SI unit **/
-  static final CatalyticActivityUnits katals = new CatalyticActivityUnits("katals", "kat", null, "katal", 1.0, true);
+  static final CatalyticActivityUnits katals = new CatalyticActivityUnits('katals', 'kat', null, 'katal', 1.0, true);
 
   /// Construct a CatalyticActivity with katals ([kat]).
   ///
@@ -40,8 +40,8 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
     this.name = name;
     this.singular = singular;
     _convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -54,12 +54,12 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
      new CatalyticActivityUnits(
-        "$fullPrefix$name",
-        _abbrev1 != null ? "$abbrevPrefix$_abbrev1" : null,
-        _abbrev2 != null ? "$abbrevPrefix$_abbrev2" : null,
-        "$fullPrefix$singular",
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

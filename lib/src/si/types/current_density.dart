@@ -14,12 +14,12 @@ class CurrentDensity extends Quantity {
   static final CurrentDensityUnits amperesPerSquareMeter =
       new CurrentDensityUnits.currentArea(Current.amperes, Area.squareMeters);
 
-  /// Construct a CurrentDensity with amperes per square meter ([A_per_m2]).
+  /// Construct a CurrentDensity with amperes per square meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  CurrentDensity({dynamic A_per_m2, double uncert: 0.0})
-      : super(A_per_m2 ?? 0.0, CurrentDensity.amperesPerSquareMeter, uncert);
+  CurrentDensity({dynamic amperesPerSquareMeter, double uncert: 0.0})
+      : super(amperesPerSquareMeter ?? 0.0, CurrentDensity.amperesPerSquareMeter, uncert);
 
   CurrentDensity._internal(dynamic conv) : super._internal(conv, CurrentDensity.electricCurrentDensityDimensions);
 
@@ -36,26 +36,28 @@ class CurrentDensity extends Quantity {
 /// Units acceptable for use in describing CurrentDensity quantities.
 ///
 class CurrentDensityUnits extends CurrentDensity with Units {
+  /// Constructs a new instance.
   CurrentDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from current and area quantities.
   CurrentDensityUnits.currentArea(CurrentUnits ecu, AreaUnits au) : super._internal(ecu.valueSI * au.valueSI) {
-    this.name = '${ecu.name} per ${au.singular}';
-    this.singular = '${ecu.singular} per ${au.singular}';
-    this._convToMKS = ecu.valueSI * au.valueSI;
-    this._abbrev1 = ecu._abbrev1 != null && au._abbrev1 != null ? '${ecu._abbrev1} / ${au._abbrev1}' : null;
-    this._abbrev2 = ecu._abbrev2 != null && au._abbrev2 != null ? '${ecu._abbrev2}/${au._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${ecu.name} per ${au.singular}';
+    singular = '${ecu.singular} per ${au.singular}';
+    _convToMKS = ecu.valueSI * au.valueSI;
+    _abbrev1 = ecu._abbrev1 != null && au._abbrev1 != null ? '${ecu._abbrev1} / ${au._abbrev1}' : null;
+    _abbrev2 = ecu._abbrev2 != null && au._abbrev2 != null ? '${ecu._abbrev2}/${au._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -72,6 +74,6 @@ class CurrentDensityUnits extends CurrentDensity with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
 
 }

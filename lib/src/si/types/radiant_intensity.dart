@@ -14,12 +14,12 @@ class RadiantIntensity extends Quantity {
   static final RadiantIntensityUnits wattsPerSteradian =
       new RadiantIntensityUnits.powerSolidAngle(Power.watts, SolidAngle.steradians);
 
-  /// Construct a RadiantIntensity with watts per steradian ([W_per_sr]).
+  /// Construct a RadiantIntensity with watts per steradian.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  RadiantIntensity({dynamic W_per_sr, double uncert: 0.0})
-      : super(W_per_sr ?? 0.0, RadiantIntensity.wattsPerSteradian, uncert);
+  RadiantIntensity({dynamic wattsPerSteradian, double uncert: 0.0})
+      : super(wattsPerSteradian ?? 0.0, RadiantIntensity.wattsPerSteradian, uncert);
 
   RadiantIntensity._internal(dynamic conv) : super._internal(conv, RadiantIntensity.radiantIntensityDimensions);
 
@@ -36,27 +36,29 @@ class RadiantIntensity extends Quantity {
 /// Units acceptable for use in describing RadiantIntensity quantities.
 ///
 class RadiantIntensityUnits extends RadiantIntensity with Units {
+  /// Constructs a new instance.
   RadiantIntensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on power nad solid angle units.
   RadiantIntensityUnits.powerSolidAngle(PowerUnits pu, SolidAngleUnits sau)
       : super._internal(pu.valueSI / sau.valueSI) {
-    this.name = '${pu.name} per ${sau.singular}';
-    this.singular = '${pu.singular} per ${sau.singular}';
-    this._convToMKS = pu.valueSI / sau.valueSI;
-    this._abbrev1 = pu._abbrev1 != null && sau._abbrev1 != null ? '${pu._abbrev1} / ${sau._abbrev1}' : null;
-    this._abbrev2 = pu._abbrev2 != null && sau._abbrev2 != null ? '${pu._abbrev2}/${sau._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${pu.name} per ${sau.singular}';
+    singular = '${pu.singular} per ${sau.singular}';
+    _convToMKS = pu.valueSI / sau.valueSI;
+    _abbrev1 = pu._abbrev1 != null && sau._abbrev1 != null ? '${pu._abbrev1} / ${sau._abbrev1}' : null;
+    _abbrev2 = pu._abbrev2 != null && sau._abbrev2 != null ? '${pu._abbrev2}/${sau._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -73,6 +75,6 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

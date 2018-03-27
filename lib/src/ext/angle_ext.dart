@@ -2,14 +2,18 @@ part of quantity_ext;
 
 // Metric units?
 
-// Synonyms for terseness
+// Synonyms for terseness.
+
+/// Synonymous with radians.
 final AngleUnits rad = Angle.radians;
+
+/// Synonymous with degrees.
 final AngleUnits deg = Angle.degrees;
 
-/// Converts degrees to radians
+/// Converts degrees to radians.
 double degToRad(num deg) => 0.0174532925 * deg;
 
-/// Convert radians to degrees
+/// Convert radians to degrees.
 double radToDeg(num rad) => rad / 0.0174532925;
 
 // Trig functions
@@ -28,16 +32,16 @@ final AngleUnits secondsArc = Angle.secondsArc;
 
 // non-SI angle units
 
-/// One grad is 0.9 of a degree, exactly
+/// One grad is 0.9 of a degree, exactly.
 final AngleUnits grads = new AngleUnits('grads', null, null, null, 0.9 * 1.7453292519943e-2, false);
 
-/// Synonym for grads
+/// Synonym for grads.
 final AngleUnits grades = grads;
 
-/// Synonym for grads
+/// Synonym for grads.
 final AngleUnits gons = grads;
 
-/// One angular mil is 0.05625 of a degree, exactly
+/// One angular mil is 0.05625 of a degree, exactly.
 final AngleUnits angularMils = new AngleUnits('mils', null, null, null, 0.05625 * 1.7453292519943e-2, false);
 
 final AngleUnits revolutions = new AngleUnits('revolutions', null, 'revs', null, twoPi, false);
@@ -46,14 +50,14 @@ final AngleUnits cycles = revolutions;
 
 final AngleUnits signs = new AngleUnits('signs', null, null, null, 0.523599, false);
 
-/// Based on earth's rotation (approximately 15 degrees)
+/// Based on Earth's rotation (approximately 15 degrees).
 final AngleUnits hoursTime = new AngleUnits('hours time', 'hrs time', 'hr', 'hour time', 2.6179939e-1, false);
 
-/// based on earth's rotation
+/// Based on Earth's rotation.
 final AngleUnits minutesTime =
     new AngleUnits('minutes time', 'min time', 'min (t)', 'minute time', 4.3633231e-3, false);
 
-/// Based on earth's rotation
+/// Based on Earth's rotation.
 final AngleUnits secondsTime =
     new AngleUnits('seconds time', 'sec time', 'sec (t)', 'second time', 7.2722052e-5, false);
 
@@ -70,7 +74,7 @@ final Angle anglePi = angle180;
 final Angle angleTau = angle360;
 
 // Common trig values
-final double sin0 = 0.0;
+const double sin0 = 0.0;
 final double sin30 = 0.5;
 final double sin45 = sine(angle45);
 final double sin60 = sine(angle60);
@@ -87,7 +91,7 @@ final double tan60 = tangent(angle60);
 
 // Alternative construction
 Angle angleFromHourMinSec(int hour, int minute, double second, [double uncert = 0.0]) {
-  double mks =
+  final double mks =
       hoursTime.toMks(hour).toDouble() + minutesTime.toMks(minute).toDouble() + secondsTime.toMks(second).toDouble();
   return new Angle.inUnits(mks, Angle.radians, uncert);
 }

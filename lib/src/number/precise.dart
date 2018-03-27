@@ -19,7 +19,7 @@ class Precise extends Real {
 
   /// The digits of the arbitrary precision number are represented as a list of Digit objects,
   /// lowest significant digit to most significant digit.
-  final List<Digit> _digits = [];
+  final List<Digit> _digits = <Digit>[];
 
   int _power = 0;
 
@@ -99,7 +99,7 @@ class Precise extends Real {
   ///
   Precise.raw(List<Digit> digits, {int power: 0, bool neg: false, int sigDigits: 50}) {
     _precision = sigDigits;
-    if (digits?.isNotEmpty ?? false) {
+    if (digits?.isNotEmpty == true) {
       _digits.addAll(digits);
     } else {
       _digits.add(Digit.zero);
@@ -210,7 +210,7 @@ class Precise extends Real {
   /// Addition operator.
   @override
   Precise operator +(dynamic addend) {
-    Precise preciseAddend = toPrecise(addend);
+    final Precise preciseAddend = toPrecise(addend);
 
     // Divert to subtraction if signs are not the same
     if (_neg != preciseAddend._neg) {
@@ -288,7 +288,7 @@ class Precise extends Real {
     final Precise preciseMultiplier = toPrecise(multiplier);
 
     Precise product = Precise.zero;
-    List<Digit> intermediateProduct = [];
+    List<Digit> intermediateProduct = <Digit>[];
     final int combinedPower = _power + preciseMultiplier._power;
     int carry = 0;
     int temp = 0;
@@ -667,7 +667,7 @@ class Digit {
   bool operator ==(dynamic other) {
     if (other is Digit) return value.getUint8(0) == other.value.getUint8(0);
     if (other is num) return value.getUint8(0) == other;
-    if (other is Number) return other == value.getUint8(0);
+    if (other is Number) return other.toDouble() == value.getUint8(0);
     return false;
   }
 

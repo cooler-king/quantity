@@ -15,12 +15,12 @@ class ElectricFluxDensity extends Quantity {
   static final ElectricFluxDensityUnits coulombsPerSquareMeter =
       new ElectricFluxDensityUnits.chargeArea(Charge.coulombs, Area.squareMeters);
 
-  /// Construct an ElectricFluxDensity with coulombs per square meter ([C_per_m2]).
+  /// Construct an ElectricFluxDensity with coulombs per square meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  ElectricFluxDensity({dynamic C_per_m2, double uncert: 0.0})
-      : super(C_per_m2 ?? 0.0, ElectricFluxDensity.coulombsPerSquareMeter, uncert);
+  ElectricFluxDensity({dynamic coulombsPerSquareMeter, double uncert: 0.0})
+      : super(coulombsPerSquareMeter ?? 0.0, ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
   ElectricFluxDensity._internal(dynamic conv)
       : super._internal(conv, ElectricFluxDensity.electricFluxDensityDimensions);
@@ -43,21 +43,21 @@ class ElectricFluxDensityUnits extends ElectricFluxDensity with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   ElectricFluxDensityUnits.chargeArea(ChargeUnits ecu, AreaUnits au) : super._internal(ecu.valueSI * au.valueSI) {
-    this.name = '${ecu.name} per ${au.singular}';
-    this.singular = '${ecu.singular} per ${au.singular}';
-    this._convToMKS = ecu.valueSI * au.valueSI;
-    this._abbrev1 = ecu._abbrev1 != null && au._abbrev1 != null ? '${ecu._abbrev1} / ${au._abbrev1}' : null;
-    this._abbrev2 = ecu._abbrev2 != null && au._abbrev2 != null ? '${ecu._abbrev2}/${au._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${ecu.name} per ${au.singular}';
+    singular = '${ecu.singular} per ${au.singular}';
+    _convToMKS = ecu.valueSI * au.valueSI;
+    _abbrev1 = ecu._abbrev1 != null && au._abbrev1 != null ? '${ecu._abbrev1} / ${au._abbrev1}' : null;
+    _abbrev2 = ecu._abbrev2 != null && au._abbrev2 != null ? '${ecu._abbrev2}/${au._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -73,6 +73,6 @@ class ElectricFluxDensityUnits extends ElectricFluxDensity with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

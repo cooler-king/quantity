@@ -14,11 +14,11 @@ class KinematicViscosity extends Quantity {
   static final KinematicViscosityUnits metersSquaredPerSecond =
       new KinematicViscosityUnits.areaTime(Area.squareMeters, Time.seconds);
 
-  /// Construct a KinematicViscosity with meters squared per second ([m2_per_s]).
+  /// Construct a KinematicViscosity with meters squared per second.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  KinematicViscosity({dynamic m2_per_s, double uncert: 0.0}) : super(m2_per_s ?? 0.0, Illuminance.lux, uncert);
+  KinematicViscosity({dynamic metersSquaredPerSecond, double uncert: 0.0}) : super(metersSquaredPerSecond ?? 0.0, Illuminance.lux, uncert);
 
   KinematicViscosity._internal(dynamic conv) : super._internal(conv, KinematicViscosity.kinematicViscosityDimensions);
 
@@ -35,26 +35,28 @@ class KinematicViscosity extends Quantity {
 /// Units acceptable for use in describing KinematicViscosity quantities.
 ///
 class KinematicViscosityUnits extends KinematicViscosity with Units {
+  /// Constructs a new instance.
   KinematicViscosityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on area and time units.
   KinematicViscosityUnits.areaTime(AreaUnits au, TimeUnits tu) : super._internal(au.valueSI * tu.valueSI) {
-    this.name = '${au.name} per ${tu.singular}';
-    this.singular = '${au.singular} per ${tu.singular}';
-    this._convToMKS = au.valueSI * tu.valueSI;
-    this._abbrev1 = au._abbrev1 != null && tu._abbrev1 != null ? '${au._abbrev1} / ${tu._abbrev1}' : null;
-    this._abbrev2 = au._abbrev2 != null && tu._abbrev2 != null ? '${au._abbrev2}${tu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${au.name} per ${tu.singular}';
+    singular = '${au.singular} per ${tu.singular}';
+    _convToMKS = au.valueSI * tu.valueSI;
+    _abbrev1 = au._abbrev1 != null && tu._abbrev1 != null ? '${au._abbrev1} / ${tu._abbrev1}' : null;
+    _abbrev2 = au._abbrev2 != null && tu._abbrev2 != null ? '${au._abbrev2}${tu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -71,6 +73,6 @@ class KinematicViscosityUnits extends KinematicViscosity with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

@@ -18,13 +18,13 @@ class Permeability extends Quantity {
   static final PermeabilityUnits newtonsPerAmpereSquared =
       new PermeabilityUnits.forceCurrent(Force.newtons, Current.amperes);
 
-  /// Construct a Permability with henries per meter ([H_per_m]) or newtons per ampere squared ([N_per_A2]).
+  /// Construct a Permeability with henries per meter or newtons per ampere squared.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Permeability({dynamic H_per_m, dynamic N_per_A2, double uncert: 0.0})
-      : super(H_per_m ?? (N_per_A2 ?? 0.0),
-            N_per_A2 != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter, uncert);
+  Permeability({dynamic henriesPerMeter, dynamic newtonsPerAmpereSquared, double uncert: 0.0})
+      : super(henriesPerMeter ?? (newtonsPerAmpereSquared ?? 0.0),
+      newtonsPerAmpereSquared != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter, uncert);
 
   Permeability._internal(dynamic conv) : super._internal(conv, Permeability.permeabilityDimensions);
 
@@ -41,36 +41,39 @@ class Permeability extends Quantity {
 /// Units acceptable for use in describing Permeability quantities.
 ///
 class PermeabilityUnits extends Permeability with Units {
+  /// Constructs a new instance.
   PermeabilityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on inductance and length units.
   PermeabilityUnits.inductanceLength(InductanceUnits iu, LengthUnits lu) : super._internal(iu.valueSI / lu.valueSI) {
-    this.name = '${iu.name} per ${lu.singular}';
-    this.singular = '${iu.singular} per ${lu.singular}';
-    this._convToMKS = iu.valueSI / lu.valueSI;
-    this._abbrev1 = iu._abbrev1 != null && lu._abbrev1 != null ? '${iu._abbrev1} / ${lu._abbrev1}' : null;
-    this._abbrev2 = iu._abbrev2 != null && lu._abbrev2 != null ? '${iu._abbrev2}/${lu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${iu.name} per ${lu.singular}';
+    singular = '${iu.singular} per ${lu.singular}';
+    _convToMKS = iu.valueSI / lu.valueSI;
+    _abbrev1 = iu._abbrev1 != null && lu._abbrev1 != null ? '${iu._abbrev1} / ${lu._abbrev1}' : null;
+    _abbrev2 = iu._abbrev2 != null && lu._abbrev2 != null ? '${iu._abbrev2}/${lu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
+  /// Constructs a new instance based on force and electric current units.
   PermeabilityUnits.forceCurrent(ForceUnits fu, CurrentUnits ecu) : super._internal(fu.valueSI / (ecu.valueSI ^ 2)) {
-    this.name = '${fu.name} per ${ecu.singular} squared';
-    this.singular = '${fu.singular} per ${ecu.singular} squared';
-    this._convToMKS = fu.valueSI / (ecu.valueSI ^ 2);
-    this._abbrev1 = fu._abbrev1 != null && ecu._abbrev1 != null ? '${fu._abbrev1} / ${ecu._abbrev1}^2' : null;
-    this._abbrev2 = fu._abbrev2 != null && ecu._abbrev2 != null ? '${fu._abbrev2}/${ecu._abbrev2}2' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${fu.name} per ${ecu.singular} squared';
+    singular = '${fu.singular} per ${ecu.singular} squared';
+    _convToMKS = fu.valueSI / (ecu.valueSI ^ 2);
+    _abbrev1 = fu._abbrev1 != null && ecu._abbrev1 != null ? '${fu._abbrev1} / ${ecu._abbrev1}^2' : null;
+    _abbrev2 = fu._abbrev2 != null && ecu._abbrev2 != null ? '${fu._abbrev2}/${ecu._abbrev2}2' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -87,6 +90,6 @@ class PermeabilityUnits extends Permeability with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

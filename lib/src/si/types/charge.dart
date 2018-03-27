@@ -40,21 +40,21 @@ class ChargeUnits extends Charge with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   ChargeUnits.currentTime(CurrentUnits cu, TimeUnits tu) : super._internal(cu.valueSI * tu.valueSI) {
-    this.name = '${cu.name} ${tu.name}';
-    this.singular = '${cu.singular} ${tu.singular}';
-    this._convToMKS = cu.valueSI * tu.valueSI;
-    this._abbrev1 = cu._abbrev1 != null && tu._abbrev1 != null ? '${cu._abbrev1}${tu._abbrev1}' : null;
-    this._abbrev2 = cu._abbrev2 != null && tu._abbrev2 != null ? '${cu._abbrev2}${tu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${cu.name} ${tu.name}';
+    singular = '${cu.singular} ${tu.singular}';
+    _convToMKS = cu.valueSI * tu.valueSI;
+    _abbrev1 = cu._abbrev1 != null && tu._abbrev1 != null ? '${cu._abbrev1}${tu._abbrev1}' : null;
+    _abbrev2 = cu._abbrev2 != null && tu._abbrev2 != null ? '${cu._abbrev2}${tu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -71,6 +71,6 @@ class ChargeUnits extends Charge with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

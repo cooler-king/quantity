@@ -12,12 +12,12 @@ class WaveNumber extends Quantity {
   /// The standard SI unit.
   static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.length(Length.meters);
 
-  /// Construct a WaveNumber with reciprocal meters ([reciprocal_m]).
+  /// Construct a WaveNumber with reciprocal meters.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  WaveNumber({dynamic reciprocal_m, double uncert: 0.0})
-      : super(reciprocal_m ?? 0.0, WaveNumber.reciprocalMeters, uncert);
+  WaveNumber({dynamic reciprocalMeters, double uncert: 0.0})
+      : super(reciprocalMeters ?? 0.0, WaveNumber.reciprocalMeters, uncert);
 
   WaveNumber._internal(dynamic conv) : super._internal(conv, WaveNumber.waveNumberDimensions);
 
@@ -34,26 +34,28 @@ class WaveNumber extends Quantity {
 /// Units acceptable for use in describing WaveNumber quantities.
 ///
 class WaveNumberUnits extends WaveNumber with Units {
+  /// Constructs a new instance.
   WaveNumberUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on length units.
   WaveNumberUnits.length(LengthUnits lu) : super._internal(Integer.one / lu.valueSI) {
-    this.name = 'reciprocal ${lu.name}';
-    this.singular = 'reciprocal ${lu.singular}';
-    this._convToMKS = Integer.one / lu.valueSI;
-    this._abbrev1 = lu._abbrev1 != null ? '1 / ${lu._abbrev1}' : null;
-    this._abbrev2 = lu._abbrev2 != null ? '${lu._abbrev2}-1' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = 'reciprocal ${lu.name}';
+    singular = 'reciprocal ${lu.singular}';
+    _convToMKS = Integer.one / lu.valueSI;
+    _abbrev1 = lu._abbrev1 != null ? '1 / ${lu._abbrev1}' : null;
+    _abbrev2 = lu._abbrev2 != null ? '${lu._abbrev2}-1' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -70,6 +72,6 @@ class WaveNumberUnits extends WaveNumber with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

@@ -7,7 +7,10 @@ final CapacitanceUnits emuCapacitance = new CapacitanceUnits('emu (capacitance)'
 
 final CapacitanceUnits statfarads = new CapacitanceUnits('statfarads', null, null, null, 1.1127e-12, false);
 
-// convenience units
+// Convenience units.
+
+/// A unit representing one gigafarad.
 final CapacitanceUnits abfarads = farads.giga() as CapacitanceUnits;
 
+/// A synonym for [statfarads].
 final CapacitanceUnits esuCapacitance = statfarads;

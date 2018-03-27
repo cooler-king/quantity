@@ -7,7 +7,8 @@ import 'package:quantity/domain/electromagnetic.dart';
 import 'package:quantity/domain/thermodynamic.dart';
 import 'package:quantity/domain/universal.dart';
 
-Map<String, Quantity> nistNameConstantMap = {
+/// Maps the name used by NIST in its published constants file to the constant in the quantity package.
+Map<String, Quantity> nistNameConstantMap = <String, Quantity>{
   'alpha particle mass': alphaParticleMass,
   'atomic mass constant': atomicMass,
   'Avogadro constant': avogadro,

@@ -23,6 +23,7 @@ class Pressure extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   Pressure({dynamic Pa, dynamic bars, double uncert: 0.0})
       : super(Pa ?? (bars ?? 0.0), bars != null ? Pressure.bars : Pressure.pascals, uncert);
 
@@ -46,21 +47,21 @@ class PressureUnits extends Pressure with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   PressureUnits.forceArea(ForceUnits fu, AreaUnits au) : super._internal(fu.valueSI * au.valueSI) {
-    this.name = '${fu.name} per ${au.singular}';
-    this.singular = '${fu.singular} per ${au.singular}';
-    this._convToMKS = fu.valueSI * au.valueSI;
-    this._abbrev1 = fu._abbrev1 != null && au._abbrev1 != null ? '${fu._abbrev1} / ${au._abbrev1}' : null;
-    this._abbrev2 = fu._abbrev2 != null && au._abbrev2 != null ? '${fu._abbrev2}${au._abbrev2}' : null;
-    this.metricBase = metricBase;
-    this.offset = offset.toDouble();
+    name = '${fu.name} per ${au.singular}';
+    singular = '${fu.singular} per ${au.singular}';
+    _convToMKS = fu.valueSI * au.valueSI;
+    _abbrev1 = fu._abbrev1 != null && au._abbrev1 != null ? '${fu._abbrev1} / ${au._abbrev1}' : null;
+    _abbrev2 = fu._abbrev2 != null && au._abbrev2 != null ? '${fu._abbrev2}${au._abbrev2}' : null;
+    metricBase = metricBase;
+    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -77,6 +78,6 @@ class PressureUnits extends Pressure with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

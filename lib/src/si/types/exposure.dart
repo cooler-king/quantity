@@ -16,12 +16,12 @@ class Exposure extends Quantity {
   /// Accepted for use with the SI, subject to further review.
   static final ExposureUnits roentgens = new ExposureUnits('roentgens', null, 'R', null, 2.58e-4, false);
 
-  /// Construct an Exposure with coulombs per kilogram ([C_per_kg]) or roentgens ([R]).
+  /// Construct an Exposure with coulombs per kilogram or roentgens ([R]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Exposure({dynamic C_per_kg, dynamic R, double uncert: 0.0})
-      : super(C_per_kg ?? (R ?? 0.0), R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram, uncert);
+  Exposure({dynamic coulombsPerKilogram, dynamic R, double uncert: 0.0})
+      : super(coulombsPerKilogram ?? (R ?? 0.0), R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram, uncert);
 
   Exposure._internal(dynamic conv) : super._internal(conv, Exposure.exposureDimensions);
 
@@ -38,26 +38,28 @@ class Exposure extends Quantity {
 /// Units acceptable for use in describing Exposure quantities.
 ///
 class ExposureUnits extends Exposure with Units {
+  /// Constructs a new instance.
   ExposureUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on charge and mass units.
   ExposureUnits.chargeMass(ChargeUnits ecu, MassUnits mu) : super._internal(ecu.valueSI * mu.valueSI) {
-    this.name = '${ecu.name} per ${mu.singular}';
-    this.singular = '${ecu.singular} per ${mu.singular}';
-    this._convToMKS = ecu.valueSI * mu.valueSI;
-    this._abbrev1 = ecu._abbrev1 != null && mu._abbrev1 != null ? '${ecu._abbrev1} / ${mu._abbrev1}' : null;
-    this._abbrev2 = ecu._abbrev2 != null && mu._abbrev2 != null ? '${ecu._abbrev2}${mu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${ecu.name} per ${mu.singular}';
+    singular = '${ecu.singular} per ${mu.singular}';
+    _convToMKS = ecu.valueSI * mu.valueSI;
+    _abbrev1 = ecu._abbrev1 != null && mu._abbrev1 != null ? '${ecu._abbrev1} / ${mu._abbrev1}' : null;
+    _abbrev2 = ecu._abbrev2 != null && mu._abbrev2 != null ? '${ecu._abbrev2}${mu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -74,6 +76,6 @@ class ExposureUnits extends Exposure with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

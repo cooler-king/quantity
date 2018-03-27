@@ -183,7 +183,6 @@ class AngleRange extends QuantityRange<Angle> {
   /// regardless of whether it falls within the nominal 0-360 degree
   /// range.  If [strict] is false then the closest angle as if the
   /// ranges were projected onto a single circle is returned.
-  ///
   Angle angleClosestTo(Angle angle, [bool strict = false]) {
     final Angle ang = angle ?? angle0;
 
@@ -194,7 +193,7 @@ class AngleRange extends QuantityRange<Angle> {
       return ang;
     }
 
-    // Not contained... return closest endpoint
+    // Not contained... return closest endpoint.
     if (!strict) {
       final Angle angRev0 = ang.angle360;
       Angle closest;

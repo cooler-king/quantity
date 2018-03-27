@@ -15,12 +15,12 @@ class ThermalConductivity extends Quantity {
   static final ThermalConductivityUnits wattsPerMeterKelvin =
       new ThermalConductivityUnits.powerLengthTemperature(Power.watts, Length.meters, TemperatureInterval.kelvins);
 
-  /// Construct a ThermalConductivity with watts per meter kelvin ([W_per_mK]).
+  /// Construct a ThermalConductivity with watts per meter kelvin.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  ThermalConductivity({dynamic W_per_mK, double uncert: 0.0})
-      : super(W_per_mK ?? 0.0, ThermalConductivity.wattsPerMeterKelvin, uncert);
+  ThermalConductivity({dynamic wattsPerMeterKelvin, double uncert: 0.0})
+      : super(wattsPerMeterKelvin ?? 0.0, ThermalConductivity.wattsPerMeterKelvin, uncert);
 
   ThermalConductivity._internal(dynamic conv)
       : super._internal(conv, ThermalConductivity.thermalConductivityDimensions);
@@ -38,28 +38,30 @@ class ThermalConductivity extends Quantity {
 /// Units acceptable for use in describing ThermalConductivity quantities.
 ///
 class ThermalConductivityUnits extends ThermalConductivity with Units {
+  /// Constructs a new instance.
   ThermalConductivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on power, length and temperature interval units.
   ThermalConductivityUnits.powerLengthTemperature(PowerUnits pu, LengthUnits lu, TemperatureIntervalUnits tiu)
       : super._internal(pu.valueSI / (lu.valueSI * tiu.valueSI)) {
-    this.name = '${pu.name} per ${lu.singular} ${tiu.singular}';
-    this.singular = '${pu.singular} per ${lu.singular} ${tiu.singular}';
-    this._convToMKS = pu.valueSI / (lu.valueSI * tiu.valueSI);
-    this._abbrev1 =
+    name = '${pu.name} per ${lu.singular} ${tiu.singular}';
+    singular = '${pu.singular} per ${lu.singular} ${tiu.singular}';
+    _convToMKS = pu.valueSI / (lu.valueSI * tiu.valueSI);
+    _abbrev1 =
         pu._abbrev1 != null && lu._abbrev1 != null ? '${pu._abbrev1} / ${lu._abbrev1} ${tiu._abbrev1}' : null;
-    this._abbrev2 = pu._abbrev2 != null && lu._abbrev2 != null ? '${pu._abbrev2}/${lu._abbrev2}${tiu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    _abbrev2 = pu._abbrev2 != null && lu._abbrev2 != null ? '${pu._abbrev2}/${lu._abbrev2}${tiu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -76,6 +78,6 @@ class ThermalConductivityUnits extends ThermalConductivity with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

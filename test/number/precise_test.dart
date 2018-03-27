@@ -25,37 +25,37 @@ void main() {
       // Bad values
       try {
         new Digit(10);
-        fail('Should not be allowed to contruct a Digit with a value greater then 9');
+        fail('Should not be allowed to construct a Digit with a value greater then 9');
       } catch (e) {
         expect(e is Exception, true);
       }
       try {
         new Digit(-1);
-        fail('Should not be allowed to contruct a Digit with a value less than 0');
+        fail('Should not be allowed to construct a Digit with a value less than 0');
       } catch (e) {
         expect(e is Exception, true);
       }
       try {
         new Digit(null);
-        fail('Should not be allowed to contruct a Digit with null');
+        fail('Should not be allowed to construct a Digit with null');
       } catch (e) {
         expect(e is Exception, true);
       }
       try {
         new Digit.char('12');
-        fail('Should not be allowed to contruct a Digit with a string having more than one character');
+        fail('Should not be allowed to construct a Digit with a string having more than one character');
       } catch (e) {
         expect(e is Exception, true);
       }
       try {
         new Digit.char('');
-        fail('Should not be allowed to contruct a Digit with an empty string');
+        fail('Should not be allowed to construct a Digit with an empty string');
       } catch (e) {
         expect(e is Exception, true);
       }
       try {
         new Digit.char(null);
-        fail('Should not be allowed to contruct a Digit with a null string');
+        fail('Should not be allowed to construct a Digit with a null string');
       } catch (e) {
         expect(e is Exception, true);
       }

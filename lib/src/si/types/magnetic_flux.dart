@@ -17,6 +17,7 @@ class MagneticFlux extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   MagneticFlux({dynamic Wb, double uncert: 0.0}) : super(Wb ?? 0.0, MagneticFlux.webers, uncert);
 
   MagneticFlux._internal(dynamic conv) : super._internal(conv, MagneticFlux.magneticFluxDimensions);
@@ -34,14 +35,15 @@ class MagneticFlux extends Quantity {
 /// Units acceptable for use in describing MagneticFlux quantities.
 ///
 class MagneticFluxUnits extends MagneticFlux with Units {
+  /// Constructs a new instance.
   MagneticFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -60,6 +62,6 @@ class MagneticFluxUnits extends MagneticFlux with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
 
 }

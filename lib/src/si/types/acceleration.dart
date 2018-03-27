@@ -14,12 +14,12 @@ class Acceleration extends Quantity {
   static final AccelerationUnits metersPerSecondSquared =
       new AccelerationUnits.lengthTimeUnits(Length.meters, Time.seconds);
 
-  /// Construct an Acceleration with meters per second squared ([m_per_s2]).
+  /// Construct an Acceleration with meters per second squared.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Acceleration({dynamic m_per_s2, double uncert: 0.0})
-      : super(m_per_s2 ?? 0.0, Acceleration.metersPerSecondSquared, uncert);
+  Acceleration({dynamic metersPerSecondSquared, double uncert: 0.0})
+      : super(metersPerSecondSquared ?? 0.0, Acceleration.metersPerSecondSquared, uncert);
 
   Acceleration._internal(dynamic conv) : super._internal(conv, Acceleration.accelerationDimensions);
 
@@ -36,26 +36,28 @@ class Acceleration extends Quantity {
 /// Units acceptable for use in describing Acceleration quantities.
 ///
 class AccelerationUnits extends Acceleration with Units {
+  /// Constructs a new instance.
   AccelerationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on length and time units.
   AccelerationUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super._internal(lu.valueSI * su.valueSI) {
-    this.name = '${lu.name} per ${su.singular} squared';
-    this.singular = '${lu.singular} per ${su.singular} squared';
-    this._convToMKS = lu.valueSI * su.valueSI;
-    this._abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? '${lu._abbrev1} / ${su._abbrev1}' : null;
-    this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? '${lu._abbrev2}${su._abbrev2}' : null;
-    this.metricBase = metricBase;
-    this.offset = offset.toDouble();
+    name = '${lu.name} per ${su.singular} squared';
+    singular = '${lu.singular} per ${su.singular} squared';
+    _convToMKS = lu.valueSI * su.valueSI;
+    _abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? '${lu._abbrev1} / ${su._abbrev1}' : null;
+    _abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? '${lu._abbrev2}${su._abbrev2}' : null;
+    metricBase = metricBase;
+    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply

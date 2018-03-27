@@ -44,6 +44,7 @@ abstract class Level extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   Level({dynamic Np, double uncert: 0.0}) : super(Np ?? 0.0, Level.nepers, uncert);
 
   Level._internal(dynamic conv) : super._internal(conv, Level.levelDimensions);
@@ -60,14 +61,15 @@ abstract class Level extends Quantity {
 /// Units acceptable for use in describing Level quantities.
 ///
 class LevelUnits extends Level with Units {
+  /// Constructs a new instance.
   LevelUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -86,7 +88,7 @@ class LevelUnits extends Level with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }
 

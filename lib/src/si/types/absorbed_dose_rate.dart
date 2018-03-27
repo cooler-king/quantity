@@ -18,14 +18,13 @@ class AbsorbedDoseRate extends Quantity {
   static final AbsorbedDoseRateUnits radsPerSecond =
       new AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDose.rads, Time.seconds);
 
-  /// Construct an AbsorbedDoseRate with either grays per second ([Gy_per_s])
-  /// or rads per second ([rads_per_s]).
+  /// Construct an AbsorbedDoseRate with either grays per second or rads per second.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  AbsorbedDoseRate({dynamic Gy_per_s, dynamic rads_per_s, double uncert: 0.0})
-      : super(Gy_per_s ?? (rads_per_s ?? 0.0),
-            rads_per_s != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
+  AbsorbedDoseRate({dynamic graysPerSecond, dynamic radsPerSecond, double uncert: 0.0})
+      : super(graysPerSecond ?? (radsPerSecond ?? 0.0),
+      radsPerSecond != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
 
   AbsorbedDoseRate._internal(dynamic conv) : super._internal(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
 
@@ -46,27 +45,29 @@ class AbsorbedDoseRate extends Quantity {
 /// Units acceptable for use in describing AbsorbedDoseRate quantities.
 ///
 class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
+  /// Constructs a new instance.
   AbsorbedDoseRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on absorbed dose and time units.
   AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDoseUnits adu, TimeUnits tu)
       : super._internal(adu.valueSI * tu.valueSI) {
-    this.name = '${adu.name} per ${tu.singular} squared';
-    this.singular = '${adu.singular} per ${tu.singular} squared';
-    this._convToMKS = adu.valueSI * tu.valueSI;
-    this._abbrev1 = adu._abbrev1 != null && tu._abbrev1 != null ? '${adu._abbrev1} / ${tu._abbrev1}' : null;
-    this._abbrev2 = adu._abbrev2 != null && tu._abbrev2 != null ? '${adu._abbrev2}${tu._abbrev2}' : null;
-    this.metricBase = metricBase;
-    this.offset = offset.toDouble();
+    name = '${adu.name} per ${tu.singular} squared';
+    singular = '${adu.singular} per ${tu.singular} squared';
+    _convToMKS = adu.valueSI * tu.valueSI;
+    _abbrev1 = adu._abbrev1 != null && tu._abbrev1 != null ? '${adu._abbrev1} / ${tu._abbrev1}' : null;
+    _abbrev2 = adu._abbrev2 != null && tu._abbrev2 != null ? '${adu._abbrev2}${tu._abbrev2}' : null;
+    metricBase = metricBase;
+    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -83,6 +84,6 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

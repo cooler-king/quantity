@@ -14,12 +14,12 @@ class ElectricFieldStrength extends Quantity {
   static final ElectricFieldStrengthUnits voltsPerMeter =
       new ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifference.volts, Length.meters);
 
-  /// Construct an ElectricFieldStrength with volts per meter ([V_per_m]).
+  /// Construct an ElectricFieldStrength with volts per meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  ElectricFieldStrength({dynamic V_per_m, double uncert: 0.0})
-      : super(V_per_m ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
+  ElectricFieldStrength({dynamic voltsPerMeter, double uncert: 0.0})
+      : super(voltsPerMeter ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
   ElectricFieldStrength._internal(dynamic conv)
       : super._internal(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
@@ -42,22 +42,22 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifferenceUnits epdu, LengthUnits lu)
       : super._internal(epdu.valueSI * lu.valueSI) {
-    this.name = '${epdu.name} per ${lu.singular}';
-    this.singular = '${epdu.singular} per ${lu.singular}';
-    this._convToMKS = epdu.valueSI * lu.valueSI;
-    this._abbrev1 = epdu._abbrev1 != null && lu._abbrev1 != null ? '${epdu._abbrev1} / ${lu._abbrev1}' : null;
-    this._abbrev2 = epdu._abbrev2 != null && lu._abbrev2 != null ? '${epdu._abbrev2}/${lu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${epdu.name} per ${lu.singular}';
+    singular = '${epdu.singular} per ${lu.singular}';
+    _convToMKS = epdu.valueSI * lu.valueSI;
+    _abbrev1 = epdu._abbrev1 != null && lu._abbrev1 != null ? '${epdu._abbrev1} / ${lu._abbrev1}' : null;
+    _abbrev2 = epdu._abbrev2 != null && lu._abbrev2 != null ? '${epdu._abbrev2}/${lu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -74,6 +74,6 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
 
 }

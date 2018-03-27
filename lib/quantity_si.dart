@@ -106,11 +106,8 @@ Logger _logger = new Logger('quantity core');
 /// dimensions may change will be MiscQuantity type objects.
 bool dynamicQuantityTyping = true;
 
-typedef Quantity QuantityInstantiator(dynamic value, dynamic units, double uncert);
-
-/// Maps each quantity type to a function that can be used to create an instance of that type
-final LinkedHashMap<Type, QuantityInstantiator> _typeInstantiatorMap =
-    new LinkedHashMap<Type, QuantityInstantiator>.from(<Type, QuantityInstantiator>{
+/// Maps each quantity type to a function that can be used to create an instance of that type.
+final LinkedHashMap<Type, Function> _typeInstantiatorMap = new LinkedHashMap<Type, Function>.from(<Type, Function>{
   AbsorbedDose: (dynamic value, AbsorbedDoseUnits units, double uncert) =>
       new AbsorbedDose.inUnits(value, units, uncert),
   AbsorbedDoseRate: (dynamic value, AbsorbedDoseRateUnits units, double uncert) =>
@@ -234,14 +231,13 @@ final LinkedHashMap<Type, QuantityInstantiator> _typeInstantiatorMap =
 ///  * The seven base SI Quantities are [Length], [Mass], [Duration],
 ///  [Temperature], [Current], [LuminousIntensity] and [AmountOfSubstance].
 bool siBaseQuantity(Quantity q) => (q is Length ||
-      q is Mass ||
-      q is Time ||
-      q is Current ||
-      q is TemperatureInterval ||
-      q is Temperature ||
-      q is AmountOfSubstance ||
-      q is LuminousIntensity);
-
+    q is Mass ||
+    q is Time ||
+    q is Current ||
+    q is TemperatureInterval ||
+    q is Temperature ||
+    q is AmountOfSubstance ||
+    q is LuminousIntensity);
 
 /// Returns whether or not the magnitude of the difference between two
 /// quantities is less than or equal to the specified [tolerance].
@@ -281,8 +277,9 @@ Iterable<Type> get allQuantityTypes => _typeInstantiatorMap.keys;
 ///
 /// The quantity's relative [uncert]ainty can optionally be provided (defaults to 0).
 Quantity createTypedQuantityInstance(Type t, dynamic value, Units units, [double uncert = 0.0]) {
-  final QuantityInstantiator qi = _typeInstantiatorMap[t];
-  if (qi != null) return Function.apply(qi, <dynamic>[value, units, uncert]) as Quantity;
+  final Function quantityInstantiator = _typeInstantiatorMap[t];
+  if (quantityInstantiator != null)
+    return Function.apply(quantityInstantiator, <dynamic>[value, units, uncert]) as Quantity;
 
   // Fall back to MiscQuantity
   return new MiscQuantity(value, (units as Quantity).dimensions, uncert);

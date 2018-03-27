@@ -158,20 +158,20 @@ class Angle extends Quantity {
   /// be either positive or negative; the other two values will be positive.
   ///
   List<double> get degMinSec {
-    List<double> dms = new List<double>.generate(3, null, growable: false);
+    final List<double> dms = new List<double>.generate(3, null, growable: false);
 
-    double decimalDegrees = valueInUnits(degrees).toDouble();
+    final double decimalDegrees = valueInUnits(degrees).toDouble();
 
     // Degrees
     dms[0] = decimalDegrees.toInt().toDouble();
 
     // Minutes
-    double remainder1 = decimalDegrees.abs() - dms[0].abs();
-    double decimalMinutes = remainder1 * 60.0;
+    final double remainder1 = decimalDegrees.abs() - dms[0].abs();
+    final double decimalMinutes = remainder1 * 60.0;
     dms[1] = decimalMinutes.toInt().toDouble();
 
     // Seconds
-    double remainder2 = decimalMinutes - dms[1];
+    final double remainder2 = decimalMinutes - dms[1];
     dms[2] = remainder2 * 60.0;
 
     return dms;
@@ -182,20 +182,20 @@ class Angle extends Quantity {
   /// may be either positive or negative; the other two values will be positive.
   ///
   List<double> get hrMinSec {
-    List<double> hms = new List<double>.generate(3, null, growable: false);
+    final List<double> hms = new List<double>.generate(3, null, growable: false);
 
-    double decimalHours = valueInUnits(degrees).toDouble() / 15.0;
+    final double decimalHours = valueInUnits(degrees).toDouble() / 15.0;
 
     // Hours
     hms[0] = decimalHours.toInt().toDouble();
 
     // Minutes
-    double remainder1 = decimalHours.abs() - hms[0].abs();
-    double decimalMinutes = remainder1 * 60.0;
+    final double remainder1 = decimalHours.abs() - hms[0].abs();
+    final double decimalMinutes = remainder1 * 60.0;
     hms[1] = decimalMinutes.toInt().toDouble();
 
     // Seconds
-    double remainder2 = decimalMinutes - hms[1];
+    final double remainder2 = decimalMinutes - hms[1];
     hms[2] = remainder2 * 60.0;
 
     return hms;
@@ -210,9 +210,9 @@ class AngleUnits extends Angle with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -231,6 +231,6 @@ class AngleUnits extends Angle with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
 
 }

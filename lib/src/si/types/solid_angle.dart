@@ -7,7 +7,8 @@ part of quantity_si;
 ///
 class SolidAngle extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions solidAngleDimensions = const Dimensions.constant(const <String, int>{'Solid Angle': 1}, qType: SolidAngle);
+  static const Dimensions solidAngleDimensions =
+      const Dimensions.constant(const <String, int>{'Solid Angle': 1}, qType: SolidAngle);
 
   /// The standard SI unit.
   static final SolidAngleUnits steradians = new SolidAngleUnits('steradians', null, 'sr', null, 1.0, true);
@@ -31,26 +32,28 @@ class SolidAngle extends Quantity {
 /// Units acceptable for use in describing SolidAngle quantities.
 ///
 class SolidAngleUnits extends SolidAngle with Units {
+  /// Constructs a new instance.
   SolidAngleUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on angle units.
   SolidAngleUnits.angleUnits(AngleUnits au) : super._internal(au.valueSI * au.valueSI) {
-    this.name = '${au.name} squared';
-    this.singular = '${au.singular} squared';
-    this._convToMKS = au.valueSI * au.valueSI;
-    this._abbrev1 = au._abbrev1 != null ? '${au._abbrev1}^2' : null;
-    this._abbrev2 = au._abbrev2 != null ? '${au._abbrev2}^2' : null;
-    this.metricBase = metricBase;
-    this.offset = offset.toDouble();
+    name = '${au.name} squared';
+    singular = '${au.singular} squared';
+    _convToMKS = au.valueSI * au.valueSI;
+    _abbrev1 = au._abbrev1 != null ? '${au._abbrev1}^2' : null;
+    _abbrev2 = au._abbrev2 != null ? '${au._abbrev2}^2' : null;
+    metricBase = metricBase;
+    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -59,14 +62,12 @@ class SolidAngleUnits extends SolidAngle with Units {
 
   /// Derive new SolidAngleUnits using this SolidAngleUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new SolidAngleUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SolidAngleUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

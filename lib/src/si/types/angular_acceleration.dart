@@ -11,20 +11,20 @@ class AngularAcceleration extends Quantity {
       const Dimensions.constant(const <String, int>{'Angle': 1, 'Time': -2}, qType: AngularAcceleration);
 
   /// The Standard SI unit.
-  static final AngularAccelerationUnits radianPerSecondSquared =
+  static final AngularAccelerationUnits radiansPerSecondSquared =
       new AngularAccelerationUnits.angleTime(Angle.radians, Time.seconds);
 
   /// Accepted for use with the SI.
-  static final AngularAccelerationUnits degreePerSecondSquared =
+  static final AngularAccelerationUnits degreesPerSecondSquared =
       new AngularAccelerationUnits.angleTime(Angle.degrees, Time.seconds);
 
-  /// Construct an AngularAcceleration with either radians per second squared ([rad_per_s2])
-  /// or degrees per second squared ([deg_per_s2]).
+  /// Construct an AngularAcceleration with either radians per second squared
+  /// or degrees per second squared).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  AngularAcceleration({dynamic rad_per_s2, dynamic deg_per_s2, double uncert: 0.0})
-      : super(rad_per_s2 ?? (deg_per_s2 ?? 0.0), AngularAcceleration.radianPerSecondSquared, uncert);
+  AngularAcceleration({dynamic radiansPerSecondSquared, dynamic degreesPerSecondSquared, double uncert: 0.0})
+      : super(radiansPerSecondSquared ?? (degreesPerSecondSquared ?? 0.0), AngularAcceleration.radiansPerSecondSquared, uncert);
 
   AngularAcceleration._internal(dynamic conv)
       : super._internal(conv, AngularAcceleration.angularAccelerationDimensions);
@@ -33,7 +33,7 @@ class AngularAcceleration extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ///
   AngularAcceleration.inUnits(dynamic value, AngularAccelerationUnits units, [double uncert = 0.0])
-      : super(value, units ?? AngularAcceleration.radianPerSecondSquared, uncert);
+      : super(value, units ?? AngularAcceleration.radiansPerSecondSquared, uncert);
 
   const AngularAcceleration.constant(Number valueSI, {AngularAccelerationUnits units, double uncert: 0.0})
       : super.constant(valueSI, AngularAcceleration.angularAccelerationDimensions, units, uncert);
@@ -47,21 +47,21 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   AngularAccelerationUnits.angleTime(AngleUnits au, TimeUnits tu) : super._internal(au.valueSI * tu.valueSI) {
-    this.name = '${au.name} per ${tu.singular} squared';
-    this.singular = '${au.singular} per ${tu.singular} squared';
-    this._convToMKS = au.valueSI * tu.valueSI;
-    this._abbrev1 = au._abbrev1 != null && tu._abbrev1 != null ? '${au._abbrev1} / ${tu._abbrev1}' : null;
-    this._abbrev2 = au._abbrev2 != null && tu._abbrev2 != null ? '${au._abbrev2}${tu._abbrev2}' : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${au.name} per ${tu.singular} squared';
+    singular = '${au.singular} per ${tu.singular} squared';
+    _convToMKS = au.valueSI * tu.valueSI;
+    _abbrev1 = au._abbrev1 != null && tu._abbrev1 != null ? '${au._abbrev1} / ${tu._abbrev1}' : null;
+    _abbrev2 = au._abbrev2 != null && tu._abbrev2 != null ? '${au._abbrev2}${tu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -78,6 +78,6 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }

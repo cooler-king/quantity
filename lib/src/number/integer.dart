@@ -22,7 +22,7 @@ class Integer extends Real {
   ///
   /// If the map contents are not recognized, [Integer.zero] is returned.
   factory Integer.fromMap(Map<String, int> m) {
-    if (m?.containsKey('i') ?? false) {
+    if (m?.containsKey('i') == true) {
       return new Integer(m['i']);
     }
     return Integer.zero;
@@ -49,12 +49,12 @@ class Integer extends Real {
   /// Tests whether this Integer is equal to another Object [obj].
   ///
   /// Only [num] and [Number] objects having the same real
-  /// integer value (and no imagainary component) are considered equal.
+  /// integer value (and no imaginary component) are considered equal.
   @override
   bool operator ==(dynamic obj) {
     if (obj is Number || obj is num) return obj == value;
-    if (obj is Complex) return obj.real == value && obj.imaginary == 0.0;
-    if (obj is Imaginary) return value == 0.0 && obj == 0.0;
+    if (obj is Complex) return obj.real.value == value && obj.imaginary.value.value == 0.0;
+    if (obj is Imaginary) return value == 0.0 && obj.value.value == 0.0;
 
     return false;
   }

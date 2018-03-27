@@ -19,6 +19,7 @@ class Activity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   Activity({dynamic Bq, dynamic Ci, double uncert: 0.0}) : super(Bq ?? (Ci ?? 0.0), Activity.becquerels, uncert);
 
   Activity._internal(dynamic conv) : super._internal(conv, Activity.activityDimensions);
@@ -41,21 +42,21 @@ class ActivityUnits extends Activity with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   ActivityUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super._internal(lu.valueSI * su.valueSI) {
-    this.name = '${lu.name} per ${su.singular} squared';
-    this.singular = '${lu.singular} per ${su.singular} squared';
-    this._convToMKS = lu.valueSI * su.valueSI;
-    this._abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? '${lu._abbrev1} / ${su._abbrev1}' : null;
-    this._abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? '${lu._abbrev2}${su._abbrev2}' : null;
-    this.metricBase = metricBase;
-    this.offset = offset.toDouble();
+    name = '${lu.name} per ${su.singular} squared';
+    singular = '${lu.singular} per ${su.singular} squared';
+    _convToMKS = lu.valueSI * su.valueSI;
+    _abbrev1 = lu._abbrev1 != null && su._abbrev1 != null ? '${lu._abbrev1} / ${su._abbrev1}' : null;
+    _abbrev2 = lu._abbrev2 != null && su._abbrev2 != null ? '${lu._abbrev2}${su._abbrev2}' : null;
+    metricBase = metricBase;
+    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -72,6 +73,6 @@ class ActivityUnits extends Activity with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
 
 }

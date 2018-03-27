@@ -80,7 +80,7 @@ class Information extends Quantity {
   /// Construct an Information object with [bits], bytes ([B]), kilobytes ([kB]), megabytes ([MB]), gigabytes ([GB]), or terabytes ([TB]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  // ignore:non_constant_identifier_names
   Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert: 0.0})
       : super(bits ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0)))), Information.bits, uncert);
 
@@ -99,14 +99,15 @@ class Information extends Quantity {
 /// Units acceptable for use in describing Information quantities.
 ///
 class InformationUnits extends Information with Units {
+  /// Constructs a new instance.
   InformationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -117,14 +118,12 @@ class InformationUnits extends Information with Units {
 
   /// Derive new InformationUnits using this InformationUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new InformationUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        this.offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new InformationUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

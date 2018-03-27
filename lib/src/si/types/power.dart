@@ -23,6 +23,7 @@ class Power extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   Power({dynamic W, dynamic kW, dynamic MW, double uncert: 0.0})
       : super(W ?? (kW ?? (MW ?? 0.0)), kW != null ? Power.kilowatts : (MW != null ? Power.megawatts : Power.watts),
             uncert);
@@ -41,26 +42,28 @@ class Power extends Quantity {
 /// Units acceptable for use in describing Power quantities.
 ///
 class PowerUnits extends Power with Units {
+  /// Constructs a new instance.
   PowerUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on energy and time units.
   PowerUnits.energyTime(EnergyUnits eu, TimeUnits tu) : super._internal(eu.valueSI / tu.valueSI) {
-    this.name = '${eu.name} per ${tu.singular}';
-    this.singular = '${eu.singular} per ${tu.singular}';
-    this._convToMKS = eu.valueSI / tu.valueSI;
-    this._abbrev1 = eu._abbrev1 != null && tu._abbrev1 != null ? '${eu._abbrev1} / ${tu._abbrev1}' : null;
-    this._abbrev2 = eu._abbrev2 != null && tu._abbrev2 != null ? '${eu._abbrev2}${tu._abbrev2}' : null;
-    this.metricBase = metricBase;
-    this.offset = offset.toDouble();
+    name = '${eu.name} per ${tu.singular}';
+    singular = '${eu.singular} per ${tu.singular}';
+    _convToMKS = eu.valueSI / tu.valueSI;
+    _abbrev1 = eu._abbrev1 != null && tu._abbrev1 != null ? '${eu._abbrev1} / ${tu._abbrev1}' : null;
+    _abbrev2 = eu._abbrev2 != null && tu._abbrev2 != null ? '${eu._abbrev2}${tu._abbrev2}' : null;
+    metricBase = metricBase;
+    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
@@ -77,7 +80,7 @@ class PowerUnits extends Power with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }
 

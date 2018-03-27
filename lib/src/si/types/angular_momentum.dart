@@ -18,6 +18,7 @@ class AngularMomentum extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   AngularMomentum({dynamic Js, double uncert: 0.0}) : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
 
   AngularMomentum._internal(dynamic conv) : super._internal(conv, AngularMomentum.angularMometumDimensions);
@@ -35,18 +36,20 @@ class AngularMomentum extends Quantity {
 /// Units acceptable for use in describing AngularMomentum quantities.
 ///
 class AngularMomentumUnits extends AngularMomentum with Units {
+  /// Constructs a new instance.
   AngularMomentumUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on energy and time units.
   AngularMomentumUnits.energyTime(EnergyUnits eu, TimeUnits tu) : super._internal(eu.valueSI * tu.valueSI) {
     name = '${eu.singular} ${tu.name}';
     singular = '${eu.singular} ${tu.singular}';

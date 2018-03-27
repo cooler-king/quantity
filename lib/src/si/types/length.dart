@@ -15,8 +15,8 @@ class Length extends Quantity {
   /// Accepted for use with the SI... the value of the astronomical unit must be
   /// obtained by experiment and is therefore not known exactly... its value is
   /// such that, when used to describe the motion of bodies in the solar system,
-  /// the heliocentric gravitation constant is 0.017 202 098 85 squared [in units
-  /// of ua+3 d-2, where d is day].
+  /// the heliocentric gravitation constant is 0.017 202 098 85 squared (in units
+  /// of ua+3 d-2, where d is day).
   static final LengthUnits astronomicalUnits =
       new LengthUnits('astronomical units', 'AU', 'ua', null, 1.495978707e11, false);
 
@@ -37,6 +37,7 @@ class Length extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
+  // ignore: non_constant_identifier_names
   Length({dynamic m, dynamic km, dynamic mm, dynamic ua, dynamic NM, double uncert: 0.0})
       : super(
             m ?? (km ?? (mm ?? (ua ?? (NM ?? 0.0)))),
@@ -62,14 +63,15 @@ class Length extends Quantity {
 /// Units acceptable for use in describing Length quantities.
 ///
 class LengthUnits extends Length with Units {
+  /// Constructs a new instance.
   LengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -88,6 +90,6 @@ class LengthUnits extends Length with Units {
         '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
+        offset);
   
 }
