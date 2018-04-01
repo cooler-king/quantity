@@ -47,10 +47,10 @@ class Complex extends Number {
   Double get phase => complexArgument;
 
   @override
-  bool get isInfinite => real.value == double.INFINITY || real.value == double.NEGATIVE_INFINITY;
+  bool get isInfinite => real.value == double.infinity || real.value == double.negativeInfinity;
 
   @override
-  bool get isNaN => real.value == double.NAN;
+  bool get isNaN => real.value == double.nan;
 
   @override
   bool get isNegative => real.value < 0;

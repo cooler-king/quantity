@@ -5,10 +5,9 @@ author: Rob Bishop (cooler-king)
 homepage: https://github.com/cooler-king/quantity
 documentation: https://github.com/cooler-king/quantity/wiki
 environment:
-  sdk: '>=1.12.0 <2.0.0'
+  sdk: '>=2.0.0-dev.42 <2.0.0'
 dependencies:
-  intl: "^0.15.0"
-  logging: "^0.11.3"
+  intl: ^0.15.0
+  logging: ^0.11.3
 dev_dependencies:
-  browser: "^0.10.0"
-  test: "^0.12.15"
+  test: ^0.12.30

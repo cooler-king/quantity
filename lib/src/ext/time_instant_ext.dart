@@ -55,7 +55,7 @@ final TimeInstantUnits TDB =
   // TDB = TAI + 32.184 + 0.001658sin(g) + 0.000014sin(2g)...
   // where g = 357.53 deg + 0.9856003(JD - 2451545.0) deg... (Julian dates are in the TAI time scale)
   final double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
-  final double gRad = (357.53 + 0.9856003 * ((d / 86400.0) - 15341.0)) * (PI / 180.0);
+  final double gRad = (357.53 + 0.9856003 * ((d / 86400.0) - 15341.0)) * (pi / 180.0);
   return new Double(d + 32.184 + 0.001658 * sin(gRad) + 0.000014 * sin(2.0 * gRad));
 }, (dynamic val) {
   // TAI = TDB - 32.184 - 0.001658sin(g) - 0.000014sin(2g)...
@@ -72,7 +72,7 @@ final TimeInstantUnits TDB =
   int count = 0;
   double tdbTest = TDB.fromMks(d).toDouble();
   double delta = tdbTest - taiTest;
-  double prevDelta = double.MAX_FINITE;
+  double prevDelta = double.maxFinite;
   while ((delta.abs() > epsilon) && (count < maxCount)) {
     // See if we got farther away (if so reverse and take smaller steps)
     if (delta.abs() > prevDelta.abs()) step *= -0.5;
@@ -118,7 +118,7 @@ final TimeInstantUnits TCB = new TimeInstantUnits(
   int count = 0;
   double tcbTest = TCB.fromMks(d).toDouble();
   double delta = tcbTest - taiTest;
-  double prevDelta = double.MAX_FINITE;
+  double prevDelta = double.maxFinite;
   while ((delta.abs() > epsilon) && (count < maxCount)) {
     // See if we got farther away (if so reverse and take smaller steps)
     if (delta.abs() > prevDelta.abs()) step *= -0.5;
@@ -154,7 +154,7 @@ final TimeInstantUnits UT1 =
   double tai = d;
   final double epsilon = 0.001;
   double deltaT = 0.0;
-  double lastDeltaT = double.MAX_FINITE;
+  double lastDeltaT = double.maxFinite;
   while (((deltaT - lastDeltaT).abs() > epsilon) && count < 100) {
     lastDeltaT = deltaT;
     tai = d - 32.184 + deltaT;
@@ -176,13 +176,13 @@ final TimeInstantUnits UT2 =
     new TimeInstantUnits('Universal Time (UT2)', null, 'UT2', null, 1.0, false, 0.0, (dynamic val) {
   //double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   final Number d = UT1.fromMks(val); // UT1
-  final double twoPI = 2.0 * PI;
+  final double twoPI = 2.0 * pi;
   final double fourPI = 2.0 * twoPI;
   final double t = B.fromMks(UT1.toMks(d)).toDouble();
   return (d + (0.022 * sin(twoPI * t) - 0.012 * cos(twoPI * t) - 0.006 * sin(fourPI * t) + 0.007 * cos(fourPI * t)));
 }, (dynamic val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
-  final double twoPI = 2.0 * PI;
+  final double twoPI = 2.0 * pi;
   final double fourPI = 2.0 * twoPI;
   final double t = B.fromMks(UT1.toMks(d)).toDouble(); // besselian -- use UT2 value as UT1... close enough
   d -= (0.022 * sin(twoPI * t) - 0.012 * cos(twoPI * t) - 0.006 * sin(fourPI * t) + 0.007 * cos(fourPI * t)); // UT1

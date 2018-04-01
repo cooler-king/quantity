@@ -172,7 +172,7 @@ class Imaginary extends Number {
 
   /// The complex argument, or phase, of this imaginary number in radians.
   ///
-  num get complexArgument => value < 0 ? -PI / 2.0 : PI / 2.0;
+  num get complexArgument => value < 0 ? -pi / 2.0 : pi / 2.0;
 
   /// The phase is synonymous with the complex argument.
   ///

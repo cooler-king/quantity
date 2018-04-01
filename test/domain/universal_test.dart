@@ -12,7 +12,7 @@ void main() {
       expect(speedOfLightVacuum.valueSI.toDouble(), 2.99792458e8);
 
       expect(magneticConstant is Permeability, true);
-      expect(magneticConstant.valueSI.toDouble(), 4.0e-7 * PI);
+      expect(magneticConstant.valueSI.toDouble(), 4.0e-7 * pi);
 
       expect(planckConstant is AngularMomentum, true);
       expect(planckConstant.valueSI.toDouble(), 6.626070040e-34);

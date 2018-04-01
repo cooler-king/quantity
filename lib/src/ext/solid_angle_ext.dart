@@ -27,12 +27,12 @@ final SolidAngleUnits yoctosteradians = SolidAngle.steradians.yocto() as SolidAn
 
 final SolidAngleUnits spats = new SolidAngleUnits('spats', 'sp', null, null, 12.566371, false);
 
-final SolidAngleUnits spheres = new SolidAngleUnits('spheres', null, null, null, 4.0 * PI, false);
+final SolidAngleUnits spheres = new SolidAngleUnits('spheres', null, null, null, 4.0 * pi, false);
 
-final SolidAngleUnits hemispheres = new SolidAngleUnits('hemispheres', null, null, null, 2.0 * PI, false);
+final SolidAngleUnits hemispheres = new SolidAngleUnits('hemispheres', null, null, null, 2.0 * pi, false);
 
 /// 1/8th of a sphere (a spherical right triangle).
-final SolidAngleUnits octants = new SolidAngleUnits('octants', null, null, null, PI / 2.0, false);
+final SolidAngleUnits octants = new SolidAngleUnits('octants', null, null, null, pi / 2.0, false);
 
 /// Same as [octants].
 final SolidAngleUnits sphericalRightTriangles = octants;

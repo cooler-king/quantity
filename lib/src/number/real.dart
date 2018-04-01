@@ -10,7 +10,7 @@ abstract class Real extends Number {
 
   /// Constructs a new instance using the value for property `d` (decimal) or `i` (integer) in Map [m].
   factory Real.fromMap(Map<String, dynamic> m) =>
-      m?.containsKey('d') || m?.containsKey('i') ?? false ? new Number.fromMap(m) as Real : Integer.zero;
+      m?.containsKey('d') == true || m?.containsKey('i') == true ? new Number.fromMap(m) as Real : Integer.zero;
 
   /// All Real subclasses must be able to provide their value as a [dart:core] [num].
   num get value;
@@ -22,10 +22,10 @@ abstract class Real extends Number {
   double toDouble();
 
   @override
-  bool get isInfinite => value == double.INFINITY || value == double.NEGATIVE_INFINITY;
+  bool get isInfinite => value == double.infinity || value == double.negativeInfinity;
 
   @override
-  bool get isNaN => identical(value, double.NAN);
+  bool get isNaN => identical(value, double.nan);
 
   @override
   bool get isNegative => value < 0;

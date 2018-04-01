@@ -10,7 +10,7 @@ class Volume extends Quantity {
   static const Dimensions volumeDimensions = const Dimensions.constant(const <String, int>{'Length': -3}, qType: Volume);
 
   /// The standard SI unit
-  static final VolumeUnits cubicMeters = new VolumeUnits.length(Length.meters);
+  static final VolumeUnits cubicMeters = new VolumeUnits.lengthCubed(Length.meters);
 
   /// Accepted for use with the SI
   /// equal to one thousandth of a cubic meter
@@ -52,7 +52,7 @@ class VolumeUnits extends Volume with Units {
   }
 
   /// Constructs a new instance based on length units.
-  VolumeUnits.length(LengthUnits lu) : super._internal(lu.valueSI ^ 3) {
+  VolumeUnits.lengthCubed(LengthUnits lu) : super._internal(lu.valueSI ^ 3) {
     name = 'cubic ${lu.name}';
     singular = 'cubic ${lu.singular}';
     _convToMKS = lu.valueSI ^ 3;

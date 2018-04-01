@@ -10,7 +10,7 @@ class WaveNumber extends Quantity {
   static const Dimensions waveNumberDimensions = const Dimensions.constant(const <String, int>{'Length': -1}, qType: WaveNumber);
 
   /// The standard SI unit.
-  static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.length(Length.meters);
+  static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.inverseLength(Length.meters);
 
   /// Construct a WaveNumber with reciprocal meters.
   ///
@@ -48,7 +48,7 @@ class WaveNumberUnits extends WaveNumber with Units {
   }
 
   /// Constructs a new instance based on length units.
-  WaveNumberUnits.length(LengthUnits lu) : super._internal(Integer.one / lu.valueSI) {
+  WaveNumberUnits.inverseLength(LengthUnits lu) : super._internal(Integer.one / lu.valueSI) {
     name = 'reciprocal ${lu.name}';
     singular = 'reciprocal ${lu.singular}';
     _convToMKS = Integer.one / lu.valueSI;

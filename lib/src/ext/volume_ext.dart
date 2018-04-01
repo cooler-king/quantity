@@ -26,7 +26,7 @@ VolumeUnits fluidOunces = new VolumeUnits('fluid ounces', null, null, 'fluid oun
 
 VolumeUnits fluidOuncesUK = new VolumeUnits('fluid ounces (U.K.)', null, null, 'fluid ounce (U.K.)', 2.8413e-5, false);
 
-VolumeUnits cubicFeet = new VolumeUnits.length(feet);
+VolumeUnits cubicFeet = new VolumeUnits.lengthCubed(feet);
 
 VolumeUnits gallonsUSLiquid =
     new VolumeUnits('gallons (U.S. liquid)', null, null, 'gallon (U.S. liquid)', 3.785411784e-3, false);
@@ -43,9 +43,9 @@ VolumeUnits gillsUS = new VolumeUnits('gills (U.S.)', null, null, 'gill (U.S.)',
 
 VolumeUnits hogsheads = new VolumeUnits('hogsheads', null, null, null, 2.38480942392e-1, false);
 
-VolumeUnits cubicInches = new VolumeUnits.length(inches);
+VolumeUnits cubicInches = new VolumeUnits.lengthCubed(inches);
 
-VolumeUnits cubicParsecs = new VolumeUnits.length(parsecs);
+VolumeUnits cubicParsecs = new VolumeUnits.lengthCubed(parsecs);
 
 VolumeUnits pecks = new VolumeUnits('pecks', null, null, null, 8.80976754172e-3, false);
 
@@ -65,9 +65,9 @@ VolumeUnits teaspoons = new VolumeUnits('teaspoons', null, 'tsp', null, 1.478676
 
 VolumeUnits registryTons = new VolumeUnits('registry tons', null, null, null, 2.8316846592, false);
 
-VolumeUnits cubicYards = new VolumeUnits.length(yards);
+VolumeUnits cubicYards = new VolumeUnits.lengthCubed(yards);
 
-VolumeUnits cubicCentimeters = new VolumeUnits.length(centimeters);
+VolumeUnits cubicCentimeters = new VolumeUnits.lengthCubed(centimeters);
 
 // convenience units
 VolumeUnits steres = cubicMeters;

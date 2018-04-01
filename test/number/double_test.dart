@@ -12,16 +12,16 @@ void main() {
       expect(Double.ten.value, 10.0);
       expect(Double.hundred.value, 100.0);
       expect(Double.thousand.value, 1000.0);
-      expect(Double.infinity.value, double.INFINITY);
-      expect(Double.negInfinity.value, double.NEGATIVE_INFINITY);
-      expect(identical(Double.NaN.value, double.NAN), true);
+      expect(Double.infinity.value, double.infinity);
+      expect(Double.negInfinity.value, double.negativeInfinity);
+      expect(identical(Double.NaN.value, double.nan), true);
     });
 
     test('isNaN', () {
       final Double d = const Double.constant(42.0);
       final Double d2 = Double.NaN;
       final Double d3 = Double.infinity;
-      final Double d4 = new Double(double.NAN);
+      final Double d4 = new Double(double.nan);
 
       expect(d.isNaN, false);
       expect(d2.isNaN, true);
