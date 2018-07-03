@@ -7,6 +7,7 @@ library quantity_si;
 
 import 'dart:collection';
 import 'dart:math' as math;
+import 'package:dart2_constant/math.dart' as polyfill_math;
 import 'package:quantity/number.dart';
 import 'package:logging/logging.dart';
 import 'package:intl/intl.dart' show NumberFormat;

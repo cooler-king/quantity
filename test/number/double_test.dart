@@ -1,3 +1,4 @@
+import 'package:dart2_constant/core.dart' as polyfill_core;
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
@@ -12,16 +13,16 @@ void main() {
       expect(Double.ten.value, 10.0);
       expect(Double.hundred.value, 100.0);
       expect(Double.thousand.value, 1000.0);
-      expect(Double.infinity.value, double.infinity);
-      expect(Double.negInfinity.value, double.negativeInfinity);
-      expect(identical(Double.NaN.value, double.nan), true);
+      expect(Double.infinity.value, polyfill_core.double.infinity);
+      expect(Double.negInfinity.value, polyfill_core.double.negativeInfinity);
+      expect(identical(Double.NaN.value, polyfill_core.double.nan), true);
     });
 
     test('isNaN', () {
       final Double d = const Double.constant(42.0);
       final Double d2 = Double.NaN;
       final Double d3 = Double.infinity;
-      final Double d4 = new Double(double.nan);
+      final Double d4 = new Double(polyfill_core.double.nan);
 
       expect(d.isNaN, false);
       expect(d2.isNaN, true);

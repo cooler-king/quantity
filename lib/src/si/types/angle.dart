@@ -12,7 +12,7 @@ double sine(Angle a) => a.sine();
 double tangent(Angle a) => a.tangent();
 
 // Constant
-const double twoPi = 2.0 * math.pi;
+const double twoPi = 2.0 * polyfill_math.pi;
 
 /// A planar (2-dimensional) angle, which has dimensions of _1_ and is a
 /// measure of the ratio of the length of a circular arc to its radius.
@@ -102,11 +102,11 @@ class Angle extends Quantity {
   /// If this Angle is already within that range then it is returned directly.
   ///
   Angle get angle180 {
-    if (valueSI >= -math.pi && valueSI <= math.pi) return this;
+    if (valueSI >= -polyfill_math.pi && valueSI <= polyfill_math.pi) return this;
 
     double rad = valueSI.toDouble();
-    while (rad < -math.pi) rad += twoPi;
-    while (rad > math.pi) rad -= twoPi;
+    while (rad < -polyfill_math.pi) rad += twoPi;
+    while (rad > polyfill_math.pi) rad -= twoPi;
     return new Angle(rad: rad);
   }
 

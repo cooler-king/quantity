@@ -22,10 +22,10 @@ abstract class Real extends Number {
   double toDouble();
 
   @override
-  bool get isInfinite => value == double.infinity || value == double.negativeInfinity;
+  bool get isInfinite => value == polyfill_core.double.infinity || value == polyfill_core.double.negativeInfinity;
 
   @override
-  bool get isNaN => identical(value, double.nan);
+  bool get isNaN => identical(value, polyfill_core.double.nan);
 
   @override
   bool get isNegative => value < 0;

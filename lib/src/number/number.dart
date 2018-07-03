@@ -70,7 +70,7 @@ abstract class Number implements Comparable<dynamic> {
   /// Returns an `int` if this Number's value is an integer, a `double` otherwise.
   ///
   num get sign {
-    if (isNaN) return double.nan;
+    if (isNaN) return polyfill_core.double.nan;
     if (isNegative) return isInteger ? -1 : -1.0;
     if (toDouble() == 0) return isInteger ? 0 : 0.0;
     return isInteger ? 1 : 1.0;
