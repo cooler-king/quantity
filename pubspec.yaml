@@ -5,10 +5,10 @@ author: Rob Bishop (cooler-king)
 homepage: https://github.com/cooler-king/quantity
 documentation: https://github.com/cooler-king/quantity/wiki
 environment:
-  sdk: '>=2.0.0-dev.42 <2.0.0'
+  sdk: '>=1.24.3 <=2.0.0'
 dependencies:
   dart2_constant: ^1.0.1+dart1
   intl: ^0.15.0
   logging: ^0.11.3
 dev_dependencies:
-  test: ^0.12.30
+  test: '>=0.12.30'
