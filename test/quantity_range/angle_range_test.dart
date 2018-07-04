@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'package:dart2_constant/math.dart' as polyfill_math;
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_range.dart';
@@ -20,12 +20,12 @@ void main() {
       expect(range.endAngle.valueSI.toDouble() == 0.9, true);
 
       range = new AngleRange.degrees(90.0, 180.0);
-      expect(range.startAngle.valueSI.toDouble(), closeTo(pi / 2, 0.0001));
-      expect(range.endAngle.valueSI.toDouble(), closeTo(pi, 0.0001));
+      expect(range.startAngle.valueSI.toDouble(), closeTo(polyfill_math.pi / 2, 0.0001));
+      expect(range.endAngle.valueSI.toDouble(), closeTo(polyfill_math.pi, 0.0001));
 
       range = new AngleRange.degrees(180.0, 90.0);
-      expect(range.startAngle.valueSI.toDouble(), closeTo(pi, 0.0001));
-      expect(range.endAngle.valueSI.toDouble(), closeTo(pi / 2, 0.0001));
+      expect(range.startAngle.valueSI.toDouble(), closeTo(polyfill_math.pi, 0.0001));
+      expect(range.endAngle.valueSI.toDouble(), closeTo(polyfill_math.pi / 2, 0.0001));
 
       range = new AngleRange.radians(1.72, 1.95);
       expect(range.startAngle.valueSI.toDouble() == 1.72, true);

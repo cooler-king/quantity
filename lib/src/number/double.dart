@@ -9,11 +9,11 @@ class Double extends Real {
   static const Double ten = const Double.constant(10.0);
   static const Double hundred = const Double.constant(100.0);
   static const Double thousand = const Double.constant(1000.0);
-  static const Double infinity = const Double.constant(double.infinity);
-  static const Double negInfinity = const Double.constant(double.negativeInfinity);
+  static const Double infinity = const Double.constant(polyfill_core.double.infinity);
+  static const Double negInfinity = const Double.constant(polyfill_core.double.negativeInfinity);
 
   // ignore: constant_identifier_names
-  static const Double NaN = const Double.constant(double.nan);
+  static const Double NaN = const Double.constant(polyfill_core.double.nan);
 
   Double(this._value);
 
@@ -52,7 +52,7 @@ class Double extends Real {
 
   @override
   bool operator ==(dynamic obj) {
-    if (obj == double.nan) return value == double.nan;
+    if (obj == polyfill_core.double.nan) return value == polyfill_core.double.nan;
     if (obj is Real || obj is num) return obj == value;
     if (obj is Imaginary) return value == 0.0 && obj.value?.toDouble() == 0.0;
     if (obj is Complex) return obj.real?.toDouble() == value && obj.imaginary?.toDouble() == 0.0;
