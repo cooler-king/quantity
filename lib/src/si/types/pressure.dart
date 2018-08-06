@@ -24,7 +24,7 @@ class Pressure extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  Pressure({dynamic Pa, dynamic bars, double uncert: 0.0})
+  Pressure({dynamic Pa, dynamic bars, double uncert = 0.0})
       : super(Pa ?? (bars ?? 0.0), bars != null ? Pressure.bars : Pressure.pascals, uncert);
 
   Pressure._internal(dynamic conv) : super._internal(conv, Pressure.pressureDimensions);
@@ -35,7 +35,7 @@ class Pressure extends Quantity {
   Pressure.inUnits(dynamic value, PressureUnits units, [double uncert = 0.0])
       : super(value, units ?? Pressure.pascals, uncert);
 
-  const Pressure.constant(Number valueSI, {PressureUnits units, double uncert: 0.0})
+  const Pressure.constant(Number valueSI, {PressureUnits units, double uncert = 0.0})
       : super.constant(valueSI, Pressure.pressureDimensions, units, uncert);
 }
 

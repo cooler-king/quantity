@@ -20,7 +20,7 @@ class AngularSpeed extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  AngularSpeed({dynamic radiansPerSecond, dynamic degreesPerSecond, double uncert: 0.0})
+  AngularSpeed({dynamic radiansPerSecond, dynamic degreesPerSecond, double uncert = 0.0})
       : super(radiansPerSecond ?? (degreesPerSecond ?? 0.0),
       degreesPerSecond != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
 
@@ -32,7 +32,7 @@ class AngularSpeed extends Quantity {
   AngularSpeed.inUnits(dynamic value, AngularSpeedUnits units, [double uncert = 0.0])
       : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
 
-  const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits units, double uncert: 0.0})
+  const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits units, double uncert = 0.0})
       : super.constant(valueSI, AngularSpeed.angularSpeedDimensions, units, uncert);
 }
 

@@ -22,7 +22,7 @@ class AbsorbedDoseRate extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  AbsorbedDoseRate({dynamic graysPerSecond, dynamic radsPerSecond, double uncert: 0.0})
+  AbsorbedDoseRate({dynamic graysPerSecond, dynamic radsPerSecond, double uncert = 0.0})
       : super(graysPerSecond ?? (radsPerSecond ?? 0.0),
       radsPerSecond != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
 
@@ -38,7 +38,7 @@ class AbsorbedDoseRate extends Quantity {
   ///
   ///
   ///
-  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, double uncert: 0.0})
+  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, double uncert = 0.0})
       : super.constant(valueSI, AbsorbedDoseRate.absorbedDoseRateDimensions, units, uncert);
 }
 

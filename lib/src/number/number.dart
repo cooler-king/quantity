@@ -1,10 +1,11 @@
 part of number;
 
 /// The abstract base class for all Number types.
-///
 abstract class Number implements Comparable<dynamic> {
+  /// The default constructor.
   Number();
 
+  /// Supports const constructors in concrete classes.
   const Number.constant();
 
   /// Detect the type of Number by inspecting map contents and create it.
@@ -33,7 +34,7 @@ abstract class Number implements Comparable<dynamic> {
   @override
   bool operator ==(dynamic obj);
 
-  /// The hashcodes for two Numbers will be equal when the represented values are equal,
+  /// The hash codes for two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
   ///
   /// Additionally, Numbers having integer values will have the same hashcode as
@@ -41,24 +42,56 @@ abstract class Number implements Comparable<dynamic> {
   @override
   int get hashCode;
 
+  /// Returns the sum of this Number and a Number or num.  This Number is unaffected.
   Number operator +(dynamic addend);
+
+  /// Returns the negative of this Number.  This Number is unaffected.
   Number operator -();
+
+  /// Returns the difference of this Number and the [subtrahend] (a Number or num).
+  /// This Number is unaffected.
   Number operator -(dynamic subtrahend);
+
+  /// Returns the product of this Number and the [multiplicand] (a Number or num).
+  /// This Number is unaffected.
   Number operator *(dynamic multiplicand);
+
+  /// Returns the quotient of this Number divided by the [divisor] (a Number or num).
+  /// This Number is unaffected.
   Number operator /(dynamic divisor);
+
+  /// Returns the quotient of this Number divided by the [divisor] (a Number or num)
+  /// truncated to an Integer.  This Number is unaffected.
   Number operator ~/(dynamic divisor);
+
+  /// Returns the remainder after division of this Number by [divisor] (a Number or num).
   Number operator %(dynamic divisor);
 
+  /// Returns this Number raised to the power of [exponent] (a Number or num).
+  /// This Number is unaffected.
   Number operator ^(dynamic exponent);
 
+  /// Returns whether the value of this Number is greater than the value of obj (a Number or num).
   bool operator >(dynamic obj);
+
+  /// Returns whether the value of this Number is greater than or equal to the value of obj (a Number or num).
   bool operator >=(dynamic obj);
+
+  /// Returns whether the value of this Number is less than the value of obj (a Number or num).
   bool operator <(dynamic obj);
+
+  /// Returns whether the value of this Number is less than or equal to the value of obj (a Number or num).
   bool operator <=(dynamic obj);
 
   // Mirror num's abstract properties.
+
+  /// Whether this Number represents a finite value.
   bool get isFinite => !isInfinite;
+
+  /// Whether this Number represents infinity.
   bool get isInfinite;
+
+  /// Whether this Number represents a value .
   bool get isNaN;
   bool get isNegative;
 
@@ -115,11 +148,17 @@ abstract class Number implements Comparable<dynamic> {
   ///
   Number round();
 
+  /// Converts this Number to a `dart:core int`.
   int toInt();
+
+  /// Converts this Number to a `dart:core double`.
   double toDouble();
   Number truncate();
 
-  // Add some of our own
+  // Add some of our own.
+
+  /// Returns the Number that is the reciprocal of this Number.
+  /// This Number is unaffected.
   Number reciprocal();
 
   /// Subclasses must support dart:json for stringify.

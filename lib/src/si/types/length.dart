@@ -38,7 +38,7 @@ class Length extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  Length({dynamic m, dynamic km, dynamic mm, dynamic ua, dynamic NM, double uncert: 0.0})
+  Length({dynamic m, dynamic km, dynamic mm, dynamic ua, dynamic NM, double uncert = 0.0})
       : super(
             m ?? (km ?? (mm ?? (ua ?? (NM ?? 0.0)))),
             km != null
@@ -56,7 +56,7 @@ class Length extends Quantity {
   Length.inUnits(dynamic value, LengthUnits units, [double uncert = 0.0])
       : super(value, units ?? Length.meters, uncert);
 
-  const Length.constant(Number valueSI, {LengthUnits units, double uncert: 0.0})
+  const Length.constant(Number valueSI, {LengthUnits units, double uncert = 0.0})
       : super.constant(valueSI, Length.lengthDimensions, units, uncert);
 }
 

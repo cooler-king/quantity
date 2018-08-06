@@ -54,23 +54,23 @@ abstract class Real extends Number {
     if (subtrahend is Precise) return (-subtrahend) + this;
     if (subtrahend is Real) return new Double((value - subtrahend.value).toDouble());
     if (subtrahend is Complex)
-      return new Complex(new Double((value - subtrahend.real.value).toDouble()), -(subtrahend.imag));
+      return new Complex(new Double((value - subtrahend.real.value).toDouble()), -subtrahend.imag);
     if (subtrahend is Imaginary) return new Complex(this, -subtrahend);
     return this;
   }
 
   @override
-  Number operator *(dynamic multiplier) {
-    if (multiplier is num) {
-      final num product = multiplier * value;
+  Number operator *(dynamic multiplicand) {
+    if (multiplicand is num) {
+      final num product = multiplicand * value;
       if (product == product.truncate()) return new Integer(product.truncate());
       return new Double(product.toDouble());
     }
-    if (multiplier is Precise) return multiplier * this;
-    if (multiplier is Real) return this * multiplier.value;
-    if (multiplier is Complex)
-      return new Complex((multiplier.real * value) as Real, (multiplier.imaginary * value) as Imaginary);
-    if (multiplier is Imaginary) return new Imaginary(multiplier.value * value);
+    if (multiplicand is Precise) return multiplicand * this;
+    if (multiplicand is Real) return this * multiplicand.value;
+    if (multiplicand is Complex)
+      return new Complex(multiplicand.real * value as Real, multiplicand.imaginary * value as Imaginary);
+    if (multiplicand is Imaginary) return new Imaginary(multiplicand.value * value);
 
     // Treat multiplier as 0
     return Integer.zero;
@@ -85,7 +85,7 @@ abstract class Real extends Number {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
       final Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       final Number aOverc2d2 = this / c2d2;
-      return new Complex((aOverc2d2 * divisor.real) as Real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
+      return new Complex(aOverc2d2 * divisor.real as Real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
     if (divisor is Imaginary) return new Imaginary((this / divisor.value) * -1);
 
@@ -186,7 +186,7 @@ abstract class Real extends Number {
   }
 
   @override
-  bool operator >=(dynamic obj) => (this == obj) ? true : this > obj;
+  bool operator >=(dynamic obj) => this == obj || this > obj;
 
   @override
   bool operator <(dynamic obj) => !(this >= obj);

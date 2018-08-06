@@ -18,7 +18,7 @@ class Concentration extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Concentration({dynamic molesPerCubicMeter, double uncert: 0.0})
+  Concentration({dynamic molesPerCubicMeter, double uncert = 0.0})
       : super(molesPerCubicMeter ?? 0.0, Concentration.molesPerCubicMeter, uncert);
 
   Concentration._internal(dynamic conv) : super._internal(conv, Concentration.concentrationDimensions);
@@ -29,7 +29,7 @@ class Concentration extends Quantity {
   Concentration.inUnits(dynamic value, ConcentrationUnits units, [double uncert = 0.0])
       : super(value, units ?? Concentration.molesPerCubicMeter, uncert);
 
-  const Concentration.constant(Number valueSI, {ConcentrationUnits units, double uncert: 0.0})
+  const Concentration.constant(Number valueSI, {ConcentrationUnits units, double uncert = 0.0})
       : super.constant(valueSI, Concentration.concentrationDimensions, units, uncert);
 }
 

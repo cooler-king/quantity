@@ -22,7 +22,7 @@ class Scalar extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Scalar({dynamic value, dynamic percent, double uncert: 0.0})
+  Scalar({dynamic value, dynamic percent, double uncert = 0.0})
       : super(percent ?? (value ?? 0.0), percent != null ? Scalar.percent : Scalar.one, uncert);
 
   Scalar._internal(dynamic conv) : super._internal(conv, Scalar.scalarDimensions);
@@ -30,7 +30,7 @@ class Scalar extends Quantity {
   // CONSTRUCTORS
   Scalar.inUnits(dynamic value, ScalarUnits units, [double uncert = 0.0]) : super(value, units ?? Scalar.one, uncert);
 
-  const Scalar.constant(Number value, {ScalarUnits units, double uncert: 0.0})
+  const Scalar.constant(Number value, {ScalarUnits units, double uncert = 0.0})
       : super.constant(value, Scalar.scalarDimensions, units, uncert);
 
   /// Scalar's hash code is identical to the hash code of its SI value
@@ -40,7 +40,7 @@ class Scalar extends Quantity {
   int get hashCode => valueSI.hashCode;
 
   @override
-  bool operator ==(Object other) => hashCode == other.hashCode;
+  bool operator ==(Object obj) => hashCode == obj.hashCode;
 
   /// Compares this Scalar to [q2] by comparing MKS values or if q2 is a [num] or [Number], by comparing
   /// the values directly.  If [q2] is a Quantity it need not have Scalar dimensions.

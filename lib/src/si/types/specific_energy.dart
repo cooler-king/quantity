@@ -20,7 +20,7 @@ class SpecificEnergy extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  SpecificEnergy({dynamic joulesPerKilogram, double uncert: 0.0})
+  SpecificEnergy({dynamic joulesPerKilogram, double uncert = 0.0})
       : super(joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert);
 
   SpecificEnergy._internal(dynamic conv) : super._internal(conv, SpecificEnergy.specificEnergyDimensions);
@@ -31,7 +31,7 @@ class SpecificEnergy extends Quantity {
   SpecificEnergy.inUnits(dynamic value, SpecificEnergyUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert);
 
-  const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits units, double uncert: 0.0})
+  const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpecificEnergy.specificEnergyDimensions, units, uncert);
 }
 

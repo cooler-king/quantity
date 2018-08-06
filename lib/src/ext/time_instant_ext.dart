@@ -67,8 +67,8 @@ final TimeInstantUnits TDB =
   // the Julian Date in the TAI scale... instead, get close and then search
   double taiTest = d;
   double step = 10.0;
-  final double epsilon = 1.0e-8;
-  final int maxCount = 10000;
+  const double epsilon = 1.0e-8;
+  const int maxCount = 10000;
   int count = 0;
   double tdbTest = TDB.fromMks(d).toDouble();
   double delta = tdbTest - taiTest;
@@ -103,7 +103,7 @@ final TimeInstantUnits TB = TDB;
 /// Barycentric Coordinate Time (TCB): TCB = TDB + (1.550505e-8)(JD - 2443144.5)(86400)
 // ignore: non_constant_identifier_names
 final TimeInstantUnits TCB = new TimeInstantUnits(
-    'Barycentric Coordinate Time', null, 'TCB', null, (1.0 - 1.550505e-8), false, 599616000.0 - 32.184, (dynamic val) {
+    'Barycentric Coordinate Time', null, 'TCB', null, 1.0 - 1.550505e-8, false, 599616000.0 - 32.184, (dynamic val) {
   final double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   Number tdb = TDB.fromMks(val); // TDB seconds
   return tdb += 1.550505e-8 * (d - 5.99616e8);
@@ -113,8 +113,8 @@ final TimeInstantUnits TCB = new TimeInstantUnits(
   // Too convoluted to solve analytically... instead, get close and then search
   double taiTest = d;
   double step = 10.0;
-  final double epsilon = 1.0e-8;
-  final int maxCount = 10000;
+  const double epsilon = 1.0e-8;
+  const int maxCount = 10000;
   int count = 0;
   double tcbTest = TCB.fromMks(d).toDouble();
   double delta = tcbTest - taiTest;
@@ -145,14 +145,14 @@ final TimeInstantUnits TCB = new TimeInstantUnits(
 final TimeInstantUnits UT1 =
     new TimeInstantUnits('Universal Time (UT1)', null, 'UT1', null, 1.0, false, 0.0, (dynamic val) {
   final double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
-  return (TDT.fromMks(d) - getDeltaT(new TimeInstant(TAI: d)));
+  return TDT.fromMks(d) - getDeltaT(new TimeInstant(TAI: d));
 }, (dynamic val) {
   final double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
 
   // Converge on a Delta T & TAI that work together
   int count = 0;
   double tai = d;
-  final double epsilon = 0.001;
+  const double epsilon = 0.001;
   double deltaT = 0.0;
   double lastDeltaT = polyfill_core.double.maxFinite;
   while (((deltaT - lastDeltaT).abs() > epsilon) && count < 100) {
@@ -176,16 +176,16 @@ final TimeInstantUnits UT2 =
     new TimeInstantUnits('Universal Time (UT2)', null, 'UT2', null, 1.0, false, 0.0, (dynamic val) {
   //double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   final Number d = UT1.fromMks(val); // UT1
-  final double twoPI = 2.0 * polyfill_math.pi;
-  final double fourPI = 2.0 * twoPI;
+  const double twoPI = 2.0 * polyfill_math.pi;
+  const double fourPI = 2.0 * twoPI;
   final double t = B.fromMks(UT1.toMks(d)).toDouble();
-  return (d + (0.022 * sin(twoPI * t) - 0.012 * cos(twoPI * t) - 0.006 * sin(fourPI * t) + 0.007 * cos(fourPI * t)));
+  return d + (0.022 * sin(twoPI * t) - 0.012 * cos(twoPI * t) - 0.006 * sin(fourPI * t) + 0.007 * cos(fourPI * t));
 }, (dynamic val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
-  final double twoPI = 2.0 * polyfill_math.pi;
-  final double fourPI = 2.0 * twoPI;
+  const double twoPI = 2.0 * polyfill_math.pi;
+  const double fourPI = 2.0 * twoPI;
   final double t = B.fromMks(UT1.toMks(d)).toDouble(); // besselian -- use UT2 value as UT1... close enough
-  d -= (0.022 * sin(twoPI * t) - 0.012 * cos(twoPI * t) - 0.006 * sin(fourPI * t) + 0.007 * cos(fourPI * t)); // UT1
+  d -= 0.022 * sin(twoPI * t) - 0.012 * cos(twoPI * t) - 0.006 * sin(fourPI * t) + 0.007 * cos(fourPI * t); // UT1
 
   return UT1.toMks(d);
 });
@@ -260,7 +260,7 @@ final TimeInstantUnits JD_UT1 =
   double secsInDay = 86400.0 + deltaDelta / 365.0;
 
   // Leap year?
-  if ((new TimeInstant(TAI: d)).isLeapYear) secsInDay = 86400.0 + deltaDelta / 366.0;
+  if (new TimeInstant(TAI: d).isLeapYear) secsInDay = 86400.0 + deltaDelta / 366.0;
 
   d = UT1.fromMks(d).toDouble(); // UTC seconds
   final int jd0 = d ~/ 86400; // integer UTC days
@@ -286,7 +286,7 @@ final TimeInstantUnits JD_UT1 =
   double secsInDay = 86400.0 + deltaDelta / 365.0;
 
   // Leap year?
-  if ((new TimeInstant(TAI: d)).isLeapYear) secsInDay = 86400.0 + deltaDelta / 366.0;
+  if (new TimeInstant(TAI: d).isLeapYear) secsInDay = 86400.0 + deltaDelta / 366.0;
 
   // Convert to seconds UT1
   final int jd0 = d.toInt();
@@ -373,7 +373,7 @@ final TimeInstantUnits MJD_TDB =
 final TimeInstantUnits JD_TCG =
     new TimeInstantUnits('Julian Date (TCG)', null, 'JD(TCG)', null, 86400.0, false, -2436204.5, (dynamic val) {
   final double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
-  return ((TCG.fromMks(d) / 86400.0) + 2436204.5);
+  return (TCG.fromMks(d) / 86400.0) + 2436204.5;
 }, (dynamic val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   d -= 2436204.5;

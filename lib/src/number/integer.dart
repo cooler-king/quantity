@@ -15,7 +15,7 @@ class Integer extends Real {
 
   const Integer.constant(this._value) : super.constant();
 
-  Integer.parse(String str, {int radix: 10}) : _value = int.parse(str, radix: radix);
+  Integer.parse(String str, {int radix = 10}) : _value = int.parse(str, radix: radix);
 
   /// Construct an Integer from a Map:
   ///     { 'i': integer value }
@@ -86,10 +86,10 @@ class Integer extends Real {
   }
 
   @override
-  Number operator *(dynamic multiplier) {
-    if (multiplier is int) return new Integer(multiplier * value);
-    if (multiplier is Integer) return new Integer(multiplier.value * value);
-    return super * multiplier;
+  Number operator *(dynamic multiplicand) {
+    if (multiplicand is int) return new Integer(multiplicand * value);
+    if (multiplicand is Integer) return new Integer(multiplicand.value * value);
+    return super * multiplicand;
   }
 
   /// The modulo operator.

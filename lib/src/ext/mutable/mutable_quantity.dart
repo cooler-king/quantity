@@ -246,7 +246,7 @@ class MutableQuantity implements Quantity {
   Quantity inverse() => snapshot.inverse();
 
   @override
-  void outputText(StringBuffer buffer, {bool showUncert: false, bool symbols: true, NumberFormat numberFormat}) =>
+  void outputText(StringBuffer buffer, {bool showUncert = false, bool symbols = true, NumberFormat numberFormat}) =>
       snapshot.outputText(buffer, showUncert: showUncert, symbols: symbols, numberFormat: numberFormat);
 
   @override

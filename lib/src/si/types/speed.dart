@@ -19,7 +19,7 @@ class Speed extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Speed({dynamic metersPerSecond, dynamic knots, double uncert: 0.0})
+  Speed({dynamic metersPerSecond, dynamic knots, double uncert = 0.0})
       : super(metersPerSecond ?? (knots ?? 0.0), knots != null ? Speed.knots : Speed.metersPerSecond, uncert);
 
   Speed._internal(dynamic conv) : super._internal(conv, Speed.speedDimensions);
@@ -30,7 +30,7 @@ class Speed extends Quantity {
   Speed.inUnits(dynamic value, SpeedUnits units, [double uncert = 0.0])
       : super(value, units ?? Speed.metersPerSecond, uncert);
 
-  const Speed.constant(Number valueSI, {SpeedUnits units, double uncert: 0.0})
+  const Speed.constant(Number valueSI, {SpeedUnits units, double uncert = 0.0})
       : super.constant(valueSI, Speed.speedDimensions, units, uncert);
 }
 

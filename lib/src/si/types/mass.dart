@@ -33,7 +33,7 @@ class Mass extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Mass({dynamic kg, dynamic g, dynamic u, double uncert: 0.0})
+  Mass({dynamic kg, dynamic g, dynamic u, double uncert = 0.0})
       : super(kg ?? (g ?? (u ?? 0.0)),
             g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
 
@@ -44,7 +44,7 @@ class Mass extends Quantity {
   ///
   Mass.inUnits(dynamic value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
 
-  const Mass.constant(Number valueSI, {MassUnits units, double uncert: 0.0})
+  const Mass.constant(Number valueSI, {MassUnits units, double uncert = 0.0})
       : super.constant(valueSI, Mass.massDimensions, units, uncert);
 
   /// Returns the [Energy] equivalent of this Mass using the famous E=mc^2 relationship.
@@ -54,7 +54,7 @@ class Mass extends Quantity {
       final Precise c = new Precise('2.99792458e8');
       return new Energy(J: valueSI * c * c, uncert: _ur);
     } else {
-      final double c = 2.99792458e8;
+      const double c = 2.99792458e8;
       return new Energy(J: valueSI * c * c, uncert: _ur);
     }
   }

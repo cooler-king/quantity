@@ -19,7 +19,7 @@ class AngularMomentum extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  AngularMomentum({dynamic Js, double uncert: 0.0}) : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
+  AngularMomentum({dynamic Js, double uncert = 0.0}) : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
 
   AngularMomentum._internal(dynamic conv) : super._internal(conv, AngularMomentum.angularMometumDimensions);
 
@@ -29,7 +29,7 @@ class AngularMomentum extends Quantity {
   AngularMomentum.inUnits(dynamic value, AngularMomentumUnits units, [double uncert = 0.0])
       : super(value, units ?? AngularMomentum.jouleSecond, uncert);
 
-  const AngularMomentum.constant(Number valueSI, {AngularMomentumUnits units, double uncert: 0.0})
+  const AngularMomentum.constant(Number valueSI, {AngularMomentumUnits units, double uncert = 0.0})
       : super.constant(valueSI, AngularMomentum.angularMometumDimensions, units, uncert);
 }
 

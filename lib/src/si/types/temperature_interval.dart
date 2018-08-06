@@ -22,7 +22,7 @@ class TemperatureInterval extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  TemperatureInterval({dynamic K, dynamic degC, double uncert: 0.0})
+  TemperatureInterval({dynamic K, dynamic degC, double uncert = 0.0})
       : super(K ?? (degC ?? 0.0), degC != null ? TemperatureInterval.degreesCelsius : TemperatureInterval.kelvins,
             uncert);
 
@@ -35,7 +35,7 @@ class TemperatureInterval extends Quantity {
   TemperatureInterval.inUnits(dynamic value, TemperatureIntervalUnits units, [double uncert = 0.0])
       : super(value, units ?? TemperatureInterval.kelvins, uncert);
 
-  const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits units, double uncert: 0.0})
+  const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits units, double uncert = 0.0})
       : super.constant(valueSI, TemperatureInterval.temperatureIntervalDimensions, units, uncert);
 
   /// Override the addition operator to manage the [Temperature]/`TemperatureInterval` relationship.

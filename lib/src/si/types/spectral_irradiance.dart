@@ -18,7 +18,7 @@ class SpectralIrradiance extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  SpectralIrradiance({dynamic wattsPerSquareMeterPerHertz, double uncert: 0.0})
+  SpectralIrradiance({dynamic wattsPerSquareMeterPerHertz, double uncert = 0.0})
       : super(wattsPerSquareMeterPerHertz ?? 0.0, SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
   SpectralIrradiance._internal(dynamic conv) : super._internal(conv, SpectralIrradiance.spectralIrradianceDimensions);
@@ -29,7 +29,7 @@ class SpectralIrradiance extends Quantity {
   SpectralIrradiance.inUnits(dynamic value, SpectralIrradianceUnits units, [double uncert = 0.0])
       : super(value, units ?? SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
-  const SpectralIrradiance.constant(Number valueSI, {SpectralIrradianceUnits units, double uncert: 0.0})
+  const SpectralIrradiance.constant(Number valueSI, {SpectralIrradianceUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpectralIrradiance.spectralIrradianceDimensions, units, uncert);
 }
 

@@ -20,7 +20,7 @@ class SpecificHeatCapacity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  SpecificHeatCapacity({dynamic joulesPerKilogramKelvin, double uncert: 0.0})
+  SpecificHeatCapacity({dynamic joulesPerKilogramKelvin, double uncert = 0.0})
       : super(joulesPerKilogramKelvin ?? 0.0, SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
   SpecificHeatCapacity._internal(dynamic conv)
@@ -32,7 +32,7 @@ class SpecificHeatCapacity extends Quantity {
   SpecificHeatCapacity.inUnits(dynamic value, SpecificHeatCapacityUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
-  const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits units, double uncert: 0.0})
+  const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpecificHeatCapacity.specificHeatCapacityDimensions, units, uncert);
 }
 

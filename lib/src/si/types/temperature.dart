@@ -23,7 +23,7 @@ class Temperature extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Temperature({dynamic K, dynamic C, double uncert: 0.0})
+  Temperature({dynamic K, dynamic C, double uncert = 0.0})
       : super(K ?? (C ?? 0.0), C != null ? Temperature.degreesCelsius : Temperature.kelvins, uncert);
 
   Temperature._internal(dynamic conv) : super._internal(conv, Temperature.temperatureDimensions);
@@ -35,7 +35,7 @@ class Temperature extends Quantity {
       : super(value, units ?? Temperature.kelvins, uncert);
 
   /// Constructs a constant Temperature.
-  const Temperature.constant(Number valueSI, {TemperatureUnits units, double uncert: 0.0})
+  const Temperature.constant(Number valueSI, {TemperatureUnits units, double uncert = 0.0})
       : super.constant(valueSI, Temperature.temperatureDimensions, units, uncert);
 
   /// Override the addition operator to manage the `Temperature`/[TemperatureInterval] relationship.

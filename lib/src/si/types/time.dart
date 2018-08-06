@@ -58,7 +58,7 @@ class Time extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Time({dynamic s, dynamic ms, dynamic ns, dynamic d, dynamic h, dynamic min, double uncert: 0.0})
+  Time({dynamic s, dynamic ms, dynamic ns, dynamic d, dynamic h, dynamic min, double uncert = 0.0})
       : super(
             s ?? (ms ?? (ns ?? (d ?? (h ?? (min ?? 0.0))))),
             ms != null
@@ -77,7 +77,7 @@ class Time extends Quantity {
   ///
   Time.inUnits(dynamic value, TimeUnits units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
 
-  const Time.constant(Number valueSI, {TimeUnits units, double uncert: 0.0})
+  const Time.constant(Number valueSI, {TimeUnits units, double uncert = 0.0})
       : super.constant(valueSI, Time.timeDimensions, units, uncert);
 
   /// Construct a Time object from an existing dart:core Duration object.

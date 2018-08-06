@@ -20,7 +20,7 @@ class Torque extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  Torque({dynamic Nm, double uncert: 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
+  Torque({dynamic Nm, double uncert = 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
 
   Torque._internal(dynamic conv) : super._internal(conv, Torque.torqueDimensions);
 
@@ -30,7 +30,7 @@ class Torque extends Quantity {
   Torque.inUnits(dynamic value, TorqueUnits units, [double uncert = 0.0])
       : super(value, units ?? Torque.newtonMeters, uncert);
 
-  const Torque.constant(Number valueSI, {TorqueUnits units, double uncert: 0.0})
+  const Torque.constant(Number valueSI, {TorqueUnits units, double uncert = 0.0})
       : super.constant(valueSI, Torque.torqueDimensions, units, uncert);
 }
 

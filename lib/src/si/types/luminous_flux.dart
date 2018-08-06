@@ -22,7 +22,7 @@ class LuminousFlux extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  LuminousFlux({dynamic lm, double uncert: 0.0}) : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
+  LuminousFlux({dynamic lm, double uncert = 0.0}) : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
 
   LuminousFlux._internal(dynamic conv) : super._internal(conv, LuminousFlux.luminousFluxDimensions);
 
@@ -32,7 +32,7 @@ class LuminousFlux extends Quantity {
   LuminousFlux.inUnits(dynamic value, LuminousFluxUnits units, [double uncert = 0.0])
       : super(value, units ?? LuminousFlux.lumens, uncert);
 
-  const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits units, double uncert: 0.0})
+  const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits units, double uncert = 0.0})
       : super.constant(valueSI, LuminousFlux.luminousFluxDimensions, units, uncert);
 }
 

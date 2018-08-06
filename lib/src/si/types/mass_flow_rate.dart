@@ -17,7 +17,7 @@ class MassFlowRate extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MassFlowRate({dynamic kilogramsPerSecond, double uncert: 0.0})
+  MassFlowRate({dynamic kilogramsPerSecond, double uncert = 0.0})
       : super(kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert);
 
   MassFlowRate._internal(dynamic conv) : super._internal(conv, MassFlowRate.massFlowRateDimensions);
@@ -28,7 +28,7 @@ class MassFlowRate extends Quantity {
   MassFlowRate.inUnits(dynamic value, MassFlowRateUnits units, [double uncert = 0.0])
       : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert);
 
-  const MassFlowRate.constant(Number valueSI, {MassFlowRateUnits units, double uncert: 0.0})
+  const MassFlowRate.constant(Number valueSI, {MassFlowRateUnits units, double uncert = 0.0})
       : super.constant(valueSI, MassFlowRate.massFlowRateDimensions, units, uncert);
 }
 

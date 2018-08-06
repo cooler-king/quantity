@@ -5,7 +5,7 @@ import 'package:quantity/number.dart';
 void main() {
   group('hashCodes', () {
     test('int and Integer', () {
-      final Integer d = const Integer.constant(42);
+      const Integer d = const Integer.constant(42);
       expect(d.hashCode, 42.hashCode);
 
       final Integer d2 = new Integer(-42);

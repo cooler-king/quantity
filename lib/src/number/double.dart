@@ -47,7 +47,7 @@ class Double extends Real {
   int get hashCode {
     if (_value.isNaN || _value.isInfinite) return _value.hashCode;
     if (isInteger) return toInt().hashCode;
-    return (new Precise.num(_value)).hashCode;
+    return new Precise.num(_value).hashCode;
   }
 
   @override

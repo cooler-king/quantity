@@ -40,10 +40,10 @@ void main() {
 
       final Dimensions d2 = new Dimensions.fromMap(<String, int>{'Angle': 1, 'Amount': -2, 'Time': -1, 'Length': 1});
 
-      expect((d1 == d2), true);
-      expect((d1 != d2), false);
-      expect((d1 == d1), true);
-      expect((d1 != d1), false);
+      expect(d1 == d2, true);
+      expect(d1 != d2, false);
+      expect(d1 == d1, true);
+      expect(d1 != d1, false);
     });
 
     test('equalsSI', () {
@@ -53,9 +53,9 @@ void main() {
 
       final Dimensions d3 = new Dimensions.fromMap(<String, int>{'Time': -1, 'Length': 1, 'Angle': 5, 'Amount': -2, 'Solid Angle': 3});
 
-      expect((d1 == d2), false);
-      expect((d1 == d3), false);
-      expect((d2 == d3), false);
+      expect(d1 == d2, false);
+      expect(d1 == d3, false);
+      expect(d2 == d3, false);
       expect(d1.equalsSI(d2), true);
       expect(d2.equalsSI(d1), true);
       expect(d1.equalsSI(d3), true);
@@ -76,8 +76,8 @@ void main() {
       testMap[d2] = 2;
       testMap[d3] = 3;
 
-      expect((d1.hashCode == d2.hashCode), true);
-      expect((d1.hashCode == d3.hashCode), false);
+      expect(d1.hashCode == d2.hashCode, true);
+      expect(d1.hashCode == d3.hashCode, false);
       expect(testMap.length, 2);
       expect(testMap[d1], 2);
     });
@@ -93,11 +93,11 @@ void main() {
 
       final Dimensions d5 = new Dimensions();
 
-      expect((d1 * d2), d3);
-      expect((d2 * d1), d3);
-      expect((d1 * d1), d4);
-      expect((d1 * d5), d1);
-      expect((d5 * d1), d1);
+      expect(d1 * d2, d3);
+      expect(d2 * d1, d3);
+      expect(d1 * d1, d4);
+      expect(d1 * d5, d1);
+      expect(d5 * d1, d1);
     });
 
     test('operator /', () {
@@ -113,11 +113,11 @@ void main() {
 
       final Dimensions d6 = new Dimensions.fromMap(<String, int>{'Time': 1, 'Length': -1, 'Angle': -1, 'Amount': 2});
 
-      expect((d1 / d2), d3);
-      expect((d2 / d1), d4);
-      expect((d1 / d1), d5);
-      expect((d1 / d5), d1);
-      expect((d5 / d1), d6);
+      expect(d1 / d2, d3);
+      expect(d2 / d1, d4);
+      expect(d1 / d1, d5);
+      expect(d1 / d5, d1);
+      expect(d5 / d1, d6);
     });
 
     test('operator ^', () {
@@ -133,8 +133,8 @@ void main() {
 
       final Dimensions d6 = new Dimensions.fromMap(<String, int>{'Time': 1, 'Length': -1, 'Angle': -1, 'Amount': 2});
 
-      expect((d1 ^ 1), d1);
-      expect((d1 ^ 0), d5);
+      expect(d1 ^ 1, d1);
+      expect(d1 ^ 0, d5);
 
       final Dimensions d2Squared = d2 ^ 2;
       expect(d2Squared.getComponentExponent(Dimensions.baseAmountKey), 4);

@@ -19,17 +19,17 @@ const double twoPi = 2.0 * polyfill_math.pi;
 ///
 /// Example usage:
 ///
-///     // Construct an Angle in radians
+///     // Construct an Angle in radians.
 ///     var ang = new Angle(rad: 1.1);
 ///
-///     // Construct an Angle in degrees
+///     // Construct an Angle in degrees.
 ///     var ang2 = new Angle(deg: 270);
 ///
-///     // Find the difference
+///     // Find the difference.
 ///     var diff = ang2 - ang;
 ///
-///     // Display the result in degrees
-///     print(diff.valueInUnits(Angle.degrees);
+///     // Display the result in degrees.
+///     print(diff.valueInUnits(Angle.degrees));
 ///
 /// See the [Wikipedia entry for Angle](https://en.wikipedia.org/wiki/Angle)
 /// for more information.
@@ -65,7 +65,7 @@ class Angle extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Angle({dynamic rad, dynamic deg, double uncert: 0.0})
+  Angle({dynamic rad, dynamic deg, double uncert = 0.0})
       : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
 
   Angle._internal(dynamic conv) : super._internal(conv, Angle.angleDimensions);
@@ -85,14 +85,11 @@ class Angle extends Quantity {
   ///
   Angle.inUnits(dynamic value, AngleUnits units, [double uncert = 0.0]) : super(value, units ?? Angle.radians, uncert);
 
-  const Angle.constant(Number valueSI, {AngleUnits units, double uncert: 0.0})
+  const Angle.constant(Number valueSI, {AngleUnits units, double uncert = 0.0})
       : super.constant(valueSI, Angle.angleDimensions, units, uncert);
 
   ///  This constructor creates an angle value from the three values
-  ///  passed in for degrees, minutes, and seconds of arc OR hours, minutes and
-  ///  seconds of time.  The final parameter is a flag to dostinguish between the
-  ///  two cases:  true indicates degrees, false indicates hours.
-  ///
+  ///  passed in for degrees, minutes, and seconds of arc.
   Angle.fromDegMinSec(int d, int m, double s, [double uncert = 0.0])
       : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s), Angle.radians, uncert);
 
@@ -158,7 +155,7 @@ class Angle extends Quantity {
   /// be either positive or negative; the other two values will be positive.
   ///
   List<double> get degMinSec {
-    final List<double> dms = new List<double>.generate(3, null, growable: false);
+    final List<double> dms = new List<double>.generate(3, (_) => null, growable: false);
 
     final double decimalDegrees = valueInUnits(degrees).toDouble();
 
@@ -182,7 +179,7 @@ class Angle extends Quantity {
   /// may be either positive or negative; the other two values will be positive.
   ///
   List<double> get hrMinSec {
-    final List<double> hms = new List<double>.generate(3, null, growable: false);
+    final List<double> hms = new List<double>.generate(3, (_) => null, growable: false);
 
     final double decimalHours = valueInUnits(degrees).toDouble() / 15.0;
 

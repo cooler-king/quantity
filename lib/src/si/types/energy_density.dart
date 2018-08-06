@@ -18,7 +18,7 @@ class EnergyDensity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  EnergyDensity({dynamic joulesPerCubicMeter, double uncert: 0.0})
+  EnergyDensity({dynamic joulesPerCubicMeter, double uncert = 0.0})
       : super(joulesPerCubicMeter ?? 0.0, EnergyDensity.joulesPerCubicMeter, uncert);
 
   EnergyDensity._internal(dynamic conv) : super._internal(conv, EnergyDensity.energyDensityDimensions);
@@ -29,7 +29,7 @@ class EnergyDensity extends Quantity {
   EnergyDensity.inUnits(dynamic value, EnergyDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? EnergyDensity.joulesPerCubicMeter, uncert);
 
-  const EnergyDensity.constant(Number valueSI, {EnergyDensityUnits units, double uncert: 0.0})
+  const EnergyDensity.constant(Number valueSI, {EnergyDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, EnergyDensity.energyDensityDimensions, units, uncert);
 }
 

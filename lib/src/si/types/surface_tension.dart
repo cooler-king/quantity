@@ -18,7 +18,7 @@ class SurfaceTension extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  SurfaceTension({dynamic newtonsPerMeter, double uncert: 0.0})
+  SurfaceTension({dynamic newtonsPerMeter, double uncert = 0.0})
       : super(newtonsPerMeter ?? 0.0, SurfaceTension.newtonsPerMeter, uncert);
 
   SurfaceTension._internal(dynamic conv) : super._internal(conv, SurfaceTension.surfaceTensionDimensions);
@@ -29,7 +29,7 @@ class SurfaceTension extends Quantity {
   SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits units, [double uncert = 0.0])
       : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert);
 
-  const SurfaceTension.constant(Number valueSI, {SurfaceTensionUnits units, double uncert: 0.0})
+  const SurfaceTension.constant(Number valueSI, {SurfaceTensionUnits units, double uncert = 0.0})
       : super.constant(valueSI, SurfaceTension.surfaceTensionDimensions, units, uncert);
 }
 

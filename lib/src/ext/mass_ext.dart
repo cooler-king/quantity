@@ -1,69 +1,30 @@
 part of quantity_ext;
 
-// Metric units
-final MassUnits yottagrams = Mass.grams.yotta() as MassUnits;
-final MassUnits zettagrams = Mass.grams.zetta() as MassUnits;
-final MassUnits exagrams = Mass.grams.exa() as MassUnits;
-final MassUnits petagrams = Mass.grams.peta() as MassUnits;
-final MassUnits teragrams = Mass.grams.tera() as MassUnits;
-final MassUnits gigagrams = Mass.grams.giga() as MassUnits;
-final MassUnits megagrams = Mass.grams.mega() as MassUnits;
+// Useful metric units.
+
+/// A synonym for the standard SI-MKS unit of mass.
 final MassUnits kilograms = Mass.kilograms;
-final MassUnits hectograms = Mass.grams.hecto() as MassUnits;
-final MassUnits dekagrams = Mass.grams.deka() as MassUnits;
+
+/// A unit of one gram.
 final MassUnits grams = Mass.grams;
-final MassUnits decigrams = Mass.grams.deci() as MassUnits;
-final MassUnits centigrams = Mass.grams.centi() as MassUnits;
 
-/// One thousandth of a gram.
+/// A unit of one thousandth of a gram.
 final MassUnits milligrams = Mass.grams.milli() as MassUnits;
-final MassUnits micrograms = Mass.grams.micro() as MassUnits;
-final MassUnits nanograms = Mass.grams.nano() as MassUnits;
-final MassUnits picograms = Mass.grams.pico() as MassUnits;
-final MassUnits femtograms = Mass.grams.femto() as MassUnits;
-final MassUnits attograms = Mass.grams.atto() as MassUnits;
-final MassUnits zeptograms = Mass.grams.zepto() as MassUnits;
-final MassUnits yoctograms = Mass.grams.yocto() as MassUnits;
 
-// Metric abbreviations
+// Metric abbreviations.
 
-// ignore:non_constant_identifier_names
-final MassUnits Yg = yottagrams;
-
-
-// ignore:non_constant_identifier_names
-final MassUnits Zg = zettagrams;
-
-// ignore:non_constant_identifier_names
-final MassUnits Eg = exagrams;
-
-// ignore:non_constant_identifier_names
-final MassUnits Pg = petagrams;
-
-// ignore:non_constant_identifier_names
-final MassUnits Tg = teragrams;
-
-// ignore:non_constant_identifier_names
-final MassUnits Gg = gigagrams;
-
-// ignore:non_constant_identifier_names
-final MassUnits Mg = megagrams;
+/// Kilogram unit synonym.
 final MassUnits kg = kilograms;
-final MassUnits hg = hectograms;
-final MassUnits dag = dekagrams;
-final MassUnits g = grams; // ?
-final MassUnits dg = decigrams;
-final MassUnits cg = centigrams;
-final MassUnits mg = milligrams;
-//????final MassUnits micrograms = Mass.grams.micro();  // ug ???  mcg???
-final MassUnits ng = nanograms;
-final MassUnits pg = picograms;
-final MassUnits fg = femtograms;
-final MassUnits ag = attograms;
-final MassUnits zg = zeptograms;
-final MassUnits yg = yoctograms;
 
-// Convenience units
+/// Gram unit synonym.
+final MassUnits g = grams;
+
+/// Milligram unit synonym.
+final MassUnits mg = milligrams;
+
+// Convenience units.
+
+/// Microgram units.
 final MassUnits gammas = Mass.grams.micro() as MassUnits;
 
 /// Accepted for use with the SI.
@@ -75,7 +36,7 @@ final MassUnits tonnes = metricTons;
 /// Accepted for use with the SI.
 final MassUnits unifiedAtomicMassUnits = Mass.unifiedAtomicMassUnits;
 
-// non-SI mass units
+// Non-SI mass units.
 
 final MassUnits caratsMetric = new MassUnits('carats (metric)', null, null, 'carat (metric)', 2.0e-4, false);
 
@@ -122,7 +83,8 @@ final MassUnits tonsAssay = new MassUnits('tons (assay)', null, null, 'ton (assa
 
 final MassUnits kgfSecondSquaredMeter = new MassUnits('kgf second squared meter', null, null, null, 9.80665, false);
 
-// Constants
+// Constants.
+
 const Mass planckMass = const Mass.constant(const Double.constant(2.176470e-8), uncert: 2.3432438765523993e-5);
 const Mass alphaParticleMass =
     const Mass.constant(const Double.constant(6.644657230e-27), uncert: 1.2340741916645112e-8);

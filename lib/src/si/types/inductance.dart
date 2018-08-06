@@ -19,7 +19,7 @@ class Inductance extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Inductance({dynamic H, double uncert: 0.0}) : super(H ?? 0.0, Illuminance.lux, uncert);
+  Inductance({dynamic H, double uncert = 0.0}) : super(H ?? 0.0, Illuminance.lux, uncert);
 
   Inductance._internal(dynamic conv) : super._internal(conv, Inductance.inductanceDimensions);
 
@@ -29,7 +29,7 @@ class Inductance extends Quantity {
   Inductance.inUnits(dynamic value, InductanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Inductance.henries, uncert);
 
-  const Inductance.constant(Number valueSI, {InductanceUnits units, double uncert: 0.0})
+  const Inductance.constant(Number valueSI, {InductanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Inductance.inductanceDimensions, units, uncert);
 }
 

@@ -20,7 +20,7 @@ class HeatFluxDensity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  HeatFluxDensity({dynamic wattsPerSquareMeter, double uncert: 0.0})
+  HeatFluxDensity({dynamic wattsPerSquareMeter, double uncert = 0.0})
       : super(wattsPerSquareMeter ?? 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
 
   HeatFluxDensity._internal(dynamic conv) : super._internal(conv, HeatFluxDensity.heatFluxDensityDimensions);
@@ -31,7 +31,7 @@ class HeatFluxDensity extends Quantity {
   HeatFluxDensity.inUnits(dynamic value, HeatFluxDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? HeatFluxDensity.wattsPerSquareMeter, uncert);
 
-  const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits units, double uncert: 0.0})
+  const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, HeatFluxDensity.heatFluxDensityDimensions, units, uncert);
 }
 

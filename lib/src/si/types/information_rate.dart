@@ -32,7 +32,7 @@ class InformationRate extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  InformationRate({dynamic bps, dynamic kbps, dynamic Mbps, dynamic Gbps, dynamic Tbps, double uncert: 0.0})
+  InformationRate({dynamic bps, dynamic kbps, dynamic Mbps, dynamic Gbps, dynamic Tbps, double uncert = 0.0})
       : super(
             bps ?? (kbps ?? (Mbps ?? (Gbps ?? (Tbps ?? 0.0)))),
             kbps != null
@@ -52,7 +52,7 @@ class InformationRate extends Quantity {
   InformationRate.inUnits(dynamic value, InformationRateUnits units, [double uncert = 0.0])
       : super(value, units ?? InformationRate.bitsPerSecond, uncert);
 
-  const InformationRate.constant(Number valueSI, {InformationRateUnits units, double uncert: 0.0})
+  const InformationRate.constant(Number valueSI, {InformationRateUnits units, double uncert = 0.0})
       : super.constant(valueSI, InformationRate.informationRateDimensions, units, uncert);
 }
 

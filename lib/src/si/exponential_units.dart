@@ -28,7 +28,7 @@ class ExponentialUnits {
   /// Create new ExponentialUnits with the same values as [expUnits2].
   ExponentialUnits.copy(ExponentialUnits expUnits2) : this(expUnits2._units, expUnits2._exp);
 
-  ExponentialUnits get reciprocal => new ExponentialUnits(_units, (_exp * -1.0));
+  ExponentialUnits get reciprocal => new ExponentialUnits(_units, _exp * -1.0);
 
   /**
    * Creates and returns a new ExponentialUnits object in which the

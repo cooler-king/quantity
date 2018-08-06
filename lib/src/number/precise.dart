@@ -40,7 +40,7 @@ class Precise extends Real {
   ///     new Precise('-12.345')
   ///     new Precise('1.23456789e-6', sigDigits: 4)
   ///
-  Precise(String value, {int sigDigits: 50}) {
+  Precise(String value, {int sigDigits = 50}) {
     _precision = sigDigits;
     final String str = value.toLowerCase().trim();
     if (str.startsWith('-')) _neg = true;
@@ -78,7 +78,7 @@ class Precise extends Real {
     _limitPrecision();
   }
 
-  factory Precise.num(num value, {int sigDigits: 50}) =>
+  factory Precise.num(num value, {int sigDigits = 50}) =>
       value != null ? new Precise(value.toString(), sigDigits: sigDigits) : Precise.zero;
 
   factory Precise.fromMap(Map<String, String> m) =>
@@ -97,7 +97,7 @@ class Precise extends Real {
   ///
   /// Default [precision] is 50 digits.
   ///
-  Precise.raw(List<Digit> digits, {int power: 0, bool neg: false, int sigDigits: 50}) {
+  Precise.raw(List<Digit> digits, {int power = 0, bool neg = false, int sigDigits = 50}) {
     _precision = sigDigits;
     if (digits?.isNotEmpty == true) {
       _digits.addAll(digits);
@@ -342,7 +342,7 @@ class Precise extends Real {
     // Shift of decimal place
     int shift = 0;
     if (preciseDivisor._power < 0) {
-      shift = -(preciseDivisor._power);
+      shift = -preciseDivisor._power;
 
       // Convert divisor to integer
       preciseDivisor = new Precise.raw(preciseDivisor.digits);
@@ -428,11 +428,10 @@ class Precise extends Real {
   /// Less than operator.
   @override
   bool operator <(dynamic other) {
-    Precise p2 = toPrecise(other);
-    p2 ??= Precise.zero;
+    final Precise p2 = toPrecise(other) ?? Precise.zero;
     if (_neg && !p2._neg) return true;
     if (!_neg && p2._neg) return false;
-    final bool result = (_neg && p2._neg) ? false : true;
+    final bool result = !_neg || !p2._neg;
     final List<int> placeExtents = determinePlaceExtents(this, p2);
     for (int place = placeExtents[1]; place >= placeExtents[0]; place--) {
       final Digit d1 = digitAtPlace(place);
@@ -454,7 +453,7 @@ class Precise extends Real {
     p2 ??= Precise.zero;
     if (_neg && !p2._neg) return false;
     if (!_neg && p2._neg) return true;
-    final bool result = (_neg && p2._neg) ? false : true;
+    final bool result = !_neg || !p2._neg;
     final List<int> placeExtents = determinePlaceExtents(this, p2);
     for (int place = placeExtents[1]; place >= placeExtents[0]; place--) {
       final Digit d1 = digitAtPlace(place);

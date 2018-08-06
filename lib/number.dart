@@ -4,7 +4,6 @@
 /// The classes in this library can be used to model quantities having values with arbitrary precision
 /// as well as imaginary or complex numbers.  It is independent of the quantity classes and can be
 /// used in a purely mathematical context.
-///
 library number;
 
 import 'dart:math';

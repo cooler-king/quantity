@@ -70,20 +70,20 @@ class Imaginary extends Number {
     if (subtrahend is num)
       return new Complex(subtrahend is int ? new Integer(-subtrahend) : new Double(-subtrahend as double), this);
     if (subtrahend is Real) return new Complex(-subtrahend, this);
-    if (subtrahend is Complex) return new Complex(-subtrahend.real, (this - subtrahend.imaginary) as Imaginary);
+    if (subtrahend is Complex) return new Complex(-subtrahend.real, this - subtrahend.imaginary as Imaginary);
     if (subtrahend is Imaginary) return new Imaginary(value - subtrahend.value);
 
     return this;
   }
 
   @override
-  Number operator *(dynamic multiplier) {
+  Number operator *(dynamic multiplicand) {
     // i * i = -1
-    if (multiplier is Imaginary) return value * multiplier.value * -1;
-    if (multiplier is Complex)
-      return new Complex(value * multiplier.imag.toDouble() * -1.0 as Real, new Imaginary(value * multiplier.real));
-    if (multiplier is num) return new Imaginary(value * multiplier);
-    if (multiplier is Real) return new Imaginary(multiplier * value);
+    if (multiplicand is Imaginary) return value * multiplicand.value * -1;
+    if (multiplicand is Complex)
+      return new Complex(value * multiplicand.imag.toDouble() * -1.0 as Real, new Imaginary(value * multiplicand.real));
+    if (multiplicand is num) return new Imaginary(value * multiplicand);
+    if (multiplicand is Real) return new Imaginary(multiplicand * value);
 
     return new Imaginary(0);
   }
@@ -97,7 +97,7 @@ class Imaginary extends Number {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
       final Number bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return new Complex((bOverc2d2 * divisor.real) as Real, new Imaginary(bOverc2d2 * divisor.imaginary.value * -1.0));
+      return new Complex(bOverc2d2 * divisor.real as Real, new Imaginary(bOverc2d2 * divisor.imaginary.value * -1.0));
     }
 
     // Treat divisor as 0

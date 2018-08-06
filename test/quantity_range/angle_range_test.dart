@@ -131,6 +131,13 @@ void main() {
       expect(range.angleClosestTo(angle90), ang45);
       expect(range.angleClosestTo(angle180), ang45);
       expect(range.angleClosestTo(angle270), ang15);
+
+      // Flipped range.
+      final AngleRange rangeFlip = new AngleRange(ang45, ang15);
+      expect(rangeFlip.angleClosestTo(angle0), ang15);
+      expect(rangeFlip.angleClosestTo(angle90), ang45);
+      expect(rangeFlip.angleClosestTo(angle180), ang45);
+      expect(rangeFlip.angleClosestTo(angle270), ang15);
     });
 
     test('operator ==', () {

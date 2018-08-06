@@ -22,7 +22,7 @@ class DoseEquivalent extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  DoseEquivalent({dynamic Sv, dynamic rems, double uncert: 0.0})
+  DoseEquivalent({dynamic Sv, dynamic rems, double uncert = 0.0})
       : super(Sv != null ? Sv : (rems != null ? rems : 0.0),
             rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts, uncert);
 
@@ -34,7 +34,7 @@ class DoseEquivalent extends Quantity {
   DoseEquivalent.inUnits(dynamic value, DoseEquivalentUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : DoseEquivalent.seiverts, uncert);
 
-  const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits units, double uncert: 0.0})
+  const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits units, double uncert = 0.0})
       : super.constant(valueSI, DoseEquivalent.doseEquivalentDimensions, units, uncert);
 }
 

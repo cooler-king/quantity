@@ -23,7 +23,7 @@ class DynamicViscosity extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  DynamicViscosity({dynamic Pas, double uncert: 0.0}) : super(Pas ?? 0.0, DynamicViscosity.pascalSeconds, uncert);
+  DynamicViscosity({dynamic Pas, double uncert = 0.0}) : super(Pas ?? 0.0, DynamicViscosity.pascalSeconds, uncert);
 
   DynamicViscosity._internal(dynamic conv) : super._internal(conv, DynamicViscosity.dynamicViscosityDimensions);
 
@@ -33,7 +33,7 @@ class DynamicViscosity extends Quantity {
   DynamicViscosity.inUnits(dynamic value, DynamicViscosityUnits units, [double uncert = 0.0])
       : super(value, units ?? DynamicViscosity.pascalSeconds, uncert);
 
-  const DynamicViscosity.constant(Number valueSI, {DynamicViscosityUnits units, double uncert: 0.0})
+  const DynamicViscosity.constant(Number valueSI, {DynamicViscosityUnits units, double uncert = 0.0})
       : super.constant(valueSI, DynamicViscosity.dynamicViscosityDimensions, units, uncert);
 }
 

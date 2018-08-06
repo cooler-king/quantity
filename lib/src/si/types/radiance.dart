@@ -19,7 +19,7 @@ class Radiance extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Radiance({dynamic wattsPerSquareMeterSteradian, double uncert: 0.0})
+  Radiance({dynamic wattsPerSquareMeterSteradian, double uncert = 0.0})
       : super(wattsPerSquareMeterSteradian ?? 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
 
   Radiance._internal(dynamic conv) : super._internal(conv, Radiance.radianceDimensions);
@@ -30,7 +30,7 @@ class Radiance extends Quantity {
   Radiance.inUnits(dynamic value, RadianceUnits units, [double uncert = 0.0])
       : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert);
 
-  const Radiance.constant(Number valueSI, {RadianceUnits units, double uncert: 0.0})
+  const Radiance.constant(Number valueSI, {RadianceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Radiance.radianceDimensions, units, uncert);
 }
 

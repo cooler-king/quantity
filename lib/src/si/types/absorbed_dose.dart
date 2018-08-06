@@ -23,7 +23,7 @@ class AbsorbedDose extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  AbsorbedDose({dynamic Gy, dynamic rads, double uncert: 0.0})
+  AbsorbedDose({dynamic Gy, dynamic rads, double uncert = 0.0})
       : super(Gy ?? (rads ?? 0.0), rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert);
 
   AbsorbedDose._internal(dynamic conv) : super._internal(conv, AbsorbedDose.absorbedDoseDimensions);
@@ -34,7 +34,7 @@ class AbsorbedDose extends Quantity {
   AbsorbedDose.inUnits(dynamic value, AbsorbedDoseUnits units, [double uncert = 0.0])
       : super(value, units ?? AbsorbedDose.grays, uncert);
 
-  const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits units, double uncert: 0.0})
+  const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits units, double uncert = 0.0})
       : super.constant(valueSI, AbsorbedDose.absorbedDoseDimensions, units, uncert);
 }
 

@@ -17,7 +17,7 @@ class EnergyFlux extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  EnergyFlux({dynamic wattsPerSquareMeter, double uncert: 0.0}) : super(wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
+  EnergyFlux({dynamic wattsPerSquareMeter, double uncert = 0.0}) : super(wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
 
   EnergyFlux._internal(dynamic conv) : super._internal(conv, EnergyFlux.energyFluxDimensions);
 
@@ -27,7 +27,7 @@ class EnergyFlux extends Quantity {
   EnergyFlux.inUnits(dynamic value, EnergyFluxUnits units, [double uncert = 0.0])
       : super(value, units ?? EnergyFlux.wattsPerSquareMeter, uncert);
 
-  const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits units, double uncert: 0.0})
+  const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits units, double uncert = 0.0})
       : super.constant(valueSI, EnergyFlux.energyFluxDimensions, units, uncert);
 }
 

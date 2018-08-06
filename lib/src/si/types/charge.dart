@@ -18,7 +18,7 @@ class Charge extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Charge({dynamic C, double uncert: 0.0}) : super(C ?? 0.0, Charge.coulombs, uncert);
+  Charge({dynamic C, double uncert = 0.0}) : super(C ?? 0.0, Charge.coulombs, uncert);
 
   Charge._internal(dynamic conv) : super._internal(conv, Charge.electricChargeDimensions);
 
@@ -28,7 +28,7 @@ class Charge extends Quantity {
   Charge.inUnits(dynamic value, ChargeUnits units, [double uncert = 0.0])
       : super(value, units ?? Charge.coulombs, uncert);
 
-  const Charge.constant(Number valueSI, {ChargeUnits units, double uncert: 0.0})
+  const Charge.constant(Number valueSI, {ChargeUnits units, double uncert = 0.0})
       : super.constant(valueSI, Charge.electricChargeDimensions, units, uncert);
 }
 

@@ -18,7 +18,7 @@ class KinematicViscosity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  KinematicViscosity({dynamic metersSquaredPerSecond, double uncert: 0.0}) : super(metersSquaredPerSecond ?? 0.0, Illuminance.lux, uncert);
+  KinematicViscosity({dynamic metersSquaredPerSecond, double uncert = 0.0}) : super(metersSquaredPerSecond ?? 0.0, Illuminance.lux, uncert);
 
   KinematicViscosity._internal(dynamic conv) : super._internal(conv, KinematicViscosity.kinematicViscosityDimensions);
 
@@ -28,7 +28,7 @@ class KinematicViscosity extends Quantity {
   KinematicViscosity.inUnits(dynamic value, KinematicViscosityUnits units, [double uncert = 0.0])
       : super(value, units ?? KinematicViscosity.metersSquaredPerSecond, uncert);
 
-  const KinematicViscosity.constant(Number valueSI, {KinematicViscosityUnits units, double uncert: 0.0})
+  const KinematicViscosity.constant(Number valueSI, {KinematicViscosityUnits units, double uncert = 0.0})
       : super.constant(valueSI, KinematicViscosity.kinematicViscosityDimensions, units, uncert);
 }
 

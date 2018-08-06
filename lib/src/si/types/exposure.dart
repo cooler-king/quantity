@@ -20,7 +20,7 @@ class Exposure extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Exposure({dynamic coulombsPerKilogram, dynamic R, double uncert: 0.0})
+  Exposure({dynamic coulombsPerKilogram, dynamic R, double uncert = 0.0})
       : super(coulombsPerKilogram ?? (R ?? 0.0), R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram, uncert);
 
   Exposure._internal(dynamic conv) : super._internal(conv, Exposure.exposureDimensions);
@@ -31,7 +31,7 @@ class Exposure extends Quantity {
   Exposure.inUnits(dynamic value, ExposureUnits units, [double uncert = 0.0])
       : super(value, units ?? Exposure.coulombsPerKilogram, uncert);
 
-  const Exposure.constant(Number valueSI, {ExposureUnits units, double uncert: 0.0})
+  const Exposure.constant(Number valueSI, {ExposureUnits units, double uncert = 0.0})
       : super.constant(valueSI, Exposure.exposureDimensions, units, uncert);
 }
 

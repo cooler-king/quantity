@@ -18,7 +18,7 @@ class MassFluxDensity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MassFluxDensity({dynamic kilogramsPerSecondPerSquareMeter, double uncert: 0.0})
+  MassFluxDensity({dynamic kilogramsPerSecondPerSquareMeter, double uncert = 0.0})
       : super(kilogramsPerSecondPerSquareMeter ?? 0.0, MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
 
   MassFluxDensity._internal(dynamic conv) : super._internal(conv, MassFluxDensity.massFluxDensityDimensions);
@@ -29,7 +29,7 @@ class MassFluxDensity extends Quantity {
   MassFluxDensity.inUnits(dynamic value, MassFluxDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
 
-  const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits units, double uncert: 0.0})
+  const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, MassFluxDensity.massFluxDensityDimensions, units, uncert);
 }
 

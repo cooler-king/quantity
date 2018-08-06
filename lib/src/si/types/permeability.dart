@@ -22,7 +22,7 @@ class Permeability extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Permeability({dynamic henriesPerMeter, dynamic newtonsPerAmpereSquared, double uncert: 0.0})
+  Permeability({dynamic henriesPerMeter, dynamic newtonsPerAmpereSquared, double uncert = 0.0})
       : super(henriesPerMeter ?? (newtonsPerAmpereSquared ?? 0.0),
       newtonsPerAmpereSquared != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter, uncert);
 
@@ -34,7 +34,7 @@ class Permeability extends Quantity {
   Permeability.inUnits(dynamic value, PermeabilityUnits units, [double uncert = 0.0])
       : super(value, units ?? Permeability.henriesPerMeter, uncert);
 
-  const Permeability.constant(Number valueSI, {PermeabilityUnits units, double uncert: 0.0})
+  const Permeability.constant(Number valueSI, {PermeabilityUnits units, double uncert = 0.0})
       : super.constant(valueSI, Permeability.permeabilityDimensions, units, uncert);
 }
 

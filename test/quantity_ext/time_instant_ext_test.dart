@@ -25,7 +25,7 @@ void main() {
       expect(t1.valueInUnits(TAI), new Double(1234.567));
       expect(t1.valueInUnits(TDT), new Double(1266.751));
 
-      expect(areWithin((t1 - t2), new Time(s: 32.184), new Time(ns: 1)), true);
+      expect(areWithin(t1 - t2, new Time(s: 32.184), new Time(ns: 1)), true);
       expect(new TimeInstant(TAI: 0).valueInUnits(TDT), new Double(32.184));
 
       final TimeInstant t3 = new TimeInstant.inUnits(0, TDT);
@@ -44,7 +44,7 @@ void main() {
 
       expect(t1.valueInUnits(GPST), new Integer(1215));
 
-      expect(areWithin((t1 - t2), new Time(s: -19), new Time(ns: 1)), true);
+      expect(areWithin(t1 - t2, new Time(s: -19), new Time(ns: 1)), true);
 
       expect(new TimeInstant(TAI: 0).valueInUnits(GPST), new Integer(-19));
 

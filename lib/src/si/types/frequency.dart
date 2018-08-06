@@ -23,7 +23,7 @@ class Frequency extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  Frequency({dynamic Hz, dynamic kHz, dynamic MHz, dynamic GHz, double uncert: 0.0})
+  Frequency({dynamic Hz, dynamic kHz, dynamic MHz, dynamic GHz, double uncert = 0.0})
       : super(
             Hz ?? (kHz ?? (MHz ?? (GHz ?? 0.0))),
             kHz != null
@@ -39,7 +39,7 @@ class Frequency extends Quantity {
   Frequency.inUnits(dynamic value, FrequencyUnits units, [double uncert = 0.0])
       : super(value, units ?? Frequency.hertz, uncert);
 
-  const Frequency.constant(Number valueSI, {FrequencyUnits units, double uncert: 0.0})
+  const Frequency.constant(Number valueSI, {FrequencyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Frequency.frequencyDimensions, units, uncert);
 }
 

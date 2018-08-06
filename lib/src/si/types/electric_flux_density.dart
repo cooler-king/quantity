@@ -19,7 +19,7 @@ class ElectricFluxDensity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  ElectricFluxDensity({dynamic coulombsPerSquareMeter, double uncert: 0.0})
+  ElectricFluxDensity({dynamic coulombsPerSquareMeter, double uncert = 0.0})
       : super(coulombsPerSquareMeter ?? 0.0, ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
   ElectricFluxDensity._internal(dynamic conv)
@@ -31,7 +31,7 @@ class ElectricFluxDensity extends Quantity {
   ElectricFluxDensity.inUnits(dynamic value, ElectricFluxDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
-  const ElectricFluxDensity.constant(Number valueSI, {ElectricFluxDensityUnits units, double uncert: 0.0})
+  const ElectricFluxDensity.constant(Number valueSI, {ElectricFluxDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, ElectricFluxDensity.electricFluxDensityDimensions, units, uncert);
 }
 

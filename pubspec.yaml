@@ -1,11 +1,11 @@
 name: quantity
-version: 0.1.4
+version: 0.2.0
 description: Facilitates working with physical quantities.
 author: Rob Bishop (cooler-king)
 homepage: https://github.com/cooler-king/quantity
 documentation: https://github.com/cooler-king/quantity/wiki
 environment:
-  sdk: '>=1.24.3 <=2.0.0'
+  sdk: '>=1.24.3 <3.0.0'
 dependencies:
   dart2_constant: ^1.0.1+dart1
   intl: ^0.15.0

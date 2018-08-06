@@ -19,7 +19,7 @@ class Current extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Current({dynamic A, dynamic mA, double uncert: 0.0})
+  Current({dynamic A, dynamic mA, double uncert = 0.0})
       : super(A ?? (mA ?? 0.0), mA != null ? Current.milliamperes : Current.amperes, uncert);
 
   Current._internal(dynamic conv) : super._internal(conv, Current.electricCurrentDimensions);
@@ -30,7 +30,7 @@ class Current extends Quantity {
   Current.inUnits(dynamic value, CurrentUnits units, [double uncert = 0.0])
       : super(value, units ?? Current.amperes, uncert);
 
-  const Current.constant(Number valueSI, {CurrentUnits units, double uncert: 0.0})
+  const Current.constant(Number valueSI, {CurrentUnits units, double uncert = 0.0})
       : super.constant(valueSI, Current.electricCurrentDimensions, units, uncert);
 }
 

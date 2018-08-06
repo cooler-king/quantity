@@ -81,8 +81,8 @@ class Information extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   // ignore:non_constant_identifier_names
-  Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert: 0.0})
-      : super(bits ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0)))), Information.bits, uncert);
+  Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert = 0.0})
+      : super(bits ?? (B ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0))))), Information.bits, uncert);
 
   Information._internal(dynamic conv) : super._internal(conv, Information.informationDimensions);
 
@@ -92,7 +92,7 @@ class Information extends Quantity {
   Information.inUnits(dynamic value, InformationUnits units, [double uncert = 0.0])
       : super(value, units ?? Information.bits, uncert);
 
-  const Information.constant(Number valueSI, {InformationUnits units, double uncert: 0.0})
+  const Information.constant(Number valueSI, {InformationUnits units, double uncert = 0.0})
       : super.constant(valueSI, Information.informationDimensions, units, uncert);
 }
 

@@ -19,7 +19,7 @@ class ThermalConductivity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  ThermalConductivity({dynamic wattsPerMeterKelvin, double uncert: 0.0})
+  ThermalConductivity({dynamic wattsPerMeterKelvin, double uncert = 0.0})
       : super(wattsPerMeterKelvin ?? 0.0, ThermalConductivity.wattsPerMeterKelvin, uncert);
 
   ThermalConductivity._internal(dynamic conv)
@@ -31,7 +31,7 @@ class ThermalConductivity extends Quantity {
   ThermalConductivity.inUnits(dynamic value, ThermalConductivityUnits units, [double uncert = 0.0])
       : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert);
 
-  const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits units, double uncert: 0.0})
+  const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, ThermalConductivity.thermalConductivityDimensions, units, uncert);
 }
 

@@ -45,7 +45,7 @@ abstract class Level extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  Level({dynamic Np, double uncert: 0.0}) : super(Np ?? 0.0, Level.nepers, uncert);
+  Level({dynamic Np, double uncert = 0.0}) : super(Np ?? 0.0, Level.nepers, uncert);
 
   Level._internal(dynamic conv) : super._internal(conv, Level.levelDimensions);
 
@@ -54,7 +54,7 @@ abstract class Level extends Quantity {
   ///
   Level.inUnits(dynamic value, LevelUnits units, [double uncert = 0.0]) : super(value, units ?? Level.nepers, uncert);
 
-  const Level.constant(Number valueSI, {LevelUnits units, double uncert: 0.0})
+  const Level.constant(Number valueSI, {LevelUnits units, double uncert = 0.0})
       : super.constant(valueSI, Level.levelDimensions, units, uncert);
 }
 

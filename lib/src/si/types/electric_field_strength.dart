@@ -18,7 +18,7 @@ class ElectricFieldStrength extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  ElectricFieldStrength({dynamic voltsPerMeter, double uncert: 0.0})
+  ElectricFieldStrength({dynamic voltsPerMeter, double uncert = 0.0})
       : super(voltsPerMeter ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
   ElectricFieldStrength._internal(dynamic conv)
@@ -30,7 +30,7 @@ class ElectricFieldStrength extends Quantity {
   ElectricFieldStrength.inUnits(dynamic value, ElectricFieldStrengthUnits units, [double uncert = 0.0])
       : super(value, units ?? ElectricFieldStrength.voltsPerMeter, uncert);
 
-  const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits units, double uncert: 0.0})
+  const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits units, double uncert = 0.0})
       : super.constant(valueSI, ElectricFieldStrength.electricFieldStrengthDimensions, units, uncert);
 }
 

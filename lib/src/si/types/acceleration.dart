@@ -18,7 +18,7 @@ class Acceleration extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Acceleration({dynamic metersPerSecondSquared, double uncert: 0.0})
+  Acceleration({dynamic metersPerSecondSquared, double uncert = 0.0})
       : super(metersPerSecondSquared ?? 0.0, Acceleration.metersPerSecondSquared, uncert);
 
   Acceleration._internal(dynamic conv) : super._internal(conv, Acceleration.accelerationDimensions);
@@ -29,7 +29,7 @@ class Acceleration extends Quantity {
   Acceleration.inUnits(dynamic value, AccelerationUnits units, [double uncert = 0.0])
       : super(value, units ?? Acceleration.metersPerSecondSquared, uncert);
 
-  const Acceleration.constant(Number valueSI, {AccelerationUnits units, double uncert: 0.0})
+  const Acceleration.constant(Number valueSI, {AccelerationUnits units, double uncert = 0.0})
       : super.constant(valueSI, Acceleration.accelerationDimensions, units, uncert);
 }
 

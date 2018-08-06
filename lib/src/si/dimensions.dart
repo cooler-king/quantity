@@ -82,7 +82,7 @@ class Dimensions {
   /// object (which in turn contains only immutable objects of classes String and num).
   ///
   /// Any type hint is preserved by default but can be cleared by setting `includeTypeHint` to false.
-  Dimensions.copy(Dimensions d2, {bool includeTypeHint: true})
+  Dimensions.copy(Dimensions d2, {bool includeTypeHint = true})
       : _dimensionMap = new Map<String, num>.from(d2._dimensionMap),
         qType = includeTypeHint ? d2.qType : null;
 
@@ -146,7 +146,7 @@ class Dimensions {
     copy1._dimensionMap..remove(Dimensions.baseAngleKey)..remove(Dimensions.baseSolidAngleKey);
     copy2._dimensionMap..remove(Dimensions.baseAngleKey)..remove(Dimensions.baseSolidAngleKey);
 
-    return (copy1 == copy2);
+    return copy1 == copy2;
   }
 
   /// Whether or not these are scalar dimensions, including having no angle or

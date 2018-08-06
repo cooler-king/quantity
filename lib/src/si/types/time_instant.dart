@@ -133,7 +133,7 @@ class TimeInstant extends Quantity {
       // Make sure that adding in leap seconds didn't make it cross
       // another leap second threshold
       final num leap2 = getLeapSeconds(d as double);
-      if (leap2 != leap1) d += (leap2 - leap1);
+      if (leap2 != leap1) d += leap2 - leap1;
     }
 
     return new Double(d as double);
@@ -161,7 +161,7 @@ class TimeInstant extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   // ignore: non_constant_identifier_names
-  TimeInstant({dynamic TAI, dynamic UTC, double uncert: 0.0})
+  TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
       : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
 
   TimeInstant._internal(dynamic conv) : super._internal(conv, TimeInstant.timeInstantDimensions);
@@ -174,12 +174,12 @@ class TimeInstant extends Quantity {
 
   /// Constructs a constant TimeInstant object.
   ///
-  const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, double uncert: 0.0})
+  const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, double uncert = 0.0})
       : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
 
   /// Constructs a TimeInstant from an existing [dateTime] object.
   ///
-  TimeInstant.dateTime(DateTime dateTime, {double uncert: 0.0})
+  TimeInstant.dateTime(DateTime dateTime, {double uncert = 0.0})
       : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
 
   /// Returns a [DateTime] object that represents as closely as possible the time
@@ -247,8 +247,8 @@ class TimeInstant extends Quantity {
   }
 }
 
-typedef Number FromMksOverride(dynamic mks);
-typedef Number ToMksOverride(dynamic val);
+typedef FromMksOverride = Number Function(dynamic mks);
+typedef ToMksOverride = Number Function(dynamic val);
 
 /// Units acceptable for use in describing TimeInstant quantities.
 ///

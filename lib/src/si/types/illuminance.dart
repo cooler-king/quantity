@@ -18,7 +18,7 @@ class Illuminance extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Illuminance({dynamic lux, double uncert: 0.0}) : super(lux ?? 0.0, Illuminance.lux, uncert);
+  Illuminance({dynamic lux, double uncert = 0.0}) : super(lux ?? 0.0, Illuminance.lux, uncert);
 
   Illuminance._internal(dynamic conv) : super._internal(conv, Illuminance.illuminanceDimensions);
 
@@ -28,7 +28,7 @@ class Illuminance extends Quantity {
   Illuminance.inUnits(dynamic value, IlluminanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Illuminance.lux, uncert);
 
-  const Illuminance.constant(Number valueSI, {IlluminanceUnits units, double uncert: 0.0})
+  const Illuminance.constant(Number valueSI, {IlluminanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Illuminance.illuminanceDimensions, units, uncert);
 }
 

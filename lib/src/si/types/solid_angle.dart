@@ -17,7 +17,7 @@ class SolidAngle extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  SolidAngle({dynamic sr, double uncert: 0.0}) : super(sr ?? 0.0, SolidAngle.steradians, uncert);
+  SolidAngle({dynamic sr, double uncert = 0.0}) : super(sr ?? 0.0, SolidAngle.steradians, uncert);
 
   SolidAngle._internal(dynamic conv) : super._internal(conv, SolidAngle.solidAngleDimensions);
 

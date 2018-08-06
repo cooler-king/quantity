@@ -5,7 +5,7 @@ import 'package:quantity/number.dart';
 void main() {
   group('Integer', () {
     test('constants', () {
-      final Integer d = const Integer.constant(42);
+      const Integer d = const Integer.constant(42);
       expect(d.value, 42);
       expect(Integer.zero.value, 0);
       expect(Integer.one.value, 1);
@@ -49,36 +49,36 @@ void main() {
       final Integer d = new Integer(42);
 
       // + int
-      expect((d + 77) is Integer, true);
-      expect(((d + 77) as Integer).value == 119, true);
-      expect((d + -53) is Integer, true);
-      expect(((d + -53) as Integer).value == -11, true);
+      expect(d + 77 is Integer, true);
+      expect((d + 77 as Integer).value == 119, true);
+      expect(d + -53 is Integer, true);
+      expect((d + -53 as Integer).value == -11, true);
 
       // + double
-      expect((d + 6.5) is Double, true);
-      expect(((d + 6.5) as Double).value == 48.5, true);
-      expect((d + -12.3) is Double, true);
-      expect(((d + -12.3) as Double).value == 29.7, true);
+      expect(d + 6.5 is Double, true);
+      expect((d + 6.5 as Double).value == 48.5, true);
+      expect(d + -12.3 is Double, true);
+      expect((d + -12.3 as Double).value == 29.7, true);
 
       // + Integer
       final Integer d2 = new Integer(14);
-      expect((d + d2) is Integer, true);
-      expect(((d + d2) as Integer).value == 56, true);
+      expect(d + d2 is Integer, true);
+      expect((d + d2 as Integer).value == 56, true);
       final Integer d3 = new Integer(-901);
-      expect((d + d3) is Integer, true);
-      expect(((d + d3) as Integer).value == -859, true);
+      expect(d + d3 is Integer, true);
+      expect((d + d3 as Integer).value == -859, true);
 
       // + Imaginary
       final Imaginary i = new Imaginary(34.21);
-      expect((d + i) is Complex, true);
-      expect(((d + i) as Complex).real.value == 42, true);
+      expect(d + i is Complex, true);
+      expect((d + i as Complex).real.value == 42, true);
       // ignore: unrelated_type_equality_checks
-      expect(((d + i) as Complex).imag.value == 34.21, true);
+      expect((d + i as Complex).imag.value == 34.21, true);
       final Imaginary i2 = new Imaginary(-8);
-      expect((d + i2) is Complex, true);
-      expect(((d + i2) as Complex).real.value == 42, true);
+      expect(d + i2 is Complex, true);
+      expect((d + i2 as Complex).real.value == 42, true);
       // ignore: unrelated_type_equality_checks
-      expect(((d + i2) as Complex).imag.value == -8, true);
+      expect((d + i2 as Complex).imag.value == -8, true);
 
       // + Complex
       Complex cx = new Complex(new Double(2.1), new Imaginary(9.6));
@@ -94,11 +94,11 @@ void main() {
 
       // + Precise
       Precise p = new Precise('34.21');
-      expect((d + p) is Precise, true);
-      expect(((d + p) as Precise).value == 76.21, true);
+      expect(d + p is Precise, true);
+      expect((d + p as Precise).value == 76.21, true);
       p = new Precise('-21.7');
-      expect((d + p) is Precise, true);
-      expect(((d + p) as Precise).value == 20.3, true);
+      expect(d + p is Precise, true);
+      expect((d + p as Precise).value == 20.3, true);
     });
   });
 }

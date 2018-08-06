@@ -334,7 +334,7 @@ abstract class Units {
   bool operator ==(dynamic obj) {
     if (identical(this, obj)) return true;
 
-    if (obj is Units) return (singular == obj.singular && _convToMKS == obj._convToMKS);
+    if (obj is Units) return singular == obj.singular && _convToMKS == obj._convToMKS;
     return false;
   }
 
@@ -659,10 +659,10 @@ abstract class Units {
   ///
   Number fromMks(dynamic mks) {
     if (mks is num) {
-      if (offset == 0) return (new Double(mks.toDouble()) / _convToMKS);
+      if (offset == 0) return new Double(mks.toDouble()) / _convToMKS;
       return (new Double(mks.toDouble()) / _convToMKS) - objToNumber(offset);
     } else if (mks is Number) {
-      if (offset == 0) return (mks / _convToMKS);
+      if (offset == 0) return mks / _convToMKS;
       return (mks / _convToMKS) - objToNumber(offset);
     } else {
       throw const QuantityException('num or Number expected');

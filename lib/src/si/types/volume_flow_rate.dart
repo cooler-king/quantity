@@ -18,7 +18,7 @@ class VolumeFlowRate extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  VolumeFlowRate({dynamic cubicMetersPerSecond, double uncert: 0.0})
+  VolumeFlowRate({dynamic cubicMetersPerSecond, double uncert = 0.0})
       : super(cubicMetersPerSecond ?? 0.0, VolumeFlowRate.cubicMetersPerSecond, uncert);
 
   VolumeFlowRate._internal(dynamic conv) : super._internal(conv, VolumeFlowRate.volumeFlowRateDimensions);
@@ -29,7 +29,7 @@ class VolumeFlowRate extends Quantity {
   VolumeFlowRate.inUnits(dynamic value, VolumeFlowRateUnits units, [double uncert = 0.0])
       : super(value, units ?? VolumeFlowRate.cubicMetersPerSecond, uncert);
 
-  const VolumeFlowRate.constant(Number valueSI, {VolumeFlowRateUnits units, double uncert: 0.0})
+  const VolumeFlowRate.constant(Number valueSI, {VolumeFlowRateUnits units, double uncert = 0.0})
       : super.constant(valueSI, VolumeFlowRate.volumeFlowRateDimensions, units, uncert);
 }
 

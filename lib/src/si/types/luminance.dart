@@ -18,7 +18,7 @@ class Luminance extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Luminance({dynamic candelasPerSquareMeter, double uncert: 0.0})
+  Luminance({dynamic candelasPerSquareMeter, double uncert = 0.0})
       : super(candelasPerSquareMeter ?? 0.0, Luminance.candelasPerSquareMeter, uncert);
 
   Luminance._internal(dynamic conv) : super._internal(conv, Luminance.luminanceDimensions);
@@ -29,7 +29,7 @@ class Luminance extends Quantity {
   Luminance.inUnits(dynamic value, LuminanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Luminance.candelasPerSquareMeter, uncert);
 
-  const Luminance.constant(Number valueSI, {LuminanceUnits units, double uncert: 0.0})
+  const Luminance.constant(Number valueSI, {LuminanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Luminance.luminanceDimensions, units, uncert);
 }
 

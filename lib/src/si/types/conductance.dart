@@ -18,7 +18,7 @@ class Conductance extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Conductance({dynamic S, double uncert: 0.0}) : super(S ?? 0.0, Conductance.siemens, uncert);
+  Conductance({dynamic S, double uncert = 0.0}) : super(S ?? 0.0, Conductance.siemens, uncert);
 
   Conductance._internal(dynamic conv) : super._internal(conv, Conductance.electricConductanceDimensions);
 
@@ -28,7 +28,7 @@ class Conductance extends Quantity {
   Conductance.inUnits(dynamic value, ConductanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Conductance.siemens, uncert);
 
-  const Conductance.constant(Number valueSI, {ConductanceUnits units, double uncert: 0.0})
+  const Conductance.constant(Number valueSI, {ConductanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Conductance.electricConductanceDimensions, units, uncert);
 }
 

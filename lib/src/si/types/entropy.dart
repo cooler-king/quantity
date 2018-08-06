@@ -21,7 +21,7 @@ class Entropy extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Entropy({dynamic joulesPerKelvin, double uncert: 0.0}) : super(joulesPerKelvin ?? 0.0, Entropy.joulesPerKelvin, uncert);
+  Entropy({dynamic joulesPerKelvin, double uncert = 0.0}) : super(joulesPerKelvin ?? 0.0, Entropy.joulesPerKelvin, uncert);
 
   Entropy._internal(dynamic conv) : super._internal(conv, Entropy.entropyDimensions);
 
@@ -31,7 +31,7 @@ class Entropy extends Quantity {
   Entropy.inUnits(dynamic value, EntropyUnits units, [double uncert = 0.0])
       : super(value, units ?? Entropy.joulesPerKelvin, uncert);
 
-  const Entropy.constant(Number valueSI, {EntropyUnits units, double uncert: 0.0})
+  const Entropy.constant(Number valueSI, {EntropyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Entropy.entropyDimensions, units, uncert);
 }
 

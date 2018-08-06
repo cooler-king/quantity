@@ -18,7 +18,7 @@ class MagneticFluxDensity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MagneticFluxDensity({dynamic T, double uncert: 0.0}) : super(T ?? 0.0, MagneticFluxDensity.teslas, uncert);
+  MagneticFluxDensity({dynamic T, double uncert = 0.0}) : super(T ?? 0.0, MagneticFluxDensity.teslas, uncert);
 
   MagneticFluxDensity._internal(dynamic conv)
       : super._internal(conv, MagneticFluxDensity.magneticFluxDensityDimensions);
@@ -29,7 +29,7 @@ class MagneticFluxDensity extends Quantity {
   MagneticFluxDensity.inUnits(dynamic value, MagneticFluxDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? MagneticFluxDensity.teslas, uncert);
 
-  const MagneticFluxDensity.constant(Number valueSI, {MagneticFluxDensityUnits units, double uncert: 0.0})
+  const MagneticFluxDensity.constant(Number valueSI, {MagneticFluxDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFluxDensity.magneticFluxDensityDimensions, units, uncert);
 }
 

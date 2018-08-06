@@ -67,7 +67,7 @@ class AngleRange extends QuantityRange<Angle> {
     final Angle min360 = minValue.angle360;
     Angle max360 = maxValue.angle360;
     if (max360 < min360) {
-      max360 = (max360 + new Angle(rad: twoPi)) as Angle;
+      max360 = max360 + new Angle(rad: twoPi) as Angle;
       list1..add(new AngleRange(min360, new Angle(rad: twoPi)))..add(new AngleRange(new Angle(rad: 0), max360));
     } else {
       list1.add(new AngleRange(min360, max360));
@@ -108,9 +108,9 @@ class AngleRange extends QuantityRange<Angle> {
       end = temp;
     }
     if (scale != null) {
-      final Angle delta = ((end - start) * (scale / 2.0)) as Angle;
-      start = (centerValue - delta) as Angle;
-      end = (centerValue + delta) as Angle;
+      final Angle delta = (end - start) * (scale / 2.0) as Angle;
+      start = centerValue - delta as Angle;
+      end = centerValue + delta as Angle;
     }
     if (rotate != null) {
       final Angle newCenter = centerValue + rotate as Angle;
@@ -199,17 +199,23 @@ class AngleRange extends QuantityRange<Angle> {
       Angle closest;
       num minDeltaRad = angle360.mks.toDouble();
       final List<AngleRange> ranges = ranges360;
-      num deltaStartRad = 0;
-      num deltaEndRad = 0;
+      num deltaStartRad;
+      num deltaStartRadRev;
+      num deltaEndRad;
+      num deltaEndRadRev;
       for (AngleRange range in ranges) {
         deltaStartRad = (range.startAngle.mks.toDouble() - angRev0.mks.toDouble()).abs();
+        deltaStartRadRev = tau + range.startAngle.mks.toDouble() - angRev0.mks.toDouble();
+        deltaStartRad = min(deltaStartRad, deltaStartRadRev);
         deltaEndRad = (range.endAngle.mks.toDouble() - angRev0.mks.toDouble()).abs();
+        deltaEndRadRev = tau + range.endAngle.mks.toDouble() - angRev0.mks.toDouble();
+        deltaEndRad = min(deltaEndRad, deltaEndRadRev);
         if (deltaStartRad < minDeltaRad) {
-          closest = startAngle;
+          closest = range.startAngle;
           minDeltaRad = deltaStartRad;
         }
         if (deltaEndRad < minDeltaRad) {
-          closest = endAngle;
+          closest = range.endAngle;
           minDeltaRad = deltaEndRad;
         }
       }

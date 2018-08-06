@@ -18,7 +18,7 @@ class SpecificVolume extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  SpecificVolume({dynamic cubicMetersPerKilogram, double uncert: 0.0})
+  SpecificVolume({dynamic cubicMetersPerKilogram, double uncert = 0.0})
       : super(cubicMetersPerKilogram ?? 0.0, SpecificVolume.cubicMetersPerKilogram, uncert);
 
   SpecificVolume._internal(dynamic conv) : super._internal(conv, SpecificVolume.specificVolumeDimensions);
@@ -29,7 +29,7 @@ class SpecificVolume extends Quantity {
   SpecificVolume.inUnits(dynamic value, SpecificVolumeUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert);
 
-  const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits units, double uncert: 0.0})
+  const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpecificVolume.specificVolumeDimensions, units, uncert);
 }
 

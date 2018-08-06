@@ -6,7 +6,7 @@ import 'package:quantity/number.dart';
 void main() {
   group('Double', () {
     test('constants', () {
-      final Double d = const Double.constant(42.0);
+      const Double d = const Double.constant(42.0);
       expect(d.value, 42.0);
       expect(Double.zero.value, 0.0);
       expect(Double.one.value, 1.0);
@@ -19,9 +19,9 @@ void main() {
     });
 
     test('isNaN', () {
-      final Double d = const Double.constant(42.0);
-      final Double d2 = Double.NaN;
-      final Double d3 = Double.infinity;
+      const Double d = const Double.constant(42.0);
+      const Double d2 = Double.NaN;
+      const Double d3 = Double.infinity;
       final Double d4 = new Double(polyfill_core.double.nan);
 
       expect(d.isNaN, false);
@@ -80,13 +80,13 @@ void main() {
       expect((sum as Double).value.toDouble(), closeTo(36.956, 0.000001));
 
       // + Double
-      expect((d + d2) is Double, true);
-      expect(((d + d2) as Double).value, closeTo(56.377, 0.000001));
-      expect((d + 77.7777) is Double, true);
-      expect(((d + 77.7777) as Double).value, closeTo(119.8337, 0.000001));
+      expect(d + d2 is Double, true);
+      expect((d + d2 as Double).value, closeTo(56.377, 0.000001));
+      expect(d + 77.7777 is Double, true);
+      expect((d + 77.7777 as Double).value, closeTo(119.8337, 0.000001));
       final Double d3 = new Double(-1.4);
-      expect((d + d3) is Double, true);
-      expect(((d + d3) as Double).value, closeTo(40.656, 0.000001));
+      expect(d + d3 is Double, true);
+      expect((d + d3 as Double).value, closeTo(40.656, 0.000001));
 
       // + Integer
       Integer a = new Integer(4);
@@ -100,13 +100,13 @@ void main() {
 
       // + Imaginary
       Imaginary i = new Imaginary(34.21);
-      expect((d + i) is Complex, true);
-      expect(((d + i) as Complex).real.toDouble(), closeTo(42.056, 0.000001));
-      expect(((d + i) as Complex).imag.value.toDouble(), closeTo(34.21, 0.000001));
+      expect(d + i is Complex, true);
+      expect((d + i as Complex).real.toDouble(), closeTo(42.056, 0.000001));
+      expect((d + i as Complex).imag.value.toDouble(), closeTo(34.21, 0.000001));
       i = new Imaginary(-34.21);
-      expect((d + i) is Complex, true);
-      expect(((d + i) as Complex).real.toDouble(), closeTo(42.056, 0.000001));
-      expect(((d + i) as Complex).imag.value.toDouble(), closeTo(-34.21, 0.000001));
+      expect(d + i is Complex, true);
+      expect((d + i as Complex).real.toDouble(), closeTo(42.056, 0.000001));
+      expect((d + i as Complex).imag.value.toDouble(), closeTo(-34.21, 0.000001));
 
       // + Complex
       Complex cx = new Complex(new Double(2.1), new Imaginary(9.6));

@@ -30,7 +30,7 @@ class Currency extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
 
   // ignore:non_constant_identifier_names
-  Currency({dynamic USD, double uncert: 0.0}) : super(USD ?? 0.0, Currency.dollarsUS, uncert);
+  Currency({dynamic USD, double uncert = 0.0}) : super(USD ?? 0.0, Currency.dollarsUS, uncert);
 
   Currency._internal(dynamic conv) : super._internal(conv, Currency.currencyDimensions);
 
@@ -40,7 +40,7 @@ class Currency extends Quantity {
   Currency.inUnits(dynamic value, CurrencyUnits units, [double uncert = 0.0])
       : super(value, units ?? Currency.dollarsUS, uncert);
 
-  const Currency.constant(Number valueSI, {CurrencyUnits units, double uncert: 0.0})
+  const Currency.constant(Number valueSI, {CurrencyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Currency.currencyDimensions, units, uncert);
 }
 

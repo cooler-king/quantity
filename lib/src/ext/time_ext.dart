@@ -91,12 +91,15 @@ final TimeUnits days = daysMeanSolar;
 final TimeUnits daysSidereal =
     new TimeUnits('days (sidereal)', null, 'days (sid)', 'day (sidereal)', 8.6164090e4, false);
 
+/// A unit of one hour in the sidereal day.
 final TimeUnits hoursSidereal =
     new TimeUnits('hours (sidereal)', null, 'hr (sid)', 'hour (sidereal)', 3.5901704e3, false);
 
+/// A unit of one minute in the sidereal day.
 final TimeUnits minutesSidereal =
     new TimeUnits('minutes (sidereal)', null, 'min (sid)', 'minute (sidereal)', 5.9836174e1, false);
 
+/// A unit of one second in the sidereal day.
 final TimeUnits secondsSidereal =
     new TimeUnits('seconds (sidereal)', null, 's (sid)', 'second (sidereal)', 9.9726957e-1, false);
 
@@ -113,12 +116,13 @@ final TimeUnits yearsTropical =
 /// societies until some centuries ago, and from which the unit is named.
 final TimeUnits yearsJulian = new TimeUnits('years (Julian)', null, 'yr (Jul)', 'year (Julian)', 3.15576e7, false);
 
+/// A unit of one billion years.
 final TimeUnits aeons = new TimeUnits('aeons', null, 'aeons', null, 3.1536e18, false);
 
 /// A synonym for [aeons].
 final TimeUnits eons = aeons;
 
-// Constants
+// Constants.
 
 /// The time required for light to travel in a vacuum a distance of one Planck length.
 const Time planckTime = const Time.constant(const Double.constant(5.39116e-44), uncert: 2.411354884663041e-5);

@@ -22,7 +22,7 @@ class Energy extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Energy({dynamic J, dynamic eV, double uncert: 0.0})
+  Energy({dynamic J, dynamic eV, double uncert = 0.0})
       : super(J ?? (eV ?? 0.0), eV != null ? Energy.electronVolts : Energy.joules, uncert);
 
   Energy._internal(dynamic conv) : super._internal(conv, Energy.energyDimensions);
@@ -33,7 +33,7 @@ class Energy extends Quantity {
   Energy.inUnits(dynamic value, EnergyUnits units, [double uncert = 0.0])
       : super(value, units ?? Energy.joules, uncert);
 
-  const Energy.constant(Number valueSI, {EnergyUnits units, double uncert: 0.0})
+  const Energy.constant(Number valueSI, {EnergyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Energy.energyDimensions, units, uncert);
 
   /// Returns the [Mass] equivalent of this Energy using the famous E=mc^2 relationship.
@@ -42,7 +42,7 @@ class Energy extends Quantity {
       final Precise c = new Precise('2.99792458e8');
       return new Mass(kg: valueSI / (c * c), uncert: _ur);
     } else {
-      final double c = 2.99792458e8;
+      const double c = 2.99792458e8;
       return new Mass(kg: valueSI / (c * c), uncert: _ur);
     }
   }

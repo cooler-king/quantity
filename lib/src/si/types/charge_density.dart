@@ -18,7 +18,7 @@ class ChargeDensity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  ChargeDensity({dynamic coulombsPerCubicMeter, double uncert: 0.0})
+  ChargeDensity({dynamic coulombsPerCubicMeter, double uncert = 0.0})
       : super(coulombsPerCubicMeter ?? 0.0, ChargeDensity.coulombsPerCubicMeter, uncert);
 
   ChargeDensity._internal(dynamic conv) : super._internal(conv, ChargeDensity.electricChargeDensityDimensions);
@@ -29,7 +29,7 @@ class ChargeDensity extends Quantity {
   ChargeDensity.inUnits(dynamic value, ChargeDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? ChargeDensity.coulombsPerCubicMeter, uncert);
 
-  const ChargeDensity.constant(Number valueSI, {ChargeDensityUnits units, double uncert: 0.0})
+  const ChargeDensity.constant(Number valueSI, {ChargeDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, ChargeDensity.electricChargeDensityDimensions, units, uncert);
 }
 

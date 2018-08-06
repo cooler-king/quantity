@@ -24,7 +24,7 @@ class Power extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  Power({dynamic W, dynamic kW, dynamic MW, double uncert: 0.0})
+  Power({dynamic W, dynamic kW, dynamic MW, double uncert = 0.0})
       : super(W ?? (kW ?? (MW ?? 0.0)), kW != null ? Power.kilowatts : (MW != null ? Power.megawatts : Power.watts),
             uncert);
 
@@ -35,7 +35,7 @@ class Power extends Quantity {
   ///
   Power.inUnits(dynamic value, PowerUnits units, [double uncert = 0.0]) : super(value, units ?? Power.watts, uncert);
 
-  const Power.constant(Number valueSI, {PowerUnits units, double uncert: 0.0})
+  const Power.constant(Number valueSI, {PowerUnits units, double uncert = 0.0})
       : super.constant(valueSI, Power.powerDimensions, units, uncert);
 }
 
@@ -85,6 +85,6 @@ class PowerUnits extends Power with Units {
 }
 
 class RadiantFlux extends Power {
-  const RadiantFlux.constant(Number valueSI, {PowerUnits units, double uncert: 0.0})
+  const RadiantFlux.constant(Number valueSI, {PowerUnits units, double uncert = 0.0})
       : super.constant(valueSI, units: units, uncert: uncert);
 }

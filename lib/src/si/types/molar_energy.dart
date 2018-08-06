@@ -18,7 +18,7 @@ class MolarEnergy extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MolarEnergy({dynamic joulesPerMole, double uncert: 0.0}) : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert);
+  MolarEnergy({dynamic joulesPerMole, double uncert = 0.0}) : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert);
 
   MolarEnergy._internal(dynamic conv) : super._internal(conv, MolarEnergy.molarEnergyDimensions);
 
@@ -28,7 +28,7 @@ class MolarEnergy extends Quantity {
   MolarEnergy.inUnits(dynamic value, MolarEnergyUnits units, [double uncert = 0.0])
       : super(value, units ?? MolarEnergy.joulesPerMole, uncert);
 
-  const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits units, double uncert: 0.0})
+  const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits units, double uncert = 0.0})
       : super.constant(valueSI, MolarEnergy.molarEnergyDimensions, units, uncert);
 }
 

@@ -110,18 +110,18 @@ class Complex extends Number {
   }
 
   @override
-  Number operator *(dynamic multiplier) {
+  Number operator *(dynamic multiplicand) {
     // i * i = -1
-    if (multiplier is num) return new Complex(real * multiplier as Real, imaginary * multiplier as Imaginary);
-    if (multiplier is Real)
-      return new Complex(multiplier * real as Real, new Imaginary(multiplier.value * imaginary.value.toDouble()));
-    if (multiplier is Imaginary)
+    if (multiplicand is num) return new Complex(real * multiplicand as Real, imaginary * multiplicand as Imaginary);
+    if (multiplicand is Real)
+      return new Complex(multiplicand * real as Real, new Imaginary(multiplicand.value * imaginary.value.toDouble()));
+    if (multiplicand is Imaginary)
       // (0+bi)(c+di)=(-bd)+i(bc)
-      return new Complex(imaginary * multiplier.value * -1 as Real, real * multiplier.value as Imaginary);
-    if (multiplier is Complex)
+      return new Complex(imaginary * multiplicand.value * -1 as Real, real * multiplicand.value as Imaginary);
+    if (multiplicand is Complex)
       // (a+bi)(c+di)=(ac-bd)+i(ad+bc)
-      return new Complex(real * multiplier.real - imaginary * multiplier.imaginary as Real,
-          real * multiplier.imaginary + imaginary * multiplier.real as Imaginary);
+      return new Complex(real * multiplicand.real - imaginary * multiplicand.imaginary as Real,
+          real * multiplicand.imaginary + imaginary * multiplicand.real as Imaginary);
 
     // Treat multiplier as zero
     return Double.zero;
@@ -205,11 +205,11 @@ class Complex extends Number {
   Number operator ^(dynamic exponent) {
     if (exponent is num) {
       final double scaledPhase = exponent.toDouble() * phase.value;
-      final Number expModulus = (complexModulus ^ exponent);
+      final Number expModulus = complexModulus ^ exponent;
       return new Complex(expModulus * cos(scaledPhase) as Real, new Imaginary(expModulus * sin(scaledPhase)));
     } else if (exponent is Real) {
       final double scaledPhase = (exponent * phase.value).toDouble();
-      final Number expModulus = (complexModulus ^ exponent.value);
+      final Number expModulus = complexModulus ^ exponent.value;
       return new Complex(expModulus * cos(scaledPhase) as Real, new Imaginary(expModulus * sin(scaledPhase)));
     } else if (exponent is Complex) {
       //TODO see http://mathworld.wolfram.com/ComplexNumber.html
@@ -284,7 +284,7 @@ class Complex extends Number {
   Number reciprocal() {
     // (a - bi) / (a^2 + b^2)
     final num a2b2 = pow(real.value, 2) + pow(imaginary.value.value, 2);
-    return new Complex((real / a2b2) as Real, new Imaginary(imaginary.value / -a2b2));
+    return new Complex(real / a2b2 as Real, new Imaginary(imaginary.value / -a2b2));
   }
 
   /// Support [dart:json] stringify.

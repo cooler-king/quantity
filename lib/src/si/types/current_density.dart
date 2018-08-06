@@ -18,7 +18,7 @@ class CurrentDensity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  CurrentDensity({dynamic amperesPerSquareMeter, double uncert: 0.0})
+  CurrentDensity({dynamic amperesPerSquareMeter, double uncert = 0.0})
       : super(amperesPerSquareMeter ?? 0.0, CurrentDensity.amperesPerSquareMeter, uncert);
 
   CurrentDensity._internal(dynamic conv) : super._internal(conv, CurrentDensity.electricCurrentDensityDimensions);
@@ -29,7 +29,7 @@ class CurrentDensity extends Quantity {
   CurrentDensity.inUnits(dynamic value, CurrentDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? CurrentDensity.amperesPerSquareMeter, uncert);
 
-  const CurrentDensity.constant(Number valueSI, {CurrentDensityUnits units, double uncert: 0.0})
+  const CurrentDensity.constant(Number valueSI, {CurrentDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, CurrentDensity.electricCurrentDensityDimensions, units, uncert);
 }
 

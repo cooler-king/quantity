@@ -16,7 +16,7 @@ class WaveNumber extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  WaveNumber({dynamic reciprocalMeters, double uncert: 0.0})
+  WaveNumber({dynamic reciprocalMeters, double uncert = 0.0})
       : super(reciprocalMeters ?? 0.0, WaveNumber.reciprocalMeters, uncert);
 
   WaveNumber._internal(dynamic conv) : super._internal(conv, WaveNumber.waveNumberDimensions);
@@ -27,7 +27,7 @@ class WaveNumber extends Quantity {
   WaveNumber.inUnits(dynamic value, WaveNumberUnits units, [double uncert = 0.0])
       : super(value, units ?? WaveNumber.reciprocalMeters, uncert);
 
-  const WaveNumber.constant(Number valueSI, {WaveNumberUnits units, double uncert: 0.0})
+  const WaveNumber.constant(Number valueSI, {WaveNumberUnits units, double uncert = 0.0})
       : super.constant(valueSI, WaveNumber.waveNumberDimensions, units, uncert);
 }
 

@@ -191,14 +191,14 @@ abstract class Quantity implements Comparable<dynamic> {
 
     // Iterate on erf until we get a close enough match
     double delta = 1.0;
-    final double eps = 0.0001;
+    const double eps = 0.0001;
     double x = -4.0;
     int count = 0;
     while (count < 10000) {
       final double fx = erf(x);
       if ((fx - test).abs() < eps) {
         final double z = x * math.sqrt(2.0);
-        return (this + (standardUncertainty * z));
+        return this + (standardUncertainty * z);
       }
 
       // Reverse direction and halve it if past it
@@ -464,7 +464,7 @@ abstract class Quantity implements Comparable<dynamic> {
 
     if (obj is Quantity) {
       if (!(dimensions == obj.dimensions)) return false;
-      return (compareTo(obj) == 0);
+      return compareTo(obj) == 0;
     }
     return false;
   }
@@ -949,7 +949,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// been specified, then MKS units are used.  Uncertainty in the value of the
   /// Quantity is optionally shown as a plus/minus value in the same units.
   ///
-  void outputText(StringBuffer buffer, {bool showUncert: false, bool symbols: true, NumberFormat numberFormat}) {
+  void outputText(StringBuffer buffer, {bool showUncert = false, bool symbols = true, NumberFormat numberFormat}) {
     if (preferredUnits != null) {
       final Number val = preferredUnits.fromMks(mks);
 
@@ -1001,7 +1001,7 @@ abstract class Quantity implements Comparable<dynamic> {
     // Use value in preferred units, if available, for
     // better readability
 
-    if ((preferredUnits != null)) {
+    if (preferredUnits != null) {
       m['value'] = valueInUnits(preferredUnits).toJson();
       m['prefUnits'] = preferredUnits.name;
     }

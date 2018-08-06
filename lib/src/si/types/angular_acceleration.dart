@@ -23,7 +23,7 @@ class AngularAcceleration extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  AngularAcceleration({dynamic radiansPerSecondSquared, dynamic degreesPerSecondSquared, double uncert: 0.0})
+  AngularAcceleration({dynamic radiansPerSecondSquared, dynamic degreesPerSecondSquared, double uncert = 0.0})
       : super(radiansPerSecondSquared ?? (degreesPerSecondSquared ?? 0.0), AngularAcceleration.radiansPerSecondSquared, uncert);
 
   AngularAcceleration._internal(dynamic conv)
@@ -35,7 +35,7 @@ class AngularAcceleration extends Quantity {
   AngularAcceleration.inUnits(dynamic value, AngularAccelerationUnits units, [double uncert = 0.0])
       : super(value, units ?? AngularAcceleration.radiansPerSecondSquared, uncert);
 
-  const AngularAcceleration.constant(Number valueSI, {AngularAccelerationUnits units, double uncert: 0.0})
+  const AngularAcceleration.constant(Number valueSI, {AngularAccelerationUnits units, double uncert = 0.0})
       : super.constant(valueSI, AngularAcceleration.angularAccelerationDimensions, units, uncert);
 }
 

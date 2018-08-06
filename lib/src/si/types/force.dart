@@ -17,7 +17,7 @@ class Force extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Force({dynamic N, double uncert: 0.0}) : super(N ?? 0.0, Force.newtons, uncert);
+  Force({dynamic N, double uncert = 0.0}) : super(N ?? 0.0, Force.newtons, uncert);
 
   Force._internal(dynamic conv) : super._internal(conv, Force.forceDimensions);
 
@@ -26,7 +26,7 @@ class Force extends Quantity {
   ///
   Force.inUnits(dynamic value, ForceUnits units, [double uncert = 0.0]) : super(value, units ?? Force.newtons, uncert);
 
-  const Force.constant(Number valueSI, {ForceUnits units, double uncert: 0.0})
+  const Force.constant(Number valueSI, {ForceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Force.forceDimensions, units, uncert);
 
   Force.ma(Mass m, Acceleration a)

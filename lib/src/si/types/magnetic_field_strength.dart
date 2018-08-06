@@ -18,7 +18,7 @@ class MagneticFieldStrength extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MagneticFieldStrength({dynamic amperesPerMeter, double uncert: 0.0})
+  MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
       : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
   MagneticFieldStrength._internal(dynamic conv)
@@ -31,7 +31,7 @@ class MagneticFieldStrength extends Quantity {
       : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
 
   /// Constructs a constant MagneticFieldStrength.
-  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, double uncert: 0.0})
+  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFieldStrength.magneticFieldStrengthDimensions, units, uncert);
 }
 

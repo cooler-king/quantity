@@ -20,7 +20,7 @@ class Activity extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  Activity({dynamic Bq, dynamic Ci, double uncert: 0.0}) : super(Bq ?? (Ci ?? 0.0), Activity.becquerels, uncert);
+  Activity({dynamic Bq, dynamic Ci, double uncert = 0.0}) : super(Bq ?? (Ci ?? 0.0), Activity.becquerels, uncert);
 
   Activity._internal(dynamic conv) : super._internal(conv, Activity.activityDimensions);
 
@@ -30,7 +30,7 @@ class Activity extends Quantity {
   Activity.inUnits(dynamic value, ActivityUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : Activity.becquerels, uncert);
 
-  const Activity.constant(Number valueSI, {ActivityUnits units, double uncert: 0.0})
+  const Activity.constant(Number valueSI, {ActivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, Activity.activityDimensions, units, uncert);
 }
 

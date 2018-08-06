@@ -18,7 +18,7 @@ class MassDensity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MassDensity({dynamic kilogramsPerCubicMeter, double uncert: 0.0})
+  MassDensity({dynamic kilogramsPerCubicMeter, double uncert = 0.0})
       : super(kilogramsPerCubicMeter ?? 0.0, MassDensity.kilogramsPerCubicMeter, uncert);
 
   MassDensity._internal(dynamic conv) : super._internal(conv, MassDensity.massDensityDimensions);
@@ -29,7 +29,7 @@ class MassDensity extends Quantity {
   MassDensity.inUnits(dynamic value, MassDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? MassDensity.kilogramsPerCubicMeter, uncert);
 
-  const MassDensity.constant(Number valueSI, {MassDensityUnits units, double uncert: 0.0})
+  const MassDensity.constant(Number valueSI, {MassDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, MassDensity.massDensityDimensions, units, uncert);
 }
 

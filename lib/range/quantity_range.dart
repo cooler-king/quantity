@@ -34,7 +34,7 @@ class QuantityRange<Q extends Quantity> {
   Q get maxValue => _maxValue ??= (q1.valueSI > q2.valueSI) ? q1 : q2;
 
   /// The value at the center of the range.
-  Q get centerValue => _centerValue ??= ((q1 + q2) / 2.0) as Q;
+  Q get centerValue => _centerValue ??= (q1 + q2) / 2.0 as Q;
 
   /// The magnitude of the range.
   /// This value is always positive (or zero).  Get [delta] for the signed version of the range.

@@ -18,7 +18,7 @@ class MagneticFlux extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   // ignore: non_constant_identifier_names
-  MagneticFlux({dynamic Wb, double uncert: 0.0}) : super(Wb ?? 0.0, MagneticFlux.webers, uncert);
+  MagneticFlux({dynamic Wb, double uncert = 0.0}) : super(Wb ?? 0.0, MagneticFlux.webers, uncert);
 
   MagneticFlux._internal(dynamic conv) : super._internal(conv, MagneticFlux.magneticFluxDimensions);
 
@@ -28,7 +28,7 @@ class MagneticFlux extends Quantity {
   MagneticFlux.inUnits(dynamic value, MagneticFluxUnits units, [double uncert = 0.0])
       : super(value, units ?? MagneticFlux.webers, uncert);
 
-  const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits units, double uncert: 0.0})
+  const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFlux.magneticFluxDimensions, units, uncert);
 }
 

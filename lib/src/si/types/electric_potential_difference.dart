@@ -21,7 +21,7 @@ class ElectricPotentialDifference extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  ElectricPotentialDifference({dynamic V, double uncert: 0.0})
+  ElectricPotentialDifference({dynamic V, double uncert = 0.0})
       : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
 
   ElectricPotentialDifference._internal(dynamic conv)
@@ -34,7 +34,7 @@ class ElectricPotentialDifference extends Quantity {
       : super(value, units ?? ElectricPotentialDifference.volts, uncert);
 
   const ElectricPotentialDifference.constant(Number valueSI,
-      {ElectricPotentialDifferenceUnits units, double uncert: 0.0})
+      {ElectricPotentialDifferenceUnits units, double uncert = 0.0})
       : super.constant(valueSI, ElectricPotentialDifference.electricPotentialDifferenceDimensions, units, uncert);
 }
 

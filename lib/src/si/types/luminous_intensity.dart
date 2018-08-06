@@ -19,7 +19,7 @@ class LuminousIntensity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  LuminousIntensity({dynamic cd, double uncert: 0.0}) : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
+  LuminousIntensity({dynamic cd, double uncert = 0.0}) : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
 
   LuminousIntensity._internal(dynamic conv) : super._internal(conv, LuminousIntensity.luminousIntensityDimensions);
 
@@ -29,7 +29,7 @@ class LuminousIntensity extends Quantity {
   LuminousIntensity.inUnits(dynamic value, LuminousIntensityUnits units, [double uncert = 0.0])
       : super(value, units ?? LuminousIntensity.candelas, uncert);
 
-  const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits units, double uncert: 0.0})
+  const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, LuminousIntensity.luminousIntensityDimensions, units, uncert);
 }
 

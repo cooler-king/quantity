@@ -32,7 +32,7 @@ final LengthUnits hectometers = Length.meters.hecto() as LengthUnits;
 /// A unit of ten meters.
 final LengthUnits dekameters = Length.meters.deka() as LengthUnits;
 
-/// A synonym for the SI-MSH base unit of length.
+/// A synonym for the SI-MKS base unit of length.
 final LengthUnits meters = Length.meters;
 
 /// A unit of one tenth of a meter.

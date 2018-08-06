@@ -18,7 +18,7 @@ class Permittivity extends Quantity {
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Permittivity({dynamic faradsPerMeter, double uncert: 0.0}) : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert);
+  Permittivity({dynamic faradsPerMeter, double uncert = 0.0}) : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert);
 
   Permittivity._internal(dynamic conv) : super._internal(conv, Permittivity.permittivityDimensions);
 
@@ -28,7 +28,7 @@ class Permittivity extends Quantity {
   Permittivity.inUnits(dynamic value, PermittivityUnits units, [double uncert = 0.0])
       : super(value, units ?? Permittivity.faradsPerMeter, uncert);
 
-  const Permittivity.constant(Number valueSI, {PermittivityUnits units, double uncert: 0.0})
+  const Permittivity.constant(Number valueSI, {PermittivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, Permittivity.permittivityDimensions, units, uncert);
 }
 

@@ -17,7 +17,7 @@ class FiscalYear extends TimePeriod {
   final int _year;
 
   /// Constructs a new FiscalYear, optionally setting the month offset (which defaults to minus 3).
-  FiscalYear(int year, {int monthOffset: -3})
+  FiscalYear(int year, {int monthOffset = -3})
       : this._year = year,
         super(new TimeInstant.dateTime(new DateTime(yr4(year), 1 + monthOffset)),
             new TimeInstant.dateTime(new DateTime(yr4(year), 13 + monthOffset)));
