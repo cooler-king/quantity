@@ -4,7 +4,7 @@ part of quantity_si;
 /// convention, with which other particular quantities of the same kind
 /// (dimensions) are compared to express their value.
 ///
-/// The Units class respresents a unit and includes a name (plural), an optional
+/// The Units class represents a unit and includes a name (plural), an optional
 /// intermediate abbreviation, an optional symbol and an optional singular form.
 /// A Units object stores a conversion value (to convert a value to SI-MKS units)
 /// and dimensions.
@@ -18,16 +18,15 @@ part of quantity_si;
 /// and means also that units object _are quantity objects_ and can be used
 /// as quantity parameters.
 ///
-/// ## "Units" vs. "Unit"
+/// ## 'Units' vs. 'Unit'
 /// Precisely speaking, quantities are expressed as multiples of a particular
 /// unit (singular, not plural).  However, when the quantity's absolute value is
 /// greater than 1, the unit is pluralized when spoken.  For example, one says
-/// "five meters," not "five of the meter unit" or something along those lines.
+/// 'five meters,' not 'five of the meter unit' or something along those lines.
 /// Therefore, to make units easier to work with and program, this package calls
 /// this class Units and not Unit and defines all static
 /// unit objects with plural names (e.g., _meters_ vs. _meter_).  This leads to a
 /// more natural expression upon Quantity object creation and value manipulation.
-///
 abstract class Units {
   String name;
   String singular;
@@ -44,7 +43,7 @@ abstract class Units {
   double offset = 0.0;
 
   // Support for Compound Units
-  final List<ExponentialUnits> _units = [];
+  final List<ExponentialUnits> _units = <ExponentialUnits>[];
   //bool _temperatureOffset = false;  // temperature units with non-zero offset
 
   // String-->Units for efficiency
@@ -160,9 +159,9 @@ abstract class Units {
     //_processCompoundUnits(units);
     if(unitList == null || unitList.isEmpty) return;
 
-    String space = " ";
-    String caret = "^";
-    String plus = "+";
+    String space = ' ';
+    String caret = '^';
+    String plus = '+';
     Dimensions dim = new Dimensions();
 
     // Make a local copy of the Units list
@@ -173,7 +172,7 @@ abstract class Units {
     List<ExponentialUnits> components = getComponents(true,true);
 
     // Reorder components so that all positive exponents come before all
-    // negative exponents (for full names only; for the proper use of "per")
+    // negative exponents (for full names only; for the proper use of 'per')
     List fullNameComponents = new List.from(components);
     int posIndex = 0;
     bool first = true;
@@ -206,8 +205,8 @@ abstract class Units {
       // an offset)
       if(u is TemperatureUnits && (posIndex > 1 || exp != 1))  {
          throw new QuantityException(
-             "TemperatureUnits are not supported as part of compound units;"
-             " use TemperatureIntervalUnits instead.");
+             'TemperatureUnits are not supported as part of compound units;'
+             ' use TemperatureIntervalUnits instead.');
       }
 
       _convToMKS *= u._convToMKS ^ exp;
@@ -218,14 +217,14 @@ abstract class Units {
       double expValue = exp.toDouble();
       String singularName = u.singular;
       if(num == 1 && expValue == 1.0) singularName = u.name;  // use plural if alone and exponent is one
-      String prefix = "per ";
-      if(first) prefix = "reciprocal ";  // or "inverse "?
+      String prefix = 'per ';
+      if(first) prefix = 'reciprocal ';  // or 'inverse '?
 
       if(expValue < 0.0 && perUsed == false)
       {
          perUsed = true;
-         if(first) nameBuffer.write("reciprocal ");
-         else nameBuffer.write("per ");
+         if(first) nameBuffer.write('reciprocal ');
+         else nameBuffer.write('per ');
       }
 
       double absExp = expValue.abs();
@@ -233,31 +232,31 @@ abstract class Units {
       if(absExp == 1.0) nameBuffer.write(singularName);
       else if(absExp == 2.0)
       {
-         // SI convention is to use "squared" as a suffix, except for
-         // length units, where "square" may be used as a prefix
+         // SI convention is to use 'squared' as a suffix, except for
+         // length units, where 'square' may be used as a prefix
          // (e.g., seconds squared, square meters)
-         if(Dimensions.determineQuantityType(u.dimensions) == Length) nameBuffer.write("square $singularName");
-         else nameBuffer.write("$singularName squared");
+         if(Dimensions.determineQuantityType(u.dimensions) == Length) nameBuffer.write('square $singularName');
+         else nameBuffer.write('$singularName squared');
 
       } else if(absExp == 3.0) {
-         // SI convention is to use "cubed" as a suffix, except for
-         // length units, where "cubic" may be used as a prefix
+         // SI convention is to use 'cubed' as a suffix, except for
+         // length units, where 'cubic' may be used as a prefix
          // (e.g., seconds cubed, cubic meters)
-         if(Dimensions.determineQuantityType(u.dimensions) == Length) nameBuffer.write("cubic $singularName");
-         else nameBuffer.write("$singularName cubed");
+         if(Dimensions.determineQuantityType(u.dimensions) == Length) nameBuffer.write('cubic $singularName');
+         else nameBuffer.write('$singularName cubed');
 
       } else {
          nameBuffer.write(singularName);
-         nameBuffer.write(" to the ");
-         if(absExp == 4.0) nameBuffer.write("fourth");
-         else if(absExp == 5.0) nameBuffer.write("fifth");
-         else if(absExp == 6.0) nameBuffer.write("sixth");
-         else if(absExp == 7.0) nameBuffer.write("seventh");
-         else if(absExp == 8.0) nameBuffer.write("eighth");
-         else if(absExp == 9.0) nameBuffer.write("ninth");
-         else if(absExp == 10.0) nameBuffer.write("tenth");
-         else if(absExp == 11.0) nameBuffer.write("eleventh");
-         else if(absExp == 12.0) nameBuffer.write("twelfth");
+         nameBuffer.write(' to the ');
+         if(absExp == 4.0) nameBuffer.write('fourth');
+         else if(absExp == 5.0) nameBuffer.write('fifth');
+         else if(absExp == 6.0) nameBuffer.write('sixth');
+         else if(absExp == 7.0) nameBuffer.write('seventh');
+         else if(absExp == 8.0) nameBuffer.write('eighth');
+         else if(absExp == 9.0) nameBuffer.write('ninth');
+         else if(absExp == 10.0) nameBuffer.write('tenth');
+         else if(absExp == 11.0) nameBuffer.write('eleventh');
+         else if(absExp == 12.0) nameBuffer.write('twelfth');
          else nameBuffer.write(exp);
       }
 
@@ -330,17 +329,17 @@ abstract class Units {
 */
 
   /// Two units are considered equal if their conversions to MKS are equal and
-  /// theyhave the same singular name.
-  ///
-  bool operator ==(obj) {
-    if (obj == null) return false;
+  /// they have the same singular name.
+  @override
+  bool operator ==(dynamic obj) {
     if (identical(this, obj)) return true;
 
-    if (obj is Units) return (singular == obj.singular && _convToMKS == obj._convToMKS);
+    if (obj is Units) return singular == obj.singular && _convToMKS == obj._convToMKS;
     return false;
   }
 
-  int get hashCode => int.parse("${name.hashCode}54321${_convToMKS.hashCode}");
+  @override
+  int get hashCode => int.parse('${name.hashCode}54321${_convToMKS.hashCode}');
 
   /*
      Generates name, shortest name, shortest dialog name, singular name,
@@ -360,9 +359,9 @@ abstract class Units {
   void _processCompoundUnits(List<ExponentialUnits> list) {
    if(list == null) return;
 
-   String space = " ";
-   String caret = "^";
-   String plus = "+";
+   String space = ' ';
+   String caret = '^';
+   String plus = '+';
    Dimensions dim = new Dimensions();
 
    // Make a local copy of the Units list
@@ -373,7 +372,7 @@ abstract class Units {
    List<ExponentialUnits> components = getComponents(true,true);
 
    // Reorder components so that all positive exponents come before all
-   // negative exponents (for full names only; for the proper use of "per")
+   // negative exponents (for full names only; for the proper use of 'per')
    List fullNameComponents = new List.from(components);
    int posIndex = 0;
    bool first = true;
@@ -406,8 +405,8 @@ abstract class Units {
       // an offset)
       if(u is TemperatureUnits && (posIndex > 1 || exp != 1))  {
          throw new QuantityException(
-             "TemperatureUnits are not supported as part of compound units;"
-             " use TemperatureIntervalUnits instead.");
+             'TemperatureUnits are not supported as part of compound units;'
+             ' use TemperatureIntervalUnits instead.');
       }
 
       _convToMKS *= u._convToMKS ^ exp;
@@ -418,14 +417,14 @@ abstract class Units {
       double expValue = exp.toDouble();
       String singularName = u.singularName;
       if(num == 1 && expValue == 1.0) singularName = u.name;  // use plural if alone and exponent is one
-      String prefix = "per ";
-      if(i == 0) prefix = "reciprocal ";  // or "inverse "?
+      String prefix = 'per ';
+      if(i == 0) prefix = 'reciprocal ';  // or 'inverse '?
 
       if(expValue < 0.0 && perUsed == false)
       {
          perUsed = true;
-         if(i == 0) nameBuffer.write("reciprocal ");
-         else nameBuffer.write("per ");
+         if(i == 0) nameBuffer.write('reciprocal ');
+         else nameBuffer.write('per ');
       }
 
       double absExp = expValue.abs();
@@ -433,31 +432,31 @@ abstract class Units {
       if(absExp == 1.0) nameBuffer.write(singularName);
       else if(absExp == 2.0)
       {
-         // SI convention is to use "squared" as a suffix, except for
-         // length units, where "square" may be used as a prefix
+         // SI convention is to use 'squared' as a suffix, except for
+         // length units, where 'square' may be used as a prefix
          // (e.g., seconds squared, square meters)
-         if(u.determineQuantityType() == Length) nameBuffer.write("square $singularName");
-         else nameBuffer.write("$singularName squared");
+         if(u.determineQuantityType() == Length) nameBuffer.write('square $singularName');
+         else nameBuffer.write('$singularName squared');
 
       } else if(absExp == 3.0) {
-         // SI convention is to use "cubed" as a suffix, except for
-         // length units, where "cubic" may be used as a prefix
+         // SI convention is to use 'cubed' as a suffix, except for
+         // length units, where 'cubic' may be used as a prefix
          // (e.g., seconds cubed, cubic meters)
-         if(u.getQuantityType() == Length) nameBuffer.write("cubic $singularName");
-         else nameBuffer.write("$singularName cubed");
+         if(u.getQuantityType() == Length) nameBuffer.write('cubic $singularName');
+         else nameBuffer.write('$singularName cubed');
 
       } else {
          nameBuffer.write(singularName);
-         nameBuffer.write(" to the ");
-         if(absExp == 4.0) nameBuffer.write("fourth");
-         else if(absExp == 5.0) nameBuffer.write("fifth");
-         else if(absExp == 6.0) nameBuffer.write("sixth");
-         else if(absExp == 7.0) nameBuffer.write("seventh");
-         else if(absExp == 8.0) nameBuffer.write("eighth");
-         else if(absExp == 9.0) nameBuffer.write("ninth");
-         else if(absExp == 10.0) nameBuffer.write("tenth");
-         else if(absExp == 11.0) nameBuffer.write("eleventh");
-         else if(absExp == 12.0) nameBuffer.write("twelfth");
+         nameBuffer.write(' to the ');
+         if(absExp == 4.0) nameBuffer.write('fourth');
+         else if(absExp == 5.0) nameBuffer.write('fifth');
+         else if(absExp == 6.0) nameBuffer.write('sixth');
+         else if(absExp == 7.0) nameBuffer.write('seventh');
+         else if(absExp == 8.0) nameBuffer.write('eighth');
+         else if(absExp == 9.0) nameBuffer.write('ninth');
+         else if(absExp == 10.0) nameBuffer.write('tenth');
+         else if(absExp == 11.0) nameBuffer.write('eleventh');
+         else if(absExp == 12.0) nameBuffer.write('twelfth');
          else nameBuffer.write(exp);
       }
 
@@ -530,21 +529,20 @@ abstract class Units {
   /// Returns the components of these Units, with options to [fully] decompose
   /// any component Units that are in turn compound Units and [combine]
   /// components having the exact same units.
-  ///
   List<ExponentialUnits> getComponents(bool fully, bool combine) {
     if (_units == null) {
-      List<ExponentialUnits> list = new List<ExponentialUnits>();
+      final List<ExponentialUnits> list = <ExponentialUnits>[];
 
-      ExponentialUnits uwe = new ExponentialUnits(this, 1);
+      final ExponentialUnits uwe = new ExponentialUnits(this, 1);
       list.add(uwe);
 
       return list;
     } else {
-      List<ExponentialUnits> components = new List<ExponentialUnits>();
+      List<ExponentialUnits> components = <ExponentialUnits>[];
       if (fully) {
         for (ExponentialUnits uwe in _units) {
-          double exp = uwe._exp;
-          List<ExponentialUnits> subComps = uwe._units.getComponents(true, false);
+          final double exp = uwe._exp?.toDouble();
+          final List<ExponentialUnits> subComps = uwe._units.getComponents(true, false);
           for (ExponentialUnits uwe2 in subComps) {
             uwe2._exp *= exp;
           }
@@ -552,18 +550,17 @@ abstract class Units {
           components.addAll(subComps);
         }
       } else {
-        components = new List<ExponentialUnits>();
-        components.addAll(_units);
+        components = (<ExponentialUnits>[])..addAll(_units);
       }
 
       if (combine) {
         for (int k = components.length - 1; k > 0; k--) {
-          ExponentialUnits uwe = components[k];
+          final ExponentialUnits uwe = components[k];
           for (int n = 0; n < k; n++) {
-            ExponentialUnits uwe2 = components[n];
+            final ExponentialUnits uwe2 = components[n];
             if (uwe2._units == uwe._units) {
               uwe2._exp = uwe2._exp + uwe._exp;
-              components.remove(k);
+              components.removeAt(k);
               break;
             }
           }
@@ -571,8 +568,8 @@ abstract class Units {
 
         // Remove any zero exponents
         for (int p = components.length - 1; p > -1; p--) {
-          ExponentialUnits uwe = components[p];
-          if (uwe._exp == 0.0) components.remove(p);
+          final ExponentialUnits uwe = components[p];
+          if (uwe._exp == 0.0) components.removeAt(p);
         }
       }
 
@@ -592,7 +589,6 @@ abstract class Units {
   /// @param sing whether (true) or not (false) to return the singular form of
   ///               the full name in the case no suitable symbols/abbreviations are
   ///               available.
-  ///
   String getShortestName(bool sing) {
     if (_abbrev2 != null) return _abbrev2;
     if (_abbrev1 != null) return _abbrev1;
@@ -600,15 +596,14 @@ abstract class Units {
     return sing ? singular : name;
   }
 
-  /**
-   * Returns the shortest name for the units which will display in Dialog font.
-   * This will be the first non-null name found when inspecting symbol, alternate
-   * name and full name, in that order (so a non-null symbol will be returned by
-   * this method even it is longer than the alternate name).
-   *
-   * If sing is true, the singular form of the full name will be returned in the
-   * case no suitable symbols or abbreviations are available.
-   *
+  /// Returns the shortest name for the units which will display in Dialog font.
+  /// This will be the first non-null name found when inspecting symbol, alternate
+  /// name and full name, in that order (so a non-null symbol will be returned by
+  /// this method even it is longer than the alternate name).
+  ///
+  /// If sing is true, the singular form of the full name will be returned in the
+  /// case no suitable symbols or abbreviations are available.
+  /*
   String getShortestDialogName(bool sing) {
     if(sing) {
       String sh = getShortestName(true);
@@ -622,7 +617,7 @@ abstract class Units {
 
 //TODO UTF-32 values in Dart... plus  maybe these can be displayed now?  MathML?
   bool _canDisplayString(String str) {
-    int num = str.length;
+    final int num = str.length;
     String c;
     for (int i = 0; i < num; i++) {
       c = str[i];
@@ -647,12 +642,12 @@ abstract class Units {
   /// The method expects [value] to be a num or Number object; any other type will
   /// cause a [QuantityException].
   ///
-  Number toMks(value) {
+  Number toMks(dynamic value) {
     if (value is num || value is Number) {
       if (offset == 0) return _convToMKS * value;
       return (_convToMKS * value) + objToNumber(offset);
     } else {
-      throw new QuantityException("num or Number expected");
+      throw const QuantityException('num or Number expected');
     }
   }
 
@@ -662,15 +657,15 @@ abstract class Units {
   /// The method accepts a num or Number object; any other type will
   /// cause a [QuantityException].
   ///
-  Number fromMks(mks) {
+  Number fromMks(dynamic mks) {
     if (mks is num) {
-      if (offset == 0) return (new Double(mks) / _convToMKS);
-      return (new Double(mks) / _convToMKS) - objToNumber(offset);
+      if (offset == 0) return new Double(mks.toDouble()) / _convToMKS;
+      return (new Double(mks.toDouble()) / _convToMKS) - objToNumber(offset);
     } else if (mks is Number) {
-      if (offset == 0) return (mks / _convToMKS);
+      if (offset == 0) return mks / _convToMKS;
       return (mks / _convToMKS) - objToNumber(offset);
     } else {
-      throw new QuantityException("num or Number expected");
+      throw const QuantityException('num or Number expected');
     }
   }
 
@@ -822,73 +817,70 @@ e.printStackTrace();
 */
 
   /// Returns the derived Units having the 10^24 prefix, yotta (Y).
-  Units yotta() => derive("yotta", "Y", 1.0e24);
+  Units yotta() => derive('yotta', 'Y', 1.0e24);
 
   /// Returns the derived Units having the 10^21 prefix, zetta (Z).
-  Units zetta() => derive("zetta", "Z", 1.0e21);
+  Units zetta() => derive('zetta', 'Z', 1.0e21);
 
   /// Returns the derived Units having the 10^18 prefix, exa (E).
-  Units exa() => derive("exa", "E", 1.0e18);
+  Units exa() => derive('exa', 'E', 1.0e18);
 
   /// Returns the derived Units having the 10^15 prefix, peta (P).
-  Units peta() => derive("peta", "P", 1.0e15);
+  Units peta() => derive('peta', 'P', 1.0e15);
 
   /// Returns the derived Units having the 10^12 prefix, tera (T).
-  Units tera() => derive("tera", "T", 1.0e12);
+  Units tera() => derive('tera', 'T', 1.0e12);
 
   /// Returns the derived Units having the 10^9 prefix, giga (G).
-  Units giga() => derive("giga", "G", 1.0e9);
+  Units giga() => derive('giga', 'G', 1.0e9);
 
   /// Returns the derived Units having the 10^6 prefix, mega (M).
-  Units mega() => derive("mega", "M", 1.0e6);
+  Units mega() => derive('mega', 'M', 1.0e6);
 
   /// Returns the derived Units having the 10^3 (i.e., 1000) prefix, kilo (k).
-  Units kilo() => derive("kilo", "k", 1.0e3);
+  Units kilo() => derive('kilo', 'k', 1.0e3);
 
   ///  Returns the derived Units having the 10^2 (i.e., 100) prefix, hecto (h).
-  Units hecto() => derive("hecto", "h", 1.0e2);
+  Units hecto() => derive('hecto', 'h', 1.0e2);
 
   /// Returns the derived Units having the 10^1 (i.e. 10) prefix, deka (da).
-  Units deka() => derive("deka", "da", 1.0e1);
+  Units deka() => derive('deka', 'da', 1.0e1);
 
   /// Returns the derived Units having the 10^-1 (i.e., 0.1) prefix, deci (d).
-  Units deci() => derive("deci", "d", 1.0e-1);
+  Units deci() => derive('deci', 'd', 1.0e-1);
 
   /// Returns the derived Units having the 10^-2 (i.e., 0.01) prefix, centi (c).
-  Units centi() => derive("centi", "c", 1.0e-2);
+  Units centi() => derive('centi', 'c', 1.0e-2);
 
   /// Returns the derived Units having the 10^-3 (i.e., 0.001) prefix, milli (m).
-  Units milli() => derive("milli", "m", 1.0e-3);
+  Units milli() => derive('milli', 'm', 1.0e-3);
 
   /// Returns the derived Units having the 10^-6 prefix, micro (the symbol mu).
-  Units micro() => derive("micro", "\u00b5", 1.0e-6);
+  Units micro() => derive('micro', '\u00b5', 1.0e-6);
 
   /// Returns the derived Units having the 10^-9 prefix, nano (n).
-  Units nano() => derive("nano", "n", 1.0e-9);
+  Units nano() => derive('nano', 'n', 1.0e-9);
 
   /// Returns the derived Units having the 10^-12 prefix, pico (p).
-  Units pico() => derive("pico", "p", 1.0e-12);
+  Units pico() => derive('pico', 'p', 1.0e-12);
 
   /// Returns the derived Units having the 10^-15 prefix, femto (f).
-  Units femto() => derive("femto", "f", 1.0e-15);
+  Units femto() => derive('femto', 'f', 1.0e-15);
 
   /// Returns the derived Units having the 10^-18 prefix, atto (a).
-  Units atto() => derive("atto", "a", 1.0e-18);
+  Units atto() => derive('atto', 'a', 1.0e-18);
 
   /// Returns the derived Units having the 10^-21 prefix, zepto (z).
-  Units zepto() => derive("zepto", "z", 1.0e-21);
+  Units zepto() => derive('zepto', 'z', 1.0e-21);
 
   /// Returns the derived Units having the 10^-24 prefix, yocto (y).
-  Units yocto() => derive("yocto", "y", 1.0e-24);
+  Units yocto() => derive('yocto', 'y', 1.0e-24);
 
   /// Returns a String representation of the Units in the following format:
   ///
   ///    full name [MKS value]
-  ///
-  String toString() {
-    //String mksStr = super.toString();
-    return name + " [${_convToMKS}]";
-  }
+  @override
+  String toString() => '$name [$_convToMKS]';
 
   /**
    *  Parses a String into a Units object.  The parsing rules that this method
@@ -908,27 +900,27 @@ e.printStackTrace();
    *  * Metric prefixes are only considered legal for metric base units
    *      (e.g., km or kilometers will work; kilomiles will not)
    *  * Parentheses, brackets, braces and the like are ignored
-   *  * "per" and "/" indicate <b>ALL</b> the following unit exponent will be
-   *      multiplied by -1; multiple instances of "per" and/or "/" in a line will
+   *  * 'per' and '/' indicate <b>ALL</b> the following unit exponent will be
+   *      multiplied by -1; multiple instances of 'per' and/or '/' in a line will
    *      result in successive implicit multiplications by -1 of all the exponents
    *      that follow
-   *  * "inverse" indicates the following unit exponent will be multiplied by -1
-   *  * "reciprocal" indicates the following unit exponent will be multiplied by -1
-   *  * "square" indicates the following unit exponent will be multiplied by 2
-   *  * "squared" indicates the preceding unit exponent will be multiplied by 2
-   *  * "cubic" indicates the following unit exponent will be multiplied by 3
-   *  * "cubed" indicates the preceding unit exponent will be multiplied by 3
-   *  * "to the *" or "to the power of *" where * is either "first", "second",
-   *  "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "one",
-   *  "two", "three", "four", "five", "six", "seven", "eight", "nine" or a
+   *  * 'inverse' indicates the following unit exponent will be multiplied by -1
+   *  * 'reciprocal' indicates the following unit exponent will be multiplied by -1
+   *  * 'square' indicates the following unit exponent will be multiplied by 2
+   *  * 'squared' indicates the preceding unit exponent will be multiplied by 2
+   *  * 'cubic' indicates the following unit exponent will be multiplied by 3
+   *  * 'cubed' indicates the preceding unit exponent will be multiplied by 3
+   *  * 'to the *' or 'to the power of *' where * is either 'first', 'second',
+   *  'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'one',
+   *  'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' or a
    *  number indicates the preceding unit exponent will be multiplied by the
-   *  appropriate number.  "to the minus *" and "to the negative *", similarly,
+   *  appropriate number.  'to the minus *' and 'to the negative *', similarly,
    *  indicate that the preceding unit exponent will be multiplied by the negative
    *  of the number.
    *  * Multi-word units are not recognized; use the symbol, if available, instead
    *  * A failure to recognize any portion of the input String will result
    *      in an Exception being thrown
-   *  * Note that the non-metric unit "mils" is both an Angle unit and a Length unit;
+   *  * Note that the non-metric unit 'mils' is both an Angle unit and a Length unit;
    *      its use is discouraged; if used, this method's output will be indeterminate
    *  </ul>
    *
@@ -956,7 +948,7 @@ e.printStackTrace();
 
     // Pre-process:  put spaces around '/', '*' and in front of
     // '-', and any digit (if previous character was not a digit) and replace
-    // '^' and "+" with spaces.
+    // '^' and '+' with spaces.
     bool lastCharDigit = false;
     StringBuffer buffer = new StringBuffer();
     //int len = unitsStr.length;
@@ -964,21 +956,21 @@ e.printStackTrace();
       //int c = unitsStr.charCodeAt(i);
       if(   (c == '/'.codeUnitAt(0))  ||
             (c == '*')        ) {
-        buffer.write(" ");
+        buffer.write(' ');
         buffer.write(c);
-        buffer.write(" ");
+        buffer.write(' ');
          lastCharDigit = false;
       } else if(c == '-') {
-        buffer.write(" ");
+        buffer.write(' ');
         buffer.write(c);
          lastCharDigit = true;
       } else if( (c == '^')  ||
                (c == '+')  ||
                (c == '.')      ) {
-        buffer.write(" ");
+        buffer.write(' ');
          lastCharDigit = false;
       } else if(Character.isDigit(c) && lastCharDigit == false) {
-        buffer.write(" ");
+        buffer.write(' ');
         buffer.write(c);
          lastCharDigit = true;
       } else if(Character.isDigit(c) && lastCharDigit == true) {
@@ -995,52 +987,52 @@ e.printStackTrace();
     // Preprocess:  eliminate multiple spaces
     int index = 0;
     while(index != -1) {
-      index = str.indexOf("  ");
-      if(index != -1) preBuffer.replace(index, index+2," ");
-      str = str.replaceAll("  ", " ");
+      index = str.indexOf('  ');
+      if(index != -1) preBuffer.replace(index, index+2,' ');
+      str = str.replaceAll('  ', ' ');
     }
 
 
 
     // Preprocess:  replace first, second, third, etc. with number
-    str = str.replaceAll(" first", " 1");
+    str = str.replaceAll(' first', ' 1');
 
     // Since second is a unit name, add extra protection
-    str = str.replaceAll(" to the second", " 2");
-    str = str.replaceAll(" to the minus second", " -2");
+    str = str.replaceAll(' to the second', ' 2');
+    str = str.replaceAll(' to the minus second', ' -2');
 
-    str = str.replaceAll(" third", " 3");
-    str = str.replaceAll(" fourth", " 4");
-    str = str.replaceAll(" fifth", " 5");
-    str = str.replaceAll(" sixth", " 6");
-    str = str.replaceAll(" seventh", " 7");
-    str = str.replaceAll(" eighth", " 8");
-    str = str.replaceAll(" ninth", " 9");
+    str = str.replaceAll(' third', ' 3');
+    str = str.replaceAll(' fourth', ' 4');
+    str = str.replaceAll(' fifth', ' 5');
+    str = str.replaceAll(' sixth', ' 6');
+    str = str.replaceAll(' seventh', ' 7');
+    str = str.replaceAll(' eighth', ' 8');
+    str = str.replaceAll(' ninth', ' 9');
 
     // Preprocess:  replace one, two, three, etc. with number
-    str = str.replaceAll(" one", " 1");
-    str = str.replaceAll(" two", " 2");
-    str = str.replaceAll(" three", " 3");
-    str = str.replaceAll(" four", " 4");
-    str = str.replaceAll(" five", " 5");
-    str = str.replaceAll(" six", " 6");
-    str = str.replaceAll(" seven", " 7");
-    str = str.replaceAll(" eight", " 8");
-    str = str.replaceAll(" nine", " 9");
+    str = str.replaceAll(' one', ' 1');
+    str = str.replaceAll(' two', ' 2');
+    str = str.replaceAll(' three', ' 3');
+    str = str.replaceAll(' four', ' 4');
+    str = str.replaceAll(' five', ' 5');
+    str = str.replaceAll(' six', ' 6');
+    str = str.replaceAll(' seven', ' 7');
+    str = str.replaceAll(' eight', ' 8');
+    str = str.replaceAll(' nine', ' 9');
 
 
 
-    // Replace "minus " and "negative " with "-" (note deletion
+    // Replace 'minus ' and 'negative ' with '-' (note deletion
     // of trailing space so that the minus sign will be adjacent to the number)
-    str = str.replaceAll("minus ", "-");
-    str = str.replaceAll("negative ", "-");
-    str = str.replaceAll("neg ", "-");
+    str = str.replaceAll('minus ', '-');
+    str = str.replaceAll('negative ', '-');
+    str = str.replaceAll('neg ', '-');
 
 
-    // Remove any remaining " to ",  " to the " and " power of "
-    str = str.replaceAll(" power of ", " ");
-    str = str.replaceAll(" to the ", " ");
-    str = str.replaceAll(" to ", " ");
+    // Remove any remaining ' to ',  ' to the ' and ' power of '
+    str = str.replaceAll(' power of ', ' ');
+    str = str.replaceAll(' to the ', ' ');
+    str = str.replaceAll(' to ', ' ');
 
 
 
@@ -1055,7 +1047,7 @@ e.printStackTrace();
     // e.g., degrees Celsius, before degrees)
     //TODO use String.splitMapJoin
     List tokenList = new List();
-    StringTokenizer st = new StringTokenizer(unitsStr,"\r\n\t ()[]{}<>,.?!;:'\"\\=|~`@#$%&_");
+    StringTokenizer st = new StringTokenizer(unitsStr,'\r\n\t ()[]{}<>,.?!;:'\'\\=|~`@#$%&_');
     while(st.hasMoreTokens()) {
       tokenList.add(st.nextToken());
     }
@@ -1063,26 +1055,26 @@ e.printStackTrace();
     String nextToken = null;
     for(String token in tokenList) {
       // See if it's an exponent on its own
-      if(token.startsWith("+") || token.startsWith("-") || token.startsWith("^")) {
-        if(lastUnits == null) throw new QuantityException("Cannot parse units "
-            "string:  exponent must follow a units symbol or name");
+      if(token.startsWith('+') || token.startsWith('-') || token.startsWith('^')) {
+        if(lastUnits == null) throw new QuantityException('Cannot parse units '
+            'string:  exponent must follow a units symbol or name');
 
-        // "+" "-" or "^" separated from number by whitespace
+        // '+' '-' or '^' separated from number by whitespace
         if(token.length == 1) {
           if(st.hasMoreTokens() == false) throw new QuantityException(
-               "Cannot parse units string due to trailing $token");
+               'Cannot parse units string due to trailing $token');
 
 
           String t2 = st.nextToken();
           //TODO isDigit
           if(Character.isDigit(t2[0]) == false) throw new QuantityException(
-               "Cannot parse units string:  expected number after $token");
+               'Cannot parse units string:  expected number after $token');
 
           exp = double.parse(t2);
-          if(token.equals("-")) exp *= -1.0;
+          if(token.equals('-')) exp *= -1.0;
         } else {
           exp = double.parse(token.substring(1));
-          if(token.startsWith("-")) exp *= -1.0;
+          if(token.startsWith('-')) exp *= -1.0;
        }
 
        ExponentialUnits uwe = uweList[uweList.length-1];
@@ -1095,8 +1087,8 @@ e.printStackTrace();
 
      // Exponent without any +, - or ^ prefix
      else if(Character.isDigit(token.charAt(0))) {
-         if(lastUnits == null) throw new QuantityException("Cannot parse units " +
-            "string:  exponent must follow a units symbol or name");
+         if(lastUnits == null) throw new QuantityException('Cannot parse units ' +
+            'string:  exponent must follow a units symbol or name');
          else {
             exp *= double.parse(token);
 
@@ -1110,29 +1102,29 @@ e.printStackTrace();
 
 
       // Preceding qualifiers
-      //else if(token.equals("per")) exp *= -1.0;
-      else if(token == "per") implicitExp *= -1.0;
-      else if(token == "/") implicitExp *= -1.0;
-      else if(token.equals("*")) exp *= 1.0;
-      else if(token.equals("x")) exp *= 1.0;
-      else if(token.equals("inverse")) exp *= -1.0;
-      else if(token.equals("reciprocal")) exp *= -1.0;
-      else if(token.equals("square")) exp *= 2.0;
-      else if(token.equals("cubic")) exp *= 3.0;
+      //else if(token.equals('per')) exp *= -1.0;
+      else if(token == 'per') implicitExp *= -1.0;
+      else if(token == '/') implicitExp *= -1.0;
+      else if(token.equals('*')) exp *= 1.0;
+      else if(token.equals('x')) exp *= 1.0;
+      else if(token.equals('inverse')) exp *= -1.0;
+      else if(token.equals('reciprocal')) exp *= -1.0;
+      else if(token.equals('square')) exp *= 2.0;
+      else if(token.equals('cubic')) exp *= 3.0;
 
 
       // Following qualifiers
-      else if(token.equals("squared") || token.equals("cubed"))
+      else if(token.equals('squared') || token.equals('cubed'))
       {
          double postFactor = 1.0;
-         if(token.equals("squared")) postFactor *= 2.0;
-         else if(token.equals("cubed")) postFactor *= 3.0;
+         if(token.equals('squared')) postFactor *= 2.0;
+         else if(token.equals('cubed')) postFactor *= 3.0;
 
          // Adjust the UWE already in the list
          if(uweList.isEmpty)
          {
             throw new QuantityException(
-               "Cannot parse units string:  following qualifier (" + token + " without units name");
+               'Cannot parse units string:  following qualifier (' + token + ' without units name');
          }
 
          ExponentialUnits uwe = uweList[uweList.length-1];
@@ -1153,7 +1145,7 @@ e.printStackTrace();
           nextToken = null;
         }
         if(nextToken != null){
-          u = Units.getUnitsByName(null,token + " " + nextToken);
+          u = Units.getUnitsByName(null,token + ' ' + nextToken);
 
           // make sure the next token is skipped since it was used
           if(u != null) i++;
@@ -1170,7 +1162,7 @@ e.printStackTrace();
           lastUnits = u;
         } else {
           throw new QuantityException(
-               "Cannot parse units string:  unknown units name,  " + token);
+               'Cannot parse units string:  unknown units name,  ' + token);
         }
 
         // Reinit exp
@@ -1190,14 +1182,12 @@ e.printStackTrace();
   }
 */
 
-  /**
-   *   Searches for units that match either the full name or shortest name (symbol)
-   *  of unitStr.  If the type is not specified all known quantity types are searched.
-   *  Case is ignored in the full name search (but is important in the symbol search).
-   *     * @param type the Class of a Quantity type to search for the units; may be null
-   *  * @param unitStr the name of the Units (either full name or symbol) to
-   *                   search for; if null, will return null immediately
-   */
+  ///   Searches for units that match either the full name or shortest name (symbol)
+  ///  of unitStr.  If the type is not specified all known quantity types are searched.
+  ///  Case is ignored in the full name search (but is important in the symbol search).
+  ///     * @param type the Class of a Quantity type to search for the units; may be null
+  ///  * @param unitStr the name of the Units (either full name or symbol) to
+  ///                   search for; if null, will return null immediately
   //TODO restore getUnitsByName
   /*
   static Units getUnitsByName(String unitStr, [Type type]) {
@@ -1228,19 +1218,19 @@ e.printStackTrace();
 
   //TODO bug, should be .abs()???
   String unicodeExponent(int exp) {
-    String neg = exp < 0 ? "\u{207b}" : "";
+    final String neg = exp < 0 ? '\u{207b}' : '';
     if (exp == 2) {
-      return "${neg}\u{00b2}";
+      return '$neg\u{00b2}';
     } else if (exp == 3) {
-      return "${neg}\u{00b3}";
+      return '$neg\u{00b3}';
     }
-    //else if(exp.abs() < 10) return "${neg}\u{00b3}";
+    //else if(exp.abs() < 10) return '${neg}\u{00b3}';
 
     //TODO create a static array that holds unicode characters
 
     //TODO handle 10+, 100+ , 1000+, etc.
 
     // failed to find appropriate unicode characters
-    return exp < 0 ? "-${exp}" : "${exp}";
+    return exp < 0 ? '-$exp' : '$exp';
   }
 }

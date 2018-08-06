@@ -1,44 +1,97 @@
 part of number;
 
 /// The abstract base class for all Number types.
-///
-abstract class Number implements Comparable {
-  const Number.constant();
+abstract class Number implements Comparable<dynamic> {
+  /// The default constructor.
   Number();
+
+  /// Supports const constructors in concrete classes.
+  const Number.constant();
+
+  /// Detect the type of Number by inspecting map contents and create it.
+  /// Recognized formats are:
+  ///     {'i': int value}
+  ///     {'d': double value}
+  ///     {'pd': arbitrary precision string}
+  ///     {'real': {i or d map}, 'imag': {i or d map}}
+  ///     {'imag': {i or d map}}
+  ///
+  /// If the map contents are not recognized [Integer.zero] will be returned.
+  factory Number.fromMap(Map<String, dynamic> m) {
+    if (m.containsKey('d') && m['d'] is num) return new Double.fromMap(m as Map<String, num>);
+    if (m.containsKey('i') && m['i'] is int) return new Integer.fromMap(m as Map<String, int>);
+    if (m.containsKey('precise') && m['precise'] is Map<String, String>)
+      return new Precise.fromMap(m as Map<String, String>);
+    if (m.containsKey('real') && m is Map<String, Map<String, dynamic>>) return new Complex.fromMap(m);
+    if (m.containsKey('imag') && m is Map<String, Map<String, dynamic>>) return new Imaginary.fromMap(m);
+    return Integer.zero;
+  }
 
   // Abstract operators
 
   /// Two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
-  ///
-  bool operator ==(obj);
+  @override
+  bool operator ==(dynamic obj);
 
-  /// The hashcodes for two Numbers will be equal when the represented values are equal,
+  /// The hash codes for two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
   ///
   /// Additionally, Numbers having integer values will have the same hashcode as
   /// the corresponding dart:core `int`.
-  ///
+  @override
   int get hashCode;
 
-  Number operator +(addend);
+  /// Returns the sum of this Number and a Number or num.  This Number is unaffected.
+  Number operator +(dynamic addend);
+
+  /// Returns the negative of this Number.  This Number is unaffected.
   Number operator -();
-  Number operator -(subtrahend);
-  Number operator *(multiplicand);
-  Number operator /(divisor);
-  Number operator ~/(divisor);
-  Number operator %(divisor);
 
-  Number operator ^(exponent);
+  /// Returns the difference of this Number and the [subtrahend] (a Number or num).
+  /// This Number is unaffected.
+  Number operator -(dynamic subtrahend);
 
-  bool operator >(obj);
-  bool operator >=(obj);
-  bool operator <(obj);
-  bool operator <=(obj);
+  /// Returns the product of this Number and the [multiplicand] (a Number or num).
+  /// This Number is unaffected.
+  Number operator *(dynamic multiplicand);
 
-  // Mirror num's abstract properties
+  /// Returns the quotient of this Number divided by the [divisor] (a Number or num).
+  /// This Number is unaffected.
+  Number operator /(dynamic divisor);
+
+  /// Returns the quotient of this Number divided by the [divisor] (a Number or num)
+  /// truncated to an Integer.  This Number is unaffected.
+  Number operator ~/(dynamic divisor);
+
+  /// Returns the remainder after division of this Number by [divisor] (a Number or num).
+  Number operator %(dynamic divisor);
+
+  /// Returns this Number raised to the power of [exponent] (a Number or num).
+  /// This Number is unaffected.
+  Number operator ^(dynamic exponent);
+
+  /// Returns whether the value of this Number is greater than the value of obj (a Number or num).
+  bool operator >(dynamic obj);
+
+  /// Returns whether the value of this Number is greater than or equal to the value of obj (a Number or num).
+  bool operator >=(dynamic obj);
+
+  /// Returns whether the value of this Number is less than the value of obj (a Number or num).
+  bool operator <(dynamic obj);
+
+  /// Returns whether the value of this Number is less than or equal to the value of obj (a Number or num).
+  bool operator <=(dynamic obj);
+
+  // Mirror num's abstract properties.
+
+  /// Whether this Number represents a finite value.
   bool get isFinite => !isInfinite;
+
+  /// Whether this Number represents infinity.
   bool get isInfinite;
+
+  /// Whether this Number represents a value .
   bool get isNaN;
   bool get isNegative;
 
@@ -50,9 +103,9 @@ abstract class Number implements Comparable {
   /// Returns an `int` if this Number's value is an integer, a `double` otherwise.
   ///
   num get sign {
-    if (isNaN) return double.NAN;
+    if (isNaN) return polyfill_core.double.nan;
     if (isNegative) return isInteger ? -1 : -1.0;
-    if (this == 0) return isInteger ? 0 : 0.0;
+    if (toDouble() == 0) return isInteger ? 0 : 0.0;
     return isInteger ? 1 : 1.0;
   }
 
@@ -71,7 +124,7 @@ abstract class Number implements Comparable {
   ///
   /// `lowerLimit` and `upperLimit` are expected to be `num` or `Number' objects.
   ///
-  Number clamp(lowerLimit, upperLimit);
+  Number clamp(dynamic lowerLimit, dynamic upperLimit);
 
   /// Returns the greatest Number with an integer value no greater than this Number.
   ///
@@ -84,7 +137,7 @@ abstract class Number implements Comparable {
   /// The result r of this operation satisfies: this == (this ~/ other) * other + r.
   /// As a consequence the remainder r has the same sign as the [operator /(divisor)].
   ///
-  Number remainder(divisor);
+  Number remainder(dynamic divisor);
 
   /// Returns the integer Number closest to this Number.
   ///
@@ -95,22 +148,26 @@ abstract class Number implements Comparable {
   ///
   Number round();
 
+  /// Converts this Number to a `dart:core int`.
   int toInt();
+
+  /// Converts this Number to a `dart:core double`.
   double toDouble();
   Number truncate();
 
-  // Add some of our own
+  // Add some of our own.
+
+  /// Returns the Number that is the reciprocal of this Number.
+  /// This Number is unaffected.
   Number reciprocal();
 
   /// Subclasses must support dart:json for stringify.
-  ///
-  Map toJson();
+  Map<String, dynamic> toJson();
 
   /// True if the Number represents an integer value.
   ///
   /// Note that the Number does not have to be of type
   /// Integer for this to be true.
-  ///
   bool get isInteger;
 
   /// Compares this Number to another Number by comparing values.
@@ -118,21 +175,12 @@ abstract class Number implements Comparable {
   /// [n2] is expected to be a num or Number.  If it is not it will
   /// be considered to have a value of 0.
   ///
-  int compareTo(Comparable n2) {
-    if (n2 is Number) return Comparable.compare(this.toDouble(), n2.toDouble());
-    if (n2 is num) return Comparable.compare(this.toDouble(), n2);
+  @override
+  int compareTo(dynamic n2) {
+    if (n2 is Number) return Comparable.compare(toDouble(), n2.toDouble());
+    if (n2 is num) return Comparable.compare(toDouble(), n2);
 
     // If n2 is not a num or Number, treat it as a zero
-    return Comparable.compare(this.toDouble(), 0);
-  }
-
-  /// Detect the type of Number by inspecting
-  /// map contents and create it.
-  ///
-  static Number _fromMap(Map m) {
-    if (m.containsKey("imag")) return new Imaginary.fromMap(m);
-    if (m.containsKey("real")) return new Complex.fromMap(m);
-    if (m.containsKey("pd")) return null; //return new Precise()
-    return Integer.zero;
+    return Comparable.compare(toDouble(), 0);
   }
 }

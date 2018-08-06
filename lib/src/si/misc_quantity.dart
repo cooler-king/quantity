@@ -21,7 +21,7 @@ class MiscQuantity extends Quantity {
   MiscQuantity([dynamic value = 0.0, Dimensions dim = Scalar.scalarDimensions, double uncert = 0.0])
       : super._internal(value, dim, uncert);
 
-  const MiscQuantity.constant(Number valueSI, Dimensions dim, {Units units, num uncert: 0.0})
+  const MiscQuantity.constant(Number valueSI, Dimensions dim, {Units units, double uncert = 0.0})
       : super.constant(valueSI, dim, units, uncert);
 
   ///  Gets this quantity's value in [units].
@@ -34,7 +34,7 @@ class MiscQuantity extends Quantity {
   ///
   Number getValue(Units units) {
     if (dimensions != (units as Quantity).dimensions) {
-      throw new DimensionsException("The units provided do not have proper dimensions for this Quantity.");
+      throw new DimensionsException('The units provided do not have proper dimensions for this Quantity.');
     }
     return super.valueInUnits(units);
   }

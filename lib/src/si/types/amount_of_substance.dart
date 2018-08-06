@@ -8,31 +8,31 @@ part of quantity_si;
 class AmountOfSubstance extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions amountOfSubstanceDimensions =
-      const Dimensions.constant(const {"Amount": 1}, type: AmountOfSubstance);
+      const Dimensions.constant(const <String, int>{'Amount': 1}, qType: AmountOfSubstance);
 
   /// The standard SI unit.
-  static final AmountOfSubstanceUnits moles = new AmountOfSubstanceUnits("moles", null, "mol", null, 1.0, true);
+  static final AmountOfSubstanceUnits moles = new AmountOfSubstanceUnits('moles', null, 'mol', null, 1.0, true);
 
   /// A common metric derivative of the standard SI unit.
-  static final AmountOfSubstanceUnits kilomoles = moles.kilo();
+  static final AmountOfSubstanceUnits kilomoles = moles.kilo() as AmountOfSubstanceUnits;
 
   /// Construct an AmountOfSubstance with moles ([mol])
   /// or kilomoles ([kmol]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  AmountOfSubstance({dynamic mol, dynamic kmol, double uncert: 0.0})
+  AmountOfSubstance({dynamic mol, dynamic kmol, double uncert = 0.0})
       : super(mol ?? (kmol ?? 0.0), kmol != null ? AmountOfSubstance.kilomoles : AmountOfSubstance.moles, uncert);
 
-  AmountOfSubstance._internal(conv) : super._internal(conv, AmountOfSubstance.amountOfSubstanceDimensions);
+  AmountOfSubstance._internal(dynamic conv) : super._internal(conv, AmountOfSubstance.amountOfSubstanceDimensions);
 
   /// Constructs a AmountOfSubstance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  AmountOfSubstance.inUnits(value, AmountOfSubstanceUnits units, [double uncert = 0.0])
+  AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits units, [double uncert = 0.0])
       : super(value, units ?? AmountOfSubstance.moles, uncert);
 
-  const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits units, num uncert: 0.0})
+  const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, AmountOfSubstance.amountOfSubstanceDimensions, units, uncert);
 }
 
@@ -44,26 +44,27 @@ class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => AmountOfSubstance;
 
   /// Derive new AmountOfSubstanceUnits using this AmountOfSubstanceUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new AmountOfSubstanceUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new AmountOfSubstanceUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
-  }
+        offset);
+  
 }

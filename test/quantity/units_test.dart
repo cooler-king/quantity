@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('units', () {
     /*
     test('constructors', () {

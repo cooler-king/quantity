@@ -1,3 +1,8 @@
+### 0.2.0+1
+  * Dart 2 support.
+  * Stricter typing.
+  * Addressed many (but not all) analyzer items.
+
 ### 0.1.5
   * Upgraded dependencies:  `intl 0.14` and `quiver 0.23`
 

@@ -11,29 +11,31 @@ part of quantity_si;
 class Pressure extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions pressureDimensions =
-      const Dimensions.constant(const {"Length": -1, "Mass": 1, "Time": -2}, type: Pressure);
+      const Dimensions.constant(const <String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: Pressure);
 
   /// The standard SI unit.
-  static final PressureUnits pascals = new PressureUnits("pascals", null, "Pa", null, 1.0, true);
+  static final PressureUnits pascals = new PressureUnits('pascals', null, 'Pa', null, 1.0, true);
 
   /// Accepted for use with the SI, subject to further review.
-  static final PressureUnits bars = new PressureUnits("bars", null, null, null, 1.0e5, true);
+  static final PressureUnits bars = new PressureUnits('bars', null, null, null, 1.0e5, true);
 
   /// Construct a pressure with pascals ([Pa]) or [bars].
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Pressure({dynamic Pa, dynamic bars, double uncert: 0.0})
+  // ignore: non_constant_identifier_names
+  Pressure({dynamic Pa, dynamic bars, double uncert = 0.0})
       : super(Pa ?? (bars ?? 0.0), bars != null ? Pressure.bars : Pressure.pascals, uncert);
 
-  Pressure._internal(conv) : super._internal(conv, Pressure.pressureDimensions);
+  Pressure._internal(dynamic conv) : super._internal(conv, Pressure.pressureDimensions);
 
   /// Constructs a Pressure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Pressure.inUnits(value, PressureUnits units, [double uncert = 0.0]) : super(value, units ?? Pressure.pascals, uncert);
+  Pressure.inUnits(dynamic value, PressureUnits units, [double uncert = 0.0])
+      : super(value, units ?? Pressure.pascals, uncert);
 
-  const Pressure.constant(Number valueSI, {PressureUnits units, num uncert: 0.0})
+  const Pressure.constant(Number valueSI, {PressureUnits units, double uncert = 0.0})
       : super.constant(valueSI, Pressure.pressureDimensions, units, uncert);
 }
 
@@ -45,36 +47,37 @@ class PressureUnits extends Pressure with Units {
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   PressureUnits.forceArea(ForceUnits fu, AreaUnits au) : super._internal(fu.valueSI * au.valueSI) {
-    this.name = "${fu.name} per ${au.singular}";
-    this.singular = "${fu.singular} per ${au.singular}";
-    this._convToMKS = fu.valueSI * au.valueSI;
-    this._abbrev1 = fu._abbrev1 != null && au._abbrev1 != null ? "${fu._abbrev1} / ${au._abbrev1}" : null;
-    this._abbrev2 = fu._abbrev2 != null && au._abbrev2 != null ? "${fu._abbrev2}${au._abbrev2}" : null;
-    this.metricBase = metricBase;
-    this.offset = offset;
+    name = '${fu.name} per ${au.singular}';
+    singular = '${fu.singular} per ${au.singular}';
+    _convToMKS = fu.valueSI * au.valueSI;
+    _abbrev1 = fu._abbrev1 != null && au._abbrev1 != null ? '${fu._abbrev1} / ${au._abbrev1}' : null;
+    _abbrev2 = fu._abbrev2 != null && au._abbrev2 != null ? '${fu._abbrev2}${au._abbrev2}' : null;
+    metricBase = metricBase;
+    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Pressure;
 
   /// Derive new PressureUnits using this PressureUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new PressureUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new PressureUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
-  }
+        offset);
+  
 }

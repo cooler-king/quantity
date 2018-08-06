@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('MiscQuantity', () {
     test('constructors', () {
       // no-args
@@ -61,8 +61,8 @@ main() {
       expect(mq.dimensions, isNotNull);
       expect(mq.dimensions, Angle.angleDimensions);
 
-      MiscQuantity q =
-          const MiscQuantity.constant(const Double.constant(42.42), const Dimensions.constant(const {"Amount": 2}));
+      const MiscQuantity q =
+          const MiscQuantity.constant(const Double.constant(42.42), const Dimensions.constant(const <String, int>{'Amount': 2}));
       expect(q, isNotNull);
 
       /*

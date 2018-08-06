@@ -5,6 +5,7 @@ ResistanceUnits ohms = Resistance.ohms;
 // Constants
 const Resistance characteristicImpedanceOfVacuum = const Resistance.constant(const Double.constant(376.730313461));
 
+// ignore: constant_identifier_names
 const Resistance Z0 = characteristicImpedanceOfVacuum;
 
 const Resistance vonKlitzingConstant =

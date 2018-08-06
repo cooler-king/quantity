@@ -1,96 +1,115 @@
 part of number;
 
-/// Represents an imaginary number, defined as a number whose square is negative.
+/// Represents an imaginary number, defined as a number whose square is negative one.
 ///
 /// An imaginary number is usually displayed as a value followed by small letter 'i'.
 /// 'i' squared is defined as -1 (or equivalently, the square root of -1 is defined as 'i').
-///
 class Imaginary extends Number {
   final Real value;
 
-  Imaginary(val)
+  Imaginary(dynamic val)
       : this.value = (val is num)
-            ? ((val is int) ? new Integer(val as int) : new Double(val as double))
+            ? ((val is int) ? new Integer(val) : new Double(val as double))
             : (val is Real) ? val : Double.zero;
 
   const Imaginary.constant(this.value) : super.constant();
 
-  double toDouble() => 0.0;
-  int toInt() => 0;
-  Complex toComplex() => new Complex(Double.zero, this);
-
-  bool get isInfinite => value == Double.infinity || value == Double.negInfinity;
-  bool get isNaN => value == Double.NaN;
-  bool get isNegative => value < 0;
-
-  bool get isInteger => value.isInteger;
-
-  Imaginary.fromMap(Map m) : this.value = (m.containsKey("imag")) ? Number._fromMap(m["imag"]) : Double.zero;
+  factory Imaginary.fromMap(Map<String, Map<String, dynamic>> m) => (m?.containsKey('imag') ?? false)
+      ? new Imaginary.fromMap(m['imag'] as Map<String, Map<String, dynamic>>)
+      : const Imaginary.constant(Integer.zero);
 
   @override
-  bool operator ==(obj) {
+  double toDouble() => 0.0;
+
+  @override
+  int toInt() => 0;
+
+  Complex toComplex() => new Complex(Double.zero, this);
+
+  @override
+  bool get isInfinite => value == Double.infinity || value == Double.negInfinity;
+
+  @override
+  bool get isNaN => value == Double.NaN;
+
+  @override
+  bool get isNegative => value < 0;
+
+  @override
+  bool get isInteger => value.isInteger;
+
+  @override
+  bool operator ==(dynamic obj) {
     if (obj is Imaginary) return value == obj.value;
-    if (obj is Complex) return obj.real == 0.0 && this == obj.imaginary;
-    if (obj is Real || obj is num) return value == 0.0 && obj == 0.0;
+    if (obj is Complex) return obj.real.value == 0.0 && this == obj.imaginary;
+    if (obj is Real || obj is num) return value.toDouble() == 0.0 && obj == 0.0;
 
     return false;
   }
 
   @override
   int get hashCode {
-    if (value == 0) return 0.hashCode;
-    return hashObjects([0, value]);
+    if (value.toDouble() == 0) return 0.hashCode;
+    return hashObjects(<Object>[0, value]);
   }
 
-  Number operator +(addend) {
+  @override
+  Number operator +(dynamic addend) {
     if (addend is Imaginary) return new Imaginary((value + addend.value).toDouble());
-    if (addend is Complex) return new Complex(addend.real, value + addend.imag);
+    if (addend is Complex) return new Complex(addend.real, new Imaginary(value + addend.imag));
     if (addend is Real) return new Complex(addend, this);
-    if (addend is num) return new Complex(new Double(addend), this);
+    if (addend is num) return new Complex(new Double(addend.toDouble()), this);
     return this;
   }
 
-  Number operator -() => new Imaginary(-value);
+  @override
+  Imaginary operator -() => new Imaginary(-value);
 
-  Number operator -(subtrahend) {
-    if (subtrahend
-        is num) return new Complex(subtrahend is int ? new Integer(-subtrahend) : new Double(-subtrahend), this);
+  @override
+  Number operator -(dynamic subtrahend) {
+    if (subtrahend is num)
+      return new Complex(subtrahend is int ? new Integer(-subtrahend) : new Double(-subtrahend as double), this);
     if (subtrahend is Real) return new Complex(-subtrahend, this);
-    if (subtrahend is Complex) return new Complex(-subtrahend.real, this - subtrahend.imaginary);
+    if (subtrahend is Complex) return new Complex(-subtrahend.real, this - subtrahend.imaginary as Imaginary);
     if (subtrahend is Imaginary) return new Imaginary(value - subtrahend.value);
 
     return this;
   }
 
-  Number operator *(multiplier) {
+  @override
+  Number operator *(dynamic multiplicand) {
     // i * i = -1
-    if (multiplier is Imaginary) return value * multiplier.value * -1;
-    if (multiplier is Complex) return new Complex(value * multiplier.imag * -1.0, value * multiplier.real);
-    if (multiplier is num) return new Imaginary(value * multiplier);
-    if (multiplier is Real) return new Imaginary(multiplier * value);
+    if (multiplicand is Imaginary) return value * multiplicand.value * -1;
+    if (multiplicand is Complex)
+      return new Complex(value * multiplicand.imag.toDouble() * -1.0 as Real, new Imaginary(value * multiplicand.real));
+    if (multiplicand is num) return new Imaginary(value * multiplicand);
+    if (multiplicand is Real) return new Imaginary(multiplicand * value);
 
     return new Imaginary(0);
   }
 
-  Number operator /(divisor) {
+  @override
+  Number operator /(dynamic divisor) {
     if (divisor is num) return new Imaginary(value / divisor);
     if (divisor is Real) return new Imaginary(value / divisor.value);
     if (divisor is Imaginary) return value / divisor.value;
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
-      Number bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return new Complex(bOverc2d2 * divisor.real, new Imaginary(bOverc2d2 * divisor.imaginary.value * -1.0));
+      final Number bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
+      return new Complex(bOverc2d2 * divisor.real as Real, new Imaginary(bOverc2d2 * divisor.imaginary.value * -1.0));
     }
 
     // Treat divisor as 0
-    if (value.isNegative) return new Imaginary(Double.negInfinity);
-    else return new Imaginary(Double.infinity);
+    if (value.isNegative)
+      return new Imaginary(Double.negInfinity);
+    else
+      return new Imaginary(Double.infinity);
   }
 
-  ///  The truncating division operator.
-  ///
-  Number operator ~/(divisor) {
+  /// The truncating division operator.
+  @override
+  Number operator ~/(dynamic divisor) {
     if (divisor == 0) return value < 0 ? new Imaginary(Double.negInfinity) : new Imaginary(Double.infinity);
     if (divisor is num) return new Imaginary(value ~/ divisor);
     if (divisor is Imaginary) return value ~/ divisor.value;
@@ -98,8 +117,8 @@ class Imaginary extends Number {
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
-      Number bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return new Complex((bOverc2d2 * divisor.real).truncate(),
+      final Number bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
+      return new Complex((bOverc2d2 * divisor.real).truncate() as Real,
           new Imaginary((bOverc2d2 * divisor.imaginary.value * -1.0).truncate()));
     }
 
@@ -108,8 +127,8 @@ class Imaginary extends Number {
   }
 
   /// The modulo operator.
-  ///
-  Number operator %(divisor) {
+  @override
+  Number operator %(dynamic divisor) {
     if (divisor == 0) return Double.NaN;
 
     if (divisor is num) return new Imaginary(value % divisor);
@@ -125,24 +144,24 @@ class Imaginary extends Number {
   ///
   /// In order to provide a convenient power operator for all [Number]s, the number library
   /// overrides the caret operator.  In Dart the caret operator is ordinarily used
-  /// for bitwise XOR operations on [int]s.  The Integer class provides the [bitwiseXor] method
+  /// for bitwise XOR operations on [int]s.  The Integer class provides the `bitwiseXor` method
   /// as a substitute.
   ///
   /// See http://mathworld.wolfram.com/ComplexNumber.html
-  ///
-  Number operator ^(exponent) {
-    if (exponent is num) return new Double(Math.pow(value.value, exponent));
-    if (exponent is Real) return new Double(Math.pow(value.value, exponent.value));
+  @override
+  Number operator ^(dynamic exponent) {
+    if (exponent is num) return new Double(pow(value.value, exponent).toDouble());
+    if (exponent is Real) return new Double(pow(value.value, exponent.value).toDouble());
     if (exponent is Complex) {
       // a^(b+ic) = a^b * ( cos(c * ln(a)) + i * sin(c * ln(a)) )
-      Number coeff = this ^ exponent.real;
-      double clna = (exponent.imaginary.value * Math.log(value.value)).toDouble();
-      return new Complex(coeff * Math.cos(clna) as Real, new Imaginary(coeff * Math.sin(clna)));
+      final Number coeff = this ^ exponent.real;
+      final double clna = (exponent.imaginary.value * log(value.value)).toDouble();
+      return new Complex(coeff * cos(clna) as Real, new Imaginary(coeff * sin(clna)));
     }
     if (exponent is Imaginary) {
       // a^(ic) = cos(c * ln(a)) + i * sin(c * ln(a))
-      double clna = (exponent.value * Math.log(value.value)).toDouble();
-      return new Complex(Math.cos(clna) as Real, new Imaginary(Math.sin(clna)));
+      final double clna = (exponent.value * log(value.value)).toDouble();
+      return new Complex(cos(clna) as Real, new Imaginary(sin(clna)));
     }
 
     // Treat exponent as zero
@@ -153,7 +172,7 @@ class Imaginary extends Number {
 
   /// The complex argument, or phase, of this imaginary number in radians.
   ///
-  num get complexArgument => value < 0 ? -Math.PI / 2.0 : Math.PI / 2.0;
+  num get complexArgument => value < 0 ? -polyfill_math.pi / 2.0 : polyfill_math.pi / 2.0;
 
   /// The phase is synonymous with the complex argument.
   ///
@@ -164,8 +183,8 @@ class Imaginary extends Number {
   ///
   /// For all other types of numbers the comparison is made in the real dimension, so this [Imaginary] number
   /// is regarded as zero.
-  ///
-  bool operator >(obj) {
+  @override
+  bool operator >(dynamic obj) {
     if (obj is num) return 0 > obj;
     if (obj is Real) return 0 > obj.value;
     if (obj is Imaginary) return value > obj.value;
@@ -175,14 +194,17 @@ class Imaginary extends Number {
     return false;
   }
 
-  bool operator >=(obj) {
+  @override
+  bool operator >=(dynamic obj) {
     if (this == obj) return true;
     return this > obj;
   }
 
-  bool operator <(obj) => !(this >= obj);
+  @override
+  bool operator <(dynamic obj) => !(this >= obj);
 
-  bool operator <=(obj) => !(this < obj);
+  @override
+  bool operator <=(dynamic obj) => !(this < obj);
 
   /// The real absolute value of a purely imaginary number is always zero.
   ///
@@ -195,9 +217,9 @@ class Imaginary extends Number {
   Number ceil() => Integer.zero;
 
   @override
-  Number clamp(lowerLimit, upperLimit) {
+  Number clamp(dynamic lowerLimit, dynamic upperLimit) {
     //TODO what does this mean?
-    throw new UnsupportedError("clamping of Imaginary number is undefined");
+    throw new UnsupportedError('clamping of Imaginary number is undefined');
   }
 
   /// The integer floor of a purely imaginary number is always zero.
@@ -219,20 +241,19 @@ class Imaginary extends Number {
   Number reciprocal() => Integer.one / this;
 
   @override
-  Number remainder(divisor) {
-    return new Imaginary(value.remainder(divisor));
-  }
+  Number remainder(dynamic divisor) => new Imaginary(value.remainder(divisor));
 
   /// Support [dart:convert] JSON.stringify.
   ///
   /// Map Contents:
-  ///     "imag" : toJson map of value
+  ///     'imag' : toJson map of value
   ///
   /// Example:
-  ///     {"imag":{"d":456.7}}
+  ///     {'imag':{'d':456.7}}
   ///
   @override
-  Map toJson() {
-    return {"imag": value.toJson()};
-  }
+  Map<String, dynamic> toJson() => <String, dynamic>{'imag': value.toJson()};
+
+  @override
+  String toString() => '${value}i';
 }

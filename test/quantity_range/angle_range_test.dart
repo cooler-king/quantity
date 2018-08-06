@@ -1,39 +1,39 @@
-import 'dart:math' as Math;
+import 'package:dart2_constant/math.dart' as polyfill_math;
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_range.dart';
 
-main() {
+void main() {
   group('AngleRange', () {
     test('constructors', () {
-      AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
+      final AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
       expect(range, isNotNull);
     });
 
     test('endpoint getters', () {
       AngleRange range = new AngleRange(new Angle(rad: 2.4), new Angle(rad: 0.9));
-      expect(range.startAngle.valueSI == 2.4, true);
-      expect(range.endAngle.valueSI == 0.9, true);
+      expect(range.startAngle.valueSI.toDouble() == 2.4, true);
+      expect(range.endAngle.valueSI.toDouble() == 0.9, true);
 
       range = new AngleRange(new Angle(rad: 0.3), new Angle(rad: 0.9));
-      expect(range.startAngle.valueSI == 0.3, true);
-      expect(range.endAngle.valueSI == 0.9, true);
+      expect(range.startAngle.valueSI.toDouble() == 0.3, true);
+      expect(range.endAngle.valueSI.toDouble() == 0.9, true);
 
       range = new AngleRange.degrees(90.0, 180.0);
-      expect(range.startAngle.valueSI.toDouble(), closeTo(Math.PI / 2, 0.0001));
-      expect(range.endAngle.valueSI.toDouble(), closeTo(Math.PI, 0.0001));
+      expect(range.startAngle.valueSI.toDouble(), closeTo(polyfill_math.pi / 2, 0.0001));
+      expect(range.endAngle.valueSI.toDouble(), closeTo(polyfill_math.pi, 0.0001));
 
       range = new AngleRange.degrees(180.0, 90.0);
-      expect(range.startAngle.valueSI.toDouble(), closeTo(Math.PI, 0.0001));
-      expect(range.endAngle.valueSI.toDouble(), closeTo(Math.PI / 2, 0.0001));
+      expect(range.startAngle.valueSI.toDouble(), closeTo(polyfill_math.pi, 0.0001));
+      expect(range.endAngle.valueSI.toDouble(), closeTo(polyfill_math.pi / 2, 0.0001));
 
       range = new AngleRange.radians(1.72, 1.95);
-      expect(range.startAngle.valueSI == 1.72, true);
-      expect(range.endAngle.valueSI == 1.95, true);
+      expect(range.startAngle.valueSI.toDouble() == 1.72, true);
+      expect(range.endAngle.valueSI.toDouble() == 1.95, true);
 
       range = new AngleRange.radians(1.95, 1.72);
-      expect(range.startAngle.valueSI == 1.95, true);
-      expect(range.endAngle.valueSI == 1.72, true);
+      expect(range.startAngle.valueSI.toDouble() == 1.95, true);
+      expect(range.endAngle.valueSI.toDouble() == 1.72, true);
     });
 
     test('revolutions', () {
@@ -94,7 +94,7 @@ main() {
     });
 
     test('contains/contains360', () {
-      AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
+      final AngleRange range = new AngleRange(new Angle(deg: 15), new Angle(deg: 70.1));
       expect(range.contains(new Angle(deg: 55)), true);
       expect(range.contains(new Angle(deg: 155)), false);
       expect(range.contains(new Angle(deg: 15)), true);
@@ -123,10 +123,27 @@ main() {
       expect(range.contains360(new Angle(deg: -289.9), true), true);
     });
 
+    test('angleClosestTo', () {
+      final Angle ang15 = new Angle(deg: 15);
+      final Angle ang45 = new Angle(deg: 45);
+      final AngleRange range = new AngleRange(ang15, ang45);
+      expect(range.angleClosestTo(angle0), ang15);
+      expect(range.angleClosestTo(angle90), ang45);
+      expect(range.angleClosestTo(angle180), ang45);
+      expect(range.angleClosestTo(angle270), ang15);
+
+      // Flipped range.
+      final AngleRange rangeFlip = new AngleRange(ang45, ang15);
+      expect(rangeFlip.angleClosestTo(angle0), ang15);
+      expect(rangeFlip.angleClosestTo(angle90), ang45);
+      expect(rangeFlip.angleClosestTo(angle180), ang45);
+      expect(rangeFlip.angleClosestTo(angle270), ang15);
+    });
+
     test('operator ==', () {
-      var a1 = new Angle(rad: 1.5);
-      var a2 = new Angle(deg: 234.5);
-      var a3 = new Angle(rad: 1.5);
+      final Angle a1 = new Angle(rad: 1.5);
+      final Angle a2 = new Angle(deg: 234.5);
+      final Angle a3 = new Angle(rad: 1.5);
       expect(a1 == a2, false);
       expect(a2 == a3, false);
       expect(a1 == a3, true);
@@ -134,9 +151,9 @@ main() {
     });
 
     test('hashCode', () {
-      var a1 = new Angle(rad: 1.5);
-      var a2 = new Angle(deg: 234.5);
-      var a3 = new Angle(rad: 1.5);
+      final Angle a1 = new Angle(rad: 1.5);
+      final Angle a2 = new Angle(deg: 234.5);
+      final Angle a3 = new Angle(rad: 1.5);
 
       expect(a1.hashCode == a2.hashCode, false);
       expect(a2.hashCode == a3.hashCode, false);

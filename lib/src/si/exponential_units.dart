@@ -13,21 +13,22 @@ class ExponentialUnits {
   /// The [exp]onent must be either a [num] or [Number], otherwise
   /// a [QuantityException] will be thrown.
   ///
-  ExponentialUnits(Units units, Object exp) {
-    this._units = units;
+  ExponentialUnits(Units units, dynamic exp) {
+    _units = units;
 
-    if (exp is num || exp is Number) {
-      this._exp = exp;
+    if (exp is num) {
+      _exp = exp;
+    } else if (exp is Number) {
+      _exp = exp.toDouble();
     } else {
-      throw new QuantityException("exp must be a num or Number");
+      throw const QuantityException('exp must be a num or Number');
     }
   }
 
   /// Create new ExponentialUnits with the same values as [expUnits2].
-  ///
   ExponentialUnits.copy(ExponentialUnits expUnits2) : this(expUnits2._units, expUnits2._exp);
 
-  ExponentialUnits get reciprocal => new ExponentialUnits(_units, (_exp * -1.0));
+  ExponentialUnits get reciprocal => new ExponentialUnits(_units, _exp * -1.0);
 
   /**
    * Creates and returns a new ExponentialUnits object in which the

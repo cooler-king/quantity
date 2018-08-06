@@ -4,11 +4,12 @@
 /// The classes in this library can be used to model quantities having values with arbitrary precision
 /// as well as imaginary or complex numbers.  It is independent of the quantity classes and can be
 /// used in a purely mathematical context.
-///
 library number;
 
-import 'dart:math' as Math;
+import 'dart:math';
 import 'dart:typed_data';
+import 'package:dart2_constant/math.dart' as polyfill_math;
+import 'package:dart2_constant/core.dart' as polyfill_core;
 
 part 'src/number/complex.dart';
 part 'src/number/double.dart';
@@ -23,25 +24,22 @@ part 'src/number/util/jenkins_hash.dart';
 /// Converts an [object] to a Number.  The [object]
 /// must be either a [num] or [Number], otherwise
 /// an Exception is thrown.
-///
 Number objToNumber(Object object) {
   if (object is num) return numToNumber(object);
   if (object is Number) return object;
-  throw new Exception("num or Number expected");
+  throw new Exception('num or Number expected');
 }
 
 /// Converts a num [value] to associated [Number] object
 /// ([Integer] for `int`s and `double`s that have an integer value,
 /// [Double] for other `double`s).
-///
 Number numToNumber(num value) {
   if (value is int) return new Integer(value);
   if (value.toInt() == value) return new Integer(value.toInt());
-  return new Double(value);
+  return new Double(value.toDouble());
 }
 
 /// Converts a Number to the equivalent [num].
-///
 num numberToNum(Number number) {
   if (number is Double) return number.value;
   if (number is Integer) return number.value;
@@ -62,12 +60,12 @@ num numberToNum(Number number) {
 /// * The approximation is based on Chebyshev fitting.
 ///
 double erf(double x) {
-  double z = x.abs();
-  double t = 1.0 / (1.0 + 0.5 * z);
+  final double z = x.abs();
+  final double t = 1.0 / (1.0 + 0.5 * z);
 
   // Approximate the complementary error function
   double erfc = t *
-      Math.exp(-z * z -
+      exp(-z * z -
           1.26551223 +
           t *
               (1.00002368 +

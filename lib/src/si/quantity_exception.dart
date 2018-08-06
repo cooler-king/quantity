@@ -7,7 +7,8 @@ class QuantityException implements Exception {
 
   /// Constructs a new QuantityException with an optional message
   ///
-  const QuantityException([this.message = ""]);
+  const QuantityException([this.message = '']);
 
-  String toString() => "QuantityException: $message";
+  @override
+  String toString() => 'QuantityException: $message';
 }

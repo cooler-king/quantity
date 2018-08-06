@@ -1,6 +1,4 @@
-/// Quantity types, units and constants commonly encountered in the field of
-/// Astronomy and related sciences.
-///
+/// Quantity types, units and constants commonly encountered in the field of Astronomy and related sciences.
 library astronomical;
 
 import 'package:quantity/quantity.dart';
@@ -30,14 +28,17 @@ export 'package:quantity/quantity.dart'
 
 export 'package:quantity/domain/thermodynamic.dart' show wienDisplacement;
 
-SpectralIrradianceUnits microjanskys = janskys.micro();
+/// One millionth of a Jansky.
+SpectralIrradianceUnits microjanskys = janskys.micro() as SpectralIrradianceUnits;
 
 // ---------------------
 
 // Astronomical Constants
 
+/// The gravitational acceleration experienced at the 'surface' of the Sun.
 const Acceleration gravitySolarSurface = const Acceleration.constant(const Double.constant(274.0));
 
+/// Used to describe the expansion of the universe.
 const Frequency hubbleConstant = const Frequency.constant(const Double.constant(2.4e-18), uncert: 0.3333333333);
 
 /// The mean solar electromagnetic radiation (the solar irradiance) per unit area that would be incident on a
@@ -47,8 +48,14 @@ const Frequency hubbleConstant = const Frequency.constant(const Double.constant(
 /// over a range of less than 0.2 percent.
 const EnergyFlux solarConstant = const EnergyFlux.constant(const Double.constant(1370.0));
 
+/// The radius of the Sun.
 const Length solarRadius = const Length.constant(const Double.constant(6.9599e8));
+
+/// The radius of the Earth at the equator.
 const Length earthRadiusEquatorial = const Length.constant(const Double.constant(6378.164));
 
+/// Mass of the Sun.
 const Mass solarMass = const Mass.constant(const Double.constant(1.989e30));
+
+/// Mass of the Earth.
 const Mass earthMass = const Mass.constant(const Double.constant(5.972e24));

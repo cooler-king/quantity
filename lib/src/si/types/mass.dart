@@ -8,54 +8,54 @@ part of quantity_si;
 ///
 class Mass extends Quantity {
   /// Dimensions for this type of quantity
-  static const Dimensions massDimensions = const Dimensions.constant(const {"Mass": 1}, type: Mass);
+  static const Dimensions massDimensions = const Dimensions.constant(const <String, int>{'Mass': 1}, qType: Mass);
 
   /// The standard SI unit.
-  static final MassUnits kilograms = new MassUnits("kilograms", "kg", null, null, 1.0, false);
+  static final MassUnits kilograms = new MassUnits('kilograms', 'kg', null, null, 1.0, false);
 
   /// Note: kilograms are the standard MKS unit for mass, but grams is used here
   /// to generate the appropriate prefixes.  Gram conversion value is set to 0.001
   /// in order to generate the correct units.
   ///
-  static final MassUnits grams = new MassUnits("grams", "g", null, null, 0.001, true);
+  static final MassUnits grams = new MassUnits('grams', 'g', null, null, 0.001, true);
 
   /// Accepted for use with the SI.
-  static final MassUnits metricTons = grams.mega();
+  static final MassUnits metricTons = grams.mega() as MassUnits;
 
   /// Accepted for use with the SI.
   static final MassUnits tonnes = metricTons;
 
   /// Accepted for use with the SI.
   static final MassUnits unifiedAtomicMassUnits =
-      new MassUnits("unified atomic mass units", null, "u", null, 1.66053886e-27, false);
+      new MassUnits('unified atomic mass units', null, 'u', null, 1.66053886e-27, false);
 
   /// Construct a Mass with kilograms ([kg]), grams ([g]) or unified atomic mass units ([u]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Mass({dynamic kg, dynamic g, dynamic u, double uncert: 0.0})
+  Mass({dynamic kg, dynamic g, dynamic u, double uncert = 0.0})
       : super(kg ?? (g ?? (u ?? 0.0)),
             g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
 
-  Mass._internal(conv) : super._internal(conv, Mass.massDimensions);
+  Mass._internal(dynamic conv) : super._internal(conv, Mass.massDimensions);
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Mass.inUnits(value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
+  Mass.inUnits(dynamic value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
 
-  const Mass.constant(Number valueSI, {MassUnits units, num uncert: 0.0})
+  const Mass.constant(Number valueSI, {MassUnits units, double uncert = 0.0})
       : super.constant(valueSI, Mass.massDimensions, units, uncert);
 
   /// Returns the [Energy] equivalent of this Mass using the famous E=mc^2 relationship.
   ///
   Energy toEnergy() {
     if (valueSI is Precise) {
-      var c = new Precise("2.99792458e8");
-      return new Energy(J: valueSI * c * c, uncert: this._ur);
+      final Precise c = new Precise('2.99792458e8');
+      return new Energy(J: valueSI * c * c, uncert: _ur);
     } else {
-      double c = 2.99792458e8;
-      return new Energy(J: valueSI * c * c, uncert: this._ur);
+      const double c = 2.99792458e8;
+      return new Energy(J: valueSI * c * c, uncert: _ur);
     }
   }
 }
@@ -63,31 +63,33 @@ class Mass extends Quantity {
 /// Units acceptable for use in describing [Mass] quantities.
 ///
 class MassUnits extends Mass with Units {
+  /// Constructs a new instance.
   MassUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => Mass;
 
   /// Derive new MassUnits using this MassUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new MassUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new MassUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
-  }
+        offset);
+
 }

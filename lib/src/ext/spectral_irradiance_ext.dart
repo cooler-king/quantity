@@ -1,7 +1,7 @@
 part of quantity_ext;
 
-final SpectralIrradianceUnits wattsPerSquareMeterPerHertz = SpectralIrradiance.wattsPerSquareMeterPerHertz;
+/// A non-SI unit of spectral irradiance used especially in radio astronomy.
+final SpectralIrradianceUnits janskys = new SpectralIrradianceUnits('janskys', 'f.u.', 'Jy', null, 1.0e-26, true);
 
-final SpectralIrradianceUnits janskys = new SpectralIrradianceUnits("janskys", "f.u.", "Jy", null, 1.0e-26, true);
-
+/// Synonymous with [janskys].
 final SpectralIrradianceUnits fluxUnits = janskys;

@@ -1,9 +1,9 @@
-import 'dart:math' as Math;
+import 'package:dart2_constant/math.dart' as polyfill_math;
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('Angle', () {
     test('constructors', () {
       // Default ctor: rad 0
@@ -17,7 +17,7 @@ main() {
       // Default ctor: rad +
       a = new Angle(rad: 2.4);
       expect(a, isNotNull);
-      expect(a.valueSI == 2.4, true);
+      expect(a.valueSI?.toDouble() == 2.4, true);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -25,7 +25,7 @@ main() {
       // Default ctor: rad -
       a = new Angle(rad: -999.9);
       expect(a, isNotNull);
-      expect(a.valueSI == -999.9, true);
+      expect(a.valueSI.toDouble() == -999.9, true);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -33,7 +33,7 @@ main() {
       // Default ctor: rad Integer
       a = new Angle(rad: new Integer(4));
       expect(a, isNotNull);
-      expect(a.valueSI == 4, true);
+      expect(a.valueSI.toDouble() == 4, true);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -41,7 +41,7 @@ main() {
       // Default ctor: rad Double
       a = new Angle(rad: new Double(-67.876));
       expect(a, isNotNull);
-      expect(a.valueSI == -67.876, true);
+      expect(a.valueSI.toDouble() == -67.876, true);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -75,14 +75,14 @@ main() {
       a = new Angle(deg: 90.0);
       expect(a, isNotNull);
       expect(a.valueSI is Double, true);
-      expect(a.valueSI.toDouble(), closeTo(Math.PI / 2.0, 0.0001));
+      expect(a.valueSI.toDouble(), closeTo(polyfill_math.pi / 2.0, 0.0001));
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);
 
       // Default ctor: deg -
       a = new Angle(deg: -270);
       expect(a, isNotNull);
-      expect(a.valueSI.toDouble(), closeTo(-3 * Math.PI / 2, 0.0001));
+      expect(a.valueSI.toDouble(), closeTo(-3 * polyfill_math.pi / 2, 0.0001));
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);
@@ -115,7 +115,9 @@ main() {
       a = new Angle(deg: new Complex.coeff(12.34, 98.76));
       expect(a, isNotNull);
       expect(a.valueSI is Complex, true);
-      expect(a.valueSI == new Complex.coeff(Angle.degrees.toMks(12.34), Angle.degrees.toMks(98.76)), true);
+      expect(
+          a.valueSI == new Complex.coeff(Angle.degrees.toMks(12.34).toDouble(), Angle.degrees.toMks(98.76).toDouble()),
+          true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);
 

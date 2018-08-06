@@ -1,15 +1,15 @@
-import 'dart:math';
+import 'package:dart2_constant/math.dart' as polyfill_math;
 import 'package:test/test.dart';
 import 'package:quantity/domain/electromagnetic.dart';
 
-main() {
+void main() {
   group('Electromagnetic', () {
     test('constants', () {
       expect(elementaryCharge is Charge, true);
       expect(elementaryCharge.valueSI.toDouble(), 1.6021766208e-19);
 
       expect(magneticConstant is Permeability, true);
-      expect(magneticConstant.valueSI.toDouble(), 4.0e-7 * PI);
+      expect(magneticConstant.valueSI.toDouble(), 4.0e-7 * polyfill_math.pi);
 
       expect(conductanceQuantum is Conductance, true);
       expect(conductanceQuantum.valueSI.toDouble(), 7.7480917310e-5);

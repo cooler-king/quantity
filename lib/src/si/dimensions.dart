@@ -23,7 +23,6 @@ part of quantity_si;
 /// dimensions and determine quantity types.  To test whether two Dimensions
 /// objects are equal strictly in terms of the base SI dimensions, the
 /// equalsSI method may be used.
-///
 class Dimensions {
   /// The dimensions (base dimension key -> base dimension exponent)
   final Map<String, num> _dimensionMap;
@@ -33,107 +32,99 @@ class Dimensions {
   // ==basic SI dimensions==
 
   /// Identifier for Base SI Quantity: Length
-  static const String baseLengthKey = "Length";
+  static const String baseLengthKey = 'Length';
 
   /// Identifier for Base SI Quantity: Mass
-  static const String baseMassKey = "Mass";
+  static const String baseMassKey = 'Mass';
 
   /// Identifier for Base SI Quantity: Time Interval
-  static const String baseTimeKey = "Time";
+  static const String baseTimeKey = 'Time';
 
   /// Identifier for Base SI Quantity: Temperature
-  static const String baseTemperatureKey = "Temperature";
+  static const String baseTemperatureKey = 'Temperature';
 
   /// Identifier for Base SI Quantity: Current
-  static const String baseCurrentKey = "Current";
+  static const String baseCurrentKey = 'Current';
 
   /// Identifier for Base SI Quantity: (Luminous) Intensity
-  static const String baseIntensityKey = "Intensity";
+  static const String baseIntensityKey = 'Intensity';
 
   /// Identifier for Base SI Quantity: Amount of Substance
-  static const String baseAmountKey = "Amount";
+  static const String baseAmountKey = 'Amount';
 
   // ==special derived==
 
   /// Identifier for Special Derived Dimensionless SI Quantity: Angle
-  static const String baseAngleKey = "Angle";
+  static const String baseAngleKey = 'Angle';
 
   /// Identifier for Special Derived Dimensionless SI Quantity: Solid Angle
-  static const String baseSolidAngleKey = "Solid Angle";
+  static const String baseSolidAngleKey = 'Solid Angle';
 
   /// No-arg constructor sets all dimensions to zero (that is, a scalar quantity).
-  ///
   Dimensions()
-      : _dimensionMap = {},
+      : _dimensionMap = <String, num>{},
         qType = Scalar;
 
   /// Optional associated Quantity type
   final Type qType;
 
-  /// Constructs a constant Dimensions object with a map of base dimension
-  /// keys to exponents
-  ///
-  const Dimensions.constant(Map<String, num> dims, {Type type})
-      : _dimensionMap = dims,
-        qType = type;
+  /// Constructs a constant Dimensions object with a map of base dimension keys to exponents
+  const Dimensions.constant(Map<String, num> dims, {this.qType}) : _dimensionMap = dims;
 
-  /// Constructs a Dimensions object with a map of base dimension keys to
-  /// base dimension exponents.
-  ///
+  /// Constructs a Dimensions object with a map of base dimension keys to base dimension exponents.
   Dimensions.fromMap(Map<String, num> typeValuePairs)
-      : _dimensionMap = new Map.from(typeValuePairs),
+      : _dimensionMap = new Map<String, num>.from(typeValuePairs),
         qType = null;
 
   /// Creates a new Dimensions object by copying an existing Dimensions object.
   ///
   /// This is a deep copy that clones the internal _dimensionMap HashMap
-  /// object (which in turn contains only immutable objects of classes
-  /// String and num).
+  /// object (which in turn contains only immutable objects of classes String and num).
   ///
-  /// Any type hint is preserved by default but can be cleared by
-  /// setting `includeTypeHint` to false.
-  ///
-  Dimensions.copy(Dimensions d2, {bool includeTypeHint: true})
-      : _dimensionMap = new Map.from(d2._dimensionMap),
+  /// Any type hint is preserved by default but can be cleared by setting `includeTypeHint` to false.
+  Dimensions.copy(Dimensions d2, {bool includeTypeHint = true})
+      : _dimensionMap = new Map<String, num>.from(d2._dimensionMap),
         qType = includeTypeHint ? d2.qType : null;
 
   /// Tests the equality of this Dimensions object and another Dimensions object.
   /// Two Dimensions objects are only equal if they have exactly equal
   /// values for each component dimension.
-  ///
-  bool operator ==(Dimensions d2) {
-    if (d2 == null) return false;
-    if (identical(this, d2)) return true;
+  @override
+  bool operator ==(dynamic d2) {
+    if (d2 is Dimensions) {
+      if (identical(this, d2)) return true;
 
-    // Check size
-    if (_dimensionMap.keys.length != d2._dimensionMap.keys.length) return false;
+      // Check size
+      if (_dimensionMap.keys.length != d2._dimensionMap.keys.length) return false;
 
-    // Check Values
-    for (var key in _dimensionMap.keys) {
-      if (!d2._dimensionMap.containsKey(key) || (_dimensionMap[key] != d2._dimensionMap[key])) return false;
+      // Check Values
+      for (String key in _dimensionMap.keys) {
+        if (!d2._dimensionMap.containsKey(key) || (_dimensionMap[key] != d2._dimensionMap[key])) return false;
+      }
+
+      return true;
+    } else {
+      return false;
     }
-
-    return true;
   }
 
   /// Returns a hash code consistent with [operator ==] by constructing a
   /// string key based on the dimension component values.
-  ///
+  @override
   int get hashCode {
     if (_dimensionMap.isEmpty) return 0;
 
     // Construct a unique string key and take its hashcode
-    var buffer = new StringBuffer();
-
-    buffer.write("L${getComponentExponent(Dimensions.baseLengthKey)}");
-    buffer.write("M${getComponentExponent(Dimensions.baseMassKey)}");
-    buffer.write("T${getComponentExponent(Dimensions.baseTimeKey)}");
-    buffer.write("C${getComponentExponent(Dimensions.baseCurrentKey)}");
-    buffer.write("I${getComponentExponent(Dimensions.baseIntensityKey)}");
-    buffer.write("TP${getComponentExponent(Dimensions.baseTemperatureKey)}");
-    buffer.write("AM${getComponentExponent(Dimensions.baseAmountKey)}");
-    buffer.write("A${getComponentExponent(Dimensions.baseAngleKey)}");
-    buffer.write("S${getComponentExponent(Dimensions.baseSolidAngleKey)}");
+    final StringBuffer buffer = (new StringBuffer())
+      ..write('L${getComponentExponent(Dimensions.baseLengthKey)}')
+      ..write('M${getComponentExponent(Dimensions.baseMassKey)}')
+      ..write('T${getComponentExponent(Dimensions.baseTimeKey)}')
+      ..write('C${getComponentExponent(Dimensions.baseCurrentKey)}')
+      ..write('I${getComponentExponent(Dimensions.baseIntensityKey)}')
+      ..write('TP${getComponentExponent(Dimensions.baseTemperatureKey)}')
+      ..write('AM${getComponentExponent(Dimensions.baseAmountKey)}')
+      ..write('A${getComponentExponent(Dimensions.baseAngleKey)}')
+      ..write('S${getComponentExponent(Dimensions.baseSolidAngleKey)}');
 
     return buffer.toString().hashCode;
   }
@@ -144,40 +135,35 @@ class Dimensions {
   ///
   /// Two Dimensions objects are only equal if they have exactly equal
   /// exponents for each base component dimension.
-  ///
   bool equalsSI(Dimensions d2) {
     if (d2 == null) return false;
     if (d2 == this) return true;
 
-    var copy1 = new Dimensions.copy(this);
-    var copy2 = new Dimensions.copy(d2);
+    final Dimensions copy1 = new Dimensions.copy(this);
+    final Dimensions copy2 = new Dimensions.copy(d2);
 
     // Remove Angle and SolidAngle from consideration
-    copy1._dimensionMap.remove(Dimensions.baseAngleKey);
-    copy1._dimensionMap.remove(Dimensions.baseSolidAngleKey);
-    copy2._dimensionMap.remove(Dimensions.baseAngleKey);
-    copy2._dimensionMap.remove(Dimensions.baseSolidAngleKey);
+    copy1._dimensionMap..remove(Dimensions.baseAngleKey)..remove(Dimensions.baseSolidAngleKey);
+    copy2._dimensionMap..remove(Dimensions.baseAngleKey)..remove(Dimensions.baseSolidAngleKey);
 
-    return (copy1 == copy2);
+    return copy1 == copy2;
   }
 
   /// Whether or not these are scalar dimensions, including having no angle or
   /// solid angle dimensions.
   ///
   /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
-  /// Internation System of Units (SI) sense, which allows non-zero angular and
+  /// International System of Units (SI) sense, which allows non-zero angular and
   /// solid angular dimensions.
-  ///
   bool get isScalar => _dimensionMap.isEmpty;
 
   /// Whether or not these are scalar dimensions, in the strict
-  /// Internation System of Units (SI) sense, which allows non-zero angle and
+  /// International System of Units (SI) sense, which allows non-zero angle and
   /// solid angle dimensions.
   ///
   /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
-  /// Internation System of Units sense, which allows non-zero angular and
+  /// International System of Units sense, which allows non-zero angular and
   /// solid angular dimensions.
-  ///
   bool get isScalarSI {
     if (getComponentExponent(Dimensions.baseLengthKey) != 0) return false;
     if (getComponentExponent(Dimensions.baseMassKey) != 0) return false;
@@ -190,7 +176,6 @@ class Dimensions {
   }
 
   /// Gets the exponent value for the specified base dimension [component] key.
-  ///
   num getComponentExponent(String component) => _dimensionMap[component] ?? 0;
 
   /// Returns the product of this Dimensions object and [other] Dimensions.
@@ -199,19 +184,18 @@ class Dimensions {
   /// multiplied) is accomplished by adding component exponents.  For example,
   /// a time (time +1) multiplied by a frequency (time -1) yields a scalar
   /// (1 + (-1) = 0).
-  ///
   Dimensions operator *(Dimensions other) {
     // Return self if other is Scalar.
     if (other._dimensionMap.isEmpty) return this;
 
     // Copy.  Clear the type hint.
-    var result = new Dimensions.copy(this, includeTypeHint: false);
+    final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
 
     // Add other's dimensions to my dimensions
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (var key in other._dimensionMap.keys) {
+    for (String key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       newValue = otherValue + myValue;
@@ -233,19 +217,18 @@ class Dimensions {
   /// divided) is accomplished by subtracting the component dimensions of the
   /// divisor (bottom).  For example, a volume (length: +3) divided by a length
   /// (length: +1) yields an area (length: +2) or (3 - (+1) = 2).
-  ///
   Dimensions operator /(Dimensions other) {
     // Return self if other is Scalar.
     if (other._dimensionMap.isEmpty) return this;
 
     // Copy.  Clear the type hint.
-    var result = new Dimensions.copy(this, includeTypeHint: false);
+    final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
 
     // Add other's dimensions to my dimensions
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (var key in other._dimensionMap.keys) {
+    for (String key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       if (myValue == null) {
@@ -270,11 +253,10 @@ class Dimensions {
   /// accomplished by simply negating the sign of each dimension component.
   /// For example the inverse of frequency dimensions (time: -1) is duration
   /// (time: +1).
-  ///
   Dimensions inverse() {
-    var invertedMap = {};
+    final Map<String, num> invertedMap = <String, num>{};
     for (String t in _dimensionMap.keys) {
-      num value = _dimensionMap[t];
+      final num value = _dimensionMap[t];
       if (value != null) invertedMap[t] = value * -1;
     }
 
@@ -285,17 +267,16 @@ class Dimensions {
   ///
   /// Each base dimension component exponent is multiplied by [exp] to achieve
   /// the desired result.
-  ///
   Dimensions operator ^(num exp) {
     if (exp == 0) return new Dimensions();
     if (exp == 1) return this;
 
     // Make a copy of this Object.  Clear the type hint.
-    var result = new Dimensions.copy(this, includeTypeHint: false);
+    final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
 
-    List<String> keysToRemove = [];
-    num value = null;
-    for (var k in result._dimensionMap.keys) {
+    final List<String> keysToRemove = <String>[];
+    num value;
+    for (String k in result._dimensionMap.keys) {
       value = result._dimensionMap[k];
       if (value != null && value != 0) {
         result._dimensionMap[k] = value * exp;
@@ -305,9 +286,7 @@ class Dimensions {
     }
 
     // Remove 0's
-    for (var k in keysToRemove) {
-      result._dimensionMap.remove(k);
-    }
+    keysToRemove.forEach(result._dimensionMap.remove);
 
     return result;
   }
@@ -324,13 +303,12 @@ class Dimensions {
   ///   be modified to include the new subclasses.
   /// * Some distinct Quantity types have identical dimensions.  In this case
   ///   the first Quantity type discovered is returned.
-  ///
   //TODO would a static dimensionsTypeMap be better?
   static Type determineQuantityType(Dimensions dim) {
     if (dim == null) return MiscQuantity;
 
     // Get the number of dimension components
-    int numDims = dim._dimensionMap.length;
+    final int numDims = dim._dimensionMap.length;
 
     // Check Scalar first for all 0's case
     if (numDims == 0) return Scalar;
@@ -339,7 +317,7 @@ class Dimensions {
     if (numDims > 5) return MiscQuantity;
 
     // Bin Possibilities By Length Dimension and number of components
-    num lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
+    final num lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
     if (lengthExp is! int) return MiscQuantity; // non-integer exponents means MiscQuantity
 
     if (lengthExp == -3) {
@@ -425,11 +403,11 @@ class Dimensions {
       } else if (numDims == 3) {
         if (dim == Energy.energyDimensions) return Energy;
         if (dim == Power.powerDimensions) return Power;
-        if (dim ==
-            SpecificHeatCapacity.specificHeatCapacityDimensions) return SpecificHeatCapacity; // or specific entropy
+        if (dim == SpecificHeatCapacity.specificHeatCapacityDimensions)
+          return SpecificHeatCapacity; // or specific entropy
       } else if (numDims == 4) {
-        if (dim ==
-            ElectricPotentialDifference.electricPotentialDifferenceDimensions) return ElectricPotentialDifference;
+        if (dim == ElectricPotentialDifference.electricPotentialDifferenceDimensions)
+          return ElectricPotentialDifference;
         if (dim == Resistance.electricResistanceDimensions) return Resistance;
         if (dim == MagneticFlux.magneticFluxDimensions) return MagneticFlux;
         if (dim == Inductance.inductanceDimensions) return Inductance;
@@ -459,12 +437,11 @@ class Dimensions {
   ///
   /// If no specific Quantity type is found with dimensions that match these dimensions
   /// a new instance of the [MiscQuantity] class will be returned.
-  ///
-  Quantity toQuantity([value = 0.0, Units units, double uncert = 0.0]) {
+  Quantity toQuantity([dynamic value = 0.0, Units units, double uncert = 0.0]) {
     // Check units match dimensions, if provided
     if (units is Quantity) {
-      if (this != (units as Quantity).dimensions) throw new DimensionsException(
-          "The dimensions of the provided units must equal the dimensions");
+      if (this != (units as Quantity).dimensions)
+        throw new DimensionsException('The dimensions of the provided units must equal the dimensions');
     }
 
     //TODO need to provide units (metric units as default?)
@@ -472,7 +449,7 @@ class Dimensions {
     try {
       return createTypedQuantityInstance(qType ?? determineQuantityType(this), value, units, uncert);
     } catch (e) {
-      _logger.warning("Fallback MiscQuantity instance created for ${this}");
+      _logger.warning('Fallback MiscQuantity instance created for ${this}');
 
       // Can always return a MiscQuantity
       if (units != null) {
@@ -483,25 +460,23 @@ class Dimensions {
     }
   }
 
-  /// Returns a String reprentation of this Dimensions object in the
-  /// form:
+  /// Returns a String representation of this Dimensions object in the form:
   ///
-  ///     "Dimensions [<type>=<value>; <type2>=<value2> ... ]"
-  ///
+  ///     'Dimensions [<type>=<value>; <type2>=<value2> ... ]'
+  @override
   String toString() {
-    var buffer = new StringBuffer();
-    buffer.write(" Dimensions [");
+    final StringBuffer buffer = (new StringBuffer())..write(' Dimensions [');
     bool first = true;
-    for (var t in _dimensionMap.keys) {
+    for (String t in _dimensionMap.keys) {
       if (!first) {
-        buffer.write("; ");
+        buffer.write('; ');
       } else {
         first = false;
       }
-      buffer.write("$t=${_dimensionMap[t]}");
+      buffer.write('$t=${_dimensionMap[t]}');
     }
 
-    buffer.write("]");
+    buffer.write(']');
     return buffer.toString();
   }
 }

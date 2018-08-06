@@ -29,7 +29,7 @@ part of quantity_si;
 ///
 /// ## Immutable
 /// Quantity values are immutable; they may not be changed after creation.
-/// Use [MutableQuantity] in the quantity_ext library for situations where
+/// Use `MutableQuantity` in the quantity_ext library for situations where
 /// changing a Quantity object's value or units is required.
 ///
 /// ## Value Representation,  Arbitrary Precision
@@ -42,7 +42,7 @@ part of quantity_si;
 /// often determined by measurement and therefore are only accurate within
 /// the capabilities of the measuring devices or techniques.  Internally,
 /// the uncertainty of a quantity is modeled as a Normal (Gaussian) distribution.
-/// The shape of this "bell curve" distribution is captured by a single value:
+/// The shape of this 'bell curve' distribution is captured by a single value:
 /// the relative standard uncertainty.  This method of expressing uncertainty is
 /// used for all physical constants and is accepted for general use with all
 /// quantities (because quantities, as measurable entities, all follow the same
@@ -55,7 +55,7 @@ part of quantity_si;
 /// is constructed with any uncertainty and off otherwise.  The setCalcUncertainty
 /// method may be called at any point to enable/disable this capability.
 ///
-abstract class Quantity implements Comparable {
+abstract class Quantity implements Comparable<dynamic> {
   /// The value of the quantity in the [base units](http://physics.nist.gov/cuu/Units/current.html),
   /// of the International System of Units (SI).
   ///
@@ -64,7 +64,7 @@ abstract class Quantity implements Comparable {
   /// The [mks] getter offers a shorthand way to retrieve this value.
   final Number valueSI;
 
-  // Dimensions
+  /// Dimensions.
   final Dimensions dimensions;
 
   /// Sets whether or not uncertainty is to be calculated within mathematical methods.
@@ -75,13 +75,13 @@ abstract class Quantity implements Comparable {
   /// Preferred units for display
   final Units preferredUnits;
 
-  /// This constructor sets the [value] (as expressed in the accompanying [units])
+  /// This constructor sets the [value] (as expressed in the accompanying units)
   /// and the relative standard [uncert]ainty.  The value is may be set using any
   /// `num` or `Number` object, including [Precise] for arbitrary precision.
   ///
   /// Both the value and the uncertainty default to zero.
   ///
-  /// Quantity dimensions are derived from the [units] and default to scalar
+  /// Quantity dimensions are derived from the [preferredUnits] and default to scalar
   /// dimensions if units are not provided.
   ///
   /// Relative standard uncertainty is defined as the standard uncertainty
@@ -92,22 +92,20 @@ abstract class Quantity implements Comparable {
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
   ///
-  Quantity([value = Integer.zero, Units units, double uncert = 0.0])
-      : this.valueSI = units?.toMks(value ?? 0) ?? (value is Number ? value : numToNumber(value)),
-        this.preferredUnits = units,
-        this.dimensions = (units is Quantity) ? (units as Quantity).dimensions : Scalar.scalarDimensions,
+  Quantity([dynamic value = Integer.zero, this.preferredUnits, double uncert = 0.0])
+      : this.valueSI = preferredUnits?.toMks(value ?? 0) ?? (value is Number ? value : numToNumber(value as num)),
+        this.dimensions =
+            (preferredUnits is Quantity) ? (preferredUnits as Quantity).dimensions : Scalar.scalarDimensions,
         this._ur = uncert;
 
   const Quantity.constant(this.valueSI, this.dimensions, this.preferredUnits, this._ur);
 
   /// A private constructor to support MiscQuantity:  dimensions are
   /// known, units are not.
-  ///
-  Quantity._internal([value = 0.0, Dimensions dimensions, double uncert = 0.0])
-      : this.valueSI = (value is num) ? numToNumber(value) : value,
+  Quantity._internal([dynamic value = 0.0, this.dimensions, double uncert = 0.0])
+      : this.valueSI = (value is num) ? numToNumber(value) : value is Number ? value : null,
         this.preferredUnits = null,
-        this.dimensions = dimensions,
-        this._ur = uncert {}
+        this._ur = uncert;
 
   ///  Whether or not this Quantity is represented using arbitrary precision.
   ///
@@ -118,26 +116,23 @@ abstract class Quantity implements Comparable {
   /// significantly slower than limited precision (double) calculations because
   /// arbitrary precision calculations typically occur in software while
   /// double precision calculations often are accelerated directly in hardware.
-  ///
   bool get arbitraryPrecision => valueSI is Precise;
 
   /// Whether or not this Quantity has scalar dimensions, including having no angle or
   /// solid angle dimensions.
   ///
   /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
-  /// Internation System of Units (SI) sense, which allows non-zero angular and
+  /// International System of Units (SI) sense, which allows non-zero angular and
   /// solid angular dimensions.
-  ///
   bool get isScalar => dimensions.isScalar;
 
   /// Whether or not this Quantity has scalar dimensions in the strict
-  /// Internation System of Units (SI) sense, which allows non-zero angle and
+  /// International System of Units (SI) sense, which allows non-zero angle and
   /// solid angle dimensions.
   ///
   /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
-  /// Internation System of Units sense, which allows non-zero angular and
+  /// International System of Units sense, which allows non-zero angular and
   /// solid angular dimensions.
-  ///
   bool get isScalarSI => dimensions.isScalarSI;
 
   /// The relative standard uncertainty in this Quantity object's value.
@@ -147,9 +142,7 @@ abstract class Quantity implements Comparable {
   /// is defined as the uncertainty (of a measurement result) by an estimated
   /// standard deviation, which is equal to the positive square root of the
   /// estimated variance.  One standard deviate in a Normal distribution
-  /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
-  /// 68%.
-  ///
+  /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately 68%.
   double get relativeUncertainty => _ur;
 
   /// Returns the expanded uncertainty for coverage factor, [k], in this
@@ -159,13 +152,12 @@ abstract class Quantity implements Comparable {
   /// uncertainty and may be used when the 68.27% confidence represented by the
   /// standard uncertainty (k=1) is not adequate.
   /// * Confidence values (i.e., the percentage of the distribution encompassed)
-  /// for other values of the coverage factor "k" include:
+  /// for other values of the coverage factor 'k' include:
   ///
   /// 1. 90% for k=1.645,
   /// 2. 95.45% for k=2,
   /// 3. 99% for k=2.576 and
   /// 4. 99.73% for k=3.
-  ///
   Quantity calcExpandedUncertainty(double k) => dimensions.toQuantity(valueSI * _ur * k);
 
   /// Returns the standard uncertainty in this Quantity object's value as a typed
@@ -177,7 +169,6 @@ abstract class Quantity implements Comparable {
   /// estimated variance.  One standard deviate in a Normal distribution
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
-  ///
   Quantity get standardUncertainty => dimensions.toQuantity(valueSI * _ur);
 
   /// Randomly generates a Quantity from this Quantity's value and uncertainty.
@@ -190,25 +181,24 @@ abstract class Quantity implements Comparable {
   ///
   /// If the relative uncertainty is zero, then a copy of this Quantity
   /// will be returned.
-  ///
   Quantity randomSample() {
     if (_ur == 0.0) return this;
 
     // Generate a random number btw 0.0 and 1.0
-    double rand = new Math.Random().nextDouble();
+    final double rand = new math.Random().nextDouble();
 
-    double test = 2.0 * rand - 1.0;
+    final double test = 2.0 * rand - 1.0;
 
     // Iterate on erf until we get a close enough match
     double delta = 1.0;
-    double eps = 0.0001;
+    const double eps = 0.0001;
     double x = -4.0;
     int count = 0;
     while (count < 10000) {
-      double fx = erf(x);
+      final double fx = erf(x);
       if ((fx - test).abs() < eps) {
-        double z = x * Math.sqrt(2.0);
-        return (this + (standardUncertainty * z));
+        final double z = x * math.sqrt(2.0);
+        return this + (standardUncertainty * z);
       }
 
       // Reverse direction and halve it if past it
@@ -229,7 +219,6 @@ abstract class Quantity implements Comparable {
   /// Returns the absolute value of this Quantity.
   ///
   /// If the value of this Quantity is not negative it is returned directly.
-  ///
   Quantity abs() {
     if (valueSI >= 0) return this;
     return dimensions.toQuantity(valueSI.abs(), preferredUnits, _ur);
@@ -243,21 +232,20 @@ abstract class Quantity implements Comparable {
   /// standard uncertainty divided by the absolute value of the sum of the
   /// quantities.  The standard uncertainty is the square root of the sum
   /// of the squares of the two quantities' standard uncertainties. See
-  /// [NIST Reference on Constants, Units, and Uncertainty: Combining
-  /// Uncertainty Components](http://physics.nist.gov/cuu/Uncertainty/combination.html)
-  ///
-  Quantity operator +(addend) {
-    if (addend == null) throw new QuantityException("Cannot add NULL to Quantity");
+  /// (NIST Reference on Constants, Units, and Uncertainty: Combining
+  /// Uncertainty Components](http://physics.nist.gov/cuu/Uncertainty/combination.html))
+  Quantity operator +(dynamic addend) {
+    if (addend == null) throw const QuantityException('Cannot add NULL to Quantity');
 
     // Scalars allow addition of numbers
-    if (this.isScalar && (addend is num || addend is Number)) {
+    if (isScalar && (addend is num || addend is Number)) {
       return dimensions.toQuantity(valueSI + addend, null, _ur);
     }
 
     // Every other Quantity type can only add another Quantity
-    if (addend is! Quantity) throw new QuantityException("Cannot add a ${addend.runtimeType} to a non-Scalar Quantity");
+    if (addend is! Quantity) throw new QuantityException('Cannot add a ${addend.runtimeType} to a non-Scalar Quantity');
 
-    Quantity q2 = addend as Quantity;
+    final Quantity q2 = addend as Quantity;
     if (dimensions != q2.dimensions) {
       throw new DimensionsException('''Can't add Quantities having different 
         dimensions:  $dimensions and ${q2.dimensions}''');
@@ -268,13 +256,13 @@ abstract class Quantity implements Comparable {
     if (_ur != 0.0 || q2._ur != 0.0) {
       // Standard uncertainty (derive from relative standard uncertainty)
       //double v1 = valueSI.toDouble();
-      double u1 = _ur * valueSI.abs().toDouble();
+      final double u1 = _ur * valueSI.abs().toDouble();
 
       // q2's standard uncertainty (derive from relative standard uncertainty)
-      double u2 = q2._ur * q2.valueSI.abs().toDouble();
+      final double u2 = q2._ur * q2.valueSI.abs().toDouble();
 
       // Combined standard uncertainty
-      double uc = Math.sqrt(u1 * u1 + u2 * u2);
+      final double uc = math.sqrt(u1 * u1 + u2 * u2);
 
       // Relative combined standard uncertainty
       //TODO should not be mks... should be new value?
@@ -301,31 +289,30 @@ abstract class Quantity implements Comparable {
   /// quantities.  The standard uncertainty is the square root of the sum
   /// of the squares of the two quantities' standard uncertainties.
   ///
-  /// See <a href="http://physics.nist.gov/cuu/Uncertainty/combination.html">
+  /// See <a href='http://physics.nist.gov/cuu/Uncertainty/combination.html'>
   /// NIST Reference on Constants, Units, and Uncertainty: Combining
-  /// uncertainty components
-  ///
-  Quantity operator -(subtrahend) {
+  /// uncertainty components.
+  Quantity operator -(dynamic subtrahend) {
     // Null check
-    if (subtrahend == null) throw new QuantityException("Cannot subtract NULL from Quantity");
+    if (subtrahend == null) throw const QuantityException('Cannot subtract NULL from Quantity');
 
-    // Scalars allow subtraction of numbers
-    if (this.isScalar && (subtrahend is num || subtrahend is Number)) {
+    // Scalars allow subtraction of numbers.
+    if (isScalar && (subtrahend is num || subtrahend is Number)) {
       return dimensions.toQuantity(valueSI - subtrahend, null, _ur);
     }
 
-    // Every other Quantity type can only subtract another Quantity
-    if (subtrahend is! Quantity) throw new QuantityException(
-        "Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity");
+    // Every other Quantity type can only subtract another Quantity.
+    if (subtrahend is! Quantity)
+      throw new QuantityException('Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity');
 
-    Quantity q2 = subtrahend as Quantity;
+    final Quantity q2 = subtrahend as Quantity;
     if (dimensions != q2.dimensions) {
       throw new DimensionsException('''Can't subtract Quantities having different 
         dimensions:  $dimensions and ${q2.dimensions}''');
     }
 
-    Number newValueSI = valueSI - q2.valueSI;
-    double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+    final Number newValueSI = valueSI - q2.valueSI;
+    final double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend as Quantity, newValueSI);
 
     if (dynamicQuantityTyping) {
       return dimensions.toQuantity(valueSI - q2.valueSI, null, diffUr);
@@ -344,8 +331,7 @@ abstract class Quantity implements Comparable {
   /// defined as the square root of the sum of the squares of the two
   /// quantities' relative standard uncertainties.  If [multiplier] is numeric
   /// the uncertainty is unchanged.
-  ///
-  Quantity operator *(multiplier) {
+  Quantity operator *(dynamic multiplier) {
     // Product uncertainty
     double productUr = _ur;
 
@@ -357,14 +343,14 @@ abstract class Quantity implements Comparable {
 
     // Branch on Quantity, num, Number
     if (multiplier is Quantity) {
-      Quantity q2 = multiplier as Quantity;
+      final Quantity q2 = multiplier;
       productDimensions = dimensions * q2.dimensions;
       productValue = valueSI * q2.valueSI;
-      productUr = (_ur != 0.0 || q2._ur != 0.0) ? Math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
+      productUr = (_ur != 0.0 || q2._ur != 0.0) ? math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
     } else if (multiplier is num || multiplier is Number) {
       productValue = valueSI * multiplier;
     } else {
-      throw new QuantityException("Expected a Quantity, num or Number object");
+      throw const QuantityException('Expected a Quantity, num or Number object');
     }
 
     if (dynamicQuantityTyping) {
@@ -382,19 +368,18 @@ abstract class Quantity implements Comparable {
   /// will be equal to the relative combined standard uncertainty, which is
   /// defined as the square root of the sum of the squares of the two quantities'
   /// relative standard uncertainties.
-  ///
-  Quantity operator /(divisor) {
+  Quantity operator /(dynamic divisor) {
     if (divisor is Quantity) {
-      return this * (divisor as Quantity).inverse();
+      return this * divisor.inverse();
     } else if (divisor is num || divisor is Number) {
-      var resultValue = valueSI / divisor;
+      final Number resultValue = valueSI / divisor;
       if (dynamicQuantityTyping) {
         return dimensions.toQuantity(resultValue, null, _ur);
       } else {
         return new MiscQuantity(resultValue, dimensions, _ur);
       }
     } else {
-      throw new QuantityException("Expected a Quantity, num or Number object");
+      throw const QuantityException('Expected a Quantity, num or Number object');
     }
   }
 
@@ -407,29 +392,32 @@ abstract class Quantity implements Comparable {
   ///
   /// See [NIST Reference on Constants, Units, and Uncertainty: Combining uncertainty components](http://physics.nist.gov/cuu/Uncertainty/combination.html)
   ///
-  Quantity operator ^(exponent) {
-    if (exponent is! num &&
-        exponent is! Number &&
-        exponent is! Scalar) throw new QuantityException("Cannot raise a quantity to a non-numeric power");
-
+  Quantity operator ^(dynamic exponent) {
     if (exponent == 1) return this;
     if (exponent == 0) {
-      if (valueSI == 0) return new Scalar(value: Double.NaN);
+      if (valueSI.toDouble() == 0) return new Scalar(value: Double.NaN);
       return Scalar.one;
     }
 
-    return (dimensions ^ exponent).toQuantity(valueSI ^ exponent, null, _ur * exponent);
+    if (exponent is num) {
+      return (dimensions ^ exponent).toQuantity(valueSI ^ exponent, null, _ur * exponent);
+    } else if (exponent is Number) {
+      return (dimensions ^ exponent.toDouble()).toQuantity(valueSI ^ exponent, null, _ur * exponent.toDouble());
+    } else if (exponent is Scalar) {
+      return (dimensions ^ exponent.valueSI.toDouble())
+          .toQuantity(valueSI ^ exponent, null, _ur * exponent.valueSI.toDouble());
+    }
+
+    throw const QuantityException('Cannot raise a quantity to a non-numeric power');
   }
 
   /// The unary minus operator returns a Quantity whose value
   /// is the negative of this Quantity's value.
-  ///
   Quantity operator -() => dimensions.toQuantity(valueSI * -1, preferredUnits, _ur);
 
   /// Returns a [Quantity] that represents the square root of this Quantity,
   /// in terms of both value and dimensions (for example, if this Quantity were an
   /// Area of 16 square meters, a Length of 4 meters will be returned).
-  ///
   Quantity sqrt() => this ^ (0.5);
 
   /// Determines the inverse of the quantity represented by this object,
@@ -441,31 +429,26 @@ abstract class Quantity implements Comparable {
   /// accomplished by simply inverting the dimensions and dividing the SI MKS value
   /// into 1.0.
   /// * The relative standard uncertainty is unchanged by inversion.
-  ///
   Quantity inverse() => dimensions.inverse().toQuantity(valueSI.reciprocal(), null, _ur);
 
   /// Determines whether on not this Quantity is less than a specified Quantity by
   /// comparing their MKS values.  The two Quantities need not be of the same
   /// type or dimensions.
-  ///
   bool operator <(Quantity other) => compareTo(other) < 0;
 
   /// Determines whether on not this Quantity is less than or equal to a
   /// specified Quantity by comparing their MKS values.  The two Quantities
   /// need not be of the same type or dimensions.
-  ///
   bool operator <=(Quantity other) => compareTo(other) <= 0;
 
   /// Determines whether on not this Quantity is greater than a specified Quantity by
   /// comparing their MKS values.  The two Quantities need not be of the same
   /// type or dimensions.
-  ///
   bool operator >(Quantity other) => compareTo(other) > 0;
 
   /// Determines whether on not this Quantity is greater than or equal to a specified
   /// Quantity by comparing their MKS values.  The two Quantities need not be of
   /// the same type or dimensions.
-  ///
   bool operator >=(Quantity other) => compareTo(other) >= 0;
 
   /// Returns true if this Quantity is equal to [obj].  Two Quantity
@@ -475,16 +458,15 @@ abstract class Quantity implements Comparable {
   ///
   /// Scalar quantities are also considered equal to num and Number objects
   /// with matching values.
-  ///
   @override
   bool operator ==(Object obj) {
-    if (obj == null) return false;
-
     if (this is Scalar && (obj is num || obj is Number)) return valueSI == obj;
 
-    if (obj is! Quantity) return false;
-    if (!(dimensions == (obj as Quantity).dimensions)) return false;
-    return (compareTo(obj) == 0);
+    if (obj is Quantity) {
+      if (!(dimensions == obj.dimensions)) return false;
+      return compareTo(obj) == 0;
+    }
+    return false;
   }
 
   /// The hash code is based on the value and dimensions.
@@ -492,7 +474,7 @@ abstract class Quantity implements Comparable {
   /// Uncertainty and preferred units are not considered.
   ///
   @override
-  int get hashCode => hashObjects([valueSI, dimensions]);
+  int get hashCode => hashObjects(<Object>[valueSI, dimensions]);
 
   /// Compares this Quantity to [q2] by comparing MKS values.  The
   /// Quantities need not have the same dimensions.
@@ -500,14 +482,10 @@ abstract class Quantity implements Comparable {
   /// Returns a negative integer, zero, or a positive integer as this Quantity is
   /// less than, equal to, or greater than [q2].
   ///
-  int compareTo(Comparable q2) {
-    // Scalar can be compared to num or Number
-    if (this is Scalar && (q2 is num || q2 is Number)) {
-      return valueSI.compareTo(q2);
-    }
-
-    if (q2
-        is! Quantity) throw new QuantityException("A Quantity cannot be compared to anything besides another Quantity");
+  @override
+  int compareTo(dynamic q2) {
+    if (q2 is! Quantity)
+      throw const QuantityException('A Quantity cannot be compared to anything besides another Quantity');
     return valueSI.compareTo((q2 as Quantity).valueSI);
   }
 
@@ -525,19 +503,16 @@ abstract class Quantity implements Comparable {
   /// standard MKS (or meter-kilogram-second) units.
   ///
   /// See [get mks].
-  ///
   Number get cgs {
     Number value = valueSI;
 
     // Adjust for centimeters vs. meters
-    num lengthExp = dimensions.getComponentExponent(Dimensions.baseLengthKey);
+    final num lengthExp = dimensions.getComponentExponent(Dimensions.baseLengthKey);
     value *= Double.hundred ^ lengthExp;
 
     // Adjust for grams vs. kilograms
-    num massExp = dimensions.getComponentExponent(Dimensions.baseMassKey);
-    value *= Double.thousand ^ massExp;
-
-    return value;
+    final num massExp = dimensions.getComponentExponent(Dimensions.baseMassKey);
+    return value *= Double.thousand ^ massExp;
   }
 
   /// Gets the Quantity's value in the specified [units].  If units is null,
@@ -552,7 +527,7 @@ abstract class Quantity implements Comparable {
       if (units is Quantity && (units as Quantity).dimensions == dimensions) {
         return units.fromMks(valueSI);
       } else {
-        throw new DimensionsException("Cannot retrieve quantity value using units with incompatible dimensions");
+        throw new DimensionsException('Cannot retrieve quantity value using units with incompatible dimensions');
       }
     }
   }
@@ -599,7 +574,7 @@ abstract class Quantity implements Comparable {
 {
    Units prefUnits = getPreferredUnits();
 
-   if(immutable) throw new ImmutableQuantityException("In Quantity.setValueInPreferredUnits",this);
+   if(immutable) throw new ImmutableQuantityException('In Quantity.setValueInPreferredUnits',this);
 
    if(value instanceof BigDecimal)
    {
@@ -740,8 +715,8 @@ abstract class Quantity implements Comparable {
 
     // Check for appropriate units, if necessary
     if(!(dimensions == units.dimensions)) {
-      throw new DimensionsException("Units do not have proper dimension for "
-         "this Quantity:  $dimensions vs. ${units.dimensions}");
+      throw new DimensionsException('Units do not have proper dimension for '
+         'this Quantity:  $dimensions vs. ${units.dimensions}');
     }
 
     preferredUnits = units;
@@ -766,7 +741,7 @@ abstract class Quantity implements Comparable {
      <li>units that have a conversion value of 1.0 (i.e., base units)
      <li>other units found in the main class
      <li>if siOnly is false, other units found in a sister class (defined as
-     having the same package prefix as the specified class plus ".constant."
+     having the same package prefix as the specified class plus '.constant.'
      plus the same name, only capitalized; for example, the sister class of
      com.nanotitan.nvisualizer.quantity.Mass is com.nanotitan.nvisualizer.quantity.constant.MASS).
      </ul>
@@ -899,7 +874,7 @@ abstract class Quantity implements Comparable {
    }
 
 
-   String sisterClassName = "$prefix constant." + shortClassBuffer.toString().toUpperCase();
+   String sisterClassName = '$prefix constant.' + shortClassBuffer.toString().toUpperCase();
 
    try
    {
@@ -974,18 +949,18 @@ abstract class Quantity implements Comparable {
   /// been specified, then MKS units are used.  Uncertainty in the value of the
   /// Quantity is optionally shown as a plus/minus value in the same units.
   ///
-  void outputText(StringBuffer buffer, {bool showUncert: false, bool symbols: true, NumberFormat numberFormat}) {
+  void outputText(StringBuffer buffer, {bool showUncert = false, bool symbols = true, NumberFormat numberFormat}) {
     if (preferredUnits != null) {
-      Number val = preferredUnits.fromMks(mks);
+      final Number val = preferredUnits.fromMks(mks);
 
       // Format the number
       //NumberFormat format = numberFormat;
       //if (numberFormat == null) format = new NumberFormatSI();
       //if (numberFormat == null) format = new NumberFormat.decimalPattern();
-      var valStr = numberFormat?.format(val) ?? "$val";
+      final String valStr = numberFormat?.format(val) ?? '$val';
 
       // Get the units string (singular or plural, as appropriate)
-      String unitStr = null;
+      String unitStr;
       if (symbols) {
         unitStr = preferredUnits.getShortestName(val.abs() <= 1.0);
         //unitStr = preferredUnits.getShortestDialogName(true);
@@ -999,14 +974,12 @@ abstract class Quantity implements Comparable {
 
       buffer.write(valStr);
 
-      if (unitStr != null && !(unitStr == "1")) {
-        buffer.write(" ");
-        buffer.write(unitStr);
+      if (unitStr != null && !(unitStr == '1')) {
+        buffer..write(' ')..write(unitStr);
       }
     } else {
       // couldn't find any preferred units
-      buffer.write(mks);
-      buffer.write(" [MKS]");
+      buffer..write(mks)..write(' [MKS]');
     }
   }
 
@@ -1014,28 +987,27 @@ abstract class Quantity implements Comparable {
   /// [preferredUnits].
   ///
   /// If no preferred units have been specified, then MKS units are used.
-  ///
+  @override
   String toString() {
-    var buffer = new StringBuffer();
+    final StringBuffer buffer = new StringBuffer();
     outputText(buffer);
     return buffer.toString();
   }
 
-  /// Support [dart:json] stringify.
-  ///
-  Map toJson() {
-    Map m = {};
+  /// Support [dart:convert] stringify.
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> m = <String, dynamic>{};
 
     // Use value in preferred units, if available, for
     // better readability
 
-    if ((preferredUnits != null)) {
-      m["value"] = valueInUnits(preferredUnits).toJson();
-      m["prefUnits"] = preferredUnits.name;
+    if (preferredUnits != null) {
+      m['value'] = valueInUnits(preferredUnits).toJson();
+      m['prefUnits'] = preferredUnits.name;
     }
 
     // Only include non-zero relative uncertainty
-    if (_ur != 0.0) m["ur"] = _ur;
+    if (_ur != 0.0) m['ur'] = _ur;
 
     return m;
   }
@@ -1048,13 +1020,13 @@ abstract class Quantity implements Comparable {
 double _calcRelativeCombinedUncertaintySumDiff(Quantity q1, Quantity q2, Number valueSI) {
   if (q1._ur != 0.0 || q2._ur != 0.0) {
     // Standard uncertainty (derive from relative standard uncertainty)
-    double u1 = q1._ur * q1.valueSI.abs().toDouble();
+    final double u1 = q1._ur * q1.valueSI.abs().toDouble();
 
     // q2's standard uncertainty (derive from relative standard uncertainty)
-    double u2 = q2._ur * q2.valueSI.abs().toDouble();
+    final double u2 = q2._ur * q2.valueSI.abs().toDouble();
 
     // Combined standard uncertainty
-    double uc = Math.sqrt(u1 * u1 + u2 * u2);
+    final double uc = math.sqrt(u1 * u1 + u2 * u2);
 
     // Relative combined standard uncertainty
     return uc / valueSI.abs().toDouble();

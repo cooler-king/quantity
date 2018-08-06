@@ -2,7 +2,7 @@ part of quantity_ext;
 
 SpeedUnits metersPerSecond = Speed.metersPerSecond;
 
-SpeedUnits speedOfLightUnits = new SpeedUnits("speed of light", "c0", "c", "speed of light", 2.99792458e8, false);
+SpeedUnits speedOfLightUnits = new SpeedUnits('speed of light', 'c0', 'c', 'speed of light', 2.99792458e8, false);
 
 SpeedUnits feetPerHour = new SpeedUnits.lengthTime(feet, hours);
 

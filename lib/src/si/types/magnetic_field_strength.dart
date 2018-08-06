@@ -8,70 +8,75 @@ part of quantity_si;
 class MagneticFieldStrength extends Quantity {
   /// Dimensions for this type of quantity
   static const Dimensions magneticFieldStrengthDimensions =
-      const Dimensions.constant(const {"Length": -1, "Current": 1}, type: MagneticFieldStrength);
+      const Dimensions.constant(const <String, int>{'Length': -1, 'Current': 1}, qType: MagneticFieldStrength);
 
   /// The standard SI unit.
   static final MagneticFieldStrengthUnits amperesPerMeter =
       new MagneticFieldStrengthUnits.currentLength(Current.amperes, Length.meters);
 
-  /// Construct a MagneticFieldStrength with amperes per meter ([A_per_m]).
+  /// Construct a MagneticFieldStrength with amperes per meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MagneticFieldStrength({dynamic A_per_m, double uncert: 0.0})
-      : super(A_per_m ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
+  MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
+      : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
-  MagneticFieldStrength._internal(conv) : super._internal(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
+  MagneticFieldStrength._internal(dynamic conv)
+      : super._internal(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  MagneticFieldStrength.inUnits(value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
+  MagneticFieldStrength.inUnits(dynamic value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
       : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
 
-  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, num uncert: 0.0})
+  /// Constructs a constant MagneticFieldStrength.
+  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFieldStrength.magneticFieldStrengthDimensions, units, uncert);
 }
 
 /// Units acceptable for use in describing MagneticFieldStrength quantities.
 ///
 class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
+  /// Constructs a new instance.
   MagneticFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
     this.name = name;
     this.singular = singular;
-    this._convToMKS = objToNumber(conv);
-    this._abbrev1 = abbrev1;
-    this._abbrev2 = abbrev2;
+    _convToMKS = objToNumber(conv);
+    _abbrev1 = abbrev1;
+    _abbrev2 = abbrev2;
     this.metricBase = metricBase;
-    this.offset = offset;
+    this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance based on electric current and length units.
   MagneticFieldStrengthUnits.currentLength(CurrentUnits ecu, LengthUnits lu)
       : super._internal(ecu.valueSI * lu.valueSI) {
-    this.name = "${ecu.name} per ${lu.singular}";
-    this.singular = "${ecu.singular} per ${lu.singular}";
-    this._convToMKS = ecu.valueSI * lu.valueSI;
-    this._abbrev1 = ecu._abbrev1 != null && lu._abbrev1 != null ? "${ecu._abbrev1} / ${lu._abbrev1}" : null;
-    this._abbrev2 = ecu._abbrev2 != null && lu._abbrev2 != null ? "${ecu._abbrev2}${lu._abbrev2}" : null;
-    this.metricBase = false;
-    this.offset = 0.0;
+    name = '${ecu.name} per ${lu.singular}';
+    singular = '${ecu.singular} per ${lu.singular}';
+    _convToMKS = ecu.valueSI * lu.valueSI;
+    _abbrev1 = ecu._abbrev1 != null && lu._abbrev1 != null ? '${ecu._abbrev1} / ${lu._abbrev1}' : null;
+    _abbrev2 = ecu._abbrev2 != null && lu._abbrev2 != null ? '${ecu._abbrev2}${lu._abbrev2}' : null;
+    metricBase = false;
+    offset = 0.0;
   }
 
   /// Returns the Type of the Quantity to which these Units apply
+  @override
   Type get quantityType => MagneticFieldStrength;
 
   /// Derive new MagneticFieldStrengthUnits using this MagneticFieldStrengthUnits object as the base.
-  ///
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) {
-    return new MagneticFieldStrengthUnits(
-        "${fullPrefix}${name}",
-        _abbrev1 != null ? "${abbrevPrefix}${_abbrev1}" : null,
-        _abbrev2 != null ? "${abbrevPrefix}${_abbrev2}" : null,
-        "${fullPrefix}${singular}",
+  @override
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+     new MagneticFieldStrengthUnits(
+        '$fullPrefix$name',
+        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+        '$fullPrefix$singular',
         valueSI * conv,
         false,
-        this.offset);
-  }
+        offset);
+
 }

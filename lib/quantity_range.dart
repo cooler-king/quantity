@@ -4,6 +4,7 @@
 ///
 library quantity_range;
 
+import 'dart:math';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_ext.dart' show angle0, angle360;
 

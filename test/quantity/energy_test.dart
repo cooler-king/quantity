@@ -1,11 +1,11 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 
-main() {
+void main() {
   group('Energy', () {
     test('toMass', () {
       Energy e = new Energy(J: 1);
-      var m = e.toMass();
+      Mass m = e.toMass();
 
       expect(m is Mass, true);
       expect(m.valueSI.toDouble(), 1.1126500560536185e-17);

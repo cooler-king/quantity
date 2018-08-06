@@ -1,9 +1,9 @@
-import 'dart:math' as Math;
+import 'dart:math';
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
 
-main() {
+void main() {
   group('Quantity Library', () {
     test('createTypedQuantityInstance', () {
       Quantity q = createTypedQuantityInstance(Length, 5.6, Length.meters);
@@ -56,10 +56,10 @@ main() {
       expect(createTypedQuantityInstance(Angle, 1.1, Angle.degrees, 13.2) is Angle, true);
       expect(createTypedQuantityInstance(SolidAngle, 1.1, null) is SolidAngle, true);
 
-      Math.Random random = new Math.Random();
+      final Random random = new Random();
       for (Type t in allQuantityTypes) {
         try {
-          Quantity q = createTypedQuantityInstance(t, 1.1, null, random.nextDouble() * 10.0);
+          final Quantity q = createTypedQuantityInstance(t, 1.1, null, random.nextDouble() * 10.0);
           expect(q != null, true);
           expect(q.runtimeType == t, true);
         } catch (err) {
@@ -69,8 +69,8 @@ main() {
     });
 
     test('areWithin', () {
-      Scalar s1 = new Scalar(value: 7.11);
-      Scalar s2 = new Scalar(value: 9.45);
+      final Scalar s1 = new Scalar(value: 7.11);
+      final Scalar s2 = new Scalar(value: 9.45);
       expect(areWithin(s1, s2, new Scalar(value: 3)), true);
       expect(areWithin(s1, s2, new Scalar(value: 2)), false);
       expect(areWithin(s1, s2, new Scalar(value: 2.341)), true);
