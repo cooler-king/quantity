@@ -1,4 +1,4 @@
-### 0.2.0
+### 0.2.0+1
   * Dart 2 support.
   * Stricter typing.
   * Addressed many (but not all) analyzer items.
