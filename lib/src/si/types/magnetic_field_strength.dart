@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class MagneticFieldStrength extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions magneticFieldStrengthDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -1, 'Current': 1}, qType: MagneticFieldStrength);
-
-  /// The standard SI unit.
-  static final MagneticFieldStrengthUnits amperesPerMeter =
-      new MagneticFieldStrengthUnits.currentLength(Current.amperes, Length.meters);
-
   /// Construct a MagneticFieldStrength with amperes per meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -33,6 +25,14 @@ class MagneticFieldStrength extends Quantity {
   /// Constructs a constant MagneticFieldStrength.
   const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFieldStrength.magneticFieldStrengthDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions magneticFieldStrengthDimensions =
+      const Dimensions.constant(const <String, int>{'Length': -1, 'Current': 1}, qType: MagneticFieldStrength);
+
+  /// The standard SI unit.
+  static final MagneticFieldStrengthUnits amperesPerMeter =
+      new MagneticFieldStrengthUnits.currentLength(Current.amperes, Length.meters);
 }
 
 /// Units acceptable for use in describing MagneticFieldStrength quantities.
@@ -69,14 +69,12 @@ class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
 
   /// Derive new MagneticFieldStrengthUnits using this MagneticFieldStrengthUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new MagneticFieldStrengthUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MagneticFieldStrengthUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

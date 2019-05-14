@@ -5,8 +5,6 @@ library quantity_ext;
 
 import 'dart:async';
 import 'dart:math';
-import 'package:dart2_constant/core.dart' as polyfill_core;
-import 'package:dart2_constant/math.dart' as polyfill_math;
 import 'package:quantity/number.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:quantity/quantity_si.dart';

@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class RadiantIntensity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions radiantIntensityDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3, 'Solid Angle': -1}, qType: RadiantIntensity);
-
-  /// The standard SI unit.
-  static final RadiantIntensityUnits wattsPerSteradian =
-      new RadiantIntensityUnits.powerSolidAngle(Power.watts, SolidAngle.steradians);
-
   /// Construct a RadiantIntensity with watts per steradian.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +23,15 @@ class RadiantIntensity extends Quantity {
 
   const RadiantIntensity.constant(Number valueSI, {RadiantIntensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, RadiantIntensity.radiantIntensityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions radiantIntensityDimensions = const Dimensions.constant(
+      const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3, 'Solid Angle': -1},
+      qType: RadiantIntensity);
+
+  /// The standard SI unit.
+  static final RadiantIntensityUnits wattsPerSteradian =
+      new RadiantIntensityUnits.powerSolidAngle(Power.watts, SolidAngle.steradians);
 }
 
 /// Units acceptable for use in describing RadiantIntensity quantities.
@@ -67,14 +68,12 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
 
   /// Derive new RadiantIntensityUnits using this RadiantIntensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new RadiantIntensityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new RadiantIntensityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

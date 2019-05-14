@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class SpectralIrradiance extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions spectralIrradianceDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -2}, qType: SpectralIrradiance);
-
-  /// The standard SI unit.
-  static final SpectralIrradianceUnits wattsPerSquareMeterPerHertz =
-      new SpectralIrradianceUnits('watts per square meter per hertz', 'W m-2 Hz-1', null, null, 1.0, true);
-
   /// Construct a SpectralIrradiance with watts per square meter per hertz.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +23,14 @@ class SpectralIrradiance extends Quantity {
 
   const SpectralIrradiance.constant(Number valueSI, {SpectralIrradianceUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpectralIrradiance.spectralIrradianceDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions spectralIrradianceDimensions =
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -2}, qType: SpectralIrradiance);
+
+  /// The standard SI unit.
+  static final SpectralIrradianceUnits wattsPerSquareMeterPerHertz =
+      new SpectralIrradianceUnits('watts per square meter per hertz', 'W m-2 Hz-1', null, null, 1.0, true);
 }
 
 /// Units acceptable for use in describing SpectralIrradiance quantities.
@@ -55,14 +55,12 @@ class SpectralIrradianceUnits extends SpectralIrradiance with Units {
 
   /// Derive new SpectralIrradianceUnits using this SpectralIrradianceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new SpectralIrradianceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpectralIrradianceUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 MagneticFluxUnits webers = MagneticFlux.webers;
 
 MagneticFluxUnits maxwells = new MagneticFluxUnits('maxwells', null, null, null, 1.0e-8, true);

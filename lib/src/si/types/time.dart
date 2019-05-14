@@ -12,6 +12,37 @@ part of quantity_si;
 /// for more information.
 ///
 class Time extends Quantity {
+  /// Construct a Time with seconds ([s]), milliseconds ([ms]), nanoseconds ([ns]), mean solar days ([d]), mean solar hours ([h])
+  /// or mean solar minutes ([min]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Time({dynamic s, dynamic ms, dynamic ns, dynamic d, dynamic h, dynamic min, double uncert = 0.0})
+      : super(
+            s ?? (ms ?? (ns ?? (d ?? (h ?? (min ?? 0.0))))),
+            ms != null
+                ? Time.milliseconds
+                : (ns != null
+                    ? Time.nanoseconds
+                    : (d != null
+                        ? Time.daysMeanSolar
+                        : (h != null ? Time.hoursMeanSolar : (min != null ? Time.minutesMeanSolar : Time.seconds)))),
+            uncert);
+
+  Time._internal(dynamic conv) : super._internal(conv, Time.timeDimensions);
+
+  /// Constructs a Time based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  ///
+  Time.inUnits(dynamic value, TimeUnits units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
+
+  const Time.constant(Number valueSI, {TimeUnits units, double uncert = 0.0})
+      : super.constant(valueSI, Time.timeDimensions, units, uncert);
+
+  /// Construct a Time object from an existing dart:core Duration object.
+  ///
+  Time.fromDuration(Duration d) : super((d != null) ? d.inMicroseconds.toDouble() / 1.0e6 : 0.0, Time.seconds);
+
   /// Dimensions for this type of quantity
   static const Dimensions timeDimensions = const Dimensions.constant(const <String, int>{'Time': 1}, qType: Time);
 
@@ -53,37 +84,6 @@ class Time extends Quantity {
   /// accepted for use with the SI
   static final TimeUnits days = daysMeanSolar;
 
-  /// Construct a Time with seconds ([s]), milliseconds ([ms]), nanoseconds ([ns]), mean solar days ([d]), mean solar hours ([h])
-  /// or mean solar minutes ([min]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
-  Time({dynamic s, dynamic ms, dynamic ns, dynamic d, dynamic h, dynamic min, double uncert = 0.0})
-      : super(
-            s ?? (ms ?? (ns ?? (d ?? (h ?? (min ?? 0.0))))),
-            ms != null
-                ? Time.milliseconds
-                : (ns != null
-                    ? Time.nanoseconds
-                    : (d != null
-                        ? Time.daysMeanSolar
-                        : (h != null ? Time.hoursMeanSolar : (min != null ? Time.minutesMeanSolar : Time.seconds)))),
-            uncert);
-
-  Time._internal(dynamic conv) : super._internal(conv, Time.timeDimensions);
-
-  /// Constructs a Time based on the [value]
-  /// and the conversion factor intrinsic to the passed [units].
-  ///
-  Time.inUnits(dynamic value, TimeUnits units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
-
-  const Time.constant(Number valueSI, {TimeUnits units, double uncert = 0.0})
-      : super.constant(valueSI, Time.timeDimensions, units, uncert);
-
-  /// Construct a Time object from an existing dart:core Duration object.
-  ///
-  Time.fromDuration(Duration d) : super((d != null) ? d.inMicroseconds.toDouble() / 1.0e6 : 0.0, Time.seconds);
-
   /// Create a dart:core Duration object with the same time interval as this
   /// Time object, to microsecond precision (the maximum precision of the
   /// Duration object).
@@ -114,12 +114,11 @@ class TimeUnits extends Time with Units {
   /// Derive new TimeUnits using this TimeUnits object as the base.
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TimeUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

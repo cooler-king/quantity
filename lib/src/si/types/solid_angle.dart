@@ -6,13 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class SolidAngle extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions solidAngleDimensions =
-      const Dimensions.constant(const <String, int>{'Solid Angle': 1}, qType: SolidAngle);
-
-  /// The standard SI unit.
-  static final SolidAngleUnits steradians = new SolidAngleUnits('steradians', null, 'sr', null, 1.0, true);
-
   /// Construct a SolidAngle with steradians ([sr]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -27,6 +20,13 @@ class SolidAngle extends Quantity {
 
   const SolidAngle.constant(Number value, [SolidAngleUnits units])
       : super.constant(value, SolidAngle.solidAngleDimensions, units, 0.0);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions solidAngleDimensions =
+      const Dimensions.constant(const <String, int>{'Solid Angle': 1}, qType: SolidAngle);
+
+  /// The standard SI unit.
+  static final SolidAngleUnits steradians = new SolidAngleUnits('steradians', null, 'sr', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing SolidAngle quantities.

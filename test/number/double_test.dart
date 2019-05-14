@@ -1,4 +1,3 @@
-import 'package:dart2_constant/core.dart' as polyfill_core;
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
@@ -6,23 +5,23 @@ import 'package:quantity/number.dart';
 void main() {
   group('Double', () {
     test('constants', () {
-      const Double d = const Double.constant(42.0);
+      const Double d = const Double.constant(42);
       expect(d.value, 42.0);
       expect(Double.zero.value, 0.0);
       expect(Double.one.value, 1.0);
       expect(Double.ten.value, 10.0);
       expect(Double.hundred.value, 100.0);
       expect(Double.thousand.value, 1000.0);
-      expect(Double.infinity.value, polyfill_core.double.infinity);
-      expect(Double.negInfinity.value, polyfill_core.double.negativeInfinity);
-      expect(identical(Double.NaN.value, polyfill_core.double.nan), true);
+      expect(Double.infinity.value, double.infinity);
+      expect(Double.negInfinity.value, double.negativeInfinity);
+      expect(identical(Double.NaN.value, double.nan), true);
     });
 
     test('isNaN', () {
-      const Double d = const Double.constant(42.0);
+      const Double d = const Double.constant(42);
       const Double d2 = Double.NaN;
       const Double d3 = Double.infinity;
-      final Double d4 = new Double(polyfill_core.double.nan);
+      final Double d4 = new Double(double.nan);
 
       expect(d.isNaN, false);
       expect(d2.isNaN, true);
@@ -34,7 +33,7 @@ void main() {
       final Double d = new Double(42.056);
       final Double d2 = new Double(14.321);
       final Double d3 = new Double(42.056);
-      final Double d4 = new Double(42.0);
+      final Double d4 = new Double(42);
       final Double d5 = new Double(42.toDouble());
       expect(d == d, true);
       expect(d == d2, false);
@@ -54,7 +53,7 @@ void main() {
       expect(d5 == 42.0, true);
 
       // equality with complex
-      final Complex c1 = new Complex(new Double(42.0), new Imaginary(0.0));
+      final Complex c1 = new Complex(new Double(42), new Imaginary(0));
       // ignore: unrelated_type_equality_checks
       expect(d4 == c1, true);
     });
@@ -334,13 +333,13 @@ void main() {
 
       // / Complex
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
-      Complex cx = new Complex(new Double(1.0), new Imaginary(2));
-      quot = new Double(4.0) / cx;
+      Complex cx = new Complex(new Double(1), new Imaginary(2));
+      quot = new Double(4) / cx;
       expect(quot is Complex, true);
       expect((quot as Complex).real.toDouble(), closeTo(0.8, 0.000001));
       expect((quot as Complex).imag.value.toDouble(), -1.6);
-      cx = new Complex(new Double(-1.0), new Imaginary(-2));
-      quot = new Double(4.0) / cx;
+      cx = new Complex(new Double(-1), new Imaginary(-2));
+      quot = new Double(4) / cx;
       expect(quot is Complex, true);
       expect((quot as Complex).real.toDouble(), closeTo(-0.8, 0.000001));
       expect((quot as Complex).imag.value.toDouble(), 1.6);

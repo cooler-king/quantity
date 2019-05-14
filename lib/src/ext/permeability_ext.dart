@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-/// A synonym for the standard Si-MKS unit of permeability.
+/// The standard SI unit.
 PermeabilityUnits henriesPerMeter = Permeability.henriesPerMeter;
 
 PermeabilityUnits newtonsPerAmpereSquared = Permeability.newtonsPerAmpereSquared;

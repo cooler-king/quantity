@@ -6,6 +6,26 @@ part of quantity_si;
 /// for more information.
 ///
 class AbsorbedDoseRate extends Quantity {
+  /// Construct an AbsorbedDoseRate with either grays per second or rads per second.
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  AbsorbedDoseRate({dynamic graysPerSecond, dynamic radsPerSecond, double uncert = 0.0})
+      : super(graysPerSecond ?? (radsPerSecond ?? 0.0),
+            radsPerSecond != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
+
+  AbsorbedDoseRate._internal(dynamic conv) : super._internal(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
+
+  /// Constructs an AbsorbedDoseRate based on the [value]
+  /// and the conversion factor intrinsic to the provided [units].
+  ///
+  AbsorbedDoseRate.inUnits(dynamic value, AbsorbedDoseRateUnits units, [double uncert = 0.0])
+      : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert);
+
+  /// Construct a constant AbsorbedDoseRate with its SI value.
+  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, double uncert = 0.0})
+      : super.constant(valueSI, AbsorbedDoseRate.absorbedDoseRateDimensions, units, uncert);
+
   /// Dimensions for this type of quantity
   static const Dimensions absorbedDoseRateDimensions =
       const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -3}, qType: AbsorbedDoseRate);
@@ -17,29 +37,6 @@ class AbsorbedDoseRate extends Quantity {
   /// Accepted for use with the SI.
   static final AbsorbedDoseRateUnits radsPerSecond =
       new AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDose.rads, Time.seconds);
-
-  /// Construct an AbsorbedDoseRate with either grays per second or rads per second.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
-  AbsorbedDoseRate({dynamic graysPerSecond, dynamic radsPerSecond, double uncert = 0.0})
-      : super(graysPerSecond ?? (radsPerSecond ?? 0.0),
-      radsPerSecond != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
-
-  AbsorbedDoseRate._internal(dynamic conv) : super._internal(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
-
-  /// Constructs an AbsorbedDoseRate based on the [value]
-  /// and the conversion factor intrinsic to the provided [units].
-  ///
-  AbsorbedDoseRate.inUnits(dynamic value, AbsorbedDoseRateUnits units, [double uncert = 0.0])
-      : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert);
-
-  /// Construct a constant AbsorbedDoseRate with its SI value.
-  ///
-  ///
-  ///
-  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, double uncert = 0.0})
-      : super.constant(valueSI, AbsorbedDoseRate.absorbedDoseRateDimensions, units, uncert);
 }
 
 /// Units acceptable for use in describing AbsorbedDoseRate quantities.
@@ -76,14 +73,12 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
 
   /// Derive new AbsorbedDoseRateUnits using this AbsorbedDoseRateUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new AbsorbedDoseRateUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AbsorbedDoseRateUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

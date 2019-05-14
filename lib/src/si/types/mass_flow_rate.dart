@@ -6,13 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class MassFlowRate extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions massFlowRateDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -1}, qType: MassFlowRate);
-
-  /// The standard SI unit.
-  static final MassFlowRateUnits kilogramsPerSecond = new MassFlowRateUnits.massTime(Mass.kilograms, Time.seconds);
-
   /// Construct a MassFlowRate with kilograms per second.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -30,6 +23,13 @@ class MassFlowRate extends Quantity {
 
   const MassFlowRate.constant(Number valueSI, {MassFlowRateUnits units, double uncert = 0.0})
       : super.constant(valueSI, MassFlowRate.massFlowRateDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions massFlowRateDimensions =
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -1}, qType: MassFlowRate);
+
+  /// The standard SI unit.
+  static final MassFlowRateUnits kilogramsPerSecond = new MassFlowRateUnits.massTime(Mass.kilograms, Time.seconds);
 }
 
 /// Units acceptable for use in describing MassFlowRate quantities.
@@ -65,14 +65,12 @@ class MassFlowRateUnits extends MassFlowRate with Units {
 
   /// Derive new MassFlowRateUnits using this MassFlowRateUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new MassFlowRateUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MassFlowRateUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

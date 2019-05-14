@@ -8,13 +8,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Torque extends Quantity {
-  /// Dimensions for this type of quantity (energy per angle rather than LengthxForce)
-  static const Dimensions torqueDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1}, qType: Torque);
-
-  /// The standard SI unit.
-  static final TorqueUnits newtonMeters = new TorqueUnits.forceLength(Force.newtons, Length.meters);
-
   /// Construct a Torque with newton meters ([Nm]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -32,6 +25,13 @@ class Torque extends Quantity {
 
   const Torque.constant(Number valueSI, {TorqueUnits units, double uncert = 0.0})
       : super.constant(valueSI, Torque.torqueDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity (energy per angle rather than LengthxForce)
+  static const Dimensions torqueDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1}, qType: Torque);
+
+  /// The standard SI unit.
+  static final TorqueUnits newtonMeters = new TorqueUnits.forceLength(Force.newtons, Length.meters);
 }
 
 /// Units acceptable for use in describing Torque quantities.
@@ -65,14 +65,12 @@ class TorqueUnits extends Torque with Units {
 
   /// Derive new TorqueUnits using this TorqueUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new TorqueUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TorqueUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

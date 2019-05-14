@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class CurrentDensity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions electricCurrentDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 1, 'Length': -2}, qType: CurrentDensity);
-
-  /// The standard SI unit.
-  static final CurrentDensityUnits amperesPerSquareMeter =
-      new CurrentDensityUnits.currentArea(Current.amperes, Area.squareMeters);
-
   /// Construct a CurrentDensity with amperes per square meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +23,14 @@ class CurrentDensity extends Quantity {
 
   const CurrentDensity.constant(Number valueSI, {CurrentDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, CurrentDensity.electricCurrentDensityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions electricCurrentDensityDimensions =
+      const Dimensions.constant(const <String, int>{'Current': 1, 'Length': -2}, qType: CurrentDensity);
+
+  /// The standard SI unit.
+  static final CurrentDensityUnits amperesPerSquareMeter =
+      new CurrentDensityUnits.currentArea(Current.amperes, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing CurrentDensity quantities.
@@ -66,14 +66,12 @@ class CurrentDensityUnits extends CurrentDensity with Units {
 
   /// Derive new CurrentDensityUnits using this CurrentDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new CurrentDensityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CurrentDensityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

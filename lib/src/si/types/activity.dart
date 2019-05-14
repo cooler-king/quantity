@@ -6,15 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Activity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions activityDimensions = const Dimensions.constant(const <String, int>{'Time': -1}, qType: Activity);
-
-  /// The standard SI unit.
-  static final ActivityUnits becquerels = new ActivityUnits('becquerels', null, 'Bq', null, 1.0, true);
-
-  /// Accepted for use with the SI, subject to further review.
-  static final ActivityUnits curies = new ActivityUnits('curies', null, 'Ci', null, 3.7e10, false);
-
   /// Construct an Activity with either becquerels ([Bq]) or curies ([Ci]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -32,6 +23,16 @@ class Activity extends Quantity {
 
   const Activity.constant(Number valueSI, {ActivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, Activity.activityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions activityDimensions =
+      const Dimensions.constant(const <String, int>{'Time': -1}, qType: Activity);
+
+  /// The standard SI unit.
+  static final ActivityUnits becquerels = new ActivityUnits('becquerels', null, 'Bq', null, 1.0, true);
+
+  /// Accepted for use with the SI, subject to further review.
+  static final ActivityUnits curies = new ActivityUnits('curies', null, 'Ci', null, 3.7e10, false);
 }
 
 /// Units acceptable for use in describing Activity quantities.
@@ -65,14 +66,12 @@ class ActivityUnits extends Activity with Units {
 
   /// Derive new ActivityUnits using this ActivityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new ActivityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ActivityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

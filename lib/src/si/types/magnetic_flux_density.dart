@@ -7,13 +7,6 @@ part of quantity_si;
 /// for more information.
 ///
 class MagneticFluxDensity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions magneticFluxDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Current': -1, 'Time': -2}, qType: MagneticFluxDensity);
-
-  /// The standard SI unit.
-  static final MagneticFluxDensityUnits teslas = new MagneticFluxDensityUnits('teslas', null, 'T', null, 1.0, true);
-
   /// Construct a MagneticFluxDensity with teslas ([T]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +24,13 @@ class MagneticFluxDensity extends Quantity {
 
   const MagneticFluxDensity.constant(Number valueSI, {MagneticFluxDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFluxDensity.magneticFluxDensityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions magneticFluxDensityDimensions =
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Current': -1, 'Time': -2}, qType: MagneticFluxDensity);
+
+  /// The standard SI unit.
+  static final MagneticFluxDensityUnits teslas = new MagneticFluxDensityUnits('teslas', null, 'T', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing MagneticFluxDensity quantities.
@@ -55,14 +55,12 @@ class MagneticFluxDensityUnits extends MagneticFluxDensity with Units {
 
   /// Derive new MagneticFluxDensityUnits using this MagneticFluxDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new MagneticFluxDensityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MagneticFluxDensityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

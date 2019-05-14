@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-/// A synonym for the standard SI-MKS unit of charge.
+/// The standard SI unit.
 final ChargeUnits coulombs = Charge.coulombs;
 
 final ChargeUnits ampereHours = new ChargeUnits.currentTime(Current.amperes, Time.hours);

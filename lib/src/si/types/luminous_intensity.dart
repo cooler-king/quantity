@@ -8,13 +8,6 @@ part of quantity_si;
 /// for more information.
 ///
 class LuminousIntensity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions luminousIntensityDimensions =
-      const Dimensions.constant(const <String, int>{'Intensity': 1}, qType: LuminousIntensity);
-
-  /// The standard SI unit.
-  static final LuminousIntensityUnits candelas = new LuminousIntensityUnits('candelas', 'cd', null, null, 1.0, true);
-
   /// Construct a LuminousIntensity with candelas ([cd]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +24,13 @@ class LuminousIntensity extends Quantity {
 
   const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, LuminousIntensity.luminousIntensityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions luminousIntensityDimensions =
+      const Dimensions.constant(const <String, int>{'Intensity': 1}, qType: LuminousIntensity);
+
+  /// The standard SI unit.
+  static final LuminousIntensityUnits candelas = new LuminousIntensityUnits('candelas', 'cd', null, null, 1.0, true);
 }
 
 /// Units acceptable for use in describing [LuminousIntensity] quantities.
@@ -55,14 +55,12 @@ class LuminousIntensityUnits extends LuminousIntensity with Units {
 
   /// Derive new LuminousIntensityUnits using this LuminousIntensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new LuminousIntensityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new LuminousIntensityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

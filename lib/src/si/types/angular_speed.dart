@@ -6,23 +6,13 @@ part of quantity_si;
 /// for more information.
 ///
 class AngularSpeed extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions angularSpeedDimensions =
-      const Dimensions.constant(const <String, int>{'Angle': 1, 'Time': -1}, qType: AngularSpeed);
-
-  /// The standard SI unit
-  static final AngularSpeedUnits radiansPerSecond = new AngularSpeedUnits.angleTime(Angle.radians, Time.seconds);
-
-  /// Accepted for use with the SI
-  static final AngularSpeedUnits degreesPerSecond = new AngularSpeedUnits.angleTime(Angle.degrees, Time.seconds);
-
   /// Construct an AngularSpeed with either radians per second or degrees per second.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   AngularSpeed({dynamic radiansPerSecond, dynamic degreesPerSecond, double uncert = 0.0})
       : super(radiansPerSecond ?? (degreesPerSecond ?? 0.0),
-      degreesPerSecond != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
+            degreesPerSecond != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
 
   AngularSpeed._internal(dynamic conv) : super._internal(conv, AngularSpeed.angularSpeedDimensions);
 
@@ -34,6 +24,16 @@ class AngularSpeed extends Quantity {
 
   const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits units, double uncert = 0.0})
       : super.constant(valueSI, AngularSpeed.angularSpeedDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions angularSpeedDimensions =
+      const Dimensions.constant(const <String, int>{'Angle': 1, 'Time': -1}, qType: AngularSpeed);
+
+  /// The standard SI unit
+  static final AngularSpeedUnits radiansPerSecond = new AngularSpeedUnits.angleTime(Angle.radians, Time.seconds);
+
+  /// Accepted for use with the SI
+  static final AngularSpeedUnits degreesPerSecond = new AngularSpeedUnits.angleTime(Angle.degrees, Time.seconds);
 }
 
 /// Units acceptable for use in describing AngularSpeed quantities.
@@ -69,14 +69,12 @@ class AngularSpeedUnits extends AngularSpeed with Units {
 
   /// Derive new AngularSpeedUnits using this AngularSpeedUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new AngularSpeedUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AngularSpeedUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

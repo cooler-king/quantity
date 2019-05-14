@@ -9,6 +9,12 @@ QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q) {
 
 /// Represents a range of quantity values.
 class QuantityRange<Q extends Quantity> {
+  /// Constructs a new quantity range, from [q1] to [q2].
+  QuantityRange(this.q1, this.q2) {
+    if (q1 is! Quantity || q2 is! Quantity)
+      throw const QuantityException('QuantityRange endpoints must be Quantity objects');
+  }
+
   /// The starting quantity of the range.
   Q q1;
 
@@ -20,12 +26,6 @@ class QuantityRange<Q extends Quantity> {
   Q _maxValue;
   Q _centerValue;
   Q _span;
-
-  /// Constructs a new quantity range, from [q1] to [q2].
-  QuantityRange(this.q1, this.q2) {
-    if (q1 is! Quantity || q2 is! Quantity)
-      throw const QuantityException('QuantityRange endpoints must be Quantity objects');
-  }
 
   /// The minimum value in this range.
   Q get minValue => _minValue ??= (q1.valueSI <= q2.valueSI) ? q1 : q2;

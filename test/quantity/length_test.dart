@@ -160,25 +160,25 @@ void main() {
       expect(bb.dimensions.equalsSI(Scalar.scalarDimensions), true);
       expect(bb is Scalar, true);
 
-      final dynamic  cc = b / 14;
+      final dynamic cc = b / 14;
       expect(cc.valueSI == 3, true);
       expect(cc.valueSI is Integer, true);
       expect(cc.dimensions.equalsSI(Length.lengthDimensions), true);
       expect(cc is Length, true);
 
-      final dynamic  dd = b / new Scalar(value: 21);
+      final dynamic dd = b / new Scalar(value: 21);
       expect(dd.valueSI == 2, true);
       expect(dd.valueSI is Integer, true);
       expect(dd.dimensions.equalsSI(Length.lengthDimensions), true);
       expect(dd is Length, true);
 
-      final dynamic  ee = b / new Time(s: 4);
+      final dynamic ee = b / new Time(s: 4);
       expect(ee.valueSI == 10.5, true);
       expect(ee.valueSI is Double, true);
       expect(ee.dimensions.equalsSI(Speed.speedDimensions), true);
       expect(ee is Speed, true);
 
-      final dynamic  ff = b / new Speed(metersPerSecond: 10.5);
+      final dynamic ff = b / new Speed(metersPerSecond: 10.5);
       expect(ff.valueSI == 4, true);
       expect(ff.valueSI is Integer, true);
       expect(ff.dimensions.equalsSI(Time.timeDimensions), true);
@@ -189,27 +189,27 @@ void main() {
       dynamicQuantityTyping = true;
       final Length a = new Length(m: 2);
 
-      final dynamic  aa = a ^ 2;
+      final dynamic aa = a ^ 2;
       expect(aa.valueSI == 4, true);
       expect(aa.valueSI is Integer, true);
       expect(aa.dimensions.equalsSI(Area.areaDimensions), true);
       expect(aa is Area, true);
 
-      final dynamic  bb = a ^ 3;
+      final dynamic bb = a ^ 3;
       expect(bb.valueSI == 8, true);
       expect(bb.valueSI is Integer, true);
       expect(bb.dimensions.equalsSI(Volume.volumeDimensions), true);
       expect(bb is Volume, true);
 
-      final dynamic  cc = a ^ 2.5;
+      final dynamic cc = a ^ 2.5;
       expect(cc.valueSI is Double, true);
       expect(cc.dimensions.getComponentExponent('Length'), 2.5);
       expect(cc is MiscQuantity, true);
 
-      final dynamic  dd = a ^ 1;
+      final dynamic dd = a ^ 1;
       expect(identical(a, dd), true);
 
-      final dynamic  ee = a ^ 0;
+      final dynamic ee = a ^ 0;
       expect(identical(ee, Scalar.one), true);
     });
 

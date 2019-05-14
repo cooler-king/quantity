@@ -8,14 +8,6 @@ part of quantity_si;
 /// for more information.
 ///
 class SpecificEnergy extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions specificEnergyDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: SpecificEnergy);
-
-  /// The standard SI unit.
-  static final SpecificEnergyUnits joulesPerKilogram =
-      new SpecificEnergyUnits.energyMass(Energy.joules, Mass.kilograms);
-
   /// Construct a SpecificEnergy with joules per kilogram.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -33,6 +25,14 @@ class SpecificEnergy extends Quantity {
 
   const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpecificEnergy.specificEnergyDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions specificEnergyDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: SpecificEnergy);
+
+  /// The standard SI unit.
+  static final SpecificEnergyUnits joulesPerKilogram =
+      new SpecificEnergyUnits.energyMass(Energy.joules, Mass.kilograms);
 }
 
 /// Units acceptable for use in describing SpecificEnergy quantities.
@@ -91,14 +91,12 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
 
   /// Derive new SpecificEnergyUnits using this SpecificEnergyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new SpecificEnergyUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpecificEnergyUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

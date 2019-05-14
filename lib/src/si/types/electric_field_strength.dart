@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class ElectricFieldStrength extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions electricFieldStrengthDimensions =
-      const Dimensions.constant(const <String, int>{'Current': -1, 'Time': -3, 'Length': 1, 'Mass': 1}, qType: ElectricFieldStrength);
-
-  /// The standard SI unit.
-  static final ElectricFieldStrengthUnits voltsPerMeter =
-      new ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifference.volts, Length.meters);
-
   /// Construct an ElectricFieldStrength with volts per meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -32,6 +24,15 @@ class ElectricFieldStrength extends Quantity {
 
   const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits units, double uncert = 0.0})
       : super.constant(valueSI, ElectricFieldStrength.electricFieldStrengthDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions electricFieldStrengthDimensions = const Dimensions.constant(
+      const <String, int>{'Current': -1, 'Time': -3, 'Length': 1, 'Mass': 1},
+      qType: ElectricFieldStrength);
+
+  /// The standard SI unit.
+  static final ElectricFieldStrengthUnits voltsPerMeter =
+      new ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifference.volts, Length.meters);
 }
 
 /// Units acceptable for use in describing ElectricFieldStrength quantities.
@@ -66,14 +67,12 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
 
   /// Derive new ElectricFieldStrengthUnits using this ElectricFieldStrengthUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new ElectricFieldStrengthUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ElectricFieldStrengthUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

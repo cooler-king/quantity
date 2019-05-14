@@ -6,12 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class WaveNumber extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions waveNumberDimensions = const Dimensions.constant(const <String, int>{'Length': -1}, qType: WaveNumber);
-
-  /// The standard SI unit.
-  static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.inverseLength(Length.meters);
-
   /// Construct a WaveNumber with reciprocal meters.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -29,6 +23,13 @@ class WaveNumber extends Quantity {
 
   const WaveNumber.constant(Number valueSI, {WaveNumberUnits units, double uncert = 0.0})
       : super.constant(valueSI, WaveNumber.waveNumberDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions waveNumberDimensions =
+      const Dimensions.constant(const <String, int>{'Length': -1}, qType: WaveNumber);
+
+  /// The standard SI unit.
+  static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.inverseLength(Length.meters);
 }
 
 /// Units acceptable for use in describing WaveNumber quantities.
@@ -64,14 +65,12 @@ class WaveNumberUnits extends WaveNumber with Units {
 
   /// Derive new WaveNumberUnits using this WaveNumberUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new WaveNumberUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new WaveNumberUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

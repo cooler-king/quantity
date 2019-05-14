@@ -8,15 +8,6 @@ part of quantity_si;
 /// for more information.
 ///
 class ElectricPotentialDifference extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions electricPotentialDifferenceDimensions = const Dimensions.constant(
-      const <String, int>{'Current': -1, 'Time': -3, 'Length': 2, 'Mass': 1},
-      qType: ElectricPotentialDifference);
-
-  /// The standard SI unit.
-  static final ElectricPotentialDifferenceUnits volts =
-      new ElectricPotentialDifferenceUnits('volts', null, 'V', null, 1.0, true);
-
   /// Construct an ElectricPotentialDifference with volts ([V]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -36,6 +27,15 @@ class ElectricPotentialDifference extends Quantity {
   const ElectricPotentialDifference.constant(Number valueSI,
       {ElectricPotentialDifferenceUnits units, double uncert = 0.0})
       : super.constant(valueSI, ElectricPotentialDifference.electricPotentialDifferenceDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions electricPotentialDifferenceDimensions = const Dimensions.constant(
+      const <String, int>{'Current': -1, 'Time': -3, 'Length': 2, 'Mass': 1},
+      qType: ElectricPotentialDifference);
+
+  /// The standard SI unit.
+  static final ElectricPotentialDifferenceUnits volts =
+      new ElectricPotentialDifferenceUnits('volts', null, 'V', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing ElectricPotentialDifference quantities.
@@ -59,14 +59,12 @@ class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with 
 
   /// Derive new ElectricPotentialDifferenceUnits using this ElectricPotentialDifferenceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new ElectricPotentialDifferenceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ElectricPotentialDifferenceUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

@@ -6,18 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Scalar extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions scalarDimensions = const Dimensions.constant(const <String, int>{}, qType: Scalar);
-
-  // Units
-
-  /// The standard SI unit; may be represented by '1' but is typically not displayed at all.
-  static final ScalarUnits one = new ScalarUnits('1', null, null, '1', Double.one, false);
-
-  /// Acceptable for use with the SI; percent (%) represents the number 0.01
-  static final ScalarUnits percent =
-      new ScalarUnits('percent', null, '%', 'percent', const Double.constant(0.01), false);
-
   /// Construct a Scalar with [value] or [percent].
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -32,6 +20,18 @@ class Scalar extends Quantity {
 
   const Scalar.constant(Number value, {ScalarUnits units, double uncert = 0.0})
       : super.constant(value, Scalar.scalarDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions scalarDimensions = const Dimensions.constant(const <String, int>{}, qType: Scalar);
+
+  // Units
+
+  /// The standard SI unit; may be represented by '1' but is typically not displayed at all.
+  static final ScalarUnits one = new ScalarUnits('1', null, null, '1', Double.one, false);
+
+  /// Acceptable for use with the SI; percent (%) represents the number 0.01
+  static final ScalarUnits percent =
+      new ScalarUnits('percent', null, '%', 'percent', const Double.constant(0.01), false);
 
   /// Scalar's hash code is identical to the hash code of its SI value
   /// in order to support functional equality of [Scalar] quantities,
@@ -80,14 +80,12 @@ class ScalarUnits extends Scalar with Units {
 
   /// Derive new ScalarUnits using this ScalarUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new ScalarUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ScalarUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

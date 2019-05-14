@@ -6,25 +6,15 @@ part of quantity_si;
 /// for more information.
 ///
 class Permeability extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions permeabilityDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 1, 'Mass': 1, 'Time': -2, 'Current': -2}, qType: Permeability);
-
-  /// The standard SI unit.
-  static final PermeabilityUnits henriesPerMeter =
-      new PermeabilityUnits.inductanceLength(Inductance.henries, Length.meters);
-
-  /// The standard SI unit (alternate form).
-  static final PermeabilityUnits newtonsPerAmpereSquared =
-      new PermeabilityUnits.forceCurrent(Force.newtons, Current.amperes);
-
   /// Construct a Permeability with henries per meter or newtons per ampere squared.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   Permeability({dynamic henriesPerMeter, dynamic newtonsPerAmpereSquared, double uncert = 0.0})
-      : super(henriesPerMeter ?? (newtonsPerAmpereSquared ?? 0.0),
-      newtonsPerAmpereSquared != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter, uncert);
+      : super(
+            henriesPerMeter ?? (newtonsPerAmpereSquared ?? 0.0),
+            newtonsPerAmpereSquared != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter,
+            uncert);
 
   Permeability._internal(dynamic conv) : super._internal(conv, Permeability.permeabilityDimensions);
 
@@ -36,6 +26,19 @@ class Permeability extends Quantity {
 
   const Permeability.constant(Number valueSI, {PermeabilityUnits units, double uncert = 0.0})
       : super.constant(valueSI, Permeability.permeabilityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions permeabilityDimensions = const Dimensions.constant(
+      const <String, int>{'Length': 1, 'Mass': 1, 'Time': -2, 'Current': -2},
+      qType: Permeability);
+
+  /// The standard SI unit.
+  static final PermeabilityUnits henriesPerMeter =
+      new PermeabilityUnits.inductanceLength(Inductance.henries, Length.meters);
+
+  /// The standard SI unit (alternate form).
+  static final PermeabilityUnits newtonsPerAmpereSquared =
+      new PermeabilityUnits.forceCurrent(Force.newtons, Current.amperes);
 }
 
 /// Units acceptable for use in describing Permeability quantities.
@@ -82,14 +85,12 @@ class PermeabilityUnits extends Permeability with Units {
 
   /// Derive new PermeabilityUnits using this PermeabilityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new PermeabilityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new PermeabilityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

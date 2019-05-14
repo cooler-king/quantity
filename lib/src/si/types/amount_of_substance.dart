@@ -6,16 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class AmountOfSubstance extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions amountOfSubstanceDimensions =
-      const Dimensions.constant(const <String, int>{'Amount': 1}, qType: AmountOfSubstance);
-
-  /// The standard SI unit.
-  static final AmountOfSubstanceUnits moles = new AmountOfSubstanceUnits('moles', null, 'mol', null, 1.0, true);
-
-  /// A common metric derivative of the standard SI unit.
-  static final AmountOfSubstanceUnits kilomoles = moles.kilo() as AmountOfSubstanceUnits;
-
   /// Construct an AmountOfSubstance with moles ([mol])
   /// or kilomoles ([kmol]).
   ///
@@ -34,6 +24,16 @@ class AmountOfSubstance extends Quantity {
 
   const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, AmountOfSubstance.amountOfSubstanceDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions amountOfSubstanceDimensions =
+      const Dimensions.constant(const <String, int>{'Amount': 1}, qType: AmountOfSubstance);
+
+  /// The standard SI unit.
+  static final AmountOfSubstanceUnits moles = new AmountOfSubstanceUnits('moles', null, 'mol', null, 1.0, true);
+
+  /// A common metric derivative of the standard SI unit.
+  static final AmountOfSubstanceUnits kilomoles = moles.kilo() as AmountOfSubstanceUnits;
 }
 
 /// Units acceptable for use in describing [AmountOfSubstance] quantities.
@@ -57,14 +57,12 @@ class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
 
   /// Derive new AmountOfSubstanceUnits using this AmountOfSubstanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new AmountOfSubstanceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AmountOfSubstanceUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

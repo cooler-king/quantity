@@ -48,7 +48,6 @@ class MutableQuantity implements Quantity {
   Stream<Number> get onChange => _onChange.stream;
   final StreamController<Number> _onChange = new StreamController<Number>.broadcast();
 
-
   @override
   Number get mks => valueSI;
 
@@ -152,8 +151,7 @@ class MutableQuantity implements Quantity {
   set standardUncertainty(Quantity su) {
     if (!mutable) throw new ImmutableQuantityException(q: this);
     if (!(dimensions == su.dimensions)) {
-      throw new DimensionsException(
-          'The standard uncertainty must have the same dimensions as this Quantity object');
+      throw new DimensionsException('The standard uncertainty must have the same dimensions as this Quantity object');
     }
 
     // Determine ur.

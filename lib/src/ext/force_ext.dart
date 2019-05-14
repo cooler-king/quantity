@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 final ForceUnits newtons = Force.newtons;
 
 ForceUnits dynes = new ForceUnits('dynes', null, null, null, 1.0e-5, true);

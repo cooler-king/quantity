@@ -6,19 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Temperature extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions temperatureDimensions =
-      const Dimensions.constant(const <String, int>{'Temperature': 1}, qType: Temperature);
-
-  // Units
-
-  /// The standard SI unit.
-  static final TemperatureUnits kelvins = new TemperatureUnits('kelvins', 'K', null, null, Double.one, true, 0.0);
-
-  /// Derived SI unit.
-  static final TemperatureUnits degreesCelsius =
-      new TemperatureUnits('degrees Celsius', 'deg C', null, 'degree Celsius', Double.one, false, 273.15);
-
   /// Construct a Temperature with kelvins ([K]) or degrees Celsius ([C]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -37,6 +24,19 @@ class Temperature extends Quantity {
   /// Constructs a constant Temperature.
   const Temperature.constant(Number valueSI, {TemperatureUnits units, double uncert = 0.0})
       : super.constant(valueSI, Temperature.temperatureDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions temperatureDimensions =
+      const Dimensions.constant(const <String, int>{'Temperature': 1}, qType: Temperature);
+
+  // Units
+
+  /// The standard SI unit.
+  static final TemperatureUnits kelvins = new TemperatureUnits('kelvins', 'K', null, null, Double.one, true, 0.0);
+
+  /// Derived SI unit.
+  static final TemperatureUnits degreesCelsius =
+      new TemperatureUnits('degrees Celsius', 'deg C', null, 'degree Celsius', Double.one, false, 273.15);
 
   /// Override the addition operator to manage the `Temperature`/[TemperatureInterval] relationship.
   ///
@@ -97,14 +97,12 @@ class TemperatureUnits extends Temperature with Units {
 
   /// Derive new TemperatureUnits using this TemperatureUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new TemperatureUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TemperatureUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

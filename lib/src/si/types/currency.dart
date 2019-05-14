@@ -8,23 +8,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Currency extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions currencyDimensions = const Dimensions.constant(const <String, int>{}, qType: Currency);
-
-  /// The unit of currency in the United States
-  static final CurrencyUnits dollarsUS = new CurrencyUnits('United States Dollars', '\$', 'USD', null, 1.0, false);
-
-  /// 1 U.S. Cent is equal to 0.01 U.S. Dollar
-  static final CurrencyUnits centsUS = new CurrencyUnits('United States Cents', 'cents', null, null, 0.01, false);
-
-  // TODO put other main currencies in here?  EUR, JPY, etc? pound, chinese
-  // or in ext because they are data-dependent
-
-  //TODO Bitcoins & other digital currencies
-
-  // For real time feeds
-  // See : http://stackoverflow.com/questions/11393173/free-real-time-currency-conversion-exchange-rate-xml-feed-url
-
   /// Construct a Currency with US dollars ([USD]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -42,6 +25,24 @@ class Currency extends Quantity {
 
   const Currency.constant(Number valueSI, {CurrencyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Currency.currencyDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions currencyDimensions = const Dimensions.constant(const <String, int>{}, qType: Currency);
+
+  /// The unit of currency in the United States
+  static final CurrencyUnits dollarsUS = new CurrencyUnits('United States Dollars', '\$', 'USD', null, 1.0, false);
+
+  /// 1 U.S. Cent is equal to 0.01 U.S. Dollar
+  static final CurrencyUnits centsUS = new CurrencyUnits('United States Cents', 'cents', null, null, 0.01, false);
+
+  // TODO put other main currencies in here?  EUR, JPY, etc? pound, chinese
+  // or in ext because they are data-dependent
+
+  //TODO Bitcoins & other digital currencies
+
+  // For real time feeds
+  // See : http://stackoverflow.com/questions/11393173/free-real-time-currency-conversion-exchange-rate-xml-feed-url
+
 }
 
 /// Units acceptable for use in describing Currency quantities.
@@ -66,14 +67,12 @@ class CurrencyUnits extends Currency with Units {
 
   /// Derive new CurrencyUnits using this CurrencyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new CurrencyUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CurrencyUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

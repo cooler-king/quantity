@@ -6,6 +6,24 @@ part of quantity_si;
 /// for more information.
 ///
 class Information extends Quantity {
+  /// Construct an Information object with [bits], bytes ([B]), kilobytes ([kB]), megabytes ([MB]), gigabytes ([GB]), or terabytes ([TB]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  // ignore:non_constant_identifier_names
+  Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert = 0.0})
+      : super(bits ?? (B ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0))))), Information.bits, uncert);
+
+  Information._internal(dynamic conv) : super._internal(conv, Information.informationDimensions);
+
+  /// Constructs a Information based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  ///
+  Information.inUnits(dynamic value, InformationUnits units, [double uncert = 0.0])
+      : super(value, units ?? Information.bits, uncert);
+
+  const Information.constant(Number valueSI, {InformationUnits units, double uncert = 0.0})
+      : super.constant(valueSI, Information.informationDimensions, units, uncert);
+
   /// Dimensions for this type of quantity
   static const Dimensions informationDimensions = const Dimensions.constant(const <String, int>{}, qType: Information);
 
@@ -76,24 +94,6 @@ class Information extends Quantity {
   /// common usage (e.g., for data storage units).
   static final InformationUnits exabytes =
       new InformationUnits('exabytes', null, 'EB', null, 8.0 * 1.152921504606846976e18, false);
-
-  /// Construct an Information object with [bits], bytes ([B]), kilobytes ([kB]), megabytes ([MB]), gigabytes ([GB]), or terabytes ([TB]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  // ignore:non_constant_identifier_names
-  Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert = 0.0})
-      : super(bits ?? (B ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0))))), Information.bits, uncert);
-
-  Information._internal(dynamic conv) : super._internal(conv, Information.informationDimensions);
-
-  /// Constructs a Information based on the [value]
-  /// and the conversion factor intrinsic to the passed [units].
-  ///
-  Information.inUnits(dynamic value, InformationUnits units, [double uncert = 0.0])
-      : super(value, units ?? Information.bits, uncert);
-
-  const Information.constant(Number valueSI, {InformationUnits units, double uncert = 0.0})
-      : super.constant(valueSI, Information.informationDimensions, units, uncert);
 }
 
 /// Units acceptable for use in describing Information quantities.

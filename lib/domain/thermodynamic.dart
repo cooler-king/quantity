@@ -37,13 +37,13 @@ const MiscQuantity L = avogadro;
 Entropy k = boltzmannConstant;
 
 /// Faraday constant ('F')
-const MiscQuantity faradayConstant = const MiscQuantity.constant(
-    const Double.constant(96485.33289), const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1, 'Amount': -1}),
+const MiscQuantity faradayConstant = const MiscQuantity.constant(const Double.constant(96485.33289),
+    const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1, 'Amount': -1}),
     uncert: 6.114919048604424e-9);
 
 /// First Radiation Constant ('c1')
-const MiscQuantity firstRadiationConstant = const MiscQuantity.constant(
-    const Double.constant(3.741771790e-16), const Dimensions.constant(const <String, int>{'Length': 3, 'Mass': 1, 'Time': -3}),
+const MiscQuantity firstRadiationConstant = const MiscQuantity.constant(const Double.constant(3.741771790e-16),
+    const Dimensions.constant(const <String, int>{'Length': 3, 'Mass': 1, 'Time': -3}),
     uncert: 1.2293641243150215e-8);
 
 /// Locshmidt Constant ('n0') at 273.15 K and 101.325 kPa
@@ -76,8 +76,8 @@ const MiscQuantity secondRadiationConstant = const MiscQuantity.constant(
     uncert: 5.768786909463185e-7);
 
 /// Stefan-Boltzmann constant (sigma)
-const MiscQuantity stefanBoltzmann = const MiscQuantity.constant(
-    const Double.constant(5.670367e-8), const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -3, 'Temperature': -4}),
+const MiscQuantity stefanBoltzmann = const MiscQuantity.constant(const Double.constant(5.670367e-8),
+    const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -3, 'Temperature': -4}),
     uncert: 2.292620565829337e-6);
 
 /// Wien Displacement Law Constant ('b')

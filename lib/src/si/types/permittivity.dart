@@ -6,19 +6,12 @@ part of quantity_si;
 /// for more information.
 ///
 class Permittivity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions permittivityDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -3, 'Time': 4, 'Current': 2, 'Mass': -1}, qType: Permittivity);
-
-  /// The standard SI unit.
-  static final PermittivityUnits faradsPerMeter =
-      new PermittivityUnits.capacitanceLength(Capacitance.farads, Length.meters);
-
   /// Construct a Permittivity with farads per meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Permittivity({dynamic faradsPerMeter, double uncert = 0.0}) : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert);
+  Permittivity({dynamic faradsPerMeter, double uncert = 0.0})
+      : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert);
 
   Permittivity._internal(dynamic conv) : super._internal(conv, Permittivity.permittivityDimensions);
 
@@ -30,6 +23,15 @@ class Permittivity extends Quantity {
 
   const Permittivity.constant(Number valueSI, {PermittivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, Permittivity.permittivityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions permittivityDimensions = const Dimensions.constant(
+      const <String, int>{'Length': -3, 'Time': 4, 'Current': 2, 'Mass': -1},
+      qType: Permittivity);
+
+  /// The standard SI unit.
+  static final PermittivityUnits faradsPerMeter =
+      new PermittivityUnits.capacitanceLength(Capacitance.farads, Length.meters);
 }
 
 /// Units acceptable for use in describing Permittivity quantities.
@@ -66,14 +68,12 @@ class PermittivityUnits extends Permittivity with Units {
 
   /// Derive new PermittivityUnits using this PermittivityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new PermittivityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new PermittivityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }
-

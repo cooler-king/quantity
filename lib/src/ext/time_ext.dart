@@ -32,7 +32,7 @@ final TimeUnits hectoseconds = Time.seconds.hecto() as TimeUnits;
 /// Ten seconds.
 final TimeUnits dekaseconds = Time.seconds.deka() as TimeUnits;
 
-/// The time unit in the SI system.
+/// The standard SI unit.
 final TimeUnits seconds = Time.seconds;
 
 /// A tenth of a second.

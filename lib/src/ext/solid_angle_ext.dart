@@ -2,6 +2,7 @@ part of quantity_ext;
 
 // Useful metric units.
 
+/// The standard SI unit.
 final SolidAngleUnits steradians = SolidAngle.steradians;
 
 final SolidAngleUnits millisteradians = SolidAngle.steradians.milli() as SolidAngleUnits;

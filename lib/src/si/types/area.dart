@@ -6,24 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Area extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions areaDimensions = const Dimensions.constant(const <String, int>{'Length': 2}, qType: Area);
-
-  /// The standard SI unit
-  static final AreaUnits squareMeters = new AreaUnits.lengthSquared(Length.meters);
-
-  /// Accepted for use with the SI,
-  /// equals 1 square hectometer, or 10 000 square meters
-  static final AreaUnits hectares = new AreaUnits('hectares', 'ha', null, null, 1.0e4, true);
-
-  /// Accepted for use with the SI, subject to further review...
-  /// equals one square decameter, or 100 square meters
-  static final AreaUnits ares = new AreaUnits('ares', 'a', null, null, 1.0e2, true);
-
-  /// Accepted for use with the SI, subject to further review...
-  /// equals 100 square femtometers, or 1.0e-28 square meters
-  static final AreaUnits barns = new AreaUnits('barns', 'b', null, null, 1.0e-28, true);
-
   /// Construct an Area with either square meters ([m2]), hectares ([ha])
   /// or barns ([b]).
   ///
@@ -45,6 +27,24 @@ class Area extends Quantity {
 
   Area.fromLengths(Length l1, Length l2)
       : super(l1.valueSI * l2.valueSI, Area.squareMeters, math.sqrt(l1._ur * l1._ur + l2._ur * l2._ur));
+
+  /// Dimensions for this type of quantity
+  static const Dimensions areaDimensions = const Dimensions.constant(const <String, int>{'Length': 2}, qType: Area);
+
+  /// The standard SI unit
+  static final AreaUnits squareMeters = new AreaUnits.lengthSquared(Length.meters);
+
+  /// Accepted for use with the SI,
+  /// equals 1 square hectometer, or 10 000 square meters
+  static final AreaUnits hectares = new AreaUnits('hectares', 'ha', null, null, 1.0e4, true);
+
+  /// Accepted for use with the SI, subject to further review...
+  /// equals one square decameter, or 100 square meters
+  static final AreaUnits ares = new AreaUnits('ares', 'a', null, null, 1.0e2, true);
+
+  /// Accepted for use with the SI, subject to further review...
+  /// equals 100 square femtometers, or 1.0e-28 square meters
+  static final AreaUnits barns = new AreaUnits('barns', 'b', null, null, 1.0e-28, true);
 }
 
 /// Units acceptable for use in describing Area quantities.
@@ -81,11 +81,11 @@ class AreaUnits extends Area with Units {
   /// Derive new AreaUnits using this AreaUnits object as the base.
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AreaUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

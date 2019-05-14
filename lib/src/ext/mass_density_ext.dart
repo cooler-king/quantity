@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 MassDensityUnits kilogramsPerCubicMeter = MassDensity.kilogramsPerCubicMeter;
 
 MassDensityUnits gramsPerCubicCentimeter = new MassDensityUnits.massVolume(grams, cubicCentimeters);

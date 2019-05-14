@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class MassDensity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions massDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': -3}, qType: MassDensity);
-
-  /// The standard SI unit.
-  static final MassDensityUnits kilogramsPerCubicMeter =
-      new MassDensityUnits.massVolume(Mass.kilograms, Volume.cubicMeters);
-
   /// Construct a MassDensity with kilograms per cubic meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +23,14 @@ class MassDensity extends Quantity {
 
   const MassDensity.constant(Number valueSI, {MassDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, MassDensity.massDensityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions massDensityDimensions =
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': -3}, qType: MassDensity);
+
+  /// The standard SI unit.
+  static final MassDensityUnits kilogramsPerCubicMeter =
+      new MassDensityUnits.massVolume(Mass.kilograms, Volume.cubicMeters);
 }
 
 /// Units acceptable for use in describing MassDensity quantities.
@@ -65,14 +65,12 @@ class MassDensityUnits extends MassDensity with Units {
 
   /// Derive new MassDensityUnits using this MassDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new MassDensityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MassDensityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

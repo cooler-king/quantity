@@ -6,19 +6,12 @@ part of quantity_si;
 /// for more information.
 ///
 class MolarEnergy extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions molarEnergyDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1}, qType: MolarEnergy);
-
-  /// The standard SI unit.
-  static final MolarEnergyUnits joulesPerMole =
-      new MolarEnergyUnits.energyAmount(Energy.joules, AmountOfSubstance.moles);
-
   /// Construct a MolarEnergy with joules per mole.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  MolarEnergy({dynamic joulesPerMole, double uncert = 0.0}) : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert);
+  MolarEnergy({dynamic joulesPerMole, double uncert = 0.0})
+      : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert);
 
   MolarEnergy._internal(dynamic conv) : super._internal(conv, MolarEnergy.molarEnergyDimensions);
 
@@ -30,6 +23,15 @@ class MolarEnergy extends Quantity {
 
   const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits units, double uncert = 0.0})
       : super.constant(valueSI, MolarEnergy.molarEnergyDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions molarEnergyDimensions = const Dimensions.constant(
+      const <String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1},
+      qType: MolarEnergy);
+
+  /// The standard SI unit.
+  static final MolarEnergyUnits joulesPerMole =
+      new MolarEnergyUnits.energyAmount(Energy.joules, AmountOfSubstance.moles);
 }
 
 /// Units acceptable for use in describing MolarEnergy quantities.
@@ -66,14 +68,12 @@ class MolarEnergyUnits extends MolarEnergy with Units {
 
   /// Derive new MolarEnergyUnits using this MolarEnergyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new MolarEnergyUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MolarEnergyUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

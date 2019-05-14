@@ -100,6 +100,31 @@ TT  = Terrestial Time. Originally used instead of TDT or TDB when the
 /// recommended.  More information can be found at http://www.ntp.org.
 ///
 class TimeInstant extends Quantity {
+  /// Constructs a TimeInstant in either [TAI] or [UTC] units.
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  // ignore: non_constant_identifier_names
+  TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
+      : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
+
+  TimeInstant._internal(dynamic conv) : super._internal(conv, TimeInstant.timeInstantDimensions);
+
+  /// Constructs a TimeInstant based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  ///
+  TimeInstant.inUnits(dynamic value, TimeInstantUnits units, [double uncert = 0.0])
+      : super(value, units ?? TimeInstant.TAI, uncert);
+
+  /// Constructs a constant TimeInstant object.
+  ///
+  const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, double uncert = 0.0})
+      : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
+
+  /// Constructs a TimeInstant from an existing [dateTime] object.
+  ///
+  TimeInstant.dateTime(DateTime dateTime, {double uncert = 0.0})
+      : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
+
   /// Dimensions for this type of quantity
   static const Dimensions timeInstantDimensions =
       const Dimensions.constant(const <String, int>{'Time': 1}, qType: TimeInstant);
@@ -156,31 +181,6 @@ class TimeInstant extends Quantity {
     d = 0.001 * ((d as double) + 3.786912e11); // UTC seconds
     return UTC.toMks(d);
   });
-
-  /// Constructs a TimeInstant in either [TAI] or [UTC] units.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  // ignore: non_constant_identifier_names
-  TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
-      : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
-
-  TimeInstant._internal(dynamic conv) : super._internal(conv, TimeInstant.timeInstantDimensions);
-
-  /// Constructs a TimeInstant based on the [value]
-  /// and the conversion factor intrinsic to the passed [units].
-  ///
-  TimeInstant.inUnits(dynamic value, TimeInstantUnits units, [double uncert = 0.0])
-      : super(value, units ?? TimeInstant.TAI, uncert);
-
-  /// Constructs a constant TimeInstant object.
-  ///
-  const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, double uncert = 0.0})
-      : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
-
-  /// Constructs a TimeInstant from an existing [dateTime] object.
-  ///
-  TimeInstant.dateTime(DateTime dateTime, {double uncert = 0.0})
-      : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
 
   /// Returns a [DateTime] object that represents as closely as possible the time
   /// instant represented by this object.  DateTime objects are limited to
@@ -253,9 +253,6 @@ typedef ToMksOverride = Number Function(dynamic val);
 /// Units acceptable for use in describing TimeInstant quantities.
 ///
 class TimeInstantUnits extends TimeInstant with Units {
-  final FromMksOverride _fromMks;
-  final ToMksOverride _toMks;
-
   /// Constructs a new instance.
   TimeInstantUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0, this._fromMks, this._toMks])
@@ -268,6 +265,9 @@ class TimeInstantUnits extends TimeInstant with Units {
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
+
+  final FromMksOverride _fromMks;
+  final ToMksOverride _toMks;
 
   /// Calculates and returns the value in SI-MKS units of the specified [value]
   /// (that is implicitly in these units).

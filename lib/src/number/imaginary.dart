@@ -5,10 +5,8 @@ part of number;
 /// An imaginary number is usually displayed as a value followed by small letter 'i'.
 /// 'i' squared is defined as -1 (or equivalently, the square root of -1 is defined as 'i').
 class Imaginary extends Number {
-  final Real value;
-
   Imaginary(dynamic val)
-      : this.value = (val is num)
+      : value = (val is num)
             ? ((val is int) ? new Integer(val) : new Double(val as double))
             : (val is Real) ? val : Double.zero;
 
@@ -17,6 +15,8 @@ class Imaginary extends Number {
   factory Imaginary.fromMap(Map<String, Map<String, dynamic>> m) => (m?.containsKey('imag') ?? false)
       ? new Imaginary.fromMap(m['imag'] as Map<String, Map<String, dynamic>>)
       : const Imaginary.constant(Integer.zero);
+
+  final Real value;
 
   @override
   double toDouble() => 0.0;

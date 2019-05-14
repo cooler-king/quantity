@@ -6,15 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Speed extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions speedDimensions = const Dimensions.constant(const <String, int>{'Length': 1, 'Time': -1}, qType: Speed);
-
-  /// The standard SI unit.
-  static final SpeedUnits metersPerSecond = new SpeedUnits.lengthTime(Length.meters, Time.seconds);
-
-  /// Accepted for use with the SI, subject to further review.
-  static final SpeedUnits knots = new SpeedUnits('knots', null, null, null, 5.144444444e-1, false);
-
   /// Construct a Speed with meters per second or [knots].
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -32,6 +23,16 @@ class Speed extends Quantity {
 
   const Speed.constant(Number valueSI, {SpeedUnits units, double uncert = 0.0})
       : super.constant(valueSI, Speed.speedDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions speedDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 1, 'Time': -1}, qType: Speed);
+
+  /// The standard SI unit.
+  static final SpeedUnits metersPerSecond = new SpeedUnits.lengthTime(Length.meters, Time.seconds);
+
+  /// Accepted for use with the SI, subject to further review.
+  static final SpeedUnits knots = new SpeedUnits('knots', null, null, null, 5.144444444e-1, false);
 }
 
 /// Units acceptable for use in describing Speed quantities.
@@ -51,7 +52,7 @@ class SpeedUnits extends Speed with Units {
   }
 
   /// Constructs a new instance based on length and time units.
- SpeedUnits.lengthTime(LengthUnits lu, TimeUnits tu) : super._internal(lu.valueSI / tu.valueSI) {
+  SpeedUnits.lengthTime(LengthUnits lu, TimeUnits tu) : super._internal(lu.valueSI / tu.valueSI) {
     name = '${lu.name} per ${tu.singular}';
     singular = '${lu.singular} per ${tu.singular}';
     _convToMKS = lu.valueSI / tu.valueSI;
@@ -67,14 +68,12 @@ class SpeedUnits extends Speed with Units {
 
   /// Derive new SpeedUnits using this SpeedUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new SpeedUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpeedUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

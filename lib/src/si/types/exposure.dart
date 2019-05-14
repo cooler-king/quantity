@@ -6,16 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Exposure extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions exposureDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 1, 'Mass': -1, 'Time': 1}, qType: Exposure);
-
-  /// The standard SI unit.
-  static final ExposureUnits coulombsPerKilogram = new ExposureUnits.chargeMass(Charge.coulombs, Mass.kilograms);
-
-  /// Accepted for use with the SI, subject to further review.
-  static final ExposureUnits roentgens = new ExposureUnits('roentgens', null, 'R', null, 2.58e-4, false);
-
   /// Construct an Exposure with coulombs per kilogram or roentgens ([R]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -33,6 +23,16 @@ class Exposure extends Quantity {
 
   const Exposure.constant(Number valueSI, {ExposureUnits units, double uncert = 0.0})
       : super.constant(valueSI, Exposure.exposureDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions exposureDimensions =
+      const Dimensions.constant(const <String, int>{'Current': 1, 'Mass': -1, 'Time': 1}, qType: Exposure);
+
+  /// The standard SI unit.
+  static final ExposureUnits coulombsPerKilogram = new ExposureUnits.chargeMass(Charge.coulombs, Mass.kilograms);
+
+  /// Accepted for use with the SI, subject to further review.
+  static final ExposureUnits roentgens = new ExposureUnits('roentgens', null, 'R', null, 2.58e-4, false);
 }
 
 /// Units acceptable for use in describing Exposure quantities.
@@ -68,14 +68,12 @@ class ExposureUnits extends Exposure with Units {
 
   /// Derive new ExposureUnits using this ExposureUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new ExposureUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ExposureUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

@@ -2,19 +2,6 @@ part of number;
 
 /// Wraps Dart's core [double] type, so that it can share a common base type with other [Number]s.
 class Double extends Real {
-  final double _value;
-
-  static const Double zero = const Double.constant(0.0);
-  static const Double one = const Double.constant(1.0);
-  static const Double ten = const Double.constant(10.0);
-  static const Double hundred = const Double.constant(100.0);
-  static const Double thousand = const Double.constant(1000.0);
-  static const Double infinity = const Double.constant(polyfill_core.double.infinity);
-  static const Double negInfinity = const Double.constant(polyfill_core.double.negativeInfinity);
-
-  // ignore: constant_identifier_names
-  static const Double NaN = const Double.constant(polyfill_core.double.nan);
-
   Double(this._value);
 
   const Double.constant(this._value) : super.constant();
@@ -31,6 +18,18 @@ class Double extends Real {
     }
     return Double.zero;
   }
+  final double _value;
+
+  static const Double zero = const Double.constant(0);
+  static const Double one = const Double.constant(1);
+  static const Double ten = const Double.constant(10);
+  static const Double hundred = const Double.constant(100);
+  static const Double thousand = const Double.constant(1000);
+  static const Double infinity = const Double.constant(double.infinity);
+  static const Double negInfinity = const Double.constant(double.negativeInfinity);
+
+  // ignore: constant_identifier_names
+  static const Double NaN = const Double.constant(double.nan);
 
   @override
   double get value => _value;

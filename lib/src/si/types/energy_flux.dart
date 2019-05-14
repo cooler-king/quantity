@@ -6,18 +6,12 @@ part of quantity_si;
 /// for more information.
 ///
 class EnergyFlux extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions energyFluxDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: EnergyFlux);
-
-  /// The standard SI unit.
-  static final EnergyFluxUnits wattsPerSquareMeter = new EnergyFluxUnits.powerArea(Power.watts, Area.squareMeters);
-
   /// Construct an EnergyFlux with watts per square meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  EnergyFlux({dynamic wattsPerSquareMeter, double uncert = 0.0}) : super(wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
+  EnergyFlux({dynamic wattsPerSquareMeter, double uncert = 0.0})
+      : super(wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
 
   EnergyFlux._internal(dynamic conv) : super._internal(conv, EnergyFlux.energyFluxDimensions);
 
@@ -29,6 +23,13 @@ class EnergyFlux extends Quantity {
 
   const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits units, double uncert = 0.0})
       : super.constant(valueSI, EnergyFlux.energyFluxDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions energyFluxDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: EnergyFlux);
+
+  /// The standard SI unit.
+  static final EnergyFluxUnits wattsPerSquareMeter = new EnergyFluxUnits.powerArea(Power.watts, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing EnergyFlux quantities.
@@ -62,14 +63,12 @@ class EnergyFluxUnits extends EnergyFlux with Units {
 
   /// Derive new EnergyFluxUnits using this EnergyFluxUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new EnergyFluxUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new EnergyFluxUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

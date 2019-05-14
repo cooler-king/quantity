@@ -8,14 +8,6 @@ part of quantity_si;
 /// for more information.
 ///
 class SpecificHeatCapacity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions specificHeatCapacityDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2, 'Temperature': -1}, qType: SpecificHeatCapacity);
-
-  /// The standard SI unit.
-  static final SpecificHeatCapacityUnits joulesPerKilogramKelvin =
-      new SpecificHeatCapacityUnits.energyMassTemperature(Energy.joules, Mass.kilograms, TemperatureInterval.kelvins);
-
   /// Construct a SpecificHeatCapacity with joules per kilogram kelvin.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -34,6 +26,15 @@ class SpecificHeatCapacity extends Quantity {
 
   const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpecificHeatCapacity.specificHeatCapacityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions specificHeatCapacityDimensions = const Dimensions.constant(
+      const <String, int>{'Length': 2, 'Time': -2, 'Temperature': -1},
+      qType: SpecificHeatCapacity);
+
+  /// The standard SI unit.
+  static final SpecificHeatCapacityUnits joulesPerKilogramKelvin =
+      new SpecificHeatCapacityUnits.energyMassTemperature(Energy.joules, Mass.kilograms, TemperatureInterval.kelvins);
 }
 
 /// Units acceptable for use in describing SpecificHeatCapacity quantities.
@@ -56,8 +57,7 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
     name = '${eu.name} per ${mu.singular} ${tu.singular}';
     singular = '${eu.singular} per ${mu.singular} ${tu.singular}';
     _convToMKS = eu.valueSI / (mu.valueSI * tu.valueSI);
-    _abbrev1 =
-        eu._abbrev1 != null && mu._abbrev1 != null ? '${eu._abbrev1} / ${mu._abbrev1} ${tu._abbrev1}' : null;
+    _abbrev1 = eu._abbrev1 != null && mu._abbrev1 != null ? '${eu._abbrev1} / ${mu._abbrev1} ${tu._abbrev1}' : null;
     _abbrev2 = eu._abbrev2 != null && mu._abbrev2 != null ? '${eu._abbrev2}${mu._abbrev2}${tu._abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
@@ -69,14 +69,12 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
 
   /// Derive new SpecificHeatCapacityUnits using this SpecificHeatCapacityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new SpecificHeatCapacityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpecificHeatCapacityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

@@ -9,19 +9,12 @@ part of quantity_si;
 /// for more information.
 ///
 class Entropy extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions entropyDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Temperature': -1, 'Time': -2}, qType: Entropy);
-
-  /// The standard SI unit.
-  static final EntropyUnits joulesPerKelvin =
-      new EntropyUnits.energyTemperature(Energy.joules, TemperatureInterval.kelvins);
-
   /// Construct an Entropy with joules per kelvin.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  Entropy({dynamic joulesPerKelvin, double uncert = 0.0}) : super(joulesPerKelvin ?? 0.0, Entropy.joulesPerKelvin, uncert);
+  Entropy({dynamic joulesPerKelvin, double uncert = 0.0})
+      : super(joulesPerKelvin ?? 0.0, Entropy.joulesPerKelvin, uncert);
 
   Entropy._internal(dynamic conv) : super._internal(conv, Entropy.entropyDimensions);
 
@@ -33,6 +26,15 @@ class Entropy extends Quantity {
 
   const Entropy.constant(Number valueSI, {EntropyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Entropy.entropyDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions entropyDimensions = const Dimensions.constant(
+      const <String, int>{'Length': 2, 'Mass': 1, 'Temperature': -1, 'Time': -2},
+      qType: Entropy);
+
+  /// The standard SI unit.
+  static final EntropyUnits joulesPerKelvin =
+      new EntropyUnits.energyTemperature(Energy.joules, TemperatureInterval.kelvins);
 }
 
 /// Units acceptable for use in describing Entropy quantities.
@@ -69,14 +71,12 @@ class EntropyUnits extends Entropy with Units {
 
   /// Derive new EntropyUnits using this EntropyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new EntropyUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new EntropyUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

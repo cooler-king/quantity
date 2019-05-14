@@ -7,17 +7,6 @@ part of quantity_si;
 /// for more information.
 ///
 class DynamicViscosity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions dynamicViscosityDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': -1, 'Time': -1}, qType: DynamicViscosity);
-
-  /// The standard SI unit.
-  static final DynamicViscosityUnits pascalSeconds =
-      new DynamicViscosityUnits.pressureTime(Pressure.pascals, Time.seconds);
-
-  /// Another name for [pascalSeconds]
-  static final DynamicViscosityUnits poiseuille = pascalSeconds;
-
   /// Construct a DynamicViscosity with pascal seconds ([Pas]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -35,6 +24,17 @@ class DynamicViscosity extends Quantity {
 
   const DynamicViscosity.constant(Number valueSI, {DynamicViscosityUnits units, double uncert = 0.0})
       : super.constant(valueSI, DynamicViscosity.dynamicViscosityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions dynamicViscosityDimensions =
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': -1, 'Time': -1}, qType: DynamicViscosity);
+
+  /// The standard SI unit.
+  static final DynamicViscosityUnits pascalSeconds =
+      new DynamicViscosityUnits.pressureTime(Pressure.pascals, Time.seconds);
+
+  /// Another name for [pascalSeconds]
+  static final DynamicViscosityUnits poiseuille = pascalSeconds;
 }
 
 /// Units acceptable for use in describing DynamicViscosity quantities.
@@ -70,14 +70,12 @@ class DynamicViscosityUnits extends DynamicViscosity with Units {
 
   /// Derive new DynamicViscosityUnits using this DynamicViscosityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new DynamicViscosityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new DynamicViscosityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

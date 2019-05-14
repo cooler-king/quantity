@@ -55,7 +55,7 @@ final TimeInstantUnits TDB =
   // TDB = TAI + 32.184 + 0.001658sin(g) + 0.000014sin(2g)...
   // where g = 357.53 deg + 0.9856003(JD - 2451545.0) deg... (Julian dates are in the TAI time scale)
   final double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
-  final double gRad = (357.53 + 0.9856003 * ((d / 86400.0) - 15341.0)) * (polyfill_math.pi / 180.0);
+  final double gRad = (357.53 + 0.9856003 * ((d / 86400.0) - 15341.0)) * (pi / 180.0);
   return new Double(d + 32.184 + 0.001658 * sin(gRad) + 0.000014 * sin(2.0 * gRad));
 }, (dynamic val) {
   // TAI = TDB - 32.184 - 0.001658sin(g) - 0.000014sin(2g)...
@@ -66,13 +66,13 @@ final TimeInstantUnits TDB =
   // Too convoluted to solve analytically (because g is a function of
   // the Julian Date in the TAI scale... instead, get close and then search
   double taiTest = d;
-  double step = 10.0;
+  double step = 10;
   const double epsilon = 1.0e-8;
   const int maxCount = 10000;
   int count = 0;
   double tdbTest = TDB.fromMks(d).toDouble();
   double delta = tdbTest - taiTest;
-  double prevDelta = polyfill_core.double.maxFinite;
+  double prevDelta = double.maxFinite;
   while ((delta.abs() > epsilon) && (count < maxCount)) {
     // See if we got farther away (if so reverse and take smaller steps)
     if (delta.abs() > prevDelta.abs()) step *= -0.5;
@@ -112,13 +112,13 @@ final TimeInstantUnits TCB = new TimeInstantUnits(
 
   // Too convoluted to solve analytically... instead, get close and then search
   double taiTest = d;
-  double step = 10.0;
+  double step = 10;
   const double epsilon = 1.0e-8;
   const int maxCount = 10000;
   int count = 0;
   double tcbTest = TCB.fromMks(d).toDouble();
   double delta = tcbTest - taiTest;
-  double prevDelta = polyfill_core.double.maxFinite;
+  double prevDelta = double.maxFinite;
   while ((delta.abs() > epsilon) && (count < maxCount)) {
     // See if we got farther away (if so reverse and take smaller steps)
     if (delta.abs() > prevDelta.abs()) step *= -0.5;
@@ -153,8 +153,8 @@ final TimeInstantUnits UT1 =
   int count = 0;
   double tai = d;
   const double epsilon = 0.001;
-  double deltaT = 0.0;
-  double lastDeltaT = polyfill_core.double.maxFinite;
+  double deltaT = 0;
+  double lastDeltaT = double.maxFinite;
   while (((deltaT - lastDeltaT).abs() > epsilon) && count < 100) {
     lastDeltaT = deltaT;
     tai = d - 32.184 + deltaT;
@@ -176,13 +176,13 @@ final TimeInstantUnits UT2 =
     new TimeInstantUnits('Universal Time (UT2)', null, 'UT2', null, 1.0, false, 0.0, (dynamic val) {
   //double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
   final Number d = UT1.fromMks(val); // UT1
-  const double twoPI = 2.0 * polyfill_math.pi;
+  const double twoPI = 2.0 * pi;
   const double fourPI = 2.0 * twoPI;
   final double t = B.fromMks(UT1.toMks(d)).toDouble();
   return d + (0.022 * sin(twoPI * t) - 0.012 * cos(twoPI * t) - 0.006 * sin(fourPI * t) + 0.007 * cos(fourPI * t));
 }, (dynamic val) {
   double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
-  const double twoPI = 2.0 * polyfill_math.pi;
+  const double twoPI = 2.0 * pi;
   const double fourPI = 2.0 * twoPI;
   final double t = B.fromMks(UT1.toMks(d)).toDouble(); // besselian -- use UT2 value as UT1... close enough
   d -= 0.022 * sin(twoPI * t) - 0.012 * cos(twoPI * t) - 0.006 * sin(fourPI * t) + 0.007 * cos(fourPI * t); // UT1
@@ -454,4 +454,4 @@ final TimeInstantUnits NTP =
 
 /// J2000.0 as defined by the IAU: Julian date: 2000 Jan 1d 12h UT in the TDT time scale
 // ignore: non_constant_identifier_names
-final TimeInstant J2000 = new TimeInstant.constant(const Double.constant(2451545.0), units: JD_TDT);
+final TimeInstant J2000 = new TimeInstant.constant(const Double.constant(2451545), units: JD_TDT);

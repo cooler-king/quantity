@@ -26,15 +26,15 @@ enum UncertaintyFormat { none, compact, plusMinus }
 /// and provides implementations for format and parse.
 ///
 class NumberFormatSI extends NumberFormat {
+  NumberFormatSI(this.uncertaintyFormat, this.unicode) : super.scientificPattern();
+
   /// Output in unicode (using unicode thin spaces instead of regular ascii spaces).
   bool unicode = false;
 
-  /// Whether and how to display a quantity's
+  /// Whether and how to display a quantity's uncertainty.
   UncertaintyFormat uncertaintyFormat = UncertaintyFormat.compact;
 
   //TODO placeholder for formatting
-
-  NumberFormatSI(this.uncertaintyFormat, this.unicode) : super.scientificPattern();
 
   /// [number] is expected to be a Quantity, Number or num object.
   @override

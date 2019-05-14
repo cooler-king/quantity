@@ -23,23 +23,6 @@ part of quantity_si;
 /// for more information.
 ///
 abstract class Level extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions levelDimensions = const Dimensions.constant(const <String, int>{}, qType: Level);
-
-  /// Accepted for use with the SI...
-  /// the level of a field quantity when F/F0 = e and P/P0 = e squared.
-  static final LevelUnits nepers = new LevelUnits('nepers', null, 'Np', null, 1.0, true);
-
-  /// Accepted for use with the SI...
-  /// the level of a field quantity when F/F0 = square root of 10 and P/P0 = 10.
-  /// 1 B = (ln 10) / 2 Np exactly.
-  static final LevelUnits bels = new LevelUnits('bels', null, 'B', null, 0.5 * math.log(10.0), true);
-
-  // Convenience
-
-  /// Accepted for use with the SI.
-  static final LevelUnits decibels = bels.deci() as LevelUnits;
-
   /// Construct a Level with nepers ([Np]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -56,6 +39,23 @@ abstract class Level extends Quantity {
 
   const Level.constant(Number valueSI, {LevelUnits units, double uncert = 0.0})
       : super.constant(valueSI, Level.levelDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions levelDimensions = const Dimensions.constant(const <String, int>{}, qType: Level);
+
+  /// Accepted for use with the SI...
+  /// the level of a field quantity when F/F0 = e and P/P0 = e squared.
+  static final LevelUnits nepers = new LevelUnits('nepers', null, 'Np', null, 1.0, true);
+
+  /// Accepted for use with the SI...
+  /// the level of a field quantity when F/F0 = square root of 10 and P/P0 = 10.
+  /// 1 B = (ln 10) / 2 Np exactly.
+  static final LevelUnits bels = new LevelUnits('bels', null, 'B', null, 0.5 * math.log(10.0), true);
+
+  // Convenience
+
+  /// Accepted for use with the SI.
+  static final LevelUnits decibels = bels.deci() as LevelUnits;
 }
 
 /// Units acceptable for use in describing Level quantities.
@@ -80,16 +80,14 @@ class LevelUnits extends Level with Units {
 
   /// Derive new LevelUnits using this LevelUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new LevelUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new LevelUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }
 
 // Also SoundIntensityLevel

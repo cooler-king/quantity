@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class SpecificVolume extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions specificVolumeDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 3, 'Mass': -1}, qType: SpecificVolume);
-
-  /// The standard SI unit.
-  static final SpecificVolumeUnits cubicMetersPerKilogram =
-      new SpecificVolumeUnits.lengthMass(Length.meters, Mass.kilograms);
-
   /// Construct a SpecificVolume with cubic meters per kilogram.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +23,14 @@ class SpecificVolume extends Quantity {
 
   const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpecificVolume.specificVolumeDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions specificVolumeDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 3, 'Mass': -1}, qType: SpecificVolume);
+
+  /// The standard SI unit.
+  static final SpecificVolumeUnits cubicMetersPerKilogram =
+      new SpecificVolumeUnits.lengthMass(Length.meters, Mass.kilograms);
 }
 
 /// Units acceptable for use in describing SpecificVolume quantities.
@@ -66,14 +66,12 @@ class SpecificVolumeUnits extends SpecificVolume with Units {
 
   /// Derive new SpecificVolumeUnits using this SpecificVolumeUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new SpecificVolumeUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpecificVolumeUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

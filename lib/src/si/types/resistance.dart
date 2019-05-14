@@ -6,13 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Resistance extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions electricResistanceDimensions =
-      const Dimensions.constant(const <String, int>{'Current': -2, 'Time': -3, 'Length': 2, 'Mass': 1}, qType: Resistance);
-
-  /// The standard SI unit.
-  static final ResistanceUnits ohms = new ResistanceUnits('ohms', '\u2126', '\u03a9', null, 1.0, true);
-
   /// Construct a Resistance with [ohms].
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -29,6 +22,14 @@ class Resistance extends Quantity {
 
   const Resistance.constant(Number valueSI, {ResistanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Resistance.electricResistanceDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions electricResistanceDimensions = const Dimensions.constant(
+      const <String, int>{'Current': -2, 'Time': -3, 'Length': 2, 'Mass': 1},
+      qType: Resistance);
+
+  /// The standard SI unit.
+  static final ResistanceUnits ohms = new ResistanceUnits('ohms', '\u2126', '\u03a9', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing Resistance quantities.
@@ -53,14 +54,12 @@ class ResistanceUnits extends Resistance with Units {
 
   /// Derive new ResistanceUnits using this ResistanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new ResistanceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ResistanceUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

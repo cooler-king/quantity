@@ -39,7 +39,7 @@ void main() {
       expect(r.valueSI.toDouble(), closeTo(55.555555555, 0.000001));
 
       final TemperatureInterval k = new TemperatureInterval(K: 200.4);
-      final dynamic  sum = r + k;
+      final dynamic sum = r + k;
       expect(sum is TemperatureInterval, true);
       expect(sum.valueSI.toDouble(), closeTo(255.9555555555, 0.000001));
     });

@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-/// the standard SI unit.
+/// The standard SI unit.
 final AngularSpeedUnits radiansPerSecond = AngularSpeed.radiansPerSecond;
 
 /// Accepted for use with the SI.

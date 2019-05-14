@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 PressureUnits pascals = Pressure.pascals;
 
 PressureUnits bars = Pressure.bars;

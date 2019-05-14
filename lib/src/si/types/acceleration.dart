@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Acceleration extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions accelerationDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 1, 'Time': -2}, qType: Acceleration);
-
-  /// The standard SI unit.
-  static final AccelerationUnits metersPerSecondSquared =
-      new AccelerationUnits.lengthTimeUnits(Length.meters, Time.seconds);
-
   /// Construct an Acceleration with meters per second squared.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +23,14 @@ class Acceleration extends Quantity {
 
   const Acceleration.constant(Number valueSI, {AccelerationUnits units, double uncert = 0.0})
       : super.constant(valueSI, Acceleration.accelerationDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions accelerationDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 1, 'Time': -2}, qType: Acceleration);
+
+  /// The standard SI unit.
+  static final AccelerationUnits metersPerSecondSquared =
+      new AccelerationUnits.lengthTimeUnits(Length.meters, Time.seconds);
 }
 
 /// Units acceptable for use in describing Acceleration quantities.
@@ -66,14 +66,12 @@ class AccelerationUnits extends Acceleration with Units {
 
   /// Derive new AccelerationUnits using this AccelerationUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new AccelerationUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AccelerationUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

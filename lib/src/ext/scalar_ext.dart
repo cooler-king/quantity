@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-/// Synonymous with [Scalar.one].
+/// The standard SI unit.
 final ScalarUnits one = Scalar.one;
 
 /// Synonymous with [Scalar.percent].

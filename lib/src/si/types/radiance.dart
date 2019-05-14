@@ -7,14 +7,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Radiance extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions radianceDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Solid Angle': -1, 'Time': -3}, qType: Radiance);
-
-  /// The standard SI unit.
-  static final RadianceUnits wattsPerSquareMeterSteradian =
-      new RadianceUnits.powerAreaSolidAngle(Power.watts, Area.squareMeters, SolidAngle.steradians);
-
   /// Construct a Radiance with watts per square meter steradian.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -32,6 +24,14 @@ class Radiance extends Quantity {
 
   const Radiance.constant(Number valueSI, {RadianceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Radiance.radianceDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions radianceDimensions =
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Solid Angle': -1, 'Time': -3}, qType: Radiance);
+
+  /// The standard SI unit.
+  static final RadianceUnits wattsPerSquareMeterSteradian =
+      new RadianceUnits.powerAreaSolidAngle(Power.watts, Area.squareMeters, SolidAngle.steradians);
 }
 
 /// Units acceptable for use in describing Radiance quantities.
@@ -54,10 +54,8 @@ class RadianceUnits extends Radiance with Units {
     name = '${ecu.name} per ${mu.singular} ${sau.singular}';
     singular = '${ecu.singular} per ${mu.singular} ${sau.singular}';
     _convToMKS = ecu.valueSI / (mu.valueSI * sau.valueSI);
-    _abbrev1 =
-        ecu._abbrev1 != null && mu._abbrev1 != null ? '${ecu._abbrev1} / ${mu._abbrev1} ${sau.singular}' : null;
-    _abbrev2 =
-        ecu._abbrev2 != null && mu._abbrev2 != null ? '${ecu._abbrev2}/${mu._abbrev2}${sau.singular}' : null;
+    _abbrev1 = ecu._abbrev1 != null && mu._abbrev1 != null ? '${ecu._abbrev1} / ${mu._abbrev1} ${sau.singular}' : null;
+    _abbrev2 = ecu._abbrev2 != null && mu._abbrev2 != null ? '${ecu._abbrev2}/${mu._abbrev2}${sau.singular}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -68,14 +66,12 @@ class RadianceUnits extends Radiance with Units {
 
   /// Derive new RadianceUnits using this RadianceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new RadianceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new RadianceUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

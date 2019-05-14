@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class SurfaceTension extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions surfaceTensionDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -2}, qType: SurfaceTension);
-
-  /// The standard SI unit.
-  static final SurfaceTensionUnits newtonsPerMeter =
-      new SurfaceTensionUnits.forcePerLength(Force.newtons, Length.meters);
-
   /// Construct a SurfaceTension with newtons per meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +23,14 @@ class SurfaceTension extends Quantity {
 
   const SurfaceTension.constant(Number valueSI, {SurfaceTensionUnits units, double uncert = 0.0})
       : super.constant(valueSI, SurfaceTension.surfaceTensionDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions surfaceTensionDimensions =
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -2}, qType: SurfaceTension);
+
+  /// The standard SI unit.
+  static final SurfaceTensionUnits newtonsPerMeter =
+      new SurfaceTensionUnits.forcePerLength(Force.newtons, Length.meters);
 }
 
 /// Units acceptable for use in describing SurfaceTension quantities.

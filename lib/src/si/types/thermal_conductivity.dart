@@ -6,15 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class ThermalConductivity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions thermalConductivityDimensions = const Dimensions.constant(
-      const <String, int>{'Length': 1, 'Mass': 1, 'Time': -3, 'Temperature': -1},
-      qType: ThermalConductivity);
-
-  /// The standard SI unit.
-  static final ThermalConductivityUnits wattsPerMeterKelvin =
-      new ThermalConductivityUnits.powerLengthTemperature(Power.watts, Length.meters, TemperatureInterval.kelvins);
-
   /// Construct a ThermalConductivity with watts per meter kelvin.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -33,6 +24,15 @@ class ThermalConductivity extends Quantity {
 
   const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, ThermalConductivity.thermalConductivityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions thermalConductivityDimensions = const Dimensions.constant(
+      const <String, int>{'Length': 1, 'Mass': 1, 'Time': -3, 'Temperature': -1},
+      qType: ThermalConductivity);
+
+  /// The standard SI unit.
+  static final ThermalConductivityUnits wattsPerMeterKelvin =
+      new ThermalConductivityUnits.powerLengthTemperature(Power.watts, Length.meters, TemperatureInterval.kelvins);
 }
 
 /// Units acceptable for use in describing ThermalConductivity quantities.
@@ -57,8 +57,7 @@ class ThermalConductivityUnits extends ThermalConductivity with Units {
     name = '${pu.name} per ${lu.singular} ${tiu.singular}';
     singular = '${pu.singular} per ${lu.singular} ${tiu.singular}';
     _convToMKS = pu.valueSI / (lu.valueSI * tiu.valueSI);
-    _abbrev1 =
-        pu._abbrev1 != null && lu._abbrev1 != null ? '${pu._abbrev1} / ${lu._abbrev1} ${tiu._abbrev1}' : null;
+    _abbrev1 = pu._abbrev1 != null && lu._abbrev1 != null ? '${pu._abbrev1} / ${lu._abbrev1} ${tiu._abbrev1}' : null;
     _abbrev2 = pu._abbrev2 != null && lu._abbrev2 != null ? '${pu._abbrev2}/${lu._abbrev2}${tiu._abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
@@ -70,14 +69,12 @@ class ThermalConductivityUnits extends ThermalConductivity with Units {
 
   /// Derive new ThermalConductivityUnits using this ThermalConductivityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new ThermalConductivityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ThermalConductivityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

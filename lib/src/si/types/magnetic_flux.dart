@@ -6,13 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class MagneticFlux extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions magneticFluxDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2, 'Current': -1, 'Mass': 1}, qType: MagneticFlux);
-
-  /// The standard SI unit.
-  static final MagneticFluxUnits webers = new MagneticFluxUnits('webers', null, 'Wb', null, 1.0, true);
-
   /// Construct a MagneticFlux with webers ([Wb]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -30,6 +23,14 @@ class MagneticFlux extends Quantity {
 
   const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFlux.magneticFluxDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions magneticFluxDimensions = const Dimensions.constant(
+      const <String, int>{'Length': 2, 'Time': -2, 'Current': -1, 'Mass': 1},
+      qType: MagneticFlux);
+
+  /// The standard SI unit.
+  static final MagneticFluxUnits webers = new MagneticFluxUnits('webers', null, 'Wb', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing MagneticFlux quantities.
@@ -54,14 +55,12 @@ class MagneticFluxUnits extends MagneticFlux with Units {
 
   /// Derive new MagneticFluxUnits using this MagneticFluxUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new MagneticFluxUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MagneticFluxUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

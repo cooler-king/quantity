@@ -8,13 +8,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Inductance extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions inductanceDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Current': -2, 'Time': -2}, qType: Inductance);
-
-  /// The standard SI unit.
-  static final InductanceUnits henries = new InductanceUnits('henries', null, 'H', 'henry', 1.0, true);
-
   /// Construct an Inductance with henries ([H]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +24,14 @@ class Inductance extends Quantity {
 
   const Inductance.constant(Number valueSI, {InductanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Inductance.inductanceDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions inductanceDimensions = const Dimensions.constant(
+      const <String, int>{'Length': 2, 'Mass': 1, 'Current': -2, 'Time': -2},
+      qType: Inductance);
+
+  /// The standard SI unit.
+  static final InductanceUnits henries = new InductanceUnits('henries', null, 'H', 'henry', 1.0, true);
 }
 
 /// Units acceptable for use in describing Inductance quantities.
@@ -55,14 +56,12 @@ class InductanceUnits extends Inductance with Units {
 
   /// Derive new InductanceUnits using this InductanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new InductanceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new InductanceUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

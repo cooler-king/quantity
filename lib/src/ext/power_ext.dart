@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 PowerUnits watts = Power.watts;
 
 PowerUnits btuThermsPerHour = new PowerUnits.energyTime(btuThermo, hours);

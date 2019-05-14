@@ -2,7 +2,7 @@ part of quantity_ext;
 
 // Useful metric units.
 
-/// A synonym for the standard SI-MKS unit of mass.
+/// The standard SI unit.
 final MassUnits kilograms = Mass.kilograms;
 
 /// A unit of one gram.

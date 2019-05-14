@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 KinematicViscosityUnits metersSquaredPerSecond = KinematicViscosity.metersSquaredPerSecond;
 
 KinematicViscosityUnits stokes = new KinematicViscosityUnits('stokes', 'St', null, null, 1.0e-4, true);

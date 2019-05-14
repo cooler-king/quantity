@@ -6,25 +6,14 @@ part of quantity_si;
 /// for more information.
 ///
 class AngularAcceleration extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions angularAccelerationDimensions =
-      const Dimensions.constant(const <String, int>{'Angle': 1, 'Time': -2}, qType: AngularAcceleration);
-
-  /// The Standard SI unit.
-  static final AngularAccelerationUnits radiansPerSecondSquared =
-      new AngularAccelerationUnits.angleTime(Angle.radians, Time.seconds);
-
-  /// Accepted for use with the SI.
-  static final AngularAccelerationUnits degreesPerSecondSquared =
-      new AngularAccelerationUnits.angleTime(Angle.degrees, Time.seconds);
-
   /// Construct an AngularAcceleration with either radians per second squared
   /// or degrees per second squared).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
   AngularAcceleration({dynamic radiansPerSecondSquared, dynamic degreesPerSecondSquared, double uncert = 0.0})
-      : super(radiansPerSecondSquared ?? (degreesPerSecondSquared ?? 0.0), AngularAcceleration.radiansPerSecondSquared, uncert);
+      : super(radiansPerSecondSquared ?? (degreesPerSecondSquared ?? 0.0), AngularAcceleration.radiansPerSecondSquared,
+            uncert);
 
   AngularAcceleration._internal(dynamic conv)
       : super._internal(conv, AngularAcceleration.angularAccelerationDimensions);
@@ -37,6 +26,18 @@ class AngularAcceleration extends Quantity {
 
   const AngularAcceleration.constant(Number valueSI, {AngularAccelerationUnits units, double uncert = 0.0})
       : super.constant(valueSI, AngularAcceleration.angularAccelerationDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions angularAccelerationDimensions =
+      const Dimensions.constant(const <String, int>{'Angle': 1, 'Time': -2}, qType: AngularAcceleration);
+
+  /// The Standard SI unit.
+  static final AngularAccelerationUnits radiansPerSecondSquared =
+      new AngularAccelerationUnits.angleTime(Angle.radians, Time.seconds);
+
+  /// Accepted for use with the SI.
+  static final AngularAccelerationUnits degreesPerSecondSquared =
+      new AngularAccelerationUnits.angleTime(Angle.degrees, Time.seconds);
 }
 
 /// Units acceptable for use in describing AngularAcceleration quantities.
@@ -70,14 +71,12 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
 
   /// Derive new AngularAccelerationUnits using this AngularAccelerationUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new AngularAccelerationUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AngularAccelerationUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

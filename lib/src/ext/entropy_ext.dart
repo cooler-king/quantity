@@ -1,8 +1,9 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 final EntropyUnits joulesPerKelvin = Entropy.joulesPerKelvin;
 
-/// Entropy as a 'charge'; identical to [joulesPerKelvin]
+/// Entropy as a 'charge'; identical to [joulesPerKelvin].
 final EntropyUnits thermalcoulomb = joulesPerKelvin;
 
 /// Boltzmann constant as a unit

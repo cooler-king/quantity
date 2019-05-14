@@ -8,17 +8,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Power extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions powerDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: Power);
-
-  /// The standard SI unit.
-  static final PowerUnits watts = new PowerUnits('watts', null, 'W', null, 1.0, true);
-
-  // Convenience
-  static final PowerUnits kilowatts = watts.kilo() as PowerUnits;
-  static final PowerUnits megawatts = watts.mega() as PowerUnits;
-
   /// Construct a Power with watts ([W]), kilowatts ([kW]) or megawatts ([MW]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -37,6 +26,17 @@ class Power extends Quantity {
 
   const Power.constant(Number valueSI, {PowerUnits units, double uncert = 0.0})
       : super.constant(valueSI, Power.powerDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions powerDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: Power);
+
+  /// The standard SI unit.
+  static final PowerUnits watts = new PowerUnits('watts', null, 'W', null, 1.0, true);
+
+  // Convenience
+  static final PowerUnits kilowatts = watts.kilo() as PowerUnits;
+  static final PowerUnits megawatts = watts.mega() as PowerUnits;
 }
 
 /// Units acceptable for use in describing Power quantities.
@@ -72,16 +72,14 @@ class PowerUnits extends Power with Units {
 
   /// Derive new PowerUnits using this PowerUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new PowerUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new PowerUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }
 
 class RadiantFlux extends Power {

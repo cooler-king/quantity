@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 ElectricPotentialDifferenceUnits volts = ElectricPotentialDifference.volts;
 
 /// The unit of electromotive force (EMF) or potential difference in the CGS (centimeter/gram/second)

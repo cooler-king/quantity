@@ -6,13 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Capacitance extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions electricCapacitanceDimensions =
-      const Dimensions.constant(const <String, int>{'Time': 4, 'Current': 2, 'Length': -2, 'Mass': -1}, qType: Capacitance);
-
-  /// The standard SI unit.
-  static final CapacitanceUnits farads = new CapacitanceUnits('farads', null, 'F', null, 1.0, true);
-
   /// Construct a Capacitance with farads ([F]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -29,6 +22,14 @@ class Capacitance extends Quantity {
 
   const Capacitance.constant(Number valueSI, {CapacitanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Capacitance.electricCapacitanceDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions electricCapacitanceDimensions = const Dimensions.constant(
+      const <String, int>{'Time': 4, 'Current': 2, 'Length': -2, 'Mass': -1},
+      qType: Capacitance);
+
+  /// The standard SI unit.
+  static final CapacitanceUnits farads = new CapacitanceUnits('farads', null, 'F', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing Capacitance quantities.
@@ -53,14 +54,12 @@ class CapacitanceUnits extends Capacitance with Units {
 
   /// Derive new CapacitanceUnits using this CapacitanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new CapacitanceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CapacitanceUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

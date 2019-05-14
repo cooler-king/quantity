@@ -9,16 +9,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Pressure extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions pressureDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: Pressure);
-
-  /// The standard SI unit.
-  static final PressureUnits pascals = new PressureUnits('pascals', null, 'Pa', null, 1.0, true);
-
-  /// Accepted for use with the SI, subject to further review.
-  static final PressureUnits bars = new PressureUnits('bars', null, null, null, 1.0e5, true);
-
   /// Construct a pressure with pascals ([Pa]) or [bars].
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -37,6 +27,16 @@ class Pressure extends Quantity {
 
   const Pressure.constant(Number valueSI, {PressureUnits units, double uncert = 0.0})
       : super.constant(valueSI, Pressure.pressureDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions pressureDimensions =
+      const Dimensions.constant(const <String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: Pressure);
+
+  /// The standard SI unit.
+  static final PressureUnits pascals = new PressureUnits('pascals', null, 'Pa', null, 1.0, true);
+
+  /// Accepted for use with the SI, subject to further review.
+  static final PressureUnits bars = new PressureUnits('bars', null, null, null, 1.0e5, true);
 }
 
 /// Units acceptable for use in describing Pressure quantities.
@@ -70,14 +70,12 @@ class PressureUnits extends Pressure with Units {
 
   /// Derive new PressureUnits using this PressureUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new PressureUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new PressureUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

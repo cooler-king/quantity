@@ -7,13 +7,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Charge extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions electricChargeDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1}, qType: Charge);
-
-  /// The standard SI unit.
-  static final ChargeUnits coulombs = new ChargeUnits('coulombs', null, 'C', null, 1.0, true);
-
   /// Construct a Charge with coulombs ([C]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -30,6 +23,13 @@ class Charge extends Quantity {
 
   const Charge.constant(Number valueSI, {ChargeUnits units, double uncert = 0.0})
       : super.constant(valueSI, Charge.electricChargeDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions electricChargeDimensions =
+      const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1}, qType: Charge);
+
+  /// The standard SI unit.
+  static final ChargeUnits coulombs = new ChargeUnits('coulombs', null, 'C', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing Charge quantities.
@@ -63,14 +63,12 @@ class ChargeUnits extends Charge with Units {
 
   /// Derive new ChargeUnits using this ChargeUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new ChargeUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ChargeUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

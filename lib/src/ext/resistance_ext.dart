@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 ResistanceUnits ohms = Resistance.ohms;
 
 // Constants

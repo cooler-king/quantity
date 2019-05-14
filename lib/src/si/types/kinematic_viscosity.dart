@@ -6,19 +6,12 @@ part of quantity_si;
 /// for more information.
 ///
 class KinematicViscosity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions kinematicViscosityDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -1}, qType: KinematicViscosity);
-
-  /// The standard SI unit.
-  static final KinematicViscosityUnits metersSquaredPerSecond =
-      new KinematicViscosityUnits.areaTime(Area.squareMeters, Time.seconds);
-
   /// Construct a KinematicViscosity with meters squared per second.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
   ///
-  KinematicViscosity({dynamic metersSquaredPerSecond, double uncert = 0.0}) : super(metersSquaredPerSecond ?? 0.0, Illuminance.lux, uncert);
+  KinematicViscosity({dynamic metersSquaredPerSecond, double uncert = 0.0})
+      : super(metersSquaredPerSecond ?? 0.0, Illuminance.lux, uncert);
 
   KinematicViscosity._internal(dynamic conv) : super._internal(conv, KinematicViscosity.kinematicViscosityDimensions);
 
@@ -30,6 +23,14 @@ class KinematicViscosity extends Quantity {
 
   const KinematicViscosity.constant(Number valueSI, {KinematicViscosityUnits units, double uncert = 0.0})
       : super.constant(valueSI, KinematicViscosity.kinematicViscosityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions kinematicViscosityDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -1}, qType: KinematicViscosity);
+
+  /// The standard SI unit.
+  static final KinematicViscosityUnits metersSquaredPerSecond =
+      new KinematicViscosityUnits.areaTime(Area.squareMeters, Time.seconds);
 }
 
 /// Units acceptable for use in describing KinematicViscosity quantities.
@@ -65,14 +66,12 @@ class KinematicViscosityUnits extends KinematicViscosity with Units {
 
   /// Derive new KinematicViscosityUnits using this KinematicViscosityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new KinematicViscosityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new KinematicViscosityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

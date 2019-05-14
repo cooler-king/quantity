@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 SpeedUnits metersPerSecond = Speed.metersPerSecond;
 
 SpeedUnits speedOfLightUnits = new SpeedUnits('speed of light', 'c0', 'c', 'speed of light', 2.99792458e8, false);

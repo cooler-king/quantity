@@ -35,32 +35,6 @@ const double twoPi = 2.0 * polyfill_math.pi;
 /// for more information.
 ///
 class Angle extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions angleDimensions = const Dimensions.constant(const <String, int>{'Angle': 1}, qType: Angle);
-
-  /// The standard SI unit.
-  static final AngleUnits radians = new AngleUnits('radians', null, 'rad', null, Integer.one, true);
-
-  /// Accepted for use with the SI.
-  static final AngleUnits degrees =
-      new AngleUnits('degrees', '\u{00b0}', 'deg', null, const Double.constant(1.7453292519943e-2), false);
-
-  /// Accepted for use with the SI.
-  static final AngleUnits minutesArc =
-      new AngleUnits('arc minutes', '\'', 'arc min', null, const Double.constant(2.9088821e-4), false);
-
-  /// Accepted for use with the SI.
-  static final AngleUnits secondsArc =
-      new AngleUnits('arc seconds', '\'', 'arc sec', null, const Double.constant(4.8481368e-6), false);
-
-  // convenience units
-
-  /// Accepted for use with the SI; equivalent to [minutesArc].
-  static final AngleUnits minutes = minutesArc;
-
-  /// Accepted for use with the SI; equivalent to [secondsArc].
-  static final AngleUnits seconds = secondsArc;
-
   /// Construct an Angle with either radians ([rad]) or degrees ([deg]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -92,6 +66,32 @@ class Angle extends Quantity {
   ///  passed in for degrees, minutes, and seconds of arc.
   Angle.fromDegMinSec(int d, int m, double s, [double uncert = 0.0])
       : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s), Angle.radians, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions angleDimensions = const Dimensions.constant(const <String, int>{'Angle': 1}, qType: Angle);
+
+  /// The standard SI unit.
+  static final AngleUnits radians = new AngleUnits('radians', null, 'rad', null, Integer.one, true);
+
+  /// Accepted for use with the SI.
+  static final AngleUnits degrees =
+      new AngleUnits('degrees', '\u{00b0}', 'deg', null, const Double.constant(1.7453292519943e-2), false);
+
+  /// Accepted for use with the SI.
+  static final AngleUnits minutesArc =
+      new AngleUnits('arc minutes', '\'', 'arc min', null, const Double.constant(2.9088821e-4), false);
+
+  /// Accepted for use with the SI.
+  static final AngleUnits secondsArc =
+      new AngleUnits('arc seconds', '\'', 'arc sec', null, const Double.constant(4.8481368e-6), false);
+
+  // convenience units
+
+  /// Accepted for use with the SI; equivalent to [minutesArc].
+  static final AngleUnits minutes = minutesArc;
+
+  /// Accepted for use with the SI; equivalent to [secondsArc].
+  static final AngleUnits seconds = secondsArc;
 
   /// Return an equivalent angle bounded to between -PI and PI
   /// (-180 and 180 degrees).
@@ -220,14 +220,12 @@ class AngleUnits extends Angle with Units {
 
   /// Derive new AngleUnits using this AngleUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-    new AngleUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AngleUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

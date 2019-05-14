@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-/// the standard SI unit
+/// The standard SI unit.
 VolumeFlowRateUnits cubicMetersPerSecond = VolumeFlowRate.cubicMetersPerSecond;
 
 /// shorthand synonym for standard SI unit

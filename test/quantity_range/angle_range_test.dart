@@ -1,4 +1,4 @@
-import 'package:dart2_constant/math.dart' as polyfill_math;
+import 'dart:math' show pi;
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_range.dart';
@@ -19,13 +19,13 @@ void main() {
       expect(range.startAngle.valueSI.toDouble() == 0.3, true);
       expect(range.endAngle.valueSI.toDouble() == 0.9, true);
 
-      range = new AngleRange.degrees(90.0, 180.0);
-      expect(range.startAngle.valueSI.toDouble(), closeTo(polyfill_math.pi / 2, 0.0001));
-      expect(range.endAngle.valueSI.toDouble(), closeTo(polyfill_math.pi, 0.0001));
+      range = new AngleRange.degrees(90, 180);
+      expect(range.startAngle.valueSI.toDouble(), closeTo(pi / 2, 0.0001));
+      expect(range.endAngle.valueSI.toDouble(), closeTo(pi, 0.0001));
 
-      range = new AngleRange.degrees(180.0, 90.0);
-      expect(range.startAngle.valueSI.toDouble(), closeTo(polyfill_math.pi, 0.0001));
-      expect(range.endAngle.valueSI.toDouble(), closeTo(polyfill_math.pi / 2, 0.0001));
+      range = new AngleRange.degrees(180, 90);
+      expect(range.startAngle.valueSI.toDouble(), closeTo(pi, 0.0001));
+      expect(range.endAngle.valueSI.toDouble(), closeTo(pi / 2, 0.0001));
 
       range = new AngleRange.radians(1.72, 1.95);
       expect(range.startAngle.valueSI.toDouble() == 1.72, true);
@@ -99,27 +99,27 @@ void main() {
       expect(range.contains(new Angle(deg: 155)), false);
       expect(range.contains(new Angle(deg: 15)), true);
       expect(range.contains(new Angle(deg: 70.1)), true);
-      expect(range.contains(new Angle(deg: 15), false, 0.0), false);
-      expect(range.contains(new Angle(deg: 70.1), false, 0.0), false);
-      expect(range.contains(new Angle(deg: 380), false, 0.0), false);
-      expect(range.contains(new Angle(deg: -300), false, 0.0), false);
+      expect(range.contains(new Angle(deg: 15), false, 0), false);
+      expect(range.contains(new Angle(deg: 70.1), false, 0), false);
+      expect(range.contains(new Angle(deg: 380), false, 0), false);
+      expect(range.contains(new Angle(deg: -300), false, 0), false);
 
       expect(range.contains360(new Angle(deg: 55)), true);
       expect(range.contains360(new Angle(deg: 155)), false);
       expect(range.contains360(new Angle(deg: 15)), true);
       expect(range.contains360(new Angle(deg: 70.1)), true);
-      expect(range.contains360(new Angle(deg: 15), false, 0.0), false);
-      expect(range.contains360(new Angle(deg: 70.1), false, 0.0), false);
+      expect(range.contains360(new Angle(deg: 15), false, 0), false);
+      expect(range.contains360(new Angle(deg: 70.1), false, 0), false);
       expect(range.contains360(new Angle(deg: 380)), true);
       expect(range.contains360(new Angle(deg: -300)), true);
       expect(range.contains360(new Angle(deg: 375), true), true);
       expect(range.contains360(new Angle(deg: 430.1), true), true);
-      expect(range.contains360(new Angle(deg: 375), false, 0.0), false);
+      expect(range.contains360(new Angle(deg: 375), false, 0), false);
       //TODO see issue #4 expect(range.contains360(new Angle(deg: 430.1), false, 0.0), false);
       expect(range.contains360(new Angle(deg: 430.1), false, 1.0e-9), true);
       //TODO issue #4 expect(range.contains360(new Angle(deg: -345), false, 0.0), false);
       expect(range.contains360(new Angle(deg: 259.9), false), false);
-      expect(range.contains360(new Angle(deg: -345), true, 0.0), true);
+      expect(range.contains360(new Angle(deg: -345), true, 0), true);
       expect(range.contains360(new Angle(deg: -289.9), true), true);
     });
 

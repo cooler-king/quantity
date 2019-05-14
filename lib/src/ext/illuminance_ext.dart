@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 IlluminanceUnits lux = Illuminance.lux;
 
 IlluminanceUnits footCandles = new IlluminanceUnits('foot candles', null, null, null, 1.0764e1, false);

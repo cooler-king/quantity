@@ -6,13 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Force extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions forceDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 1, 'Mass': 1, 'Time': -2}, qType: Force);
-
-  /// The standard SI unit.
-  static final ForceUnits newtons = new ForceUnits('newtons', null, 'N', null, 1.0, true);
-
   /// Construct a Force with newtons ([N]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +24,13 @@ class Force extends Quantity {
 
   Force.ma(Mass m, Acceleration a)
       : super(m.valueSI * a.valueSI, Force.newtons, math.sqrt(m._ur * m._ur + a._ur * a._ur));
+
+  /// Dimensions for this type of quantity
+  static const Dimensions forceDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 1, 'Mass': 1, 'Time': -2}, qType: Force);
+
+  /// The standard SI unit.
+  static final ForceUnits newtons = new ForceUnits('newtons', null, 'N', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing Force quantities.
@@ -55,12 +55,11 @@ class ForceUnits extends Force with Units {
   /// Derive new ForceUnits using this ForceUnits object as the base.
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ForceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

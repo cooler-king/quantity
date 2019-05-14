@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class MassFluxDensity extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions massFluxDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -1, 'Length': -2}, qType: MassFluxDensity);
-
-  /// The standard SI unit.
-  static final MassFluxDensityUnits kilogramsPerSecondPerSquareMeter =
-      new MassFluxDensityUnits.massTimeArea(Mass.kilograms, Time.seconds, Area.squareMeters);
-
   /// Construct a MassFluxDensity with kilograms per second per square meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +23,14 @@ class MassFluxDensity extends Quantity {
 
   const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, MassFluxDensity.massFluxDensityDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions massFluxDensityDimensions =
+      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -1, 'Length': -2}, qType: MassFluxDensity);
+
+  /// The standard SI unit.
+  static final MassFluxDensityUnits kilogramsPerSecondPerSquareMeter =
+      new MassFluxDensityUnits.massTimeArea(Mass.kilograms, Time.seconds, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing MassFluxDensity quantities.
@@ -55,8 +55,7 @@ class MassFluxDensityUnits extends MassFluxDensity with Units {
     name = '${mu.name} per ${tu.singular} per ${au.singular}';
     singular = '${mu.singular} per ${tu.singular} per ${au.singular}';
     _convToMKS = mu.valueSI / (tu.valueSI * au.valueSI);
-    _abbrev1 =
-        mu._abbrev1 != null && tu._abbrev1 != null ? '${mu._abbrev1} / ${tu._abbrev1} / ${au._abbrev1}' : null;
+    _abbrev1 = mu._abbrev1 != null && tu._abbrev1 != null ? '${mu._abbrev1} / ${tu._abbrev1} / ${au._abbrev1}' : null;
     _abbrev2 = mu._abbrev2 != null && tu._abbrev2 != null ? '${mu._abbrev2}/${tu._abbrev2}/${au._abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
@@ -68,14 +67,12 @@ class MassFluxDensityUnits extends MassFluxDensity with Units {
 
   /// Derive new MassFluxDensityUnits using this MassFluxDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new MassFluxDensityUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MassFluxDensityUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

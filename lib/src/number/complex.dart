@@ -3,12 +3,6 @@ part of number;
 /// Complex numbers have both a real and an imaginary part.
 ///
 class Complex extends Number {
-  /// The real number component of the complex number.
-  final Real real;
-
-  /// The imaginary number component of the complex number.
-  final Imaginary imaginary;
-
   Complex(this.real, this.imaginary);
   const Complex.constant(this.real, this.imaginary) : super.constant();
 
@@ -21,6 +15,12 @@ class Complex extends Number {
         imaginary = m?.containsKey('real') ?? false
             ? new Imaginary.constant(new Real.fromMap(m['imag']))
             : const Imaginary.constant(Integer.zero);
+
+  /// The real number component of the complex number.
+  final Real real;
+
+  /// The imaginary number component of the complex number.
+  final Imaginary imaginary;
 
   /// [imag] is a convenient getter for the [imaginary] value
   Imaginary get imag => imaginary;
@@ -47,7 +47,8 @@ class Complex extends Number {
   Double get phase => complexArgument;
 
   @override
-  bool get isInfinite => real.value == polyfill_core.double.infinity || real.value == polyfill_core.double.negativeInfinity;
+  bool get isInfinite =>
+      real.value == polyfill_core.double.infinity || real.value == polyfill_core.double.negativeInfinity;
 
   @override
   bool get isNaN => real.value == polyfill_core.double.nan;

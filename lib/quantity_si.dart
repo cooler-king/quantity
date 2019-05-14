@@ -231,7 +231,8 @@ final LinkedHashMap<Type, Function> _typeInstantiatorMap = new LinkedHashMap<Typ
 ///  * If a quantity is not one of the seven base SI quantities, then it is a derived quantity.
 ///  * The seven base SI Quantities are [Length], [Mass], [Duration],
 ///  [Temperature], [Current], [LuminousIntensity] and [AmountOfSubstance].
-bool siBaseQuantity(Quantity q) => q is Length ||
+bool siBaseQuantity(Quantity q) =>
+    q is Length ||
     q is Mass ||
     q is Time ||
     q is Current ||

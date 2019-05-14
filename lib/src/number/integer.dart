@@ -2,15 +2,6 @@ part of number;
 
 /// Wraps Dart's core [int] type, so that it can share a common base type with other [Number]s.
 class Integer extends Real {
-  final int _value;
-
-  static const Integer zero = const Integer.constant(0);
-  static const Integer one = const Integer.constant(1);
-  static const Integer negOne = const Integer.constant(-1);
-  static const Integer ten = const Integer.constant(10);
-  static const Integer hundred = const Integer.constant(100);
-  static const Integer thousand = const Integer.constant(1000);
-
   Integer(this._value);
 
   const Integer.constant(this._value) : super.constant();
@@ -27,6 +18,15 @@ class Integer extends Real {
     }
     return Integer.zero;
   }
+
+  final int _value;
+
+  static const Integer zero = const Integer.constant(0);
+  static const Integer one = const Integer.constant(1);
+  static const Integer negOne = const Integer.constant(-1);
+  static const Integer ten = const Integer.constant(10);
+  static const Integer hundred = const Integer.constant(100);
+  static const Integer thousand = const Integer.constant(1000);
 
   @override
   int get value => _value;

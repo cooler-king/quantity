@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 MagneticFluxDensityUnits teslas = MagneticFluxDensity.teslas;
 
 MagneticFluxDensityUnits gauss = new MagneticFluxDensityUnits('gauss', null, null, 'gauss', 1.0e-4, true);

@@ -8,8 +8,6 @@ library number;
 
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:dart2_constant/math.dart' as polyfill_math;
-import 'package:dart2_constant/core.dart' as polyfill_core;
 
 part 'src/number/complex.dart';
 part 'src/number/double.dart';

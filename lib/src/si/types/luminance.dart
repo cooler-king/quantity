@@ -6,14 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Luminance extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions luminanceDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -2, 'Intensity': 1}, qType: Luminance);
-
-  /// The standard SI unit.
-  static final LuminanceUnits candelasPerSquareMeter =
-      new LuminanceUnits.intensityArea(LuminousIntensity.candelas, Area.squareMeters);
-
   /// Construct a Luminance with candelas per square meter.
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -31,6 +23,14 @@ class Luminance extends Quantity {
 
   const Luminance.constant(Number valueSI, {LuminanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Luminance.luminanceDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions luminanceDimensions =
+      const Dimensions.constant(const <String, int>{'Length': -2, 'Intensity': 1}, qType: Luminance);
+
+  /// The standard SI unit.
+  static final LuminanceUnits candelasPerSquareMeter =
+      new LuminanceUnits.intensityArea(LuminousIntensity.candelas, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing Luminance quantities.
@@ -64,14 +64,12 @@ class LuminanceUnits extends Luminance with Units {
 
   /// Derive new LuminanceUnits using this LuminanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new LuminanceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new LuminanceUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

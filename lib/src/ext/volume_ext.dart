@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-/// A synonym for the standard SI-MKS unit of volume.
+/// The standard SI unit.
 VolumeUnits cubicMeters = Volume.cubicMeters;
 
 VolumeUnits liters = Volume.liters;

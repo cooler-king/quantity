@@ -56,25 +56,6 @@ part of quantity_si;
 /// method may be called at any point to enable/disable this capability.
 ///
 abstract class Quantity implements Comparable<dynamic> {
-  /// The value of the quantity in the [base units](http://physics.nist.gov/cuu/Units/current.html),
-  /// of the International System of Units (SI).
-  ///
-  /// This is often referred to as the _MKS_ value to highlight that the units reference meters
-  /// and kilograms rather than centimeters and grams (_CGS_) as was often done before standardization.
-  /// The [mks] getter offers a shorthand way to retrieve this value.
-  final Number valueSI;
-
-  /// Dimensions.
-  final Dimensions dimensions;
-
-  /// Sets whether or not uncertainty is to be calculated within mathematical methods.
-  // bool calcUncertainty = false;
-
-  final double _ur;
-
-  /// Preferred units for display
-  final Units preferredUnits;
-
   /// This constructor sets the [value] (as expressed in the accompanying units)
   /// and the relative standard [uncert]ainty.  The value is may be set using any
   /// `num` or `Number` object, including [Precise] for arbitrary precision.
@@ -93,19 +74,37 @@ abstract class Quantity implements Comparable<dynamic> {
   /// 68%.
   ///
   Quantity([dynamic value = Integer.zero, this.preferredUnits, double uncert = 0.0])
-      : this.valueSI = preferredUnits?.toMks(value ?? 0) ?? (value is Number ? value : numToNumber(value as num)),
-        this.dimensions =
-            (preferredUnits is Quantity) ? (preferredUnits as Quantity).dimensions : Scalar.scalarDimensions,
-        this._ur = uncert;
+      : valueSI = preferredUnits?.toMks(value ?? 0) ?? (value is Number ? value : numToNumber(value as num)),
+        dimensions = (preferredUnits is Quantity) ? (preferredUnits as Quantity).dimensions : Scalar.scalarDimensions,
+        _ur = uncert;
 
   const Quantity.constant(this.valueSI, this.dimensions, this.preferredUnits, this._ur);
 
   /// A private constructor to support MiscQuantity:  dimensions are
   /// known, units are not.
   Quantity._internal([dynamic value = 0.0, this.dimensions, double uncert = 0.0])
-      : this.valueSI = (value is num) ? numToNumber(value) : value is Number ? value : null,
-        this.preferredUnits = null,
-        this._ur = uncert;
+      : valueSI = (value is num) ? numToNumber(value) : value is Number ? value : null,
+        preferredUnits = null,
+        _ur = uncert;
+
+  /// The value of the quantity in the [base units](http://physics.nist.gov/cuu/Units/current.html),
+  /// of the International System of Units (SI).
+  ///
+  /// This is often referred to as the _MKS_ value to highlight that the units reference meters
+  /// and kilograms rather than centimeters and grams (_CGS_) as was often done before standardization.
+  /// The [mks] getter offers a shorthand way to retrieve this value.
+  final Number valueSI;
+
+  /// Dimensions.
+  final Dimensions dimensions;
+
+  /// Sets whether or not uncertainty is to be calculated within mathematical methods.
+  // bool calcUncertainty = false;
+
+  final double _ur;
+
+  /// Preferred units for display
+  final Units preferredUnits;
 
   ///  Whether or not this Quantity is represented using arbitrary precision.
   ///

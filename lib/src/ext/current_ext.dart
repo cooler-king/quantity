@@ -1,5 +1,6 @@
 part of quantity_ext;
 
+/// The standard SI unit.
 final CurrentUnits amperes = Current.amperes;
 
 final CurrentUnits abamperes = new CurrentUnits('abamperes', null, null, null, 10.0, true);

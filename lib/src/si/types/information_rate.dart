@@ -6,26 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class InformationRate extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions informationRateDimensions =
-      const Dimensions.constant(const <String, int>{'Time': -1}, qType: InformationRate);
-
-  /// The standard SI unit
-  static final InformationRateUnits bitsPerSecond = new InformationRateUnits.massTime(Information.bits, Time.seconds);
-
-  // Common metric units
-  static final InformationRateUnits kilobitsPerSecond =
-      new InformationRateUnits.massTime(Information.kilobits, Time.seconds);
-
-  static final InformationRateUnits megabitsPerSecond =
-      new InformationRateUnits.massTime(Information.megabits, Time.seconds);
-
-  static final InformationRateUnits gigabitsPerSecond =
-      new InformationRateUnits.massTime(Information.gigabits, Time.seconds);
-
-  static final InformationRateUnits terabitsPerSecond =
-      new InformationRateUnits.massTime(Information.terabits, Time.seconds);
-
   /// Construct an InformationRate with bits per second ([bps]), kilobits per second ([kbps]),
   /// megabits per second ([Mbps]), gigibits per second ([Gbps]) or terabits per second ([Tbps]).
   ///
@@ -54,6 +34,26 @@ class InformationRate extends Quantity {
 
   const InformationRate.constant(Number valueSI, {InformationRateUnits units, double uncert = 0.0})
       : super.constant(valueSI, InformationRate.informationRateDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions informationRateDimensions =
+      const Dimensions.constant(const <String, int>{'Time': -1}, qType: InformationRate);
+
+  /// The standard SI unit
+  static final InformationRateUnits bitsPerSecond = new InformationRateUnits.massTime(Information.bits, Time.seconds);
+
+  // Common metric units
+  static final InformationRateUnits kilobitsPerSecond =
+      new InformationRateUnits.massTime(Information.kilobits, Time.seconds);
+
+  static final InformationRateUnits megabitsPerSecond =
+      new InformationRateUnits.massTime(Information.megabits, Time.seconds);
+
+  static final InformationRateUnits gigabitsPerSecond =
+      new InformationRateUnits.massTime(Information.gigabits, Time.seconds);
+
+  static final InformationRateUnits terabitsPerSecond =
+      new InformationRateUnits.massTime(Information.terabits, Time.seconds);
 }
 
 /// Units acceptable for use in describing InformationRate quantities.

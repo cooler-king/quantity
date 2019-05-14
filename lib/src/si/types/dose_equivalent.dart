@@ -7,16 +7,6 @@ part of quantity_si;
 /// for more information.
 ///
 class DoseEquivalent extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions doseEquivalentDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: DoseEquivalent);
-
-  /// The standard SI unit.
-  static final DoseEquivalentUnits seiverts = new DoseEquivalentUnits('seiverts', null, 'Sv', null, 1.0, true);
-
-  /// Accepted for use with the SI, subject to further review.
-  static final DoseEquivalentUnits rems = new DoseEquivalentUnits('rems', null, null, null, 1.0e-2, true);
-
   /// Construct a DoseEquivalent with seiverts ([Sv]) or [rems].
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -36,6 +26,16 @@ class DoseEquivalent extends Quantity {
 
   const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits units, double uncert = 0.0})
       : super.constant(valueSI, DoseEquivalent.doseEquivalentDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions doseEquivalentDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: DoseEquivalent);
+
+  /// The standard SI unit.
+  static final DoseEquivalentUnits seiverts = new DoseEquivalentUnits('seiverts', null, 'Sv', null, 1.0, true);
+
+  /// Accepted for use with the SI, subject to further review.
+  static final DoseEquivalentUnits rems = new DoseEquivalentUnits('rems', null, null, null, 1.0e-2, true);
 }
 
 /// Units acceptable for use in describing DoseEquivalent quantities.
@@ -60,14 +60,12 @@ class DoseEquivalentUnits extends DoseEquivalent with Units {
 
   /// Derive new DoseEquivalentUnits using this DoseEquivalentUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new DoseEquivalentUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new DoseEquivalentUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

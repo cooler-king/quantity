@@ -8,16 +8,6 @@ part of quantity_si;
 /// for more information.
 ///
 class Energy extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions energyDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -2}, qType: Energy);
-
-  /// The standard SI unit
-  static final EnergyUnits joules = new EnergyUnits('joules', null, 'J', null, 1.0, true);
-
-  /// Accepted for use with the SI
-  static final EnergyUnits electronVolts = new EnergyUnits('electronvolts', null, 'eV', null, 1.60217653e-19, false);
-
   /// Construct an Energy with joules ([J]) or electron volts ([eV]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -35,6 +25,16 @@ class Energy extends Quantity {
 
   const Energy.constant(Number valueSI, {EnergyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Energy.energyDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions energyDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -2}, qType: Energy);
+
+  /// The standard SI unit
+  static final EnergyUnits joules = new EnergyUnits('joules', null, 'J', null, 1.0, true);
+
+  /// Accepted for use with the SI
+  static final EnergyUnits electronVolts = new EnergyUnits('electronvolts', null, 'eV', null, 1.60217653e-19, false);
 
   /// Returns the [Mass] equivalent of this Energy using the famous E=mc^2 relationship.
   Mass toMass() {
@@ -81,14 +81,12 @@ class EnergyUnits extends Energy with Units {
 
   /// Derive new EnergyUnits using this EnergyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new EnergyUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new EnergyUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

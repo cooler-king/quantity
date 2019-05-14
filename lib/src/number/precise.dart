@@ -14,21 +14,6 @@ part of number;
 /// point values, is 2^53, or 9007199254740992, and the maximum number of significant digits as a result is 16.
 ///
 class Precise extends Real {
-  static final Precise zero = new Precise('0');
-  static final Precise one = new Precise('1');
-
-  /// The digits of the arbitrary precision number are represented as a list of Digit objects,
-  /// lowest significant digit to most significant digit.
-  final List<Digit> _digits = <Digit>[];
-
-  int _power = 0;
-
-  /// Flag for negative values
-  bool _neg = false;
-
-  /// Optional precision cutoff (maximum number of significant digits allowed)
-  int _precision;
-
   /// Construct an arbitrary precision number from a string.
   ///
   /// The precision can be limited by providing the maximum number of significant digits
@@ -112,6 +97,21 @@ class Precise extends Real {
     _limitPrecision();
   }
 
+  static final Precise zero = new Precise('0');
+  static final Precise one = new Precise('1');
+
+  /// The digits of the arbitrary precision number are represented as a list of Digit objects,
+  /// lowest significant digit to most significant digit.
+  final List<Digit> _digits = <Digit>[];
+
+  int _power = 0;
+
+  /// Flag for negative values
+  bool _neg = false;
+
+  /// Optional precision cutoff (maximum number of significant digits allowed)
+  int _precision;
+
   /// Returns a copy of the internal digits list, from least significant to most.
   ///
   List<Digit> get digits => new List<Digit>.from(_digits);
@@ -146,7 +146,8 @@ class Precise extends Real {
       _power += numCull;
 
       if (roundUp) {
-        if (_digits[0] == Digit.nine) {} else {
+        if (_digits[0] == Digit.nine) {
+        } else {
           _digits[0] = Digit.list[_digits[0].toInt() + 1];
         }
       }
@@ -632,6 +633,18 @@ class Precise extends Real {
 /// This wastes four bits but that's a decent trade-off for simplicity and better
 /// anyway than the 4+ bytes allocated for a regular int.
 class Digit {
+  Digit(int num) {
+    if (num == null) throw new Exception('Digit cannot be constructed with null');
+    if (num > 9 || num < 0) throw new Exception('Digit must be between 0 and 9');
+    value.setUint8(0, num);
+  }
+
+  factory Digit.char(String digitChar) {
+    if (digitChar == null) throw new Exception('Digit cannot be constructed with null character');
+    if (digitChar.length != 1) throw new Exception('Digit must be constructed with a single character');
+    return new Digit(digitChar.codeUnitAt(0) - codeUnit0);
+  }
+
   static final Digit zero = new Digit(0);
   static final Digit one = new Digit(1);
   static final Digit two = new Digit(2);
@@ -649,18 +662,6 @@ class Digit {
   static final int codeUnit0 = '0'.codeUnitAt(0);
 
   final ByteData value = new ByteData(1);
-
-  Digit(int num) {
-    if (num == null) throw new Exception('Digit cannot be constructed with null');
-    if (num > 9 || num < 0) throw new Exception('Digit must be between 0 and 9');
-    value.setUint8(0, num);
-  }
-
-  factory Digit.char(String digitChar) {
-    if (digitChar == null) throw new Exception('Digit cannot be constructed with null character');
-    if (digitChar.length != 1) throw new Exception('Digit must be constructed with a single character');
-    return new Digit(digitChar.codeUnitAt(0) - codeUnit0);
-  }
 
   @override
   bool operator ==(dynamic other) {

@@ -7,6 +7,24 @@ part of quantity_si;
 /// for more information.
 ///
 class Mass extends Quantity {
+  /// Construct a Mass with kilograms ([kg]), grams ([g]) or unified atomic mass units ([u]).
+  ///
+  /// Optionally specify a relative standard [uncert]ainty.
+  ///
+  Mass({dynamic kg, dynamic g, dynamic u, double uncert = 0.0})
+      : super(kg ?? (g ?? (u ?? 0.0)),
+            g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
+
+  Mass._internal(dynamic conv) : super._internal(conv, Mass.massDimensions);
+
+  /// Constructs a Mass based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  ///
+  Mass.inUnits(dynamic value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
+
+  const Mass.constant(Number valueSI, {MassUnits units, double uncert = 0.0})
+      : super.constant(valueSI, Mass.massDimensions, units, uncert);
+
   /// Dimensions for this type of quantity
   static const Dimensions massDimensions = const Dimensions.constant(const <String, int>{'Mass': 1}, qType: Mass);
 
@@ -28,24 +46,6 @@ class Mass extends Quantity {
   /// Accepted for use with the SI.
   static final MassUnits unifiedAtomicMassUnits =
       new MassUnits('unified atomic mass units', null, 'u', null, 1.66053886e-27, false);
-
-  /// Construct a Mass with kilograms ([kg]), grams ([g]) or unified atomic mass units ([u]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
-  Mass({dynamic kg, dynamic g, dynamic u, double uncert = 0.0})
-      : super(kg ?? (g ?? (u ?? 0.0)),
-            g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
-
-  Mass._internal(dynamic conv) : super._internal(conv, Mass.massDimensions);
-
-  /// Constructs a Mass based on the [value]
-  /// and the conversion factor intrinsic to the passed [units].
-  ///
-  Mass.inUnits(dynamic value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
-
-  const Mass.constant(Number valueSI, {MassUnits units, double uncert = 0.0})
-      : super.constant(valueSI, Mass.massDimensions, units, uncert);
 
   /// Returns the [Energy] equivalent of this Mass using the famous E=mc^2 relationship.
   ///
@@ -82,14 +82,12 @@ class MassUnits extends Mass with Units {
 
   /// Derive new MassUnits using this MassUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new MassUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MassUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

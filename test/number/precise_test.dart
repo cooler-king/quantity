@@ -183,7 +183,7 @@ void main() {
     test('operator >', () {
       final Precise p = new Precise('123');
       final Precise p2 = new Precise('456');
-      final  Precise p3 = new Precise('456');
+      final Precise p3 = new Precise('456');
       final Precise p4 = new Precise('456.000');
       final Precise p5 = new Precise('-456');
       expect(p > p, false);
@@ -507,7 +507,7 @@ void main() {
       expect(p1 ^ 10, p1);
       expect(p1 ^ 2, p1);
 
-      final Precise  p10 = new Precise.num(10);
+      final Precise p10 = new Precise.num(10);
       expect(p10 ^ 0, p1);
       expect(p10 ^ 1, p10);
       expect(p10 ^ 2, new Precise.num(100));
@@ -515,14 +515,14 @@ void main() {
       expect(p10 ^ -2, new Precise.num(0.01));
       expect(p10 ^ -5, new Precise.num(0.00001));
 
-      final Precise  p1000 = new Precise.num(1000);
+      final Precise p1000 = new Precise.num(1000);
       expect(p1000 ^ 0, p1);
       expect(p1000 ^ 1, p1000);
       expect(p1000 ^ 2, new Precise.num(1000000));
       expect(p1000 ^ -1, new Precise.num(0.001));
       expect(p1000 ^ -2, new Precise.num(0.000001));
 
-      final Precise  pNeg5 = new Precise.num(-5);
+      final Precise pNeg5 = new Precise.num(-5);
       expect(pNeg5 ^ 0, p1);
       expect(pNeg5 ^ 1, pNeg5);
       expect(pNeg5 ^ 2, new Precise.num(25));
@@ -536,7 +536,7 @@ void main() {
       expect(p0 ~/ -2, Precise.zero);
       expect(p0 ~/ 100, Precise.zero);
 
-      final Precise  p10 = new Precise.num(10);
+      final Precise p10 = new Precise.num(10);
       expect(p10 ~/ 3, new Precise('3'));
       expect(p10 ~/ new Integer(3), new Precise('3'));
       expect(p10 ~/ new Double(3.0), new Precise('3'));
@@ -550,13 +550,13 @@ void main() {
     });
 
     test('operator %', () {
-      final Precise  p0 = Precise.zero;
+      final Precise p0 = Precise.zero;
       expect(p0 % 1, Precise.zero);
       expect(p0 % 2, Precise.zero);
       expect(p0 % -2, Precise.zero);
       expect(p0 % 100, Precise.zero);
 
-      final Precise  p10 = new Precise.num(10);
+      final Precise p10 = new Precise.num(10);
       expect(p10 % 3, new Precise('1'));
       expect(p10 % new Integer(3), new Precise('1'));
       expect(p10 % new Double(3.0), new Precise('1'));
@@ -570,7 +570,7 @@ void main() {
     });
 
     test('abs', () {
-      Precise  p = new Precise('0');
+      Precise p = new Precise('0');
       Precise abs = p.abs();
       expect(abs is Precise, true);
       expect(abs, Precise.zero);
@@ -724,7 +724,7 @@ void main() {
     });
 
     test('reciprocal', () {
-      final Precise  p = new Precise('4');
+      final Precise p = new Precise('4');
       final Number recip = p.reciprocal();
       expect(recip is Precise, true);
       expect((recip as Precise).digits.length, 3);
@@ -737,7 +737,7 @@ void main() {
     });
 
     test('remainder', () {
-      final Precise  p = new Precise('4');
+      final Precise p = new Precise('4');
       expect(p.remainder(3), new Precise('1'));
     });
 

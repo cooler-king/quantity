@@ -7,17 +7,6 @@ part of quantity_si;
 /// for more information.
 ///
 class TemperatureInterval extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions temperatureIntervalDimensions =
-      const Dimensions.constant(const <String, int>{'Temperature': 1}, qType: TemperatureInterval);
-
-  /// The standard SI unit.
-  static final TemperatureIntervalUnits kelvins = new TemperatureIntervalUnits('kelvins', null, 'K', null, 1.0, true);
-
-  /// Derived SI unit.
-  static final TemperatureIntervalUnits degreesCelsius =
-      new TemperatureIntervalUnits('degrees Celsius', 'deg C', null, 'degree Celsius', 1.0, true);
-
   /// Construct a TemperatureInterval with kelvin ([K]) or degrees Celsius ([degC]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -37,6 +26,17 @@ class TemperatureInterval extends Quantity {
 
   const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits units, double uncert = 0.0})
       : super.constant(valueSI, TemperatureInterval.temperatureIntervalDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions temperatureIntervalDimensions =
+      const Dimensions.constant(const <String, int>{'Temperature': 1}, qType: TemperatureInterval);
+
+  /// The standard SI unit.
+  static final TemperatureIntervalUnits kelvins = new TemperatureIntervalUnits('kelvins', null, 'K', null, 1.0, true);
+
+  /// Derived SI unit.
+  static final TemperatureIntervalUnits degreesCelsius =
+      new TemperatureIntervalUnits('degrees Celsius', 'deg C', null, 'degree Celsius', 1.0, true);
 
   /// Override the addition operator to manage the [Temperature]/`TemperatureInterval` relationship.
   ///
@@ -103,14 +103,12 @@ class TemperatureIntervalUnits extends TemperatureInterval with Units {
 
   /// Derive new TemperatureIntervalUnits using this TemperatureIntervalUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new TemperatureIntervalUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TemperatureIntervalUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

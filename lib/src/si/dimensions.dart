@@ -24,6 +24,29 @@ part of quantity_si;
 /// objects are equal strictly in terms of the base SI dimensions, the
 /// equalsSI method may be used.
 class Dimensions {
+  /// No-arg constructor sets all dimensions to zero (that is, a scalar quantity).
+  Dimensions()
+      : _dimensionMap = <String, num>{},
+        qType = Scalar;
+
+  /// Constructs a constant Dimensions object with a map of base dimension keys to exponents
+  const Dimensions.constant(Map<String, num> dims, {this.qType}) : _dimensionMap = dims;
+
+  /// Constructs a Dimensions object with a map of base dimension keys to base dimension exponents.
+  Dimensions.fromMap(Map<String, num> typeValuePairs)
+      : _dimensionMap = new Map<String, num>.from(typeValuePairs),
+        qType = null;
+
+  /// Creates a new Dimensions object by copying an existing Dimensions object.
+  ///
+  /// This is a deep copy that clones the internal _dimensionMap HashMap
+  /// object (which in turn contains only immutable objects of classes String and num).
+  ///
+  /// Any type hint is preserved by default but can be cleared by setting `includeTypeHint` to false.
+  Dimensions.copy(Dimensions d2, {bool includeTypeHint = true})
+      : _dimensionMap = new Map<String, num>.from(d2._dimensionMap),
+        qType = includeTypeHint ? d2.qType : null;
+
   /// The dimensions (base dimension key -> base dimension exponent)
   final Map<String, num> _dimensionMap;
 
@@ -60,31 +83,8 @@ class Dimensions {
   /// Identifier for Special Derived Dimensionless SI Quantity: Solid Angle
   static const String baseSolidAngleKey = 'Solid Angle';
 
-  /// No-arg constructor sets all dimensions to zero (that is, a scalar quantity).
-  Dimensions()
-      : _dimensionMap = <String, num>{},
-        qType = Scalar;
-
   /// Optional associated Quantity type
   final Type qType;
-
-  /// Constructs a constant Dimensions object with a map of base dimension keys to exponents
-  const Dimensions.constant(Map<String, num> dims, {this.qType}) : _dimensionMap = dims;
-
-  /// Constructs a Dimensions object with a map of base dimension keys to base dimension exponents.
-  Dimensions.fromMap(Map<String, num> typeValuePairs)
-      : _dimensionMap = new Map<String, num>.from(typeValuePairs),
-        qType = null;
-
-  /// Creates a new Dimensions object by copying an existing Dimensions object.
-  ///
-  /// This is a deep copy that clones the internal _dimensionMap HashMap
-  /// object (which in turn contains only immutable objects of classes String and num).
-  ///
-  /// Any type hint is preserved by default but can be cleared by setting `includeTypeHint` to false.
-  Dimensions.copy(Dimensions d2, {bool includeTypeHint = true})
-      : _dimensionMap = new Map<String, num>.from(d2._dimensionMap),
-        qType = includeTypeHint ? d2.qType : null;
 
   /// Tests the equality of this Dimensions object and another Dimensions object.
   /// Two Dimensions objects are only equal if they have exactly equal
@@ -103,9 +103,8 @@ class Dimensions {
       }
 
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /// Returns a hash code consistent with [operator ==] by constructing a
@@ -139,14 +138,15 @@ class Dimensions {
     if (d2 == null) return false;
     if (d2 == this) return true;
 
-    final Dimensions copy1 = new Dimensions.copy(this);
-    final Dimensions copy2 = new Dimensions.copy(d2);
+    if (_dimensionMap[baseLengthKey] != d2._dimensionMap[baseLengthKey]) return false;
+    if (_dimensionMap[baseMassKey] != d2._dimensionMap[baseMassKey]) return false;
+    if (_dimensionMap[baseTemperatureKey] != d2._dimensionMap[baseTemperatureKey]) return false;
+    if (_dimensionMap[baseTimeKey] != d2._dimensionMap[baseTimeKey]) return false;
+    if (_dimensionMap[baseAmountKey] != d2._dimensionMap[baseAmountKey]) return false;
+    if (_dimensionMap[baseCurrentKey] != d2._dimensionMap[baseCurrentKey]) return false;
+    if (_dimensionMap[baseIntensityKey] != d2._dimensionMap[baseIntensityKey]) return false;
 
-    // Remove Angle and SolidAngle from consideration
-    copy1._dimensionMap..remove(Dimensions.baseAngleKey)..remove(Dimensions.baseSolidAngleKey);
-    copy2._dimensionMap..remove(Dimensions.baseAngleKey)..remove(Dimensions.baseSolidAngleKey);
-
-    return copy1 == copy2;
+    return true;
   }
 
   /// Whether or not these are scalar dimensions, including having no angle or

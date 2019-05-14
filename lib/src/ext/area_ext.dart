@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-/// The standard SI unit for area quantities.
+/// The standard SI unit.
 final AreaUnits squareMeters = Area.squareMeters;
 
 /// Accepted for use with the SI, subject to further review.

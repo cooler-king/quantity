@@ -6,18 +6,6 @@ part of quantity_si;
 /// for more information.
 ///
 class AbsorbedDose extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions absorbedDoseDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: AbsorbedDose);
-
-  /// The standard SI unit.
-  static final AbsorbedDoseUnits grays = new AbsorbedDoseUnits('grays', null, 'Gy', null, 1.0, true);
-
-  /// Accepted for use with the SI, subject to further review.
-  // Note:  do not use 'rad' for singular to avoid confusion with
-  // Angle's radians during parsing & output
-  static final AbsorbedDoseUnits rads = new AbsorbedDoseUnits('rads', null, null, 'rads', 1.0e-2, true);
-
   /// Construct an AbsorbedDose with either grays ([Gy]) or rads ([rads]).
   ///
   /// Optionally specify a relative standard [uncert]ainty.
@@ -36,6 +24,18 @@ class AbsorbedDose extends Quantity {
 
   const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits units, double uncert = 0.0})
       : super.constant(valueSI, AbsorbedDose.absorbedDoseDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions absorbedDoseDimensions =
+      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: AbsorbedDose);
+
+  /// The standard SI unit.
+  static final AbsorbedDoseUnits grays = new AbsorbedDoseUnits('grays', null, 'Gy', null, 1.0, true);
+
+  /// Accepted for use with the SI, subject to further review.
+  // Note:  do not use 'rad' for singular to avoid confusion with
+  // Angle's radians during parsing & output
+  static final AbsorbedDoseUnits rads = new AbsorbedDoseUnits('rads', null, null, 'rads', 1.0e-2, true);
 }
 
 /// Units acceptable for use in describing AbsorbedDose quantities.
@@ -70,14 +70,12 @@ class AbsorbedDoseUnits extends AbsorbedDose with Units {
 
   /// Derive new AbsorbedDoseUnits using this AbsorbedDoseUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new AbsorbedDoseUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AbsorbedDoseUnits(
+      '$fullPrefix$name',
+      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
+      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

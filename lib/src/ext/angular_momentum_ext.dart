@@ -1,6 +1,6 @@
 part of quantity_ext;
 
-/// The standard SI unit for angular momentum.
+/// The standard SI unit.
 final AngularMomentumUnits jouleSecond = AngularMomentum.jouleSecond;
 
 /// The Planck constant as units.
