@@ -3,29 +3,25 @@ part of quantity_si;
 /// The property of an electrical conductor by which a change in current flowing through
 /// it induces an electromotive force in both the conductor itself and in any nearby
 /// conductors by mutual inductance.
-///
 /// See the [Wikipedia entry for Inductance](https://en.wikipedia.org/wiki/Inductance)
 /// for more information.
-///
 class Inductance extends Quantity {
-  /// Construct an Inductance with henries ([H]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs an Inductance with henries ([H]).
+  /// Optionally specify a relative standard uncertainty.
   Inductance({dynamic H, double uncert = 0.0}) : super(H ?? 0.0, Illuminance.lux, uncert);
 
   Inductance._internal(dynamic conv) : super._internal(conv, Inductance.inductanceDimensions);
 
   /// Constructs a Inductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Inductance.inUnits(dynamic value, InductanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Inductance.henries, uncert);
 
+  /// Constructs a constant Inductance.
   const Inductance.constant(Number valueSI, {InductanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Inductance.inductanceDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions inductanceDimensions = const Dimensions.constant(
       const <String, int>{'Length': 2, 'Mass': 1, 'Current': -2, 'Time': -2},
       qType: Inductance);
@@ -35,7 +31,6 @@ class Inductance extends Quantity {
 }
 
 /// Units acceptable for use in describing Inductance quantities.
-///
 class InductanceUnits extends Inductance with Units {
   /// Constructs a new instance.
   InductanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

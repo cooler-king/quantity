@@ -1,16 +1,12 @@
 part of quantity_si;
 
 /// The number of occurrences of a repeating event per unit time.
-///
 /// See the [Wikipedia entry for Frequency](https://en.wikipedia.org/wiki/Frequency)
 /// for more information.
-///
 class Frequency extends Quantity {
-  /// Construct a Frequency with hertz ([Hz]), kilohertz ([kHz]), megahertz ([MHz])
+  /// Constructs a Frequency with hertz ([Hz]), kilohertz ([kHz]), megahertz ([MHz])
   /// or gigahertz ([GHz]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Frequency({dynamic Hz, dynamic kHz, dynamic MHz, dynamic GHz, double uncert = 0.0})
       : super(
@@ -24,28 +20,33 @@ class Frequency extends Quantity {
 
   /// Constructs a Frequency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Frequency.inUnits(dynamic value, FrequencyUnits units, [double uncert = 0.0])
       : super(value, units ?? Frequency.hertz, uncert);
 
+  /// Constructs a constant Frequency.
   const Frequency.constant(Number valueSI, {FrequencyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Frequency.frequencyDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions frequencyDimensions =
       const Dimensions.constant(const <String, int>{'Time': -1}, qType: Frequency);
 
   /// The standard SI unit.
   static final FrequencyUnits hertz = new FrequencyUnits('hertz', 'Hz', null, 'hertz', 1.0, true);
 
-  // convenience units
+  // Convenience units.
+
+  /// The metric unit for one thousand hertz.
   static final FrequencyUnits kilohertz = hertz.kilo() as FrequencyUnits;
+
+  /// The metric unit for one million hertz.
   static final FrequencyUnits megahertz = hertz.mega() as FrequencyUnits;
+
+  /// The metric unit for one billion hertz.
   static final FrequencyUnits gigahertz = hertz.giga() as FrequencyUnits;
 }
 
 /// Units acceptable for use in describing Frequency quantities.
-///
 class FrequencyUnits extends Frequency with Units {
   /// Constructs a new instance.
   FrequencyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

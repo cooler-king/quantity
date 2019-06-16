@@ -3,10 +3,14 @@ part of quantity_ext;
 /// The standard SI unit.
 MagneticFluxUnits webers = MagneticFlux.webers;
 
+/// A maxwell is one one-hundred-millionth of a weber.
 MagneticFluxUnits maxwells = new MagneticFluxUnits('maxwells', null, null, null, 1.0e-8, true);
 
+/// Unit poles as a unit.
 MagneticFluxUnits unitPoles = new MagneticFluxUnits('unit poles', null, null, null, 1.2566e-7, false);
 
 // Constants
-const MagneticFlux magneticFluxQuantum =
-    const MagneticFlux.constant(const Double.constant(2.067833831e-15), uncert: 6.286772082509758e-9);
+
+/// The magnetic flux quantum constant is a combination of two other physical constants:
+/// the Planck constant h and the electron charge e. Its value is, therefore, the same for any superconductor.
+const MagneticFlux magneticFluxQuantum = const MagneticFlux.constant(const Double.constant(2.067833848e-15));

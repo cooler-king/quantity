@@ -1,4 +1,4 @@
-import 'package:dart2_constant/math.dart' as polyfill_math;
+import 'dart:math';
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
@@ -75,14 +75,14 @@ void main() {
       a = new Angle(deg: 90.0);
       expect(a, isNotNull);
       expect(a.valueSI is Double, true);
-      expect(a.valueSI.toDouble(), closeTo(polyfill_math.pi / 2.0, 0.0001));
+      expect(a.valueSI.toDouble(), closeTo(pi / 2.0, 0.0001));
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);
 
       // Default ctor: deg -
       a = new Angle(deg: -270);
       expect(a, isNotNull);
-      expect(a.valueSI.toDouble(), closeTo(-3 * polyfill_math.pi / 2, 0.0001));
+      expect(a.valueSI.toDouble(), closeTo(-3 * pi / 2, 0.0001));
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);

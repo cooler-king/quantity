@@ -22,10 +22,10 @@ abstract class Real extends Number {
   double toDouble();
 
   @override
-  bool get isInfinite => value == polyfill_core.double.infinity || value == polyfill_core.double.negativeInfinity;
+  bool get isInfinite => value == double.infinity || value == double.negativeInfinity;
 
   @override
-  bool get isNaN => identical(value, polyfill_core.double.nan);
+  bool get isNaN => identical(value, double.nan);
 
   @override
   bool get isNegative => value < 0;
@@ -118,29 +118,13 @@ abstract class Real extends Number {
   }
 
   /// The modulo operator.
-  ///
-  /// When dividing by an [Imaginary] or [Complex] number...
-  ///
+  /// [Imaginary] and [Complex] divisors are nor supported and will throw an Exception.
   @override
   Number operator %(dynamic divisor) {
     if (divisor is num) return new Double((value % divisor).toDouble());
     if (divisor is Real) return new Double((value % divisor.value).toDouble());
-    if (divisor is Complex) {
-      // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
-      final Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      final Number aOverc2d2 = this / c2d2;
-
-      //TODO Real % operator incomplete
-
-      //return new Complex(aOverc2d2 * divisor.real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
-      //TODO
-      return null;
-    }
-    if (divisor is Imaginary) {
-      //return new Imaginary((this / divisor.value) * -1);
-      //TODO
-      return null;
-    }
+    if (divisor is Complex || divisor is Imaginary)
+      throw new Exception('Unsupported operation (% with imaginary or complex divisor)');
 
     // Treat divisor as 0
     return Double.NaN;

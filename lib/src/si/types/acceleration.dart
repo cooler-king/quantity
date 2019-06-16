@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The rate of change of speed of an object.
-///
 /// See the [Wikipedia entry for Acceleration](https://en.wikipedia.org/wiki/Acceleration)
 /// for more information.
-///
 class Acceleration extends Quantity {
   /// Construct an Acceleration with meters per second squared.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   Acceleration({dynamic metersPerSecondSquared, double uncert = 0.0})
       : super(metersPerSecondSquared ?? 0.0, Acceleration.metersPerSecondSquared, uncert);
 
@@ -17,14 +13,14 @@ class Acceleration extends Quantity {
 
   /// Constructs a Acceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Acceleration.inUnits(dynamic value, AccelerationUnits units, [double uncert = 0.0])
       : super(value, units ?? Acceleration.metersPerSecondSquared, uncert);
 
+  /// Constructs a constant Acceleration.
   const Acceleration.constant(Number valueSI, {AccelerationUnits units, double uncert = 0.0})
       : super.constant(valueSI, Acceleration.accelerationDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions accelerationDimensions =
       const Dimensions.constant(const <String, int>{'Length': 1, 'Time': -2}, qType: Acceleration);
 
@@ -34,7 +30,6 @@ class Acceleration extends Quantity {
 }
 
 /// Units acceptable for use in describing Acceleration quantities.
-///
 class AccelerationUnits extends Acceleration with Units {
   /// Constructs a new instance.
   AccelerationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -60,7 +55,7 @@ class AccelerationUnits extends Acceleration with Units {
     offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Acceleration;
 

@@ -93,23 +93,22 @@ abstract class Number implements Comparable<dynamic> {
 
   /// Whether this Number represents a value .
   bool get isNaN;
+
+  /// Whether this number is less than zero.
   bool get isNegative;
 
   /// Returns minus one, zero or plus one depending on the sign and numerical value of the number.
-  ///
   /// Returns minus one if the number is less than zero, plus one if the number is greater than zero,
   /// and zero if the number is equal to zero. Returns NaN if the number is NaN.
-  ///
   /// Returns an `int` if this Number's value is an integer, a `double` otherwise.
-  ///
   num get sign {
-    if (isNaN) return polyfill_core.double.nan;
+    if (isNaN) return double.nan;
     if (isNegative) return isInteger ? -1 : -1.0;
     if (toDouble() == 0) return isInteger ? 0 : 0.0;
     return isInteger ? 1 : 1.0;
   }
 
-  // Mirror num's abstract methods
+  // Mirror num's abstract methods.
 
   /// Returns the absolute value of this Number.
   Number abs();
@@ -118,34 +117,24 @@ abstract class Number implements Comparable<dynamic> {
   Number ceil();
 
   /// Returns this num clamped to be in the range lowerLimit-upperLimit.
-  ///
   /// The comparison is done using compareTo and therefore takes -0.0 into account.
   /// This also implies that double.NAN is treated as the maximal double value.
-  ///
   /// `lowerLimit` and `upperLimit` are expected to be `num` or `Number' objects.
-  ///
   Number clamp(dynamic lowerLimit, dynamic upperLimit);
 
   /// Returns the greatest Number with an integer value no greater than this Number.
-  ///
   /// If this is not finite (NaN or infinity), throws an UnsupportedError.
-  ///
   Number floor();
 
   /// Returns the remainder of the truncating division of this Number by `divisor`.
-  ///
   /// The result r of this operation satisfies: this == (this ~/ other) * other + r.
   /// As a consequence the remainder r has the same sign as the [operator /(divisor)].
-  ///
   Number remainder(dynamic divisor);
 
   /// Returns the integer Number closest to this Number.
-  ///
   /// Rounds away from zero when there is no closest integer:
   /// (3.5).round() == 4 and (-3.5).round() == -4.
-  ///
   /// If this is not finite (NaN or infinity), throws an UnsupportedError.
-  ///
   Number round();
 
   /// Converts this Number to a `dart:core int`.
@@ -153,6 +142,8 @@ abstract class Number implements Comparable<dynamic> {
 
   /// Converts this Number to a `dart:core double`.
   double toDouble();
+
+  /// Returns a truncated value.
   Number truncate();
 
   // Add some of our own.
@@ -165,16 +156,13 @@ abstract class Number implements Comparable<dynamic> {
   Map<String, dynamic> toJson();
 
   /// True if the Number represents an integer value.
-  ///
   /// Note that the Number does not have to be of type
   /// Integer for this to be true.
   bool get isInteger;
 
   /// Compares this Number to another Number by comparing values.
-  ///
   /// [n2] is expected to be a num or Number.  If it is not it will
   /// be considered to have a value of 0.
-  ///
   @override
   int compareTo(dynamic n2) {
     if (n2 is Number) return Comparable.compare(toDouble(), n2.toDouble());

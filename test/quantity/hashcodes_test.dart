@@ -15,10 +15,10 @@ void main() {
       final Energy d = new Energy(J: new Integer(5));
       expect(a.hashCode, d.hashCode);
 
-      final Energy e = new Energy(J: new Double(5.0));
+      final Energy e = new Energy(J: new Double(5));
       expect(a.hashCode, e.hashCode);
 
-      final Energy f = new Energy(J: new Complex(new Double(5.0), new Imaginary(0)));
+      final Energy f = new Energy(J: new Complex(new Double(5), new Imaginary(0)));
       expect(a.hashCode, f.hashCode);
 
       final Energy g = new Energy(J: new Precise('5.0'));
@@ -42,7 +42,7 @@ void main() {
       final Energy d = new Energy(J: new Integer(6));
       expect(a.hashCode == d.hashCode, false);
 
-      final Energy e = new Energy(J: new Double(-5.0));
+      final Energy e = new Energy(J: new Double(-5));
       expect(a.hashCode == e.hashCode, false);
 
       final Energy f = new Energy(J: new Complex(new Double(5.01), new Imaginary(0)));
@@ -73,10 +73,10 @@ void main() {
       final Scalar d = new Scalar(value: new Integer(5));
       expect(d.hashCode, 5.hashCode);
 
-      final Scalar e = new Scalar(value: new Double(5.0));
+      final Scalar e = new Scalar(value: new Double(5));
       expect(e.hashCode, 5.hashCode);
 
-      final Scalar f = new Scalar(value: new Complex(new Double(5.0), new Imaginary(0)));
+      final Scalar f = new Scalar(value: new Complex(new Double(5), new Imaginary(0)));
       expect(f.hashCode, 5.hashCode);
 
       final Scalar g = new Scalar(value: new Precise('5.0000000000000000000'));
@@ -102,7 +102,7 @@ void main() {
       expect(m[new Scalar(value: new Integer(5))], 'five');
 
       expect(m[10], 'ten');
-      expect(m[new Scalar(value: new Double(10.0))], 'ten');
+      expect(m[new Scalar(value: new Double(10))], 'ten');
 
       expect(m[new Scalar(value: new Double(10.000001))], isNull);
     });

@@ -7,14 +7,12 @@ library quantity_si;
 
 import 'dart:collection';
 import 'dart:math' as math;
-import 'package:dart2_constant/math.dart' as polyfill_math;
 import 'package:quantity/number.dart';
 import 'package:logging/logging.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 
 part 'src/si/quantity.dart';
 part 'src/si/units.dart';
-part 'src/si/exponential_units.dart';
 part 'src/si/dimensions.dart';
 part 'src/si/misc_quantity.dart';
 part 'src/si/number_format_si.dart';
@@ -277,12 +275,12 @@ Iterable<Type> get allQuantityTypes => _typeInstantiatorMap.keys;
 /// If type [t] is not recognized a [MiscQuantity] with [value] and the dimensions
 /// of [units] will be created and returned instead.
 ///
-/// The quantity's relative [uncert]ainty can optionally be provided (defaults to 0).
+/// The quantity's relative uncertainty can optionally be provided (defaults to 0).
 Quantity createTypedQuantityInstance(Type t, dynamic value, Units units, [double uncert = 0.0]) {
   final Function quantityInstantiator = _typeInstantiatorMap[t];
   if (quantityInstantiator != null)
     return Function.apply(quantityInstantiator, <dynamic>[value, units, uncert]) as Quantity;
 
-  // Fall back to MiscQuantity
+  // Fall back to MiscQuantity.
   return new MiscQuantity(value, (units as Quantity).dimensions, uncert);
 }

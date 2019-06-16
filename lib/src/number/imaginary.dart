@@ -5,25 +5,30 @@ part of number;
 /// An imaginary number is usually displayed as a value followed by small letter 'i'.
 /// 'i' squared is defined as -1 (or equivalently, the square root of -1 is defined as 'i').
 class Imaginary extends Number {
+  /// Constructs a new instance.
   Imaginary(dynamic val)
       : value = (val is num)
             ? ((val is int) ? new Integer(val) : new Double(val as double))
             : (val is Real) ? val : Double.zero;
 
+  /// Constructs a constant Imaginary number.
   const Imaginary.constant(this.value) : super.constant();
 
+  /// Constructs a new instance, applying the values in map [m].
   factory Imaginary.fromMap(Map<String, Map<String, dynamic>> m) => (m?.containsKey('imag') ?? false)
       ? new Imaginary.fromMap(m['imag'] as Map<String, Map<String, dynamic>>)
       : const Imaginary.constant(Integer.zero);
 
+  /// The value of the imaginary component as a Real number.
   final Real value;
 
   @override
-  double toDouble() => 0.0;
+  double toDouble() => 0;
 
   @override
   int toInt() => 0;
 
+  /// Returns the Complex number equivalent to this Imaginary number.
   Complex toComplex() => new Complex(Double.zero, this);
 
   @override
@@ -100,7 +105,7 @@ class Imaginary extends Number {
       return new Complex(bOverc2d2 * divisor.real as Real, new Imaginary(bOverc2d2 * divisor.imaginary.value * -1.0));
     }
 
-    // Treat divisor as 0
+    // Treat divisor as 0.
     if (value.isNegative)
       return new Imaginary(Double.negInfinity);
     else
@@ -122,7 +127,7 @@ class Imaginary extends Number {
           new Imaginary((bOverc2d2 * divisor.imaginary.value * -1.0).truncate()));
     }
 
-    // Treat divisor as 0
+    // Treat divisor as 0.
     return value < 0 ? new Imaginary(Double.negInfinity) : new Imaginary(Double.infinity);
   }
 
@@ -168,14 +173,13 @@ class Imaginary extends Number {
     return Double.one;
   }
 
+  /// The complex modulus is the absolute value of this Imaginary number.
   Number get complexModulus => value.abs();
 
   /// The complex argument, or phase, of this imaginary number in radians.
-  ///
-  num get complexArgument => value < 0 ? -polyfill_math.pi / 2.0 : polyfill_math.pi / 2.0;
+  num get complexArgument => value < 0 ? -pi / 2.0 : pi / 2.0;
 
   /// The phase is synonymous with the complex argument.
-  ///
   num get phase => complexArgument;
 
   /// If [obj] is an [Imaginary] number then the comparison is made in the imaginary dimension (for example,

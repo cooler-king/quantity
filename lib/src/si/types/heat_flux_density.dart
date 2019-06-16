@@ -3,15 +3,11 @@ part of quantity_si;
 // Also EnergyFluxDensity, Irradiance, PowerFluxDensity
 
 /// Heat rate per unit area.
-///
 /// See the [Wikipedia entry for Heat flux](https://en.wikipedia.org/wiki/Heat_flux)
 /// for more information.
-///
 class HeatFluxDensity extends Quantity {
-  /// Construct a HeatFluxDensity with watts per square meter.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a HeatFluxDensity with watts per square meter.
+  /// Optionally specify a relative standard uncertainty.
   HeatFluxDensity({dynamic wattsPerSquareMeter, double uncert = 0.0})
       : super(wattsPerSquareMeter ?? 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
 
@@ -19,14 +15,14 @@ class HeatFluxDensity extends Quantity {
 
   /// Constructs a HeatFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   HeatFluxDensity.inUnits(dynamic value, HeatFluxDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? HeatFluxDensity.wattsPerSquareMeter, uncert);
 
+  /// Constructs a constant HeatFluxDensity.
   const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, HeatFluxDensity.heatFluxDensityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions heatFluxDensityDimensions =
       const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -3}, qType: HeatFluxDensity);
 
@@ -36,8 +32,8 @@ class HeatFluxDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing HeatFluxDensity quantities.
-///
 class HeatFluxDensityUnits extends HeatFluxDensity with Units {
+  /// Constructs a new instance.
   HeatFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -50,6 +46,7 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from power and area units.
   HeatFluxDensityUnits.powerArea(PowerUnits pu, AreaUnits au) : super._internal(pu.valueSI * au.valueSI) {
     name = '${pu.name} per ${au.singular}';
     singular = '${pu.singular} per ${au.singular}';
@@ -60,7 +57,7 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => HeatFluxDensity;
 

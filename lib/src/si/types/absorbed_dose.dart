@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The mean energy imparted to matter per unit mass by ionizing radiation.
-///
 /// See the [Wikipedia entry for Absorbed Dose](https://en.wikipedia.org/wiki/Absorbed_dose)
 /// for more information.
-///
 class AbsorbedDose extends Quantity {
   /// Construct an AbsorbedDose with either grays ([Gy]) or rads ([rads]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   AbsorbedDose({dynamic Gy, dynamic rads, double uncert = 0.0})
       : super(Gy ?? (rads ?? 0.0), rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert);
@@ -18,14 +14,14 @@ class AbsorbedDose extends Quantity {
 
   /// Constructs an AbsorbedDose based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   AbsorbedDose.inUnits(dynamic value, AbsorbedDoseUnits units, [double uncert = 0.0])
       : super(value, units ?? AbsorbedDose.grays, uncert);
 
+  /// Constructs a constant AbsorbedDose.
   const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits units, double uncert = 0.0})
       : super.constant(valueSI, AbsorbedDose.absorbedDoseDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions absorbedDoseDimensions =
       const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: AbsorbedDose);
 
@@ -64,7 +60,7 @@ class AbsorbedDoseUnits extends AbsorbedDose with Units {
     offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => AbsorbedDose;
 

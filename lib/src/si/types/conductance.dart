@@ -1,25 +1,21 @@
 part of quantity_si;
 
 /// The ease with which an electric current passes through a conductor (the inverse of [Resistance]).
-///
 /// See the [Wikipedia entry for Electrical resistance and conductance](https://en.wikipedia.org/wiki/Electrical_resistance_and_conductance)
 /// for more information.
-///
 class Conductance extends Quantity {
-  /// Construct a Conductance with siemens ([S]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Conductance with siemens ([S]).
+  /// Optionally specify a relative standard uncertainty.
   Conductance({dynamic S, double uncert = 0.0}) : super(S ?? 0.0, Conductance.siemens, uncert);
 
   Conductance._internal(dynamic conv) : super._internal(conv, Conductance.electricConductanceDimensions);
 
   /// Constructs a Conductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Conductance.inUnits(dynamic value, ConductanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Conductance.siemens, uncert);
 
+  /// Constructs a constant Conductance.
   const Conductance.constant(Number valueSI, {ConductanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Conductance.electricConductanceDimensions, units, uncert);
 
@@ -34,8 +30,8 @@ class Conductance extends Quantity {
 }
 
 /// Units acceptable for use in describing Conductance quantities.
-///
 class ConductanceUnits extends Conductance with Units {
+  /// Constructs a new instance.
   ConductanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {

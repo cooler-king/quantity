@@ -1,16 +1,12 @@
 part of quantity_si;
 
 /// Represents the _length_ physical quantity (one of the seven base SI quantities).
-///
 /// See the [Wikipedia entry for Length](https://en.wikipedia.org/wiki/Length)
 /// for more information.
-///
 class Length extends Quantity {
-  /// Construct a Length with meters ([m]), kilometers ([km]), millimeters ([mm]), astronomical units ([ua])
+  /// Constructs a Length with meters ([m]), kilometers ([km]), millimeters ([mm]), astronomical units ([ua])
   /// or nautical miles ([NM]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Length({dynamic m, dynamic km, dynamic mm, dynamic ua, dynamic NM, double uncert = 0.0})
       : super(
@@ -26,14 +22,14 @@ class Length extends Quantity {
 
   /// Constructs a Length based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Length.inUnits(dynamic value, LengthUnits units, [double uncert = 0.0])
       : super(value, units ?? Length.meters, uncert);
 
+  /// Constructs constant Length.
   const Length.constant(Number valueSI, {LengthUnits units, double uncert = 0.0})
       : super.constant(valueSI, Length.lengthDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions lengthDimensions = const Dimensions.constant(const <String, int>{'Length': 1}, qType: Length);
 
   /// The standard SI unit.
@@ -53,15 +49,22 @@ class Length extends Quantity {
   /// Accepted for use with the SI, subject to further review.
   static final LengthUnits nauticalMiles = new LengthUnits('nautical miles', null, 'NM', null, 1.852e3, false);
 
-  // Convenience Units
+  // Convenience Units.
+
+  /// The metric unit for one thousand meters.
   static final LengthUnits kilometers = Length.meters.kilo() as LengthUnits;
+
+  /// The metric unit for one hundredth of a meter.
   static final LengthUnits centimeters = Length.meters.centi() as LengthUnits;
+
+  /// The metric unit for one thousandth of a meter.
   static final LengthUnits millimeters = Length.meters.milli() as LengthUnits;
+
+  /// The metric unit for one billionth of a meter.
   static final LengthUnits nanometers = Length.meters.nano() as LengthUnits;
 }
 
 /// Units acceptable for use in describing Length quantities.
-///
 class LengthUnits extends Length with Units {
   /// Constructs a new instance.
   LengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

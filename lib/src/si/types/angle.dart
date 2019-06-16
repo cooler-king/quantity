@@ -1,6 +1,6 @@
 part of quantity_si;
 
-// Common trig functions
+// Common trig functions.
 
 /// Calculates the cosine of an [Angle] (adjacent divided by hypotenuse)
 double cosine(Angle a) => a.cosine();
@@ -11,8 +11,10 @@ double sine(Angle a) => a.sine();
 /// Calculates the tangent of an [Angle] (opposite divided by adjacent)
 double tangent(Angle a) => a.tangent();
 
-// Constant
-const double twoPi = 2.0 * polyfill_math.pi;
+// Constant.
+
+/// The value 2 * pi, also known as tau.
+const double twoPi = 2.0 * math.pi;
 
 /// A planar (2-dimensional) angle, which has dimensions of _1_ and is a
 /// measure of the ratio of the length of a circular arc to its radius.
@@ -33,12 +35,9 @@ const double twoPi = 2.0 * polyfill_math.pi;
 ///
 /// See the [Wikipedia entry for Angle](https://en.wikipedia.org/wiki/Angle)
 /// for more information.
-///
 class Angle extends Quantity {
-  /// Construct an Angle with either radians ([rad]) or degrees ([deg]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs an Angle with either radians ([rad]) or degrees ([deg]).
+  /// Optionally specify a relative standard uncertainty.
   Angle({dynamic rad, dynamic deg, double uncert = 0.0})
       : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
 
@@ -56,9 +55,9 @@ class Angle extends Quantity {
   ///
   /// The internal value is automatically bounded between -PI and PI
   /// radians (-180 to 180 degrees)
-  ///
   Angle.inUnits(dynamic value, AngleUnits units, [double uncert = 0.0]) : super(value, units ?? Angle.radians, uncert);
 
+  /// Constructs a constant angle.
   const Angle.constant(Number valueSI, {AngleUnits units, double uncert = 0.0})
       : super.constant(valueSI, Angle.angleDimensions, units, uncert);
 
@@ -95,23 +94,19 @@ class Angle extends Quantity {
 
   /// Return an equivalent angle bounded to between -PI and PI
   /// (-180 and 180 degrees).
-  ///
   /// If this Angle is already within that range then it is returned directly.
-  ///
   Angle get angle180 {
-    if (valueSI >= -polyfill_math.pi && valueSI <= polyfill_math.pi) return this;
+    if (valueSI >= -math.pi && valueSI <= math.pi) return this;
 
     double rad = valueSI.toDouble();
-    while (rad < -polyfill_math.pi) rad += twoPi;
-    while (rad > polyfill_math.pi) rad -= twoPi;
+    while (rad < -math.pi) rad += twoPi;
+    while (rad > math.pi) rad -= twoPi;
     return new Angle(rad: rad);
   }
 
   /// Returns an equivalent angle bounded to between 0 and 2PI
   /// (0 and 360 degrees).
-  ///
   /// If this Angle is already within that range then it is returned directly.
-  ///
   Angle get angle360 {
     if (valueSI >= 0.0 && valueSI <= twoPi) return this;
     double rad = valueSI.toDouble();
@@ -121,39 +116,29 @@ class Angle extends Quantity {
   }
 
   /// Calculates the cosine of this angle.
-  ///
   double cosine() => math.cos(mks.toDouble());
 
   /// Calculates the sine of this angle.
-  ///
   double sine() => math.sin(mks.toDouble());
 
   /// Calculates the tangent of this angle.
-  ///
   double tangent() => math.tan(mks.toDouble());
 
   /// Calculates and returns the secant of this angle.
-  ///
   /// The secant of an angle is equivalent to 1 over the cosine.
-  ///
   double secant() => 1.0 / math.cos(mks.toDouble());
 
   /// Calculates and returns the cosecant of this angle.
-  ///
   /// The cosecant of an angle is equivalent to 1 over the sine.
-  ///
   double cosecant() => 1.0 / math.sin(mks.toDouble());
 
   ///  Calculates and returns the cotangent of this angle.
-  ///
   /// The cotangent is equivalent to 1 over the tangent.
-  ///
   double cotangent() => 1.0 / math.tan(mks.toDouble());
 
   /// Returns an array of three values representing the value of this Angle
   /// in degrees, minutes arc and seconds arc.  The first value (degrees) may
   /// be either positive or negative; the other two values will be positive.
-  ///
   List<double> get degMinSec {
     final List<double> dms = new List<double>.generate(3, (_) => null, growable: false);
 
@@ -177,7 +162,6 @@ class Angle extends Quantity {
   /// Gets the value of this angle in terms of hours, minutes and seconds
   /// (where there are 24 hours in a complete circle).  The first value (hours)
   /// may be either positive or negative; the other two values will be positive.
-  ///
   List<double> get hrMinSec {
     final List<double> hms = new List<double>.generate(3, (_) => null, growable: false);
 
@@ -200,8 +184,8 @@ class Angle extends Quantity {
 }
 
 /// Units acceptable for use in describing Angle quantities.
-///
 class AngleUnits extends Angle with Units {
+  /// Constructs a new instance.
   AngleUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {

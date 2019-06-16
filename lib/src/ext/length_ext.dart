@@ -176,26 +176,30 @@ final LengthUnits xUnits = new LengthUnits('X units', 'Siegbahn', 'Xu', null, 1.
 /// A non-standard unit of length.
 final LengthUnits angstromStars = new LengthUnits('Angstrom stars', 'A*', null, null, 1.00001495e-10, false);
 
-// CONSTANTS
+// CONSTANTS.
 
 /// A constant representing zero length.
 const Length lengthZero = const Length.constant(Double.zero);
 
 /// The threshold length at which classical ideas about gravity and space-time cease to be valid
 /// and quantum effects dominate.
-const Length planckLength = const Length.constant(const Double.constant(1.616229e-35), uncert: 2.3511519716574815e-5);
+const Length planckLength = const Length.constant(const Double.constant(1.616255e-35), uncert: 0.000011136856498510445);
 
 /// Often used to represent the wavelengths of X rays and the distances between atoms in crystals.
 const Length angstromStar = const Length.constant(const Double.constant(1.00001495e-10), uncert: 8.999865452011492e-7);
 
 /// The mean radius of the orbit of an electron around the nucleus of a hydrogen atom at its ground state.
 const Length bohrRadius =
-    const Length.constant(const Double.constant(0.52917721067e-10), uncert: 2.2676713505493936e-10);
+    const Length.constant(const Double.constant(5.29177210903e-11), uncert: 1.511780899700616e-10);
 
 /// The wavelength of a photon whose energy is the same as the mass energy equivalent of that particle.
 const Length comptonWavelength =
-    const Length.constant(const Double.constant(2.4263102367e-12), uncert: 4.533632935152179e-10);
-const Length tauComptonWavelength =
-    const Length.constant(const Double.constant(0.697787e-15), uncert: 9.02854309409605e-5);
+    const Length.constant(const Double.constant(2.42631023867e-12), uncert: 3.0086836727035986e-10);
+
+/// The tau Compton wavelength.
+const Length tauComptonWavelength = const Length.constant(const Double.constant(6.97771e-16), uncert: 0.00006735734216526625);
+
+/// The classical electron radius is a combination of fundamental physical quantities that define a length scale
+/// for problems involving an electron interacting with electromagnetic radiation.
 const Length classicalElectronRadius =
-    const Length.constant(const Double.constant(2.8179403227e-15), uncert: 6.742513262947746e-10);
+    const Length.constant(const Double.constant(2.8179403262e-15), uncert: 4.6132985426027577e-10);

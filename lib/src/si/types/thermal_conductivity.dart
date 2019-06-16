@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The ability of a material to conduct heat.
-///
 /// See the [Wikipedia entry for Thermal conductivity](https://en.wikipedia.org/wiki/Thermal_conductivity)
 /// for more information.
-///
 class ThermalConductivity extends Quantity {
-  /// Construct a ThermalConductivity with watts per meter kelvin.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a ThermalConductivity with watts per meter kelvin.
+  /// Optionally specify a relative standard uncertainty.
   ThermalConductivity({dynamic wattsPerMeterKelvin, double uncert = 0.0})
       : super(wattsPerMeterKelvin ?? 0.0, ThermalConductivity.wattsPerMeterKelvin, uncert);
 
@@ -18,14 +14,14 @@ class ThermalConductivity extends Quantity {
 
   /// Constructs a ThermalConductivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   ThermalConductivity.inUnits(dynamic value, ThermalConductivityUnits units, [double uncert = 0.0])
       : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert);
 
+  /// Constructs a constant ThermalConductivity.
   const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, ThermalConductivity.thermalConductivityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions thermalConductivityDimensions = const Dimensions.constant(
       const <String, int>{'Length': 1, 'Mass': 1, 'Time': -3, 'Temperature': -1},
       qType: ThermalConductivity);
@@ -36,7 +32,6 @@ class ThermalConductivity extends Quantity {
 }
 
 /// Units acceptable for use in describing ThermalConductivity quantities.
-///
 class ThermalConductivityUnits extends ThermalConductivity with Units {
   /// Constructs a new instance.
   ThermalConductivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

@@ -6,9 +6,9 @@ part of quantity_si;
 /// for more information.
 ///
 class Temperature extends Quantity {
-  /// Construct a Temperature with kelvins ([K]) or degrees Celsius ([C]).
+  /// Constructs a Temperature with kelvins ([K]) or degrees Celsius ([C]).
   ///
-  /// Optionally specify a relative standard [uncert]ainty.
+  /// Optionally specify a relative standard uncertainty.
   ///
   Temperature({dynamic K, dynamic C, double uncert = 0.0})
       : super(K ?? (C ?? 0.0), C != null ? Temperature.degreesCelsius : Temperature.kelvins, uncert);
@@ -32,7 +32,7 @@ class Temperature extends Quantity {
   // Units
 
   /// The standard SI unit.
-  static final TemperatureUnits kelvins = new TemperatureUnits('kelvins', 'K', null, null, Double.one, true, 0.0);
+  static final TemperatureUnits kelvins = new TemperatureUnits('kelvins', 'K', null, null, Double.one, true, 0);
 
   /// Derived SI unit.
   static final TemperatureUnits degreesCelsius =

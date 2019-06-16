@@ -539,7 +539,7 @@ void main() {
       final Precise p10 = new Precise.num(10);
       expect(p10 ~/ 3, new Precise('3'));
       expect(p10 ~/ new Integer(3), new Precise('3'));
-      expect(p10 ~/ new Double(3.0), new Precise('3'));
+      expect(p10 ~/ new Double(3), new Precise('3'));
       expect(p10 ~/ new Precise('3'), new Precise('3'));
       expect(p10 ~/ new Precise.num(3), new Precise('3'));
 
@@ -559,7 +559,7 @@ void main() {
       final Precise p10 = new Precise.num(10);
       expect(p10 % 3, new Precise('1'));
       expect(p10 % new Integer(3), new Precise('1'));
-      expect(p10 % new Double(3.0), new Precise('1'));
+      expect(p10 % new Double(3), new Precise('1'));
       expect(p10 % new Precise('3'), new Precise('1'));
       expect(p10 % new Precise.num(3), new Precise('1'));
 

@@ -6,9 +6,9 @@ part of quantity_si;
 /// for more information.
 ///
 class MagneticFieldStrength extends Quantity {
-  /// Construct a MagneticFieldStrength with amperes per meter.
+  /// Constructs a MagneticFieldStrength with amperes per meter.
   ///
-  /// Optionally specify a relative standard [uncert]ainty.
+  /// Optionally specify a relative standard uncertainty.
   ///
   MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
       : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);

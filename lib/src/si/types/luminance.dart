@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The intensity of light emitted from a surface per unit area.
-///
 /// See the [Wikipedia entry for Luminance](https://en.wikipedia.org/wiki/Luminance)
 /// for more information.
-///
 class Luminance extends Quantity {
-  /// Construct a Luminance with candelas per square meter.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Luminance with candelas per square meter.
+  /// Optionally specify a relative standard uncertainty.
   Luminance({dynamic candelasPerSquareMeter, double uncert = 0.0})
       : super(candelasPerSquareMeter ?? 0.0, Luminance.candelasPerSquareMeter, uncert);
 
@@ -17,14 +13,14 @@ class Luminance extends Quantity {
 
   /// Constructs a Luminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Luminance.inUnits(dynamic value, LuminanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Luminance.candelasPerSquareMeter, uncert);
 
+  /// Constructs a constant Luminance.
   const Luminance.constant(Number valueSI, {LuminanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Luminance.luminanceDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions luminanceDimensions =
       const Dimensions.constant(const <String, int>{'Length': -2, 'Intensity': 1}, qType: Luminance);
 
@@ -34,8 +30,8 @@ class Luminance extends Quantity {
 }
 
 /// Units acceptable for use in describing Luminance quantities.
-///
 class LuminanceUnits extends Luminance with Units {
+  /// Constructs a new instance.
   LuminanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -48,6 +44,7 @@ class LuminanceUnits extends Luminance with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from luminous intensity and area units.
   LuminanceUnits.intensityArea(LuminousIntensityUnits liu, AreaUnits au) : super._internal(liu.valueSI * au.valueSI) {
     name = '${liu.name} per ${au.singular}';
     singular = '${liu.singular} per ${au.singular}';
@@ -58,7 +55,7 @@ class LuminanceUnits extends Luminance with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Luminance;
 

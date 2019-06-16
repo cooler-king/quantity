@@ -1,17 +1,13 @@
 part of quantity_si;
 
-// also MomentOfForce
+// Also MomentOfForce
 
 /// The tendency of a force to rotate an object about an axis, fulcrum, or pivot.
-///
 /// See the [Wikipedia entry for Torque](https://en.wikipedia.org/wiki/Torque)
 /// for more information.
-///
 class Torque extends Quantity {
-  /// Construct a Torque with newton meters ([Nm]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Torque with newton meters ([Nm]).
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Torque({dynamic Nm, double uncert = 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
 
@@ -19,14 +15,14 @@ class Torque extends Quantity {
 
   /// Constructs a Torque based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Torque.inUnits(dynamic value, TorqueUnits units, [double uncert = 0.0])
       : super(value, units ?? Torque.newtonMeters, uncert);
 
+  /// Constructs a constant Torque.
   const Torque.constant(Number valueSI, {TorqueUnits units, double uncert = 0.0})
       : super.constant(valueSI, Torque.torqueDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity (energy per angle rather than LengthxForce)
+  /// Dimensions for this type of quantity (energy per angle rather than Length x Force).
   static const Dimensions torqueDimensions =
       const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1}, qType: Torque);
 
@@ -35,8 +31,8 @@ class Torque extends Quantity {
 }
 
 /// Units acceptable for use in describing Torque quantities.
-///
 class TorqueUnits extends Torque with Units {
+  /// Constructs a new instance.
   TorqueUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -49,6 +45,7 @@ class TorqueUnits extends Torque with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from force and length units.
   TorqueUnits.forceLength(ForceUnits fu, LengthUnits lu) : super._internal(fu.valueSI * lu.valueSI) {
     name = '${fu.singular} ${lu.name}';
     singular = '${fu.singular} ${lu.singular}';
@@ -59,7 +56,7 @@ class TorqueUnits extends Torque with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Torque;
 

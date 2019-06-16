@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The rate of transfer of energy through a surface.
-///
 /// See the [Wikipedia entry for Energy density](https://en.wikipedia.org/wiki/Energy_density)
 /// for more information.
-///
 class EnergyFlux extends Quantity {
-  /// Construct an EnergyFlux with watts per square meter.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs an EnergyFlux with watts per square meter.
+  /// Optionally specify a relative standard uncertainty.
   EnergyFlux({dynamic wattsPerSquareMeter, double uncert = 0.0})
       : super(wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
 
@@ -17,10 +13,10 @@ class EnergyFlux extends Quantity {
 
   /// Constructs a EnergyFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   EnergyFlux.inUnits(dynamic value, EnergyFluxUnits units, [double uncert = 0.0])
       : super(value, units ?? EnergyFlux.wattsPerSquareMeter, uncert);
 
+  /// Constructs a constant EnergyFlux.
   const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits units, double uncert = 0.0})
       : super.constant(valueSI, EnergyFlux.energyFluxDimensions, units, uncert);
 
@@ -33,8 +29,8 @@ class EnergyFlux extends Quantity {
 }
 
 /// Units acceptable for use in describing EnergyFlux quantities.
-///
 class EnergyFluxUnits extends EnergyFlux with Units {
+  /// Constructs a new instance.
   EnergyFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -47,6 +43,7 @@ class EnergyFluxUnits extends EnergyFlux with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from power and area units.
   EnergyFluxUnits.powerArea(PowerUnits pu, AreaUnits au) : super._internal(pu.valueSI * au.valueSI) {
     name = '${pu.name} per ${au.singular}';
     singular = '${pu.singular} per ${au.singular}';
@@ -57,7 +54,7 @@ class EnergyFluxUnits extends EnergyFlux with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => EnergyFlux;
 

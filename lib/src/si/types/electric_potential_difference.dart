@@ -1,17 +1,13 @@
 part of quantity_si;
 
-// Also, ElectromotiveForce, EMF, Potential
+// Also, ElectromotiveForce, EMF, Potential.
 
 /// The difference in electric potential energy between two points per unit electric charge
-///
 /// See the [Wikipedia entry for Voltage](https://en.wikipedia.org/wiki/Voltage)
 /// for more information.
-///
 class ElectricPotentialDifference extends Quantity {
-  /// Construct an ElectricPotentialDifference with volts ([V]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs an ElectricPotentialDifference with volts ([V]).
+  /// Optionally specify a relative standard uncertainty.
   ElectricPotentialDifference({dynamic V, double uncert = 0.0})
       : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
 
@@ -20,15 +16,15 @@ class ElectricPotentialDifference extends Quantity {
 
   /// Constructs a ElectricPotentialDifference based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   ElectricPotentialDifference.inUnits(dynamic value, ElectricPotentialDifferenceUnits units, [double uncert = 0.0])
       : super(value, units ?? ElectricPotentialDifference.volts, uncert);
 
+  /// Constructs a constant ElectricPotentialDifference.
   const ElectricPotentialDifference.constant(Number valueSI,
       {ElectricPotentialDifferenceUnits units, double uncert = 0.0})
       : super.constant(valueSI, ElectricPotentialDifference.electricPotentialDifferenceDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions electricPotentialDifferenceDimensions = const Dimensions.constant(
       const <String, int>{'Current': -1, 'Time': -3, 'Length': 2, 'Mass': 1},
       qType: ElectricPotentialDifference);
@@ -39,8 +35,8 @@ class ElectricPotentialDifference extends Quantity {
 }
 
 /// Units acceptable for use in describing ElectricPotentialDifference quantities.
-///
 class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with Units {
+  /// Constructs a new instance.
   ElectricPotentialDifferenceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {

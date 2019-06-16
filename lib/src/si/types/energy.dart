@@ -1,17 +1,13 @@
 part of quantity_si;
 
-// Also QuantityOfHeat, Work
+// Also QuantityOfHeat, Work.
 
 /// The ability of a system to perform work; cannot be created or destroyed but can take many forms.
-///
 /// See the [Wikipedia entry for Energy](https://en.wikipedia.org/wiki/Energy)
 /// for more information.
-///
 class Energy extends Quantity {
-  /// Construct an Energy with joules ([J]) or electron volts ([eV]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs an Energy with joules ([J]) or electron volts ([eV]).
+  /// Optionally specify a relative standard uncertainty.
   Energy({dynamic J, dynamic eV, double uncert = 0.0})
       : super(J ?? (eV ?? 0.0), eV != null ? Energy.electronVolts : Energy.joules, uncert);
 
@@ -19,21 +15,21 @@ class Energy extends Quantity {
 
   /// Constructs a Energy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Energy.inUnits(dynamic value, EnergyUnits units, [double uncert = 0.0])
       : super(value, units ?? Energy.joules, uncert);
 
+  /// Constructs a constant Energy.
   const Energy.constant(Number valueSI, {EnergyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Energy.energyDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions energyDimensions =
       const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -2}, qType: Energy);
 
-  /// The standard SI unit
+  /// The standard SI unit.
   static final EnergyUnits joules = new EnergyUnits('joules', null, 'J', null, 1.0, true);
 
-  /// Accepted for use with the SI
+  /// Accepted for use with the SI.
   static final EnergyUnits electronVolts = new EnergyUnits('electronvolts', null, 'eV', null, 1.60217653e-19, false);
 
   /// Returns the [Mass] equivalent of this Energy using the famous E=mc^2 relationship.
@@ -42,14 +38,13 @@ class Energy extends Quantity {
       final Precise c = new Precise('2.99792458e8');
       return new Mass(kg: valueSI / (c * c), uncert: _ur);
     } else {
-      const double c = 2.99792458e8;
+      const double c = 299792458;
       return new Mass(kg: valueSI / (c * c), uncert: _ur);
     }
   }
 }
 
 /// Units acceptable for use in describing Energy quantities.
-///
 class EnergyUnits extends Energy with Units {
   /// Constructs a new instance.
   EnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

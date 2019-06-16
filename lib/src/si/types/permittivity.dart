@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The resistance that is encountered when forming an electric field in a medium.
-///
 /// See the [Wikipedia entry for Permittivity](https://en.wikipedia.org/wiki/Permittivity)
 /// for more information.
-///
 class Permittivity extends Quantity {
-  /// Construct a Permittivity with farads per meter.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Permittivity with farads per meter.
+  /// Optionally specify a relative standard uncertainty.
   Permittivity({dynamic faradsPerMeter, double uncert = 0.0})
       : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert);
 
@@ -17,14 +13,14 @@ class Permittivity extends Quantity {
 
   /// Constructs a Permittivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Permittivity.inUnits(dynamic value, PermittivityUnits units, [double uncert = 0.0])
       : super(value, units ?? Permittivity.faradsPerMeter, uncert);
 
+  /// Constructs a constant Permittivity.
   const Permittivity.constant(Number valueSI, {PermittivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, Permittivity.permittivityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions permittivityDimensions = const Dimensions.constant(
       const <String, int>{'Length': -3, 'Time': 4, 'Current': 2, 'Mass': -1},
       qType: Permittivity);
@@ -35,7 +31,6 @@ class Permittivity extends Quantity {
 }
 
 /// Units acceptable for use in describing Permittivity quantities.
-///
 class PermittivityUnits extends Permittivity with Units {
   /// Constructs a new instance.
   PermittivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

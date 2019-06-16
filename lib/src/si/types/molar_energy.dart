@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// Energy per mole of a substance.
-///
 /// See the [Wikipedia entry for Specific energy](https://en.wikipedia.org/wiki/Specific_energy)
 /// for more information.
-///
 class MolarEnergy extends Quantity {
-  /// Construct a MolarEnergy with joules per mole.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a MolarEnergy with joules per mole.
+  /// Optionally specify a relative standard uncertainty.
   MolarEnergy({dynamic joulesPerMole, double uncert = 0.0})
       : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert);
 
@@ -17,14 +13,14 @@ class MolarEnergy extends Quantity {
 
   /// Constructs a MolarEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   MolarEnergy.inUnits(dynamic value, MolarEnergyUnits units, [double uncert = 0.0])
       : super(value, units ?? MolarEnergy.joulesPerMole, uncert);
 
+  /// Constructs a constant MolarEnergy.
   const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits units, double uncert = 0.0})
       : super.constant(valueSI, MolarEnergy.molarEnergyDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions molarEnergyDimensions = const Dimensions.constant(
       const <String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1},
       qType: MolarEnergy);
@@ -35,7 +31,6 @@ class MolarEnergy extends Quantity {
 }
 
 /// Units acceptable for use in describing MolarEnergy quantities.
-///
 class MolarEnergyUnits extends MolarEnergy with Units {
   /// Constructs a new instance.
   MolarEnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -62,7 +57,7 @@ class MolarEnergyUnits extends MolarEnergy with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => MolarEnergy;
 

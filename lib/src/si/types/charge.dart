@@ -2,29 +2,25 @@ part of quantity_si;
 
 /// The property of matter that causes it to experience a force when placed in an
 /// electromagnetic field
-///
 /// See the [Wikipedia entry for Electric charge](https://en.wikipedia.org/wiki/Electric_charge)
 /// for more information.
-///
 class Charge extends Quantity {
-  /// Construct a Charge with coulombs ([C]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Charge with coulombs ([C]).
+  /// Optionally specify a relative standard uncertainty.
   Charge({dynamic C, double uncert = 0.0}) : super(C ?? 0.0, Charge.coulombs, uncert);
 
   Charge._internal(dynamic conv) : super._internal(conv, Charge.electricChargeDimensions);
 
   /// Constructs a Charge based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Charge.inUnits(dynamic value, ChargeUnits units, [double uncert = 0.0])
       : super(value, units ?? Charge.coulombs, uncert);
 
+  /// Constructs a constant Charge.
   const Charge.constant(Number valueSI, {ChargeUnits units, double uncert = 0.0})
       : super.constant(valueSI, Charge.electricChargeDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions electricChargeDimensions =
       const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1}, qType: Charge);
 
@@ -33,8 +29,8 @@ class Charge extends Quantity {
 }
 
 /// Units acceptable for use in describing Charge quantities.
-///
 class ChargeUnits extends Charge with Units {
+  /// Constructs a new instance.
   ChargeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -47,6 +43,7 @@ class ChargeUnits extends Charge with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from an electric current and time.
   ChargeUnits.currentTime(CurrentUnits cu, TimeUnits tu) : super._internal(cu.valueSI * tu.valueSI) {
     name = '${cu.name} ${tu.name}';
     singular = '${cu.singular} ${tu.singular}';
@@ -57,7 +54,7 @@ class ChargeUnits extends Charge with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Charge;
 

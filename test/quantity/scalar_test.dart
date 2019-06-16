@@ -23,8 +23,8 @@ void main() {
       final Scalar s4 = new Scalar(percent: 96);
       final Scalar s5 = new Scalar(percent: 0.96);
       final Scalar s6 = new Scalar(value: new Imaginary(11));
-      final Scalar s7 = new Scalar(value: new Complex.coeff(0.96, 0.0));
-      final Scalar s8 = new Scalar(value: new Complex.coeff(0.0, 11.0));
+      final Scalar s7 = new Scalar(value: new Complex.coeff(0.96, 0));
+      final Scalar s8 = new Scalar(value: new Complex.coeff(0, 11));
 
       expect(s1 == s2, false);
       expect(s1 == s3, true);

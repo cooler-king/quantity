@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The magnitude of the force per unit charge that an electric field exerts.
-///
 /// See the [Wikipedia entry for Electric field](https://en.wikipedia.org/wiki/Electric_field)
 /// for more information.
-///
 class ElectricFieldStrength extends Quantity {
-  /// Construct an ElectricFieldStrength with volts per meter.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs an ElectricFieldStrength with volts per meter.
+  /// Optionally specify a relative standard uncertainty.
   ElectricFieldStrength({dynamic voltsPerMeter, double uncert = 0.0})
       : super(voltsPerMeter ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
@@ -18,14 +14,14 @@ class ElectricFieldStrength extends Quantity {
 
   /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   ElectricFieldStrength.inUnits(dynamic value, ElectricFieldStrengthUnits units, [double uncert = 0.0])
       : super(value, units ?? ElectricFieldStrength.voltsPerMeter, uncert);
 
+  /// Constructs a constant ElectricFieldStrength.
   const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits units, double uncert = 0.0})
       : super.constant(valueSI, ElectricFieldStrength.electricFieldStrengthDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions electricFieldStrengthDimensions = const Dimensions.constant(
       const <String, int>{'Current': -1, 'Time': -3, 'Length': 1, 'Mass': 1},
       qType: ElectricFieldStrength);
@@ -38,6 +34,7 @@ class ElectricFieldStrength extends Quantity {
 /// Units acceptable for use in describing ElectricFieldStrength quantities.
 ///
 class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
+  /// Constructs a new instance.
   ElectricFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -50,6 +47,7 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from a potential difference and length.
   ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifferenceUnits epdu, LengthUnits lu)
       : super._internal(epdu.valueSI * lu.valueSI) {
     name = '${epdu.name} per ${lu.singular}';
@@ -61,7 +59,7 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => ElectricFieldStrength;
 

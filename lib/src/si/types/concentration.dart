@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The abundance of a constituent divided by the total volume of a mixture.
-///
 /// See the [Wikipedia entry for Concentration](https://en.wikipedia.org/wiki/Concentration)
 /// for more information.
-///
 class Concentration extends Quantity {
-  /// Construct a Concentration with moles per cubic meter.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Concentration with moles per cubic meter.
+  /// Optionally specify a relative standard uncertainty.
   Concentration({dynamic molesPerCubicMeter, double uncert = 0.0})
       : super(molesPerCubicMeter ?? 0.0, Concentration.molesPerCubicMeter, uncert);
 
@@ -17,10 +13,10 @@ class Concentration extends Quantity {
 
   /// Constructs a Concentration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Concentration.inUnits(dynamic value, ConcentrationUnits units, [double uncert = 0.0])
       : super(value, units ?? Concentration.molesPerCubicMeter, uncert);
 
+  /// Constructs a constant Concentration.
   const Concentration.constant(Number valueSI, {ConcentrationUnits units, double uncert = 0.0})
       : super.constant(valueSI, Concentration.concentrationDimensions, units, uncert);
 
@@ -34,8 +30,8 @@ class Concentration extends Quantity {
 }
 
 /// Units acceptable for use in describing Concentration quantities.
-///
 class ConcentrationUnits extends Concentration with Units {
+  /// Constructs a new instance.
   ConcentrationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -48,6 +44,7 @@ class ConcentrationUnits extends Concentration with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs concentration units from an amount of substance and volume.
   ConcentrationUnits.amountVolume(AmountOfSubstanceUnits asu, VolumeUnits vu)
       : super._internal(asu.valueSI * vu.valueSI) {
     name = '${asu.name} per ${vu.singular}';

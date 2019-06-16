@@ -3,15 +3,11 @@ part of quantity_si;
 // Also ImpartedSpecificEnergy, Kerma
 
 /// Energy per unit mass.
-///
 /// See the [Wikipedia entry for Specific energy](https://en.wikipedia.org/wiki/Specific_energy)
 /// for more information.
-///
 class SpecificEnergy extends Quantity {
-  /// Construct a SpecificEnergy with joules per kilogram.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a SpecificEnergy with joules per kilogram.
+  /// Optionally specify a relative standard uncertainty.
   SpecificEnergy({dynamic joulesPerKilogram, double uncert = 0.0})
       : super(joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert);
 
@@ -19,14 +15,14 @@ class SpecificEnergy extends Quantity {
 
   /// Constructs a SpecificEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   SpecificEnergy.inUnits(dynamic value, SpecificEnergyUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert);
 
+  /// Constructs a constant SpecificEnergy.
   const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpecificEnergy.specificEnergyDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions specificEnergyDimensions =
       const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: SpecificEnergy);
 
@@ -36,7 +32,6 @@ class SpecificEnergy extends Quantity {
 }
 
 /// Units acceptable for use in describing SpecificEnergy quantities.
-///
 class SpecificEnergyUnits extends SpecificEnergy with Units {
   /// Constructs a new instance.
   SpecificEnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -85,7 +80,7 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => SpecificEnergy;
 

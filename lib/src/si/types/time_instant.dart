@@ -102,7 +102,7 @@ TT  = Terrestial Time. Originally used instead of TDT or TDB when the
 class TimeInstant extends Quantity {
   /// Constructs a TimeInstant in either [TAI] or [UTC] units.
   ///
-  /// Optionally specify a relative standard [uncert]ainty.
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
       : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);

@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The ratio of the substance's volume to its mass.
-///
 /// See the [Wikipedia entry for Specific volume](https://en.wikipedia.org/wiki/Specific_volume)
 /// for more information.
-///
 class SpecificVolume extends Quantity {
-  /// Construct a SpecificVolume with cubic meters per kilogram.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a SpecificVolume with cubic meters per kilogram.
+  /// Optionally specify a relative standard uncertainty.
   SpecificVolume({dynamic cubicMetersPerKilogram, double uncert = 0.0})
       : super(cubicMetersPerKilogram ?? 0.0, SpecificVolume.cubicMetersPerKilogram, uncert);
 
@@ -17,14 +13,14 @@ class SpecificVolume extends Quantity {
 
   /// Constructs a SpecificVolume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   SpecificVolume.inUnits(dynamic value, SpecificVolumeUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert);
 
+  /// Constructs a constant SpecificVolume.
   const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpecificVolume.specificVolumeDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions specificVolumeDimensions =
       const Dimensions.constant(const <String, int>{'Length': 3, 'Mass': -1}, qType: SpecificVolume);
 
@@ -34,7 +30,6 @@ class SpecificVolume extends Quantity {
 }
 
 /// Units acceptable for use in describing SpecificVolume quantities.
-///
 class SpecificVolumeUnits extends SpecificVolume with Units {
   /// Constructs a new instance.
   SpecificVolumeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -60,7 +55,7 @@ class SpecificVolumeUnits extends SpecificVolume with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => SpecificVolume;
 

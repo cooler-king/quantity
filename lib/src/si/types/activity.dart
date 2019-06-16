@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// A measure of the _effective concentration_ of a species in a mixture.
-///
 /// See the [Wikipedia entry for Thermodynamic activity](https://en.wikipedia.org/wiki/Thermodynamic_activity)
 /// for more information.
-///
 class Activity extends Quantity {
   /// Construct an Activity with either becquerels ([Bq]) or curies ([Ci]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Activity({dynamic Bq, dynamic Ci, double uncert = 0.0}) : super(Bq ?? (Ci ?? 0.0), Activity.becquerels, uncert);
 
@@ -17,14 +13,14 @@ class Activity extends Quantity {
 
   /// Constructs a Activity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Activity.inUnits(dynamic value, ActivityUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : Activity.becquerels, uncert);
 
+  /// Constructs a constant Activity.
   const Activity.constant(Number valueSI, {ActivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, Activity.activityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions activityDimensions =
       const Dimensions.constant(const <String, int>{'Time': -1}, qType: Activity);
 
@@ -36,8 +32,8 @@ class Activity extends Quantity {
 }
 
 /// Units acceptable for use in describing Activity quantities.
-///
 class ActivityUnits extends Activity with Units {
+  /// Constructs a new instance.
   ActivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -50,6 +46,7 @@ class ActivityUnits extends Activity with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from length and time units.
   ActivityUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super._internal(lu.valueSI * su.valueSI) {
     name = '${lu.name} per ${su.singular} squared';
     singular = '${lu.singular} per ${su.singular} squared';
@@ -60,7 +57,7 @@ class ActivityUnits extends Activity with Units {
     offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Activity;
 

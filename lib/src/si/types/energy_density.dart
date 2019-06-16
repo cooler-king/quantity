@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The amount of energy stored in a given system or region of space per unit volume.
-///
 /// See the [Wikipedia entry for Energy density](https://en.wikipedia.org/wiki/Energy_density)
 /// for more information.
-///
 class EnergyDensity extends Quantity {
   /// Construct an EnergyDensity with joules per cubic meter.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   EnergyDensity({dynamic joulesPerCubicMeter, double uncert = 0.0})
       : super(joulesPerCubicMeter ?? 0.0, EnergyDensity.joulesPerCubicMeter, uncert);
 
@@ -17,14 +13,14 @@ class EnergyDensity extends Quantity {
 
   /// Constructs a EnergyDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   EnergyDensity.inUnits(dynamic value, EnergyDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? EnergyDensity.joulesPerCubicMeter, uncert);
 
+  /// Constructs a constant EnergyDensity.
   const EnergyDensity.constant(Number valueSI, {EnergyDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, EnergyDensity.energyDensityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions energyDensityDimensions =
       const Dimensions.constant(const <String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: EnergyDensity);
 
@@ -34,7 +30,6 @@ class EnergyDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing EnergyDensity quantities.
-///
 class EnergyDensityUnits extends EnergyDensity with Units {
   /// Constructs a new instance.
   EnergyDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

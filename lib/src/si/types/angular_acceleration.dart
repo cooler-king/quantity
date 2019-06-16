@@ -1,16 +1,12 @@
 part of quantity_si;
 
 /// The rate of change of angular speed.
-///
 /// See the [Wikipedia entry for Angular acceleration](https://en.wikipedia.org/wiki/Angular_acceleration)
 /// for more information.
-///
 class AngularAcceleration extends Quantity {
   /// Construct an AngularAcceleration with either radians per second squared
   /// or degrees per second squared).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   AngularAcceleration({dynamic radiansPerSecondSquared, dynamic degreesPerSecondSquared, double uncert = 0.0})
       : super(radiansPerSecondSquared ?? (degreesPerSecondSquared ?? 0.0), AngularAcceleration.radiansPerSecondSquared,
             uncert);
@@ -20,14 +16,14 @@ class AngularAcceleration extends Quantity {
 
   /// Constructs a AngularAcceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   AngularAcceleration.inUnits(dynamic value, AngularAccelerationUnits units, [double uncert = 0.0])
       : super(value, units ?? AngularAcceleration.radiansPerSecondSquared, uncert);
 
+  /// Constructs a constant AngularAcceleration.
   const AngularAcceleration.constant(Number valueSI, {AngularAccelerationUnits units, double uncert = 0.0})
       : super.constant(valueSI, AngularAcceleration.angularAccelerationDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions angularAccelerationDimensions =
       const Dimensions.constant(const <String, int>{'Angle': 1, 'Time': -2}, qType: AngularAcceleration);
 
@@ -41,8 +37,8 @@ class AngularAcceleration extends Quantity {
 }
 
 /// Units acceptable for use in describing AngularAcceleration quantities.
-///
 class AngularAccelerationUnits extends AngularAcceleration with Units {
+  /// Constructs a new instance.
   AngularAccelerationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -55,6 +51,7 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from angle and time units.
   AngularAccelerationUnits.angleTime(AngleUnits au, TimeUnits tu) : super._internal(au.valueSI * tu.valueSI) {
     name = '${au.name} per ${tu.singular} squared';
     singular = '${au.singular} per ${tu.singular} squared';
@@ -65,7 +62,7 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => AngularAcceleration;
 

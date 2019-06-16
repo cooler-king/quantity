@@ -6,10 +6,8 @@ part of quantity_si;
 /// for more information.
 ///
 class MassFlowRate extends Quantity {
-  /// Construct a MassFlowRate with kilograms per second.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a MassFlowRate with kilograms per second.
+  /// Optionally specify a relative standard uncertainty.
   MassFlowRate({dynamic kilogramsPerSecond, double uncert = 0.0})
       : super(kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert);
 
@@ -17,10 +15,10 @@ class MassFlowRate extends Quantity {
 
   /// Constructs a MassFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   MassFlowRate.inUnits(dynamic value, MassFlowRateUnits units, [double uncert = 0.0])
       : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert);
 
+  /// Construct a constant MassFlowRate.
   const MassFlowRate.constant(Number valueSI, {MassFlowRateUnits units, double uncert = 0.0})
       : super.constant(valueSI, MassFlowRate.massFlowRateDimensions, units, uncert);
 
@@ -33,7 +31,6 @@ class MassFlowRate extends Quantity {
 }
 
 /// Units acceptable for use in describing MassFlowRate quantities.
-///
 class MassFlowRateUnits extends MassFlowRate with Units {
   /// Constructs a new instance.
   MassFlowRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

@@ -1,14 +1,12 @@
 part of quantity_si;
 
 /// Amount of data.
-///
 /// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)
 /// for more information.
-///
 class Information extends Quantity {
-  /// Construct an Information object with [bits], bytes ([B]), kilobytes ([kB]), megabytes ([MB]), gigabytes ([GB]), or terabytes ([TB]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
+  /// Constructs an Information object with [bits], bytes ([B]), kilobytes ([kB]), megabytes ([MB]),
+  /// gigabytes ([GB]), or terabytes ([TB]).
+  /// Optionally specify a relative standard uncertainty.
   // ignore:non_constant_identifier_names
   Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert = 0.0})
       : super(bits ?? (B ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0))))), Information.bits, uncert);
@@ -17,14 +15,14 @@ class Information extends Quantity {
 
   /// Constructs a Information based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Information.inUnits(dynamic value, InformationUnits units, [double uncert = 0.0])
       : super(value, units ?? Information.bits, uncert);
 
+  /// Constructs a constant Information.
   const Information.constant(Number valueSI, {InformationUnits units, double uncert = 0.0})
       : super.constant(valueSI, Information.informationDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions informationDimensions = const Dimensions.constant(const <String, int>{}, qType: Information);
 
   // Units
@@ -32,13 +30,13 @@ class Information extends Quantity {
   /// The standard unit of data (ISO, IEC).
   static final InformationUnits bits = new InformationUnits('bits', null, 'bit', null, 1.0, true);
 
-  /// Equal to 4 bits
+  /// Equal to 4 bits.
   static final InformationUnits nibbles = new InformationUnits('nibbles', null, null, null, 4.0, false);
 
-  /// Equal to 8 bits
+  /// Equal to 8 bits.
   static final InformationUnits bytes = new InformationUnits('bytes', null, 'B', null, 8.0, false);
 
-  // Convenience
+  // Convenience.
 
   /// 1 000 bits (not 1024 bits)
   static final InformationUnits kilobits = bits.kilo() as InformationUnits;
@@ -52,7 +50,7 @@ class Information extends Quantity {
   /// 1 trillion bits
   static final InformationUnits terabits = bits.tera() as InformationUnits;
 
-  // Pseudo-Metric Units
+  // Pseudo-Metric Units.
 
   /// 1 kilobyte is equal to 2^10 bytes (1 024 bytes) in typical usage.
   /// This is at odds with the standard use of the 'kilo' prefix for
@@ -97,7 +95,6 @@ class Information extends Quantity {
 }
 
 /// Units acceptable for use in describing Information quantities.
-///
 class InformationUnits extends Information with Units {
   /// Constructs a new instance.
   InformationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -112,7 +109,7 @@ class InformationUnits extends Information with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Information;
 

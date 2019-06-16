@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// Electric charge per unit volume of space.
-///
 /// See the [Wikipedia entry for Charge density](https://en.wikipedia.org/wiki/Charge_density)
 /// for more information.
-///
 class ChargeDensity extends Quantity {
-  /// Construct a ChargeDensity with coulombs per cubic meter.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a ChargeDensity with coulombs per cubic meter.
+  /// Optionally specify a relative standard uncertainty.
   ChargeDensity({dynamic coulombsPerCubicMeter, double uncert = 0.0})
       : super(coulombsPerCubicMeter ?? 0.0, ChargeDensity.coulombsPerCubicMeter, uncert);
 
@@ -17,14 +13,14 @@ class ChargeDensity extends Quantity {
 
   /// Constructs a ChargeDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   ChargeDensity.inUnits(dynamic value, ChargeDensityUnits units, [double uncert = 0.0])
       : super(value, units ?? ChargeDensity.coulombsPerCubicMeter, uncert);
 
+  /// Constructs a constant ChargeDensity.
   const ChargeDensity.constant(Number valueSI, {ChargeDensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, ChargeDensity.electricChargeDensityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions electricChargeDensityDimensions =
       const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1, 'Length': -3}, qType: ChargeDensity);
 
@@ -34,7 +30,6 @@ class ChargeDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing ChargeDensity quantities.
-///
 class ChargeDensityUnits extends ChargeDensity with Units {
   /// Constructs a new instance.
   ChargeDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -60,7 +55,7 @@ class ChargeDensityUnits extends ChargeDensity with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => ChargeDensity;
 

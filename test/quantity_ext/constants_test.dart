@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' show min;
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_ext.dart';
@@ -21,7 +22,6 @@ Map<String, Quantity> nistNameConstantMap = <String, Quantity>{
   'Compton wavelength': comptonWavelength,
   'conductance quantum': conductanceQuantum,
   'deuteron mass': deuteronMass,
-  'electric constant': electricConstant,
   'electron g factor': electronGFactor,
   'electron mass': electronMass,
   'elementary charge': elementaryCharge,
@@ -29,11 +29,11 @@ Map<String, Quantity> nistNameConstantMap = <String, Quantity>{
   'fine-structure constant': fineStructureConstant,
   'first radiation constant': firstRadiationConstant,
   'Hartree energy': hartreeEnergy,
+  'muon g factor': muonGFactor,
   'helion mass': helionMass,
   'molar gas constant': gasConstantMolar,
   'Josephson constant': josephsonConstant,
   'Loschmidt constant (273.15 K, 101.325 kPa)': loschmidtStdAtm,
-  'mag. constant': magneticConstant,
   'mag. flux quantum': magneticFluxQuantum,
   'molar Planck constant': molarPlanck,
   'molar volume of ideal gas (273.15 K, 100 kPa)': molarVolume100kPa,
@@ -61,6 +61,8 @@ Map<String, Quantity> nistNameConstantMap = <String, Quantity>{
   'tau Compton wavelength': tauComptonWavelength,
   'tau mass': tauMass,
   'Thomson cross section': thomsonCrossSection,
+  'vacuum electric permittivity': vacuumElectricPermittivity,
+  'vacuum mag. permeability': vacuumMagneticPermeability,
   'von Klitzing constant': vonKlitzingConstant,
   'weak mixing angle': weakMixingAngle,
   'Wien wavelength displacement law constant': wienDisplacement
@@ -71,7 +73,7 @@ void main() {
     test('check against NIST values', () {
       final List<String> lines = new File('test/quantity_ext/txt/nist_constants.txt').readAsLinesSync();
       double value, uncert;
-      for (String line in lines) {
+      for (final String line in lines) {
         final String name = line.substring(0, 60).trim();
         String valueStr = line.substring(60, 85);
 
@@ -82,7 +84,7 @@ void main() {
           uncert = 0.0;
           approxValue = true;
         } else {
-          String uncertStr = line.substring(85, 110);
+          String uncertStr = line.substring(85, min(line.length, 110));
           if (uncertStr.contains('exact')) {
             uncert = 0.0;
           } else {

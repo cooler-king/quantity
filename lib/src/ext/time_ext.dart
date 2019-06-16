@@ -103,11 +103,14 @@ final TimeUnits minutesSidereal =
 final TimeUnits secondsSidereal =
     new TimeUnits('seconds (sidereal)', null, 's (sid)', 'second (sidereal)', 9.9726957e-1, false);
 
+/// Calendar years as a unit.
 final TimeUnits yearsCalendar = new TimeUnits('years', null, 'yr', null, 3.1536e7, false);
 
+/// Sidereal years as a unit.
 final TimeUnits yearsSidereal =
     new TimeUnits('years (sidereal)', null, 'yr (sid)', 'year (sidereal)', 3.1558150e7, false);
 
+/// Tropical years as a unit.
 final TimeUnits yearsTropical =
     new TimeUnits('years (tropical)', null, 'yr (trop)', 'year (tropical)', 3.1556926e7, false);
 
@@ -125,4 +128,4 @@ final TimeUnits eons = aeons;
 // Constants.
 
 /// The time required for light to travel in a vacuum a distance of one Planck length.
-const Time planckTime = const Time.constant(const Double.constant(5.39116e-44), uncert: 2.411354884663041e-5);
+const Time planckTime = const Time.constant(const Double.constant(5.391247e-44), uncert: 0.000011129150639916886);

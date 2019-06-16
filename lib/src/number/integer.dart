@@ -2,10 +2,13 @@ part of number;
 
 /// Wraps Dart's core [int] type, so that it can share a common base type with other [Number]s.
 class Integer extends Real {
+  /// Constructs a new instance.
   Integer(this._value);
 
+  /// Constructs a constant Integer.
   const Integer.constant(this._value) : super.constant();
 
+  /// Constructs a new instance.
   Integer.parse(String str, {int radix = 10}) : _value = int.parse(str, radix: radix);
 
   /// Construct an Integer from a Map:
@@ -21,11 +24,22 @@ class Integer extends Real {
 
   final int _value;
 
+  /// Zero, as an Integer.
   static const Integer zero = const Integer.constant(0);
+
+  /// One, as an Integer.
   static const Integer one = const Integer.constant(1);
+
+  /// Negative one, as an Integer.
   static const Integer negOne = const Integer.constant(-1);
+
+  /// Ten, as an Integer.
   static const Integer ten = const Integer.constant(10);
+
+  /// One hundred, as an Integer.
   static const Integer hundred = const Integer.constant(100);
+
+  /// One thousand, as an Integer.
   static const Integer thousand = const Integer.constant(1000);
 
   @override
@@ -47,7 +61,6 @@ class Integer extends Real {
   double toDouble() => value.toDouble();
 
   /// Tests whether this Integer is equal to another Object [obj].
-  ///
   /// Only [num] and [Number] objects having the same real
   /// integer value (and no imaginary component) are considered equal.
   @override
@@ -60,7 +73,6 @@ class Integer extends Real {
   }
 
   /// Returns the same hash as the [int] with the same value.
-  ///
   @override
   int get hashCode => _value?.hashCode;
 
@@ -117,7 +129,6 @@ class Integer extends Real {
   }
 
   /// A substitute method to perform bitwise XOR operation on integers.
-  ///
   /// The caret operator is overridden to provide a power operator for all numbers.
   Integer bitwiseXor(dynamic n) {
     if (n is int) return new Integer(_value ^ n);
@@ -126,7 +137,6 @@ class Integer extends Real {
   }
 
   /// The absolute value, returned as an [Integer].
-  ///
   /// Returns itself if its value is greater than or equal to zero.
   @override
   Integer abs() => _value >= 0 ? this : new Integer(value.abs());
@@ -155,21 +165,27 @@ class Integer extends Real {
   Map<String, int> toJson() => <String, int>{'i': value};
 }
 
+/// Represents an integer as a binary number.
 class Binary extends Integer {
+  /// Constructs a new instance.
   Binary(String binaryStr) : super.parse(binaryStr, radix: 2);
 
   @override
   String toString() => _value.toRadixString(2);
 }
 
+/// Represents an integer as an octal number.
 class Octal extends Integer {
+  /// Constructs a new instance.
   Octal(String octalStr) : super.parse(octalStr, radix: 8);
 
   @override
   String toString() => _value.toRadixString(8);
 }
 
+/// Represents an integer as a hexadecimal number.
 class Hexadecimal extends Integer {
+  /// Constructs a new instance.
   Hexadecimal(String hexStr) : super.parse(hexStr, radix: 16);
 
   @override

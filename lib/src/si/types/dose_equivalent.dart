@@ -2,15 +2,11 @@ part of quantity_si;
 
 /// Represents the stochastic health effects (probability of cancer induction and genetic damage)
 /// of ionizing radiation on the human body.
-///
 /// See the [Wikipedia entry for Equivalent dose](https://en.wikipedia.org/wiki/Equivalent_dose)
 /// for more information.
-///
 class DoseEquivalent extends Quantity {
-  /// Construct a DoseEquivalent with seiverts ([Sv]) or [rems].
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a DoseEquivalent with seiverts ([Sv]) or [rems].
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   DoseEquivalent({dynamic Sv, dynamic rems, double uncert = 0.0})
       : super(Sv != null ? Sv : (rems != null ? rems : 0.0),
@@ -20,14 +16,14 @@ class DoseEquivalent extends Quantity {
 
   /// Constructs a DoseEquivalent based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   DoseEquivalent.inUnits(dynamic value, DoseEquivalentUnits units, [double uncert = 0.0])
       : super(value, units != null ? units : DoseEquivalent.seiverts, uncert);
 
+  /// Constructs a constant DoseEquivalent.
   const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits units, double uncert = 0.0})
       : super.constant(valueSI, DoseEquivalent.doseEquivalentDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions doseEquivalentDimensions =
       const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: DoseEquivalent);
 
@@ -39,7 +35,6 @@ class DoseEquivalent extends Quantity {
 }
 
 /// Units acceptable for use in describing DoseEquivalent quantities.
-///
 class DoseEquivalentUnits extends DoseEquivalent with Units {
   /// Constructs a new instance.
   DoseEquivalentUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -54,7 +49,7 @@ class DoseEquivalentUnits extends DoseEquivalent with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => DoseEquivalent;
 

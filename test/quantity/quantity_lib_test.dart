@@ -57,7 +57,7 @@ void main() {
       expect(createTypedQuantityInstance(SolidAngle, 1.1, null) is SolidAngle, true);
 
       final Random random = new Random();
-      for (Type t in allQuantityTypes) {
+      for (final Type t in allQuantityTypes) {
         try {
           final Quantity q = createTypedQuantityInstance(t, 1.1, null, random.nextDouble() * 10.0);
           expect(q != null, true);

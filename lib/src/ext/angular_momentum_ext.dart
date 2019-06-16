@@ -4,18 +4,18 @@ part of quantity_ext;
 final AngularMomentumUnits jouleSecond = AngularMomentum.jouleSecond;
 
 /// The Planck constant as units.
-final AngularMomentumUnits planckUnits = new AngularMomentumUnits('h', '\u210E', null, 'h', 6.626070040e-34, false);
+final AngularMomentumUnits planckUnits = new AngularMomentumUnits('h', '\u210E', null, 'h', 6.62607015e-34, false);
 
 /// The Planck constant divided by 2 PI (a.k.a., 'h-bar') as units.
 final AngularMomentumUnits hBarUnits =
-    new AngularMomentumUnits('h-bar', '\u210F', null, 'h-bar', 1.054571800e-34, false);
+    new AngularMomentumUnits('h-bar', '\u210F', null, 'h-bar', 1.054571817e-34, false);
 
 // Constants.
 
 /// The Planck constant.
 const AngularMomentum planckConstant =
-    const AngularMomentum.constant(const Double.constant(6.626070040e-34), uncert: 1.2224440658040493e-8);
+    const AngularMomentum.constant(const Double.constant(6.62607015e-34));
 
-/// The Planck constant divided by 2 PI (a.k.a., 'h-bar').
+/// The Planck constant divided by 2 PI (a.k.a., 'h-bar' or 'reduced Planck constant').
 const AngularMomentum hBar =
-    const AngularMomentum.constant(const Double.constant(1.054571800e-34), uncert: 1.2327278237479894e-8);
+    const AngularMomentum.constant(const Double.constant(1.054571817e-34));

@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The elastic tendency of liquids which makes them acquire the least surface area possible.
-///
 /// See the [Wikipedia entry for Surface tension](https://en.wikipedia.org/wiki/Surface_tension)
 /// for more information.
-///
 class SurfaceTension extends Quantity {
-  /// Construct a SurfaceTension with newtons per meter.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a SurfaceTension with newtons per meter.
+  /// Optionally specify a relative standard uncertainty.
   SurfaceTension({dynamic newtonsPerMeter, double uncert = 0.0})
       : super(newtonsPerMeter ?? 0.0, SurfaceTension.newtonsPerMeter, uncert);
 
@@ -17,14 +13,14 @@ class SurfaceTension extends Quantity {
 
   /// Constructs a SurfaceTension based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits units, [double uncert = 0.0])
       : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert);
 
+  /// Constructs a constant SurfaceTension.
   const SurfaceTension.constant(Number valueSI, {SurfaceTensionUnits units, double uncert = 0.0})
       : super.constant(valueSI, SurfaceTension.surfaceTensionDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions surfaceTensionDimensions =
       const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -2}, qType: SurfaceTension);
 
@@ -34,7 +30,6 @@ class SurfaceTension extends Quantity {
 }
 
 /// Units acceptable for use in describing SurfaceTension quantities.
-///
 class SurfaceTensionUnits extends SurfaceTension with Units {
   /// Constructs a new instance.
   SurfaceTensionUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -60,7 +55,7 @@ class SurfaceTensionUnits extends SurfaceTension with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => SurfaceTension;
 

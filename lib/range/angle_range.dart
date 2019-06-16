@@ -83,8 +83,8 @@ class AngleRange extends QuantityRange<Angle> {
       list2.add(new AngleRange(min360two, max360two));
     }
 
-    for (AngleRange range1 in list1) {
-      for (AngleRange range2 in list2) {
+    for (final AngleRange range1 in list1) {
+      for (final AngleRange range2 in list2) {
         if (range1.overlaps(range2)) return true;
       }
     }
@@ -171,7 +171,7 @@ class AngleRange extends QuantityRange<Angle> {
   bool contains360(Angle angle, [bool inclusive = true, double epsilon = 1.0e-10]) {
     if (contains(angle, inclusive, epsilon) || revolutions.abs() > 0) return true;
     final Angle ang360 = angle.angle360;
-    for (AngleRange range in ranges360) {
+    for (final AngleRange range in ranges360) {
       if (range.contains(ang360, inclusive, epsilon)) return true;
     }
     return false;
@@ -203,7 +203,7 @@ class AngleRange extends QuantityRange<Angle> {
       num deltaStartRadRev;
       num deltaEndRad;
       num deltaEndRadRev;
-      for (AngleRange range in ranges) {
+      for (final AngleRange range in ranges) {
         deltaStartRad = (range.startAngle.mks.toDouble() - angRev0.mks.toDouble()).abs();
         deltaStartRadRev = tau + range.startAngle.mks.toDouble() - angRev0.mks.toDouble();
         deltaStartRad = min(deltaStartRad, deltaStartRadRev);

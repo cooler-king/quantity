@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The resistance to flow of a fluid, equal to its absolute viscosity divided by its density.
-///
 /// See the [Wikipedia entry for Viscosity](https://en.wikipedia.org/wiki/Viscosity)
 /// for more information.
-///
 class KinematicViscosity extends Quantity {
-  /// Construct a KinematicViscosity with meters squared per second.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a KinematicViscosity with meters squared per second.
+  /// Optionally specify a relative standard uncertainty.
   KinematicViscosity({dynamic metersSquaredPerSecond, double uncert = 0.0})
       : super(metersSquaredPerSecond ?? 0.0, Illuminance.lux, uncert);
 
@@ -17,14 +13,14 @@ class KinematicViscosity extends Quantity {
 
   /// Constructs a KinematicViscosity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   KinematicViscosity.inUnits(dynamic value, KinematicViscosityUnits units, [double uncert = 0.0])
       : super(value, units ?? KinematicViscosity.metersSquaredPerSecond, uncert);
 
+  /// Constructs a constant KinematicViscosity.
   const KinematicViscosity.constant(Number valueSI, {KinematicViscosityUnits units, double uncert = 0.0})
       : super.constant(valueSI, KinematicViscosity.kinematicViscosityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions kinematicViscosityDimensions =
       const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -1}, qType: KinematicViscosity);
 
@@ -34,7 +30,6 @@ class KinematicViscosity extends Quantity {
 }
 
 /// Units acceptable for use in describing KinematicViscosity quantities.
-///
 class KinematicViscosityUnits extends KinematicViscosity with Units {
   /// Constructs a new instance.
   KinematicViscosityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

@@ -1,16 +1,12 @@
 part of quantity_si;
 
 /// The size of an ensemble of elementary entities, such as atoms, molecules, electrons, and other particles.
-///
 /// See the [Wikipedia entry for Amount of substance](https://en.wikipedia.org/wiki/Amount_of_substance)
 /// for more information.
-///
 class AmountOfSubstance extends Quantity {
   /// Construct an AmountOfSubstance with moles ([mol])
   /// or kilomoles ([kmol]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   AmountOfSubstance({dynamic mol, dynamic kmol, double uncert = 0.0})
       : super(mol ?? (kmol ?? 0.0), kmol != null ? AmountOfSubstance.kilomoles : AmountOfSubstance.moles, uncert);
 
@@ -18,14 +14,14 @@ class AmountOfSubstance extends Quantity {
 
   /// Constructs a AmountOfSubstance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits units, [double uncert = 0.0])
       : super(value, units ?? AmountOfSubstance.moles, uncert);
 
+  /// Constructs a constant AmountOfSubstance.
   const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, AmountOfSubstance.amountOfSubstanceDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions amountOfSubstanceDimensions =
       const Dimensions.constant(const <String, int>{'Amount': 1}, qType: AmountOfSubstance);
 
@@ -37,8 +33,8 @@ class AmountOfSubstance extends Quantity {
 }
 
 /// Units acceptable for use in describing [AmountOfSubstance] quantities.
-///
 class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
+  /// Constructs a new instance.
   AmountOfSubstanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -51,7 +47,7 @@ class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => AmountOfSubstance;
 

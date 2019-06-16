@@ -1,17 +1,11 @@
 part of quantity_si;
 
-// Also MolarHeatCapacity entropy content of one mole of substanc
-
 /// Entropy content per mole of substance.
-///
 /// See the [Wikipedia entry for Standard molar entropy](https://en.wikipedia.org/wiki/Standard_molar_entropy)
 /// for more information.
-///
 class MolarEntropy extends Quantity {
-  /// Construct a MolarEntropy with joules per mole kelvin.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a MolarEntropy with joules per mole kelvin.
+  /// Optionally specify a relative standard uncertainty.
   MolarEntropy({dynamic joulesPerMoleKelvin, double uncert = 0.0})
       : super(joulesPerMoleKelvin ?? 0.0, MolarEntropy.joulesPerMoleKelvin, uncert);
 
@@ -19,14 +13,14 @@ class MolarEntropy extends Quantity {
 
   /// Constructs a MolarEntropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   MolarEntropy.inUnits(dynamic value, MolarEntropyUnits units, [double uncert = 0.0])
       : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert);
 
+  /// Constructs a constant MolarEntropy.
   const MolarEntropy.constant(Number valueSI, {MolarEntropyUnits units, double uncert = 0.0})
       : super.constant(valueSI, MolarEntropy.molarEntropyDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions molarEntropyDimensions = const Dimensions.constant(
       const <String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1, 'Temperature': -1},
       qType: MolarEntropy);
@@ -37,8 +31,8 @@ class MolarEntropy extends Quantity {
 }
 
 /// Units acceptable for use in describing MolarEntropy quantities.
-///
 class MolarEntropyUnits extends MolarEntropy with Units {
+  /// Constructs a new instance.
   MolarEntropyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -51,6 +45,7 @@ class MolarEntropyUnits extends MolarEntropy with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from energy, amount of substance and temperature interval units.
   MolarEntropyUnits.energyAmountTemperature(EnergyUnits eu, AmountOfSubstanceUnits aosu, TemperatureIntervalUnits tu)
       : super._internal(eu.valueSI / (aosu.valueSI * tu.valueSI)) {
     name = '${eu.name} per ${aosu.singular} ${tu.singular}';

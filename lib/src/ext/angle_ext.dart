@@ -74,10 +74,10 @@ final AngleUnits cycles = revolutions;
 final AngleUnits circles = revolutions;
 
 /// Represents a half circle of one hundred eighty degrees (pi radians).
-final AngleUnits semicircles = new AngleUnits('semicircles', null, null, null, polyfill_math.pi, false);
+final AngleUnits semicircles = new AngleUnits('semicircles', null, null, null, pi, false);
 
 /// Represents a quarter circle of ninety degrees.
-final AngleUnits quadrants = new AngleUnits('quadrants', null, null, null, polyfill_math.pi / 2.0, false);
+final AngleUnits quadrants = new AngleUnits('quadrants', null, null, null, pi / 2.0, false);
 
 /// A sign unit is a little more than half a radian.
 final AngleUnits signs = new AngleUnits('signs', null, null, null, 0.523599, false);
@@ -128,7 +128,7 @@ final Angle angleTau = angle360;
 // Common trig values.
 
 /// The sine of a zero degree angle (0).
-const double sin0 = 0.0;
+const double sin0 = 0;
 
 /// The sine of a thirty degree angle (0.5).
 const double sin30 = 0.5;
@@ -140,10 +140,10 @@ final double sin45 = sine(angle45);
 final double sin60 = sine(angle60);
 
 /// The sine of a ninety degree angle (1).
-const double sin90 = 1.0;
+const double sin90 = 1;
 
 /// The cosine of a ninety degree angle (1).
-const double cos0 = 1.0;
+const double cos0 = 1;
 
 /// The cosine of a thirty degree angle.
 final double cos30 = cosine(angle30);
@@ -155,16 +155,16 @@ final double cos45 = cosine(angle45);
 const double cos60 = 0.5;
 
 /// The cosine of a ninety degree angle (1).
-const double cos90 = 0.0;
+const double cos90 = 0;
 
 /// The tangent of a zero degree angle (0).
-const double tan0 = 0.0;
+const double tan0 = 0;
 
 /// The tangent of a thirty degree angle.
 final double tan30 = tangent(angle30);
 
 /// The tangent of a forty five degree angle (1).
-const double tan45 = 1.0;
+const double tan45 = 1;
 
 /// The tangent of a sixty degree angle.
 final double tan60 = tangent(angle60);
@@ -172,7 +172,7 @@ final double tan60 = tangent(angle60);
 // Alternative construction.
 
 /// Constructs an angle from hours, minutes and seconds of time (as opposed to arc).
-Angle angleFromHourMinSec(int hour, int minute, double second, [double uncert = 0.0]) {
+Angle angleFromHourMinSec(int hour, int minute, double second, [double uncert = 0]) {
   final double mks =
       hoursTime.toMks(hour).toDouble() + minutesTime.toMks(minute).toDouble() + secondsTime.toMks(second).toDouble();
   return new Angle.inUnits(mks, Angle.radians, uncert);

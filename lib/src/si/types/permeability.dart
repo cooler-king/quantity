@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The ability of a material to support the formation of a magnetic field within itself.
-///
 /// See the [Wikipedia entry for Permeability (electromagnetism)](https://en.wikipedia.org/wiki/Permeability_%28electromagnetism%29)
 /// for more information.
-///
 class Permeability extends Quantity {
-  /// Construct a Permeability with henries per meter or newtons per ampere squared.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Permeability with henries per meter or newtons per ampere squared.
+  /// Optionally specify a relative standard uncertainty.
   Permeability({dynamic henriesPerMeter, dynamic newtonsPerAmpereSquared, double uncert = 0.0})
       : super(
             henriesPerMeter ?? (newtonsPerAmpereSquared ?? 0.0),
@@ -20,14 +16,14 @@ class Permeability extends Quantity {
 
   /// Constructs a Permeability based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Permeability.inUnits(dynamic value, PermeabilityUnits units, [double uncert = 0.0])
       : super(value, units ?? Permeability.henriesPerMeter, uncert);
 
+  /// Constructs a constant Permeability.
   const Permeability.constant(Number valueSI, {PermeabilityUnits units, double uncert = 0.0})
       : super.constant(valueSI, Permeability.permeabilityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions permeabilityDimensions = const Dimensions.constant(
       const <String, int>{'Length': 1, 'Mass': 1, 'Time': -2, 'Current': -2},
       qType: Permeability);
@@ -42,7 +38,6 @@ class Permeability extends Quantity {
 }
 
 /// Units acceptable for use in describing Permeability quantities.
-///
 class PermeabilityUnits extends Permeability with Units {
   /// Constructs a new instance.
   PermeabilityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -79,7 +74,7 @@ class PermeabilityUnits extends Permeability with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Permeability;
 

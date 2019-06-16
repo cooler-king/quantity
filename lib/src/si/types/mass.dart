@@ -2,15 +2,11 @@ part of quantity_si;
 
 /// Represents the *mass* physical quantity (one of the seven base SI quantities),
 /// that determines the strength of a body's mutual gravitational attraction to other bodies.
-///
 /// See the [Wikipedia entry for Mass](https://en.wikipedia.org/wiki/Mass)
 /// for more information.
-///
 class Mass extends Quantity {
-  /// Construct a Mass with kilograms ([kg]), grams ([g]) or unified atomic mass units ([u]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Mass with kilograms ([kg]), grams ([g]) or unified atomic mass units ([u]).
+  /// Optionally specify a relative standard uncertainty.
   Mass({dynamic kg, dynamic g, dynamic u, double uncert = 0.0})
       : super(kg ?? (g ?? (u ?? 0.0)),
             g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
@@ -19,13 +15,13 @@ class Mass extends Quantity {
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Mass.inUnits(dynamic value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
 
+  /// Constructs a constant Mass.
   const Mass.constant(Number valueSI, {MassUnits units, double uncert = 0.0})
       : super.constant(valueSI, Mass.massDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions massDimensions = const Dimensions.constant(const <String, int>{'Mass': 1}, qType: Mass);
 
   /// The standard SI unit.
@@ -34,7 +30,6 @@ class Mass extends Quantity {
   /// Note: kilograms are the standard MKS unit for mass, but grams is used here
   /// to generate the appropriate prefixes.  Gram conversion value is set to 0.001
   /// in order to generate the correct units.
-  ///
   static final MassUnits grams = new MassUnits('grams', 'g', null, null, 0.001, true);
 
   /// Accepted for use with the SI.
@@ -48,12 +43,12 @@ class Mass extends Quantity {
       new MassUnits('unified atomic mass units', null, 'u', null, 1.66053886e-27, false);
 
   /// Returns the [Energy] equivalent of this Mass using the famous E=mc^2 relationship.
-  ///
   Energy toEnergy() {
     if (valueSI is Precise) {
       final Precise c = new Precise('2.99792458e8');
       return new Energy(J: valueSI * c * c, uncert: _ur);
     } else {
+      // ignore: prefer_int_literals
       const double c = 2.99792458e8;
       return new Energy(J: valueSI * c * c, uncert: _ur);
     }
@@ -61,7 +56,6 @@ class Mass extends Quantity {
 }
 
 /// Units acceptable for use in describing [Mass] quantities.
-///
 class MassUnits extends Mass with Units {
   /// Constructs a new instance.
   MassUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -76,7 +70,7 @@ class MassUnits extends Mass with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Mass;
 

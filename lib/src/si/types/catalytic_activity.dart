@@ -1,25 +1,21 @@
 part of quantity_si;
 
 /// The increase in rate of a chemical reaction caused by the presence of a catalyst.
-///
 /// See the [Wikipedia entry for Catalysis](https://en.wikipedia.org/wiki/Catalysis)
 /// for more information.
-///
 class CatalyticActivity extends Quantity {
-  /// Construct a CatalyticActivity with katals ([kat]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a CatalyticActivity with katals ([kat]).
+  /// Optionally specify a relative standard uncertainty.
   CatalyticActivity({dynamic kat, double uncert = 0.0}) : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
 
   CatalyticActivity._internal(dynamic conv) : super._internal(conv, CatalyticActivity.catalyticActivityDimensions);
 
   /// Constructs a CatalyticActivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits units, [double uncert = 0.0])
       : super(value, units ?? CatalyticActivity.katals, uncert);
 
+  /// Constructs a constant CatalyticActivity.
   const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits units, double uncert = 0.0})
       : super.constant(valueSI, CatalyticActivity.catalyticActivityDimensions, units, uncert);
 
@@ -32,8 +28,8 @@ class CatalyticActivity extends Quantity {
 }
 
 /// Units acceptable for use in describing CatalyticActivity quantities.
-///
 class CatalyticActivityUnits extends CatalyticActivity with Units {
+  /// Constructs a new instance.
   CatalyticActivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -46,7 +42,7 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => CatalyticActivity;
 

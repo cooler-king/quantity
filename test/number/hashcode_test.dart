@@ -28,14 +28,14 @@ void main() {
       final Double d3 = new Double(-34.56);
       expect(d.hashCode == d3.hashCode, false);
 
-      final Double d4 = new Double(217.0);
+      final Double d4 = new Double(217);
       expect(d4.hashCode, 217.hashCode);
 
       final Double d5 = new Double(217.000000001);
       expect(d5.hashCode == 217.hashCode, false);
       expect(d5.hashCode == d4.hashCode, false);
 
-      final Double d6 = new Double(-217.0);
+      final Double d6 = new Double(-217);
       expect(d6.hashCode, -217.hashCode);
       expect(d6.hashCode == 217.hashCode, false);
       expect(d6.hashCode == d4.hashCode, false);

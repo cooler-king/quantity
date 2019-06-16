@@ -36,7 +36,7 @@ SpectralIrradianceUnits microjanskys = janskys.micro() as SpectralIrradianceUnit
 // Astronomical Constants
 
 /// The gravitational acceleration experienced at the 'surface' of the Sun.
-const Acceleration gravitySolarSurface = const Acceleration.constant(const Double.constant(274.0));
+const Acceleration gravitySolarSurface = const Acceleration.constant(const Double.constant(274));
 
 /// Used to describe the expansion of the universe.
 const Frequency hubbleConstant = const Frequency.constant(const Double.constant(2.4e-18), uncert: 0.3333333333);
@@ -46,9 +46,10 @@ const Frequency hubbleConstant = const Frequency.constant(const Double.constant(
 ///
 /// The solar 'constant' is actually not constant.  It has been shown to vary historically in the past 400 years
 /// over a range of less than 0.2 percent.
-const EnergyFlux solarConstant = const EnergyFlux.constant(const Double.constant(1370.0));
+const EnergyFlux solarConstant = const EnergyFlux.constant(const Double.constant(1370));
 
 /// The radius of the Sun.
+// ignore: prefer_int_literals
 const Length solarRadius = const Length.constant(const Double.constant(6.9599e8));
 
 /// The radius of the Earth at the equator.

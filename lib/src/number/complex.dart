@@ -1,15 +1,20 @@
 part of number;
 
 /// Complex numbers have both a real and an imaginary part.
-///
 class Complex extends Number {
+  /// Constructs a new instance.
   Complex(this.real, this.imaginary);
+
+  /// Constructs a constant Complex number.
   const Complex.constant(this.real, this.imaginary) : super.constant();
 
+  /// Constructs a new instance from real and imaginary coefficients.
   Complex.coeff(double realValue, double imagValue)
       : real = new Double.constant(realValue),
         imaginary = new Imaginary.constant(new Double(imagValue));
 
+  /// Constructs a new instance, applying the values in map [m].
+  /// See `toJson` for the expected format.
   Complex.fromMap(Map<String, Map<String, dynamic>> m)
       : real = (m?.containsKey('real') ?? false) ? new Real.fromMap(m['real']) : Double.zero,
         imaginary = m?.containsKey('real') ?? false
@@ -25,33 +30,30 @@ class Complex extends Number {
   /// [imag] is a convenient getter for the [imaginary] value
   Imaginary get imag => imaginary;
 
+  /// Returns the conjugate of this Complex number (the sign of the imaginary component is flipped).
   Complex get conjugate => new Complex(real, new Imaginary(imaginary.value * -1.0));
 
   /// Complex modulus represents the magnitude of this complex number in the complex plane.
-  ///
   Double get complexModulus =>
       new Double(sqrt(real.value * real.value + imaginary.value.value * imaginary.value.value));
 
   /// Complex norm is synonymous with complex modulus.
-  ///
   Double get complexNorm => complexModulus;
 
+  /// Returns the absolute square of this Complex number.
   Double get absoluteSquare => complexModulus ^ 2 as Double;
 
   /// In radians.
-  ///
   Double get complexArgument => new Double(atan2(imaginary.value.value, real.value));
 
   /// Phase is synonymous with complex argument.
-  ///
   Double get phase => complexArgument;
 
   @override
-  bool get isInfinite =>
-      real.value == polyfill_core.double.infinity || real.value == polyfill_core.double.negativeInfinity;
+  bool get isInfinite => real.value == double.infinity || real.value == double.negativeInfinity;
 
   @override
-  bool get isNaN => real.value == polyfill_core.double.nan;
+  bool get isNaN => real.value == double.nan;
 
   @override
   bool get isNegative => real.value < 0;
@@ -197,11 +199,9 @@ class Complex extends Number {
   }
 
   /// The power operator (note: NOT bitwise XOR).
-  ///
   /// In order to provide a convenient power operator for all [Number]s, the number library
   /// overrides the caret operator.  In Dart the caret operator is ordinarily used
   /// for bitwise XOR operations on [int]s.
-  ///
   @override
   Number operator ^(dynamic exponent) {
     if (exponent is num) {
@@ -222,40 +222,31 @@ class Complex extends Number {
   }
 
   /// Returns true if the real component of this Complex number is greater than [obj].
-  ///
   /// The imaginary part of this complex number is ignored.
-  ///
   @override
   bool operator >(dynamic obj) => real > obj;
 
   /// Returns true if the real component of this Complex number is greater
   /// than or equal to [obj].
-  ///
   /// The imaginary part of this complex number is ignored.
-  ///
   @override
   bool operator >=(dynamic obj) => real >= obj;
 
   /// Returns true if the real component of this Complex number is
   /// less than [obj].
-  ///
   /// The imaginary part of this complex number is ignored.
-  ///
   @override
   bool operator <(dynamic obj) => real < obj;
 
   /// Returns true if the real component of this Complex number is
   /// less than or equal to [obj].
-  ///
   /// The imaginary part of this complex number is ignored.
-  ///
   @override
   bool operator <=(dynamic obj) => real <= obj;
 
   /// The absolute value of a Complex number is its distance from zero in the
   /// Complex number space (e.g. the absolute value of 3 + 4i = 5).  The absolute
   /// value is always a real number.
-  ///
   @override
   Number abs() => ((real * real) + (imaginary.value * imaginary.value)) ^ 0.5;
 
@@ -277,7 +268,6 @@ class Complex extends Number {
 
   /// The remainder method operates on the real portion of
   /// this Complex number only.
-  ///
   @override
   Number remainder(dynamic divisor) => real.remainder(divisor);
 

@@ -4,7 +4,7 @@ part of number;
 ///
 int hashObjects(Iterable<Object> objects) {
   int hash = 0;
-  for (Object obj in objects) {
+  for (final Object obj in objects) {
     hash = 0x1fffffff & (hash + obj.hashCode);
     hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
     hash = hash ^ (hash >> 6);

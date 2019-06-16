@@ -2,15 +2,11 @@ part of quantity_si;
 
 /// The radiant flux emitted, reflected, transmitted or received by a surface,
 /// per unit solid angle per unit projected area.
-///
 /// See the [Wikipedia entry for Radiance](https://en.wikipedia.org/wiki/Radiance)
 /// for more information.
-///
 class Radiance extends Quantity {
-  /// Construct a Radiance with watts per square meter steradian.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Radiance with watts per square meter steradian.
+  /// Optionally specify a relative standard uncertainty.
   Radiance({dynamic wattsPerSquareMeterSteradian, double uncert = 0.0})
       : super(wattsPerSquareMeterSteradian ?? 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
 
@@ -18,14 +14,14 @@ class Radiance extends Quantity {
 
   /// Constructs a Radiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Radiance.inUnits(dynamic value, RadianceUnits units, [double uncert = 0.0])
       : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert);
 
+  /// Constructs a constant Radiance.
   const Radiance.constant(Number valueSI, {RadianceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Radiance.radianceDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions radianceDimensions =
       const Dimensions.constant(const <String, int>{'Mass': 1, 'Solid Angle': -1, 'Time': -3}, qType: Radiance);
 
@@ -35,8 +31,8 @@ class Radiance extends Quantity {
 }
 
 /// Units acceptable for use in describing Radiance quantities.
-///
 class RadianceUnits extends Radiance with Units {
+  /// Constructs a new instance.
   RadianceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -49,6 +45,7 @@ class RadianceUnits extends Radiance with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from power, area and solid angle units.
   RadianceUnits.powerAreaSolidAngle(PowerUnits ecu, AreaUnits mu, SolidAngleUnits sau)
       : super._internal(ecu.valueSI / (mu.valueSI * sau.valueSI)) {
     name = '${ecu.name} per ${mu.singular} ${sau.singular}';
@@ -60,7 +57,7 @@ class RadianceUnits extends Radiance with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Radiance;
 

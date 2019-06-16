@@ -21,7 +21,7 @@ final TemperatureUnits Fahrenheit = new TemperatureUnits(
 /// Rankine scale units.
 // ignore:non_constant_identifier_names
 final TemperatureUnits Rankine =
-    new TemperatureUnits('degrees Rankine', 'deg R', null, 'degree Rankine', fiveNinths, false, 0.0);
+    new TemperatureUnits('degrees Rankine', 'deg R', null, 'degree Rankine', fiveNinths, false, 0);
 
 /// Degrees in the Fahrenheit scale.
 final TemperatureIntervalUnits degreesFahrenheit =
@@ -41,4 +41,4 @@ final TemperatureIntervalUnits degR = degreesRankine;
 
 /// Contemporary models of physical cosmology postulate that the highest possible temperature is the Planck temperature.
 const Temperature planckTemperature =
-    const Temperature.constant(const Double.constant(1.416808e32), uncert: 2.329179394808612e-5);
+    const Temperature.constant(const Double.constant(1.416784e32), uncert: 0.000011293182305841964);

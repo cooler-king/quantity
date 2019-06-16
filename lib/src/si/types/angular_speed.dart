@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The rate of change of an angle.
-///
 /// See the [Wikipedia entry for Angular_velocity](https://en.wikipedia.org/wiki/Angular_velocity)
 /// for more information.
-///
 class AngularSpeed extends Quantity {
   /// Construct an AngularSpeed with either radians per second or degrees per second.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   AngularSpeed({dynamic radiansPerSecond, dynamic degreesPerSecond, double uncert = 0.0})
       : super(radiansPerSecond ?? (degreesPerSecond ?? 0.0),
             degreesPerSecond != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
@@ -18,26 +14,25 @@ class AngularSpeed extends Quantity {
 
   /// Constructs a AngularSpeed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   AngularSpeed.inUnits(dynamic value, AngularSpeedUnits units, [double uncert = 0.0])
       : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
 
+  /// Constructs a constant AngularSpeed.
   const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits units, double uncert = 0.0})
       : super.constant(valueSI, AngularSpeed.angularSpeedDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions angularSpeedDimensions =
       const Dimensions.constant(const <String, int>{'Angle': 1, 'Time': -1}, qType: AngularSpeed);
 
-  /// The standard SI unit
+  /// The standard SI unit.
   static final AngularSpeedUnits radiansPerSecond = new AngularSpeedUnits.angleTime(Angle.radians, Time.seconds);
 
-  /// Accepted for use with the SI
+  /// Accepted for use with the SI.
   static final AngularSpeedUnits degreesPerSecond = new AngularSpeedUnits.angleTime(Angle.degrees, Time.seconds);
 }
 
 /// Units acceptable for use in describing AngularSpeed quantities.
-///
 class AngularSpeedUnits extends AngularSpeed with Units {
   /// Constructs a new instance.
   AngularSpeedUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -63,7 +58,7 @@ class AngularSpeedUnits extends AngularSpeed with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => AngularSpeed;
 

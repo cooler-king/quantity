@@ -2,10 +2,13 @@ part of number;
 
 /// Wraps Dart's core [double] type, so that it can share a common base type with other [Number]s.
 class Double extends Real {
+  /// Constructs a new instance.
   Double(this._value);
 
+  /// Constructs a constant Double.
   const Double.constant(this._value) : super.constant();
 
+  /// Constructs a new instance from an integer value.
   Double.fromInt(int val) : _value = val.toDouble();
 
   /// Construct an Double from a Map:
@@ -13,21 +16,33 @@ class Double extends Real {
   ///
   /// If the map contents are not recognized, [Double.zero] is returned.
   factory Double.fromMap(Map<String, num> m) {
-    if (m?.containsKey('d') == true) {
-      return new Double(m['d']?.toDouble() ?? 0.0);
-    }
+    if (m?.containsKey('d') == true) return new Double(m['d']?.toDouble() ?? 0.0);
     return Double.zero;
   }
   final double _value;
 
+  /// Zero as a Double.
   static const Double zero = const Double.constant(0);
+
+  /// One as a Double.
   static const Double one = const Double.constant(1);
+
+  /// Ten as a Double.
   static const Double ten = const Double.constant(10);
+
+  /// One hundred as a Double.
   static const Double hundred = const Double.constant(100);
+
+  /// One thousand as a Double.
   static const Double thousand = const Double.constant(1000);
+
+  /// Infinity as a Double.
   static const Double infinity = const Double.constant(double.infinity);
+
+  /// Negative infinity as a Double.
   static const Double negInfinity = const Double.constant(double.negativeInfinity);
 
+  /// Not a number as a Double.
   // ignore: constant_identifier_names
   static const Double NaN = const Double.constant(double.nan);
 
@@ -51,7 +66,7 @@ class Double extends Real {
 
   @override
   bool operator ==(dynamic obj) {
-    if (obj == polyfill_core.double.nan) return value == polyfill_core.double.nan;
+    if (obj == double.nan) return value == double.nan;
     if (obj is Real || obj is num) return obj == value;
     if (obj is Imaginary) return value == 0.0 && obj.value?.toDouble() == 0.0;
     if (obj is Complex) return obj.real?.toDouble() == value && obj.imaginary?.toDouble() == 0.0;

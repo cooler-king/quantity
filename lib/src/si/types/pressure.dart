@@ -4,15 +4,11 @@ part of quantity_si;
 
 /// Force applied perpendicular to the surface of an object per unit area
 /// over which that force is distributed.
-///
 /// See the [Wikipedia entry for Pressure](https://en.wikipedia.org/wiki/Pressure)
 /// for more information.
-///
 class Pressure extends Quantity {
-  /// Construct a pressure with pascals ([Pa]) or [bars].
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a pressure with pascals ([Pa]) or [bars].
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Pressure({dynamic Pa, dynamic bars, double uncert = 0.0})
       : super(Pa ?? (bars ?? 0.0), bars != null ? Pressure.bars : Pressure.pascals, uncert);
@@ -21,14 +17,14 @@ class Pressure extends Quantity {
 
   /// Constructs a Pressure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Pressure.inUnits(dynamic value, PressureUnits units, [double uncert = 0.0])
       : super(value, units ?? Pressure.pascals, uncert);
 
+  /// Constructs a constant Pressure.
   const Pressure.constant(Number valueSI, {PressureUnits units, double uncert = 0.0})
       : super.constant(valueSI, Pressure.pressureDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions pressureDimensions =
       const Dimensions.constant(const <String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: Pressure);
 
@@ -40,8 +36,8 @@ class Pressure extends Quantity {
 }
 
 /// Units acceptable for use in describing Pressure quantities.
-///
 class PressureUnits extends Pressure with Units {
+  /// Constructs a new instance.
   PressureUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -54,6 +50,7 @@ class PressureUnits extends Pressure with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from force and area units.
   PressureUnits.forceArea(ForceUnits fu, AreaUnits au) : super._internal(fu.valueSI * au.valueSI) {
     name = '${fu.name} per ${au.singular}';
     singular = '${fu.singular} per ${au.singular}';

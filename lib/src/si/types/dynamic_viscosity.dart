@@ -2,15 +2,11 @@ part of quantity_si;
 
 /// A measure of a fluid's resistance to gradual deformation by shear stress or
 /// tensile stress.
-///
 /// See the [Wikipedia entry for Viscosity](https://en.wikipedia.org/wiki/Viscosity)
 /// for more information.
-///
 class DynamicViscosity extends Quantity {
-  /// Construct a DynamicViscosity with pascal seconds ([Pas]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a DynamicViscosity with pascal seconds ([Pas]).
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   DynamicViscosity({dynamic Pas, double uncert = 0.0}) : super(Pas ?? 0.0, DynamicViscosity.pascalSeconds, uncert);
 
@@ -18,14 +14,14 @@ class DynamicViscosity extends Quantity {
 
   /// Constructs a DynamicViscosity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   DynamicViscosity.inUnits(dynamic value, DynamicViscosityUnits units, [double uncert = 0.0])
       : super(value, units ?? DynamicViscosity.pascalSeconds, uncert);
 
+  /// Constructs a constant DynamicViscosity.
   const DynamicViscosity.constant(Number valueSI, {DynamicViscosityUnits units, double uncert = 0.0})
       : super.constant(valueSI, DynamicViscosity.dynamicViscosityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions dynamicViscosityDimensions =
       const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': -1, 'Time': -1}, qType: DynamicViscosity);
 
@@ -33,12 +29,11 @@ class DynamicViscosity extends Quantity {
   static final DynamicViscosityUnits pascalSeconds =
       new DynamicViscosityUnits.pressureTime(Pressure.pascals, Time.seconds);
 
-  /// Another name for [pascalSeconds]
+  /// Another name for [pascalSeconds].
   static final DynamicViscosityUnits poiseuille = pascalSeconds;
 }
 
 /// Units acceptable for use in describing DynamicViscosity quantities.
-///
 class DynamicViscosityUnits extends DynamicViscosity with Units {
   /// Constructs a new instance.
   DynamicViscosityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

@@ -2,15 +2,11 @@ part of quantity_si;
 
 /// A measure of the quantity of rotation of a system of matter, taking into account its mass,
 /// rotations, motions and shape.
-///
 /// See the [Wikipedia entry for Angular momentum](https://en.wikipedia.org/wiki/Angular_momentum)
 /// for more information.
-///
 class AngularMomentum extends Quantity {
   /// Construct an AngularMomentum with joule seconds ([Js]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   AngularMomentum({dynamic Js, double uncert = 0.0}) : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
 
@@ -18,10 +14,10 @@ class AngularMomentum extends Quantity {
 
   /// Constructs a AngularMomentum based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   AngularMomentum.inUnits(dynamic value, AngularMomentumUnits units, [double uncert = 0.0])
       : super(value, units ?? AngularMomentum.jouleSecond, uncert);
 
+  /// Constructs a constant AngularMomentum.
   const AngularMomentum.constant(Number valueSI, {AngularMomentumUnits units, double uncert = 0.0})
       : super.constant(valueSI, AngularMomentum.angularMometumDimensions, units, uncert);
 
@@ -29,12 +25,11 @@ class AngularMomentum extends Quantity {
   static const Dimensions angularMometumDimensions =
       const Dimensions.constant(const <String, int>{'Angle': 1, 'Length': 1, 'Time': -1}, qType: AngularMomentum);
 
-  /// The standard SI unit
+  /// The standard SI unit.
   static final AngularMomentumUnits jouleSecond = new AngularMomentumUnits.energyTime(Energy.joules, Time.seconds);
 }
 
 /// Units acceptable for use in describing AngularMomentum quantities.
-///
 class AngularMomentumUnits extends AngularMomentum with Units {
   /// Constructs a new instance.
   AngularMomentumUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

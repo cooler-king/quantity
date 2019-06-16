@@ -10,13 +10,10 @@ part of quantity_si;
 ///
 /// See the [Wikipedia entry for Time](https://en.wikipedia.org/wiki/Time)
 /// for more information.
-///
 class Time extends Quantity {
-  /// Construct a Time with seconds ([s]), milliseconds ([ms]), nanoseconds ([ns]), mean solar days ([d]), mean solar hours ([h])
+  /// Constructs a Time with seconds ([s]), milliseconds ([ms]), nanoseconds ([ns]), mean solar days ([d]), mean solar hours ([h])
   /// or mean solar minutes ([min]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   Time({dynamic s, dynamic ms, dynamic ns, dynamic d, dynamic h, dynamic min, double uncert = 0.0})
       : super(
             s ?? (ms ?? (ns ?? (d ?? (h ?? (min ?? 0.0))))),
@@ -33,66 +30,63 @@ class Time extends Quantity {
 
   /// Constructs a Time based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Time.inUnits(dynamic value, TimeUnits units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
 
+  /// Constructs a constant Time.
   const Time.constant(Number valueSI, {TimeUnits units, double uncert = 0.0})
       : super.constant(valueSI, Time.timeDimensions, units, uncert);
 
-  /// Construct a Time object from an existing dart:core Duration object.
-  ///
+  /// Constructs a Time object from an existing dart:core Duration object.
   Time.fromDuration(Duration d) : super((d != null) ? d.inMicroseconds.toDouble() / 1.0e6 : 0.0, Time.seconds);
 
   /// Dimensions for this type of quantity
   static const Dimensions timeDimensions = const Dimensions.constant(const <String, int>{'Time': 1}, qType: Time);
 
-  // units
+  // Units.
 
-  /// the standard SI unit
+  /// The standard SI unit.
   static final TimeUnits seconds = new TimeUnits('seconds', 'sec', 's', null, Double.one, true);
 
-  /// accepted for use with the SI
+  /// Accepted for use with the SI.
+  // ignore: prefer_int_literals
   static final TimeUnits daysMeanSolar = new TimeUnits('days', 'days', 'd', null, const Double.constant(8.64e4), false);
 
-  /// accepted for use with the SI
-  static final TimeUnits hoursMeanSolar =
-      new TimeUnits('hours', 'hrs', 'h', null, const Double.constant(3.60e3), false);
+  /// Accepted for use with the SI.
+  static final TimeUnits hoursMeanSolar = new TimeUnits('hours', 'hrs', 'h', null, const Double.constant(3600), false);
 
-  /// accepted for use with the SI
+  /// Accepted for use with the SI.
   static final TimeUnits minutesMeanSolar =
-      new TimeUnits('minutes', 'minutes', 'min', null, const Double.constant(6.0e1), false);
+      new TimeUnits('minutes', 'minutes', 'min', null, const Double.constant(60), false);
 
-  // common metric derivations
+  // Common metric derivations.
 
-  /// one thousandth of a second
+  /// One thousandth of a second.
   static final TimeUnits milliseconds = Time.seconds.milli() as TimeUnits;
 
-  /// one millionth of a second
+  /// One millionth of a second.
   static final TimeUnits microseconds = Time.seconds.micro() as TimeUnits;
 
-  /// one billionth of a second
+  /// One billionth of a second.
   static final TimeUnits nanoseconds = Time.seconds.nano() as TimeUnits;
 
-  // convenience units
+  // Convenience units.
 
-  /// accepted for use with the SI
+  /// Accepted for use with the SI.
   static final TimeUnits minutes = minutesMeanSolar;
 
-  /// accepted for use with the SI
+  /// Accepted for use with the SI.
   static final TimeUnits hours = hoursMeanSolar;
 
-  /// accepted for use with the SI
+  /// Accepted for use with the SI.
   static final TimeUnits days = daysMeanSolar;
 
   /// Create a dart:core Duration object with the same time interval as this
   /// Time object, to microsecond precision (the maximum precision of the
   /// Duration object).
-  ///
   Duration toDuration() => new Duration(microseconds: (valueSI.toDouble() * 1000000.0).round());
 }
 
 /// Units acceptable for use in describing [Time] quantities.
-///
 class TimeUnits extends Time with Units {
   /// Constructs a new instance.
   TimeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -107,7 +101,7 @@ class TimeUnits extends Time with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Time;
 

@@ -8,7 +8,7 @@ part of quantity_si;
 class AbsorbedDoseRate extends Quantity {
   /// Construct an AbsorbedDoseRate with either grays per second or rads per second.
   ///
-  /// Optionally specify a relative standard [uncert]ainty.
+  /// Optionally specify a relative standard uncertainty.
   ///
   AbsorbedDoseRate({dynamic graysPerSecond, dynamic radsPerSecond, double uncert = 0.0})
       : super(graysPerSecond ?? (radsPerSecond ?? 0.0),
@@ -22,7 +22,7 @@ class AbsorbedDoseRate extends Quantity {
   AbsorbedDoseRate.inUnits(dynamic value, AbsorbedDoseRateUnits units, [double uncert = 0.0])
       : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert);
 
-  /// Construct a constant AbsorbedDoseRate with its SI value.
+  /// Constructs a constant AbsorbedDoseRate with its SI value.
   const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, double uncert = 0.0})
       : super.constant(valueSI, AbsorbedDoseRate.absorbedDoseRateDimensions, units, uncert);
 

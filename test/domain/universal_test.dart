@@ -1,4 +1,4 @@
-import 'package:dart2_constant/math.dart' as polyfill_math;
+import 'dart:math';
 import 'package:test/test.dart';
 import 'package:quantity/domain/universal.dart';
 
@@ -11,8 +11,8 @@ void main() {
       expect(speedOfLightVacuum is Speed, true);
       expect(speedOfLightVacuum.valueSI.toDouble(), 2.99792458e8);
 
-      expect(magneticConstant is Permeability, true);
-      expect(magneticConstant.valueSI.toDouble(), 4.0e-7 * polyfill_math.pi);
+      expect(vacuumMagneticPermeability is Permeability, true);
+      expect(vacuumMagneticPermeability.valueSI.toDouble(), 4.0e-7 * pi);
 
       expect(planckConstant is AngularMomentum, true);
       expect(planckConstant.valueSI.toDouble(), 6.626070040e-34);
@@ -32,8 +32,8 @@ void main() {
       expect(planckTime is Time, true);
       expect(planckTime.valueSI.toDouble(), 5.39116e-44);
 
-      expect(electricConstant is Permittivity, true);
-      expect(electricConstant.valueSI.toDouble(), 8.854187817e-12);
+      expect(vacuumElectricPermittivity is Permittivity, true);
+      expect(vacuumElectricPermittivity.valueSI.toDouble(), 8.854187817e-12);
 
       expect(newtonianConstantOfGravitation is MiscQuantity, true);
       expect(newtonianConstantOfGravitation.valueSI.toDouble(), 6.67408e-11);
@@ -45,9 +45,9 @@ void main() {
     test('synonyms', () {
       expect(c, speedOfLightVacuum);
       expect(c0, c);
-      expect(mu0, magneticConstant);
-      expect(eps0 == magneticConstant, false);
-      expect(eps0, electricConstant);
+      expect(mu0, vacuumMagneticPermeability);
+      expect(eps0 == vacuumMagneticPermeability, false);
+      expect(eps0, vacuumElectricPermittivity);
       expect(Z0, characteristicImpedanceOfVacuum);
       expect(G, newtonianConstantOfGravitation);
       expect(h, planckConstant);

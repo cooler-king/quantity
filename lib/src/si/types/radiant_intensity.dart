@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The radiant flux emitted, reflected, transmitted or received, per unit solid angle.
-///
 /// See the [Wikipedia entry for Radiant intensity](https://en.wikipedia.org/wiki/Radiant_intensity)
 /// for more information.
-///
 class RadiantIntensity extends Quantity {
-  /// Construct a RadiantIntensity with watts per steradian.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a RadiantIntensity with watts per steradian.
+  /// Optionally specify a relative standard uncertainty.
   RadiantIntensity({dynamic wattsPerSteradian, double uncert = 0.0})
       : super(wattsPerSteradian ?? 0.0, RadiantIntensity.wattsPerSteradian, uncert);
 
@@ -17,14 +13,14 @@ class RadiantIntensity extends Quantity {
 
   /// Constructs a RadiantIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   RadiantIntensity.inUnits(dynamic value, RadiantIntensityUnits units, [double uncert = 0.0])
       : super(value, units ?? RadiantIntensity.wattsPerSteradian, uncert);
 
+  /// Constructs a constant RadiantIntensity.
   const RadiantIntensity.constant(Number valueSI, {RadiantIntensityUnits units, double uncert = 0.0})
       : super.constant(valueSI, RadiantIntensity.radiantIntensityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions radiantIntensityDimensions = const Dimensions.constant(
       const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3, 'Solid Angle': -1},
       qType: RadiantIntensity);
@@ -35,7 +31,6 @@ class RadiantIntensity extends Quantity {
 }
 
 /// Units acceptable for use in describing RadiantIntensity quantities.
-///
 class RadiantIntensityUnits extends RadiantIntensity with Units {
   /// Constructs a new instance.
   RadiantIntensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -62,7 +57,7 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => RadiantIntensity;
 

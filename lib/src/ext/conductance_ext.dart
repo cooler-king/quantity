@@ -17,5 +17,4 @@ final ConductanceUnits abmho = Conductance.siemens.giga() as ConductanceUnits;
 /// It appears when measuring the conductance of a quantum point contact, and, more generally,
 /// is a key component of Landauer formula which relates the electrical conductance of a quantum
 /// conductor to its quantum properties.
-const Conductance conductanceQuantum =
-    const Conductance.constant(const Double.constant(7.7480917310e-5), uncert: 2.3231526709966877e-10);
+const Conductance conductanceQuantum = const Conductance.constant(const Double.constant(7.748091729e-5));

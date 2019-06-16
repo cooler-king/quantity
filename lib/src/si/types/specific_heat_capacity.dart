@@ -3,15 +3,11 @@ part of quantity_si;
 // Also SpecificEntropy
 
 /// The heat capacity per unit mass of a material.
-///
 /// See the [Wikipedia entry for Heat capacity](https://en.wikipedia.org/wiki/Heat_capacity)
 /// for more information.
-///
 class SpecificHeatCapacity extends Quantity {
-  /// Construct a SpecificHeatCapacity with joules per kilogram kelvin.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a SpecificHeatCapacity with joules per kilogram kelvin.
+  /// Optionally specify a relative standard uncertainty.
   SpecificHeatCapacity({dynamic joulesPerKilogramKelvin, double uncert = 0.0})
       : super(joulesPerKilogramKelvin ?? 0.0, SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
@@ -20,14 +16,14 @@ class SpecificHeatCapacity extends Quantity {
 
   /// Constructs a SpecificHeatCapacity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   SpecificHeatCapacity.inUnits(dynamic value, SpecificHeatCapacityUnits units, [double uncert = 0.0])
       : super(value, units ?? SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
+  /// Constructs a constant SpecificHeatCapacity.
   const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits units, double uncert = 0.0})
       : super.constant(valueSI, SpecificHeatCapacity.specificHeatCapacityDimensions, units, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions specificHeatCapacityDimensions = const Dimensions.constant(
       const <String, int>{'Length': 2, 'Time': -2, 'Temperature': -1},
       qType: SpecificHeatCapacity);
@@ -38,8 +34,8 @@ class SpecificHeatCapacity extends Quantity {
 }
 
 /// Units acceptable for use in describing SpecificHeatCapacity quantities.
-///
 class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
+  /// Constructs a new instance.
   SpecificHeatCapacityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super._internal(conv) {
@@ -52,6 +48,7 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
     this.offset = offset.toDouble();
   }
 
+  /// Constructs a new instance from energy, mass and temperature interval units.
   SpecificHeatCapacityUnits.energyMassTemperature(EnergyUnits eu, MassUnits mu, TemperatureIntervalUnits tu)
       : super._internal(eu.valueSI / (mu.valueSI * tu.valueSI)) {
     name = '${eu.name} per ${mu.singular} ${tu.singular}';
@@ -63,7 +60,7 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => SpecificHeatCapacity;
 

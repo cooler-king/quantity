@@ -98,7 +98,7 @@ class Dimensions {
       if (_dimensionMap.keys.length != d2._dimensionMap.keys.length) return false;
 
       // Check Values
-      for (String key in _dimensionMap.keys) {
+      for (final String key in _dimensionMap.keys) {
         if (!d2._dimensionMap.containsKey(key) || (_dimensionMap[key] != d2._dimensionMap[key])) return false;
       }
 
@@ -195,7 +195,7 @@ class Dimensions {
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (String key in other._dimensionMap.keys) {
+    for (final String key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       newValue = otherValue + myValue;
@@ -228,7 +228,7 @@ class Dimensions {
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (String key in other._dimensionMap.keys) {
+    for (final String key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       if (myValue == null) {
@@ -255,7 +255,7 @@ class Dimensions {
   /// (time: +1).
   Dimensions inverse() {
     final Map<String, num> invertedMap = <String, num>{};
-    for (String t in _dimensionMap.keys) {
+    for (final String t in _dimensionMap.keys) {
       final num value = _dimensionMap[t];
       if (value != null) invertedMap[t] = value * -1;
     }
@@ -276,7 +276,7 @@ class Dimensions {
 
     final List<String> keysToRemove = <String>[];
     num value;
-    for (String k in result._dimensionMap.keys) {
+    for (final String k in result._dimensionMap.keys) {
       value = result._dimensionMap[k];
       if (value != null && value != 0) {
         result._dimensionMap[k] = value * exp;
@@ -467,7 +467,7 @@ class Dimensions {
   String toString() {
     final StringBuffer buffer = (new StringBuffer())..write(' Dimensions [');
     bool first = true;
-    for (String t in _dimensionMap.keys) {
+    for (final String t in _dimensionMap.keys) {
       if (!first) {
         buffer.write('; ');
       } else {

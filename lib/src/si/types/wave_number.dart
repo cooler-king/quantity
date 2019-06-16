@@ -1,15 +1,11 @@
 part of quantity_si;
 
 /// The spatial frequency of a wave.
-///
 /// See the [Wikipedia entry for Wavenumber](https://en.wikipedia.org/wiki/Wavenumber)
 /// for more information.
-///
 class WaveNumber extends Quantity {
-  /// Construct a WaveNumber with reciprocal meters.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a WaveNumber with reciprocal meters.
+  /// Optionally specify a relative standard uncertainty.
   WaveNumber({dynamic reciprocalMeters, double uncert = 0.0})
       : super(reciprocalMeters ?? 0.0, WaveNumber.reciprocalMeters, uncert);
 
@@ -17,10 +13,10 @@ class WaveNumber extends Quantity {
 
   /// Constructs a WaveNumber based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   WaveNumber.inUnits(dynamic value, WaveNumberUnits units, [double uncert = 0.0])
       : super(value, units ?? WaveNumber.reciprocalMeters, uncert);
 
+  /// Constructs a constant WaveNumber.
   const WaveNumber.constant(Number valueSI, {WaveNumberUnits units, double uncert = 0.0})
       : super.constant(valueSI, WaveNumber.waveNumberDimensions, units, uncert);
 
@@ -33,7 +29,6 @@ class WaveNumber extends Quantity {
 }
 
 /// Units acceptable for use in describing WaveNumber quantities.
-///
 class WaveNumberUnits extends WaveNumber with Units {
   /// Constructs a new instance.
   WaveNumberUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

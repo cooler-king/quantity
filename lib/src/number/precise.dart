@@ -14,7 +14,7 @@ part of number;
 /// point values, is 2^53, or 9007199254740992, and the maximum number of significant digits as a result is 16.
 ///
 class Precise extends Real {
-  /// Construct an arbitrary precision number from a string.
+  /// Constructs an arbitrary precision number from a string.
   ///
   /// The precision can be limited by providing the maximum number of significant digits
   /// (default is 50).
@@ -44,7 +44,7 @@ class Precise extends Real {
     for (int index = endParseIndex; index > -1; index--) {
       char = str[index];
 
-      // Ignore one decimal
+      // Ignore one decimal.
       if (char == '.') {
         if (!decimalPoint) {
           decimalPoint = true;
@@ -63,9 +63,13 @@ class Precise extends Real {
     _limitPrecision();
   }
 
+  /// Constructs a Precise number equal to [value].
+  /// The number of significant digits defaults to 50 but may be specified.
   factory Precise.num(num value, {int sigDigits = 50}) =>
       value != null ? new Precise(value.toString(), sigDigits: sigDigits) : Precise.zero;
 
+  /// Constructs a Precise number, applying the values found in map [m].
+  /// See `toJson` for the expected format.
   factory Precise.fromMap(Map<String, String> m) =>
       m?.containsKey('precise') ?? false ? new Precise(m['precise']) : Precise.zero;
 
@@ -80,8 +84,7 @@ class Precise extends Real {
   ///
   /// For a negative number set [neg] to true.
   ///
-  /// Default [precision] is 50 digits.
-  ///
+  /// The default precision is 50 significant digits.
   Precise.raw(List<Digit> digits, {int power = 0, bool neg = false, int sigDigits = 50}) {
     _precision = sigDigits;
     if (digits?.isNotEmpty == true) {
@@ -97,42 +100,38 @@ class Precise extends Real {
     _limitPrecision();
   }
 
+  /// Zero as a Precise number.
   static final Precise zero = new Precise('0');
+
+  /// One as a Precise number.
   static final Precise one = new Precise('1');
 
   /// The digits of the arbitrary precision number are represented as a list of Digit objects,
   /// lowest significant digit to most significant digit.
   final List<Digit> _digits = <Digit>[];
 
+  /// The offset of the decimal point.
+  int get power => _power;
   int _power = 0;
 
-  /// Flag for negative values
+  /// Flag for negative values.
   bool _neg = false;
 
-  /// Optional precision cutoff (maximum number of significant digits allowed)
-  int _precision;
-
-  /// Returns a copy of the internal digits list, from least significant to most.
-  ///
-  List<Digit> get digits => new List<Digit>.from(_digits);
-
-  int get power => _power;
-
+  /// Optional precision cutoff (maximum number of significant digits allowed).
   int get precision => _precision;
-
-  /// Limit the precision to a maximum number of significant digits.
-  ///
+  int _precision;
   set precision(int sigDigits) {
     _precision = sigDigits ?? 50;
     _limitPrecision();
   }
 
+  /// Returns a copy of the internal digits list, from least significant to most.
+  List<Digit> get digits => new List<Digit>.from(_digits);
+
   /// If the specified precision is lower than the number of digits,
   /// truncates the digits and adjusts the power accordingly.
-  ///
   /// Rounds the new least significant digit based on the
   /// most significant truncated digit.
-  ///
   void _limitPrecision() {
     if (_digits.length > (_precision ?? 50)) {
       final int numCull = _digits.length - _precision;
@@ -174,7 +173,7 @@ class Precise extends Real {
     if (_power >= 0) return true;
 
     // Check for case where decimal portion is equal to 0
-    for (Digit d in digits.sublist(0, _power.abs())) {
+    for (final Digit d in digits.sublist(0, _power.abs())) {
       if (d != Digit.zero) return false;
     }
     return true;
@@ -242,7 +241,6 @@ class Precise extends Real {
   }
 
   /// Subtraction operator.
-  ///
   @override
   Precise operator -(dynamic subtrahend) {
     final Precise preciseSubtrahend = toPrecise(subtrahend);
@@ -254,12 +252,7 @@ class Precise extends Real {
     }
 
     // Flip operation if subtrahend is greater
-    if (preciseSubtrahend.abs() > abs()) {
-      return -(preciseSubtrahend - this);
-      //Precise p = (subtrahend - this);
-      //if (_neg) return new Precise.raw(p._digits, power: p._power, neg: false);
-      //return p;
-    }
+    if (preciseSubtrahend.abs() > abs()) return -(preciseSubtrahend - this);
 
     // Subtrahend is lesser; safe to borrow
     final List<int> placeExtents = determinePlaceExtents(this, preciseSubtrahend);
@@ -283,7 +276,6 @@ class Precise extends Real {
   }
 
   /// Multiplication operator.
-  ///
   @override
   Precise operator *(dynamic multiplier) {
     final Precise preciseMultiplier = toPrecise(multiplier);
@@ -417,7 +409,6 @@ class Precise extends Real {
   }
 
   /// If an integer value, returns the same hash as an [int] with the same value.
-  ///
   /// If not an integer value, uses the hashing utility from the quiver package to
   /// create a high quality hash based on the digits, sign and power.
   @override
@@ -466,7 +457,6 @@ class Precise extends Real {
   }
 
   /// Power operator.
-  ///
   @override
   Number operator ^(dynamic exponent) {
     if (toDouble() == 0) {
@@ -501,7 +491,6 @@ class Precise extends Real {
   }
 
   /// Converts a num, Number or String into a Precise object.
-  ///
   Precise toPrecise(dynamic obj) {
     if (obj is Precise) return obj;
     if (obj is num) return new Precise.num(obj);
@@ -510,7 +499,6 @@ class Precise extends Real {
   }
 
   /// Greater than or equals operator.
-  ///
   @override
   bool operator >=(dynamic other) => !(this < other);
 
@@ -586,10 +574,8 @@ class Precise extends Real {
   Precise remainder(dynamic divisor) => this - ((this ~/ divisor) * divisor);
 
   /// Returns the Precise integer value closest to this Precise value.
-  ///
   /// Rounds away from zero when there is no closest integer:
   /// (3.5).round() == 4 and (-3.5).round() == -4.
-  ///
   @override
   Precise round() {
     if (isInteger) return this;
@@ -619,8 +605,7 @@ class Precise extends Real {
   static List<int> determinePlaceExtents(Precise p1, Precise p2) =>
       <int>[min(p1._power, p2._power), max(p1._power + p1._digits.length - 1, p2._power + p2._digits.length - 1)];
 
-  /// Remove any most-significant zeros more than one place away from the
-  /// decimal point.
+  /// Remove any most-significant zeros more than one place away from the decimal point.
   void _trimLeadingZeros() {
     while (_digits.length > 1 && _digits.last == Digit.zero && _digits.length > (1 - _power)) {
       _digits.removeLast();
@@ -629,38 +614,61 @@ class Precise extends Real {
 }
 
 /// Represents a digit in four bits of a single byte.
-///
 /// This wastes four bits but that's a decent trade-off for simplicity and better
 /// anyway than the 4+ bytes allocated for a regular int.
 class Digit {
+  /// Constructs a new digit that matches the value of [num].
   Digit(int num) {
     if (num == null) throw new Exception('Digit cannot be constructed with null');
-    if (num > 9 || num < 0) throw new Exception('Digit must be between 0 and 9');
+    if (num > 9 || num < 0) throw new Exception('Digit must be between 0 and 9, inclusive');
     value.setUint8(0, num);
   }
 
+  /// Constructs a new digit from the character representing the digit.
   factory Digit.char(String digitChar) {
     if (digitChar == null) throw new Exception('Digit cannot be constructed with null character');
     if (digitChar.length != 1) throw new Exception('Digit must be constructed with a single character');
     return new Digit(digitChar.codeUnitAt(0) - codeUnit0);
   }
 
+  /// The digit 0.
   static final Digit zero = new Digit(0);
+
+  /// The digit 1.
   static final Digit one = new Digit(1);
+
+  /// The digit 2.
   static final Digit two = new Digit(2);
+
+  /// The digit 3.
   static final Digit three = new Digit(3);
+
+  /// The digit 4.
   static final Digit four = new Digit(4);
+
+  /// The digit 5.
   static final Digit five = new Digit(5);
+
+  /// The digit 6.
   static final Digit six = new Digit(6);
+
+  /// The digit 7.
   static final Digit seven = new Digit(7);
+
+  /// The digit 8.
   static final Digit eight = new Digit(8);
+
+  /// The digit 9.
   static final Digit nine = new Digit(9);
 
+  /// A list of all the digits, ordered 0 through 9.
   static final List<Digit> list =
       new List<Digit>.unmodifiable(<Digit>[zero, one, two, three, four, five, six, seven, eight, nine]);
 
+  /// The  UTF-16 code unit of '0'.
   static final int codeUnit0 = '0'.codeUnitAt(0);
 
+  /// Holds the value of the digit in a single byte.
   final ByteData value = new ByteData(1);
 
   @override
@@ -677,14 +685,17 @@ class Digit {
   /// Adds two digits together, returning the result as an [int].
   int operator +(Digit addend) => toInt() + (addend?.toInt() ?? 0);
 
-  /// Subtracts [subtrahend] from this Digit, returning the result as an `int`.
+  /// Subtracts [subtrahend] from this digit, returning the result as an `int`.
   /// The result may be negative.
   int operator -(Digit subtrahend) => toInt() - subtrahend.toInt();
 
+  /// Tests whether this digit is less than [other].
   bool operator <(Digit other) => toInt() < (other?.toInt() ?? 0);
 
+  /// Tests whether this digit is greater than [other].
   bool operator >(Digit other) => toInt() > (other?.toInt() ?? 0);
 
+  /// Returns the integer equivalent of this digit.
   int toInt() => value.getUint8(0);
 
   @override
