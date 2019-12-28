@@ -273,14 +273,21 @@ Iterable<Type> get allQuantityTypes => _typeInstantiatorMap.keys;
 /// [value] in [units].
 ///
 /// If type [t] is not recognized a [MiscQuantity] with [value] and the dimensions
-/// of [units] will be created and returned instead.
+/// of [units] will be created and returned instead.  If units are null and the
+/// the type is not recognized, then [dimensions] must be provided in order to
+/// construct a MiscQuantity.  A DimensionsException will be thrown if null units
+/// and null dimensions are detected for types that don't have an associated
+/// instantiator.
 ///
 /// The quantity's relative uncertainty can optionally be provided (defaults to 0).
-Quantity createTypedQuantityInstance(Type t, dynamic value, Units units, [double uncert = 0.0]) {
+Quantity createTypedQuantityInstance(Type t, dynamic value, Units units, {double uncert = 0.0, Dimensions dimensions}) {
   final Function quantityInstantiator = _typeInstantiatorMap[t];
   if (quantityInstantiator != null)
     return Function.apply(quantityInstantiator, <dynamic>[value, units, uncert]) as Quantity;
 
   // Fall back to MiscQuantity.
-  return new MiscQuantity(value, (units as Quantity).dimensions, uncert);
+  if (units == null && dimensions == null)
+    throw new DimensionsException(
+        'Dimensions must be provided if units are not when creating an instance of an unrecognized quantity type');
+  return new MiscQuantity(value, (units as Quantity)?.dimensions, uncert);
 }

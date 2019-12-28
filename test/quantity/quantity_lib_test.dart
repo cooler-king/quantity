@@ -37,7 +37,7 @@ void main() {
       expect(q.relativeUncertainty, 0.0);
 
       // uncertainty
-      q = createTypedQuantityInstance(Length, 23.45, Length.meters, 0.015);
+      q = createTypedQuantityInstance(Length, 23.45, Length.meters, uncert: 0.015);
       expect(q is Length, true);
       expect(q.valueSI.toDouble(), 23.45);
       expect(q.preferredUnits, Length.meters);
@@ -53,13 +53,13 @@ void main() {
           createTypedQuantityInstance(LuminousIntensity, 1.1, LuminousIntensity.candelas) is LuminousIntensity, true);
 
       expect(createTypedQuantityInstance(Scalar, 1.1, null) is Scalar, true);
-      expect(createTypedQuantityInstance(Angle, 1.1, Angle.degrees, 13.2) is Angle, true);
+      expect(createTypedQuantityInstance(Angle, 1.1, Angle.degrees, uncert: 13.2) is Angle, true);
       expect(createTypedQuantityInstance(SolidAngle, 1.1, null) is SolidAngle, true);
 
       final Random random = new Random();
       for (final Type t in allQuantityTypes) {
         try {
-          final Quantity q = createTypedQuantityInstance(t, 1.1, null, random.nextDouble() * 10.0);
+          final Quantity q = createTypedQuantityInstance(t, 1.1, null, uncert: random.nextDouble() * 10.0);
           expect(q != null, true);
           expect(q.runtimeType == t, true);
         } catch (err) {

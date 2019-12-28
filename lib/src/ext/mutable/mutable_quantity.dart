@@ -18,6 +18,13 @@ class MutableQuantity implements Quantity {
   /// Constructs a new instance, with optional SI-MKS value, dimensions and/or relative uncertainty.
   MutableQuantity([this._valueSI = Double.zero, this._dimensions = Scalar.scalarDimensions, this._ur = 0.0]);
 
+  /// Constructs a new instance from an existing Quantity.
+  MutableQuantity.from(Quantity q)
+      : _valueSI = q.valueSI,
+        _dimensions = q.dimensions,
+        _ur = q.relativeUncertainty,
+        preferredUnits = q.preferredUnits;
+
   // Value.
   @override
   Number get valueSI => _valueSI;
@@ -26,7 +33,7 @@ class MutableQuantity implements Quantity {
     if (value != _valueSI) {
       if (!mutable) throw new ImmutableQuantityException(q: this);
       _valueSI = objToNumber(value);
-      _onChange.add(this);
+      _onChange.add(snapshot);
     }
   }
 
@@ -38,7 +45,11 @@ class MutableQuantity implements Quantity {
     if (dim != _dimensions) {
       if (!mutable) throw new ImmutableQuantityException(q: this);
       _dimensions = dim;
-      _onChange.add(this);
+
+      // Any preferred units will no longer be valid.
+      preferredUnits = null;
+
+      _onChange.add(snapshot);
     }
   }
 
@@ -50,8 +61,7 @@ class MutableQuantity implements Quantity {
 
   /// Sets the relative standard uncertainty in this Quantity object's value.
   ///
-  /// - Will throw an ImmutableQuantityException (a RuntimeException) if this
-  ///   Quantity is in an immutable state.
+  /// - Will throw an ImmutableQuantityException if this Quantity is in an immutable state.
   /// - Relative standard uncertainty is defined as the standard uncertainty
   ///   divided by the absolute value of the quantity.  Standard uncertainty, in turn,
   ///   is defined as the uncertainty (of a measurement result) by an estimated
@@ -62,7 +72,7 @@ class MutableQuantity implements Quantity {
     if (value != _ur) {
       if (!mutable) throw new ImmutableQuantityException(q: this);
       _ur = value;
-      _onChange.add(this);
+      _onChange.add(snapshot);
     }
   }
 
@@ -73,9 +83,9 @@ class MutableQuantity implements Quantity {
   /// Mutability can be turned on and off (defaults to true).
   bool mutable = true;
 
-  /// Broadcasts the quantity whenever its value, dimensions or uncertainty changes.
-  Stream<MutableQuantity> get onChange => _onChange.stream;
-  final StreamController<MutableQuantity> _onChange = new StreamController<MutableQuantity>.broadcast();
+  /// Broadcasts a snapshot of quantity whenever its value, dimensions or uncertainty changes.
+  Stream<Quantity> get onChange => _onChange.stream;
+  final StreamController<Quantity> _onChange = new StreamController<Quantity>.broadcast();
 
   @override
   Number get mks => valueSI;
@@ -83,17 +93,12 @@ class MutableQuantity implements Quantity {
   /// Sets the [value] of this quantity in standard MKS (meter-kilogram-second) units.
   set mks(Number value) {
     if (!mutable) throw new ImmutableQuantityException(q: this);
-    if (value != valueSI) {
-      valueSI = value;
-
-      // Send new value over stream
-      _onChange.add(this);
-    }
+    if (value != valueSI) valueSI = value; // valueSI send the change event
   }
 
   /// Creates and returns an immutable typed [Quantity] that represents the value and
   /// uncertainty of this MutableQuantity at this moment.
-  Quantity get snapshot => //const MiscQuantity.constant(_valueSI, _dimensions, _preferredUnits, _ur);
+  Quantity get snapshot =>
       dimensions?.toQuantity(preferredUnits?.fromMks(valueSI) ?? valueSI, preferredUnits, _ur) ??
       new Scalar(value: valueSI, uncert: _ur);
 
@@ -136,7 +141,7 @@ class MutableQuantity implements Quantity {
       _valueSI = q2.valueSI;
       _dimensions = q2.dimensions;
       _ur = q2.relativeUncertainty;
-      _onChange.add(this);
+      _onChange.add(snapshot);
     }
 
     return this;
@@ -167,15 +172,16 @@ class MutableQuantity implements Quantity {
     // Determine ur.
     final Quantity ratio = su / this; // Scalar
     _ur = ratio.mks.toDouble();
-    _onChange.add(this);
+    _onChange.add(snapshot);
   }
 
   /// Sets the this Quantity's [value] in the specified [units]. The [value] is expected to
-  /// be a num or Number object.
+  /// be a num or Number object.  The [units] must match the current [dimensions] or a
+  /// [DimensionsException] will be thrown.
   void setValueInUnits(dynamic value, Units units) {
     if (!mutable) throw new ImmutableQuantityException(q: this);
 
-    // First check for compatible dimensions
+    // Check for compatible dimensions.
     if (units is Quantity && (units as Quantity).dimensions == dimensions) {
       valueSI = units.toMks(value);
     } else {
@@ -188,10 +194,7 @@ class MutableQuantity implements Quantity {
   Quantity abs() {
     if (!mutable) throw new ImmutableQuantityException(q: this);
     final Number n = valueSI.abs();
-    if (n != _valueSI) {
-      valueSI = n;
-      _onChange.add(this);
-    }
+    if (n != _valueSI) valueSI = n; // valueSI sends the change event
     return this;
   }
 
@@ -213,12 +216,16 @@ class MutableQuantity implements Quantity {
   @override
   bool operator ==(Object other) => hashCode == other.hashCode;
 
-  /// Inverts this MutableQuantity in place and returns itself.
+  /// Inverts this MutableQuantity, both value and dimensions, in place.
   void invert() {
     if (!mutable) throw new ImmutableQuantityException(q: this);
     _valueSI = valueSI.reciprocal();
     _dimensions = dimensions.inverse();
-    _onChange.add(this);
+
+    // Any preferred units will no longer be valid (except for Scalar).
+    if (dimensions != Scalar.scalarDimensions) preferredUnits = null;
+
+    _onChange.add(snapshot);
   }
 
   @override
@@ -240,8 +247,9 @@ class MutableQuantity implements Quantity {
   /// Negates the value of this MutableQuantity and returns a reference to itself.
   @override
   Quantity operator -() {
+    if (!mutable) throw new ImmutableQuantityException(q: this);
     _valueSI = -_valueSI;
-    _onChange.add(this);
+    _onChange.add(snapshot);
     return this;
   }
 
@@ -275,7 +283,7 @@ class MutableQuantity implements Quantity {
   /// Whether or not this Quantity has scalar dimensions, including having no angle or
   /// solid angle dimensions.
   ///
-  /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
+  /// Use [isScalarSI] to see if these Dimensions are scalar in the strict
   /// International System of Units (SI) sense, which allows non-zero angular and
   /// solid angular dimensions.
   @override
@@ -285,9 +293,12 @@ class MutableQuantity implements Quantity {
   /// International System of Units (SI) sense, which allows non-zero angle and
   /// solid angle dimensions.
   ///
-  /// Use `isScalarSI` to see if these Dimensions are scalar in the strict
-  /// International System of Units sense, which allows non-zero angular and
-  /// solid angular dimensions.
+  /// Use `isScalar` to see if these Dimensions are purely scalar, including having
+  /// no angular or solid angular dimensions.
   @override
   bool get isScalarSI => dimensions.isScalarSI;
+
+  /// Returns a String representation of a [snapshot] of this [MutableQuantity] .
+  @override
+  String toString() => snapshot.toString();
 }

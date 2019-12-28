@@ -186,12 +186,12 @@ class Dimensions {
   /// (1 + (-1) = 0).
   Dimensions operator *(Dimensions other) {
     // Return self if other is Scalar.
-    if (other._dimensionMap.isEmpty) return this;
+    if (other?._dimensionMap?.isNotEmpty != true) return this;
 
     // Copy.  Clear the type hint.
     final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
 
-    // Add other's dimensions to my dimensions
+    // Add other's dimensions to my dimensions.
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
@@ -434,30 +434,28 @@ class Dimensions {
   }
 
   /// Returns a new instance of the Quantity type associated with these dimensions.
-  ///
   /// If no specific Quantity type is found with dimensions that match these dimensions
   /// a new instance of the [MiscQuantity] class will be returned.
+  /// If no [value] is provided, it defaults to zero.
+  /// If no [units] are provided, then MKS units are assumed.
+  /// If no uncertainty is provided, the value is presumed to be exact.
   Quantity toQuantity([dynamic value = 0.0, Units units, double uncert = 0.0]) {
-    // Check units match dimensions, if provided
-    if (units is Quantity) {
-      if (this != (units as Quantity).dimensions)
-        throw new DimensionsException('The dimensions of the provided units must equal the dimensions');
-    }
-
-    //TODO need to provide units (metric units as default?)
+    // Check that the units match the dimensions, if provided.
+    if (units is Quantity && (units as Quantity).dimensions != this)
+      throw new DimensionsException('The dimensions of the provided units must equal the dimensions');
 
     try {
-      return createTypedQuantityInstance(qType ?? determineQuantityType(this), value, units, uncert);
-    } catch (e) {
-      _logger.warning('Fallback MiscQuantity instance created for ${this}');
-
-      // Can always return a MiscQuantity
-      if (units != null) {
-        return new MiscQuantity(units.toMks(value), this, uncert);
-      } else {
-        return new MiscQuantity(value, this, uncert);
+      final Type type = qType ?? determineQuantityType(this);
+      if (type != null && type is! MiscQuantity) {
+        final Quantity q = createTypedQuantityInstance(type, value, units, uncert: uncert);
+        if (q != null) return q;
       }
+    } catch (e) {
+      _logger.warning('Problem creating type instance; falling back to MiscQuantity for ${this}');
     }
+
+    // Unable to create a typed instance; return a MiscQuantity with these dimensions.
+    return new MiscQuantity(units?.toMks(value) ?? value, this, uncert);
   }
 
   /// Returns a String representation of this Dimensions object in the form:
