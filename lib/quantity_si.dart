@@ -16,10 +16,13 @@ part 'src/si/units.dart';
 part 'src/si/dimensions.dart';
 part 'src/si/misc_quantity.dart';
 part 'src/si/number_format_si.dart';
+part 'src/si/scientific_format_si.dart';
+part 'src/si/engineering_format_si.dart';
 
 part 'src/si/dimensions_exception.dart';
 part 'src/si/quantity_exception.dart';
 part 'src/si/immutable_quantity_exception.dart';
+part 'src/si/uncertainty_format.dart';
 
 part 'src/si/types/absorbed_dose.dart';
 part 'src/si/types/absorbed_dose_rate.dart';

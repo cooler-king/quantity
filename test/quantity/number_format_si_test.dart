@@ -5,7 +5,7 @@ void main() {
   group('NumberFormatSI', () {
     group('insertSpaces', () {
       test('regular spaces; no uncertainty', () {
-        final NumberFormatSI f1 = new NumberFormatSI(UncertaintyFormat.none, false);
+        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
         expect(f1.insertSpaces('1'), '1');
         expect(f1.insertSpaces('12'), '12');
         expect(f1.insertSpaces('123'), '123');
@@ -27,7 +27,7 @@ void main() {
       });
 
       test('unicode thin spaces; no uncertainty', () {
-        final NumberFormatSI f1 = new NumberFormatSI(UncertaintyFormat.none, true);
+        final NumberFormatSI f1 = new NumberFormatSI(unicode: true);
         expect(f1.insertSpaces('1'), '1');
         expect(f1.insertSpaces('12'), '12');
         expect(f1.insertSpaces('123'), '123');
@@ -51,7 +51,7 @@ void main() {
 
     group('format', () {
       test('real only; num; regular spaces', () {
-        final NumberFormatSI f1 = new NumberFormatSI(UncertaintyFormat.none, false);
+        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
         expect(f1.format(1), '1');
         expect(f1.format(12), '12');
         expect(f1.format(123), '123');
@@ -73,7 +73,7 @@ void main() {
       });
 
       test('real only; Number; regular spaces', () {
-        final NumberFormatSI f1 = new NumberFormatSI(UncertaintyFormat.none, false);
+        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
         expect(f1.format(new Integer(1)), '1');
         expect(f1.format(new Integer(12)), '12');
         expect(f1.format(new Integer(123)), '123');
@@ -95,7 +95,7 @@ void main() {
       });
 
       test('imaginary only; regular spaces', () {
-        final NumberFormatSI f1 = new NumberFormatSI(UncertaintyFormat.none, false);
+        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
         expect(f1.format(new Imaginary(1)), '1i');
         expect(f1.format(new Imaginary(12)), '12i');
         expect(f1.format(new Imaginary(123)), '123i');
@@ -117,7 +117,7 @@ void main() {
       });
 
       test('complex; regular spaces', () {
-        final NumberFormatSI f1 = new NumberFormatSI(UncertaintyFormat.none, false);
+        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
         expect(f1.format(new Complex.coeff(1, 2)), '1 + 2i');
         expect(f1.format(new Complex.coeff(1, 0)), '1');
         expect(f1.format(new Complex.coeff(0, 2)), '2i');
@@ -136,7 +136,17 @@ void main() {
         expect(f1.format(new Complex.coeff(100.001, 111.222)), '100.001 + 111.222i');
         expect(f1.format(new Complex.coeff(1000.0001, 1111.2222)), '1000.0001 + 1111.2222i');
         expect(f1.format(new Complex.coeff(10000.00001, 11111.22222)), '10 000.000 01 + 11 111.222 22i');
-        expect(f1.format(new Complex.coeff(9876543210.1234, 4321.0123456789)), '9 876 543 210.1234 + 4321.012 345 678 9i');
+        expect(
+            f1.format(new Complex.coeff(9876543210.1234, 4321.0123456789)), '9 876 543 210.1234 + 4321.012 345 678 9i');
+      });
+    });
+
+    group('parse', () {
+      test('real with regular spaces', () {
+        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
+        expect(f1.parse('12 345'), 12345);
+        expect(f1.parse('12 345.678 90'), 12345.67890);
+        expect(f1.parse('1\u{2009}234\u{2009}567'), 1234567);
       });
     });
   });

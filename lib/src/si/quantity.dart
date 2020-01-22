@@ -523,15 +523,32 @@ abstract class Quantity implements Comparable<dynamic> {
   /// using the preferred units and number format.  If no preferred units have
   /// been specified, then MKS units are used.  Uncertainty in the value of the
   /// Quantity is optionally shown as a plus/minus value in the same units.
-  void outputText(StringBuffer buffer, {bool showUncert = false, bool symbols = true, NumberFormat numberFormat}) {
+  void outputText(StringBuffer buffer,
+      {UncertaintyFormat uncertFormat = UncertaintyFormat.none, bool symbols = true, NumberFormat numberFormat}) {
     if (preferredUnits != null) {
       final Number val = preferredUnits.fromMks(mks);
 
       // Format the number.
-      //NumberFormat format = numberFormat;
-      //if (numberFormat == null) format = new NumberFormatSI();
-      //if (numberFormat == null) format = new NumberFormat.decimalPattern();
-      final String valStr = numberFormat?.format(val) ?? '$val';
+      buffer.write(numberFormat?.format(val) ?? '$val');
+
+      // Uncertainty.
+      if (_ur != 0 && uncertFormat != UncertaintyFormat.none) {
+        final double uncert = preferredUnits != null
+            ? standardUncertainty.valueInUnits(preferredUnits).toDouble()
+            : standardUncertainty.mks.toDouble();
+
+        if (uncertFormat == UncertaintyFormat.compact) {
+          //TODO compact
+        } else if (uncertFormat == UncertaintyFormat.plusMinus) {
+          final bool unicode = numberFormat is NumberFormatSI && numberFormat.unicode == true;
+          if (unicode) {
+
+          } else {
+            buffer.write(' ${numberFormat.format(uncert)}');
+          }
+        }
+
+      }
 
       // Get the units string (singular or plural, as appropriate).
       String unitStr;
@@ -545,8 +562,6 @@ abstract class Quantity implements Comparable<dynamic> {
           unitStr = preferredUnits.name;
         }
       }
-
-      buffer.write(valStr);
 
       if (unitStr != null && !(unitStr == '1')) buffer..write(' ')..write(unitStr);
     } else {
