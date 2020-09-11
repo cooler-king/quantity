@@ -82,7 +82,18 @@ class Information extends Quantity {
   /// Optionally specify a relative standard [uncert]ainty.
   // ignore:non_constant_identifier_names
   Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert = 0.0})
-      : super(bits ?? (B ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0))))), Information.bits, uncert);
+      : super(bits ?? (B ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0))))), 
+              B != null
+                ? Information.bytes
+                : kB != null
+                  ? Information.kilobytes
+                  : MB != null
+                    ? Information.megabytes
+                    : GB != null
+                      ? Information.gigabytes
+                      : TB != null
+                        ? Information.terabytes
+                        : Information.bits, uncert);
 
   Information._internal(dynamic conv) : super._internal(conv, Information.informationDimensions);
 
@@ -94,6 +105,14 @@ class Information extends Quantity {
 
   const Information.constant(Number valueSI, {InformationUnits units, double uncert = 0.0})
       : super.constant(valueSI, Information.informationDimensions, units, uncert);
+
+  @override
+  Quantity operator *(dynamic multiplier) {
+    if (multiplier is num || multiplier is Number) {
+      return super * multiplier;
+    }
+    throw const QuantityException('Expected a num or Number object');
+  }
 }
 
 /// Units acceptable for use in describing Information quantities.
