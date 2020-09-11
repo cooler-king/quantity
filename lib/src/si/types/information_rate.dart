@@ -5,7 +5,7 @@ part of quantity_si;
 /// for more information.
 class InformationRate extends Quantity {
   /// Construct an InformationRate with bits per second ([bps]), kilobits per second ([kbps]),
-  /// megabits per second ([Mbps]), gigibits per second ([Gbps]) or terabits per second ([Tbps]).
+  /// megabits per second ([Mbps]), gigabits per second ([Gbps]) or terabits per second ([Tbps]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   InformationRate({dynamic bps, dynamic kbps, dynamic Mbps, dynamic Gbps, dynamic Tbps, double uncert = 0.0})

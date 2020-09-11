@@ -8,7 +8,11 @@ class AngularAcceleration extends Quantity {
   /// or degrees per second squared).
   /// Optionally specify a relative standard uncertainty.
   AngularAcceleration({dynamic radiansPerSecondSquared, dynamic degreesPerSecondSquared, double uncert = 0.0})
-      : super(radiansPerSecondSquared ?? (degreesPerSecondSquared ?? 0.0), AngularAcceleration.radiansPerSecondSquared,
+      : super(
+            radiansPerSecondSquared ?? (degreesPerSecondSquared ?? 0.0),
+            degreesPerSecondSquared != null
+                ? AngularAcceleration.degreesPerSecondSquared
+                : AngularAcceleration.radiansPerSecondSquared,
             uncert);
 
   AngularAcceleration._internal(dynamic conv)

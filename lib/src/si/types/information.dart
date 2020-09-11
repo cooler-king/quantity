@@ -4,16 +4,27 @@ part of quantity_si;
 /// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)
 /// for more information.
 class Information extends Quantity {
-  /// Constructs an Information object with [bits], bytes ([B]), kilobytes ([kB]), megabytes ([MB]),
-  /// gigabytes ([GB]), or terabytes ([TB]).
+  /// Constructs an Information object with [bits], bytes ([B]), kibibytes ([KiB]), mebibytes ([MiB]),
+  /// gibibytes ([GiB]), or tebibytes ([TiB]).
   /// Optionally specify a relative standard uncertainty.
   // ignore:non_constant_identifier_names
-  Information({dynamic bits, dynamic B, dynamic kB, dynamic MB, dynamic GB, dynamic TB, double uncert = 0.0})
-      : super(bits ?? (B ?? (kB ?? (MB ?? (GB ?? (TB ?? 0.0))))), Information.bits, uncert);
+  Information({dynamic bits, dynamic B, dynamic KiB, dynamic MiB, dynamic GiB, dynamic TiB, double uncert = 0.0})
+      : super(
+            bits ?? (B ?? (KiB ?? (MiB ?? (GiB ?? (TiB ?? 0.0))))),
+            B != null
+                ? Information.bytes
+                : (KiB != null
+                    ? Information.kibibytes
+                    : (MiB != null
+                        ? Information.mebibytes
+                        : (GiB != null
+                            ? Information.gibibytes
+                            : (TiB != null ? Information.tebibytes : Information.bits)))),
+            uncert);
 
   Information._internal(dynamic conv) : super._internal(conv, Information.informationDimensions);
 
-  /// Constructs a Information based on the [value]
+  /// Constructs an Information instance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Information.inUnits(dynamic value, InformationUnits units, [double uncert = 0.0])
       : super(value, units ?? Information.bits, uncert);
@@ -50,48 +61,52 @@ class Information extends Quantity {
   /// 1 trillion bits
   static final InformationUnits terabits = bits.tera() as InformationUnits;
 
-  // Pseudo-Metric Units.
+  // Binary Units.
 
-  /// 1 kilobyte is equal to 2^10 bytes (1 024 bytes) in typical usage.
-  /// This is at odds with the standard use of the 'kilo' prefix for
-  /// 1 000; use `bytes.kilo()` to get the metric value.  Use `kilobytes` for
-  /// common usage (e.g., for data storage units).
-  static final InformationUnits kilobytes = new InformationUnits('kilobytes', 'kB', 'KB', null, 8.0 * 1024.0, false);
+  /// 1 kibibyte is equal to 2^10 bytes (1 024 bytes).
+  /// Use `bytes.kilo()` to get the metric value (1 000 bytes).  Use `kibibytes` for
+  /// common binary usage (e.g., for data storage units).
+  static final InformationUnits kibibytes = new InformationUnits('kibibytes', null, 'KiB', null, 8.0 * 1024.0, false);
 
-  /// 1 megabyte is equal to 2^20 bytes (1 048 576 bytes) in typical usage.
-  /// This is at odds with the standard use of the 'mega' prefix for
-  /// 10^6; use `bytes.mega()` to get the metric value.  Use `megabytes` for
-  /// common usage (e.g., for data storage units).
-  static final InformationUnits megabytes =
-      new InformationUnits('megabytes', null, 'MB', null, 8.0 * 1.048576e6, false);
+  /// 1 mebibyte is equal to 2^20 bytes (1 048 576 bytes).
+  /// Use `bytes.mega()` to get the metric value (1 000 000 bytes).  Use `mebibytes` for
+  /// common binary usage (e.g., for data storage units).
+  static final InformationUnits mebibytes =
+      new InformationUnits('mebibytes', null, 'MiB', null, 8.0 * 1.048576e6, false);
 
-  /// 1 gigabyte is equal to 2^30 bytes (1 073 741 824 bytes) in typical usage.
-  /// This is at odds with the standard use of the 'giga' prefix for
-  /// 10^9; use `bytes.giga()` to get the metric value.  Use `gigabytes` for
-  /// common usage (e.g., for data storage units).
-  static final InformationUnits gigabytes =
-      new InformationUnits('gigabytes', null, 'GB', null, 8.0 * 1.073741824e9, false);
+  /// 1 gibibyte is equal to 2^30 bytes (1 073 741 824 bytes).
+  /// Use `bytes.giga()` to get the metric value (10^9 bytes).  Use `gibibytes` for
+  /// common binary usage (e.g., for data storage units).
+  static final InformationUnits gibibytes =
+      new InformationUnits('gibibytes', null, 'GiB', null, 8.0 * 1.073741824e9, false);
 
-  /// 1 terabyte is equal to 2^40 bytes (1 099 511 627 776 bytes) in typical usage.
-  /// This is at odds with the standard use of the 'tera' prefix for
-  /// 10^12; use `bytes.tera()` to get the metric value.  Use `terabytes` for
-  /// common usage (e.g., for data storage units).
-  static final InformationUnits terabytes =
-      new InformationUnits('terabytes', null, 'TB', null, 8.0 * 1.099511627776e12, false);
+  /// 1 tebibyte is equal to 2^40 bytes (1 099 511 627 776 bytes).
+  /// Use `bytes.tera()` to get the metric value (10^12 bytes).
+  /// Use `tebibytes` for common binary usage (e.g., for data storage units).
+  static final InformationUnits tebibytes =
+      new InformationUnits('tebibytes', null, 'TiB', null, 8.0 * 1.099511627776e12, false);
 
-  /// 1 petabyte is equal to 2^50 bytes (1 125 899 906 842 624 bytes) in typical usage.
-  /// This is at odds with the standard use of the 'peta' prefix for
-  /// 10^15; use `bytes.peta()` to get the metric value.  Use `petabytes` for
-  /// common usage (e.g., for data storage units).
-  static final InformationUnits petabytes =
-      new InformationUnits('petabytes', null, 'PB', null, 8.0 * 1.125899906842624e15, false);
+  /// 1 pebibyte is equal to 2^50 bytes (1 125 899 906 842 624 bytes).
+  /// Use `bytes.peta()` to get the metric value (10^15 bytes).
+  /// Use `pebibytes` for common binary usage (e.g., for data storage units).
+  static final InformationUnits pebibytes =
+      new InformationUnits('pebibytes', null, 'PiB', null, 8.0 * 1.125899906842624e15, false);
 
-  /// 1 exabyte is equal to 2^60 bytes (1 152 921 504 606 846 976 bytes) in typical usage.
-  /// This is at odds with the standard use of the 'exa' prefix for
-  /// 10^18; use `bytes.exa()` to get the metric value.  Use `exabytes` for
-  /// common usage (e.g., for data storage units).
-  static final InformationUnits exabytes =
-      new InformationUnits('exabytes', null, 'EB', null, 8.0 * 1.152921504606846976e18, false);
+  /// 1 exbibyte is equal to 2^60 bytes (1 152 921 504 606 846 976 bytes).
+  /// Use `bytes.exa()` to get the metric value (10^18 bytes).
+  /// Use `exbibytes` for common binary usage (e.g., for data storage units).
+  static final InformationUnits exbibytes =
+  new InformationUnits('exbibytes', null, 'EiB', null, 8.0 * 1.152921504606846976e18, false);
+
+  /// 1 zebibyte is equal to 2^70 bytes.
+  /// Use `bytes.zetta()` to get the metric value (10^21 bytes).
+  static final InformationUnits zebibytes =
+  new InformationUnits('zebibytes', null, 'ZiB', null, 8.0 * math.pow(2, 70), false);
+
+  /// 1 yobibyte is equal to 2^80 bytes.
+  /// Use `bytes.yotta()` to get the metric value (10^24 bytes).
+  static final InformationUnits yobibytes =
+  new InformationUnits('yobibytes', null, 'YiB', null, 8.0 * math.pow(2, 80), false);
 }
 
 /// Units acceptable for use in describing Information quantities.
