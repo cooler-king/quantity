@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'charge.dart';
+import 'volume.dart';
 
 /// Electric charge per unit volume of space.
 /// See the [Wikipedia entry for Charge density](https://en.wikipedia.org/wiki/Charge_density)
@@ -9,7 +15,7 @@ class ChargeDensity extends Quantity {
   ChargeDensity({dynamic coulombsPerCubicMeter, double uncert = 0.0})
       : super(coulombsPerCubicMeter ?? 0.0, ChargeDensity.coulombsPerCubicMeter, uncert);
 
-  ChargeDensity._internal(dynamic conv) : super._internal(conv, ChargeDensity.electricChargeDensityDimensions);
+  ChargeDensity.misc(dynamic conv) : super.misc(conv, ChargeDensity.electricChargeDensityDimensions);
 
   /// Constructs a ChargeDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -34,23 +40,23 @@ class ChargeDensityUnits extends ChargeDensity with Units {
   /// Constructs a new instance.
   ChargeDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on charge and volume units.
-  ChargeDensityUnits.chargeVolume(ChargeUnits ecu, VolumeUnits vu) : super._internal(ecu.valueSI * vu.valueSI) {
+  ChargeDensityUnits.chargeVolume(ChargeUnits ecu, VolumeUnits vu) : super.misc(ecu.valueSI * vu.valueSI) {
     name = '${ecu.name} per ${vu.singular}';
     singular = '${ecu.singular} per ${vu.singular}';
-    _convToMKS = ecu.valueSI * vu.valueSI;
-    _abbrev1 = ecu._abbrev1 != null && vu._abbrev1 != null ? '${ecu._abbrev1}/${vu._abbrev1}' : null;
-    _abbrev2 = ecu._abbrev2 != null && vu._abbrev2 != null ? '${ecu._abbrev2}/${vu._abbrev2}' : null;
+    convToMKS = ecu.valueSI * vu.valueSI;
+    abbrev1 = ecu.abbrev1 != null && vu.abbrev1 != null ? '${ecu.abbrev1}/${vu.abbrev1}' : null;
+    abbrev2 = ecu.abbrev2 != null && vu.abbrev2 != null ? '${ecu.abbrev2}/${vu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -63,8 +69,8 @@ class ChargeDensityUnits extends ChargeDensity with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ChargeDensityUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

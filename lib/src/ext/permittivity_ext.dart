@@ -1,4 +1,5 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/permittivity.dart';
 
 /// The standard SI unit.
 PermittivityUnits faradsPerMeter = Permittivity.faradsPerMeter;

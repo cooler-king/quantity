@@ -1,4 +1,6 @@
-part of quantity_ext;
+import '../ext/length_ext.dart';
+import '../ext/time_ext.dart';
+import '../si/types/acceleration.dart';
 
 /// A synonym for the standard SI-MKS unit of acceleration.
 final AccelerationUnits meterPerSecondSquared = Acceleration.metersPerSecondSquared;

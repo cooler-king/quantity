@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/magnetic_flux_density.dart';
 
 /// The standard SI unit.
 MagneticFluxDensityUnits teslas = MagneticFluxDensity.teslas;

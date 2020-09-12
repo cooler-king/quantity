@@ -29,7 +29,6 @@ Map<String, Quantity> nistNameConstantMap = <String, Quantity>{
   'fine-structure constant': fineStructureConstant,
   'first radiation constant': firstRadiationConstant,
   'Hartree energy': hartreeEnergy,
-  'muon g factor': muonGFactor,
   'helion mass': helionMass,
   'molar gas constant': gasConstantMolar,
   'Josephson constant': josephsonConstant,

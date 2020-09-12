@@ -1,4 +1,10 @@
-part of number;
+import 'dart:math';
+import 'dart:typed_data';
+import 'double.dart';
+import 'integer.dart';
+import 'number.dart';
+import 'real.dart';
+import 'util/jenkins_hash.dart';
 
 /// `Precise` represents an arbitrary precision number.
 ///

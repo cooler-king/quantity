@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// The property of an electrical conductor by which a change in current flowing through
 /// it induces an electromotive force in both the conductor itself and in any nearby
@@ -8,9 +12,9 @@ part of quantity_si;
 class Inductance extends Quantity {
   /// Constructs an Inductance with henries ([H]).
   /// Optionally specify a relative standard uncertainty.
-  Inductance({dynamic H, double uncert = 0.0}) : super(H ?? 0.0, Illuminance.lux, uncert);
+  Inductance({dynamic H, double uncert = 0.0}) : super(H ?? 0.0, Inductance.henries, uncert);
 
-  Inductance._internal(dynamic conv) : super._internal(conv, Inductance.inductanceDimensions);
+  Inductance.misc(dynamic conv) : super.misc(conv, Inductance.inductanceDimensions);
 
   /// Constructs a Inductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -35,12 +39,12 @@ class InductanceUnits extends Inductance with Units {
   /// Constructs a new instance.
   InductanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -53,8 +57,8 @@ class InductanceUnits extends Inductance with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new InductanceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

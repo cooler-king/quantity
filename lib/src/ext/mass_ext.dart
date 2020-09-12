@@ -1,4 +1,5 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/mass.dart';
 
 // Useful metric units.
 

@@ -1,4 +1,9 @@
-part of quantity_si;
+import '../number/number.dart';
+import 'dimensions.dart';
+import 'dimensions_exception.dart';
+import 'quantity.dart';
+import 'types/scalar.dart';
+import 'units.dart';
 
 /// A MiscQuantity is a general (miscellaneous) Quantity having arbitrary dimensions (including
 /// possibly the same dimensions as a named Quantity subclass).  MiscQuantity
@@ -16,7 +21,7 @@ class MiscQuantity extends Quantity {
   /// uncertainty.
   /// [value] may be a num or Number object.
   MiscQuantity([dynamic value = 0.0, Dimensions dim = Scalar.scalarDimensions, double uncert = 0.0])
-      : super._internal(value, dim, uncert);
+      : super.misc(value, dim, uncert);
 
   /// Constructs a constant MiscQuantity.
   const MiscQuantity.constant(Number valueSI, Dimensions dim, {Units units, double uncert = 0.0})
@@ -37,5 +42,5 @@ class MiscQuantity extends Quantity {
   }
 
   /// Attempts to construct a typed quantity from this miscellaneous quantity.
-  Quantity toTypedQuantity() => dimensions.toQuantity(valueSI, null, _ur);
+  Quantity toTypedQuantity() => dimensions.toQuantity(valueSI, null, relativeUncertainty);
 }

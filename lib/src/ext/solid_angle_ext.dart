@@ -1,4 +1,7 @@
-part of quantity_ext;
+import 'dart:math';
+import '../si/types/angle.dart';
+import '../si/types/solid_angle.dart';
+import 'angle_ext.dart';
 
 // Useful metric units.
 

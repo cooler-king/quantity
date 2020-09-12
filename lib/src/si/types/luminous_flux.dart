@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// The perceived power of light.
 /// It differs from radiant flux, the measure of the total power of electromagnetic
@@ -12,7 +16,7 @@ class LuminousFlux extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   LuminousFlux({dynamic lm, double uncert = 0.0}) : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
 
-  LuminousFlux._internal(dynamic conv) : super._internal(conv, LuminousFlux.luminousFluxDimensions);
+  LuminousFlux.misc(dynamic conv) : super.misc(conv, LuminousFlux.luminousFluxDimensions);
 
   /// Constructs a LuminousFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -36,12 +40,12 @@ class LuminousFluxUnits extends LuminousFlux with Units {
   /// Constructs a new instance.
   LuminousFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -54,8 +58,8 @@ class LuminousFluxUnits extends LuminousFlux with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new LuminousFluxUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

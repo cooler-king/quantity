@@ -1,4 +1,5 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/angular_momentum.dart';
 
 /// The standard SI unit.
 final AngularMomentumUnits jouleSecond = AngularMomentum.jouleSecond;
@@ -18,4 +19,4 @@ const AngularMomentum planckConstant =
 
 /// The Planck constant divided by 2 PI (a.k.a., 'h-bar' or 'reduced Planck constant').
 const AngularMomentum hBar =
-    const AngularMomentum.constant(const Double.constant(1.054571817e-34));
+    const AngularMomentum.constant(const Double.constant(1.0545718177777777e-34));

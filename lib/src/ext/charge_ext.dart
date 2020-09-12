@@ -1,4 +1,7 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/charge.dart';
+import '../si/types/current.dart';
+import '../si/types/time.dart';
 
 /// The standard SI unit.
 final ChargeUnits coulombs = Charge.coulombs;

@@ -1,4 +1,11 @@
-part of number;
+import 'dart:math';
+import 'double.dart';
+import 'imaginary.dart';
+import 'integer.dart';
+import 'number.dart';
+import 'precise.dart';
+import 'real.dart';
+import 'util/jenkins_hash.dart';
 
 /// Complex numbers have both a real and an imaginary part.
 class Complex extends Number {

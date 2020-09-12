@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// The magnetic flux density passing through a closed surface.
 /// See the [Wikipedia entry for Magnetic flux](https://en.wikipedia.org/wiki/Magnetic_flux)
@@ -9,7 +13,7 @@ class MagneticFlux extends Quantity {
   // ignore: non_constant_identifier_names
   MagneticFlux({dynamic Wb, double uncert = 0.0}) : super(Wb ?? 0.0, MagneticFlux.webers, uncert);
 
-  MagneticFlux._internal(dynamic conv) : super._internal(conv, MagneticFlux.magneticFluxDimensions);
+  MagneticFlux.misc(dynamic conv) : super.misc(conv, MagneticFlux.magneticFluxDimensions);
 
   /// Constructs a MagneticFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -34,12 +38,12 @@ class MagneticFluxUnits extends MagneticFlux with Units {
   /// Constructs a new instance.
   MagneticFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -52,8 +56,8 @@ class MagneticFluxUnits extends MagneticFlux with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MagneticFluxUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

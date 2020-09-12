@@ -1,4 +1,11 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'energy.dart';
+import 'mass.dart';
+import 'temperature_interval.dart';
 
 // Also SpecificEntropy
 
@@ -11,8 +18,8 @@ class SpecificHeatCapacity extends Quantity {
   SpecificHeatCapacity({dynamic joulesPerKilogramKelvin, double uncert = 0.0})
       : super(joulesPerKilogramKelvin ?? 0.0, SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
-  SpecificHeatCapacity._internal(dynamic conv)
-      : super._internal(conv, SpecificHeatCapacity.specificHeatCapacityDimensions);
+  SpecificHeatCapacity.misc(dynamic conv)
+      : super.misc(conv, SpecificHeatCapacity.specificHeatCapacityDimensions);
 
   /// Constructs a SpecificHeatCapacity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -38,24 +45,24 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
   /// Constructs a new instance.
   SpecificHeatCapacityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance from energy, mass and temperature interval units.
   SpecificHeatCapacityUnits.energyMassTemperature(EnergyUnits eu, MassUnits mu, TemperatureIntervalUnits tu)
-      : super._internal(eu.valueSI / (mu.valueSI * tu.valueSI)) {
+      : super.misc(eu.valueSI / (mu.valueSI * tu.valueSI)) {
     name = '${eu.name} per ${mu.singular} ${tu.singular}';
     singular = '${eu.singular} per ${mu.singular} ${tu.singular}';
-    _convToMKS = eu.valueSI / (mu.valueSI * tu.valueSI);
-    _abbrev1 = eu._abbrev1 != null && mu._abbrev1 != null ? '${eu._abbrev1} / ${mu._abbrev1} ${tu._abbrev1}' : null;
-    _abbrev2 = eu._abbrev2 != null && mu._abbrev2 != null ? '${eu._abbrev2}${mu._abbrev2}${tu._abbrev2}' : null;
+    convToMKS = eu.valueSI / (mu.valueSI * tu.valueSI);
+    abbrev1 = eu.abbrev1 != null && mu.abbrev1 != null ? '${eu.abbrev1} / ${mu.abbrev1} ${tu.abbrev1}' : null;
+    abbrev2 = eu.abbrev2 != null && mu.abbrev2 != null ? '${eu.abbrev2}${mu.abbrev2}${tu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -68,8 +75,8 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpecificHeatCapacityUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

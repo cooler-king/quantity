@@ -1,4 +1,6 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/area.dart';
+import 'length_ext.dart';
 
 /// The standard SI unit.
 final AreaUnits squareMeters = Area.squareMeters;

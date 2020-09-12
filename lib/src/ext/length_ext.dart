@@ -1,4 +1,5 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/length.dart';
 
 // Metric units
 
@@ -197,7 +198,8 @@ const Length comptonWavelength =
     const Length.constant(const Double.constant(2.42631023867e-12), uncert: 3.0086836727035986e-10);
 
 /// The tau Compton wavelength.
-const Length tauComptonWavelength = const Length.constant(const Double.constant(6.97771e-16), uncert: 0.00006735734216526625);
+const Length tauComptonWavelength =
+    const Length.constant(const Double.constant(6.97771e-16), uncert: 0.00006735734216526625);
 
 /// The classical electron radius is a combination of fundamental physical quantities that define a length scale
 /// for problems involving an electron interacting with electromagnetic radiation.

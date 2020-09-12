@@ -1,4 +1,11 @@
-part of quantity_si;
+import 'dart:math' as math;
+import '../../number/double.dart';
+import '../../number/integer.dart';
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 // Common trig functions.
 
@@ -41,7 +48,7 @@ class Angle extends Quantity {
   Angle({dynamic rad, dynamic deg, double uncert = 0.0})
       : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
 
-  Angle._internal(dynamic conv) : super._internal(conv, Angle.angleDimensions);
+  Angle.misc(dynamic conv) : super.misc(conv, Angle.angleDimensions);
 
   /// Constructs an Angle based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -188,12 +195,12 @@ class AngleUnits extends Angle with Units {
   /// Constructs a new instance.
   AngleUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -206,8 +213,8 @@ class AngleUnits extends Angle with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AngleUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

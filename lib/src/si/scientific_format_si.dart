@@ -1,4 +1,4 @@
-part of quantity_si;
+import 'number_format_si.dart';
 
 /// Formats a number as a single integer digit, followed by decimal digits
 /// and raised to a power of 10 (e.g., 1.2345 x 10^3).

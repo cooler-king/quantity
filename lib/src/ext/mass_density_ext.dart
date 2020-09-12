@@ -1,4 +1,6 @@
-part of quantity_ext;
+import '../si/types/mass_density.dart';
+import 'mass_ext.dart';
+import 'volume_ext.dart';
 
 /// The standard SI unit.
 MassDensityUnits kilogramsPerCubicMeter = MassDensity.kilogramsPerCubicMeter;

@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'amount_of_substance.dart';
+import 'volume.dart';
 
 /// The abundance of a constituent divided by the total volume of a mixture.
 /// See the [Wikipedia entry for Concentration](https://en.wikipedia.org/wiki/Concentration)
@@ -9,7 +15,7 @@ class Concentration extends Quantity {
   Concentration({dynamic molesPerCubicMeter, double uncert = 0.0})
       : super(molesPerCubicMeter ?? 0.0, Concentration.molesPerCubicMeter, uncert);
 
-  Concentration._internal(dynamic conv) : super._internal(conv, Concentration.concentrationDimensions);
+  Concentration.misc(dynamic conv) : super.misc(conv, Concentration.concentrationDimensions);
 
   /// Constructs a Concentration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -34,24 +40,24 @@ class ConcentrationUnits extends Concentration with Units {
   /// Constructs a new instance.
   ConcentrationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs concentration units from an amount of substance and volume.
   ConcentrationUnits.amountVolume(AmountOfSubstanceUnits asu, VolumeUnits vu)
-      : super._internal(asu.valueSI * vu.valueSI) {
+      : super.misc(asu.valueSI * vu.valueSI) {
     name = '${asu.name} per ${vu.singular}';
     singular = '${asu.singular} per ${vu.singular}';
-    _convToMKS = asu.valueSI * vu.valueSI;
-    _abbrev1 = asu._abbrev1 != null && vu._abbrev1 != null ? '${asu._abbrev1} / ${vu._abbrev1}' : null;
-    _abbrev2 = asu._abbrev2 != null && vu._abbrev2 != null ? '${asu._abbrev2}/${vu._abbrev2}' : null;
+    convToMKS = asu.valueSI * vu.valueSI;
+    abbrev1 = asu.abbrev1 != null && vu.abbrev1 != null ? '${asu.abbrev1} / ${vu.abbrev1}' : null;
+    abbrev2 = asu.abbrev2 != null && vu.abbrev2 != null ? '${asu.abbrev2}/${vu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -64,8 +70,8 @@ class ConcentrationUnits extends Concentration with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ConcentrationUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

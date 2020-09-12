@@ -1,4 +1,5 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/magnetic_flux.dart';
 
 /// The standard SI unit.
 MagneticFluxUnits webers = MagneticFlux.webers;
@@ -13,4 +14,4 @@ MagneticFluxUnits unitPoles = new MagneticFluxUnits('unit poles', null, null, nu
 
 /// The magnetic flux quantum constant is a combination of two other physical constants:
 /// the Planck constant h and the electron charge e. Its value is, therefore, the same for any superconductor.
-const MagneticFlux magneticFluxQuantum = const MagneticFlux.constant(const Double.constant(2.067833848e-15));
+const MagneticFlux magneticFluxQuantum = const MagneticFlux.constant(const Double.constant(2.0678338488888888e-15));

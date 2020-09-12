@@ -1,4 +1,5 @@
-part of quantity_si;
+import 'quantity.dart';
+import 'quantity_exception.dart';
 
 /// This Exception is thrown when an attempt is made to modify an
 /// immutable Quantity object (for example through its setMKS method).

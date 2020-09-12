@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'absorbed_dose.dart';
+import 'time.dart';
 
 /// The rate of mean energy imparted to matter per unit mass by ionizing radiation.
 ///
@@ -14,7 +20,7 @@ class AbsorbedDoseRate extends Quantity {
       : super(graysPerSecond ?? (radsPerSecond ?? 0.0),
             radsPerSecond != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
 
-  AbsorbedDoseRate._internal(dynamic conv) : super._internal(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
+  AbsorbedDoseRate.misc(dynamic conv) : super.misc(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
 
   /// Constructs an AbsorbedDoseRate based on the [value]
   /// and the conversion factor intrinsic to the provided [units].
@@ -45,24 +51,24 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
   /// Constructs a new instance.
   AbsorbedDoseRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on absorbed dose and time units.
   AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDoseUnits adu, TimeUnits tu)
-      : super._internal(adu.valueSI * tu.valueSI) {
+      : super.misc(adu.valueSI * tu.valueSI) {
     name = '${adu.name} per ${tu.singular} squared';
     singular = '${adu.singular} per ${tu.singular} squared';
-    _convToMKS = adu.valueSI * tu.valueSI;
-    _abbrev1 = adu._abbrev1 != null && tu._abbrev1 != null ? '${adu._abbrev1} / ${tu._abbrev1}' : null;
-    _abbrev2 = adu._abbrev2 != null && tu._abbrev2 != null ? '${adu._abbrev2}${tu._abbrev2}' : null;
+    convToMKS = adu.valueSI * tu.valueSI;
+    abbrev1 = adu.abbrev1 != null && tu.abbrev1 != null ? '${adu.abbrev1} / ${tu.abbrev1}' : null;
+    abbrev2 = adu.abbrev2 != null && tu.abbrev2 != null ? '${adu.abbrev2}${tu.abbrev2}' : null;
     metricBase = metricBase;
     offset = offset.toDouble();
   }
@@ -75,8 +81,8 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AbsorbedDoseRateUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

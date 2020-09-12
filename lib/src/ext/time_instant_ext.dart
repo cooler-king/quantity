@@ -1,4 +1,7 @@
-part of quantity_ext;
+import 'dart:math';
+import '../number/double.dart';
+import '../number/number.dart';
+import '../si/types/time_instant.dart';
 
 /// International Atomic Time scale units
 // ignore: non_constant_identifier_names

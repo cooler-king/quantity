@@ -1,4 +1,7 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/energy.dart';
+import '../si/types/power.dart';
+import '../si/types/time.dart';
 
 /// The standard SI unit.
 final EnergyUnits joules = Energy.joules;

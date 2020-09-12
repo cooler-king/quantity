@@ -1,4 +1,5 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/resistance.dart';
 
 /// The standard SI unit.
 ResistanceUnits ohms = Resistance.ohms;
@@ -7,7 +8,7 @@ ResistanceUnits ohms = Resistance.ohms;
 
 /// Relates the magnitudes of the electric and magnetic fields of electromagnetic radiation
 /// travelling through free space.
-const Resistance characteristicImpedanceOfVacuum = const Resistance.constant(const Double.constant(376.73031346177));
+const Resistance characteristicImpedanceOfVacuum = const Resistance.constant(const Double.constant(376.730313668), uncert: 1.513018674951446e-10);
 
 /// A synonym for [characteristicImpedanceOfVacuum].
 // ignore: constant_identifier_names

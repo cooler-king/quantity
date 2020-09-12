@@ -1,4 +1,6 @@
-part of quantity_ext;
+import '../si/types/volume_flow_rate.dart';
+import 'time_ext.dart';
+import 'volume_ext.dart';
 
 /// The standard SI unit, tersely.
 VolumeFlowRateUnits cubicMetersPerSecond = VolumeFlowRate.cubicMetersPerSecond;

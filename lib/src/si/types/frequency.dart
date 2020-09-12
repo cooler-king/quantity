@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// The number of occurrences of a repeating event per unit time.
 /// See the [Wikipedia entry for Frequency](https://en.wikipedia.org/wiki/Frequency)
@@ -16,7 +20,7 @@ class Frequency extends Quantity {
                 : (MHz != null ? Frequency.megahertz : (GHz != null ? Frequency.gigahertz : Frequency.hertz)),
             uncert);
 
-  Frequency._internal(dynamic conv) : super._internal(conv, Frequency.frequencyDimensions);
+  Frequency.misc(dynamic conv) : super.misc(conv, Frequency.frequencyDimensions);
 
   /// Constructs a Frequency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -51,12 +55,12 @@ class FrequencyUnits extends Frequency with Units {
   /// Constructs a new instance.
   FrequencyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -69,8 +73,8 @@ class FrequencyUnits extends Frequency with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new FrequencyUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

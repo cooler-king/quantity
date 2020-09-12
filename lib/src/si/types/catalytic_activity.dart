@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// The increase in rate of a chemical reaction caused by the presence of a catalyst.
 /// See the [Wikipedia entry for Catalysis](https://en.wikipedia.org/wiki/Catalysis)
@@ -8,7 +12,7 @@ class CatalyticActivity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   CatalyticActivity({dynamic kat, double uncert = 0.0}) : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
 
-  CatalyticActivity._internal(dynamic conv) : super._internal(conv, CatalyticActivity.catalyticActivityDimensions);
+  CatalyticActivity.misc(dynamic conv) : super.misc(conv, CatalyticActivity.catalyticActivityDimensions);
 
   /// Constructs a CatalyticActivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -32,12 +36,12 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
   /// Constructs a new instance.
   CatalyticActivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -50,8 +54,8 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CatalyticActivityUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

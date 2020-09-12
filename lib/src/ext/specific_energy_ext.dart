@@ -1,4 +1,7 @@
-part of quantity_ext;
+import '../si/types/specific_energy.dart';
+import 'length_ext.dart';
+import 'speed_ext.dart';
+import 'time_ext.dart';
 
 /// The standard SI unit.
 SpecificEnergyUnits joulesPerKilogram = SpecificEnergy.joulesPerKilogram;
@@ -8,3 +11,4 @@ SpecificEnergyUnits squareMetersPerSquareSecond = new SpecificEnergyUnits.length
 
 /// The square of the speed of light in a vacuum.
 SpecificEnergyUnits speedOfLightSquared = new SpecificEnergyUnits.speed(speedOfLightUnits);
+

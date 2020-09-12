@@ -1,4 +1,9 @@
-part of quantity_si;
+import 'dart:math' as math;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// Amount of data.
 /// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)
@@ -22,7 +27,7 @@ class Information extends Quantity {
                             : (TiB != null ? Information.tebibytes : Information.bits)))),
             uncert);
 
-  Information._internal(dynamic conv) : super._internal(conv, Information.informationDimensions);
+  Information.misc(dynamic conv) : super.misc(conv, Information.informationDimensions);
 
   /// Constructs an Information instance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -114,12 +119,12 @@ class InformationUnits extends Information with Units {
   /// Constructs a new instance.
   InformationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -132,8 +137,8 @@ class InformationUnits extends Information with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new InformationUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

@@ -13,43 +13,43 @@ void main() {
 
     test('constants', () {
       expect(boltzmannConstant is Entropy, true);
-      expect(boltzmannConstant.valueSI.toDouble(), 1.38064852e-23);
+      expect(boltzmannConstant.valueSI.toDouble(), 1.380649e-23);
 
       expect(sackurTetrode100kPa is Scalar, true);
-      expect(sackurTetrode100kPa.valueSI.toDouble(), -1.1517084);
+      expect(sackurTetrode100kPa.valueSI.toDouble(), -1.15170753706);
 
       expect(sackurTetrodeStdAtm is Scalar, true);
-      expect(sackurTetrodeStdAtm.valueSI.toDouble(), -1.1648714);
+      expect(sackurTetrodeStdAtm.valueSI.toDouble(), -1.16487052358);
 
       expect(avogadro is MiscQuantity, true);
-      expect(avogadro.valueSI.toDouble(), 6.022140857e23);
+      expect(avogadro.valueSI.toDouble(), 6.02214076e23);
 
       expect(faradayConstant is MiscQuantity, true);
-      expect(faradayConstant.valueSI.toDouble(), 96485.33289);
+      expect(faradayConstant.valueSI.toDouble(), 96485.332122222222);
 
       expect(firstRadiationConstant is MiscQuantity, true);
-      expect(firstRadiationConstant.valueSI.toDouble(), 3.741771790e-16);
+      expect(firstRadiationConstant.valueSI.toDouble(), 3.7417718522222222e-16);
 
       expect(loschmidtStdAtm is MiscQuantity, true);
-      expect(loschmidtStdAtm.valueSI.toDouble(), 2.6867811e25);
+      expect(loschmidtStdAtm.valueSI.toDouble(), 2.6867801111111111e25);
 
       expect(molarPlanck is MiscQuantity, true);
-      expect(molarPlanck.valueSI.toDouble(), 3.9903127110e-10);
+      expect(molarPlanck.valueSI.toDouble(), 3.9903127122222222e-10);
 
       expect(molarVolume100kPa is MiscQuantity, true);
-      expect(molarVolume100kPa.valueSI.toDouble(), 22.710947e-3);
+      expect(molarVolume100kPa.valueSI.toDouble(), 22.710954644444444e-3);
 
       expect(molarVolumeStdAtm is MiscQuantity, true);
-      expect(molarVolumeStdAtm.valueSI.toDouble(), 22.413962e-3);
+      expect(molarVolumeStdAtm.valueSI.toDouble(), 22.413969544444444e-3);
 
       expect(secondRadiationConstant is MiscQuantity, true);
-      expect(secondRadiationConstant.valueSI.toDouble(), 1.43877736e-2);
+      expect(secondRadiationConstant.valueSI.toDouble(), 1.4387768777777777e-2);
 
       expect(stefanBoltzmann is MiscQuantity, true);
-      expect(stefanBoltzmann.valueSI.toDouble(), 5.670367e-8);
+      expect(stefanBoltzmann.valueSI.toDouble(), 5.6703744199999999e-8);
 
       expect(wienDisplacement is MiscQuantity, true);
-      expect(wienDisplacement.valueSI.toDouble(), 2.8977729e-3);
+      expect(wienDisplacement.valueSI.toDouble(), 2.8977719555555555e-3);
     });
 
     test('synonyms', () {

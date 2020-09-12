@@ -1,4 +1,4 @@
-part of quantity_si;
+import 'number_format_si.dart';
 
 /// A version of scientific notation in which the exponent of ten must be divisible by
 /// three (e.g., 123.345 x 10^3).

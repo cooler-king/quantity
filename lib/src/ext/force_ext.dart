@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/force.dart';
 
 /// The standard SI unit.
 final ForceUnits newtons = Force.newtons;

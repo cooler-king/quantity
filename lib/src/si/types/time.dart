@@ -1,12 +1,17 @@
-part of quantity_si;
+import '../../number/double.dart';
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// Represents the _time interval_ physical quantity (one of the seven
 /// base SI quantities).
 ///
 /// The class is named Time, rather than Duration, to avoid conflict with
-/// the [dart:core] [Duration] class.
+/// the [dart:core] `Duration` class.
 ///
-/// Use the [TimeInstant] class to specify a specific moment in time.
+/// Use the `TimeInstant` class to specify a specific moment in time.
 ///
 /// See the [Wikipedia entry for Time](https://en.wikipedia.org/wiki/Time)
 /// for more information.
@@ -26,7 +31,7 @@ class Time extends Quantity {
                         : (h != null ? Time.hoursMeanSolar : (min != null ? Time.minutesMeanSolar : Time.seconds)))),
             uncert);
 
-  Time._internal(dynamic conv) : super._internal(conv, Time.timeDimensions);
+  Time.misc(dynamic conv) : super.misc(conv, Time.timeDimensions);
 
   /// Constructs a Time based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -91,12 +96,12 @@ class TimeUnits extends Time with Units {
   /// Constructs a new instance.
   TimeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -109,8 +114,8 @@ class TimeUnits extends Time with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TimeUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

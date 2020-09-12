@@ -1,4 +1,6 @@
-part of quantity_ext;
+import '../si/types/pressure.dart';
+import 'area_ext.dart';
+import 'force_ext.dart';
 
 /// The standard SI unit.
 PressureUnits pascals = Pressure.pascals;

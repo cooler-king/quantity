@@ -1,6 +1,5 @@
 /// Quantity types, units and constants commonly encountered in the fields dealing with
 /// electromagnetics.
-///
 library electromagnetic;
 
 import 'package:quantity/quantity.dart';
@@ -25,7 +24,7 @@ export 'package:quantity/quantity.dart'
 const Conductance G0 = conductanceQuantum;
 
 /// The inverse of the magnetic flux quantum.
-const MiscQuantity josephsonConstant = const MiscQuantity.constant(const Double.constant(483597848400000),
+const MiscQuantity josephsonConstant = const MiscQuantity.constant(const Double.constant(483597848444444.44),
     const Dimensions.constant(const <String, int>{'Length': -2, 'Mass': -1, 'Current': 1, 'Time': 2}));
 
 /// The common symbol for the Josephson constant.

@@ -1,4 +1,72 @@
-part of quantity_si;
+import '../../quantity_si.dart' show createTypedQuantityInstance, logger;
+import '../../src/si/dimensions_exception.dart';
+import '../../src/si/misc_quantity.dart';
+import '../../src/si/quantity.dart';
+import '../../src/si/types/absorbed_dose_rate.dart';
+import '../../src/si/types/acceleration.dart';
+import '../../src/si/types/amount_of_substance.dart';
+import '../../src/si/types/angle.dart';
+import '../../src/si/types/angular_acceleration.dart';
+import '../../src/si/types/angular_momentum.dart';
+import '../../src/si/types/angular_speed.dart';
+import '../../src/si/types/area.dart';
+import '../../src/si/types/capacitance.dart';
+import '../../src/si/types/catalytic_activity.dart';
+import '../../src/si/types/charge.dart';
+import '../../src/si/types/charge_density.dart';
+import '../../src/si/types/concentration.dart';
+import '../../src/si/types/conductance.dart';
+import '../../src/si/types/current.dart';
+import '../../src/si/types/current_density.dart';
+import '../../src/si/types/dynamic_viscosity.dart';
+import '../../src/si/types/electric_field_strength.dart';
+import '../../src/si/types/electric_flux_density.dart';
+import '../../src/si/types/electric_potential_difference.dart';
+import '../../src/si/types/energy.dart';
+import '../../src/si/types/entropy.dart';
+import '../../src/si/types/exposure.dart';
+import '../../src/si/types/force.dart';
+import '../../src/si/types/frequency.dart';
+import '../../src/si/types/heat_flux_density.dart';
+import '../../src/si/types/illuminance.dart';
+import '../../src/si/types/inductance.dart';
+import '../../src/si/types/kinematic_viscosity.dart';
+import '../../src/si/types/length.dart';
+import '../../src/si/types/luminance.dart';
+import '../../src/si/types/luminous_flux.dart';
+import '../../src/si/types/luminous_intensity.dart';
+import '../../src/si/types/magnetic_field_strength.dart';
+import '../../src/si/types/magnetic_flux.dart';
+import '../../src/si/types/magnetic_flux_density.dart';
+import '../../src/si/types/mass.dart';
+import '../../src/si/types/mass_density.dart';
+import '../../src/si/types/mass_flow_rate.dart';
+import '../../src/si/types/mass_flux_density.dart';
+import '../../src/si/types/molar_energy.dart';
+import '../../src/si/types/molar_entropy.dart';
+import '../../src/si/types/permeability.dart';
+import '../../src/si/types/permittivity.dart';
+import '../../src/si/types/power.dart';
+import '../../src/si/types/pressure.dart';
+import '../../src/si/types/radiance.dart';
+import '../../src/si/types/radiant_intensity.dart';
+import '../../src/si/types/resistance.dart';
+import '../../src/si/types/scalar.dart';
+import '../../src/si/types/solid_angle.dart';
+import '../../src/si/types/specific_energy.dart';
+import '../../src/si/types/specific_heat_capacity.dart';
+import '../../src/si/types/specific_volume.dart';
+import '../../src/si/types/spectral_irradiance.dart';
+import '../../src/si/types/speed.dart';
+import '../../src/si/types/surface_tension.dart';
+import '../../src/si/types/temperature_interval.dart';
+import '../../src/si/types/thermal_conductivity.dart';
+import '../../src/si/types/time.dart';
+import '../../src/si/types/torque.dart';
+import '../../src/si/types/volume.dart';
+import '../../src/si/types/volume_flow_rate.dart';
+import '../../src/si/types/wave_number.dart';
+import '../../src/si/units.dart';
 
 /// The Dimensions class represents the dimensions of a physical quantity.
 ///
@@ -451,7 +519,7 @@ class Dimensions {
         if (q != null) return q;
       }
     } catch (e) {
-      _logger.warning('Problem creating type instance; falling back to MiscQuantity for ${this}');
+      logger.warning('Problem creating type instance; falling back to MiscQuantity for ${this}');
     }
 
     // Unable to create a typed instance; return a MiscQuantity with these dimensions.

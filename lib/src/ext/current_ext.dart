@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/current.dart';
 
 /// The standard SI unit.
 final CurrentUnits amperes = Current.amperes;

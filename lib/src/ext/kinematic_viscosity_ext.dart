@@ -1,4 +1,6 @@
-part of quantity_ext;
+import '../si/types/kinematic_viscosity.dart';
+import 'area_ext.dart';
+import 'time_ext.dart';
 
 /// The standard SI unit.
 KinematicViscosityUnits metersSquaredPerSecond = KinematicViscosity.metersSquaredPerSecond;

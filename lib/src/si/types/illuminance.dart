@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// The total luminous flux incident on a surface, per unit area.
 /// See the [Wikipedia entry for Illuminance](https://en.wikipedia.org/wiki/Illuminance)
@@ -8,7 +12,7 @@ class Illuminance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Illuminance({dynamic lux, double uncert = 0.0}) : super(lux ?? 0.0, Illuminance.lux, uncert);
 
-  Illuminance._internal(dynamic conv) : super._internal(conv, Illuminance.illuminanceDimensions);
+  Illuminance.misc(dynamic conv) : super.misc(conv, Illuminance.illuminanceDimensions);
 
   /// Constructs a Illuminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -34,12 +38,12 @@ class IlluminanceUnits extends Illuminance with Units {
   /// Constructs a new instance.
   IlluminanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -52,8 +56,8 @@ class IlluminanceUnits extends Illuminance with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new IlluminanceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

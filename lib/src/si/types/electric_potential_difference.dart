@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 // Also, ElectromotiveForce, EMF, Potential.
 
@@ -11,8 +15,8 @@ class ElectricPotentialDifference extends Quantity {
   ElectricPotentialDifference({dynamic V, double uncert = 0.0})
       : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
 
-  ElectricPotentialDifference._internal(dynamic conv)
-      : super._internal(conv, ElectricPotentialDifference.electricPotentialDifferenceDimensions);
+  ElectricPotentialDifference.misc(dynamic conv)
+      : super.misc(conv, ElectricPotentialDifference.electricPotentialDifferenceDimensions);
 
   /// Constructs a ElectricPotentialDifference based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -39,12 +43,12 @@ class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with 
   /// Constructs a new instance.
   ElectricPotentialDifferenceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -57,8 +61,8 @@ class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with 
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ElectricPotentialDifferenceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

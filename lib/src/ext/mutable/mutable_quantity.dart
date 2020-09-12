@@ -1,4 +1,16 @@
-part of quantity_ext;
+import 'dart:async';
+import 'dart:math';
+import 'package:intl/intl.dart' show NumberFormat;
+import '../../number/double.dart';
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/dimensions_exception.dart';
+import '../../si/immutable_quantity_exception.dart';
+import '../../si/quantity.dart';
+import '../../si/types/scalar.dart';
+import '../../si/uncertainty_format.dart';
+import '../../si/units.dart';
 
 /// Create a [MutableQuantity] with the same value, dimensions and uncertainty as [q].
 MutableQuantity toMutable(Quantity q) => new MutableQuantity()..setEqualTo(q);

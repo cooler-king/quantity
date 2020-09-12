@@ -1,4 +1,7 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/power.dart';
+import 'energy_ext.dart';
+import 'time_ext.dart';
 
 /// The standard SI unit.
 PowerUnits watts = Power.watts;

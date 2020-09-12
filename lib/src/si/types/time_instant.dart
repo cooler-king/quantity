@@ -1,4 +1,11 @@
-part of quantity_si;
+import '../../number/double.dart';
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/quantity_exception.dart';
+import '../../si/units.dart';
+import 'time.dart';
 
 // Also Epoch
 
@@ -107,7 +114,7 @@ class TimeInstant extends Quantity {
   TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
       : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
 
-  TimeInstant._internal(dynamic conv) : super._internal(conv, TimeInstant.timeInstantDimensions);
+  TimeInstant.misc(dynamic conv) : super.misc(conv, TimeInstant.timeInstantDimensions);
 
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -207,7 +214,7 @@ class TimeInstant extends Quantity {
   Quantity operator -(dynamic subtrahend) {
     final Number newValueSI = valueSI - subtrahend.valueSI;
     if (subtrahend is Quantity) {
-      final double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      final double diffUr = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
       if (subtrahend is TimeInstant) {
         return new Time(s: newValueSI, uncert: diffUr);
       } else if (subtrahend is Time) {
@@ -256,12 +263,12 @@ class TimeInstantUnits extends TimeInstant with Units {
   /// Constructs a new instance.
   TimeInstantUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0, this._fromMks, this._toMks])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -301,8 +308,8 @@ class TimeInstantUnits extends TimeInstant with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TimeInstantUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/amount_of_substance.dart';
 
 // Useful metric units.
 

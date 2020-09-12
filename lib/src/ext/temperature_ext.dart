@@ -1,4 +1,6 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/temperature.dart';
+import '../si/types/temperature_interval.dart';
 
 /// The standard SI unit.
 final TemperatureUnits kelvins = Temperature.kelvins;

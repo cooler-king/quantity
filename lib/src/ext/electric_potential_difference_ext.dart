@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/electric_potential_difference.dart';
 
 /// The standard SI unit.
 ElectricPotentialDifferenceUnits volts = ElectricPotentialDifference.volts;

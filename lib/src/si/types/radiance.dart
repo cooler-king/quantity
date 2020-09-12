@@ -1,4 +1,11 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'area.dart';
+import 'power.dart';
+import 'solid_angle.dart';
 
 /// The radiant flux emitted, reflected, transmitted or received by a surface,
 /// per unit solid angle per unit projected area.
@@ -10,7 +17,7 @@ class Radiance extends Quantity {
   Radiance({dynamic wattsPerSquareMeterSteradian, double uncert = 0.0})
       : super(wattsPerSquareMeterSteradian ?? 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
 
-  Radiance._internal(dynamic conv) : super._internal(conv, Radiance.radianceDimensions);
+  Radiance.misc(dynamic conv) : super.misc(conv, Radiance.radianceDimensions);
 
   /// Constructs a Radiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -35,24 +42,24 @@ class RadianceUnits extends Radiance with Units {
   /// Constructs a new instance.
   RadianceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance from power, area and solid angle units.
   RadianceUnits.powerAreaSolidAngle(PowerUnits ecu, AreaUnits mu, SolidAngleUnits sau)
-      : super._internal(ecu.valueSI / (mu.valueSI * sau.valueSI)) {
+      : super.misc(ecu.valueSI / (mu.valueSI * sau.valueSI)) {
     name = '${ecu.name} per ${mu.singular} ${sau.singular}';
     singular = '${ecu.singular} per ${mu.singular} ${sau.singular}';
-    _convToMKS = ecu.valueSI / (mu.valueSI * sau.valueSI);
-    _abbrev1 = ecu._abbrev1 != null && mu._abbrev1 != null ? '${ecu._abbrev1} / ${mu._abbrev1} ${sau.singular}' : null;
-    _abbrev2 = ecu._abbrev2 != null && mu._abbrev2 != null ? '${ecu._abbrev2}/${mu._abbrev2}${sau.singular}' : null;
+    convToMKS = ecu.valueSI / (mu.valueSI * sau.valueSI);
+    abbrev1 = ecu.abbrev1 != null && mu.abbrev1 != null ? '${ecu.abbrev1} / ${mu.abbrev1} ${sau.singular}' : null;
+    abbrev2 = ecu.abbrev2 != null && mu.abbrev2 != null ? '${ecu.abbrev2}/${mu.abbrev2}${sau.singular}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -65,8 +72,8 @@ class RadianceUnits extends Radiance with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new RadianceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

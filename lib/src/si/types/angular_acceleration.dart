@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'angle.dart';
+import 'time.dart';
 
 /// The rate of change of angular speed.
 /// See the [Wikipedia entry for Angular acceleration](https://en.wikipedia.org/wiki/Angular_acceleration)
@@ -15,8 +21,8 @@ class AngularAcceleration extends Quantity {
                 : AngularAcceleration.radiansPerSecondSquared,
             uncert);
 
-  AngularAcceleration._internal(dynamic conv)
-      : super._internal(conv, AngularAcceleration.angularAccelerationDimensions);
+  AngularAcceleration.misc(dynamic conv)
+      : super.misc(conv, AngularAcceleration.angularAccelerationDimensions);
 
   /// Constructs a AngularAcceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -45,23 +51,23 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
   /// Constructs a new instance.
   AngularAccelerationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance from angle and time units.
-  AngularAccelerationUnits.angleTime(AngleUnits au, TimeUnits tu) : super._internal(au.valueSI * tu.valueSI) {
+  AngularAccelerationUnits.angleTime(AngleUnits au, TimeUnits tu) : super.misc(au.valueSI * tu.valueSI) {
     name = '${au.name} per ${tu.singular} squared';
     singular = '${au.singular} per ${tu.singular} squared';
-    _convToMKS = au.valueSI * tu.valueSI;
-    _abbrev1 = au._abbrev1 != null && tu._abbrev1 != null ? '${au._abbrev1} / ${tu._abbrev1}' : null;
-    _abbrev2 = au._abbrev2 != null && tu._abbrev2 != null ? '${au._abbrev2}${tu._abbrev2}' : null;
+    convToMKS = au.valueSI * tu.valueSI;
+    abbrev1 = au.abbrev1 != null && tu.abbrev1 != null ? '${au.abbrev1} / ${tu.abbrev1}' : null;
+    abbrev2 = au.abbrev2 != null && tu.abbrev2 != null ? '${au.abbrev2}${tu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -74,8 +80,8 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AngularAccelerationUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

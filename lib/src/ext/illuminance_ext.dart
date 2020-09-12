@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/illuminance.dart';
 
 /// The standard SI unit.
 IlluminanceUnits lux = Illuminance.lux;

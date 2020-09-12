@@ -1,4 +1,9 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'energy.dart';
 
 /// Represents the *mass* physical quantity (one of the seven base SI quantities),
 /// that determines the strength of a body's mutual gravitational attraction to other bodies.
@@ -11,7 +16,7 @@ class Mass extends Quantity {
       : super(kg ?? (g ?? (u ?? 0.0)),
             g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
 
-  Mass._internal(dynamic conv) : super._internal(conv, Mass.massDimensions);
+  Mass.misc(dynamic conv) : super.misc(conv, Mass.massDimensions);
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -46,11 +51,11 @@ class Mass extends Quantity {
   Energy toEnergy() {
     if (valueSI is Precise) {
       final Precise c = new Precise('2.99792458e8');
-      return new Energy(J: valueSI * c * c, uncert: _ur);
+      return new Energy(J: valueSI * c * c, uncert: relativeUncertainty);
     } else {
       // ignore: prefer_int_literals
       const double c = 2.99792458e8;
-      return new Energy(J: valueSI * c * c, uncert: _ur);
+      return new Energy(J: valueSI * c * c, uncert: relativeUncertainty);
     }
   }
 }
@@ -60,12 +65,12 @@ class MassUnits extends Mass with Units {
   /// Constructs a new instance.
   MassUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -78,8 +83,8 @@ class MassUnits extends Mass with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MassUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

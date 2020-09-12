@@ -1,4 +1,11 @@
-part of quantity_si;
+import 'dart:math' as math;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'acceleration.dart';
+import 'mass.dart';
 
 /// Any interaction that, when unopposed, changes the motion of an object.
 /// See the [Wikipedia entry for Force](https://en.wikipedia.org/wiki/Force)
@@ -8,7 +15,7 @@ class Force extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Force({dynamic N, double uncert = 0.0}) : super(N ?? 0.0, Force.newtons, uncert);
 
-  Force._internal(dynamic conv) : super._internal(conv, Force.forceDimensions);
+  Force.misc(dynamic conv) : super.misc(conv, Force.forceDimensions);
 
   /// Constructs a Force based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -20,7 +27,8 @@ class Force extends Quantity {
 
   /// Constructs a new instance from mass and acceleration.
   Force.ma(Mass m, Acceleration a)
-      : super(m.valueSI * a.valueSI, Force.newtons, math.sqrt(m._ur * m._ur + a._ur * a._ur));
+      : super(m.valueSI * a.valueSI, Force.newtons, math.sqrt(m.relativeUncertainty *
+      m.relativeUncertainty + a.relativeUncertainty * a.relativeUncertainty));
 
   /// Dimensions for this type of quantity.
   static const Dimensions forceDimensions =
@@ -35,12 +43,12 @@ class ForceUnits extends Force with Units {
   /// Constructs a new instance.
   ForceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -53,8 +61,8 @@ class ForceUnits extends Force with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ForceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

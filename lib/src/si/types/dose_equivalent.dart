@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// Represents the stochastic health effects (probability of cancer induction and genetic damage)
 /// of ionizing radiation on the human body.
@@ -11,7 +15,7 @@ class DoseEquivalent extends Quantity {
   DoseEquivalent({dynamic Sv, dynamic rems, double uncert = 0.0})
       : super(Sv ?? rems ?? 0.0, rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts, uncert);
 
-  DoseEquivalent._internal(dynamic conv) : super._internal(conv, DoseEquivalent.doseEquivalentDimensions);
+  DoseEquivalent.misc(dynamic conv) : super.misc(conv, DoseEquivalent.doseEquivalentDimensions);
 
   /// Constructs a DoseEquivalent based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -38,12 +42,12 @@ class DoseEquivalentUnits extends DoseEquivalent with Units {
   /// Constructs a new instance.
   DoseEquivalentUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -56,8 +60,8 @@ class DoseEquivalentUnits extends DoseEquivalent with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new DoseEquivalentUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

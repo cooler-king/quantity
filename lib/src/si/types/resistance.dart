@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// A measure of the difficulty passing an electric current through a conductor.
 /// See the [Wikipedia entry for Electrical resistance and conductance](https://en.wikipedia.org/wiki/Electrical_resistance_and_conductance)
@@ -8,7 +12,7 @@ class Resistance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Resistance({dynamic ohms, double uncert = 0.0}) : super(ohms ?? 0.0, Resistance.ohms, uncert);
 
-  Resistance._internal(dynamic conv) : super._internal(conv, Resistance.electricResistanceDimensions);
+  Resistance.misc(dynamic conv) : super.misc(conv, Resistance.electricResistanceDimensions);
 
   /// Constructs a Resistance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -33,12 +37,12 @@ class ResistanceUnits extends Resistance with Units {
   /// Constructs a new instance.
   ResistanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -51,8 +55,8 @@ class ResistanceUnits extends Resistance with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ResistanceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

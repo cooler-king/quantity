@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'time.dart';
+import 'volume.dart';
 
 /// The volume of fluid which passes per unit time.
 /// See the [Wikipedia entry for Volumetric flow rate](https://en.wikipedia.org/wiki/Volumetric_flow_rate)
@@ -9,7 +15,7 @@ class VolumeFlowRate extends Quantity {
   VolumeFlowRate({dynamic cubicMetersPerSecond, double uncert = 0.0})
       : super(cubicMetersPerSecond ?? 0.0, VolumeFlowRate.cubicMetersPerSecond, uncert);
 
-  VolumeFlowRate._internal(dynamic conv) : super._internal(conv, VolumeFlowRate.volumeFlowRateDimensions);
+  VolumeFlowRate.misc(dynamic conv) : super.misc(conv, VolumeFlowRate.volumeFlowRateDimensions);
 
   /// Constructs a VolumeFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -34,23 +40,23 @@ class VolumeFlowRateUnits extends VolumeFlowRate with Units {
   /// Constructs a new instance.
   VolumeFlowRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on volume and time units.
-  VolumeFlowRateUnits.volumeTime(VolumeUnits vu, TimeUnits tu) : super._internal(vu.valueSI / tu.valueSI) {
+  VolumeFlowRateUnits.volumeTime(VolumeUnits vu, TimeUnits tu) : super.misc(vu.valueSI / tu.valueSI) {
     name = '${vu.name} per ${tu.singular}';
     singular = '${vu.singular} per ${tu.singular}';
-    _convToMKS = vu.valueSI / tu.valueSI;
-    _abbrev1 = vu._abbrev1 != null && tu._abbrev1 != null ? '${vu._abbrev1} / ${tu._abbrev1}' : null;
-    _abbrev2 = vu._abbrev2 != null && tu._abbrev2 != null ? '${vu._abbrev2}/${tu._abbrev2}' : null;
+    convToMKS = vu.valueSI / tu.valueSI;
+    abbrev1 = vu.abbrev1 != null && tu.abbrev1 != null ? '${vu.abbrev1} / ${tu.abbrev1}' : null;
+    abbrev2 = vu.abbrev2 != null && tu.abbrev2 != null ? '${vu.abbrev2}/${tu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -63,8 +69,8 @@ class VolumeFlowRateUnits extends VolumeFlowRate with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new VolumeFlowRateUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

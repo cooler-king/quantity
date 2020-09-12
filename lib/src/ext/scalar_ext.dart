@@ -1,4 +1,6 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../number/precise.dart';
+import '../si/types/scalar.dart';
 
 /// The standard SI unit.
 final ScalarUnits one = Scalar.one;

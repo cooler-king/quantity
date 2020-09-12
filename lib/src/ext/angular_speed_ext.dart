@@ -1,4 +1,6 @@
-part of quantity_ext;
+import '../si/types/angular_speed.dart';
+import '../si/types/time.dart';
+import 'angle_ext.dart' show revolutions;
 
 /// The standard SI unit.
 final AngularSpeedUnits radiansPerSecond = AngularSpeed.radiansPerSecond;

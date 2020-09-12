@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// The ability of a body to store an electrical charge,
 /// See the [Wikipedia entry for Capacitance](https://en.wikipedia.org/wiki/Capacitance)
@@ -8,7 +12,7 @@ class Capacitance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Capacitance({dynamic F, double uncert = 0.0}) : super(F ?? 0.0, Capacitance.farads, uncert);
 
-  Capacitance._internal(dynamic conv) : super._internal(conv, Capacitance.electricCapacitanceDimensions);
+  Capacitance.misc(dynamic conv) : super.misc(conv, Capacitance.electricCapacitanceDimensions);
 
   /// Constructs a Capacitance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -33,12 +37,12 @@ class CapacitanceUnits extends Capacitance with Units {
   /// Constructs a new instance.
   CapacitanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -51,8 +55,8 @@ class CapacitanceUnits extends Capacitance with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CapacitanceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

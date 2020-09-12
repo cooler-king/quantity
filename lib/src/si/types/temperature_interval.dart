@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/quantity_exception.dart';
+import '../../si/units.dart';
+import 'temperature.dart';
 
 /// The difference between two temperatures, where temperature is an objective comparative
 /// measure of hot or cold.
@@ -11,8 +17,8 @@ class TemperatureInterval extends Quantity {
       : super(K ?? (degC ?? 0.0), degC != null ? TemperatureInterval.degreesCelsius : TemperatureInterval.kelvins,
             uncert);
 
-  TemperatureInterval._internal(dynamic conv)
-      : super._internal(conv, TemperatureInterval.temperatureIntervalDimensions);
+  TemperatureInterval.misc(dynamic conv)
+      : super.misc(conv, TemperatureInterval.temperatureIntervalDimensions);
 
   /// Constructs a TemperatureInterval based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -42,11 +48,11 @@ class TemperatureInterval extends Quantity {
   Quantity operator +(dynamic addend) {
     if (addend is TemperatureInterval) {
       final Number newValueSI = valueSI + addend.valueSI;
-      final double ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      final double ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
       return new TemperatureInterval(K: newValueSI, uncert: ur);
     } else if (addend is Temperature) {
       final Number newValueSI = valueSI + addend.valueSI;
-      final double ur = _calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      final double ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
       return new Temperature(K: newValueSI, uncert: ur);
     } else {
       return super + addend;
@@ -62,7 +68,7 @@ class TemperatureInterval extends Quantity {
   Quantity operator -(dynamic subtrahend) {
     if (subtrahend is TemperatureInterval) {
       final Number newValueSI = valueSI - subtrahend.valueSI;
-      final double ur = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      final double ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
       return new TemperatureInterval(K: newValueSI, uncert: ur);
     } else if (subtrahend is Temperature) {
       throw const QuantityException('Subtracting a Temperature from a TemperatureInterval is not supported.');
@@ -72,7 +78,7 @@ class TemperatureInterval extends Quantity {
   }
 
   /// Returns the [Temperature] equal to this temperature interval measured from 0 degrees kelvin.
-  Temperature toTemperature() => new Temperature(K: valueSI, uncert: _ur);
+  Temperature toTemperature() => new Temperature(K: valueSI, uncert: relativeUncertainty);
 }
 
 /// Units acceptable for use in describing TemperatureInterval quantities.
@@ -80,12 +86,12 @@ class TemperatureIntervalUnits extends TemperatureInterval with Units {
   /// Constructs a new instance.
   TemperatureIntervalUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -98,8 +104,8 @@ class TemperatureIntervalUnits extends TemperatureInterval with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TemperatureIntervalUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

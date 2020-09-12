@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// Represents the *luminous intensity* physical quantity (one of the seven
 /// base SI quantities), the wavelength-weighted power emitted by a light source
@@ -10,7 +14,7 @@ class LuminousIntensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   LuminousIntensity({dynamic cd, double uncert = 0.0}) : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
 
-  LuminousIntensity._internal(dynamic conv) : super._internal(conv, LuminousIntensity.luminousIntensityDimensions);
+  LuminousIntensity.misc(dynamic conv) : super.misc(conv, LuminousIntensity.luminousIntensityDimensions);
 
   /// Constructs a LuminousIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -34,12 +38,12 @@ class LuminousIntensityUnits extends LuminousIntensity with Units {
   /// Constructs a new instance.
   LuminousIntensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -52,8 +56,8 @@ class LuminousIntensityUnits extends LuminousIntensity with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new LuminousIntensityUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

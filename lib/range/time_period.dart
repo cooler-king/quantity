@@ -1,4 +1,5 @@
-part of quantity_range;
+import '../src/si/types/time_instant.dart';
+import 'quantity_range.dart';
 
 /// Represents a specific time span.
 class TimePeriod extends QuantityRange<TimeInstant> {

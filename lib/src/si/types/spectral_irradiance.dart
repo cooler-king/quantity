@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// Irradiance of a surface per unit frequency.
 /// See the [Wikipedia entry for Radiometry](https://en.wikipedia.org/wiki/Radiometry)
@@ -9,7 +13,7 @@ class SpectralIrradiance extends Quantity {
   SpectralIrradiance({dynamic wattsPerSquareMeterPerHertz, double uncert = 0.0})
       : super(wattsPerSquareMeterPerHertz ?? 0.0, SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
-  SpectralIrradiance._internal(dynamic conv) : super._internal(conv, SpectralIrradiance.spectralIrradianceDimensions);
+  SpectralIrradiance.misc(dynamic conv) : super.misc(conv, SpectralIrradiance.spectralIrradianceDimensions);
 
   /// Constructs a SpectralIrradiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -34,12 +38,12 @@ class SpectralIrradianceUnits extends SpectralIrradiance with Units {
   /// Constructs a new instance.
   SpectralIrradianceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -52,8 +56,8 @@ class SpectralIrradianceUnits extends SpectralIrradiance with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpectralIrradianceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

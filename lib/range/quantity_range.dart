@@ -1,4 +1,6 @@
-part of quantity_range;
+import '../src/number/util/jenkins_hash.dart';
+import '../src/si/quantity.dart';
+import '../src/si/quantity_exception.dart';
 
 //TODO k value?
 /// Creates a [QuantityRange] that represents the standard uncertainty of [q].

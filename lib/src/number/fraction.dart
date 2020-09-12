@@ -1,4 +1,4 @@
-part of number;
+import 'double.dart';
 
 /// A convenient way to represent fractional numbers.
 class Fraction extends Double {

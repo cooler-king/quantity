@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'length.dart';
+import 'time.dart';
 
 /// The rate of change of position.
 /// See the [Wikipedia entry for Speed](https://en.wikipedia.org/wiki/Speed)
@@ -9,7 +15,7 @@ class Speed extends Quantity {
   Speed({dynamic metersPerSecond, dynamic knots, double uncert = 0.0})
       : super(metersPerSecond ?? (knots ?? 0.0), knots != null ? Speed.knots : Speed.metersPerSecond, uncert);
 
-  Speed._internal(dynamic conv) : super._internal(conv, Speed.speedDimensions);
+  Speed.misc(dynamic conv) : super.misc(conv, Speed.speedDimensions);
 
   /// Constructs a Speed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -36,23 +42,23 @@ class SpeedUnits extends Speed with Units {
   /// Constructs a new instance.
   SpeedUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on length and time units.
-  SpeedUnits.lengthTime(LengthUnits lu, TimeUnits tu) : super._internal(lu.valueSI / tu.valueSI) {
+  SpeedUnits.lengthTime(LengthUnits lu, TimeUnits tu) : super.misc(lu.valueSI / tu.valueSI) {
     name = '${lu.name} per ${tu.singular}';
     singular = '${lu.singular} per ${tu.singular}';
-    _convToMKS = lu.valueSI / tu.valueSI;
-    _abbrev1 = lu._abbrev1 != null && tu._abbrev1 != null ? '${lu._abbrev1} / ${tu._abbrev1}' : null;
-    _abbrev2 = lu._abbrev2 != null && tu._abbrev2 != null ? '${lu._abbrev2}/${tu._abbrev2}' : null;
+    convToMKS = lu.valueSI / tu.valueSI;
+    abbrev1 = lu.abbrev1 != null && tu.abbrev1 != null ? '${lu.abbrev1} / ${tu.abbrev1}' : null;
+    abbrev2 = lu.abbrev2 != null && tu.abbrev2 != null ? '${lu.abbrev2}/${tu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -65,8 +71,8 @@ class SpeedUnits extends Speed with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpeedUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

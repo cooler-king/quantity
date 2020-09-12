@@ -1,4 +1,15 @@
-part of quantity_si;
+import 'dart:math' as math;
+import 'package:intl/intl.dart';
+import '../../number.dart';
+import 'dimensions.dart';
+import 'dimensions_exception.dart';
+import 'misc_quantity.dart';
+import 'number_format_si.dart';
+import 'quantity_exception.dart';
+import 'types/scalar.dart';
+import 'uncertainty_format.dart';
+import 'units.dart';
+import 'utilities.dart';
 
 /// The abstract base class for all quantities.  The Quantity class represents
 /// the value of a physical quantity and its
@@ -77,8 +88,8 @@ abstract class Quantity implements Comparable<dynamic> {
   /// Used to construct a constant Quantity.
   const Quantity.constant(this.valueSI, this.dimensions, this.preferredUnits, this._ur);
 
-  /// A private constructor to support MiscQuantity:  dimensions are known, units are not.
-  Quantity._internal([dynamic value = 0.0, this.dimensions, double uncert = 0.0])
+  /// A constructor to support miscellaneous quantities:  dimensions are known, units are not.
+  Quantity.misc([dynamic value = 0.0, this.dimensions, double uncert = 0.0])
       : valueSI = (value is num) ? numToNumber(value) : value is Number ? value : null,
         preferredUnits = null,
         _ur = uncert;
@@ -306,7 +317,7 @@ abstract class Quantity implements Comparable<dynamic> {
     }
 
     final Number newValueSI = valueSI - q2.valueSI;
-    final double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend as Quantity, newValueSI);
+    final double diffUr = calcRelativeCombinedUncertaintySumDiff(this, subtrahend as Quantity, newValueSI);
 
     if (dynamicQuantityTyping) {
       return dimensions.toQuantity(valueSI - q2.valueSI, null, diffUr);
@@ -595,7 +606,9 @@ abstract class Quantity implements Comparable<dynamic> {
     return m;
   }
 
-  double _calcRelativeCombinedUncertaintySumDiff(Quantity q1, Quantity q2, Number valueSI) {
+  /// Calculates the relative combined uncertainty resulting from the addition or
+  /// subtraction of two Quantities.
+  static double calcRelativeCombinedUncertaintySumDiff(Quantity q1, Quantity q2, Number valueSI) {
     if (q1._ur != 0.0 || q2._ur != 0.0) {
       // Standard uncertainty (derive from relative standard uncertainty)
       final double u1 = q1._ur * q1.valueSI.abs().toDouble();

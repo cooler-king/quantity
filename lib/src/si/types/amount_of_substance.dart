@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// The size of an ensemble of elementary entities, such as atoms, molecules, electrons, and other particles.
 /// See the [Wikipedia entry for Amount of substance](https://en.wikipedia.org/wiki/Amount_of_substance)
@@ -10,7 +14,7 @@ class AmountOfSubstance extends Quantity {
   AmountOfSubstance({dynamic mol, dynamic kmol, double uncert = 0.0})
       : super(mol ?? (kmol ?? 0.0), kmol != null ? AmountOfSubstance.kilomoles : AmountOfSubstance.moles, uncert);
 
-  AmountOfSubstance._internal(dynamic conv) : super._internal(conv, AmountOfSubstance.amountOfSubstanceDimensions);
+  AmountOfSubstance.misc(dynamic conv) : super.misc(conv, AmountOfSubstance.amountOfSubstanceDimensions);
 
   /// Constructs a AmountOfSubstance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -37,12 +41,12 @@ class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
   /// Constructs a new instance.
   AmountOfSubstanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -55,8 +59,8 @@ class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AmountOfSubstanceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

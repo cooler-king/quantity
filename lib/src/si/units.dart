@@ -1,4 +1,5 @@
-part of quantity_si;
+import '../../number.dart';
+import '../si/quantity_exception.dart';
 
 /// A unit is a particular physical quantity, defined and adopted by
 /// convention, with which other particular quantities of the same kind
@@ -35,13 +36,13 @@ mixin Units {
   String singular;
 
   /// The primary abbreviation for the units.
-  String _abbrev1;
+  String abbrev1;
 
   /// A secondary abbreviation for the units.
-  String _abbrev2;
+  String abbrev2;
 
-  /// Multiply by this value to convert a Quantity in these units to SI-MKS units
-  Number _convToMKS;
+  /// Multiply by this value to convert a Quantity in these units to SI-MKS units.
+  Number convToMKS;
 
   /// Whether these units are considered a base metric unit.
   bool metricBase = false;
@@ -61,22 +62,22 @@ mixin Units {
   bool operator ==(dynamic obj) {
     if (identical(this, obj)) return true;
 
-    if (obj is Units) return singular == obj.singular && _convToMKS == obj._convToMKS;
+    if (obj is Units) return singular == obj.singular && convToMKS == obj.convToMKS;
     return false;
   }
 
   @override
-  int get hashCode => int.parse('${name.hashCode}54321${_convToMKS.hashCode}');
+  int get hashCode => int.parse('${name.hashCode}54321${convToMKS.hashCode}');
 
   /// Returns the alternate name for the units.  This may be a non-standard
   /// representation.  If no alternate name exists, then null is returned.
-  String get alternateName => _abbrev1;
+  String get alternateName => abbrev1;
 
   /// Returns the shortest name for the units.  This will be the first non-null name
   /// found when inspecting secondary abbreviation, primary abbreviation and full name,
   /// in that order.  If [sing] is true and no symbol or alternate name are available
   /// then the singular version of the name will be returned.
-  String getShortestName(bool sing) => _abbrev2 ?? _abbrev1 ?? (sing ? singular : name);
+  String getShortestName(bool sing) => abbrev2 ?? abbrev1 ?? (sing ? singular : name);
 
   /// Returns the shortest name for the units which will display in Dialog font.
   /// This will be the first non-null name found when inspecting symbol, alternate
@@ -90,7 +91,7 @@ mixin Units {
     if(sing) {
       String sh = getShortestName(true);
       if(_canDisplayString(sh)) return sh;
-      else if(_abbrev1 != null && _canDisplayString(_abbrev1)) return _abbrev1;
+      else if(abbrev1 != null && _canDisplayString(abbrev1)) return abbrev1;
       else return singular;
     } else {
       return _shDialog;
@@ -124,8 +125,8 @@ mixin Units {
   /// cause a [QuantityException].
   Number toMks(dynamic value) {
     if (value is num || value is Number) {
-      if (offset == 0) return _convToMKS * value;
-      return (_convToMKS * value) + objToNumber(offset);
+      if (offset == 0) return convToMKS * value;
+      return (convToMKS * value) + objToNumber(offset);
     } else {
       throw const QuantityException('num or Number expected');
     }
@@ -137,11 +138,11 @@ mixin Units {
   /// cause a [QuantityException].
   Number fromMks(dynamic mks) {
     if (mks is num) {
-      if (offset == 0) return new Double(mks.toDouble()) / _convToMKS;
-      return (new Double(mks.toDouble()) / _convToMKS) - objToNumber(offset);
+      if (offset == 0) return new Double(mks.toDouble()) / convToMKS;
+      return (new Double(mks.toDouble()) / convToMKS) - objToNumber(offset);
     } else if (mks is Number) {
-      if (offset == 0) return mks / _convToMKS;
-      return (mks / _convToMKS) - objToNumber(offset);
+      if (offset == 0) return mks / convToMKS;
+      return (mks / convToMKS) - objToNumber(offset);
     } else {
       throw const QuantityException('num or Number expected');
     }
@@ -219,7 +220,7 @@ mixin Units {
   ///
   ///    full name [MKS value]
   @override
-  String toString() => '$name [$_convToMKS]';
+  String toString() => '$name [$convToMKS]';
 
   //TODO bug, should be .abs()???
   String unicodeExponent(int exp) {

@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/energy_flux.dart';
 
 /// The standard SI unit.
 final EnergyFluxUnits wattsPerSquareMeter = EnergyFlux.wattsPerSquareMeter;

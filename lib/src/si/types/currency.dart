@@ -1,4 +1,8 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// Money in any form when in actual use or circulation as a medium of exchange.
 /// See the [Wikipedia entry for Currency](https://en.wikipedia.org/wiki/Currency)
@@ -9,7 +13,7 @@ class Currency extends Quantity {
   // ignore:non_constant_identifier_names
   Currency({dynamic USD, double uncert = 0.0}) : super(USD ?? 0.0, Currency.dollarsUS, uncert);
 
-  Currency._internal(dynamic conv) : super._internal(conv, Currency.currencyDimensions);
+  Currency.misc(dynamic conv) : super.misc(conv, Currency.currencyDimensions);
 
   /// Constructs a Currency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -35,12 +39,12 @@ class CurrencyUnits extends Currency with Units {
   /// Constructs a new instance.
   CurrencyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -53,8 +57,8 @@ class CurrencyUnits extends Currency with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CurrencyUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'power.dart';
+import 'solid_angle.dart';
 
 /// The radiant flux emitted, reflected, transmitted or received, per unit solid angle.
 /// See the [Wikipedia entry for Radiant intensity](https://en.wikipedia.org/wiki/Radiant_intensity)
@@ -9,7 +15,7 @@ class RadiantIntensity extends Quantity {
   RadiantIntensity({dynamic wattsPerSteradian, double uncert = 0.0})
       : super(wattsPerSteradian ?? 0.0, RadiantIntensity.wattsPerSteradian, uncert);
 
-  RadiantIntensity._internal(dynamic conv) : super._internal(conv, RadiantIntensity.radiantIntensityDimensions);
+  RadiantIntensity.misc(dynamic conv) : super.misc(conv, RadiantIntensity.radiantIntensityDimensions);
 
   /// Constructs a RadiantIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -35,24 +41,24 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
   /// Constructs a new instance.
   RadiantIntensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on power nad solid angle units.
   RadiantIntensityUnits.powerSolidAngle(PowerUnits pu, SolidAngleUnits sau)
-      : super._internal(pu.valueSI / sau.valueSI) {
+      : super.misc(pu.valueSI / sau.valueSI) {
     name = '${pu.name} per ${sau.singular}';
     singular = '${pu.singular} per ${sau.singular}';
-    _convToMKS = pu.valueSI / sau.valueSI;
-    _abbrev1 = pu._abbrev1 != null && sau._abbrev1 != null ? '${pu._abbrev1} / ${sau._abbrev1}' : null;
-    _abbrev2 = pu._abbrev2 != null && sau._abbrev2 != null ? '${pu._abbrev2}/${sau._abbrev2}' : null;
+    convToMKS = pu.valueSI / sau.valueSI;
+    abbrev1 = pu.abbrev1 != null && sau.abbrev1 != null ? '${pu.abbrev1} / ${sau.abbrev1}' : null;
+    abbrev2 = pu.abbrev2 != null && sau.abbrev2 != null ? '${pu.abbrev2}/${sau.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -65,8 +71,8 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new RadiantIntensityUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

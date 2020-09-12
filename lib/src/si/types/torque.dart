@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'force.dart';
+import 'length.dart';
 
 // Also MomentOfForce
 
@@ -11,7 +17,7 @@ class Torque extends Quantity {
   // ignore: non_constant_identifier_names
   Torque({dynamic Nm, double uncert = 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
 
-  Torque._internal(dynamic conv) : super._internal(conv, Torque.torqueDimensions);
+  Torque.misc(dynamic conv) : super.misc(conv, Torque.torqueDimensions);
 
   /// Constructs a Torque based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -35,23 +41,23 @@ class TorqueUnits extends Torque with Units {
   /// Constructs a new instance.
   TorqueUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance from force and length units.
-  TorqueUnits.forceLength(ForceUnits fu, LengthUnits lu) : super._internal(fu.valueSI * lu.valueSI) {
+  TorqueUnits.forceLength(ForceUnits fu, LengthUnits lu) : super.misc(fu.valueSI * lu.valueSI) {
     name = '${fu.singular} ${lu.name}';
     singular = '${fu.singular} ${lu.singular}';
-    _convToMKS = fu.valueSI * lu.valueSI;
-    _abbrev1 = fu._abbrev1 != null && lu._abbrev1 != null ? '${fu._abbrev1} ${lu._abbrev1}' : null;
-    _abbrev2 = fu._abbrev2 != null && lu._abbrev2 != null ? '${fu._abbrev2}${lu._abbrev2}' : null;
+    convToMKS = fu.valueSI * lu.valueSI;
+    abbrev1 = fu.abbrev1 != null && lu.abbrev1 != null ? '${fu.abbrev1} ${lu.abbrev1}' : null;
+    abbrev2 = fu.abbrev2 != null && lu.abbrev2 != null ? '${fu.abbrev2}${lu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -64,8 +70,8 @@ class TorqueUnits extends Torque with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TorqueUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

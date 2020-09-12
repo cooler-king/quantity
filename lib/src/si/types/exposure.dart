@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'charge.dart';
+import 'mass.dart';
 
 /// The radiant energy received by a surface per unit area.
 /// See the [Wikipedia entry for Radiant exposure](https://en.wikipedia.org/wiki/Radiant_exposure)
@@ -9,7 +15,7 @@ class Exposure extends Quantity {
   Exposure({dynamic coulombsPerKilogram, dynamic R, double uncert = 0.0})
       : super(coulombsPerKilogram ?? (R ?? 0.0), R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram, uncert);
 
-  Exposure._internal(dynamic conv) : super._internal(conv, Exposure.exposureDimensions);
+  Exposure.misc(dynamic conv) : super.misc(conv, Exposure.exposureDimensions);
 
   /// Constructs a Exposure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -36,23 +42,23 @@ class ExposureUnits extends Exposure with Units {
   /// Constructs a new instance.
   ExposureUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on charge and mass units.
-  ExposureUnits.chargeMass(ChargeUnits ecu, MassUnits mu) : super._internal(ecu.valueSI * mu.valueSI) {
+  ExposureUnits.chargeMass(ChargeUnits ecu, MassUnits mu) : super.misc(ecu.valueSI * mu.valueSI) {
     name = '${ecu.name} per ${mu.singular}';
     singular = '${ecu.singular} per ${mu.singular}';
-    _convToMKS = ecu.valueSI * mu.valueSI;
-    _abbrev1 = ecu._abbrev1 != null && mu._abbrev1 != null ? '${ecu._abbrev1} / ${mu._abbrev1}' : null;
-    _abbrev2 = ecu._abbrev2 != null && mu._abbrev2 != null ? '${ecu._abbrev2}${mu._abbrev2}' : null;
+    convToMKS = ecu.valueSI * mu.valueSI;
+    abbrev1 = ecu.abbrev1 != null && mu.abbrev1 != null ? '${ecu.abbrev1} / ${mu.abbrev1}' : null;
+    abbrev2 = ecu.abbrev2 != null && mu.abbrev2 != null ? '${ecu.abbrev2}${mu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -65,8 +71,8 @@ class ExposureUnits extends Exposure with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ExposureUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

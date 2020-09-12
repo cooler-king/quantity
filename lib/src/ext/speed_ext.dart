@@ -1,4 +1,7 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/speed.dart';
+import 'length_ext.dart';
+import 'time_ext.dart';
 
 /// The standard SI unit.
 SpeedUnits metersPerSecond = Speed.metersPerSecond;

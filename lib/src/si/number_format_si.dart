@@ -1,4 +1,12 @@
-part of quantity_si;
+import 'dart:math';
+import 'package:intl/intl.dart' show NumberFormat;
+import '../number/complex.dart';
+import '../number/double.dart';
+import '../number/imaginary.dart';
+import '../number/integer.dart';
+import '../number/number.dart';
+import '../number/precise.dart';
+import 'quantity.dart';
 
 /// NumberFormatSI implements the International System of Units (SI) style
 /// conventions for displaying values of quantities.  Specifically:
@@ -130,7 +138,7 @@ class NumberFormatSI extends NumberFormat {
         while (cursor < postCount) {
           buf
             ..write(unicode ? '\u{2009}' : ' ')
-            ..write(numStr.substring(decimalIndex + 1 + cursor, math.min(decimalIndex + 4 + cursor, numStr.length)));
+            ..write(numStr.substring(decimalIndex + 1 + cursor, min(decimalIndex + 4 + cursor, numStr.length)));
           cursor += 3;
         }
       } else {

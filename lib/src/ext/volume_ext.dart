@@ -1,4 +1,5 @@
-part of quantity_ext;
+import '../si/types/volume.dart';
+import 'length_ext.dart';
 
 /// The standard SI unit.
 VolumeUnits cubicMeters = Volume.cubicMeters;

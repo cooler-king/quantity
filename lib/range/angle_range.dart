@@ -1,8 +1,10 @@
-part of quantity_range;
+import 'dart:math';
+import '../src/ext/angle_ext.dart' show angle0, angle360, tau;
+import '../src/si/types/angle.dart';
+import 'quantity_range.dart';
 
 /// An immutable angle range with a start angle, an end angle and an
 /// implicit direction.
-///
 class AngleRange extends QuantityRange<Angle> {
   /// Constructs an angle range.
   AngleRange(Angle startAngle, Angle endAngle) : super(startAngle, endAngle);

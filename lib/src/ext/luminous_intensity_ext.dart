@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/luminous_intensity.dart';
 
 // Useful metric units.
 

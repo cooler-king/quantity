@@ -1,4 +1,12 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'current.dart';
+import 'force.dart';
+import 'inductance.dart';
+import 'length.dart';
 
 /// The ability of a material to support the formation of a magnetic field within itself.
 /// See the [Wikipedia entry for Permeability (electromagnetism)](https://en.wikipedia.org/wiki/Permeability_%28electromagnetism%29)
@@ -12,7 +20,7 @@ class Permeability extends Quantity {
             newtonsPerAmpereSquared != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter,
             uncert);
 
-  Permeability._internal(dynamic conv) : super._internal(conv, Permeability.permeabilityDimensions);
+  Permeability.misc(dynamic conv) : super.misc(conv, Permeability.permeabilityDimensions);
 
   /// Constructs a Permeability based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -42,34 +50,34 @@ class PermeabilityUnits extends Permeability with Units {
   /// Constructs a new instance.
   PermeabilityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on inductance and length units.
-  PermeabilityUnits.inductanceLength(InductanceUnits iu, LengthUnits lu) : super._internal(iu.valueSI / lu.valueSI) {
+  PermeabilityUnits.inductanceLength(InductanceUnits iu, LengthUnits lu) : super.misc(iu.valueSI / lu.valueSI) {
     name = '${iu.name} per ${lu.singular}';
     singular = '${iu.singular} per ${lu.singular}';
-    _convToMKS = iu.valueSI / lu.valueSI;
-    _abbrev1 = iu._abbrev1 != null && lu._abbrev1 != null ? '${iu._abbrev1} / ${lu._abbrev1}' : null;
-    _abbrev2 = iu._abbrev2 != null && lu._abbrev2 != null ? '${iu._abbrev2}/${lu._abbrev2}' : null;
+    convToMKS = iu.valueSI / lu.valueSI;
+    abbrev1 = iu.abbrev1 != null && lu.abbrev1 != null ? '${iu.abbrev1} / ${lu.abbrev1}' : null;
+    abbrev2 = iu.abbrev2 != null && lu.abbrev2 != null ? '${iu.abbrev2}/${lu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
 
   /// Constructs a new instance based on force and electric current units.
-  PermeabilityUnits.forceCurrent(ForceUnits fu, CurrentUnits ecu) : super._internal(fu.valueSI / (ecu.valueSI ^ 2)) {
+  PermeabilityUnits.forceCurrent(ForceUnits fu, CurrentUnits ecu) : super.misc(fu.valueSI / (ecu.valueSI ^ 2)) {
     name = '${fu.name} per ${ecu.singular} squared';
     singular = '${fu.singular} per ${ecu.singular} squared';
-    _convToMKS = fu.valueSI / (ecu.valueSI ^ 2);
-    _abbrev1 = fu._abbrev1 != null && ecu._abbrev1 != null ? '${fu._abbrev1} / ${ecu._abbrev1}^2' : null;
-    _abbrev2 = fu._abbrev2 != null && ecu._abbrev2 != null ? '${fu._abbrev2}/${ecu._abbrev2}2' : null;
+    convToMKS = fu.valueSI / (ecu.valueSI ^ 2);
+    abbrev1 = fu.abbrev1 != null && ecu.abbrev1 != null ? '${fu.abbrev1} / ${ecu.abbrev1}^2' : null;
+    abbrev2 = fu.abbrev2 != null && ecu.abbrev2 != null ? '${fu.abbrev2}/${ecu.abbrev2}2' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -82,8 +90,8 @@ class PermeabilityUnits extends Permeability with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new PermeabilityUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

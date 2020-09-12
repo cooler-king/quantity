@@ -1,7 +1,4 @@
-part of number;
-
 /// Generates a unique hash for a set of objects.
-///
 int hashObjects(Iterable<Object> objects) {
   int hash = 0;
   for (final Object obj in objects) {

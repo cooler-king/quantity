@@ -1,4 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'current.dart';
+import 'length.dart';
 
 /// The intensity of a magnetic field.
 ///
@@ -13,8 +19,8 @@ class MagneticFieldStrength extends Quantity {
   MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
       : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
-  MagneticFieldStrength._internal(dynamic conv)
-      : super._internal(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
+  MagneticFieldStrength.misc(dynamic conv)
+      : super.misc(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -41,24 +47,24 @@ class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
   /// Constructs a new instance.
   MagneticFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on electric current and length units.
   MagneticFieldStrengthUnits.currentLength(CurrentUnits ecu, LengthUnits lu)
-      : super._internal(ecu.valueSI * lu.valueSI) {
+      : super.misc(ecu.valueSI * lu.valueSI) {
     name = '${ecu.name} per ${lu.singular}';
     singular = '${ecu.singular} per ${lu.singular}';
-    _convToMKS = ecu.valueSI * lu.valueSI;
-    _abbrev1 = ecu._abbrev1 != null && lu._abbrev1 != null ? '${ecu._abbrev1} / ${lu._abbrev1}' : null;
-    _abbrev2 = ecu._abbrev2 != null && lu._abbrev2 != null ? '${ecu._abbrev2}${lu._abbrev2}' : null;
+    convToMKS = ecu.valueSI * lu.valueSI;
+    abbrev1 = ecu.abbrev1 != null && lu.abbrev1 != null ? '${ecu.abbrev1} / ${lu.abbrev1}' : null;
+    abbrev2 = ecu.abbrev2 != null && lu.abbrev2 != null ? '${ecu.abbrev2}${lu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -71,8 +77,8 @@ class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MagneticFieldStrengthUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

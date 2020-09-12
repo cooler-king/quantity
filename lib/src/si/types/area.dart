@@ -1,4 +1,10 @@
-part of quantity_si;
+import 'dart:math' as math;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'length.dart';
 
 /// The extent of a two-dimensional figure or shape.
 /// See the [Wikipedia entry for Area](https://en.wikipedia.org/wiki/Area)
@@ -11,7 +17,7 @@ class Area extends Quantity {
       : super(m2 ?? (ha ?? (b ?? 0.0)), ha != null ? Area.hectares : (b != null ? Area.barns : Area.squareMeters),
             uncert);
 
-  Area._internal(dynamic conv) : super._internal(conv, Area.areaDimensions);
+  Area.misc(dynamic conv) : super.misc(conv, Area.areaDimensions);
 
   /// Constructs a Area based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -24,7 +30,11 @@ class Area extends Quantity {
 
   /// Constructs a new Area by multiplying two lengths together.
   Area.fromLengths(Length l1, Length l2)
-      : super(l1.valueSI * l2.valueSI, Area.squareMeters, math.sqrt(l1._ur * l1._ur + l2._ur * l2._ur));
+      : super(
+            l1.valueSI * l2.valueSI,
+            Area.squareMeters,
+            math.sqrt(
+                l1.relativeUncertainty * l1.relativeUncertainty + l2.relativeUncertainty * l2.relativeUncertainty));
 
   /// Dimensions for this type of quantity.
   static const Dimensions areaDimensions = const Dimensions.constant(const <String, int>{'Length': 2}, qType: Area);
@@ -50,23 +60,23 @@ class AreaUnits extends Area with Units {
   /// Constructs a new instance.
   AreaUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on length units.
-  AreaUnits.lengthSquared(LengthUnits lu) : super._internal(lu.valueSI * lu.valueSI) {
+  AreaUnits.lengthSquared(LengthUnits lu) : super.misc(lu.valueSI * lu.valueSI) {
     name = 'square ${lu.name}';
     singular = 'square ${lu.singular}';
-    _convToMKS = lu.valueSI * lu.valueSI;
-    _abbrev1 = lu._abbrev1 != null && lu._abbrev1 != null ? '${lu._abbrev1}2' : null;
-    _abbrev2 = lu._abbrev2 != null && lu._abbrev2 != null ? '${lu._abbrev2}2' : null;
+    convToMKS = lu.valueSI * lu.valueSI;
+    abbrev1 = lu.abbrev1 != null && lu.abbrev1 != null ? '${lu.abbrev1}2' : null;
+    abbrev2 = lu.abbrev2 != null && lu.abbrev2 != null ? '${lu.abbrev2}2' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -79,8 +89,8 @@ class AreaUnits extends Area with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AreaUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

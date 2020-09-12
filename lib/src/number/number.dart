@@ -1,4 +1,8 @@
-part of number;
+import 'complex.dart';
+import 'double.dart';
+import 'imaginary.dart';
+import 'integer.dart';
+import 'precise.dart';
 
 /// The abstract base class for all Number types.
 abstract class Number implements Comparable<dynamic> {

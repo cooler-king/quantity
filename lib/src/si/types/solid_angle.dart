@@ -1,4 +1,9 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'angle.dart';
 
 /// A two-dimensional angle in three-dimensional space that an object subtends at a point.
 /// See the [Wikipedia entry for Solid angle](https://en.wikipedia.org/wiki/Solid_angle)
@@ -8,7 +13,7 @@ class SolidAngle extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   SolidAngle({dynamic sr, double uncert = 0.0}) : super(sr ?? 0.0, SolidAngle.steradians, uncert);
 
-  SolidAngle._internal(dynamic conv) : super._internal(conv, SolidAngle.solidAngleDimensions);
+  SolidAngle.misc(dynamic conv) : super.misc(conv, SolidAngle.solidAngleDimensions);
 
   // CONSTRUCTORS.
 
@@ -33,23 +38,23 @@ class SolidAngleUnits extends SolidAngle with Units {
   /// Constructs a new instance.
   SolidAngleUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on angle units.
-  SolidAngleUnits.angleUnits(AngleUnits au) : super._internal(au.valueSI * au.valueSI) {
+  SolidAngleUnits.angleUnits(AngleUnits au) : super.misc(au.valueSI * au.valueSI) {
     name = '${au.name} squared';
     singular = '${au.singular} squared';
-    _convToMKS = au.valueSI * au.valueSI;
-    _abbrev1 = au._abbrev1 != null ? '${au._abbrev1}^2' : null;
-    _abbrev2 = au._abbrev2 != null ? '${au._abbrev2}^2' : null;
+    convToMKS = au.valueSI * au.valueSI;
+    abbrev1 = au.abbrev1 != null ? '${au.abbrev1}^2' : null;
+    abbrev2 = au.abbrev2 != null ? '${au.abbrev2}^2' : null;
     metricBase = metricBase;
     offset = offset.toDouble();
   }
@@ -62,8 +67,8 @@ class SolidAngleUnits extends SolidAngle with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SolidAngleUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

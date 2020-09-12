@@ -1,4 +1,11 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'mass.dart';
+import 'power.dart';
+import 'time.dart';
 
 // Also QuantityOfHeat, Work.
 
@@ -11,7 +18,7 @@ class Energy extends Quantity {
   Energy({dynamic J, dynamic eV, double uncert = 0.0})
       : super(J ?? (eV ?? 0.0), eV != null ? Energy.electronVolts : Energy.joules, uncert);
 
-  Energy._internal(dynamic conv) : super._internal(conv, Energy.energyDimensions);
+  Energy.misc(dynamic conv) : super.misc(conv, Energy.energyDimensions);
 
   /// Constructs a Energy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -36,10 +43,10 @@ class Energy extends Quantity {
   Mass toMass() {
     if (valueSI is Precise) {
       final Precise c = new Precise('2.99792458e8');
-      return new Mass(kg: valueSI / (c * c), uncert: _ur);
+      return new Mass(kg: valueSI / (c * c), uncert: relativeUncertainty);
     } else {
       const double c = 299792458;
-      return new Mass(kg: valueSI / (c * c), uncert: _ur);
+      return new Mass(kg: valueSI / (c * c), uncert: relativeUncertainty);
     }
   }
 }
@@ -49,23 +56,23 @@ class EnergyUnits extends Energy with Units {
   /// Constructs a new instance.
   EnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on power and time units.
-  EnergyUnits.powerTime(PowerUnits pu, TimeUnits tu) : super._internal(pu.valueSI * tu.valueSI) {
+  EnergyUnits.powerTime(PowerUnits pu, TimeUnits tu) : super.misc(pu.valueSI * tu.valueSI) {
     name = '${pu.singular} ${tu.name}';
     singular = '${pu.singular} ${tu.singular}';
-    _convToMKS = pu.valueSI * tu.valueSI;
-    _abbrev1 = pu._abbrev1 != null && tu._abbrev1 != null ? '${pu._abbrev1} ${tu._abbrev1}' : null;
-    _abbrev2 = pu._abbrev2 != null && tu._abbrev2 != null ? '${pu._abbrev2}${tu._abbrev2}' : null;
+    convToMKS = pu.valueSI * tu.valueSI;
+    abbrev1 = pu.abbrev1 != null && tu.abbrev1 != null ? '${pu.abbrev1} ${tu.abbrev1}' : null;
+    abbrev2 = pu.abbrev2 != null && tu.abbrev2 != null ? '${pu.abbrev2}${tu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -78,8 +85,8 @@ class EnergyUnits extends Energy with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new EnergyUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

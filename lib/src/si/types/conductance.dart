@@ -1,6 +1,10 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
-/// The ease with which an electric current passes through a conductor (the inverse of [Resistance]).
+/// The ease with which an electric current passes through a conductor (the inverse of `Resistance`).
 /// See the [Wikipedia entry for Electrical resistance and conductance](https://en.wikipedia.org/wiki/Electrical_resistance_and_conductance)
 /// for more information.
 class Conductance extends Quantity {
@@ -8,7 +12,7 @@ class Conductance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Conductance({dynamic S, double uncert = 0.0}) : super(S ?? 0.0, Conductance.siemens, uncert);
 
-  Conductance._internal(dynamic conv) : super._internal(conv, Conductance.electricConductanceDimensions);
+  Conductance.misc(dynamic conv) : super.misc(conv, Conductance.electricConductanceDimensions);
 
   /// Constructs a Conductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -34,12 +38,12 @@ class ConductanceUnits extends Conductance with Units {
   /// Constructs a new instance.
   ConductanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -52,8 +56,8 @@ class ConductanceUnits extends Conductance with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ConductanceUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

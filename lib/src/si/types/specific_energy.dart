@@ -1,4 +1,14 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'energy.dart';
+import 'length.dart';
+import 'mass.dart';
+import 'speed.dart';
+import 'time.dart';
+
 
 // Also ImpartedSpecificEnergy, Kerma
 
@@ -11,7 +21,7 @@ class SpecificEnergy extends Quantity {
   SpecificEnergy({dynamic joulesPerKilogram, double uncert = 0.0})
       : super(joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert);
 
-  SpecificEnergy._internal(dynamic conv) : super._internal(conv, SpecificEnergy.specificEnergyDimensions);
+  SpecificEnergy.misc(dynamic conv) : super.misc(conv, SpecificEnergy.specificEnergyDimensions);
 
   /// Constructs a SpecificEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -36,46 +46,46 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
   /// Constructs a new instance.
   SpecificEnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on energy and mass units.
-  SpecificEnergyUnits.energyMass(EnergyUnits eu, MassUnits mu) : super._internal(eu.valueSI / mu.valueSI) {
+  SpecificEnergyUnits.energyMass(EnergyUnits eu, MassUnits mu) : super.misc(eu.valueSI / mu.valueSI) {
     name = '${eu.name} per ${mu.singular}';
     singular = '${eu.singular} per ${mu.singular}';
-    _convToMKS = eu.valueSI / mu.valueSI;
-    _abbrev1 = eu._abbrev1 != null && mu._abbrev1 != null ? '${eu._abbrev1} / ${mu._abbrev1}' : null;
-    _abbrev2 = eu._abbrev2 != null && mu._abbrev2 != null ? '${eu._abbrev2}/${mu._abbrev2}' : null;
+    convToMKS = eu.valueSI / mu.valueSI;
+    abbrev1 = eu.abbrev1 != null && mu.abbrev1 != null ? '${eu.abbrev1} / ${mu.abbrev1}' : null;
+    abbrev2 = eu.abbrev2 != null && mu.abbrev2 != null ? '${eu.abbrev2}/${mu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
 
   /// Constructs a new instance based on length and time units.
   SpecificEnergyUnits.lengthTime(LengthUnits lu, TimeUnits tu)
-      : super._internal(lu.valueSI * lu.valueSI / (tu.valueSI * tu.valueSI)) {
+      : super.misc(lu.valueSI * lu.valueSI / (tu.valueSI * tu.valueSI)) {
     name = '${lu.name} squared per ${tu.singular} squared';
     singular = '${lu.singular} squared per ${tu.singular} squared';
-    _convToMKS = lu.valueSI * lu.valueSI / (tu.valueSI * tu.valueSI);
-    _abbrev1 = lu._abbrev1 != null && tu._abbrev1 != null ? '${lu._abbrev1} sq./ ${tu._abbrev1} sq.' : null;
-    _abbrev2 = lu._abbrev2 != null && tu._abbrev2 != null ? '${lu._abbrev2}^2/${tu._abbrev2}^2' : null;
+    convToMKS = lu.valueSI * lu.valueSI / (tu.valueSI * tu.valueSI);
+    abbrev1 = lu.abbrev1 != null && tu.abbrev1 != null ? '${lu.abbrev1} sq./ ${tu.abbrev1} sq.' : null;
+    abbrev2 = lu.abbrev2 != null && tu.abbrev2 != null ? '${lu.abbrev2}^2/${tu.abbrev2}^2' : null;
     metricBase = false;
     offset = 0.0;
   }
 
   /// Constructs a new instance based on speed units.
-  SpecificEnergyUnits.speed(SpeedUnits su) : super._internal(su.valueSI) {
+  SpecificEnergyUnits.speed(SpeedUnits su) : super.misc(su.valueSI) {
     name = '${su.name} squared';
     singular = '${su.singular} squared';
-    _convToMKS = su.valueSI;
-    _abbrev1 = su._abbrev1 != null ? '${su._abbrev1} sq.' : null;
-    _abbrev2 = su._abbrev2 != null ? '${su._abbrev2}^2' : null;
+    convToMKS = su.valueSI;
+    abbrev1 = su.abbrev1 != null ? '${su.abbrev1} sq.' : null;
+    abbrev2 = su.abbrev2 != null ? '${su.abbrev2}^2' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -88,8 +98,8 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpecificEnergyUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,

@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/inductance.dart';
 
 /// The standard SI unit.
 InductanceUnits henries = Inductance.henries;

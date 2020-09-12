@@ -1,4 +1,4 @@
-part of quantity_ext;
+import '../si/types/capacitance.dart';
 
 /// The standard SI unit.
 final CapacitanceUnits farads = Capacitance.farads;

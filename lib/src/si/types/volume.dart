@@ -1,4 +1,9 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'length.dart';
 
 /// The amount of three-dimensional space enclosed by some closed boundary.
 /// See the [Wikipedia entry for Volume](https://en.wikipedia.org/wiki/Volume)
@@ -9,7 +14,7 @@ class Volume extends Quantity {
   Volume({dynamic m3, dynamic L, double uncert = 0.0})
       : super(m3 ?? (L ?? 0.0), L != null ? Volume.liters : Volume.cubicMeters, uncert);
 
-  Volume._internal(dynamic conv) : super._internal(conv, Volume.volumeDimensions);
+  Volume.misc(dynamic conv) : super.misc(conv, Volume.volumeDimensions);
 
   /// Constructs a Volume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -37,23 +42,23 @@ class VolumeUnits extends Volume with Units {
   /// Constructs a new instance.
   VolumeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
   /// Constructs a new instance based on length units.
-  VolumeUnits.lengthCubed(LengthUnits lu) : super._internal(lu.valueSI ^ 3) {
+  VolumeUnits.lengthCubed(LengthUnits lu) : super.misc(lu.valueSI ^ 3) {
     name = 'cubic ${lu.name}';
     singular = 'cubic ${lu.singular}';
-    _convToMKS = lu.valueSI ^ 3;
-    _abbrev1 = lu._abbrev1 != null ? '${lu._abbrev1}3' : null;
-    _abbrev2 = lu._abbrev2 != null ? '${lu._abbrev2}3' : null;
+    convToMKS = lu.valueSI ^ 3;
+    abbrev1 = lu.abbrev1 != null ? '${lu.abbrev1}3' : null;
+    abbrev2 = lu.abbrev2 != null ? '${lu.abbrev2}3' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -66,8 +71,8 @@ class VolumeUnits extends Volume with Units {
   @override
   Units derive(String fullPrefix, String abbrevPrefix, double conv) => new VolumeUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,
