@@ -18,6 +18,7 @@ class Entropy extends Quantity {
   Entropy({dynamic joulesPerKelvin, double uncert = 0.0})
       : super(joulesPerKelvin ?? 0.0, Entropy.joulesPerKelvin, uncert);
 
+  /// Constructs a new instance without preferred units.
   Entropy.misc(dynamic conv) : super.misc(conv, Entropy.entropyDimensions);
 
   /// Constructs a Entropy based on the [value]

@@ -27,6 +27,7 @@ class Information extends Quantity {
                             : (TiB != null ? Information.tebibytes : Information.bits)))),
             uncert);
 
+  /// Constructs a new instance without preferred units.
   Information.misc(dynamic conv) : super.misc(conv, Information.informationDimensions);
 
   /// Constructs an Information instance based on the [value]

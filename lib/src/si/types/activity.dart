@@ -15,6 +15,7 @@ class Activity extends Quantity {
   // ignore: non_constant_identifier_names
   Activity({dynamic Bq, dynamic Ci, double uncert = 0.0}) : super(Bq ?? (Ci ?? 0.0), Activity.becquerels, uncert);
 
+  /// Constructs a new instance without preferred units.
   Activity.misc(dynamic conv) : super.misc(conv, Activity.activityDimensions);
 
   /// Constructs a Activity based on the [value]

@@ -15,6 +15,7 @@ class Permittivity extends Quantity {
   Permittivity({dynamic faradsPerMeter, double uncert = 0.0})
       : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   Permittivity.misc(dynamic conv) : super.misc(conv, Permittivity.permittivityDimensions);
 
   /// Constructs a Permittivity based on the [value]

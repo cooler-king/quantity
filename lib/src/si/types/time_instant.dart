@@ -114,6 +114,7 @@ class TimeInstant extends Quantity {
   TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
       : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
 
+  /// Constructs a new instance without preferred units.
   TimeInstant.misc(dynamic conv) : super.misc(conv, TimeInstant.timeInstantDimensions);
 
   /// Constructs a TimeInstant based on the [value]

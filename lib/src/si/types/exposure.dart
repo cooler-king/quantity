@@ -15,6 +15,7 @@ class Exposure extends Quantity {
   Exposure({dynamic coulombsPerKilogram, dynamic R, double uncert = 0.0})
       : super(coulombsPerKilogram ?? (R ?? 0.0), R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram, uncert);
 
+  /// Constructs a new instance without preferred units.
   Exposure.misc(dynamic conv) : super.misc(conv, Exposure.exposureDimensions);
 
   /// Constructs a Exposure based on the [value]

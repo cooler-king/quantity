@@ -1,3 +1,4 @@
+import '../si/utilities.dart' show unicodeExponent;
 import 'number_format_si.dart';
 
 /// A version of scientific notation in which the exponent of ten must be divisible by
@@ -9,11 +10,12 @@ class EngineeringFormatSI extends NumberFormatSI {
   /// Move the decimal point.
   @override
   String adjustForExponent(String str) {
+    if (str?.isNotEmpty != true) return str;
     final int dotIndex = str.indexOf('.');
     int firstNonZeroDigit = -1;
     for (int i = 0; i < str.length; i++) {
       final String s = str[i];
-      if (s != '0' && s != '.') {
+      if (s != '0' && s != '.' && s != '-' && s != '+') {
         firstNonZeroDigit = i;
         break;
       }
@@ -38,32 +40,8 @@ class EngineeringFormatSI extends NumberFormatSI {
     }
 
     // Append the exponent.
-    if (effExp != 0) engStr = unicode ? '$engStr \u{00d7} 10${_unicodeExpStr(effExp)}' : '$engStr x 10^$effExp';
+    if (effExp != 0) engStr = unicode ? '$engStr \u{00d7} 10${unicodeExponent(effExp)}' : '$engStr x 10^$effExp';
 
     return engStr;
   }
-
-  String _unicodeExpStr(int exp) {
-    final StringBuffer buf = new StringBuffer();
-    if (exp < 0) buf.write('\u{207b}');
-    final String expStr = exp.abs().toString();
-    for (int i = 0; i < expStr.length; i++) {
-      final String char = expStr[i];
-      buf.write(_expUnicodeMap[char]);
-    }
-    return buf.toString();
-  }
-
-  static const Map<String, String> _expUnicodeMap = const <String, String>{
-    '0': '\u{2070}',
-    '1': '\u{00b9}',
-    '2': '\u{00b2}',
-    '3': '\u{00b3}',
-    '4': '\u{2074}',
-    '5': '\u{2075}',
-    '6': '\u{2076}',
-    '7': '\u{2077}',
-    '8': '\u{2078}',
-    '9': '\u{2079}',
-  };
 }

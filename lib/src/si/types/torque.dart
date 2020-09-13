@@ -17,6 +17,7 @@ class Torque extends Quantity {
   // ignore: non_constant_identifier_names
   Torque({dynamic Nm, double uncert = 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
 
+  /// Constructs a new instance without preferred units.
   Torque.misc(dynamic conv) : super.misc(conv, Torque.torqueDimensions);
 
   /// Constructs a Torque based on the [value]

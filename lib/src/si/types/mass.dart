@@ -16,6 +16,7 @@ class Mass extends Quantity {
       : super(kg ?? (g ?? (u ?? 0.0)),
             g != null ? Mass.grams : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms), uncert);
 
+  /// Constructs a new instance without preferred units.
   Mass.misc(dynamic conv) : super.misc(conv, Mass.massDimensions);
 
   /// Constructs a Mass based on the [value]

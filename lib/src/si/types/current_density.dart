@@ -15,6 +15,7 @@ class CurrentDensity extends Quantity {
   CurrentDensity({dynamic amperesPerSquareMeter, double uncert = 0.0})
       : super(amperesPerSquareMeter ?? 0.0, CurrentDensity.amperesPerSquareMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   CurrentDensity.misc(dynamic conv) : super.misc(conv, CurrentDensity.electricCurrentDensityDimensions);
 
   /// Constructs a CurrentDensity based on the [value]

@@ -14,6 +14,7 @@ class AmountOfSubstance extends Quantity {
   AmountOfSubstance({dynamic mol, dynamic kmol, double uncert = 0.0})
       : super(mol ?? (kmol ?? 0.0), kmol != null ? AmountOfSubstance.kilomoles : AmountOfSubstance.moles, uncert);
 
+  /// Constructs a new instance without preferred units.
   AmountOfSubstance.misc(dynamic conv) : super.misc(conv, AmountOfSubstance.amountOfSubstanceDimensions);
 
   /// Constructs a AmountOfSubstance based on the [value]

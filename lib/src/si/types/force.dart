@@ -15,6 +15,7 @@ class Force extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Force({dynamic N, double uncert = 0.0}) : super(N ?? 0.0, Force.newtons, uncert);
 
+  /// Constructs a new instance without preferred units.
   Force.misc(dynamic conv) : super.misc(conv, Force.forceDimensions);
 
   /// Constructs a Force based on the [value]

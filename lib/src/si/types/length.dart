@@ -22,6 +22,7 @@ class Length extends Quantity {
                     : (ua != null ? Length.astronomicalUnits : (NM != null ? Length.nauticalMiles : Length.meters))),
             uncert);
 
+  /// Constructs a new instance without preferred units.
   Length.misc(dynamic conv) : super.misc(conv, Length.lengthDimensions);
 
   /// Constructs a Length based on the [value]

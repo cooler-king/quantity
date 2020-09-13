@@ -14,6 +14,7 @@ class WaveNumber extends Quantity {
   WaveNumber({dynamic reciprocalMeters, double uncert = 0.0})
       : super(reciprocalMeters ?? 0.0, WaveNumber.reciprocalMeters, uncert);
 
+  /// Constructs a new instance without preferred units.
   WaveNumber.misc(dynamic conv) : super.misc(conv, WaveNumber.waveNumberDimensions);
 
   /// Constructs a WaveNumber based on the [value]

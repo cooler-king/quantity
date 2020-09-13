@@ -16,6 +16,7 @@ class MassFlowRate extends Quantity {
   MassFlowRate({dynamic kilogramsPerSecond, double uncert = 0.0})
       : super(kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert);
 
+  /// Constructs a new instance without preferred units.
   MassFlowRate.misc(dynamic conv) : super.misc(conv, MassFlowRate.massFlowRateDimensions);
 
   /// Constructs a MassFlowRate based on the [value]

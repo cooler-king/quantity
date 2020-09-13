@@ -20,6 +20,7 @@ class SpecificEnergy extends Quantity {
   SpecificEnergy({dynamic joulesPerKilogram, double uncert = 0.0})
       : super(joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert);
 
+  /// Constructs a new instance without preferred units.
   SpecificEnergy.misc(dynamic conv) : super.misc(conv, SpecificEnergy.specificEnergyDimensions);
 
   /// Constructs a SpecificEnergy based on the [value]

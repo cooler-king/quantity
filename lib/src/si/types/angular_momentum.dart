@@ -16,6 +16,7 @@ class AngularMomentum extends Quantity {
   // ignore: non_constant_identifier_names
   AngularMomentum({dynamic Js, double uncert = 0.0}) : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
 
+  /// Constructs a new instance without preferred units.
   AngularMomentum.misc(dynamic conv) : super.misc(conv, AngularMomentum.angularMometumDimensions);
 
   /// Constructs a AngularMomentum based on the [value]

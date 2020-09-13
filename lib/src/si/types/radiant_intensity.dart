@@ -15,6 +15,7 @@ class RadiantIntensity extends Quantity {
   RadiantIntensity({dynamic wattsPerSteradian, double uncert = 0.0})
       : super(wattsPerSteradian ?? 0.0, RadiantIntensity.wattsPerSteradian, uncert);
 
+  /// Constructs a new instance without preferred units.
   RadiantIntensity.misc(dynamic conv) : super.misc(conv, RadiantIntensity.radiantIntensityDimensions);
 
   /// Constructs a RadiantIntensity based on the [value]

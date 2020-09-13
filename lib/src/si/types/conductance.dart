@@ -12,6 +12,7 @@ class Conductance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Conductance({dynamic S, double uncert = 0.0}) : super(S ?? 0.0, Conductance.siemens, uncert);
 
+  /// Constructs a new instance without preferred units.
   Conductance.misc(dynamic conv) : super.misc(conv, Conductance.electricConductanceDimensions);
 
   /// Constructs a Conductance based on the [value]

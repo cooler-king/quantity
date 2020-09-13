@@ -15,6 +15,7 @@ class Luminance extends Quantity {
   Luminance({dynamic candelasPerSquareMeter, double uncert = 0.0})
       : super(candelasPerSquareMeter ?? 0.0, Luminance.candelasPerSquareMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   Luminance.misc(dynamic conv) : super.misc(conv, Luminance.luminanceDimensions);
 
   /// Constructs a Luminance based on the [value]

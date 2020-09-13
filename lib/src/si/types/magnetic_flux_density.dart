@@ -13,6 +13,7 @@ class MagneticFluxDensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   MagneticFluxDensity({dynamic T, double uncert = 0.0}) : super(T ?? 0.0, MagneticFluxDensity.teslas, uncert);
 
+  /// Constructs a new instance without preferred units.
   MagneticFluxDensity.misc(dynamic conv) : super.misc(conv, MagneticFluxDensity.magneticFluxDensityDimensions);
 
   /// Constructs a MagneticFluxDensity based on the [value]

@@ -13,6 +13,7 @@ class SpectralIrradiance extends Quantity {
   SpectralIrradiance({dynamic wattsPerSquareMeterPerHertz, double uncert = 0.0})
       : super(wattsPerSquareMeterPerHertz ?? 0.0, SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
+  /// Constructs a new instance without preferred units.
   SpectralIrradiance.misc(dynamic conv) : super.misc(conv, SpectralIrradiance.spectralIrradianceDimensions);
 
   /// Constructs a SpectralIrradiance based on the [value]

@@ -15,6 +15,7 @@ class Concentration extends Quantity {
   Concentration({dynamic molesPerCubicMeter, double uncert = 0.0})
       : super(molesPerCubicMeter ?? 0.0, Concentration.molesPerCubicMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   Concentration.misc(dynamic conv) : super.misc(conv, Concentration.concentrationDimensions);
 
   /// Constructs a Concentration based on the [value]

@@ -15,6 +15,7 @@ class KinematicViscosity extends Quantity {
   KinematicViscosity({dynamic metersSquaredPerSecond, double uncert = 0.0})
       : super(metersSquaredPerSecond ?? 0.0, KinematicViscosity.metersSquaredPerSecond, uncert);
 
+  /// Constructs a new instance without preferred units.
   KinematicViscosity.misc(dynamic conv) : super.misc(conv, KinematicViscosity.kinematicViscosityDimensions);
 
   /// Constructs a KinematicViscosity based on the [value]

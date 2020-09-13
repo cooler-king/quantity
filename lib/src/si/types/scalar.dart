@@ -14,6 +14,7 @@ class Scalar extends Quantity {
   Scalar({dynamic value, dynamic percent, double uncert = 0.0})
       : super(percent ?? (value ?? 0.0), percent != null ? Scalar.percent : Scalar.one, uncert);
 
+  /// Constructs a new instance without preferred units.
   Scalar.misc(dynamic conv) : super.misc(conv, Scalar.scalarDimensions);
 
   // CONSTRUCTORS.

@@ -26,6 +26,7 @@ class InformationRate extends Quantity {
                         : (Tbps != null ? InformationRate.terabitsPerSecond : InformationRate.bitsPerSecond))),
             uncert);
 
+  /// Constructs a new instance without preferred units.
   InformationRate.misc(dynamic conv) : super.misc(conv, InformationRate.informationRateDimensions);
 
   /// Constructs a InformationRate based on the [value]

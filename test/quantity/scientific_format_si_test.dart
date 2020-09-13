@@ -16,6 +16,7 @@ void main() {
         expect(f1.format(12345678), '1.234 567 8 x 10^7');
         expect(f1.format(123456789), '1.234 567 89 x 10^8');
         expect(f1.format(1234567890), '1.234 567 890 x 10^9');
+        expect(f1.format(-1234567890), '-1.234 567 890 x 10^9');
 
         expect(f1.format(0.0), '0.0');
         expect(f1.format(1.001), '1.001');

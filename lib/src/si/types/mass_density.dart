@@ -15,6 +15,7 @@ class MassDensity extends Quantity {
   MassDensity({dynamic kilogramsPerCubicMeter, double uncert = 0.0})
       : super(kilogramsPerCubicMeter ?? 0.0, MassDensity.kilogramsPerCubicMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   MassDensity.misc(dynamic conv) : super.misc(conv, MassDensity.massDensityDimensions);
 
   /// Constructs a MassDensity based on the [value]

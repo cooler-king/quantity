@@ -79,46 +79,6 @@ mixin Units {
   /// then the singular version of the name will be returned.
   String getShortestName(bool sing) => abbrev2 ?? abbrev1 ?? (sing ? singular : name);
 
-  /// Returns the shortest name for the units which will display in Dialog font.
-  /// This will be the first non-null name found when inspecting symbol, alternate
-  /// name and full name, in that order (so a non-null symbol will be returned by
-  /// this method even it is longer than the alternate name).
-  ///
-  /// If sing is true, the singular form of the full name will be returned in the
-  /// case no suitable symbols or abbreviations are available.
-  /*
-  String getShortestDialogName(bool sing) {
-    if(sing) {
-      String sh = getShortestName(true);
-      if(_canDisplayString(sh)) return sh;
-      else if(abbrev1 != null && _canDisplayString(abbrev1)) return abbrev1;
-      else return singular;
-    } else {
-      return _shDialog;
-    }
-  }*/
-
-//TODO UTF-32 values in Dart... plus  maybe these can be displayed now?  MathML?
-  bool _canDisplayString(String str) {
-    final int num = str.length;
-    String c;
-    for (int i = 0; i < num; i++) {
-      c = str[i];
-
-      // Reject ohms, Angstroms and Planck h and hbar symbols
-      if ((c == '\u03a9') ||
-          (c == '\u2126') ||
-          (c == '\u210E') ||
-          (c == '\u210F') ||
-          (c == '\u00c5') ||
-          (c == '\u212b')) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
   /// Calculates and returns the value in SI-MKS units of the specified [value]
   /// (that is implicitly in these units).
   /// The method expects [value] to be a num or Number object; any other type will
@@ -221,22 +181,4 @@ mixin Units {
   ///    full name [MKS value]
   @override
   String toString() => '$name [$convToMKS]';
-
-  //TODO bug, should be .abs()???
-  String unicodeExponent(int exp) {
-    final String neg = exp < 0 ? '\u{207b}' : '';
-    if (exp == 2) {
-      return '$neg\u{00b2}';
-    } else if (exp == 3) {
-      return '$neg\u{00b3}';
-    }
-    //else if(exp.abs() < 10) return '${neg}\u{00b3}';
-
-    //TODO create a static array that holds unicode characters
-
-    //TODO handle 10+, 100+ , 1000+, etc.
-
-    // failed to find appropriate unicode characters
-    return exp < 0 ? '-$exp' : '$exp';
-  }
 }

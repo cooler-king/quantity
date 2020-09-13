@@ -16,6 +16,7 @@ class AbsorbedDose extends Quantity {
   AbsorbedDose({dynamic Gy, dynamic rads, double uncert = 0.0})
       : super(Gy ?? (rads ?? 0.0), rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert);
 
+  /// Constructs a new instance without preferred units.
   AbsorbedDose.misc(dynamic conv) : super.misc(conv, AbsorbedDose.absorbedDoseDimensions);
 
   /// Constructs an AbsorbedDose based on the [value]

@@ -18,6 +18,7 @@ class SpecificHeatCapacity extends Quantity {
   SpecificHeatCapacity({dynamic joulesPerKilogramKelvin, double uncert = 0.0})
       : super(joulesPerKilogramKelvin ?? 0.0, SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
+  /// Constructs a new instance without preferred units.
   SpecificHeatCapacity.misc(dynamic conv) : super.misc(conv, SpecificHeatCapacity.specificHeatCapacityDimensions);
 
   /// Constructs a SpecificHeatCapacity based on the [value]

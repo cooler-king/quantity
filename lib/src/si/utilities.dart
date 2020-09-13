@@ -283,3 +283,31 @@ Quantity createTypedQuantityInstance(Type t, dynamic value, Units units, {double
         'Dimensions must be provided if units are not when creating an instance of an unrecognized quantity type');
   return new MiscQuantity(value, (units as Quantity)?.dimensions, uncert);
 }
+
+/// Maps a digit string to a unicode exponent character.
+const Map<String, String> expUnicodeMap = const <String, String>{
+  '0': '\u{2070}',
+  '1': '\u{00b9}',
+  '2': '\u{00b2}',
+  '3': '\u{00b3}',
+  '4': '\u{2074}',
+  '5': '\u{2075}',
+  '6': '\u{2076}',
+  '7': '\u{2077}',
+  '8': '\u{2078}',
+  '9': '\u{2079}',
+};
+
+/// Returns the unicode symbols that represent an exponent.
+String unicodeExponent(int exp) {
+  if (exp == null) return '';
+  final String neg = exp < 0 ? '\u{207b}' : '';
+  final int absExp = exp.abs();
+  final String expStr = absExp.toString();
+  final StringBuffer buf = new StringBuffer()..write(neg);
+  for (int place = 0; place < expStr.length; place++) {
+    buf.write(expUnicodeMap[expStr[place]]);
+  }
+
+  return buf.toString();
+}

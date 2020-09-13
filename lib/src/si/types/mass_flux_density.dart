@@ -16,6 +16,7 @@ class MassFluxDensity extends Quantity {
   MassFluxDensity({dynamic kilogramsPerSecondPerSquareMeter, double uncert = 0.0})
       : super(kilogramsPerSecondPerSquareMeter ?? 0.0, MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   MassFluxDensity.misc(dynamic conv) : super.misc(conv, MassFluxDensity.massFluxDensityDimensions);
 
   /// Constructs a MassFluxDensity based on the [value]

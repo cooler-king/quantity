@@ -13,6 +13,7 @@ class MagneticFlux extends Quantity {
   // ignore: non_constant_identifier_names
   MagneticFlux({dynamic Wb, double uncert = 0.0}) : super(Wb ?? 0.0, MagneticFlux.webers, uncert);
 
+  /// Constructs a new instance without preferred units.
   MagneticFlux.misc(dynamic conv) : super.misc(conv, MagneticFlux.magneticFluxDimensions);
 
   /// Constructs a MagneticFlux based on the [value]

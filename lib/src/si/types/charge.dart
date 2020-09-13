@@ -15,6 +15,7 @@ class Charge extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Charge({dynamic C, double uncert = 0.0}) : super(C ?? 0.0, Charge.coulombs, uncert);
 
+  /// Constructs a new instance without preferred units.
   Charge.misc(dynamic conv) : super.misc(conv, Charge.electricChargeDimensions);
 
   /// Constructs a Charge based on the [value]

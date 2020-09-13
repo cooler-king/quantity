@@ -19,6 +19,7 @@ class Pressure extends Quantity {
   Pressure({dynamic Pa, dynamic bars, double uncert = 0.0})
       : super(Pa ?? (bars ?? 0.0), bars != null ? Pressure.bars : Pressure.pascals, uncert);
 
+  /// Constructs a new instance without preferred units.
   Pressure.misc(dynamic conv) : super.misc(conv, Pressure.pressureDimensions);
 
   /// Constructs a Pressure based on the [value]

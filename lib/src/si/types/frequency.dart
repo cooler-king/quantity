@@ -20,6 +20,7 @@ class Frequency extends Quantity {
                 : (MHz != null ? Frequency.megahertz : (GHz != null ? Frequency.gigahertz : Frequency.hertz)),
             uncert);
 
+  /// Constructs a new instance without preferred units.
   Frequency.misc(dynamic conv) : super.misc(conv, Frequency.frequencyDimensions);
 
   /// Constructs a Frequency based on the [value]

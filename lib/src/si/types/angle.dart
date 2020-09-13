@@ -48,6 +48,7 @@ class Angle extends Quantity {
   Angle({dynamic rad, dynamic deg, double uncert = 0.0})
       : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
 
+  /// Constructs a new instance without preferred units.
   Angle.misc(dynamic conv) : super.misc(conv, Angle.angleDimensions);
 
   /// Constructs an Angle based on the [value]

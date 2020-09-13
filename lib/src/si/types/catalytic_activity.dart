@@ -12,6 +12,7 @@ class CatalyticActivity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   CatalyticActivity({dynamic kat, double uncert = 0.0}) : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
 
+  /// Constructs a new instance without preferred units.
   CatalyticActivity.misc(dynamic conv) : super.misc(conv, CatalyticActivity.catalyticActivityDimensions);
 
   /// Constructs a CatalyticActivity based on the [value]

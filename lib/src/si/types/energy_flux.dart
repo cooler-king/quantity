@@ -15,6 +15,7 @@ class EnergyFlux extends Quantity {
   EnergyFlux({dynamic wattsPerSquareMeter, double uncert = 0.0})
       : super(wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   EnergyFlux.misc(dynamic conv) : super.misc(conv, EnergyFlux.energyFluxDimensions);
 
   /// Constructs a EnergyFlux based on the [value]

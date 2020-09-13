@@ -15,6 +15,7 @@ class VolumeFlowRate extends Quantity {
   VolumeFlowRate({dynamic cubicMetersPerSecond, double uncert = 0.0})
       : super(cubicMetersPerSecond ?? 0.0, VolumeFlowRate.cubicMetersPerSecond, uncert);
 
+  /// Constructs a new instance without preferred units.
   VolumeFlowRate.misc(dynamic conv) : super.misc(conv, VolumeFlowRate.volumeFlowRateDimensions);
 
   /// Constructs a VolumeFlowRate based on the [value]

@@ -17,6 +17,7 @@ class Area extends Quantity {
       : super(m2 ?? (ha ?? (b ?? 0.0)), ha != null ? Area.hectares : (b != null ? Area.barns : Area.squareMeters),
             uncert);
 
+  /// Constructs a new instance without preferred units.
   Area.misc(dynamic conv) : super.misc(conv, Area.areaDimensions);
 
   /// Constructs a Area based on the [value]

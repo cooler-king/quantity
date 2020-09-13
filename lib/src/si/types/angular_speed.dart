@@ -16,6 +16,7 @@ class AngularSpeed extends Quantity {
       : super(radiansPerSecond ?? (degreesPerSecond ?? 0.0),
             degreesPerSecond != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
 
+  /// Constructs a new instance without preferred units.
   AngularSpeed.misc(dynamic conv) : super.misc(conv, AngularSpeed.angularSpeedDimensions);
 
   /// Constructs a AngularSpeed based on the [value]

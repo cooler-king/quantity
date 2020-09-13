@@ -14,6 +14,7 @@ class Inductance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Inductance({dynamic H, double uncert = 0.0}) : super(H ?? 0.0, Inductance.henries, uncert);
 
+  /// Constructs a new instance without preferred units.
   Inductance.misc(dynamic conv) : super.misc(conv, Inductance.inductanceDimensions);
 
   /// Constructs a Inductance based on the [value]

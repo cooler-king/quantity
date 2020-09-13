@@ -18,6 +18,7 @@ class Energy extends Quantity {
   Energy({dynamic J, dynamic eV, double uncert = 0.0})
       : super(J ?? (eV ?? 0.0), eV != null ? Energy.electronVolts : Energy.joules, uncert);
 
+  /// Constructs a new instance without preferred units.
   Energy.misc(dynamic conv) : super.misc(conv, Energy.energyDimensions);
 
   /// Constructs a Energy based on the [value]

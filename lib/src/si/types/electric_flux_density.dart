@@ -16,6 +16,7 @@ class ElectricFluxDensity extends Quantity {
   ElectricFluxDensity({dynamic coulombsPerSquareMeter, double uncert = 0.0})
       : super(coulombsPerSquareMeter ?? 0.0, ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   ElectricFluxDensity.misc(dynamic conv) : super.misc(conv, ElectricFluxDensity.electricFluxDensityDimensions);
 
   /// Constructs a ElectricFluxDensity based on the [value]

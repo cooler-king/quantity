@@ -33,6 +33,7 @@ abstract class Level extends Quantity {
   // ignore: non_constant_identifier_names
   Level({dynamic Np, double uncert = 0.0}) : super(Np ?? 0.0, Level.nepers, uncert);
 
+  /// Constructs a new instance without preferred units.
   Level.misc(dynamic conv) : super.misc(conv, Level.levelDimensions);
 
   /// Constructs a Level based on the [value]

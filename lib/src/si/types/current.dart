@@ -13,6 +13,7 @@ class Current extends Quantity {
   Current({dynamic A, dynamic mA, double uncert = 0.0})
       : super(A ?? (mA ?? 0.0), mA != null ? Current.milliamperes : Current.amperes, uncert);
 
+  /// Constructs a new instance without preferred units.
   Current.misc(dynamic conv) : super.misc(conv, Current.electricCurrentDimensions);
 
   /// Constructs a Current based on the [value]

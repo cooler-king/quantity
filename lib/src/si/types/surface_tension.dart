@@ -15,6 +15,7 @@ class SurfaceTension extends Quantity {
   SurfaceTension({dynamic newtonsPerMeter, double uncert = 0.0})
       : super(newtonsPerMeter ?? 0.0, SurfaceTension.newtonsPerMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   SurfaceTension.misc(dynamic conv) : super.misc(conv, SurfaceTension.surfaceTensionDimensions);
 
   /// Constructs a SurfaceTension based on the [value]

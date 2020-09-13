@@ -15,6 +15,7 @@ class Speed extends Quantity {
   Speed({dynamic metersPerSecond, dynamic knots, double uncert = 0.0})
       : super(metersPerSecond ?? (knots ?? 0.0), knots != null ? Speed.knots : Speed.metersPerSecond, uncert);
 
+  /// Constructs a new instance without preferred units.
   Speed.misc(dynamic conv) : super.misc(conv, Speed.speedDimensions);
 
   /// Constructs a Speed based on the [value]

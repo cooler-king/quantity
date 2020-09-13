@@ -15,6 +15,7 @@ class ElectricPotentialDifference extends Quantity {
   ElectricPotentialDifference({dynamic V, double uncert = 0.0})
       : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
 
+  /// Constructs a new instance without preferred units.
   ElectricPotentialDifference.misc(dynamic conv)
       : super.misc(conv, ElectricPotentialDifference.electricPotentialDifferenceDimensions);
 

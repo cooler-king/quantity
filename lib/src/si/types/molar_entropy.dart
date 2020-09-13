@@ -16,6 +16,7 @@ class MolarEntropy extends Quantity {
   MolarEntropy({dynamic joulesPerMoleKelvin, double uncert = 0.0})
       : super(joulesPerMoleKelvin ?? 0.0, MolarEntropy.joulesPerMoleKelvin, uncert);
 
+  /// Constructs a new instance without preferred units.
   MolarEntropy.misc(dynamic conv) : super.misc(conv, MolarEntropy.molarEntropyDimensions);
 
   /// Constructs a MolarEntropy based on the [value]

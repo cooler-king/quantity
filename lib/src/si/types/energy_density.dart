@@ -15,6 +15,7 @@ class EnergyDensity extends Quantity {
   EnergyDensity({dynamic joulesPerCubicMeter, double uncert = 0.0})
       : super(joulesPerCubicMeter ?? 0.0, EnergyDensity.joulesPerCubicMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   EnergyDensity.misc(dynamic conv) : super.misc(conv, EnergyDensity.energyDensityDimensions);
 
   /// Constructs a EnergyDensity based on the [value]

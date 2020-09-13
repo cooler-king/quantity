@@ -19,6 +19,7 @@ class Power extends Quantity {
       : super(W ?? (kW ?? (MW ?? 0.0)), kW != null ? Power.kilowatts : (MW != null ? Power.megawatts : Power.watts),
             uncert);
 
+  /// Constructs a new instance without preferred units.
   Power.misc(dynamic conv) : super.misc(conv, Power.powerDimensions);
 
   /// Constructs a Power based on the [value]

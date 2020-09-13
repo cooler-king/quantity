@@ -19,6 +19,7 @@ class MagneticFieldStrength extends Quantity {
   MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
       : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   MagneticFieldStrength.misc(dynamic conv) : super.misc(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
 
   /// Constructs a MagneticFieldStrength based on the [value]

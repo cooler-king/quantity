@@ -13,6 +13,7 @@ class SolidAngle extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   SolidAngle({dynamic sr, double uncert = 0.0}) : super(sr ?? 0.0, SolidAngle.steradians, uncert);
 
+  /// Constructs a new instance without preferred units.
   SolidAngle.misc(dynamic conv) : super.misc(conv, SolidAngle.solidAngleDimensions);
 
   // CONSTRUCTORS.

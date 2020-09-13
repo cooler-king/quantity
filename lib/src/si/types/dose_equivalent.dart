@@ -15,6 +15,7 @@ class DoseEquivalent extends Quantity {
   DoseEquivalent({dynamic Sv, dynamic rems, double uncert = 0.0})
       : super(Sv ?? rems ?? 0.0, rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts, uncert);
 
+  /// Constructs a new instance without preferred units.
   DoseEquivalent.misc(dynamic conv) : super.misc(conv, DoseEquivalent.doseEquivalentDimensions);
 
   /// Constructs a DoseEquivalent based on the [value]

@@ -14,6 +14,7 @@ class LuminousIntensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   LuminousIntensity({dynamic cd, double uncert = 0.0}) : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
 
+  /// Constructs a new instance without preferred units.
   LuminousIntensity.misc(dynamic conv) : super.misc(conv, LuminousIntensity.luminousIntensityDimensions);
 
   /// Constructs a LuminousIntensity based on the [value]

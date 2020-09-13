@@ -15,6 +15,7 @@ class MolarEnergy extends Quantity {
   MolarEnergy({dynamic joulesPerMole, double uncert = 0.0})
       : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert);
 
+  /// Constructs a new instance without preferred units.
   MolarEnergy.misc(dynamic conv) : super.misc(conv, MolarEnergy.molarEnergyDimensions);
 
   /// Constructs a MolarEnergy based on the [value]

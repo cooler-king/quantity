@@ -17,6 +17,7 @@ class Radiance extends Quantity {
   Radiance({dynamic wattsPerSquareMeterSteradian, double uncert = 0.0})
       : super(wattsPerSquareMeterSteradian ?? 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
 
+  /// Constructs a new instance without preferred units.
   Radiance.misc(dynamic conv) : super.misc(conv, Radiance.radianceDimensions);
 
   /// Constructs a Radiance based on the [value]

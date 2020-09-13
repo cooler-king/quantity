@@ -20,6 +20,7 @@ class Permeability extends Quantity {
             newtonsPerAmpereSquared != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter,
             uncert);
 
+  /// Constructs a new instance without preferred units.
   Permeability.misc(dynamic conv) : super.misc(conv, Permeability.permeabilityDimensions);
 
   /// Constructs a Permeability based on the [value]

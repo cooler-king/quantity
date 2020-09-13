@@ -12,6 +12,7 @@ class Capacitance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Capacitance({dynamic F, double uncert = 0.0}) : super(F ?? 0.0, Capacitance.farads, uncert);
 
+  /// Constructs a new instance without preferred units.
   Capacitance.misc(dynamic conv) : super.misc(conv, Capacitance.electricCapacitanceDimensions);
 
   /// Constructs a Capacitance based on the [value]

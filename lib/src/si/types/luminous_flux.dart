@@ -16,6 +16,7 @@ class LuminousFlux extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   LuminousFlux({dynamic lm, double uncert = 0.0}) : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
 
+  /// Constructs a new instance without preferred units.
   LuminousFlux.misc(dynamic conv) : super.misc(conv, LuminousFlux.luminousFluxDimensions);
 
   /// Constructs a LuminousFlux based on the [value]

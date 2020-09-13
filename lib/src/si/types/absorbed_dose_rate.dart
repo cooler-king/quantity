@@ -20,6 +20,7 @@ class AbsorbedDoseRate extends Quantity {
       : super(graysPerSecond ?? (radsPerSecond ?? 0.0),
             radsPerSecond != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
 
+  /// Constructs a new instance without preferred units.
   AbsorbedDoseRate.misc(dynamic conv) : super.misc(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
 
   /// Constructs an AbsorbedDoseRate based on the [value]

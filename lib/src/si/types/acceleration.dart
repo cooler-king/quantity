@@ -15,6 +15,7 @@ class Acceleration extends Quantity {
   Acceleration({dynamic metersPerSecondSquared, double uncert = 0.0})
       : super(metersPerSecondSquared ?? 0.0, Acceleration.metersPerSecondSquared, uncert);
 
+  /// Constructs a new instance without preferred units.
   Acceleration.misc(dynamic conv) : super.misc(conv, Acceleration.accelerationDimensions);
 
   /// Constructs a Acceleration based on the [value]

@@ -12,6 +12,7 @@ class Resistance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Resistance({dynamic ohms, double uncert = 0.0}) : super(ohms ?? 0.0, Resistance.ohms, uncert);
 
+  /// Constructs a new instance without preferred units.
   Resistance.misc(dynamic conv) : super.misc(conv, Resistance.electricResistanceDimensions);
 
   /// Constructs a Resistance based on the [value]

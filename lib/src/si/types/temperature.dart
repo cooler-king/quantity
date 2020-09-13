@@ -15,6 +15,7 @@ class Temperature extends Quantity {
   Temperature({dynamic K, dynamic C, double uncert = 0.0})
       : super(K ?? (C ?? 0.0), C != null ? Temperature.degreesCelsius : Temperature.kelvins, uncert);
 
+  /// Constructs a new instance without preferred units.
   Temperature.misc(dynamic conv) : super.misc(conv, Temperature.temperatureDimensions);
 
   /// Constructs a Temperature based on the [value]

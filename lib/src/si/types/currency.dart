@@ -13,6 +13,7 @@ class Currency extends Quantity {
   // ignore:non_constant_identifier_names
   Currency({dynamic USD, double uncert = 0.0}) : super(USD ?? 0.0, Currency.dollarsUS, uncert);
 
+  /// Constructs a new instance without preferred units.
   Currency.misc(dynamic conv) : super.misc(conv, Currency.currencyDimensions);
 
   /// Constructs a Currency based on the [value]

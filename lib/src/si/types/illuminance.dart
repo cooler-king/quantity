@@ -12,6 +12,7 @@ class Illuminance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Illuminance({dynamic lux, double uncert = 0.0}) : super(lux ?? 0.0, Illuminance.lux, uncert);
 
+  /// Constructs a new instance without preferred units.
   Illuminance.misc(dynamic conv) : super.misc(conv, Illuminance.illuminanceDimensions);
 
   /// Constructs a Illuminance based on the [value]

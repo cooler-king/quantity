@@ -16,6 +16,7 @@ class DynamicViscosity extends Quantity {
   // ignore: non_constant_identifier_names
   DynamicViscosity({dynamic Pas, double uncert = 0.0}) : super(Pas ?? 0.0, DynamicViscosity.pascalSeconds, uncert);
 
+  /// Constructs a new instance without preferred units.
   DynamicViscosity.misc(dynamic conv) : super.misc(conv, DynamicViscosity.dynamicViscosityDimensions);
 
   /// Constructs a DynamicViscosity based on the [value]

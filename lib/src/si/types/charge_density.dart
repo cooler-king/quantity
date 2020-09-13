@@ -15,6 +15,7 @@ class ChargeDensity extends Quantity {
   ChargeDensity({dynamic coulombsPerCubicMeter, double uncert = 0.0})
       : super(coulombsPerCubicMeter ?? 0.0, ChargeDensity.coulombsPerCubicMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   ChargeDensity.misc(dynamic conv) : super.misc(conv, ChargeDensity.electricChargeDensityDimensions);
 
   /// Constructs a ChargeDensity based on the [value]

@@ -15,6 +15,7 @@ class SpecificVolume extends Quantity {
   SpecificVolume({dynamic cubicMetersPerKilogram, double uncert = 0.0})
       : super(cubicMetersPerKilogram ?? 0.0, SpecificVolume.cubicMetersPerKilogram, uncert);
 
+  /// Constructs a new instance without preferred units.
   SpecificVolume.misc(dynamic conv) : super.misc(conv, SpecificVolume.specificVolumeDimensions);
 
   /// Constructs a SpecificVolume based on the [value]

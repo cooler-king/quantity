@@ -31,6 +31,7 @@ class Time extends Quantity {
                         : (h != null ? Time.hoursMeanSolar : (min != null ? Time.minutesMeanSolar : Time.seconds)))),
             uncert);
 
+  /// Constructs a new instance without preferred units.
   Time.misc(dynamic conv) : super.misc(conv, Time.timeDimensions);
 
   /// Constructs a Time based on the [value]

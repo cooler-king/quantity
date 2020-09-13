@@ -17,6 +17,7 @@ class HeatFluxDensity extends Quantity {
   HeatFluxDensity({dynamic wattsPerSquareMeter, double uncert = 0.0})
       : super(wattsPerSquareMeter ?? 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
 
+  /// Constructs a new instance without preferred units.
   HeatFluxDensity.misc(dynamic conv) : super.misc(conv, HeatFluxDensity.heatFluxDensityDimensions);
 
   /// Constructs a HeatFluxDensity based on the [value]

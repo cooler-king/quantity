@@ -14,6 +14,7 @@ class Volume extends Quantity {
   Volume({dynamic m3, dynamic L, double uncert = 0.0})
       : super(m3 ?? (L ?? 0.0), L != null ? Volume.liters : Volume.cubicMeters, uncert);
 
+  /// Constructs a new instance without preferred units.
   Volume.misc(dynamic conv) : super.misc(conv, Volume.volumeDimensions);
 
   /// Constructs a Volume based on the [value]
