@@ -153,10 +153,12 @@ const Scalar muonGFactor = const Scalar.constant(const Double.constant(-2.002331
 Scalar googol = new Scalar(value: new Precise.raw(<Digit>[Digit.one], power: 100, sigDigits: 101));
 
 /// Sackur-Tetrode constant at 1 K and 100 kPa ('S0/R').
-const Scalar sackurTetrode100kPa = const Scalar.constant(const Double.constant(-1.15170753706), uncert: 3.9072419474542043e-10);
+const Scalar sackurTetrode100kPa =
+    const Scalar.constant(const Double.constant(-1.15170753706), uncert: 3.9072419474542043e-10);
 
 /// Sackur-Tetrode constant at 1 K and 101.325 kPa ('S0/R').
-const Scalar sackurTetrodeStdAtm = const Scalar.constant(const Double.constant(-1.16487052358), uncert: 3.863090282489196e-10);
+const Scalar sackurTetrodeStdAtm =
+    const Scalar.constant(const Double.constant(-1.16487052358), uncert: 3.863090282489196e-10);
 
 /// Weak mixing angle.
 const Scalar weakMixingAngle = const Scalar.constant(const Double.constant(0.22290), uncert: 0.0013458950201884253);

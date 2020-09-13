@@ -16,8 +16,7 @@ class ThermalConductivity extends Quantity {
   ThermalConductivity({dynamic wattsPerMeterKelvin, double uncert = 0.0})
       : super(wattsPerMeterKelvin ?? 0.0, ThermalConductivity.wattsPerMeterKelvin, uncert);
 
-  ThermalConductivity.misc(dynamic conv)
-      : super.misc(conv, ThermalConductivity.thermalConductivityDimensions);
+  ThermalConductivity.misc(dynamic conv) : super.misc(conv, ThermalConductivity.thermalConductivityDimensions);
 
   /// Constructs a ThermalConductivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

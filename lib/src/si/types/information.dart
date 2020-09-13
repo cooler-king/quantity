@@ -101,17 +101,17 @@ class Information extends Quantity {
   /// Use `bytes.exa()` to get the metric value (10^18 bytes).
   /// Use `exbibytes` for common binary usage (e.g., for data storage units).
   static final InformationUnits exbibytes =
-  new InformationUnits('exbibytes', null, 'EiB', null, 8.0 * 1.152921504606846976e18, false);
+      new InformationUnits('exbibytes', null, 'EiB', null, 8.0 * 1.152921504606846976e18, false);
 
   /// 1 zebibyte is equal to 2^70 bytes.
   /// Use `bytes.zetta()` to get the metric value (10^21 bytes).
   static final InformationUnits zebibytes =
-  new InformationUnits('zebibytes', null, 'ZiB', null, 8.0 * math.pow(2, 70), false);
+      new InformationUnits('zebibytes', null, 'ZiB', null, 8.0 * math.pow(2, 70), false);
 
   /// 1 yobibyte is equal to 2^80 bytes.
   /// Use `bytes.yotta()` to get the metric value (10^24 bytes).
   static final InformationUnits yobibytes =
-  new InformationUnits('yobibytes', null, 'YiB', null, 8.0 * math.pow(2, 80), false);
+      new InformationUnits('yobibytes', null, 'YiB', null, 8.0 * math.pow(2, 80), false);
 }
 
 /// Units acceptable for use in describing Information quantities.

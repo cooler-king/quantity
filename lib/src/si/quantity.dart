@@ -553,12 +553,10 @@ abstract class Quantity implements Comparable<dynamic> {
         } else if (uncertFormat == UncertaintyFormat.plusMinus) {
           final bool unicode = numberFormat is NumberFormatSI && numberFormat.unicode == true;
           if (unicode) {
-
           } else {
             buffer.write(' ${numberFormat.format(uncert)}');
           }
         }
-
       }
 
       // Get the units string (singular or plural, as appropriate).

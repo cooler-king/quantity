@@ -9,7 +9,6 @@ import 'mass.dart';
 import 'speed.dart';
 import 'time.dart';
 
-
 // Also ImpartedSpecificEnergy, Kerma
 
 /// Energy per unit mass.

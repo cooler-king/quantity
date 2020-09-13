@@ -56,4 +56,5 @@ const AngularMomentum h = planckConstant;
 
 /// Appears in the Balmer formula for spectral lines of the hydrogen atom. For a hydrogen atom, the effective mass
 /// must be taken as the reduced mass of the proton and electron. In MKS, this gives the Rydberg constant.
-const WaveNumber rydberg = const WaveNumber.constant(const Double.constant(10973731.568160), uncert: 1.9136608062230136e-12);
+const WaveNumber rydberg =
+    const WaveNumber.constant(const Double.constant(10973731.568160), uncert: 1.9136608062230136e-12);

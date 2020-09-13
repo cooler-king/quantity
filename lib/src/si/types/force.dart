@@ -27,8 +27,8 @@ class Force extends Quantity {
 
   /// Constructs a new instance from mass and acceleration.
   Force.ma(Mass m, Acceleration a)
-      : super(m.valueSI * a.valueSI, Force.newtons, math.sqrt(m.relativeUncertainty *
-      m.relativeUncertainty + a.relativeUncertainty * a.relativeUncertainty));
+      : super(m.valueSI * a.valueSI, Force.newtons,
+            math.sqrt(m.relativeUncertainty * m.relativeUncertainty + a.relativeUncertainty * a.relativeUncertainty));
 
   /// Dimensions for this type of quantity.
   static const Dimensions forceDimensions =

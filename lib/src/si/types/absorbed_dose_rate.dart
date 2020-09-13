@@ -62,8 +62,7 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
   }
 
   /// Constructs a new instance based on absorbed dose and time units.
-  AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDoseUnits adu, TimeUnits tu)
-      : super.misc(adu.valueSI * tu.valueSI) {
+  AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDoseUnits adu, TimeUnits tu) : super.misc(adu.valueSI * tu.valueSI) {
     name = '${adu.name} per ${tu.singular} squared';
     singular = '${adu.singular} per ${tu.singular} squared';
     convToMKS = adu.valueSI * tu.valueSI;

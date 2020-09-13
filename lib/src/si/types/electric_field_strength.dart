@@ -15,8 +15,7 @@ class ElectricFieldStrength extends Quantity {
   ElectricFieldStrength({dynamic voltsPerMeter, double uncert = 0.0})
       : super(voltsPerMeter ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
-  ElectricFieldStrength.misc(dynamic conv)
-      : super.misc(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
+  ElectricFieldStrength.misc(dynamic conv) : super.misc(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
 
   /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

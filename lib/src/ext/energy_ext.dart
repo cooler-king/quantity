@@ -89,4 +89,5 @@ final EnergyUnits kilocaloriesThermo = caloriesKgThermo;
 // Constants.
 
 /// The Hartree atomic unit of energy is the energy for the separation of a molecule to nuclei and electrons.
-const Energy hartreeEnergy = const Energy.constant(const Double.constant(4.3597447222071e-18), uncert: 1.949655436636876e-12);
+const Energy hartreeEnergy =
+    const Energy.constant(const Double.constant(4.3597447222071e-18), uncert: 1.949655436636876e-12);

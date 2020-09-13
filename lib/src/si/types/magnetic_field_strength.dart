@@ -19,8 +19,7 @@ class MagneticFieldStrength extends Quantity {
   MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
       : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
-  MagneticFieldStrength.misc(dynamic conv)
-      : super.misc(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
+  MagneticFieldStrength.misc(dynamic conv) : super.misc(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -58,8 +57,7 @@ class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
   }
 
   /// Constructs a new instance based on electric current and length units.
-  MagneticFieldStrengthUnits.currentLength(CurrentUnits ecu, LengthUnits lu)
-      : super.misc(ecu.valueSI * lu.valueSI) {
+  MagneticFieldStrengthUnits.currentLength(CurrentUnits ecu, LengthUnits lu) : super.misc(ecu.valueSI * lu.valueSI) {
     name = '${ecu.name} per ${lu.singular}';
     singular = '${ecu.singular} per ${lu.singular}';
     convToMKS = ecu.valueSI * lu.valueSI;

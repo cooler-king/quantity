@@ -55,8 +55,7 @@ class EntropyUnits extends Entropy with Units {
   }
 
   /// Constructs a new instance based on energy and temperature interval units.
-  EntropyUnits.energyTemperature(EnergyUnits eu, TemperatureIntervalUnits tu)
-      : super.misc(eu.valueSI * tu.valueSI) {
+  EntropyUnits.energyTemperature(EnergyUnits eu, TemperatureIntervalUnits tu) : super.misc(eu.valueSI * tu.valueSI) {
     name = '${eu.name} per ${tu.singular}';
     singular = '${eu.singular} per ${tu.singular}';
     convToMKS = eu.valueSI * tu.valueSI;

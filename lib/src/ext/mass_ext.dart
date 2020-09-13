@@ -108,7 +108,8 @@ final MassUnits kgfSecondSquaredMeter = new MassUnits('kgf second squared meter'
 const Mass planckMass = const Mass.constant(const Double.constant(2.176434e-8), uncert: 0.00001102721240340851);
 
 /// The rest mass of a helium nucleus.
-const Mass alphaParticleMass = const Mass.constant(const Double.constant(6.6446573357e-27), uncert: 3.009937004959646e-10);
+const Mass alphaParticleMass =
+    const Mass.constant(const Double.constant(6.6446573357e-27), uncert: 3.009937004959646e-10);
 
 /// One twelfth of the mass of a carbon-12 atom in its nuclear and electronic ground state.
 const Mass atomicMass = const Mass.constant(const Double.constant(1.66053906660e-27), uncert: 3.0110703810405613e-10);

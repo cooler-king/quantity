@@ -52,8 +52,7 @@ class MolarEnergyUnits extends MolarEnergy with Units {
   }
 
   /// Constructs a new instance based on energy and amount of substance units.
-  MolarEnergyUnits.energyAmount(EnergyUnits eu, AmountOfSubstanceUnits aosu)
-      : super.misc(eu.valueSI * aosu.valueSI) {
+  MolarEnergyUnits.energyAmount(EnergyUnits eu, AmountOfSubstanceUnits aosu) : super.misc(eu.valueSI * aosu.valueSI) {
     name = '${eu.name} per ${aosu.singular}';
     singular = '${eu.singular} per ${aosu.singular}';
     convToMKS = eu.valueSI * aosu.valueSI;

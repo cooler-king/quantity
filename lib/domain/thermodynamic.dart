@@ -55,12 +55,12 @@ const MiscQuantity molarPlanck = const MiscQuantity.constant(const Double.consta
     const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -1, 'Amount': 1}));
 
 /// Molar Volume of Ideal Gas at 273.15 K and 100 kPa ('Vm')
-const MiscQuantity molarVolume100kPa = const MiscQuantity.constant(
-    const Double.constant(22.710954644444444e-3), const Dimensions.constant(const <String, int>{'Length': 3, 'Amount': -1}));
+const MiscQuantity molarVolume100kPa = const MiscQuantity.constant(const Double.constant(22.710954644444444e-3),
+    const Dimensions.constant(const <String, int>{'Length': 3, 'Amount': -1}));
 
 /// Molar Volume of Ideal Gas at 273.15 K and 101.325 kPa ('Vm')
-const MiscQuantity molarVolumeStdAtm = const MiscQuantity.constant(
-    const Double.constant(22.413969544444444e-3), const Dimensions.constant(const <String, int>{'Length': 3, 'Amount': -1}));
+const MiscQuantity molarVolumeStdAtm = const MiscQuantity.constant(const Double.constant(22.413969544444444e-3),
+    const Dimensions.constant(const <String, int>{'Length': 3, 'Amount': -1}));
 
 /// Second Radiation Constant ('c2')
 const MiscQuantity secondRadiationConstant = const MiscQuantity.constant(const Double.constant(1.4387768777777777e-2),

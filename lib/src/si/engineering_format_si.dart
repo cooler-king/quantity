@@ -23,22 +23,22 @@ class EngineeringFormatSI extends NumberFormatSI {
     int exp = dotIndex == -1 ? str.length - 1 : dotIndex - firstNonZeroDigit;
     if (dotIndex > firstNonZeroDigit) exp--;
 
-    final int effExp = (exp ~/ 3) * 3;
+    final int effExp = exp < 0 ? ((exp + 1) ~/ 3) * 3 - 3 : (exp ~/ 3) * 3;
     final int adj = exp - effExp;
 
     String engStr = str.substring(firstNonZeroDigit);
-    if (engStr.length == 1) {
+    if (engStr.length == 1 && firstNonZeroDigit < dotIndex) {
       engStr = '$engStr.0';
     } else {
       // Insert the decimal point after the first non zero digit.
       engStr = engStr.replaceAll('.', '');
-      engStr = '${engStr[0]}.${engStr.substring(1)}';
+      if (engStr.length < adj + 1) engStr = engStr.padRight(adj + 1, '0');
+      engStr = '${engStr.substring(0, adj + 1)}.${engStr.substring(adj + 1)}';
+      if (engStr.endsWith('.')) engStr = '${engStr}0';
     }
 
     // Append the exponent.
-    if (exp != 0) {
-      engStr = unicode ? '$engStr \u{00d7} 10${_unicodeExpStr(exp)}' : '$engStr x 10^$exp';
-    }
+    if (effExp != 0) engStr = unicode ? '$engStr \u{00d7} 10${_unicodeExpStr(effExp)}' : '$engStr x 10^$effExp';
 
     return engStr;
   }

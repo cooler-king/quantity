@@ -52,8 +52,7 @@ class PermittivityUnits extends Permittivity with Units {
   }
 
   /// Constructs a new instance based on capacitance and length units.
-  PermittivityUnits.capacitanceLength(CapacitanceUnits ecu, LengthUnits lu)
-      : super.misc(ecu.valueSI / lu.valueSI) {
+  PermittivityUnits.capacitanceLength(CapacitanceUnits ecu, LengthUnits lu) : super.misc(ecu.valueSI / lu.valueSI) {
     name = '${ecu.name} per ${lu.singular}';
     singular = '${ecu.singular} per ${lu.singular}';
     convToMKS = ecu.valueSI / lu.valueSI;

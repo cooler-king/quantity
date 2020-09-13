@@ -17,4 +17,3 @@ export 'src/number/real.dart';
 export 'src/number/util/converters.dart';
 export 'src/number/util/erf.dart';
 export 'src/number/util/jenkins_hash.dart';
-

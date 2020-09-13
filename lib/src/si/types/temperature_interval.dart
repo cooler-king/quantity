@@ -17,8 +17,7 @@ class TemperatureInterval extends Quantity {
       : super(K ?? (degC ?? 0.0), degC != null ? TemperatureInterval.degreesCelsius : TemperatureInterval.kelvins,
             uncert);
 
-  TemperatureInterval.misc(dynamic conv)
-      : super.misc(conv, TemperatureInterval.temperatureIntervalDimensions);
+  TemperatureInterval.misc(dynamic conv) : super.misc(conv, TemperatureInterval.temperatureIntervalDimensions);
 
   /// Constructs a TemperatureInterval based on the [value]
   /// and the conversion factor intrinsic to the passed [units].

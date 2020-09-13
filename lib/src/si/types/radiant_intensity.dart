@@ -52,8 +52,7 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
   }
 
   /// Constructs a new instance based on power nad solid angle units.
-  RadiantIntensityUnits.powerSolidAngle(PowerUnits pu, SolidAngleUnits sau)
-      : super.misc(pu.valueSI / sau.valueSI) {
+  RadiantIntensityUnits.powerSolidAngle(PowerUnits pu, SolidAngleUnits sau) : super.misc(pu.valueSI / sau.valueSI) {
     name = '${pu.name} per ${sau.singular}';
     singular = '${pu.singular} per ${sau.singular}';
     convToMKS = pu.valueSI / sau.valueSI;

@@ -11,4 +11,3 @@ SpecificEnergyUnits squareMetersPerSquareSecond = new SpecificEnergyUnits.length
 
 /// The square of the speed of light in a vacuum.
 SpecificEnergyUnits speedOfLightSquared = new SpecificEnergyUnits.speed(speedOfLightUnits);
-

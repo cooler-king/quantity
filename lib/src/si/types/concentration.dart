@@ -51,8 +51,7 @@ class ConcentrationUnits extends Concentration with Units {
   }
 
   /// Constructs concentration units from an amount of substance and volume.
-  ConcentrationUnits.amountVolume(AmountOfSubstanceUnits asu, VolumeUnits vu)
-      : super.misc(asu.valueSI * vu.valueSI) {
+  ConcentrationUnits.amountVolume(AmountOfSubstanceUnits asu, VolumeUnits vu) : super.misc(asu.valueSI * vu.valueSI) {
     name = '${asu.name} per ${vu.singular}';
     singular = '${asu.singular} per ${vu.singular}';
     convToMKS = asu.valueSI * vu.valueSI;

@@ -21,8 +21,7 @@ class AngularAcceleration extends Quantity {
                 : AngularAcceleration.radiansPerSecondSquared,
             uncert);
 
-  AngularAcceleration.misc(dynamic conv)
-      : super.misc(conv, AngularAcceleration.angularAccelerationDimensions);
+  AngularAcceleration.misc(dynamic conv) : super.misc(conv, AngularAcceleration.angularAccelerationDimensions);
 
   /// Constructs a AngularAcceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
