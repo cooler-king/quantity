@@ -340,7 +340,7 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
 
   // Outside thresholds?
   if (tai < 94694400.0) return 0; //   (2441317.5-2436204.5) * 86400.0         [< 1 Jan 1961]
-  if (tai >= 1861920036.0) return 37; //  ((2457754.5-2436204.5) * 86400.0) + 36 [< 1 Jan 2017]
+  if (tai >= 1861920036.0) return 37; //  ((2457754.5-2436204.5) * 86400.0) + 36 [>= 1 Jan 2017]
 
   // Pre-1972? (2441317.5-2436204.5) * 86400.0 [< 1 Jan 1972]
   if (tai < 441763200.0) {

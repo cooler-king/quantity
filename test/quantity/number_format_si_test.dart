@@ -139,6 +139,26 @@ void main() {
         expect(
             f1.format(new Complex.coeff(9876543210.1234, 4321.0123456789)), '9 876 543 210.1234 + 4321.012 345 678 9i');
       });
+
+      test('removeInsignificantZeros', () {
+        expect(NumberFormatSI.removeInsignificantZeros('10'), '10');
+        expect(NumberFormatSI.removeInsignificantZeros('100'), '100');
+        expect(NumberFormatSI.removeInsignificantZeros('1000'), '1000');
+        expect(NumberFormatSI.removeInsignificantZeros('10001'), '10001');
+        expect(NumberFormatSI.removeInsignificantZeros('100010'), '100010');
+        expect(NumberFormatSI.removeInsignificantZeros('0.0'), '0.0');
+        expect(NumberFormatSI.removeInsignificantZeros('0.00'), '0.0');
+        expect(NumberFormatSI.removeInsignificantZeros('0.000'), '0.0');
+        expect(NumberFormatSI.removeInsignificantZeros('0.0001'), '0.0001');
+        expect(NumberFormatSI.removeInsignificantZeros('0.00010'), '0.0001');
+        expect(NumberFormatSI.removeInsignificantZeros('1.0'), '1.0');
+        expect(NumberFormatSI.removeInsignificantZeros('1.00'), '1.0');
+        expect(NumberFormatSI.removeInsignificantZeros('1.00000000000000000'), '1.0');
+        expect(NumberFormatSI.removeInsignificantZeros('-9000001.00000000000600000'), '-9000001.000000000006');
+        expect(NumberFormatSI.removeInsignificantZeros('5E7'), '5E7');
+        expect(NumberFormatSI.removeInsignificantZeros('5.870E12'), '5.87E12');
+        expect(NumberFormatSI.removeInsignificantZeros('5.920000E31'), '5.92E31');
+      });
     });
 
     group('parse', () {

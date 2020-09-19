@@ -16,13 +16,17 @@ class ScientificFormatSI extends NumberFormatSI {
     if (trimmed.startsWith('-')) {
       sign = '-';
       trimmed = trimmed.substring(1);
+    } else if (trimmed.startsWith('+')) {
+      trimmed = trimmed.substring(1);
     }
 
     final int dotIndex = trimmed.indexOf('.');
+    final int eIndex = trimmed.toLowerCase().indexOf('e');
+
     int firstNonZeroDigit = -1;
     for (int i = 0; i < trimmed.length; i++) {
       final String s = trimmed[i];
-      if (s != '0' && s != '.' && s != '-' && s != '+') {
+      if (s != '0' && s != '.') {
         firstNonZeroDigit = i;
         break;
       }
@@ -38,7 +42,10 @@ class ScientificFormatSI extends NumberFormatSI {
     // TODO look for an existing exponent in string??? 4E-7 or 4.2 x 10^4?
 
     if (firstNonZeroDigit == -1) return '0.0';
-    int exp = dotIndex == -1 ? trimmed.length - 1 : dotIndex - firstNonZeroDigit;
+
+    final num includedExponent = eIndex != -1 ? num.parse(trimmed.substring(eIndex)) : 0;
+
+    num exp = (dotIndex == -1 ? trimmed.length - 1 : dotIndex - firstNonZeroDigit) + includedExponent;
     if (dotIndex > firstNonZeroDigit) exp--;
 
     String sciStr = trimmed.substring(firstNonZeroDigit);
@@ -49,6 +56,8 @@ class ScientificFormatSI extends NumberFormatSI {
       sciStr = sciStr.replaceAll('.', '');
       sciStr = '${sciStr[0]}.${sciStr.substring(1)}';
     }
+
+    sciStr = NumberFormatSI.removeInsignificantZeros(sciStr);
 
     // Prepend the sign.
     sciStr = '$sign$sciStr';

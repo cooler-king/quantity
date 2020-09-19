@@ -11,10 +11,19 @@ class EngineeringFormatSI extends NumberFormatSI {
   @override
   String adjustForExponent(String str) {
     if (str?.isNotEmpty != true) return str;
-    final int dotIndex = str.indexOf('.');
+    String trimmed = str.trim();
+    String sign = '';
+    if (trimmed.startsWith('-')) {
+      sign = '-';
+      trimmed = trimmed.substring(1);
+    } else if (trimmed.startsWith('+')) {
+      trimmed = trimmed.substring(1);
+    }
+
+    final int dotIndex = trimmed.indexOf('.');
     int firstNonZeroDigit = -1;
-    for (int i = 0; i < str.length; i++) {
-      final String s = str[i];
+    for (int i = 0; i < trimmed.length; i++) {
+      final String s = trimmed[i];
       if (s != '0' && s != '.' && s != '-' && s != '+') {
         firstNonZeroDigit = i;
         break;
@@ -22,13 +31,13 @@ class EngineeringFormatSI extends NumberFormatSI {
     }
 
     if (firstNonZeroDigit == -1) return '0.0';
-    int exp = dotIndex == -1 ? str.length - 1 : dotIndex - firstNonZeroDigit;
+    int exp = dotIndex == -1 ? trimmed.length - 1 : dotIndex - firstNonZeroDigit;
     if (dotIndex > firstNonZeroDigit) exp--;
 
     final int effExp = exp < 0 ? ((exp + 1) ~/ 3) * 3 - 3 : (exp ~/ 3) * 3;
     final int adj = exp - effExp;
 
-    String engStr = str.substring(firstNonZeroDigit);
+    String engStr = trimmed.substring(firstNonZeroDigit);
     if (engStr.length == 1 && firstNonZeroDigit < dotIndex) {
       engStr = '$engStr.0';
     } else {
@@ -38,6 +47,11 @@ class EngineeringFormatSI extends NumberFormatSI {
       engStr = '${engStr.substring(0, adj + 1)}.${engStr.substring(adj + 1)}';
       if (engStr.endsWith('.')) engStr = '${engStr}0';
     }
+
+    engStr = NumberFormatSI.removeInsignificantZeros(engStr);
+
+    // Prepend the sign.
+    engStr = '$sign$engStr';
 
     // Append the exponent.
     if (effExp != 0) engStr = unicode ? '$engStr \u{00d7} 10${unicodeExponent(effExp)}' : '$engStr x 10^$effExp';
