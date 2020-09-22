@@ -284,7 +284,7 @@ Quantity createTypedQuantityInstance(Type t, dynamic value, Units units, {double
   return new MiscQuantity(value, (units as Quantity)?.dimensions, uncert);
 }
 
-/// Maps a digit string to a unicode exponent character.
+/// Maps a digit, decimal point or minus sign string to a unicode exponent character.
 const Map<String, String> expUnicodeMap = const <String, String>{
   '0': '\u{2070}',
   '1': '\u{00b9}',
@@ -296,13 +296,15 @@ const Map<String, String> expUnicodeMap = const <String, String>{
   '7': '\u{2077}',
   '8': '\u{2078}',
   '9': '\u{2079}',
+  '.': '\u{02d9}',
+  '-': '\u{207b}',
 };
 
 /// Returns the unicode symbols that represent an exponent.
-String unicodeExponent(int exp) {
+String unicodeExponent(num exp) {
   if (exp == null) return '';
   final String neg = exp < 0 ? '\u{207b}' : '';
-  final int absExp = exp.abs();
+  final num absExp = exp.abs();
   final String expStr = absExp.toString();
   final StringBuffer buf = new StringBuffer()..write(neg);
   for (int place = 0; place < expStr.length; place++) {

@@ -21,8 +21,11 @@ void main() {
         expect(f1.format(1E5), '1.0 x 10^5');
         expect(f1.format(45E12), '4.5 x 10^13');
         expect(f1.format(5E27), '5.0 x 10^27');
-        expect(f1.format(12e-4), '1.2 x 10^-2');
-        expect(f1.format(123.4567E1), '1.234 567 x 10^2');
+        expect(f1.format(12e-4), '1.2 x 10^-3');
+        expect(f1.format(123.4567E1), '1.234 567 x 10^3');
+        expect(f1.format(-9876.54321000E-8), '-9.876 543 21 x 10^-5');
+        expect(f1.format(-9876.54321000E57), '-9.876 543 21 x 10^60');
+        expect(f1.format(98760000.54321000E-75), '9.876 000 054 321 x 10^-68');
 
         expect(f1.format(-1), '-1.0');
         expect(f1.format(-12), '-1.2 x 10^1');
@@ -33,7 +36,7 @@ void main() {
         expect(f1.format(-1234567), '-1.234 567 x 10^6');
         expect(f1.format(-12345678), '-1.234 567 8 x 10^7');
         expect(f1.format(-123456789), '-1.234 567 89 x 10^8');
-        expect(f1.format(-1234567890), '-1.234 567 890 x 10^9');
+        expect(f1.format(-1234567890), '-1.234 567 89 x 10^9');
 
         expect(f1.format(0.0), '0.0');
         expect(f1.format(1.001), '1.001');
@@ -285,10 +288,18 @@ void main() {
 
     group('parse', () {
       test('real with regular spaces', () {
-        final ScientificFormatSI f1 = new ScientificFormatSI(unicode: false);
-        expect(f1.parse('12 345'), 12345);
-        expect(f1.parse('12 345.678 90'), 12345.67890);
+        final ScientificFormatSI f1 = new ScientificFormatSI();
+        expect(f1.parse('1.2345'), 1.2345);
+        expect(f1.parse('1.234 56'), 1.23456);
+        expect(f1.parse('1.234 56 x 10^1'), 12.3456);
+        expect(f1.parse('-1.234 56 x 10^-1'), -0.123456);
+        expect(f1.parse('1.2345 x 10^7'), 12345000);
+        expect(f1.parse('1.234 567 89 x 10^-5'), 0.0000123456789);
+      });
+      test('real , unicode', () {
+        final ScientificFormatSI f1 = new ScientificFormatSI();
         expect(f1.parse('1\u{2009}234\u{2009}567'), 1234567);
+        expect(f1.parse('1\u{2009}2345 x 10\u{207b}\u{00b3}\u{2076}'), 1.2345E-32);
       });
     });
   });

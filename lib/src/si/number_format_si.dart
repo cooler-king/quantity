@@ -7,7 +7,7 @@ import '../number/integer.dart';
 import '../number/number.dart';
 import '../number/precise.dart';
 import 'quantity.dart';
-import 'utilities.dart' show logger;
+import 'utilities.dart' show expUnicodeMap, logger;
 
 /// NumberFormatSI implements the International System of Units (SI) style
 /// conventions for displaying values of quantities.  Specifically:
@@ -185,8 +185,12 @@ class NumberFormatSI extends NumberFormat {
 
   @override
   num parse(String text) {
-    // Strip spaces and unicode thin spaces before parsing.
-    final String stripped = text.replaceAll(' ', '').replaceAll('\u{2009}', '');
-    return super.parse(stripped);
+    // Replace spaces, unicode characters and exponential notation before parsing.
+    String adj = text.replaceAll(' ', '').replaceAll('\u{2009}', '').replaceAll('x10^', 'E').replaceAll('x10', 'E');
+    for (final String char in expUnicodeMap.keys) {
+      final String unicodeChar = expUnicodeMap[char];
+      adj = adj.replaceAll(unicodeChar, char);
+    }
+    return super.parse(adj);
   }
 }

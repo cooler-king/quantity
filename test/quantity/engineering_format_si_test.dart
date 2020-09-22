@@ -17,6 +17,18 @@ void main() {
         expect(f1.format(123456789), '123.456 789 x 10^6');
         expect(f1.format(1234567890), '1.234 567 89 x 10^9');
 
+        expect(f1.format(100000), '100.0 x 10^3');
+        expect(f1.format(1E5), '100.0 x 10^3');
+        expect(f1.format(45E12), '45.0 x 10^12');
+        expect(f1.format(5E26), '500.0 x 10^24');
+        expect(f1.format(5E27), '5.0 x 10^27');
+        expect(f1.format(5E28), '50.0 x 10^27');
+        expect(f1.format(12e-4), '1.2 x 10^-3');
+        expect(f1.format(123.4567E1), '1.234 567 x 10^3');
+        expect(f1.format(-9876.54321000E-8), '-98.765 432 1 x 10^-6');
+        expect(f1.format(-9876.54321000E57), '-9.876 543 21 x 10^60');
+        expect(f1.format(98760000.54321000E-75), '98.760 000 543 21 x 10^-69');
+
         expect(f1.format(-1), '-1.0');
         expect(f1.format(-12), '-12.0');
         expect(f1.format(-123), '-123.0');
@@ -26,7 +38,7 @@ void main() {
         expect(f1.format(-1234567), '-1.234 567 x 10^6');
         expect(f1.format(-12345678), '-12.345 678 x 10^6');
         expect(f1.format(-123456789), '-123.456 789 x 10^6');
-        expect(f1.format(-1234567890), '-1.234 567 890 x 10^9');
+        expect(f1.format(-1234567890), '-1.234 567 89 x 10^9');
 
         expect(f1.format(0.0), '0.0');
         expect(f1.format(1.001), '1.001');
@@ -106,7 +118,7 @@ void main() {
           expect(f1.format(-1234567), '-1.234\u{2009}567 \u{00d7} 10\u{2076}');
           expect(f1.format(-12345678), '-12.345\u{2009}678 \u{00d7} 10\u{2076}');
           expect(f1.format(-123456789), '-123.456\u{2009}789 \u{00d7} 10\u{2076}');
-          expect(f1.format(-1234567890), '-1.234\u{2009}567\u{2009}890 \u{00d7} 10\u{2079}');
+          expect(f1.format(-1234567890), '-1.234\u{2009}567\u{2009}89 \u{00d7} 10\u{2079}');
 
           expect(f1.format(0.0), '0.0');
           expect(f1.format(1.001), '1.001');
@@ -181,7 +193,7 @@ void main() {
         expect(f1.format(new Integer(-1234567)), '-1.234 567 x 10^6');
         expect(f1.format(new Integer(-12345678)), '-12.345 678 x 10^6');
         expect(f1.format(new Integer(-123456789)), '-123.456 789 x 10^6');
-        expect(f1.format(new Integer(-1234567890)), '-1.234 567 890 x 10^9');
+        expect(f1.format(new Integer(-1234567890)), '-1.234 567 89 x 10^9');
         expect(f1.format(new Integer(-12345678901)), '-12.345 678 901 x 10^9');
 
         expect(f1.format(new Double(0)), '0.0');
@@ -223,7 +235,7 @@ void main() {
         expect(f1.format(new Imaginary(-1234567)), '-1.234 567i x 10^6');
         expect(f1.format(new Imaginary(-12345678)), '-12.345 678i x 10^6');
         expect(f1.format(new Imaginary(-123456789)), '-123.456 789i x 10^6');
-        expect(f1.format(new Imaginary(-1234567890)), '-1.234 567 890i x 10^9');
+        expect(f1.format(new Imaginary(-1234567890)), '-1.234 567 89i x 10^9');
 
         expect(f1.format(new Imaginary(0.0)), '0.0i');
         expect(f1.format(new Imaginary(10.01)), '10.01i');
@@ -290,10 +302,17 @@ void main() {
 
     group('parse', () {
       test('real with regular spaces', () {
-        final EngineeringFormatSI f1 = new EngineeringFormatSI(unicode: false);
-        expect(f1.parse('12 345'), 12345);
-        expect(f1.parse('12 345.678 90'), 12345.67890);
+        final EngineeringFormatSI f1 = new EngineeringFormatSI();
+        expect(f1.parse('1.234 x 10^3'), 1234.0);
+        expect(f1.parse('1.2345 x 10^3'), 1234.5);
+        expect(f1.parse('1.234 56 x 10^3'), 1234.56);
+        expect(f1.parse('12.34567890 x 10-6'), 0.0000123456789);
+      });
+
+      test('real unicode', () {
+        final EngineeringFormatSI f1 = new EngineeringFormatSI();
         expect(f1.parse('1\u{2009}234\u{2009}567'), 1234567);
+        expect(f1.parse('123\u{2009}234.56 x 10\u{207b}\u{00b3}\u{2076}'), 1.2323456E-31);
       });
     });
   });

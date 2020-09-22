@@ -21,6 +21,8 @@ class EngineeringFormatSI extends NumberFormatSI {
     }
 
     final int dotIndex = trimmed.indexOf('.');
+    final int eIndex = trimmed.toLowerCase().indexOf('e');
+
     int firstNonZeroDigit = -1;
     for (int i = 0; i < trimmed.length; i++) {
       final String s = trimmed[i];
@@ -31,13 +33,17 @@ class EngineeringFormatSI extends NumberFormatSI {
     }
 
     if (firstNonZeroDigit == -1) return '0.0';
-    int exp = dotIndex == -1 ? trimmed.length - 1 : dotIndex - firstNonZeroDigit;
+
+    final num includedExponent = eIndex != -1 ? num.parse(trimmed.substring(eIndex + 1)) : 0;
+
+    final int length = eIndex != -1 ? eIndex : trimmed.length;
+    num exp = (dotIndex == -1 ? length - 1 : dotIndex - firstNonZeroDigit) + includedExponent;
     if (dotIndex > firstNonZeroDigit) exp--;
 
-    final int effExp = exp < 0 ? ((exp + 1) ~/ 3) * 3 - 3 : (exp ~/ 3) * 3;
-    final int adj = exp - effExp;
+    final num effExp = exp < 0 ? ((exp + 1) ~/ 3) * 3 - 3 : (exp ~/ 3) * 3;
+    final int adj = (exp - effExp).floor();
 
-    String engStr = trimmed.substring(firstNonZeroDigit);
+    String engStr = eIndex != -1 ? trimmed.substring(firstNonZeroDigit, eIndex) : trimmed.substring(firstNonZeroDigit);
     if (engStr.length == 1 && firstNonZeroDigit < dotIndex) {
       engStr = '$engStr.0';
     } else {
