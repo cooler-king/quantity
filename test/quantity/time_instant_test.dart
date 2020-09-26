@@ -5,14 +5,26 @@ import 'package:quantity/number.dart';
 void main() {
   group('TimeInstant', () {
     test('constructors', () {
-      final TimeInstant t = new TimeInstant(TAI: 1234.5);
-      expect(t, isNotNull);
+      TimeInstant q = new TimeInstant();
+      expect(q.valueSI, Double.zero);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, TimeInstant.timeInstantDimensions);
+      expect(q.preferredUnits, TimeInstant.TAI);
+      expect(q.relativeUncertainty, 0);
 
-      expect(t.valueSI is Double, true);
-      expect(t.valueSI.toDouble(), 1234.5);
-      expect(t.dimensions, TimeInstant.timeInstantDimensions);
-      expect(t.preferredUnits, TimeInstant.TAI);
-      expect(t.relativeUncertainty, 0);
+      q = new TimeInstant(TAI: 42, uncert: 0.001);
+      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, TimeInstant.timeInstantDimensions);
+      expect(q.preferredUnits, TimeInstant.TAI);
+      expect(q.relativeUncertainty, 0.001);
+
+      q = new TimeInstant(UTC: 1900000000);
+      expect(q.valueSI?.toDouble(), 1900000037);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, TimeInstant.timeInstantDimensions);
+      expect(q.preferredUnits, TimeInstant.UTC);
+      expect(q.relativeUncertainty, 0);
     });
 
     test('nearestDateTime', () {

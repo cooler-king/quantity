@@ -67,7 +67,7 @@ final TimeInstantUnits TDB =
   final double d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
 
   // Too convoluted to solve analytically (because g is a function of
-  // the Julian Date in the TAI scale... instead, get close and then search
+  // the Julian Date in the TAI scale... instead, get close and then search).
   double taiTest = d;
   double step = 10;
   const double epsilon = 1.0e-8;

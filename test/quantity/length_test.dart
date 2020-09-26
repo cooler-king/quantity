@@ -6,7 +6,7 @@ void main() {
   group('Length', () {
     test('constructors -default', () {
       // default ctor, meters 0
-      Length a = new Length(m: 0);
+      Length a = new Length();
       expect(a.valueSI, Double.zero);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Length.lengthDimensions);
@@ -15,7 +15,7 @@ void main() {
 
       // default ctor, meters +
       a = new Length(m: 42);
-      expect(a.valueSI?.toDouble() == 42, true);
+      expect(a.valueSI?.toDouble(), 42);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Length.lengthDimensions);
       expect(a.preferredUnits, Length.meters);
@@ -23,7 +23,7 @@ void main() {
 
       // default ctor, meters -
       a = new Length(m: -99.33);
-      expect(a.valueSI?.toDouble() == -99.33, true);
+      expect(a.valueSI?.toDouble(), -99.33);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Length.lengthDimensions);
       expect(a.preferredUnits, Length.meters);
@@ -31,7 +31,7 @@ void main() {
 
       // default ctor, kilometers
       a = new Length(km: 76.54321);
-      expect(a.valueSI?.toDouble() == 76543.21, true);
+      expect(a.valueSI?.toDouble(), 76543.21);
       expect(a.preferredUnits, Length.kilometers);
       expect(a.relativeUncertainty, 0);
 
@@ -70,22 +70,22 @@ void main() {
       final Length d = new Length(m: -83.521);
 
       final dynamic a2 = -a;
-      expect(a2.valueSI?.toDouble() == -5, true);
+      expect(a2.valueSI?.toDouble(), -5);
       expect(a2.valueSI is Integer, true);
       expect(a2 is Length, true);
 
       final dynamic b2 = -b;
-      expect(b2.valueSI?.toDouble() == 7, true);
+      expect(b2.valueSI?.toDouble(), 7);
       expect(b2.valueSI is Integer, true);
       expect(b2 is Length, true);
 
       final dynamic c2 = -c;
-      expect(c2.valueSI?.toDouble() == -5.4, true);
+      expect(c2.valueSI?.toDouble(), -5.4);
       expect(c2.valueSI is Double, true);
       expect(c2 is Length, true);
 
       final dynamic d2 = -d;
-      expect(d2.valueSI?.toDouble() == 83.521, true);
+      expect(d2.valueSI?.toDouble(), 83.521);
       expect(d2.valueSI is Double, true);
       expect(d2 is Length, true);
     });
@@ -96,12 +96,12 @@ void main() {
       final Length b = new Length(m: 83.521);
 
       final dynamic c = a + b;
-      expect(c.valueSI?.toDouble() == 88.921, true);
+      expect(c.valueSI?.toDouble(), 88.921);
       expect(c.valueSI is Double, true);
       expect(c is Length, true);
 
       final dynamic d = a + b + b + a;
-      expect(d.valueSI?.toDouble() == 177.842, true);
+      expect(d.valueSI?.toDouble(), 177.842);
       expect(d.valueSI is Double, true);
       expect(d is Length, true);
     });

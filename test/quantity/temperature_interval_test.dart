@@ -15,7 +15,7 @@ void main() {
 
       // default ctor, K +
       a = new TemperatureInterval(K: 42);
-      expect(a.valueSI?.toDouble() == 42, true);
+      expect(a.valueSI?.toDouble(), 42);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, TemperatureInterval.temperatureIntervalDimensions);
       expect(a.preferredUnits, TemperatureInterval.kelvins);
@@ -23,7 +23,7 @@ void main() {
 
       // default ctor, K -
       a = new TemperatureInterval(K: -99.33);
-      expect(a.valueSI?.toDouble() == -99.33, true);
+      expect(a.valueSI?.toDouble(), -99.33);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, TemperatureInterval.temperatureIntervalDimensions);
       expect(a.preferredUnits, TemperatureInterval.kelvins);
@@ -33,7 +33,7 @@ void main() {
 
       // default ctor, degC +
       a = new TemperatureInterval(degC: 100);
-      expect(a.valueSI?.toDouble() == 100, true);
+      expect(a.valueSI?.toDouble(), 100);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, TemperatureInterval.temperatureIntervalDimensions);
       expect(a.preferredUnits, TemperatureInterval.degreesCelsius);
@@ -41,7 +41,7 @@ void main() {
 
       // default ctor, degC -
       a = new TemperatureInterval(degC: -53.4);
-      expect(a.valueSI?.toDouble() == -53.4, true);
+      expect(a.valueSI?.toDouble(), -53.4);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, TemperatureInterval.temperatureIntervalDimensions);
       expect(a.preferredUnits, TemperatureInterval.degreesCelsius);

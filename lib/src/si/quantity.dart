@@ -165,7 +165,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// 2. 95.45% for k=2,
   /// 3. 99% for k=2.576 and
   /// 4. 99.73% for k=3.
-  Quantity calcExpandedUncertainty(double k) => dimensions.toQuantity(valueSI * _ur * k);
+  Quantity calcExpandedUncertainty(double k) => dimensions.toQuantity(valueSI.abs() * _ur * k);
 
   /// Returns the standard uncertainty in this Quantity object's value as a typed
   /// Quantity object.
@@ -176,18 +176,17 @@ abstract class Quantity implements Comparable<dynamic> {
   /// estimated variance.  One standard deviate in a Normal distribution
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
-  Quantity get standardUncertainty => dimensions.toQuantity(valueSI * _ur);
+  Quantity get standardUncertainty => dimensions.toQuantity(valueSI.abs() * _ur);
 
   /// Randomly generates a Quantity from this Quantity's value and uncertainty.
-  /// The uncertainty is represented by a Normal (Gaussian) continous
+  /// The uncertainty is represented by a Normal (Gaussian) continuous
   /// distribution.
   ///
   /// Because the uncertainty is represented by the continuous normal
   /// distribution there are no upper or lower limits on the value that this
   /// method will return.
   ///
-  /// If the relative uncertainty is zero, then a copy of this Quantity
-  /// will be returned.
+  /// If the relative uncertainty is zero, then this Quantity will be returned.
   Quantity randomSample() {
     if (_ur == 0.0) return this;
 
@@ -243,8 +242,8 @@ abstract class Quantity implements Comparable<dynamic> {
   Quantity operator +(dynamic addend) {
     if (addend == null) throw const QuantityException('Cannot add NULL to Quantity');
 
-    // Scalars allow addition of numbers.
-    if (isScalar && (addend is num || addend is Number)) return dimensions.toQuantity(valueSI + addend, null, _ur);
+    // Scalars allow addition of numbers (the standard uncertainty remains the same).
+    if (isScalar && (addend is num || addend is Number)) return this + new Scalar(value: addend);
 
     // Every other Quantity type can only add another Quantity.
     if (addend is! Quantity)
@@ -257,27 +256,13 @@ abstract class Quantity implements Comparable<dynamic> {
     }
 
     // Calculate the new uncertainty, if necessary.
-    double sumUr = 0;
-    if (_ur != 0.0 || q2._ur != 0.0) {
-      // Standard uncertainty (derive from relative standard uncertainty)
-      //double v1 = valueSI.toDouble();
-      final double u1 = _ur * valueSI.abs().toDouble();
-
-      // q2's standard uncertainty (derive from relative standard uncertainty)
-      final double u2 = q2._ur * q2.valueSI.abs().toDouble();
-
-      // Combined standard uncertainty.
-      final double uc = math.sqrt(u1 * u1 + u2 * u2);
-
-      // Relative combined standard uncertainty.
-      //TODO should not be mks... should be new value?
-      sumUr = uc / mks.abs().toDouble();
-    }
+    final Number newValueSI = valueSI + q2.valueSI;
+    final double sumUr = calcRelativeCombinedUncertaintySumDiff(this, addend as Quantity, newValueSI);
 
     if (dynamicQuantityTyping) {
-      return dimensions.toQuantity(valueSI + q2.valueSI, null, sumUr);
+      return dimensions.toQuantity(newValueSI, null, sumUr);
     } else {
-      return new MiscQuantity(valueSI + q2.valueSI, dimensions, sumUr);
+      return new MiscQuantity(newValueSI, dimensions, sumUr);
     }
   }
 
@@ -302,9 +287,7 @@ abstract class Quantity implements Comparable<dynamic> {
     if (subtrahend == null) throw const QuantityException('Cannot subtract NULL from Quantity');
 
     // Scalars allow subtraction of numbers.
-    if (isScalar && (subtrahend is num || subtrahend is Number)) {
-      return dimensions.toQuantity(valueSI - subtrahend, null, _ur);
-    }
+    if (isScalar && (subtrahend is num || subtrahend is Number)) return this - new Scalar(value: subtrahend);
 
     // Every other Quantity type can only subtract another Quantity.
     if (subtrahend is! Quantity)
@@ -334,9 +317,10 @@ abstract class Quantity implements Comparable<dynamic> {
   /// * The uncertainty of the resulting product Quantity
   /// is equal to the relative combined standard uncertainty,
   /// defined as the square root of the sum of the squares of the two
-  /// quantities' relative standard uncertainties.  If [multiplier] is numeric
-  /// the uncertainty is unchanged.
+  /// quantities' relative standard uncertainties.
   Quantity operator *(dynamic multiplier) {
+    if (multiplier is num || multiplier is Number) return this * new Scalar(value: multiplier);
+
     // Product uncertainty
     double productUr = _ur;
 
@@ -352,8 +336,6 @@ abstract class Quantity implements Comparable<dynamic> {
       productDimensions = dimensions * q2.dimensions;
       productValue = valueSI * q2.valueSI;
       productUr = (_ur != 0.0 || q2._ur != 0.0) ? math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
-    } else if (multiplier is num || multiplier is Number) {
-      productValue = valueSI * multiplier;
     } else {
       throw const QuantityException('Expected a Quantity, num or Number object');
     }
@@ -374,15 +356,10 @@ abstract class Quantity implements Comparable<dynamic> {
   /// defined as the square root of the sum of the squares of the two quantities'
   /// relative standard uncertainties.
   Quantity operator /(dynamic divisor) {
+    if (divisor is num || divisor is Number) return this / new Scalar(value: divisor);
+
     if (divisor is Quantity) {
       return this * divisor.inverse();
-    } else if (divisor is num || divisor is Number) {
-      final Number resultValue = valueSI / divisor;
-      if (dynamicQuantityTyping) {
-        return dimensions.toQuantity(resultValue, null, _ur);
-      } else {
-        return new MiscQuantity(resultValue, dimensions, _ur);
-      }
     } else {
       throw const QuantityException('Expected a Quantity, num or Number object');
     }
@@ -608,16 +585,14 @@ abstract class Quantity implements Comparable<dynamic> {
   /// subtraction of two Quantities.
   static double calcRelativeCombinedUncertaintySumDiff(Quantity q1, Quantity q2, Number valueSI) {
     if (q1._ur != 0.0 || q2._ur != 0.0) {
-      // Standard uncertainty (derive from relative standard uncertainty)
+      // Standard uncertainties (derived from relative standard uncertainties).
       final double u1 = q1._ur * q1.valueSI.abs().toDouble();
-
-      // q2's standard uncertainty (derive from relative standard uncertainty)
       final double u2 = q2._ur * q2.valueSI.abs().toDouble();
 
-      // Combined standard uncertainty
+      // Combined standard uncertainty.
       final double uc = math.sqrt(u1 * u1 + u2 * u2);
 
-      // Relative combined standard uncertainty
+      // Relative combined standard uncertainty.
       return uc / valueSI.abs().toDouble();
     }
 

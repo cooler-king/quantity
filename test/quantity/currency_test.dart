@@ -4,6 +4,22 @@ import 'package:quantity/number.dart';
 
 void main() {
   group('Currency', () {
+    test('constructors', () {
+      Currency q = new Currency();
+      expect(q.valueSI, Double.zero);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, Currency.currencyDimensions);
+      expect(q.preferredUnits, Currency.dollarsUS);
+      expect(q.relativeUncertainty, 0);
+
+      q = new Currency(USD: 42, uncert: 0.001);
+      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, Currency.currencyDimensions);
+      expect(q.preferredUnits, Currency.dollarsUS);
+      expect(q.relativeUncertainty, 0.001);
+    });
+
     test('operator +', () {
       final Currency c1 = new Currency(USD: 12.34);
       final Currency c2 = new Currency(USD: 56.78);

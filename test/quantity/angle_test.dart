@@ -7,7 +7,7 @@ void main() {
   group('Angle', () {
     test('constructors', () {
       // Default ctor: rad 0
-      Angle a = new Angle(rad: 0);
+      Angle a = new Angle();
       expect(a, isNotNull);
       expect(a.valueSI, Double.zero);
       expect(a.valueSI is Integer, true);
@@ -17,7 +17,7 @@ void main() {
       // Default ctor: rad +
       a = new Angle(rad: 2.4);
       expect(a, isNotNull);
-      expect(a.valueSI?.toDouble() == 2.4, true);
+      expect(a.valueSI?.toDouble(), 2.4);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -25,7 +25,7 @@ void main() {
       // Default ctor: rad -
       a = new Angle(rad: -999.9);
       expect(a, isNotNull);
-      expect(a.valueSI.toDouble() == -999.9, true);
+      expect(a.valueSI.toDouble(), -999.9);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -33,7 +33,7 @@ void main() {
       // Default ctor: rad Integer
       a = new Angle(rad: new Integer(4));
       expect(a, isNotNull);
-      expect(a.valueSI.toDouble() == 4, true);
+      expect(a.valueSI.toDouble(), 4);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -41,7 +41,7 @@ void main() {
       // Default ctor: rad Double
       a = new Angle(rad: new Double(-67.876));
       expect(a, isNotNull);
-      expect(a.valueSI.toDouble() == -67.876, true);
+      expect(a.valueSI.toDouble(), -67.876);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
@@ -54,14 +54,13 @@ void main() {
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
 
-      /*
       // Default ctor: rad Complex
       a = new Angle(rad:new Complex.coeff(12.34, 98.76));
       expect(a, isNotNull);
       expect(a.valueSI == new Complex.coeff(12.34, 98.76), true);
       expect(a.valueSI is Complex, true);
-      expect(a.dimensions, Angle.ANGLEdimensions);
-      expect(a.preferredUnits, Angle.radians);*/
+      expect(a.dimensions, Angle.angleDimensions);
+      expect(a.preferredUnits, Angle.radians);
 
       // Default ctor: deg 0
       a = new Angle(deg: 0);
@@ -121,15 +120,13 @@ void main() {
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);
 
-      /*
       // inUnits ctor
-      a = new Angle.inUnits(0.0, Angle.degrees);
+      a = new Angle.inUnits(2, Angle.degrees);
       expect(a, isNotNull);
-      expect(a.valueSI == 4, true);
-      expect(a.valueSI is Integer, true);
-      expect(a.dimensions, Angle.ANGLEdimensions);
-      expect(a.preferredUnits, Angle.radians);
-      */
+      expect(a.valueSI.toDouble(), 0.034906585039886);
+      expect(a.valueSI is Double, true);
+      expect(a.dimensions, Angle.angleDimensions);
+      expect(a.preferredUnits, Angle.degrees);
     });
 
     test('angle360', () {

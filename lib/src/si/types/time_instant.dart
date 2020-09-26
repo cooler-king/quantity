@@ -9,14 +9,6 @@ import 'time.dart';
 
 // Also Epoch
 
-//TODO Terrestrial Time ? = TDT?
-
-/*
-TT  = Terrestial Time. Originally used instead of TDT or TDB when the
-      difference between them didn't matter.  Was defined in 1991 to be
-      consistent with the SI second and the General Theory of Relativity.
-      Replaced TDT in the ephemerides from 2001 and on.*/
-
 /// `TimeInstant` represents a specific moment in time and its units enable
 /// conversion between various time scales.
 ///
@@ -148,33 +140,32 @@ class TimeInstant extends Quantity {
   // ignore: non_constant_identifier_names
   static final TimeInstantUnits UTC =
       new TimeInstantUnits('Coordinated Universal Time', null, 'UTC', null, 1.0, false, 0.0, (dynamic d) {
-    // Have to remove leap seconds when converting to UTC
-    d = (d is num || d is Number) ? d.toDouble() : 0.0;
-    d -= getLeapSeconds(d as double);
+    // Have to remove leap seconds when converting to UTC.
+    double value = d is num ? d.toDouble() : d is Number ? d.toDouble() : 0.0;
+    value -= getLeapSeconds(value);
 
-    return new Double(d as double);
+    return value.toInt() == value ? new Integer(value.toInt()) : new Double(value);
   }, (dynamic d) {
-    d = (d is num || d is Number) ? d.toDouble() : 0.0;
+    double value = d is num ? d.toDouble() : d is Number ? d.toDouble() : 0.0;
 
     // For conversion from UTC to TAI, the offset depends on the
-    // time itself due to the addition of leap seconds
-    final num leap1 = getLeapSeconds(d as double);
+    // time itself due to the addition of leap seconds.
+    final num leap1 = getLeapSeconds(value);
     if (leap1 > 0.0) {
       // Add in the leap seconds
-      d += leap1;
+      value += leap1;
 
       // Make sure that adding in leap seconds didn't make it cross
-      // another leap second threshold
-      final num leap2 = getLeapSeconds(d as double);
+      // another leap second threshold.
+      final num leap2 = getLeapSeconds(value);
       if (leap2 != leap1) d += leap2 - leap1;
     }
 
-    return new Double(d as double);
+    return value.toInt() == value ? new Integer(value.toInt()) : new Double(value);
   });
 
   /// Number of milliseconds since 1 Jan 1970 0h 0m 0s, which is the System
-  /// time defined by the Dart VM
-  ///
+  /// time defined by the Dart VM.
   static final TimeInstantUnits system = new TimeInstantUnits(
       'System Time (ms since 1 Jan 1970 0h 0m 0s)',
       null,
@@ -342,7 +333,7 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
   if (tai < 94694400.0) return 0; //   (2441317.5-2436204.5) * 86400.0         [< 1 Jan 1961]
   if (tai >= 1861920036.0) return 37; //  ((2457754.5-2436204.5) * 86400.0) + 36 [>= 1 Jan 2017]
 
-  // Pre-1972? (2441317.5-2436204.5) * 86400.0 [< 1 Jan 1972]
+  // Pre-1972? (2441317.5 - 2436204.5) * 86400.0 [< 1 Jan 1972]
   if (tai < 441763200.0) {
     if (pre1972LeapSeconds) {
       // Even though the equations below use (presumably) the Julian Date in
@@ -368,8 +359,6 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
 
     return 0;
   }
-
-  //TODO reverse the order of leap second logic for better efficiency
 
   // Integral Leap Seconds (1972- )
   if (tai < 457488010.0) return 10; // ((2441499.5-2436204.5) * 86400.0) + 10 [< 1 Jul 1972]
@@ -400,7 +389,7 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
   if (tai < 1814400035.0) return 35; // ((2457204.5-2436204.5) * 86400.0) + 35 [< 1 Jul 2015]
   return 36; // ((2457754.5-2436204.5) * 86400.0) + 36 [< 1 Jan 2017]
 
-  // 37 // [>= 1 Jan 2017]
+  // 37 [>= 1861920036.0; 1 Jan 2017] handled at start of method.
 }
 
 /// Returns the value 'Delta T,' in seconds, which relates the Terrestrial Dynamical Time
@@ -423,7 +412,6 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
 /// the last delta T value is returned (no reliable predictive models are available
 /// and a 'flat line' prediction is as valid as any other.  This method will
 /// continue to work if additional data is added directly to the _deltaT array.
-///
 double getDeltaT(TimeInstant time) {
   //GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone('GMT'));
   //cal.setTime(time.getNearestDate());
@@ -881,7 +869,12 @@ void _initDeltaT() {
     66.60,
     66.91,
     67.28,
-    67.64 // 2010-2015
+    67.64,
+    68.10,
+    68.59,
+    68.96,
+    69.22, // 2010-2019
+    69.36,
   ];
 
   _deltaT = f;

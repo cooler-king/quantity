@@ -9,7 +9,7 @@ import 'length.dart';
 /// See the [Wikipedia entry for Volume](https://en.wikipedia.org/wiki/Volume)
 /// for more information.
 class Volume extends Quantity {
-  /// Constructs a Volume with cubiic meters ([m3]) or liters ([L]).
+  /// Constructs a Volume with cubic meters ([m3]) or liters ([L]).
   /// Optionally specify a relative standard uncertainty.
   Volume({dynamic m3, dynamic L, double uncert = 0.0})
       : super(m3 ?? (L ?? 0.0), L != null ? Volume.liters : Volume.cubicMeters, uncert);
@@ -33,8 +33,7 @@ class Volume extends Quantity {
   /// The standard SI unit.
   static final VolumeUnits cubicMeters = new VolumeUnits.lengthCubed(Length.meters);
 
-  /// Accepted for use with the SI
-  /// equal to one thousandth of a cubic meter
+  /// Accepted for use with the SI; equal to one thousandth of a cubic meter.
   static final VolumeUnits liters = new VolumeUnits('liters', null, 'L', null, 1.0e-3, true);
 }
 

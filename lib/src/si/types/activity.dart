@@ -13,7 +13,8 @@ class Activity extends Quantity {
   /// Construct an Activity with either becquerels ([Bq]) or curies ([Ci]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
-  Activity({dynamic Bq, dynamic Ci, double uncert = 0.0}) : super(Bq ?? (Ci ?? 0.0), Activity.becquerels, uncert);
+  Activity({dynamic Bq, dynamic Ci, double uncert = 0.0})
+      : super(Bq ?? (Ci ?? 0.0), Ci != null ? Activity.curies : Activity.becquerels, uncert);
 
   /// Constructs a new instance without preferred units.
   Activity.misc(dynamic conv) : super.misc(conv, Activity.activityDimensions);

@@ -5,7 +5,7 @@ import 'package:quantity/number.dart';
 
 void main() {
   group('Information', () {
-    test('constructors -default', () {
+    test('constructors', () {
       // default ctor, bits 0
       Information info = new Information(bits: 0);
       expect(info.valueSI, Double.zero);
@@ -16,7 +16,7 @@ void main() {
 
       // default ctor, bits +
       info = new Information(bits: 42);
-      expect(info.valueSI?.toDouble() == 42, true);
+      expect(info.valueSI?.toDouble(), 42);
       expect(info.valueSI is Integer, true);
       expect(info.dimensions, Information.informationDimensions);
       expect(info.preferredUnits, Information.bits);
@@ -24,7 +24,7 @@ void main() {
 
       // default ctor, bits -
       info = new Information(bits: -99.33);
-      expect(info.valueSI?.toDouble() == -99.33, true);
+      expect(info.valueSI?.toDouble(), -99.33);
       expect(info.valueSI is Double, true);
       expect(info.dimensions, Information.informationDimensions);
       expect(info.preferredUnits, Information.bits);

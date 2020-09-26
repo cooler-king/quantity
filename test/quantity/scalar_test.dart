@@ -5,15 +5,26 @@ import 'package:quantity/number.dart';
 void main() {
   group('Scalar', () {
     test('constructors', () {
-      Scalar s = new Scalar(value: 42);
-      expect(s, isNotNull);
+      Scalar q = new Scalar();
+      expect(q.valueSI, Double.zero);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, Scalar.scalarDimensions);
+      expect(q.preferredUnits, Scalar.one);
+      expect(q.relativeUncertainty, 0);
 
-      s = new Scalar(value: 0);
-      expect(s.valueSI, Integer.zero);
-      expect(s.valueSI is Integer, true);
-      expect(s.dimensions, Scalar.scalarDimensions);
-      expect(s.preferredUnits, Scalar.one);
-      expect(s.relativeUncertainty, 0);
+      q = new Scalar(value: 42, uncert: 0.001);
+      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, Scalar.scalarDimensions);
+      expect(q.preferredUnits, Scalar.one);
+      expect(q.relativeUncertainty, 0.001);
+
+      q = new Scalar(percent: 42, uncert: 0.001);
+      expect(q.valueSI?.toDouble(), 0.42);
+      expect(q.valueSI is Double, true);
+      expect(q.dimensions, Scalar.scalarDimensions);
+      expect(q.preferredUnits, Scalar.percent);
+      expect(q.relativeUncertainty, 0.001);
     });
 
     test('operator ==/hashCode', () {

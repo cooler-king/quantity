@@ -15,7 +15,7 @@ void main() {
 
       // default ctor, K +
       a = new Temperature(K: 42);
-      expect(a.valueSI?.toDouble() == 42, true);
+      expect(a.valueSI?.toDouble(), 42);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Temperature.temperatureDimensions);
       expect(a.preferredUnits, Temperature.kelvins);
@@ -23,7 +23,7 @@ void main() {
 
       // default ctor, K -
       a = new Temperature(K: -99.33);
-      expect(a.valueSI?.toDouble() == -99.33, true);
+      expect(a.valueSI?.toDouble(), -99.33);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Temperature.temperatureDimensions);
       expect(a.preferredUnits, Temperature.kelvins);
@@ -33,7 +33,7 @@ void main() {
 
       // default ctor, degC +
       a = new Temperature(C: 100);
-      expect(a.valueSI?.toDouble() == 373.15, true);
+      expect(a.valueSI?.toDouble(), 373.15);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Temperature.temperatureDimensions);
       expect(a.preferredUnits, Temperature.degreesCelsius);

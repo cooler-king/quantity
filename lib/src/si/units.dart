@@ -66,8 +66,10 @@ mixin Units {
     return false;
   }
 
+  /// All units have a unique name.
   @override
-  int get hashCode => int.parse('${name.hashCode}54321${convToMKS.hashCode}');
+  int get hashCode => name.hashCode;
+  //int get hashCode => int.parse('${name.hashCode}54321${convToMKS.hashCode}');
 
   /// Returns the alternate name for the units.  This may be a non-standard
   /// representation.  If no alternate name exists, then null is returned.

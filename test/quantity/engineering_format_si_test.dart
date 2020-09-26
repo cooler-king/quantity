@@ -306,7 +306,7 @@ void main() {
         expect(f1.parse('1.234 x 10^3'), 1234.0);
         expect(f1.parse('1.2345 x 10^3'), 1234.5);
         expect(f1.parse('1.234 56 x 10^3'), 1234.56);
-        expect(f1.parse('12.34567890 x 10-6'), 0.0000123456789);
+        expect(f1.parse('12.34567890 x 10^-6'), 0.0000123456789);
       });
 
       test('real unicode', () {
