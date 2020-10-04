@@ -28,14 +28,17 @@ class Imaginary extends Number {
   /// The value of the imaginary component as a Real number.
   final Real value;
 
+  /// Always returns zero.
   @override
   double toDouble() => 0;
 
+  /// Always returns zero.
   @override
   int toInt() => 0;
 
-  /// Returns the Complex number equivalent to this Imaginary number.
-  Complex toComplex() => new Complex(Double.zero, this);
+  /// Returns a Complex number equivalent to this Imaginary number.
+  Complex toComplex() => new Complex(
+      new Integer(0), new Imaginary(value.isInteger ? new Integer(value.toInt()) : new Double(value.toDouble())));
 
   @override
   bool get isInfinite => value == Double.infinity || value == Double.negInfinity;
@@ -91,10 +94,16 @@ class Imaginary extends Number {
   Number operator *(dynamic multiplicand) {
     // i * i = -1
     if (multiplicand is Imaginary) return value * multiplicand.value * -1;
-    if (multiplicand is Complex)
-      return new Complex(value * multiplicand.imag.toDouble() * -1.0 as Real, new Imaginary(value * multiplicand.real));
     if (multiplicand is num) return new Imaginary(value * multiplicand);
     if (multiplicand is Real) return new Imaginary(multiplicand * value);
+    if (multiplicand is Complex) {
+      // ai * (b + ci) = -ac + abi
+      final Real real = value * multiplicand.imag.value.toDouble() * -1.0 as Real;
+      final Real imag = value * multiplicand.real as Real;
+      if (imag.toDouble() == 0) return real;
+      if (real.toDouble() == 0) return new Imaginary(imag);
+      return new Complex(real, new Imaginary(imag));
+    }
 
     return new Imaginary(0);
   }
@@ -216,34 +225,28 @@ class Imaginary extends Number {
   @override
   bool operator <=(dynamic obj) => !(this < obj);
 
-  /// The real absolute value of a purely imaginary number is always zero.
-  ///
+  /// The absolute value of a Complex number is its distance from zero in the
+  /// Complex number space (e.g., the absolute value of 0 + 4i = 4).  The absolute
+  /// value is always a real number.
   @override
-  Number abs() => Integer.zero;
+  Number abs() => value.isInteger ? new Integer(value.toInt()) : new Double(value.toDouble());
 
   /// The integer ceiling of a purely imaginary number is always zero.
-  ///
   @override
   Number ceil() => Integer.zero;
 
   @override
-  Number clamp(dynamic lowerLimit, dynamic upperLimit) {
-    //TODO what does this mean?
-    throw new UnsupportedError('clamping of Imaginary number is undefined');
-  }
+  Number clamp(dynamic lowerLimit, dynamic upperLimit) => new Complex(Integer(0), this).clamp(lowerLimit, upperLimit);
 
   /// The integer floor of a purely imaginary number is always zero.
-  ///
   @override
   Number floor() => Integer.zero;
 
   /// The nearest integer of a purely imaginary number is always zero.
-  ///
   @override
   Number round() => Integer.zero;
 
   /// The integer resulting from truncation of a purely imaginary number is always zero.
-  ///
   @override
   Number truncate() => Integer.zero;
 

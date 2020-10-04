@@ -17,18 +17,6 @@ void main() {
       expect(identical(Double.NaN.value, double.nan), true);
     });
 
-    test('isNaN', () {
-      const Double d = const Double.constant(42);
-      const Double d2 = Double.NaN;
-      const Double d3 = Double.infinity;
-      final Double d4 = new Double(double.nan);
-
-      expect(d.isNaN, false);
-      expect(d2.isNaN, true);
-      expect(d3.isNaN, false);
-      expect(d4.isNaN, true);
-    });
-
     test('operator ==', () {
       final Double d = new Double(42.056);
       final Double d2 = new Double(14.321);
@@ -38,8 +26,8 @@ void main() {
       expect(d == d, true);
       expect(d == d2, false);
       expect(d == d3, true);
-      expect(d?.toDouble() == 42.056, true);
-      expect(d?.toDouble() == 42.0560001, false);
+      expect(d.toDouble() == 42.056, true);
+      expect(d.toDouble() == 42.0560001, false);
       expect(d4 == d5, true);
 
       // equality with nums
@@ -210,6 +198,15 @@ void main() {
       expect(diff, new Precise('43.069'));
     });
 
+    test('operator unary-', () {
+      final Double d0 = new Double(0);
+      final Double d1 = new Double(14.6);
+      final Double d2 = new Double(-22.13);
+      expect(-d0, new Double(0));
+      expect(-d1, new Double(-14.6));
+      expect(-d2, new Double(22.13));
+    });
+
     test('operator *', () {
       final Double d = new Double(1.2);
       final Double d2 = new Double(3.4);
@@ -296,8 +293,8 @@ void main() {
 
       // * double
       quot = d / 0.12;
-      expect(quot is Double, true);
-      expect((quot as Double).value.toDouble(), closeTo(10.0, 0.000001));
+      expect(quot is Integer, true);
+      expect(quot, new Integer(10));
       quot = d / (-0.4);
       expect(quot is Double, true);
       expect((quot as Double).value.toDouble(), closeTo(-3.0, 0.000001));
@@ -353,6 +350,332 @@ void main() {
       quot = d / p;
       expect(quot is Precise, true);
       expect(quot, new Precise('-0.25'));
+    });
+
+    test('operator >', () {
+      expect(new Double(1) > new Double(0), true);
+      expect(new Double(0) > new Double(1), false);
+      expect(new Double(-9) > new Double(2), false);
+      expect(new Double(2) > new Double(-9), true);
+      expect(new Double(-99.99) > new Double(22.22), false);
+      expect(new Double(22.22) > new Double(-99.99), true);
+      expect(new Double(1) > new Double(0.999999), true);
+      expect(new Double(1) > new Double(1), false);
+      expect(new Double(1) > 0.5, true);
+      expect(new Double(1) > 1, false);
+      expect(new Double(1) > -8.8, true);
+      expect(new Double(44) > new Integer(44), false);
+      expect(new Double(44) > new Integer(43), true);
+      expect(new Double(44.1) > new Integer(44), true);
+      expect(new Double(43.9999999) > new Integer(44), false);
+      expect(new Double(44.0000001) > new Integer(44), true);
+
+      // > only looks at real parts.
+      expect(new Double(77) > new Imaginary(5), true);
+      expect(new Double(77) > new Imaginary(85.7), true);
+      expect(new Double(-77) > new Imaginary(6), false);
+      expect(new Double(77) > new Complex(new Double(6.5), new Imaginary(99)), true);
+      expect(new Double(-77.7) > new Complex(new Double(6.5), new Imaginary(99)), false);
+
+      expect(new Double(88.99999) > new Precise('88.99999'), false);
+      expect(new Double(88.99999) > new Precise('88.999989999'), true);
+      expect(new Double(88.99999) > new Precise('89.000000000'), false);
+      expect(new Double(-88.99999) > new Precise('-88.99999'), false);
+      expect(new Double(-88.99999) > new Precise('-88.999989999'), false);
+      expect(new Double(-88.99999) > new Precise('-89.000000000'), true);
+    });
+
+    test('operator >=', () {
+      expect(new Double(1) >= new Double(0), true);
+      expect(new Double(0) >= new Double(1), false);
+      expect(new Double(-9) >= new Double(2), false);
+      expect(new Double(2) >= new Double(-9), true);
+      expect(new Double(-99.99) >= new Double(22.22), false);
+      expect(new Double(22.22) >= new Double(-99.99), true);
+      expect(new Double(1) >= new Double(0.999999), true);
+      expect(new Double(1) >= new Double(1), true);
+      expect(new Double(1) >= 0.5, true);
+      expect(new Double(1) >= 1, true);
+      expect(new Double(1) >= -8.8, true);
+      expect(new Double(44) >= new Integer(44), true);
+      expect(new Double(44) >= new Integer(43), true);
+      expect(new Double(44.1) >= new Integer(44), true);
+      expect(new Double(43.9999999) >= new Integer(44), false);
+      expect(new Double(44.0000001) >= new Integer(44), true);
+
+      // >= only looks at real parts.
+      expect(new Double(77) >= new Imaginary(5), true);
+      expect(new Double(77) >= new Imaginary(85.7), true);
+      expect(new Double(-77) >= new Imaginary(6), false);
+      expect(new Double(77) >= new Complex(new Double(6.5), new Imaginary(99)), true);
+      expect(new Double(77) >= new Complex(new Double(77), new Imaginary(99)), true);
+      expect(new Double(77) >= new Complex(new Double(77.0001), new Imaginary(99)), false);
+      expect(new Double(-77.7) >= new Complex(new Double(6.5), new Imaginary(99)), false);
+
+      //expect(new Double(88.99999) >= new Precise('88.99999'), true);
+      expect(new Double(88.99999) >= new Precise('88.999989999'), true);
+      expect(new Double(88.99999) >= new Precise('89.000000000'), false);
+      expect(new Double(-88.99999) >= new Precise('-88.99999'), true);
+      expect(new Double(-88.99999) >= new Precise('-88.999989999'), false);
+      expect(new Double(-88.99999) >= new Precise('-89.000000000'), true);
+    });
+
+    test('operator <', () {
+      expect(new Double(1) < new Double(0), false);
+      expect(new Double(0) < new Double(1), true);
+      expect(new Double(-9) < new Double(2), true);
+      expect(new Double(2) < new Double(-9), false);
+      expect(new Double(-99.99) < new Double(22.22), true);
+      expect(new Double(22.22) < new Double(-99.99), false);
+      expect(new Double(1) < new Double(0.999999), false);
+      expect(new Double(1) < new Double(1), false);
+      expect(new Double(1) < 0.5, false);
+      expect(new Double(1) < 1, false);
+      expect(new Double(1) < 8.8, true);
+      expect(new Double(44) < new Integer(44), false);
+      expect(new Double(42) < new Integer(43), true);
+      expect(new Double(44.1) < new Integer(44), false);
+      expect(new Double(43.9999999) < new Integer(44), true);
+      expect(new Double(44.0000001) < new Integer(44), false);
+
+      // < only looks at real parts.
+      expect(new Double(77) < new Imaginary(5), false);
+      expect(new Double(77) < new Imaginary(85.7), false);
+      expect(new Double(-77) < new Imaginary(6), true);
+      expect(new Double(77) < new Complex(new Double(6.5), new Imaginary(99)), false);
+      expect(new Double(-77.7) < new Complex(new Double(6.5), new Imaginary(99)), true);
+
+      expect(new Double(88.99999) < new Precise('88.99999'), false);
+      expect(new Double(88.99999) < new Precise('88.999989999'), false);
+      expect(new Double(88.99999) < new Precise('89.000000000'), true);
+      expect(new Double(-88.99999) < new Precise('-88.99999'), false);
+      expect(new Double(-88.99999) < new Precise('-88.999989999'), true);
+      expect(new Double(-88.99999) < new Precise('-89.000000000'), false);
+    });
+
+    test('operator <=', () {
+      expect(new Double(1) <= new Double(0), false);
+      expect(new Double(0) <= new Double(1), true);
+      expect(new Double(-9) <= new Double(2), true);
+      expect(new Double(2) <= new Double(-9), false);
+      expect(new Double(-99.99) <= new Double(22.22), true);
+      expect(new Double(22.22) <= new Double(-99.99), false);
+      expect(new Double(1) <= new Double(0.999999), false);
+      expect(new Double(1) <= new Double(1), true);
+      expect(new Double(1) <= 0.5, false);
+      expect(new Double(1) <= 1, true);
+      expect(new Double(1) <= 8.8, true);
+      expect(new Double(44) <= new Integer(44), true);
+      expect(new Double(42) <= new Integer(43), true);
+      expect(new Double(44.1) <= new Integer(44), false);
+      expect(new Double(43.9999999) <= new Integer(44), true);
+      expect(new Double(44.0000001) <= new Integer(44), false);
+
+      // <= only looks at real parts.
+      expect(new Double(77) <= new Imaginary(5), false);
+      expect(new Double(77) <= new Imaginary(85.7), false);
+      expect(new Double(-77) <= new Imaginary(6), true);
+      expect(new Double(77) <= new Complex(new Double(6.5), new Imaginary(99)), false);
+      expect(new Double(77) <= new Complex(new Double(77), new Imaginary(22)), true);
+      expect(new Double(-77.7) <= new Complex(new Double(6.5), new Imaginary(99)), true);
+
+      expect(new Double(88.99999) <= new Precise('88.99999'), true);
+      expect(new Double(88.99999) <= new Precise('88.999989999'), false);
+      expect(new Double(88.99999) <= new Precise('89.000000000'), true);
+      expect(new Double(-88.99999) <= new Precise('-88.99999'), true);
+      expect(new Double(-88.99999) <= new Precise('-88.999989999'), true);
+      expect(new Double(-88.99999) <= new Precise('-89.000000000'), false);
+    });
+
+    test('operator ^', () {
+      expect(new Double(2) ^ 0, new Integer(1));
+      expect(new Double(2) ^ 1, new Integer(2));
+      expect(new Double(2) ^ 2, new Integer(4));
+      expect(new Double(2) ^ 3, new Integer(8));
+      expect(new Double(2) ^ 4, new Integer(16));
+      expect(new Double(2) ^ -1, new Double(0.5));
+      expect(new Double(2) ^ -2, new Double(0.25));
+      expect(new Double(2) ^ -3, new Double(0.125));
+      expect(new Double(2) ^ -4, new Double(0.0625));
+    });
+
+    test('hashcode', () {
+      expect(Double.NaN.hashCode, double.nan.hashCode);
+      expect(Double.infinity.hashCode, double.infinity.hashCode);
+      expect(Double.negInfinity.hashCode, double.negativeInfinity.hashCode);
+      expect(new Double(0).hashCode, 0.hashCode);
+      expect(new Double(1).hashCode, 1.hashCode);
+      expect(new Double(-5).hashCode, -5.hashCode);
+      expect(new Double(99.99).hashCode, new Precise('99.99').hashCode);
+      expect(new Double(98765.4321).hashCode, new Precise('98765.4321').hashCode);
+      expect(new Double(-98765.4321).hashCode, new Precise('-98765.4321').hashCode);
+    });
+
+    test('clamp', () {
+      expect(new Double(0).clamp(-5, 5), Integer(0));
+      expect(new Double(0).clamp(2, 7), Integer(2));
+      expect(new Double(8).clamp(2, 7), Integer(7));
+      expect(new Double(8.7).clamp(2.9, 7), Integer(7));
+      expect(new Double(-9.7).clamp(-9.5, -8.2), Double(-9.5));
+      expect(new Double(10.3).clamp(-9.5, -8.2), Double(-8.2));
+    });
+
+    test('abs', () {
+      expect(new Double(0).abs(), Double(0));
+      expect(new Double(1).abs(), Double(1));
+      expect(new Double(1.23).abs(), Double(1.23));
+      expect(new Double(-1).abs(), Double(1));
+      expect(new Double(-1.23).abs(), Double(1.23));
+    });
+
+    test('ceil', () {
+      expect(new Double(0).ceil(), Integer(0));
+      expect(new Double(0.999).ceil(), Integer(1));
+      expect(new Double(1).ceil(), Integer(1));
+      expect(new Double(1.001).ceil(), Integer(2));
+      expect(new Double(-1).ceil(), Integer(-1));
+      expect(new Double(-0.999).ceil(), Integer(0));
+      expect(new Double(-1.001).ceil(), Integer(-1));
+    });
+
+    test('floor', () {
+      expect(new Double(0).floor(), Integer(0));
+      expect(new Double(0.999).floor(), Integer(0));
+      expect(new Double(1).floor(), Integer(1));
+      expect(new Double(1.001).floor(), Integer(1));
+      expect(new Double(-1).floor(), Integer(-1));
+      expect(new Double(-0.999).floor(), Integer(-1));
+      expect(new Double(-1.001).floor(), Integer(-2));
+    });
+
+    test('reciprocal', () {
+      expect(new Double(0).reciprocal(), Double.NaN);
+      expect(new Double(1).reciprocal(), Integer(1));
+      expect(new Double(-1).reciprocal(), Integer(-1));
+      expect(new Double(2).reciprocal(), Double(0.5));
+      expect(new Double(-2).reciprocal(), Double(-0.5));
+      expect(new Double(2.5).reciprocal(), Double(0.4));
+      expect(new Double(-2.5).reciprocal(), Double(-0.4));
+      expect(new Double(0.25).reciprocal(), Integer(4));
+      expect(new Double(-0.25).reciprocal(), Integer(-4));
+    });
+
+    test('remainder', () {
+      expect(new Double(0).remainder(5), Integer(0));
+      expect(new Double(1).remainder(5), Integer(1));
+      expect(new Double(4).remainder(1), Integer(0));
+      expect(new Double(23.7).remainder(4).toDouble(), closeTo(3.7, 1e-12));
+      expect(new Double(-23.7).remainder(4).toDouble(), closeTo(-3.7, 1e-12));
+      expect(new Double(23.7).remainder(-4).toDouble(), closeTo(3.7, 1e-12));
+      expect(new Double(-23.7).remainder(-4).toDouble(), closeTo(-3.7, 1e-12));
+    });
+
+    test('round', () {
+      expect(new Double(0).round(), Integer(0));
+      expect(new Double(1).round(), Integer(1));
+      expect(new Double(2.2).round(), Integer(2));
+      expect(new Double(2.5).round(), Integer(3));
+      expect(new Double(2.7).round(), Integer(3));
+      expect(new Double(-2.2).round(), Integer(-2));
+      expect(new Double(-2.5).round(), Integer(-3));
+      expect(new Double(-2.7).round(), Integer(-3));
+    });
+
+    test('truncate', () {
+      expect(new Double(0).truncate(), Integer(0));
+      expect(new Double(1).truncate(), Integer(1));
+      expect(new Double(2.2).truncate(), Integer(2));
+      expect(new Double(2.5).truncate(), Integer(2));
+      expect(new Double(2.7).truncate(), Integer(2));
+      expect(new Double(-2.2).truncate(), Integer(-2));
+      expect(new Double(-2.5).truncate(), Integer(-2));
+      expect(new Double(-2.7).truncate(), Integer(-2));
+    });
+
+    test('toDouble', () {
+      expect(new Double(0).toDouble(), 0.0);
+      expect(new Double(1).toDouble(), 1.0);
+      expect(new Double(2.5).toDouble(), 2.5);
+      expect(new Double(-2.5).toDouble(), -2.5);
+      expect(Double.zero.toDouble(), 0.0);
+      expect(Double.one.toDouble(), 1.0);
+      expect(Double.ten.toDouble(), 10.0);
+      expect(Double.hundred.toDouble(), 100.0);
+      expect(Double.thousand.toDouble(), 1000.0);
+      expect(Double.infinity.toDouble(), double.infinity);
+      expect(Double.negInfinity.toDouble(), double.negativeInfinity);
+      expect(Double.NaN.toDouble().isNaN, true);
+    });
+
+    test('toInt', () {
+      expect(new Double(0).toInt(), 0);
+      expect(new Double(1).toInt(), 1);
+      expect(new Double(2.5).toInt(), 2);
+      expect(new Double(-2.5).toInt(), -2);
+      expect(Double.zero.toInt(), 0);
+      expect(Double.one.toInt(), 1);
+      expect(Double.ten.toInt(), 10);
+      expect(Double.hundred.toInt(), 100);
+      expect(Double.thousand.toInt(), 1000);
+    });
+
+    test('toString', () {
+      expect(new Double(0).toString(), '0.0');
+      expect(new Double(1).toString(), '1.0');
+      expect(new Double(2.5).toString(), '2.5');
+      expect(new Double(-2.5).toString(), '-2.5');
+      expect(new Double(-15.2345e-28).toString(), '-1.52345e-27');
+    });
+
+    test('isInfinite', () {
+      expect(new Double(0).isInfinite, false);
+      expect(new Double(999999999999999.9).isInfinite, false);
+      expect(new Double(double.infinity).isInfinite, true);
+      expect(new Double(double.negativeInfinity).isInfinite, true);
+      expect(Double.infinity.isInfinite, true);
+      expect(Double.negInfinity.isInfinite, true);
+      expect(Double.NaN.isInfinite, false);
+    });
+
+    test('isNaN', () {
+      expect(new Double(0).isNaN, false);
+      expect(new Double(double.nan).isNaN, true);
+      expect(new Double(double.infinity).isNaN, false);
+      expect(new Double(double.negativeInfinity).isNaN, false);
+      expect(Double.infinity.isNaN, false);
+      expect(Double.negInfinity.isNaN, false);
+      expect(Double.NaN.isNaN, true);
+    });
+
+    test('isNegative', () {
+      expect(new Double(0).isNegative, false);
+      expect(new Double(0.00001).isNegative, false);
+      expect(new Double(-0.00001).isNegative, true);
+      expect(new Double(1224.87878e76).isNegative, false);
+      expect(new Double(-1224.87878e76).isNegative, true);
+      expect(new Double(1224.87878e-76).isNegative, false);
+      expect(new Double(-1224.87878e-76).isNegative, true);
+      expect(new Double(double.infinity).isNegative, false);
+      expect(new Double(double.negativeInfinity).isNegative, true);
+      expect(Double.infinity.isNegative, false);
+      expect(Double.negInfinity.isNegative, true);
+      expect(Double.NaN.isNegative, false);
+    });
+
+    test('isInteger', () {
+      expect(new Double(0).isInteger, true);
+      expect(new Double(0.00001).isInteger, false);
+      expect(new Double(-0.00001).isInteger, false);
+      expect(new Double(-1224).isInteger, true);
+      expect(new Double(double.infinity).isInteger, false);
+      expect(new Double(double.negativeInfinity).isInteger, false);
+      expect(new Double(double.nan).isInteger, false);
+      expect(new Double(double.minPositive).isInteger, false);
+      expect(new Double(double.maxFinite).isInteger, false);
+      expect(Double.infinity.isInteger, false);
+      expect(Double.negInfinity.isInteger, false);
+      expect(Double.NaN.isInteger, false);
+      expect(Double.zero.isInteger, true);
     });
   });
 }

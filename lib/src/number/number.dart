@@ -3,6 +3,7 @@ import 'double.dart';
 import 'imaginary.dart';
 import 'integer.dart';
 import 'precise.dart';
+import 'real.dart';
 
 /// The abstract base class for all Number types.
 abstract class Number implements Comparable<dynamic> {
@@ -110,6 +111,38 @@ abstract class Number implements Comparable<dynamic> {
     if (isNegative) return isInteger ? -1 : -1.0;
     if (toDouble() == 0) return isInteger ? 0 : 0.0;
     return isInteger ? 1 : 1.0;
+  }
+
+  /// Returns the Number equivalent to [n] having the simplest type that can
+  /// represent the value (in order):  Integer, Double, Imaginary, or Complex.
+  /// If [n] is already the most simple type possible, then it will be returned directly.
+  /// Precise Numbers always remain Precise.
+  static Number simplifyType(Number n) {
+    if (n is Integer || n is Precise) return n;
+    if (n is Double) return n.isInteger ? new Integer(n.toInt()) : n;
+    if (n is Imaginary) {
+      if (n.value is Precise) return n;
+      if (n.value.toDouble() == 0) return new Integer(0);
+      if (n.value.isInteger && n.value is Double) return new Imaginary(new Integer(n.value.toInt()));
+      return n;
+    }
+    if (n is Complex) {
+      final bool realZero = n.real.value == 0 && (n.real is! Precise || n.real == Precise.zero);
+      final bool imagZero = n.imag.value.value.toDouble() == 0 && (n.imag.value is! Precise || n.imag.value == Precise.zero);
+      if (realZero) {
+        if (imagZero) return simplifyType(n.real);
+        return new Imaginary(simplifyType(n.imag.value));
+      } else if (imagZero) {
+        return simplifyType(n.real);
+      } else {
+        final Real simpleReal = simplifyType(n.real) as Real;
+        final Number simpleImag = simplifyType(n.imag.value);
+        if (identical(simpleReal, n.real) && identical(simpleImag, n.imag.value)) return n;
+        return new Complex(simpleReal, new Imaginary(simpleImag));
+      }
+    }
+
+    return n;
   }
 
   // Mirror num's abstract methods.

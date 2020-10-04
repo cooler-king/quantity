@@ -1,4 +1,5 @@
 import 'complex.dart';
+import 'double.dart';
 import 'imaginary.dart';
 import 'number.dart';
 import 'real.dart';
@@ -131,13 +132,30 @@ class Integer extends Real {
     throw new UnsupportedError('Bitwise OR operations are only supported for int and Integer objects');
   }
 
+  /// Shift the bits of this integer to the left by n.
+  Number operator <<(dynamic n) {
+    if (n is int) return new Integer(_value << n);
+    if (n is Integer) return new Integer(_value << n._value);
+    throw new UnsupportedError('Bit shift operations are only supported for int and Integer objects');
+  }
+
+  /// Shift the bits of this integer to the right by n.
+  Number operator >>(dynamic n) {
+    if (n is int) return new Integer(_value >> n);
+    if (n is Integer) return new Integer(_value >> n._value);
+    throw new UnsupportedError('Bit shift operations are only supported for int and Integer objects');
+  }
+
   /// A substitute method to perform bitwise XOR operation on integers.
-  /// The caret operator is overridden to provide a power operator for all numbers.
+  /// The caret operator is overridden to provide a power operator for all Numbers.
   Integer bitwiseXor(dynamic n) {
     if (n is int) return new Integer(_value ^ n);
     if (n is Integer) return new Integer(_value ^ n._value);
     throw new UnsupportedError('Bitwise XOR operations are only supported for int and Integer objects');
   }
+
+  /// The bit-wise negate operator.
+  Integer operator ~() => new Integer(~_value);
 
   /// The absolute value, returned as an [Integer].
   /// Returns itself if its value is greater than or equal to zero.
@@ -149,9 +167,10 @@ class Integer extends Real {
 
   @override
   Number clamp(dynamic lowerLimit, dynamic upperLimit) {
-    final num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
-    final num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
-    return new Integer(value?.clamp(lower, upper)?.toInt() ?? lower.toInt());
+    final num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toDouble() : 0;
+    final num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toDouble() : 0;
+    final num clamped = value?.clamp(lower, upper) ?? lower;
+    return clamped.toInt() == clamped ? new Integer(clamped.toInt()) : new Double(clamped.toDouble());
   }
 
   @override

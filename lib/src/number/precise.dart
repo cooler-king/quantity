@@ -71,8 +71,10 @@ class Precise extends Real {
 
   /// Constructs a Precise number equal to [value].
   /// The number of significant digits defaults to 50 but may be specified.
-  factory Precise.num(num value, {int sigDigits = 50}) =>
-      value != null ? new Precise(value.toString(), sigDigits: sigDigits) : Precise.zero;
+  factory Precise.num(num value, {int sigDigits = 50}) {
+    if (value.isNaN || value.isInfinite) throw new Exception('Precise value must be a valid finite number');
+    return value != null ? new Precise(value.toString(), sigDigits: sigDigits) : Precise.zero;
+  }
 
   /// Constructs a Precise number, applying the values found in map [m].
   /// See `toJson` for the expected format.
@@ -211,7 +213,9 @@ class Precise extends Real {
 
   /// Negation operator.
   @override
-  Precise operator -() => new Precise.raw(digits, power: _power, neg: !_neg, sigDigits: precision);
+  Precise operator -() => this == Precise.zero
+      ? new Precise('0')
+      : new Precise.raw(digits, power: _power, neg: !_neg, sigDigits: precision);
 
   /// Addition operator.
   @override
@@ -319,7 +323,8 @@ class Precise extends Real {
       offset += 1;
     }
 
-    return new Precise.raw(product._digits, power: combinedPower, neg: _neg != preciseMultiplier._neg);
+    return new Precise.raw(product._digits,
+        power: combinedPower, neg: _neg != preciseMultiplier._neg && product != Precise.zero);
   }
 
   /// Division operator.
@@ -405,6 +410,7 @@ class Precise extends Real {
   /// Equals operator.
   @override
   bool operator ==(dynamic other) {
+    if (other is double && (other.isNaN || other.isInfinite)) return false;
     final Precise p2 = toPrecise(other);
     if (_neg != p2._neg) return false;
     final List<int> placeExtents = determinePlaceExtents(this, p2);
@@ -626,7 +632,7 @@ class Digit {
   /// Constructs a new digit that matches the value of [num].
   Digit(int num) {
     if (num == null) throw new Exception('Digit cannot be constructed with null');
-    if (num > 9 || num < 0) throw new Exception('Digit must be between 0 and 9, inclusive');
+    if (num > 9 || num < 0) throw new Exception('Digit must be between 0 and 9, inclusive ($num)');
     value.setUint8(0, num);
   }
 

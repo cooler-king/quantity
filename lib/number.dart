@@ -12,6 +12,7 @@ export 'src/number/fraction.dart';
 export 'src/number/imaginary.dart';
 export 'src/number/integer.dart';
 export 'src/number/number.dart';
+export 'src/number/number_exception.dart';
 export 'src/number/precise.dart';
 export 'src/number/real.dart';
 export 'src/number/util/converters.dart';

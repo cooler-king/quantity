@@ -84,26 +84,35 @@ abstract class Real extends Number {
 
   @override
   Number operator /(dynamic divisor) {
-    if (divisor is num) return new Double(value / divisor);
+    if (divisor is num) {
+      if (divisor.isNaN) return Double.NaN;
+      if (divisor == 0) return value == 0 ? Double.NaN : value > 0 ? Double.infinity : Double.negInfinity;
+      final num quotient = value / divisor;
+      return quotient.toInt() == quotient ? new Integer(quotient.toInt()) : new Double(quotient.toDouble());
+    }
     if (divisor is Precise) return (new Precise.num(value)) / divisor;
-    if (divisor is Real) return new Double(value / divisor.value);
+    if (divisor is Real) {
+      if (divisor.isNaN) return Double.NaN;
+      if (divisor.value == 0) return value == 0 ? Double.NaN : value > 0 ? Double.infinity : Double.negInfinity;
+      final num quotient = value / divisor.value;
+      return quotient.toInt() == quotient ? new Integer(quotient.toInt()) : new Double(quotient.toDouble());
+    }
     if (divisor is Complex) {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
+      if (divisor.real.isNaN || divisor.imag.value.isNaN) return Double.NaN;
       final Number c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       final Number aOverc2d2 = this / c2d2;
       return new Complex(aOverc2d2 * divisor.real as Real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
     if (divisor is Imaginary) return new Imaginary((this / divisor.value) * -1);
 
-    // Treat divisor as 0
-    return Double.infinity;
+    // Treat divisor as 0.
+    return value > 0 ? Double.infinity : Double.negInfinity;
   }
 
   /// The truncating division operator.
-  ///
   /// When dividing by an [Imaginary] or [Complex] number, the result will contain an imaginary component.
   /// The imaginary component is *not* truncated; only the real portion of the result is truncated.
-  ///
   @override
   Number operator ~/(dynamic divisor) {
     if (divisor == 0) return Double.infinity;
@@ -146,11 +155,15 @@ abstract class Real extends Number {
   Number operator ^(dynamic exponent) {
     if (exponent is num) {
       final num raised = pow(value, exponent);
-      if (raised is int) return new Integer(raised);
+      if (raised.toInt() == raised) return new Integer(raised.toInt());
       return new Double(raised as double);
     }
     if (exponent is Precise) return (new Precise.num(value)) ^ exponent;
-    if (exponent is Real) return new Double(pow(value, exponent.value).toDouble());
+    if (exponent is Real) {
+      final num raised = pow(value, exponent.value);
+      if (raised.toInt() == raised) return new Integer(raised.toInt());
+      return new Double(raised.toDouble());
+    }
     if (exponent is Complex) {
       // a^(b+ic) = a^b * ( cos(c * ln(a)) + i * sin(c * ln(a)) )
       final Number coeff = this ^ exponent.real;
@@ -203,8 +216,8 @@ abstract class Real extends Number {
   @override
   Number reciprocal() {
     if (value == 0) return Double.NaN;
-    if (value == 1) return Integer.one;
-    return new Double(1.0 / value);
+    final num flipped = 1.0 / value;
+    return flipped.toInt() == flipped ? new Integer(flipped.toInt()) : new Double(flipped.toDouble());
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'complex.dart';
 import 'imaginary.dart';
+import 'integer.dart';
 import 'number.dart';
 import 'precise.dart';
 import 'real.dart';
@@ -59,7 +60,7 @@ class Double extends Real {
   @override
   int toInt() => _value.toInt();
 
-  /// If an integer value returns the same hash as the [int] with the same value.
+  /// An integer value returns the same hash as the [int] with the same value.
   /// Otherwise returns the same hash as the [Precise] number representing the value.
   @override
   int get hashCode {
@@ -70,7 +71,7 @@ class Double extends Real {
 
   @override
   bool operator ==(dynamic obj) {
-    if (obj == double.nan) return value == double.nan;
+    if (obj is num && obj.isNaN) return value.isNaN;
     if (obj is Real || obj is num) return obj == value;
     if (obj is Imaginary) return value == 0.0 && obj.value?.toDouble() == 0.0;
     if (obj is Complex) return obj.real?.toDouble() == value && obj.imaginary?.toDouble() == 0.0;
@@ -85,17 +86,12 @@ class Double extends Real {
   Number clamp(dynamic lowerLimit, dynamic upperLimit) {
     final num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
     final num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
-    return new Double(value?.clamp(lower, upper)?.toDouble() ?? 0.0);
+    final num clamped = value?.clamp(lower, upper) ?? 0.0;
+    return clamped.toInt() == clamped ? new Integer(clamped.toInt()) : new Double(clamped.toDouble());
   }
 
   @override
-  Number reciprocal() {
-    if (value != 0.0) return new Double(1.0 / value);
-    return Double.zero;
-  }
-
-  @override
-  bool get isInteger => value.truncate() == value;
+  bool get isInteger => !value.isNaN && value.isFinite && value.toInt() == value;
 
   /// Support [dart:json] stringify.
   ///
