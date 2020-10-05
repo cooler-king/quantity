@@ -4,9 +4,11 @@ import 'package:quantity/quantity_si.dart';
 void main() {
   // Construct an Angle in radians.
   final Angle ang = new Angle(rad: 1.1);
+  print('Angle1 (deg): ${ang.valueInUnits(Angle.degrees)}');
 
   // Construct an Angle in degrees.
   final Angle ang2 = new Angle(deg: 270);
+  print('Angle2 (deg): $ang2');
 
   // Find the difference.
   final Angle diff = ang2 - ang as Angle;
