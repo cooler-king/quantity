@@ -440,18 +440,19 @@ void main() {
       final Precise p2 = new Precise('2');
       final Precise p10 = new Precise('10');
       final Precise pNeg20 = new Precise('-20');
+
       Number result = p0 / p0;
-      expect(result is Precise, true);
-      expect((result as Precise).digits.length, 1);
-      expect((result as Precise).power, 0);
-      expect((result as Precise).digits[0], Digit.one);
-      expect((result as Precise).toString(), '1');
+      expect(result, Double.NaN);
 
       result = p1 / p0;
       expect(result, Double.infinity);
 
       result = p1 / p1;
       expect(result, Precise.one);
+      expect((result as Precise).digits.length, 1);
+      expect((result as Precise).power, 0);
+      expect((result as Precise).digits[0], Digit.one);
+      expect((result as Precise).toString(), '1');
 
       result = p2 / p1;
       expect(identical(result, p2), true);
@@ -470,6 +471,9 @@ void main() {
 
       result = pNeg20 / p10;
       expect(result, new Precise('-2'));
+
+      result = p0 / pNeg20;
+      expect(result, new Precise('0'));
 
       result = p2 / pNeg20;
       expect(result, new Precise('-0.1'));

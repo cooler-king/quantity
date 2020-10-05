@@ -343,6 +343,9 @@ void main() {
       quot = d / p;
       expect(quot is Precise, true);
       expect(quot.toDouble(), closeTo(-0.0821970475097036, 0.000000000000001));
+      expect(new Integer(0) / new Precise('0'), Double.NaN);
+      expect(new Integer(1) / new Precise('0'), Double.infinity);
+      expect(new Integer(-1) / new Precise('0'), Double.negInfinity);
     });
 
     test('operator ~/', () {
@@ -357,7 +360,7 @@ void main() {
       expect((n as Integer).value.toInt(), -7);
       n = d ~/ 1;
       expect(n is Integer, true);
-      expect(n, 43);
+      expect(n, new Integer(43));
 
       // * double
       n = d ~/ 2.01;

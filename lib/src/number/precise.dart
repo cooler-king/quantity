@@ -106,6 +106,9 @@ class Precise extends Real {
 
     _trimLeadingZeros();
     _limitPrecision();
+
+    // Avoid negative zero.
+    if (_neg && _digits.length == 1 && _digits.first == Digit.zero) _neg = false;
   }
 
   /// Zero as a Precise number.
@@ -181,7 +184,7 @@ class Precise extends Real {
     if (_power >= 0) return true;
 
     // Check for case where decimal portion is equal to 0
-    for (final Digit d in digits.sublist(0, _power.abs())) {
+    for (final Digit d in digits.sublist(0, min(digits.length, _power.abs()))) {
       if (d != Digit.zero) return false;
     }
     return true;
@@ -334,11 +337,11 @@ class Precise extends Real {
 
     final bool negResult = _neg != preciseDivisor._neg;
 
-    if (preciseDivisor.toDouble() == 0) {
-      if (this == Precise.zero) return negResult ? new Precise('-1') : new Precise('1');
+    if (preciseDivisor == Precise.zero) {
+      if (this == Precise.zero) return Double.NaN;
       return negResult ? Double.negInfinity : Double.infinity;
     }
-    if (preciseDivisor.toDouble() == 1) return this;
+    if (preciseDivisor == new Precise('1')) return this;
 
     // Use the absolute value of the divisor from here
     preciseDivisor = preciseDivisor.abs();

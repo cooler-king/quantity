@@ -68,15 +68,22 @@ abstract class Real extends Number {
   @override
   Number operator *(dynamic multiplicand) {
     if (multiplicand is num) {
+      if (multiplicand.isNaN) return Double.NaN;
       final num product = multiplicand * value;
       if (product == product.truncate()) return new Integer(product.truncate());
       return new Double(product.toDouble());
     }
     if (multiplicand is Precise) return multiplicand * this;
-    if (multiplicand is Real) return this * multiplicand.value;
-    if (multiplicand is Complex)
-      return new Complex(multiplicand.real * value as Real, multiplicand.imaginary * value as Imaginary);
-    if (multiplicand is Imaginary) return new Imaginary(multiplicand.value * value);
+    if (multiplicand is Real) {
+      if (multiplicand.isNaN) return Double.NaN;
+      return Number.simplifyType(this * multiplicand.value);
+    }
+    if (multiplicand is Complex) {
+      if (multiplicand.real.isNaN || multiplicand.imag.value.isNaN) return Double.NaN;
+      return Number.simplifyType(
+          new Complex(multiplicand.real * value as Real, multiplicand.imaginary * value as Imaginary));
+    }
+    if (multiplicand is Imaginary) return Number.simplifyType(new Imaginary(multiplicand.value * value));
 
     // Treat multiplier as 0
     return Integer.zero;
@@ -104,7 +111,11 @@ abstract class Real extends Number {
       final Number aOverc2d2 = this / c2d2;
       return new Complex(aOverc2d2 * divisor.real as Real, new Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
-    if (divisor is Imaginary) return new Imaginary((this / divisor.value) * -1);
+    if (divisor is Imaginary) {
+      if (divisor.value.isNaN) return new Imaginary(Double.NaN);
+      if (value == 0 && divisor.value.value == 0) return new Imaginary(Double.NaN);
+      return new Imaginary(-this / divisor.value);
+    }
 
     // Treat divisor as 0.
     return value > 0 ? Double.infinity : Double.negInfinity;
