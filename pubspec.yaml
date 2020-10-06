@@ -1,7 +1,6 @@
 name: quantity
 version: 1.0.0
 description: Facilitates working with physical quantities such as angles, lengths, masses, temperatures and many others.  Supports uncertainty and arbitrary precision.
-author: Rob Bishop (cooler-king)
 homepage: https://github.com/cooler-king/quantity
 documentation: https://github.com/cooler-king/quantity/wiki
 environment:
