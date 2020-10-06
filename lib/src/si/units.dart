@@ -47,9 +47,6 @@ mixin Units {
   /// Whether these units are considered a base metric unit.
   bool metricBase = false;
 
-  //final String _sh;
-  //final String _shDialog;
-
   /// The offset of this unit from zero in the metric unit scale.
   double offset = 0;
 
@@ -69,7 +66,6 @@ mixin Units {
   /// All units have a unique name.
   @override
   int get hashCode => name.hashCode;
-  //int get hashCode => int.parse('${name.hashCode}54321${convToMKS.hashCode}');
 
   /// Returns the alternate name for the units.  This may be a non-standard
   /// representation.  If no alternate name exists, then null is returned.

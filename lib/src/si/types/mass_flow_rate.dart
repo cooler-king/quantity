@@ -7,7 +7,6 @@ import 'mass.dart';
 import 'time.dart';
 
 /// The mass of a substance which passes per unit of time.
-///
 /// See the [Wikipedia entry for Mass flow rate](https://en.wikipedia.org/wiki/Mass_flow_rate)
 /// for more information.
 class MassFlowRate extends Quantity {

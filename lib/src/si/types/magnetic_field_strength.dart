@@ -7,15 +7,11 @@ import 'current.dart';
 import 'length.dart';
 
 /// The intensity of a magnetic field.
-///
 /// See the [Wikipedia entry for Magnetic field](https://en.wikipedia.org/wiki/Magnetic_field)
 /// for more information.
-///
 class MagneticFieldStrength extends Quantity {
   /// Constructs a MagneticFieldStrength with amperes per meter.
-  ///
   /// Optionally specify a relative standard uncertainty.
-  ///
   MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
       : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
@@ -24,7 +20,6 @@ class MagneticFieldStrength extends Quantity {
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   MagneticFieldStrength.inUnits(dynamic value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
       : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
 
@@ -42,7 +37,6 @@ class MagneticFieldStrength extends Quantity {
 }
 
 /// Units acceptable for use in describing MagneticFieldStrength quantities.
-///
 class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
   /// Constructs a instance.
   MagneticFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

@@ -517,7 +517,7 @@ abstract class Quantity implements Comparable<dynamic> {
     if (preferredUnits != null) {
       final val = preferredUnits.fromMks(mks);
 
-      final nf = numberFormat ?? ScientificFormatSI();
+      final nf = numberFormat ?? NumberFormatSI();
 
       // Format the number.
       buffer.write(nf.format(val) ?? '$val');
@@ -529,7 +529,6 @@ abstract class Quantity implements Comparable<dynamic> {
             : standardUncertainty.mks.toDouble();
 
         if (uncertFormat == UncertaintyFormat.parens) {
-          final unicode = nf is NumberFormatSI && nf.unicode == true;
           buffer.write('(${nf.format(uncert)})');
         } else if (uncertFormat == UncertaintyFormat.plusMinus) {
           final unicode = nf is NumberFormatSI && nf.unicode == true;

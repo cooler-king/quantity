@@ -250,7 +250,7 @@ class Precise extends Real {
 
     if (carry == 1) sum.add(Digit.one);
 
-    return Precise.raw(sum, power: placeExtents[0], neg: _neg);
+    return Precise.raw(sum, power: placeExtents[0], neg: _neg, sigDigits: max(_precision, preciseAddend.precision));
   }
 
   /// Subtraction operator.
@@ -285,7 +285,8 @@ class Precise extends Real {
       }
     }
 
-    return Precise.raw(diff, power: placeExtents[0], neg: _neg);
+    return Precise.raw(diff,
+        power: placeExtents[0], neg: _neg, sigDigits: max(_precision, preciseSubtrahend.precision));
   }
 
   /// Multiplication operator.
@@ -322,12 +323,14 @@ class Precise extends Real {
       for (var i = 0; i < offset; i++) {
         intermediateProduct.insert(0, Digit.zero);
       }
-      product += Precise.raw(intermediateProduct, sigDigits: _precision != null ? _precision + 2 : null);
+      product += Precise.raw(intermediateProduct, sigDigits: max(_precision, preciseMultiplier.precision) + 2);
       offset += 1;
     }
 
     return Precise.raw(product._digits,
-        power: combinedPower, neg: _neg != preciseMultiplier._neg && product != Precise.zero);
+        power: combinedPower,
+        neg: _neg != preciseMultiplier._neg && product != Precise.zero,
+        sigDigits: max(_precision, preciseMultiplier.precision) + 2);
   }
 
   /// Division operator.
@@ -399,7 +402,8 @@ class Precise extends Real {
       digitCursor--;
     }
 
-    return Precise.raw(result, power: power + shift, neg: negResult);
+    return Precise.raw(result,
+        power: power + shift, neg: negResult, sigDigits: max(_precision, preciseDivisor.precision));
   }
 
   /// Truncating division operator.
@@ -598,10 +602,10 @@ class Precise extends Real {
     if (tenths.toInt() > 4) {
       // Round away from 0
       if (isNegative) return Precise.raw(digits.sublist(absPower), power: 0, neg: true) - toPrecise(1);
-      return Precise.raw(digits.sublist(absPower), power: 0, neg: false) + toPrecise(1);
+      return Precise.raw(digits.sublist(absPower), power: 0, neg: false, sigDigits: _precision) + toPrecise(1);
     } else {
       // Round toward 0
-      return Precise.raw(digits.sublist(absPower), power: 0, neg: _neg);
+      return Precise.raw(digits.sublist(absPower), power: 0, neg: _neg, sigDigits: _precision);
     }
   }
 
@@ -611,7 +615,7 @@ class Precise extends Real {
     if (_power.abs() >= _digits.length) return Precise.zero;
     final newDigits = digits.sublist(_power.abs());
     if (newDigits.last == Digit.zero) return Precise.zero;
-    return Precise.raw(newDigits, neg: _neg, power: 0);
+    return Precise.raw(newDigits, neg: _neg, power: 0, sigDigits: _precision);
   }
 
   /// Returns the minimum and maximum place extents for the combination of

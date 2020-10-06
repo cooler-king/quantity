@@ -4,7 +4,7 @@ The `example` folder contains some example code to help you get started with the
 
 ```
   // Construct an Angle in radians.
-  final Angle ang = new Angle(rad: 1.1);
+  final ang = new Angle(rad: 1.1);
   print('Angle1 (deg): ${ang.valueInUnits(Angle.degrees)}');
 
   // Construct an Angle in degrees.

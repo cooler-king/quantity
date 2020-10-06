@@ -38,7 +38,6 @@ class ElectricFieldStrength extends Quantity {
 }
 
 /// Units acceptable for use in describing ElectricFieldStrength quantities.
-///
 class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
   /// Constructs a instance.
   ElectricFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

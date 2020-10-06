@@ -97,10 +97,8 @@ import 'time.dart';
 /// Protocol (NTP).  For applications--especially distributed applications--that
 /// access the system clock and depend on its accuracy, such synchronization is
 /// recommended.  More information can be found at http://www.ntp.org.
-///
 class TimeInstant extends Quantity {
   /// Constructs a TimeInstant in either [TAI] or [UTC] units.
-  ///
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
@@ -111,17 +109,14 @@ class TimeInstant extends Quantity {
 
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   TimeInstant.inUnits(dynamic value, TimeInstantUnits units, [double uncert = 0.0])
       : super(value, units ?? TimeInstant.TAI, uncert);
 
   /// Constructs a constant TimeInstant object.
-  ///
   const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, double uncert = 0.0})
       : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
 
   /// Constructs a TimeInstant from an existing [dateTime] object.
-  ///
   TimeInstant.dateTime(DateTime dateTime, {double uncert = 0.0})
       : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
 
@@ -183,7 +178,6 @@ class TimeInstant extends Quantity {
   /// instant represented by this object.  DateTime objects are limited to
   /// millisecond precision and cannot describe times very far in the past or
   /// future.
-  //
   DateTime get nearestDateTime {
     var msSince1970 = valueInUnits(TimeInstant.system);
 
@@ -199,7 +193,6 @@ class TimeInstant extends Quantity {
 
   /// Override the default [Quantity] subtraction operator to return a Time
   /// when another TimeInstant is subtracted or a TimeInstant when Time is subtracted.
-  ///
   @override
   Quantity operator -(dynamic subtrahend) {
     final newValueSI = valueSI - subtrahend.valueSI;
@@ -223,7 +216,6 @@ class TimeInstant extends Quantity {
 
   /// Calculates the fraction of the (UTC) year that has elapsed for this time instant
   /// to millisecond precision.
-  ///
   double get fractionOfYear {
     final dt = nearestDateTime;
     final yearStartMillis = DateTime(dt.year).millisecondsSinceEpoch;
@@ -232,12 +224,9 @@ class TimeInstant extends Quantity {
     return (dt.millisecondsSinceEpoch - yearStartMillis) / (yearEndMillis - yearStartMillis);
   }
 
-  /// Returns true if the year that contains this TimeInstant is a leap
-  /// year.
-  ///
+  /// Returns true if the year that contains this TimeInstant is a leap year.
   /// Leap years occur every four years except on the hundreds (with the
   /// exception of every 400th year).
-  ///
   bool get isLeapYear {
     final year = nearestDateTime.year;
     return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
@@ -248,7 +237,6 @@ typedef FromMksOverride = Number Function(dynamic mks);
 typedef ToMksOverride = Number Function(dynamic val);
 
 /// Units acceptable for use in describing TimeInstant quantities.
-///
 class TimeInstantUnits extends TimeInstant with Units {
   /// Constructs a instance.
   TimeInstantUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
@@ -268,7 +256,6 @@ class TimeInstantUnits extends TimeInstant with Units {
 
   /// Calculates and returns the value in SI-MKS units of the specified [value]
   /// (that is implicitly in these units).
-  ///
   @override
   Number toMks(dynamic value) {
     if (_toMks != null) {
@@ -280,7 +267,6 @@ class TimeInstantUnits extends TimeInstant with Units {
 
   /// Calculates and returns the value in the units represented by this Units
   /// object of [mks] (that is expected to be in SI-MKS units).
-  ///
   @override
   Number fromMks(dynamic mks) {
     if (_fromMks != null) {
@@ -411,13 +397,8 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
 /// and a 'flat line' prediction is as valid as any other.  This method will
 /// continue to work if additional data is added directly to the _deltaT array.
 double getDeltaT(TimeInstant time) {
-  //GregorianCalendar cal = GregorianCalendar(TimeZone.getTimeZone('GMT'));
-  //cal.setTime(time.getNearestDate());
-
   final dt = time.nearestDateTime;
   final year = dt.year;
-
-  //double year = (double) cal.get(Calendar.YEAR);
 
   if (year < -391) {
     // JPL (used > -3000)
@@ -439,17 +420,6 @@ double getDeltaT(TimeInstant time) {
       // Out of range... just use the last value (as good a guess as any!)
       return (_deltaT[_deltaT.length - 1]).toDouble();
     } else {
-      /*
-       double frac = 0.0;
-       int dayOfYear = cal.get(Calendar.DAY_OF_YEAR);
-       //dt.
-       if(cal.isLeapYear(year)) {
-         frac = (dayOfYear-1) / 366.0;
-       } else {
-         frac =  (dayOfYear-1) / 365.0;
-       }
-       */
-
       final dt1 = _deltaT[index1];
       final dt2 = _deltaT[index2];
       final change = dt2 - dt1;
@@ -459,12 +429,10 @@ double getDeltaT(TimeInstant time) {
   }
 }
 
-///
 List<num> _deltaT;
 
 /// Initializes the values in the _deltaT array, which is used by the
 /// getDeltaT() method.  Delta T relates TDT to UT1.
-///
 void _initDeltaT() {
   // Year by year values for delta T from observations (1620-2002)
   final f = <num>[

@@ -99,7 +99,6 @@ void main() {
       expect(b.hashCode, Precise('-5.5').hashCode);
     });
 
-
     test('scalar in map', () {
       final m = <int, String>{0: 'zero', 5: 'five', 10: 'ten'};
 

@@ -7,15 +7,11 @@ import 'absorbed_dose.dart';
 import 'time.dart';
 
 /// The rate of mean energy imparted to matter per unit mass by ionizing radiation.
-///
 /// See the [Wikipedia entry for Absorbed Dose](https://en.wikipedia.org/wiki/Absorbed_dose)
 /// for more information.
-///
 class AbsorbedDoseRate extends Quantity {
   /// Construct an AbsorbedDoseRate with either grays per second or rads per second.
-  ///
   /// Optionally specify a relative standard uncertainty.
-  ///
   AbsorbedDoseRate({dynamic graysPerSecond, dynamic radsPerSecond, double uncert = 0.0})
       : super(graysPerSecond ?? (radsPerSecond ?? 0.0),
             radsPerSecond != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
@@ -25,7 +21,6 @@ class AbsorbedDoseRate extends Quantity {
 
   /// Constructs an AbsorbedDoseRate based on the [value]
   /// and the conversion factor intrinsic to the provided [units].
-  ///
   AbsorbedDoseRate.inUnits(dynamic value, AbsorbedDoseRateUnits units, [double uncert = 0.0])
       : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert);
 
@@ -47,7 +42,6 @@ class AbsorbedDoseRate extends Quantity {
 }
 
 /// Units acceptable for use in describing AbsorbedDoseRate quantities.
-///
 class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
   /// Constructs a instance.
   AbsorbedDoseRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,

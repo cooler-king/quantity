@@ -41,7 +41,6 @@ class TemperatureInterval extends Quantity {
       TemperatureIntervalUnits('degrees Celsius', 'deg C', null, 'degree Celsius', 1.0, true);
 
   /// Override the addition operator to manage the [Temperature]/`TemperatureInterval` relationship.
-  ///
   /// * Adding a `Temperature` returns a [Temperature] object.
   /// * Adding a `TemperatureInterval` returns a [TemperatureInterval] object.
   @override
@@ -60,7 +59,6 @@ class TemperatureInterval extends Quantity {
   }
 
   /// Override the subtraction operator to manage the [Temperature]/`TemperatureInterval` relationship.
-  ///
   /// * Subtracting a `TemperatureInterval` returns a `TemperatureInterval` object.
   /// * Attempting to subtract a `Temperature` from a `TemperatureInterval` throws a
   /// [QuantityException] as a physically nonsensical operation.

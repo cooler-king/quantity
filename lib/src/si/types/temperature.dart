@@ -6,7 +6,6 @@ import '../../si/units.dart';
 import 'temperature_interval.dart';
 
 /// An objective comparative measure of hot or cold.
-///
 /// See the [Wikipedia entry for Thermodynamic temperature](https://en.wikipedia.org/wiki/Thermodynamic_temperature)
 /// for more information.
 class Temperature extends Quantity {

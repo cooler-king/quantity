@@ -1,8 +1,13 @@
 ### 1.0.0
-  * Requires >= Dart SDK 2.3
+  * Requires >= Dart SDK 2.3.
+  * Increased testing.
+  * Number formatting; quantity text output.
+  * The latest official constants.
+  * TimeInstant extensions.
+  * MutableQuantity.
 
 ### 0.3.0
-  * Relaxed `intl` package version dependency to `>=0.15.0 <1.0.0`
+  * Relaxed `intl` package version dependency to `>=0.15.0 <1.0.0`.
 
 ### 0.2.0+1
   * Dart 2 support.
@@ -10,7 +15,7 @@
   * Addressed many (but not all) analyzer items.
 
 ### 0.1.5
-  * Upgraded dependencies:  `intl 0.14` and `quiver 0.23`
+  * Upgraded dependencies:  `intl 0.14` and `quiver 0.23`.
 
 ### 0.1.4
   * Added `isScalar` and `isScalarSI` to `Dimensions` and `Quantity`.

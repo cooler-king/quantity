@@ -1,6 +1,5 @@
 /// Extends the core library with non-SI units, constants, unit synonyms to enable terse
 /// constructors and expressions, and auxiliary functions.
-///
 library quantity_ext;
 
 // quantity type extensions
@@ -21,6 +20,7 @@ export 'src/ext/entropy_ext.dart';
 export 'src/ext/force_ext.dart';
 export 'src/ext/illuminance_ext.dart';
 export 'src/ext/inductance_ext.dart';
+export 'src/ext/information_ext.dart';
 export 'src/ext/kinematic_viscosity_ext.dart';
 export 'src/ext/length_ext.dart';
 export 'src/ext/luminous_intensity_ext.dart';

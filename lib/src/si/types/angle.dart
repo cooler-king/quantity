@@ -9,13 +9,13 @@ import '../../si/units.dart';
 
 // Common trig functions.
 
-/// Calculates the cosine of an [Angle] (adjacent divided by hypotenuse)
+/// Calculates the cosine of an [Angle] (adjacent divided by hypotenuse).
 double cosine(Angle a) => a.cosine();
 
-/// Calculates the sine of an [Angle] (opposite divided by hypotenuse)
+/// Calculates the sine of an [Angle] (opposite divided by hypotenuse).
 double sine(Angle a) => a.sine();
 
-/// Calculates the tangent of an [Angle] (opposite divided by adjacent)
+/// Calculates the tangent of an [Angle] (opposite divided by adjacent).
 double tangent(Angle a) => a.tangent();
 
 // Constant.
@@ -74,7 +74,7 @@ class Angle extends Quantity {
   Angle.fromDegMinSec(int d, int m, double s, [double uncert = 0.0])
       : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s), Angle.radians, uncert);
 
-  /// Dimensions for this type of quantity
+  /// Dimensions for this type of quantity.
   static const Dimensions angleDimensions = Dimensions.constant(<String, int>{'Angle': 1}, qType: Angle);
 
   /// The standard SI unit.
@@ -210,7 +210,7 @@ class AngleUnits extends Angle with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Angle;
 
