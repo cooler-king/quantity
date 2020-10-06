@@ -1,10 +1,15 @@
-part of quantity_ext;
+import '../si/types/inductance.dart';
 
+/// The standard SI unit.
 InductanceUnits henries = Inductance.henries;
 
-InductanceUnits esuOfInductance = new InductanceUnits('esu of inductance', null, null, null, 8.9876e11, false);
+/// ESU of inductance as a unit.
+InductanceUnits esuOfInductance = InductanceUnits('esu of inductance', null, null, null, 8.9876e11, false);
 
-// convenience units
+// Convenience units.
+
+/// Abhenries is a synonym for nanohenries.
 InductanceUnits abhenries = henries.nano() as InductanceUnits;
 
+/// EMU of inductance is a synonym for nanohenries.
 InductanceUnits emuOfInductance = abhenries;

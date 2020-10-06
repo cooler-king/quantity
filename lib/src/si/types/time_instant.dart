@@ -1,14 +1,13 @@
-part of quantity_si;
+import '../../number/double.dart';
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/quantity_exception.dart';
+import '../../si/units.dart';
+import 'time.dart';
 
 // Also Epoch
-
-//TODO Terrestrial Time ? = TDT?
-
-/*
-TT  = Terrestial Time. Originally used instead of TDT or TDB when the
-      difference between them didn't matter.  Was defined in 1991 to be
-      consistent with the SI second and the General Theory of Relativity.
-      Replaced TDT in the ephemerides from 2001 and on.*/
 
 /// `TimeInstant` represents a specific moment in time and its units enable
 /// conversion between various time scales.
@@ -98,51 +97,69 @@ TT  = Terrestial Time. Originally used instead of TDT or TDB when the
 /// Protocol (NTP).  For applications--especially distributed applications--that
 /// access the system clock and depend on its accuracy, such synchronization is
 /// recommended.  More information can be found at http://www.ntp.org.
-///
 class TimeInstant extends Quantity {
+  /// Constructs a TimeInstant in either [TAI] or [UTC] units.
+  /// Optionally specify a relative standard uncertainty.
+  // ignore: non_constant_identifier_names
+  TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
+      : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
+
+  /// Constructs a instance without preferred units.
+  TimeInstant.misc(dynamic conv) : super.misc(conv, TimeInstant.timeInstantDimensions);
+
+  /// Constructs a TimeInstant based on the [value]
+  /// and the conversion factor intrinsic to the passed [units].
+  TimeInstant.inUnits(dynamic value, TimeInstantUnits units, [double uncert = 0.0])
+      : super(value, units ?? TimeInstant.TAI, uncert);
+
+  /// Constructs a constant TimeInstant object.
+  const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, double uncert = 0.0})
+      : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
+
+  /// Constructs a TimeInstant from an existing [dateTime] object.
+  TimeInstant.dateTime(DateTime dateTime, {double uncert = 0.0})
+      : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
+
   /// Dimensions for this type of quantity
-  static const Dimensions timeInstantDimensions =
-      const Dimensions.constant(const <String, int>{'Time': 1}, qType: TimeInstant);
+  static const Dimensions timeInstantDimensions = Dimensions.constant(<String, int>{'Time': 1}, qType: TimeInstant);
 
   /// TAI  - International Atomic Time
   // ignore: non_constant_identifier_names
-  static final TimeInstantUnits TAI =
-      new TimeInstantUnits('International Atomic Time', null, 'TAI', null, 1.0, true, 0.0);
+  static final TimeInstantUnits TAI = TimeInstantUnits('International Atomic Time', null, 'TAI', null, 1.0, true, 0.0);
 
   /// UTC - Coordinated Universal Time
   // Note that UTC offset from TAI must be calculated dynamically--changes with
   // addition of leap seconds
   // ignore: non_constant_identifier_names
   static final TimeInstantUnits UTC =
-      new TimeInstantUnits('Coordinated Universal Time', null, 'UTC', null, 1.0, false, 0.0, (dynamic d) {
-    // Have to remove leap seconds when converting to UTC
-    d = (d is num || d is Number) ? d.toDouble() : 0.0;
-    d -= getLeapSeconds(d as double);
+      TimeInstantUnits('Coordinated Universal Time', null, 'UTC', null, 1.0, false, 0.0, (dynamic d) {
+    // Have to remove leap seconds when converting to UTC.
+    var value = d is num ? d.toDouble() : d is Number ? d.toDouble() : 0.0;
+    value -= getLeapSeconds(value);
 
-    return new Double(d as double);
+    return value.toInt() == value ? Integer(value.toInt()) : Double(value);
   }, (dynamic d) {
-    d = (d is num || d is Number) ? d.toDouble() : 0.0;
+    var value = d is num ? d.toDouble() : d is Number ? d.toDouble() : 0.0;
 
     // For conversion from UTC to TAI, the offset depends on the
-    // time itself due to the addition of leap seconds
-    final num leap1 = getLeapSeconds(d as double);
+    // time itself due to the addition of leap seconds.
+    final leap1 = getLeapSeconds(value);
     if (leap1 > 0.0) {
       // Add in the leap seconds
-      d += leap1;
+      value += leap1;
 
       // Make sure that adding in leap seconds didn't make it cross
-      // another leap second threshold
-      final num leap2 = getLeapSeconds(d as double);
+      // another leap second threshold.
+      final leap2 = getLeapSeconds(value);
       if (leap2 != leap1) d += leap2 - leap1;
     }
 
-    return new Double(d as double);
+    return value.toInt() == value ? Integer(value.toInt()) : Double(value);
   });
 
   /// Number of milliseconds since 1 Jan 1970 0h 0m 0s, which is the System
-  /// time defined by the Dart VM
-  ///
-  static final TimeInstantUnits system = new TimeInstantUnits(
+  /// time defined by the Dart VM.
+  static final TimeInstantUnits system = TimeInstantUnits(
       'System Time (ms since 1 Jan 1970 0h 0m 0s)',
       null,
       'System Time',
@@ -157,38 +174,12 @@ class TimeInstant extends Quantity {
     return UTC.toMks(d);
   });
 
-  /// Constructs a TimeInstant in either [TAI] or [UTC] units.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  // ignore: non_constant_identifier_names
-  TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
-      : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
-
-  TimeInstant._internal(dynamic conv) : super._internal(conv, TimeInstant.timeInstantDimensions);
-
-  /// Constructs a TimeInstant based on the [value]
-  /// and the conversion factor intrinsic to the passed [units].
-  ///
-  TimeInstant.inUnits(dynamic value, TimeInstantUnits units, [double uncert = 0.0])
-      : super(value, units ?? TimeInstant.TAI, uncert);
-
-  /// Constructs a constant TimeInstant object.
-  ///
-  const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, double uncert = 0.0})
-      : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
-
-  /// Constructs a TimeInstant from an existing [dateTime] object.
-  ///
-  TimeInstant.dateTime(DateTime dateTime, {double uncert = 0.0})
-      : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
-
   /// Returns a [DateTime] object that represents as closely as possible the time
   /// instant represented by this object.  DateTime objects are limited to
   /// millisecond precision and cannot describe times very far in the past or
   /// future.
-  //
   DateTime get nearestDateTime {
-    Number msSince1970 = valueInUnits(TimeInstant.system);
+    var msSince1970 = valueInUnits(TimeInstant.system);
 
     // Adjust for rounding to closest date
     if (msSince1970 < 0.0) {
@@ -197,21 +188,20 @@ class TimeInstant extends Quantity {
       msSince1970 += 0.5;
     }
 
-    return new DateTime.fromMillisecondsSinceEpoch(msSince1970.toInt(), isUtc: true);
+    return DateTime.fromMillisecondsSinceEpoch(msSince1970.toInt(), isUtc: true);
   }
 
   /// Override the default [Quantity] subtraction operator to return a Time
   /// when another TimeInstant is subtracted or a TimeInstant when Time is subtracted.
-  ///
   @override
   Quantity operator -(dynamic subtrahend) {
-    final Number newValueSI = valueSI - subtrahend.valueSI;
+    final newValueSI = valueSI - subtrahend.valueSI;
     if (subtrahend is Quantity) {
-      final double diffUr = _calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      final diffUr = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
       if (subtrahend is TimeInstant) {
-        return new Time(s: newValueSI, uncert: diffUr);
+        return Time(s: newValueSI, uncert: diffUr);
       } else if (subtrahend is Time) {
-        return new TimeInstant(TAI: newValueSI, uncert: diffUr);
+        return TimeInstant(TAI: newValueSI, uncert: diffUr);
       }
     }
 
@@ -226,23 +216,19 @@ class TimeInstant extends Quantity {
 
   /// Calculates the fraction of the (UTC) year that has elapsed for this time instant
   /// to millisecond precision.
-  ///
   double get fractionOfYear {
-    final DateTime dt = nearestDateTime;
-    final int yearStartMillis = new DateTime(dt.year).millisecondsSinceEpoch;
-    final int yearEndMillis = new DateTime(dt.year + 1).millisecondsSinceEpoch;
+    final dt = nearestDateTime;
+    final yearStartMillis = DateTime(dt.year).millisecondsSinceEpoch;
+    final yearEndMillis = DateTime(dt.year + 1).millisecondsSinceEpoch;
 
     return (dt.millisecondsSinceEpoch - yearStartMillis) / (yearEndMillis - yearStartMillis);
   }
 
-  /// Returns true if the year that contains this TimeInstant is a leap
-  /// year.
-  ///
+  /// Returns true if the year that contains this TimeInstant is a leap year.
   /// Leap years occur every four years except on the hundreds (with the
   /// exception of every 400th year).
-  ///
   bool get isLeapYear {
-    final int year = nearestDateTime.year;
+    final year = nearestDateTime.year;
     return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
   }
 }
@@ -251,27 +237,25 @@ typedef FromMksOverride = Number Function(dynamic mks);
 typedef ToMksOverride = Number Function(dynamic val);
 
 /// Units acceptable for use in describing TimeInstant quantities.
-///
 class TimeInstantUnits extends TimeInstant with Units {
-  final FromMksOverride _fromMks;
-  final ToMksOverride _toMks;
-
-  /// Constructs a new instance.
+  /// Constructs a instance.
   TimeInstantUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0, this._fromMks, this._toMks])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
+  final FromMksOverride _fromMks;
+  final ToMksOverride _toMks;
+
   /// Calculates and returns the value in SI-MKS units of the specified [value]
   /// (that is implicitly in these units).
-  ///
   @override
   Number toMks(dynamic value) {
     if (_toMks != null) {
@@ -283,7 +267,6 @@ class TimeInstantUnits extends TimeInstant with Units {
 
   /// Calculates and returns the value in the units represented by this Units
   /// object of [mks] (that is expected to be in SI-MKS units).
-  ///
   @override
   Number fromMks(dynamic mks) {
     if (_fromMks != null) {
@@ -297,12 +280,12 @@ class TimeInstantUnits extends TimeInstant with Units {
   @override
   Type get quantityType => TimeInstant;
 
-  /// Derive new TimeInstantUnits using this TimeInstantUnits object as the base.
+  /// Derive TimeInstantUnits using this TimeInstantUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TimeInstantUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => TimeInstantUnits(
       '$fullPrefix$name',
-      _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-      _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
       '$fullPrefix$singular',
       valueSI * conv,
       false,
@@ -332,16 +315,16 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
 
   // Outside thresholds?
   if (tai < 94694400.0) return 0; //   (2441317.5-2436204.5) * 86400.0         [< 1 Jan 1961]
-  if (tai >= 1861920036.0) return 37; //  ((2457754.5-2436204.5) * 86400.0) + 36 [< 1 Jan 2017]
+  if (tai >= 1861920036.0) return 37; //  ((2457754.5-2436204.5) * 86400.0) + 36 [>= 1 Jan 2017]
 
-  // Pre-1972? (2441317.5-2436204.5) * 86400.0 [< 1 Jan 1972]
+  // Pre-1972? (2441317.5 - 2436204.5) * 86400.0 [< 1 Jan 1972]
   if (tai < 441763200.0) {
     if (pre1972LeapSeconds) {
       // Even though the equations below use (presumably) the Julian Date in
       // the UTC time scale, we use the Julian Date in the TAI time scale.
       // This introduces a very small error on the order of 2x10^-7 seconds,
       // which is within the accuracy of this method.
-      final double mjdTAI = (tai / 86400.0) + 36204.0;
+      final mjdTAI = (tai / 86400.0) + 36204.0;
 
       if (tai < 113011201.6975700) return 1.422818 + (mjdTAI - 37300.0) * 0.0012960; // [< 1 Aug 1961]
       if (tai < 126230401.8458580) return 1.372818 + (mjdTAI - 37300.0) * 0.0012960; // [< 1 Jan 1962]
@@ -360,8 +343,6 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
 
     return 0;
   }
-
-  //TODO reverse the order of leap second logic for better efficiency
 
   // Integral Leap Seconds (1972- )
   if (tai < 457488010.0) return 10; // ((2441499.5-2436204.5) * 86400.0) + 10 [< 1 Jul 1972]
@@ -392,7 +373,7 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
   if (tai < 1814400035.0) return 35; // ((2457204.5-2436204.5) * 86400.0) + 35 [< 1 Jul 2015]
   return 36; // ((2457754.5-2436204.5) * 86400.0) + 36 [< 1 Jan 2017]
 
-  // 37 // [>= 1 Jan 2017]
+  // 37 [>= 1861920036.0; 1 Jan 2017] handled at start of method.
 }
 
 /// Returns the value 'Delta T,' in seconds, which relates the Terrestrial Dynamical Time
@@ -415,65 +396,46 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
 /// the last delta T value is returned (no reliable predictive models are available
 /// and a 'flat line' prediction is as valid as any other.  This method will
 /// continue to work if additional data is added directly to the _deltaT array.
-///
 double getDeltaT(TimeInstant time) {
-  //GregorianCalendar cal = new GregorianCalendar(TimeZone.getTimeZone('GMT'));
-  //cal.setTime(time.getNearestDate());
-
-  final DateTime dt = time.nearestDateTime;
-  final int year = dt.year;
-
-  //double year = (double) cal.get(Calendar.YEAR);
+  final dt = time.nearestDateTime;
+  final year = dt.year;
 
   if (year < -391) {
     // JPL (used > -3000)
     return 31.0 * (year - 1820.0) / 100.0;
   } else if (year < 948) {
-    final double u = (year - 2000.0) / 100.0;
+    final u = (year - 2000.0) / 100.0;
     return 2177.0 + (497.0 * u) + (44.1 * u * u); // Chapront, Chapront-Touze & Francou (1997)
   } else if (year < 1620) {
-    final double u = (year - 2000.0) / 100.0;
+    final u = (year - 2000.0) / 100.0;
     return 102.0 + (102.0 * u) + (25.3 * u * u); // Chapront, Chapront-Touze & Francou (1997)
   } else {
     // Use tables of direct observations and interpolate between years
     if (_deltaT == null) _initDeltaT();
 
-    final int index1 = year - 1620;
-    final int index2 = index1 + 1;
+    final index1 = year - 1620;
+    final index2 = index1 + 1;
 
     if (index1 > (_deltaT.length - 2)) {
       // Out of range... just use the last value (as good a guess as any!)
       return (_deltaT[_deltaT.length - 1]).toDouble();
     } else {
-      /*
-       double frac = 0.0;
-       int dayOfYear = cal.get(Calendar.DAY_OF_YEAR);
-       //dt.
-       if(cal.isLeapYear(year)) {
-         frac = (dayOfYear-1) / 366.0;
-       } else {
-         frac =  (dayOfYear-1) / 365.0;
-       }
-       */
-
-      final num dt1 = _deltaT[index1];
-      final num dt2 = _deltaT[index2];
-      final num change = dt2 - dt1;
+      final dt1 = _deltaT[index1];
+      final dt2 = _deltaT[index2];
+      final change = dt2 - dt1;
 
       return (dt1 + time.fractionOfYear * change).toDouble();
     }
   }
 }
 
-///
 List<num> _deltaT;
 
 /// Initializes the values in the _deltaT array, which is used by the
 /// getDeltaT() method.  Delta T relates TDT to UT1.
-///
 void _initDeltaT() {
   // Year by year values for delta T from observations (1620-2002)
-  final List<num> f = <num>[
+  final f = <num>[
     124.00,
     119.00,
     115.00,
@@ -873,7 +835,12 @@ void _initDeltaT() {
     66.60,
     66.91,
     67.28,
-    67.64 // 2010-2015
+    67.64,
+    68.10,
+    68.59,
+    68.96,
+    69.22, // 2010-2019
+    69.36,
   ];
 
   _deltaT = f;
@@ -884,14 +851,14 @@ void _initDeltaT() {
 /// second, [utc].
 double secondsInUtcDay(double utc) {
   // Adjust to midnight by subtracting 43200.
-  final int d0 = (utc - 43200) ~/ 86400.0;
-  final int d1 = d0 + 1;
+  final d0 = (utc - 43200) ~/ 86400.0;
+  final d1 = d0 + 1;
 
-  final Number tai1 = TimeInstant.UTC.toMks(d0 * 86400.0);
+  final tai1 = TimeInstant.UTC.toMks(d0 * 86400.0);
 
   // UTC seconds at (close to) the following UTC midnight
   // (as long as it's well past noon, which is when the leap seconds are added)
-  final Number tai2 = TimeInstant.UTC.toMks(d1 * 86400.0);
+  final tai2 = TimeInstant.UTC.toMks(d1 * 86400.0);
 
   // Return number of seconds on this UTC day
   return (tai2 - tai1).toDouble();

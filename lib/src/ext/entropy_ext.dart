@@ -1,18 +1,25 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/entropy.dart';
+import '../si/types/temperature_interval.dart';
+import 'energy_ext.dart';
 
+/// The standard SI unit.
 final EntropyUnits joulesPerKelvin = Entropy.joulesPerKelvin;
 
-/// Entropy as a 'charge'; identical to [joulesPerKelvin]
-final EntropyUnits thermalcoulomb = joulesPerKelvin;
+/// Entropy as a 'charge'; identical to [joulesPerKelvin].
+final EntropyUnits thermalCoulomb = joulesPerKelvin;
 
-/// Boltzmann constant as a unit
-final EntropyUnits boltzmannUnit = new EntropyUnits('Boltzmanns', 'kB', 'k', null, 1.3806503e-23, false);
+/// Boltzmann constant as a unit.
+final EntropyUnits boltzmannUnit = EntropyUnits('Boltzmanns', 'kB', 'k', null, 1.3806503e-23, false);
 
-final EntropyUnits clausius = new EntropyUnits('Clausius', null, 'Cl', null, 4.184, false);
+/// The erg per clausius unit of entropy.
+final EntropyUnits clausius = EntropyUnits('Clausius', null, 'Cl', null, 4.184, false);
 
-final EntropyUnits ergPerKelvin = new EntropyUnits.energyTemperature(ergs, TemperatureInterval.kelvins);
+/// The erg per kelvin unit of entropy.
+final EntropyUnits ergPerKelvin = EntropyUnits.energyTemperature(ergs, TemperatureInterval.kelvins);
 
 // CONSTANTS
 
-const Entropy boltzmannConstant =
-    const Entropy.constant(const Double.constant(1.38064852e-23), uncert: 5.721948696979012e-7);
+/// The Boltzmann constant is a physical constant that relates the average
+/// relative kinetic energy of particles in a gas with the temperature of the gas.
+const Entropy boltzmannConstant = Entropy.constant(Double.constant(1.380649e-23));

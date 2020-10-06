@@ -1,56 +1,49 @@
 /// Extends the core library with non-SI units, constants, unit synonyms to enable terse
 /// constructors and expressions, and auxiliary functions.
-///
 library quantity_ext;
 
-import 'dart:async';
-import 'dart:math';
-import 'package:dart2_constant/core.dart' as polyfill_core;
-import 'package:dart2_constant/math.dart' as polyfill_math;
-import 'package:quantity/number.dart';
-import 'package:intl/intl.dart' show NumberFormat;
-import 'package:quantity/quantity_si.dart';
-
 // quantity type extensions
-part 'src/ext/acceleration_ext.dart';
-part 'src/ext/amount_of_substance_ext.dart';
-part 'src/ext/angle_ext.dart';
-part 'src/ext/angular_momentum_ext.dart';
-part 'src/ext/angular_speed_ext.dart';
-part 'src/ext/area_ext.dart';
-part 'src/ext/capacitance_ext.dart';
-part 'src/ext/charge_ext.dart';
-part 'src/ext/conductance_ext.dart';
-part 'src/ext/current_ext.dart';
-part 'src/ext/electric_potential_difference_ext.dart';
-part 'src/ext/energy_ext.dart';
-part 'src/ext/energy_flux_ext.dart';
-part 'src/ext/entropy_ext.dart';
-part 'src/ext/force_ext.dart';
-part 'src/ext/illuminance_ext.dart';
-part 'src/ext/inductance_ext.dart';
-part 'src/ext/kinematic_viscosity_ext.dart';
-part 'src/ext/length_ext.dart';
-part 'src/ext/luminous_intensity_ext.dart';
-part 'src/ext/magnetic_flux_ext.dart';
-part 'src/ext/magnetic_flux_density_ext.dart';
-part 'src/ext/mass_density_ext.dart';
-part 'src/ext/mass_ext.dart';
-part 'src/ext/permeability_ext.dart';
-part 'src/ext/permittivity_ext.dart';
-part 'src/ext/power_ext.dart';
-part 'src/ext/pressure_ext.dart';
-part 'src/ext/resistance_ext.dart';
-part 'src/ext/scalar_ext.dart';
-part 'src/ext/solid_angle_ext.dart';
-part 'src/ext/specific_energy_ext.dart';
-part 'src/ext/spectral_irradiance_ext.dart';
-part 'src/ext/speed_ext.dart';
-part 'src/ext/temperature_ext.dart';
-part 'src/ext/time_ext.dart';
-part 'src/ext/time_instant_ext.dart';
-part 'src/ext/volume_ext.dart';
-part 'src/ext/volume_flow_rate_ext.dart';
+export 'src/ext/acceleration_ext.dart';
+export 'src/ext/amount_of_substance_ext.dart';
+export 'src/ext/angle_ext.dart';
+export 'src/ext/angular_momentum_ext.dart';
+export 'src/ext/angular_speed_ext.dart';
+export 'src/ext/area_ext.dart';
+export 'src/ext/capacitance_ext.dart';
+export 'src/ext/charge_ext.dart';
+export 'src/ext/conductance_ext.dart';
+export 'src/ext/current_ext.dart';
+export 'src/ext/electric_potential_difference_ext.dart';
+export 'src/ext/energy_ext.dart';
+export 'src/ext/energy_flux_ext.dart';
+export 'src/ext/entropy_ext.dart';
+export 'src/ext/force_ext.dart';
+export 'src/ext/illuminance_ext.dart';
+export 'src/ext/inductance_ext.dart';
+export 'src/ext/information_ext.dart';
+export 'src/ext/kinematic_viscosity_ext.dart';
+export 'src/ext/length_ext.dart';
+export 'src/ext/luminous_intensity_ext.dart';
+export 'src/ext/magnetic_flux_density_ext.dart';
+export 'src/ext/magnetic_flux_ext.dart';
+export 'src/ext/mass_density_ext.dart';
+export 'src/ext/mass_ext.dart';
 
 // mutable quantity type extensions
-part 'src/ext/mutable/mutable_quantity.dart';
+export 'src/ext/mutable/mutable_quantity.dart';
+
+export 'src/ext/permeability_ext.dart';
+export 'src/ext/permittivity_ext.dart';
+export 'src/ext/power_ext.dart';
+export 'src/ext/pressure_ext.dart';
+export 'src/ext/resistance_ext.dart';
+export 'src/ext/scalar_ext.dart';
+export 'src/ext/solid_angle_ext.dart';
+export 'src/ext/specific_energy_ext.dart';
+export 'src/ext/spectral_irradiance_ext.dart';
+export 'src/ext/speed_ext.dart';
+export 'src/ext/temperature_ext.dart';
+export 'src/ext/time_ext.dart';
+export 'src/ext/time_instant_ext.dart';
+export 'src/ext/volume_ext.dart';
+export 'src/ext/volume_flow_rate_ext.dart';

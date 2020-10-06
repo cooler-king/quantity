@@ -1,20 +1,27 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/charge.dart';
+import '../si/types/current.dart';
+import '../si/types/time.dart';
 
-/// A synonym for the standard SI-MKS unit of charge.
+/// The standard SI unit.
 final ChargeUnits coulombs = Charge.coulombs;
 
-final ChargeUnits ampereHours = new ChargeUnits.currentTime(Current.amperes, Time.hours);
+/// Ampere hours as a unit.
+final ChargeUnits ampereHours = ChargeUnits.currentTime(Current.amperes, Time.hours);
 
-final ChargeUnits faradaysC12 =
-    new ChargeUnits('faradays (carbon 12)', null, null, 'faraday (carbon 12)', 9.6486e4, false);
+/// Carbon 12 faradays as a unit.
+final ChargeUnits faradaysC12 = ChargeUnits('faradays (carbon 12)', null, null, 'faraday (carbon 12)', 9.6486e4, false);
 
+/// Chemical faradays as a unit.
 final ChargeUnits faradaysChemical =
-    new ChargeUnits('faradays (chemical)', null, null, 'faraday (chemical)', 9.64957e4, false);
+    ChargeUnits('faradays (chemical)', null, null, 'faraday (chemical)', 9.64957e4, false);
 
+/// Physical faradays as a unit.
 final ChargeUnits faradaysPhysical =
-    new ChargeUnits('faradays (physical)', null, null, 'faraday (physical)', 9.65219e4, false);
+    ChargeUnits('faradays (physical)', null, null, 'faraday (physical)', 9.65219e4, false);
 
-final ChargeUnits statcoulombs = new ChargeUnits('statcoulombs', null, null, null, 3.335640e-10, false);
+/// Statcoulombs as a unit.
+final ChargeUnits statcoulombs = ChargeUnits('statcoulombs', null, null, null, 3.335640e-10, false);
 
 // Convenience units.
 
@@ -23,5 +30,5 @@ final ChargeUnits abcoulombs = coulombs.deka() as ChargeUnits;
 
 // Constants.
 
-const Charge elementaryCharge =
-    const Charge.constant(const Double.constant(1.6021766208e-19), uncert: 6.116678943365593e-9);
+/// The electric charge carried by a single proton.
+const Charge elementaryCharge = Charge.constant(Double.constant(1.602176634e-19));

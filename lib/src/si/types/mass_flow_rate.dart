@@ -1,60 +1,62 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'mass.dart';
+import 'time.dart';
 
 /// The mass of a substance which passes per unit of time.
-///
 /// See the [Wikipedia entry for Mass flow rate](https://en.wikipedia.org/wiki/Mass_flow_rate)
 /// for more information.
-///
 class MassFlowRate extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions massFlowRateDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -1}, qType: MassFlowRate);
-
-  /// The standard SI unit.
-  static final MassFlowRateUnits kilogramsPerSecond = new MassFlowRateUnits.massTime(Mass.kilograms, Time.seconds);
-
-  /// Construct a MassFlowRate with kilograms per second.
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a MassFlowRate with kilograms per second.
+  /// Optionally specify a relative standard uncertainty.
   MassFlowRate({dynamic kilogramsPerSecond, double uncert = 0.0})
       : super(kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert);
 
-  MassFlowRate._internal(dynamic conv) : super._internal(conv, MassFlowRate.massFlowRateDimensions);
+  /// Constructs a instance without preferred units.
+  MassFlowRate.misc(dynamic conv) : super.misc(conv, MassFlowRate.massFlowRateDimensions);
 
   /// Constructs a MassFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   MassFlowRate.inUnits(dynamic value, MassFlowRateUnits units, [double uncert = 0.0])
       : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert);
 
+  /// Construct a constant MassFlowRate.
   const MassFlowRate.constant(Number valueSI, {MassFlowRateUnits units, double uncert = 0.0})
       : super.constant(valueSI, MassFlowRate.massFlowRateDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions massFlowRateDimensions =
+      Dimensions.constant(<String, int>{'Mass': 1, 'Time': -1}, qType: MassFlowRate);
+
+  /// The standard SI unit.
+  static final MassFlowRateUnits kilogramsPerSecond = MassFlowRateUnits.massTime(Mass.kilograms, Time.seconds);
 }
 
 /// Units acceptable for use in describing MassFlowRate quantities.
-///
 class MassFlowRateUnits extends MassFlowRate with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   MassFlowRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on mass and time units.
-  MassFlowRateUnits.massTime(MassUnits mu, TimeUnits tu) : super._internal(mu.valueSI * tu.valueSI) {
+  /// Constructs a instance based on mass and time units.
+  MassFlowRateUnits.massTime(MassUnits mu, TimeUnits tu) : super.misc(mu.valueSI * tu.valueSI) {
     name = '${mu.name} per ${tu.singular}';
     singular = '${mu.singular} per ${tu.singular}';
-    _convToMKS = mu.valueSI * tu.valueSI;
-    _abbrev1 = mu._abbrev1 != null && tu._abbrev1 != null ? '${mu._abbrev1} / ${tu._abbrev1}' : null;
-    _abbrev2 = mu._abbrev2 != null && tu._abbrev2 != null ? '${mu._abbrev2}${tu._abbrev2}' : null;
+    convToMKS = mu.valueSI * tu.valueSI;
+    abbrev1 = mu.abbrev1 != null && tu.abbrev1 != null ? '${mu.abbrev1} / ${tu.abbrev1}' : null;
+    abbrev2 = mu.abbrev2 != null && tu.abbrev2 != null ? '${mu.abbrev2}${tu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -63,16 +65,14 @@ class MassFlowRateUnits extends MassFlowRate with Units {
   @override
   Type get quantityType => MassFlowRate;
 
-  /// Derive new MassFlowRateUnits using this MassFlowRateUnits object as the base.
+  /// Derive MassFlowRateUnits using this MassFlowRateUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new MassFlowRateUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => MassFlowRateUnits(
+      '$fullPrefix$name',
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

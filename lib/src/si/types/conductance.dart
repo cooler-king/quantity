@@ -1,48 +1,49 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
-/// The ease with which an electric current passes through a conductor (the inverse of [Resistance]).
-///
+/// The ease with which an electric current passes through a conductor (the inverse of `Resistance`).
 /// See the [Wikipedia entry for Electrical resistance and conductance](https://en.wikipedia.org/wiki/Electrical_resistance_and_conductance)
 /// for more information.
-///
 class Conductance extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions electricConductanceDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 2, 'Time': 3, 'Length': -2, 'Mass': -1}, qType: Conductance);
-
-  /// The standard SI unit.
-  /// Note: singular still has an 's'
-  static final ConductanceUnits siemens = new ConductanceUnits('siemens', null, 'S', 'siemens', 1.0, true);
-
-  /// Construct a Conductance with siemens ([S]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Conductance with siemens ([S]).
+  /// Optionally specify a relative standard uncertainty.
   Conductance({dynamic S, double uncert = 0.0}) : super(S ?? 0.0, Conductance.siemens, uncert);
 
-  Conductance._internal(dynamic conv) : super._internal(conv, Conductance.electricConductanceDimensions);
+  /// Constructs a instance without preferred units.
+  Conductance.misc(dynamic conv) : super.misc(conv, Conductance.electricConductanceDimensions);
 
   /// Constructs a Conductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Conductance.inUnits(dynamic value, ConductanceUnits units, [double uncert = 0.0])
       : super(value, units ?? Conductance.siemens, uncert);
 
+  /// Constructs a constant Conductance.
   const Conductance.constant(Number valueSI, {ConductanceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Conductance.electricConductanceDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity
+  static const Dimensions electricConductanceDimensions =
+      Dimensions.constant(<String, int>{'Current': 2, 'Time': 3, 'Length': -2, 'Mass': -1}, qType: Conductance);
+
+  /// The standard SI unit.
+  /// Note: singular still has an 's'
+  static final ConductanceUnits siemens = ConductanceUnits('siemens', null, 'S', 'siemens', 1.0, true);
 }
 
 /// Units acceptable for use in describing Conductance quantities.
-///
 class ConductanceUnits extends Conductance with Units {
+  /// Constructs a instance.
   ConductanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -51,16 +52,14 @@ class ConductanceUnits extends Conductance with Units {
   @override
   Type get quantityType => Conductance;
 
-  /// Derive new ConductanceUnits using this ConductanceUnits object as the base.
+  /// Derive ConductanceUnits using this ConductanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new ConductanceUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ConductanceUnits(
+      '$fullPrefix$name',
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

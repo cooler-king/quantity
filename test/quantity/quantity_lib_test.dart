@@ -6,7 +6,7 @@ import 'package:quantity/number.dart';
 void main() {
   group('Quantity Library', () {
     test('createTypedQuantityInstance', () {
-      Quantity q = createTypedQuantityInstance(Length, 5.6, Length.meters);
+      var q = createTypedQuantityInstance(Length, 5.6, Length.meters);
       expect(q is Length, true);
       expect(q.valueSI is Double, true);
       expect(q.valueSI.toDouble(), 5.6);
@@ -37,7 +37,7 @@ void main() {
       expect(q.relativeUncertainty, 0.0);
 
       // uncertainty
-      q = createTypedQuantityInstance(Length, 23.45, Length.meters, 0.015);
+      q = createTypedQuantityInstance(Length, 23.45, Length.meters, uncert: 0.015);
       expect(q is Length, true);
       expect(q.valueSI.toDouble(), 23.45);
       expect(q.preferredUnits, Length.meters);
@@ -53,13 +53,13 @@ void main() {
           createTypedQuantityInstance(LuminousIntensity, 1.1, LuminousIntensity.candelas) is LuminousIntensity, true);
 
       expect(createTypedQuantityInstance(Scalar, 1.1, null) is Scalar, true);
-      expect(createTypedQuantityInstance(Angle, 1.1, Angle.degrees, 13.2) is Angle, true);
+      expect(createTypedQuantityInstance(Angle, 1.1, Angle.degrees, uncert: 13.2) is Angle, true);
       expect(createTypedQuantityInstance(SolidAngle, 1.1, null) is SolidAngle, true);
 
-      final Random random = new Random();
-      for (Type t in allQuantityTypes) {
+      final random = Random();
+      for (final t in allQuantityTypes) {
         try {
-          final Quantity q = createTypedQuantityInstance(t, 1.1, null, random.nextDouble() * 10.0);
+          final q = createTypedQuantityInstance(t, 1.1, null, uncert: random.nextDouble() * 10.0);
           expect(q != null, true);
           expect(q.runtimeType == t, true);
         } catch (err) {
@@ -69,13 +69,13 @@ void main() {
     });
 
     test('areWithin', () {
-      final Scalar s1 = new Scalar(value: 7.11);
-      final Scalar s2 = new Scalar(value: 9.45);
-      expect(areWithin(s1, s2, new Scalar(value: 3)), true);
-      expect(areWithin(s1, s2, new Scalar(value: 2)), false);
-      expect(areWithin(s1, s2, new Scalar(value: 2.341)), true);
-      expect(areWithin(s1, s2, new Scalar(value: 2.339)), false);
-      expect(areWithin(s1, s2, new Scalar(value: 2.34)), true);
+      final s1 = Scalar(value: 7.11);
+      final s2 = Scalar(value: 9.45);
+      expect(areWithin(s1, s2, Scalar(value: 3)), true);
+      expect(areWithin(s1, s2, Scalar(value: 2)), false);
+      expect(areWithin(s1, s2, Scalar(value: 2.341)), true);
+      expect(areWithin(s1, s2, Scalar(value: 2.339)), false);
+      expect(areWithin(s1, s2, Scalar(value: 2.34)), true);
     });
   });
 }

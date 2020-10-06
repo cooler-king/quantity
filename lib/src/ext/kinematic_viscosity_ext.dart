@@ -1,9 +1,15 @@
-part of quantity_ext;
+import '../si/types/kinematic_viscosity.dart';
+import 'area_ext.dart';
+import 'time_ext.dart';
 
+/// The standard SI unit.
 KinematicViscosityUnits metersSquaredPerSecond = KinematicViscosity.metersSquaredPerSecond;
 
-KinematicViscosityUnits stokes = new KinematicViscosityUnits('stokes', 'St', null, null, 1.0e-4, true);
+/// Stokes as a unit.
+KinematicViscosityUnits stokes = KinematicViscosityUnits('stokes', 'St', null, null, 1.0e-4, true);
 
-KinematicViscosityUnits centistokes = new KinematicViscosityUnits('centistokes', 'cSt', null, null, 1.0e-6, false);
+/// Centistokes as a unit.
+KinematicViscosityUnits centistokes = KinematicViscosityUnits('centistokes', 'cSt', null, null, 1.0e-6, false);
 
-KinematicViscosityUnits squareFeetPerSecond = new KinematicViscosityUnits.areaTime(squareFeet, seconds);
+/// Square feet per second as a unit.
+KinematicViscosityUnits squareFeetPerSecond = KinematicViscosityUnits.areaTime(squareFeet, seconds);

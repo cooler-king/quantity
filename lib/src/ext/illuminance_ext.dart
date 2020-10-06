@@ -1,7 +1,10 @@
-part of quantity_ext;
+import '../si/types/illuminance.dart';
 
+/// The standard SI unit.
 IlluminanceUnits lux = Illuminance.lux;
 
-IlluminanceUnits footCandles = new IlluminanceUnits('foot candles', null, null, null, 1.0764e1, false);
+/// Foot candles as a unit.
+IlluminanceUnits footCandles = IlluminanceUnits('foot candles', null, null, null, 1.0764e1, false);
 
-IlluminanceUnits phots = new IlluminanceUnits('phots', null, null, null, 1.0e4, true);
+/// Phots as a unit.
+IlluminanceUnits phots = IlluminanceUnits('phots', null, null, null, 1.0e4, true);

@@ -5,19 +5,31 @@ import 'package:quantity/number.dart';
 void main() {
   group('TimeInstant', () {
     test('constructors', () {
-      final TimeInstant t = new TimeInstant(TAI: 1234.5);
-      expect(t, isNotNull);
+      var q = TimeInstant();
+      expect(q.valueSI, Double.zero);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, TimeInstant.timeInstantDimensions);
+      expect(q.preferredUnits, TimeInstant.TAI);
+      expect(q.relativeUncertainty, 0);
 
-      expect(t.valueSI is Double, true);
-      expect(t.valueSI.toDouble(), 1234.5);
-      expect(t.dimensions, TimeInstant.timeInstantDimensions);
-      expect(t.preferredUnits, TimeInstant.TAI);
-      expect(t.relativeUncertainty, 0);
+      q = TimeInstant(TAI: 42, uncert: 0.001);
+      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, TimeInstant.timeInstantDimensions);
+      expect(q.preferredUnits, TimeInstant.TAI);
+      expect(q.relativeUncertainty, 0.001);
+
+      q = TimeInstant(UTC: 1900000000);
+      expect(q.valueSI?.toDouble(), 1900000037);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, TimeInstant.timeInstantDimensions);
+      expect(q.preferredUnits, TimeInstant.UTC);
+      expect(q.relativeUncertainty, 0);
     });
 
     test('nearestDateTime', () {
-      final TimeInstant t = new TimeInstant.dateTime(new DateTime(2015, 9, 23));
-      final DateTime nearest = t.nearestDateTime;
+      final t = TimeInstant.dateTime(DateTime(2015, 9, 23));
+      final nearest = t.nearestDateTime;
       expect(nearest, isNotNull);
       expect(nearest.year, 2015);
       expect(nearest.month, 9);
@@ -25,13 +37,13 @@ void main() {
     });
 
     test('FiscalYear', () {
-      final FiscalYear fy = new FiscalYear(2013);
+      final fy = FiscalYear(2013);
       expect(fy, isNotNull);
       expect(fy.toString(), 'FY13');
     });
 
     test('CalendarYear', () {
-      final CalendarYear cy = new CalendarYear(2013);
+      final cy = CalendarYear(2013);
       expect(cy, isNotNull);
       expect(cy.toString(), '2013');
     });

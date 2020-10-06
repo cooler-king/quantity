@@ -1,27 +1,16 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
 
 /// The number of occurrences of a repeating event per unit time.
-///
 /// See the [Wikipedia entry for Frequency](https://en.wikipedia.org/wiki/Frequency)
 /// for more information.
-///
 class Frequency extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions frequencyDimensions = const Dimensions.constant(const <String, int>{'Time': -1}, qType: Frequency);
-
-  /// The standard SI unit.
-  static final FrequencyUnits hertz = new FrequencyUnits('hertz', 'Hz', null, 'hertz', 1.0, true);
-
-  // convenience units
-  static final FrequencyUnits kilohertz = hertz.kilo() as FrequencyUnits;
-  static final FrequencyUnits megahertz = hertz.mega() as FrequencyUnits;
-  static final FrequencyUnits gigahertz = hertz.giga() as FrequencyUnits;
-
-  /// Construct a Frequency with hertz ([Hz]), kilohertz ([kHz]), megahertz ([MHz])
+  /// Constructs a Frequency with hertz ([Hz]), kilohertz ([kHz]), megahertz ([MHz])
   /// or gigahertz ([GHz]).
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Frequency({dynamic Hz, dynamic kHz, dynamic MHz, dynamic GHz, double uncert = 0.0})
       : super(
@@ -31,30 +20,47 @@ class Frequency extends Quantity {
                 : (MHz != null ? Frequency.megahertz : (GHz != null ? Frequency.gigahertz : Frequency.hertz)),
             uncert);
 
-  Frequency._internal(dynamic conv) : super._internal(conv, Frequency.frequencyDimensions);
+  /// Constructs a instance without preferred units.
+  Frequency.misc(dynamic conv) : super.misc(conv, Frequency.frequencyDimensions);
 
   /// Constructs a Frequency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Frequency.inUnits(dynamic value, FrequencyUnits units, [double uncert = 0.0])
       : super(value, units ?? Frequency.hertz, uncert);
 
+  /// Constructs a constant Frequency.
   const Frequency.constant(Number valueSI, {FrequencyUnits units, double uncert = 0.0})
       : super.constant(valueSI, Frequency.frequencyDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity.
+  static const Dimensions frequencyDimensions = Dimensions.constant(<String, int>{'Time': -1}, qType: Frequency);
+
+  /// The standard SI unit.
+  static final FrequencyUnits hertz = FrequencyUnits('hertz', 'Hz', null, 'hertz', 1.0, true);
+
+  // Convenience units.
+
+  /// The metric unit for one thousand hertz.
+  static final FrequencyUnits kilohertz = hertz.kilo() as FrequencyUnits;
+
+  /// The metric unit for one million hertz.
+  static final FrequencyUnits megahertz = hertz.mega() as FrequencyUnits;
+
+  /// The metric unit for one billion hertz.
+  static final FrequencyUnits gigahertz = hertz.giga() as FrequencyUnits;
 }
 
 /// Units acceptable for use in describing Frequency quantities.
-///
 class FrequencyUnits extends Frequency with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   FrequencyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
@@ -63,16 +69,14 @@ class FrequencyUnits extends Frequency with Units {
   @override
   Type get quantityType => Frequency;
 
-  /// Derive new FrequencyUnits using this FrequencyUnits object as the base.
+  /// Derive FrequencyUnits using this FrequencyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new FrequencyUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-  
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => FrequencyUnits(
+      '$fullPrefix$name',
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

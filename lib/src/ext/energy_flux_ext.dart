@@ -1,6 +1,7 @@
-part of quantity_ext;
+import '../si/types/energy_flux.dart';
 
-/// A synonym for the SI-MKS standard unit of energy flux.
+/// The standard SI unit.
 final EnergyFluxUnits wattsPerSquareMeter = EnergyFlux.wattsPerSquareMeter;
 
-final EnergyFluxUnits langleys = new EnergyFluxUnits('langleys', 'ly', null, null, 697.5, false);
+/// Langleys as a unit.
+final EnergyFluxUnits langleys = EnergyFluxUnits('langleys', 'ly', null, null, 697.5, false);

@@ -1,80 +1,80 @@
-part of quantity_si;
+import '../../number/number.dart';
+import '../../number/util/converters.dart';
+import '../../si/dimensions.dart';
+import '../../si/quantity.dart';
+import '../../si/units.dart';
+import 'length.dart';
+import 'time.dart';
 
 /// The rate of change of position.
-///
 /// See the [Wikipedia entry for Speed](https://en.wikipedia.org/wiki/Speed)
 /// for more information.
-///
 class Speed extends Quantity {
-  /// Dimensions for this type of quantity
-  static const Dimensions speedDimensions = const Dimensions.constant(const <String, int>{'Length': 1, 'Time': -1}, qType: Speed);
-
-  /// The standard SI unit.
-  static final SpeedUnits metersPerSecond = new SpeedUnits.lengthTime(Length.meters, Time.seconds);
-
-  /// Accepted for use with the SI, subject to further review.
-  static final SpeedUnits knots = new SpeedUnits('knots', null, null, null, 5.144444444e-1, false);
-
-  /// Construct a Speed with meters per second or [knots].
-  ///
-  /// Optionally specify a relative standard [uncert]ainty.
-  ///
+  /// Constructs a Speed with meters per second or [knots].
+  /// Optionally specify a relative standard uncertainty.
   Speed({dynamic metersPerSecond, dynamic knots, double uncert = 0.0})
       : super(metersPerSecond ?? (knots ?? 0.0), knots != null ? Speed.knots : Speed.metersPerSecond, uncert);
 
-  Speed._internal(dynamic conv) : super._internal(conv, Speed.speedDimensions);
+  /// Constructs a instance without preferred units.
+  Speed.misc(dynamic conv) : super.misc(conv, Speed.speedDimensions);
 
   /// Constructs a Speed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ///
   Speed.inUnits(dynamic value, SpeedUnits units, [double uncert = 0.0])
       : super(value, units ?? Speed.metersPerSecond, uncert);
 
+  /// Constructs a constant Speed.
   const Speed.constant(Number valueSI, {SpeedUnits units, double uncert = 0.0})
       : super.constant(valueSI, Speed.speedDimensions, units, uncert);
+
+  /// Dimensions for this type of quantity.
+  static const Dimensions speedDimensions = Dimensions.constant(<String, int>{'Length': 1, 'Time': -1}, qType: Speed);
+
+  /// The standard SI unit.
+  static final SpeedUnits metersPerSecond = SpeedUnits.lengthTime(Length.meters, Time.seconds);
+
+  /// Accepted for use with the SI, subject to further review.
+  static final SpeedUnits knots = SpeedUnits('knots', null, null, null, 5.144444444e-1, false);
 }
 
 /// Units acceptable for use in describing Speed quantities.
-///
 class SpeedUnits extends Speed with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   SpeedUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
-      : super._internal(conv) {
+      : super.misc(conv) {
     this.name = name;
     this.singular = singular;
-    _convToMKS = objToNumber(conv);
-    _abbrev1 = abbrev1;
-    _abbrev2 = abbrev2;
+    convToMKS = objToNumber(conv);
+    this.abbrev1 = abbrev1;
+    this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on length and time units.
- SpeedUnits.lengthTime(LengthUnits lu, TimeUnits tu) : super._internal(lu.valueSI / tu.valueSI) {
+  /// Constructs a instance based on length and time units.
+  SpeedUnits.lengthTime(LengthUnits lu, TimeUnits tu) : super.misc(lu.valueSI / tu.valueSI) {
     name = '${lu.name} per ${tu.singular}';
     singular = '${lu.singular} per ${tu.singular}';
-    _convToMKS = lu.valueSI / tu.valueSI;
-    _abbrev1 = lu._abbrev1 != null && tu._abbrev1 != null ? '${lu._abbrev1} / ${tu._abbrev1}' : null;
-    _abbrev2 = lu._abbrev2 != null && tu._abbrev2 != null ? '${lu._abbrev2}/${tu._abbrev2}' : null;
+    convToMKS = lu.valueSI / tu.valueSI;
+    abbrev1 = lu.abbrev1 != null && tu.abbrev1 != null ? '${lu.abbrev1} / ${tu.abbrev1}' : null;
+    abbrev2 = lu.abbrev2 != null && tu.abbrev2 != null ? '${lu.abbrev2}/${tu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
 
-  /// Returns the Type of the Quantity to which these Units apply
+  /// Returns the Type of the Quantity to which these Units apply.
   @override
   Type get quantityType => Speed;
 
-  /// Derive new SpeedUnits using this SpeedUnits object as the base.
+  /// Derive SpeedUnits using this SpeedUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
-     new SpeedUnits(
-        '$fullPrefix$name',
-        _abbrev1 != null ? '$abbrevPrefix$_abbrev1' : null,
-        _abbrev2 != null ? '$abbrevPrefix$_abbrev2' : null,
-        '$fullPrefix$singular',
-        valueSI * conv,
-        false,
-        offset);
-
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => SpeedUnits(
+      '$fullPrefix$name',
+      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+      '$fullPrefix$singular',
+      valueSI * conv,
+      false,
+      offset);
 }

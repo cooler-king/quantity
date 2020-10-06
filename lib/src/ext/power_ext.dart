@@ -1,34 +1,52 @@
-part of quantity_ext;
+import '../number/double.dart';
+import '../si/types/power.dart';
+import 'energy_ext.dart';
+import 'time_ext.dart';
 
+/// The standard SI unit.
 PowerUnits watts = Power.watts;
 
-PowerUnits btuThermsPerHour = new PowerUnits.energyTime(btuThermo, hours);
+/// Square degrees as a unit.
+PowerUnits btuThermsPerHour = PowerUnits.energyTime(btuThermo, hours);
 
-PowerUnits btuThermsPerSecond = new PowerUnits.energyTime(btuThermo, seconds);
+/// Thermochemical BTUs per second as a unit.
+PowerUnits btuThermsPerSecond = PowerUnits.energyTime(btuThermo, seconds);
 
-PowerUnits caloriesThermoPerSecond = new PowerUnits.energyTime(caloriesThermo, seconds);
+/// Thermochemical calories as a unit.
+PowerUnits caloriesThermoPerSecond = PowerUnits.energyTime(caloriesThermo, seconds);
 
-PowerUnits ergsPerSecond = new PowerUnits.energyTime(ergs, seconds);
+/// Ergs per second as a unit.
+PowerUnits ergsPerSecond = PowerUnits.energyTime(ergs, seconds);
 
-PowerUnits forceDeCheval = new PowerUnits('force de cheval', null, null, 'force de cheval', 735.5, false);
+/// Force de cheval as a unit.
+PowerUnits forceDeCheval = PowerUnits('force de cheval', null, null, 'force de cheval', 735.5, false);
 
+/// Horsepower (550 ft lbs/s) as a unit.
 PowerUnits horsepower550 =
-    new PowerUnits('horsepower (550 ft lbs/s)', null, null, 'horsepower (550 ft lbs/s)', 745.70, false);
+    PowerUnits('horsepower (550 ft lbs/s)', null, null, 'horsepower (550 ft lbs/s)', 745.70, false);
 
-PowerUnits horsepowerBoiler = new PowerUnits('horsepower (boiler)', null, null, 'horsepower (boiler)', 9809.5, false);
+/// Horsepower (boiler) as a unit.
+PowerUnits horsepowerBoiler = PowerUnits('horsepower (boiler)', null, null, 'horsepower (boiler)', 9809.5, false);
 
-PowerUnits horsepowerElectric =
-    new PowerUnits('horsepower (electric)', null, null, 'horsepower (electric)', 746.0, false);
+/// Horsepower (electric) as a unit.
+PowerUnits horsepowerElectric = PowerUnits('horsepower (electric)', null, null, 'horsepower (electric)', 746.0, false);
 
-PowerUnits horsepowerMetric = new PowerUnits('horsepower (metric)', null, null, 'horsepower (metric)', 735.5, false);
+/// Horsepower (metric) as a unit.
+PowerUnits horsepowerMetric = PowerUnits('horsepower (metric)', null, null, 'horsepower (metric)', 735.5, false);
 
-PowerUnits horsepowerWater = new PowerUnits('horsepower (water)', null, null, 'horsepower (water)', 746.04, false);
+/// Horsepower (water) as a unit.
+PowerUnits horsepowerWater = PowerUnits('horsepower (water)', null, null, 'horsepower (water)', 746.04, false);
 
 /// A power commonly used as the reference power for calculation of sound power _levels_.
-PowerUnits referenceSound = new PowerUnits('reference (sound)', null, null, 'reference (sound)', 1.0e-12, false);
+PowerUnits referenceSound = PowerUnits('reference (sound)', null, null, 'reference (sound)', 1.0e-12, false);
 
-// convenience units
+// Convenience units.
+
+/// Shorthand kilowatts as a unit.
 PowerUnits kilowatts = Power.kilowatts;
 
-// constants
-const Power solarLuminosity = const Power.constant(const Double.constant(3.846e26));
+// Constants.
+
+/// The solar luminosity constant is the radiant flux (power emitted in the form of photons) emitted by the Sun
+/// (a typical value; the Sun's output actually varies slightly over time).
+const Power solarLuminosity = Power.constant(Double.constant(3.846e26));

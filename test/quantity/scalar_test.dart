@@ -5,26 +5,37 @@ import 'package:quantity/number.dart';
 void main() {
   group('Scalar', () {
     test('constructors', () {
-      Scalar s = new Scalar(value: 42);
-      expect(s, isNotNull);
+      var q = Scalar();
+      expect(q.valueSI, Double.zero);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, Scalar.scalarDimensions);
+      expect(q.preferredUnits, Scalar.one);
+      expect(q.relativeUncertainty, 0);
 
-      s = new Scalar(value: 0);
-      expect(s.valueSI, Integer.zero);
-      expect(s.valueSI is Integer, true);
-      expect(s.dimensions, Scalar.scalarDimensions);
-      expect(s.preferredUnits, Scalar.one);
-      expect(s.relativeUncertainty, 0);
+      q = Scalar(value: 42, uncert: 0.001);
+      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI is Integer, true);
+      expect(q.dimensions, Scalar.scalarDimensions);
+      expect(q.preferredUnits, Scalar.one);
+      expect(q.relativeUncertainty, 0.001);
+
+      q = Scalar(percent: 42, uncert: 0.001);
+      expect(q.valueSI?.toDouble(), 0.42);
+      expect(q.valueSI is Double, true);
+      expect(q.dimensions, Scalar.scalarDimensions);
+      expect(q.preferredUnits, Scalar.percent);
+      expect(q.relativeUncertainty, 0.001);
     });
 
     test('operator ==/hashCode', () {
-      final Scalar s1 = new Scalar(value: 11);
-      final Scalar s2 = new Scalar(value: 0.96);
-      final Scalar s3 = new Scalar(value: 11.0);
-      final Scalar s4 = new Scalar(percent: 96);
-      final Scalar s5 = new Scalar(percent: 0.96);
-      final Scalar s6 = new Scalar(value: new Imaginary(11));
-      final Scalar s7 = new Scalar(value: new Complex.coeff(0.96, 0.0));
-      final Scalar s8 = new Scalar(value: new Complex.coeff(0.0, 11.0));
+      final s1 = Scalar(value: 11);
+      final s2 = Scalar(value: 0.96);
+      final s3 = Scalar(value: 11.0);
+      final s4 = Scalar(percent: 96);
+      final s5 = Scalar(percent: 0.96);
+      final s6 = Scalar(value: Imaginary(11));
+      final s7 = Scalar(value: Complex.coeff(0.96, 0));
+      final s8 = Scalar(value: Complex.coeff(0, 11));
 
       expect(s1 == s2, false);
       expect(s1 == s3, true);
@@ -34,8 +45,6 @@ void main() {
       expect(s1 == s6, false);
       expect(s2 == s7, true);
       expect(s6 == s8, true);
-
-      //TODO double hashcodes are NOT unique!!!!  (only do integer part right now)
 
       expect(s1.hashCode == s2.hashCode, false);
       expect(s1.hashCode == s3.hashCode, true);
@@ -49,8 +58,8 @@ void main() {
 
     test('operator +', () {
       dynamicQuantityTyping = true;
-      final Scalar s1 = new Scalar(value: 11);
-      final Scalar s2 = new Scalar(value: 69);
+      final s1 = Scalar(value: 11);
+      final s2 = Scalar(value: 69);
 
       final dynamic c = s1 + s2;
       expect(c is Scalar, true);
@@ -62,7 +71,7 @@ void main() {
       expect(d.valueSI is Integer, true);
       expect(d is Scalar, true);
 
-      final Scalar s3 = new Scalar(value: 34.21);
+      final s3 = Scalar(value: 34.21);
 
       final dynamic e = s1 + s3;
       expect(e.valueSI == 45.21, true);
@@ -85,38 +94,38 @@ void main() {
       expect(g.valueSI is Double, true);
       expect(g.valueSI.toDouble(), 19.3);
 
-      g = s1 + new Integer(7);
+      g = s1 + Integer(7);
       expect(g is Scalar, true);
       expect(g.valueSI is Integer, true);
       expect(g.valueSI.toDouble(), 18.0);
 
-      g = s1 + new Double(21.1);
+      g = s1 + Double(21.1);
       expect(g is Scalar, true);
       expect(g.valueSI is Double, true);
       expect(g.valueSI.toDouble(), 32.1);
 
-      g = s1 + new Imaginary(3.8);
+      g = s1 + Imaginary(3.8);
       expect(g is Scalar, true);
       expect(g.valueSI is Complex, true);
       expect((g.valueSI as Complex).real.toDouble(), 11.0);
       expect((g.valueSI as Complex).imag.value.toDouble(), 3.8);
 
-      g = s1 + new Complex(new Double(2.2), new Imaginary(9.3));
+      g = s1 + Complex(Double(2.2), Imaginary(9.3));
       expect(g is Scalar, true);
       expect(g.valueSI is Complex, true);
       expect((g.valueSI as Complex).real.toDouble(), 13.2);
       expect((g.valueSI as Complex).imag.value.toDouble(), 9.3);
 
-      g = s1 + new Precise('4.0032');
+      g = s1 + Precise('4.0032');
       expect(g is Scalar, true);
       expect(g.valueSI is Precise, true);
-      expect(g.valueSI, new Precise('15.0032'));
+      expect(g.valueSI, Precise('15.0032'));
     });
 
     test('operator -', () {
       dynamicQuantityTyping = true;
-      final Scalar s1 = new Scalar(value: 11);
-      final Scalar s2 = new Scalar(value: 69);
+      final s1 = Scalar(value: 11);
+      final s2 = Scalar(value: 69);
 
       dynamic c = s1 - s2;
       expect(c is Scalar, true);
@@ -125,7 +134,7 @@ void main() {
       c = s2 - s1;
       expect(c.valueSI.toInt(), 58);
 
-      final Scalar s3 = new Scalar(value: 34.21);
+      final s3 = Scalar(value: 34.21);
 
       final dynamic e = s3 - s1;
       expect(e.valueSI == 23.21, true);
@@ -143,38 +152,38 @@ void main() {
       expect(g.valueSI is Double, true);
       expect(g.valueSI.toDouble(), closeTo(2.7, 0.000001));
 
-      g = s1 - new Integer(7);
+      g = s1 - Integer(7);
       expect(g is Scalar, true);
       expect(g.valueSI is Integer, true);
       expect(g.valueSI.toDouble(), 4.0);
 
-      g = s1 - new Double(21.1);
+      g = s1 - Double(21.1);
       expect(g is Scalar, true);
       expect(g.valueSI is Double, true);
       expect(g.valueSI.toDouble(), closeTo(-10.1, 0.0000001));
 
-      g = s1 - new Imaginary(3.8);
+      g = s1 - Imaginary(3.8);
       expect(g is Scalar, true);
       expect(g.valueSI is Complex, true);
       expect((g.valueSI as Complex).real.toDouble(), 11.0);
       expect((g.valueSI as Complex).imag.value.toDouble(), -3.8);
 
-      g = s1 - new Complex(new Double(2.2), new Imaginary(9.3));
+      g = s1 - Complex(Double(2.2), Imaginary(9.3));
       expect(g is Scalar, true);
       expect(g.valueSI is Complex, true);
       expect((g.valueSI as Complex).real.toDouble(), 8.8);
       expect((g.valueSI as Complex).imag.value.toDouble(), -9.3);
 
-      g = s1 - new Precise('4.0032');
+      g = s1 - Precise('4.0032');
       expect(g is Scalar, true);
       expect(g.valueSI is Precise, true);
-      expect(g.valueSI, new Precise('6.9968'));
+      expect(g.valueSI, Precise('6.9968'));
     });
 
     test('operator *', () {
       dynamicQuantityTyping = true;
-      final Scalar s1 = new Scalar(value: 3);
-      final Scalar s2 = new Scalar(value: 4);
+      final s1 = Scalar(value: 3);
+      final s2 = Scalar(value: 4);
 
       dynamic c = s1 * s2;
       expect(c is Scalar, true);
@@ -183,7 +192,7 @@ void main() {
       c = s2 * s1;
       expect(c.valueSI.toInt(), 12);
 
-      final Scalar s3 = new Scalar(value: -5);
+      final s3 = Scalar(value: -5);
       c = s3 * s1;
       expect(c.valueSI.toInt(), -15);
       expect(c.valueSI is Integer, true);
@@ -191,7 +200,7 @@ void main() {
       expect(c.valueSI.toInt(), -15);
       expect(c.valueSI is Integer, true);
 
-      final Scalar s4 = new Scalar(value: 1.3);
+      final s4 = Scalar(value: 1.3);
       c = s4 * s1;
       expect(c.valueSI.toDouble(), closeTo(3.9, 0.000001));
       expect(c.valueSI is Double, true);
@@ -199,7 +208,7 @@ void main() {
       expect(c.valueSI.toDouble(), closeTo(3.9, 0.000001));
       expect(c.valueSI is Double, true);
 
-      final Scalar s5 = new Scalar(value: -0.5);
+      final s5 = Scalar(value: -0.5);
       c = s5 * s1;
       expect(c.valueSI.toDouble(), -1.5);
       expect(c.valueSI is Double, true);
@@ -207,7 +216,7 @@ void main() {
       expect(c.valueSI.toDouble(), -1.5);
       expect(c.valueSI is Double, true);
 
-      final Scalar s6 = new Scalar(value: new Imaginary(6));
+      final s6 = Scalar(value: Imaginary(6));
       c = s6 * s1;
       expect(c.valueSI is Imaginary, true);
       expect((c.valueSI as Imaginary).value.toDouble() == 18, true);

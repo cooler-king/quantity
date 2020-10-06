@@ -1,14 +1,27 @@
-part of quantity_range;
+import '../src/number/util/jenkins_hash.dart';
+import '../src/si/quantity.dart';
+import '../src/si/quantity_exception.dart';
 
-//TODO k value?
 /// Creates a [QuantityRange] that represents the standard uncertainty of [q].
-QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q) {
-  final Quantity std = q.standardUncertainty;
-  return new QuantityRange<Quantity>(q - std, q + std);
+QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q, {double k = 1.0}) {
+  final std = q.standardUncertainty;
+  if (k == 1.0) {
+    return QuantityRange<Quantity>(q - std, q + std);
+  } else {
+    final expanded = q.calcExpandedUncertainty(k);
+    return QuantityRange<Quantity>(q - expanded, q + expanded);
+  }
 }
 
 /// Represents a range of quantity values.
 class QuantityRange<Q extends Quantity> {
+  /// Constructs a quantity range, from [q1] to [q2].
+  QuantityRange(this.q1, this.q2) {
+    if (q1 is! Quantity || q2 is! Quantity) {
+      throw const QuantityException('QuantityRange endpoints must be Quantity objects');
+    }
+  }
+
   /// The starting quantity of the range.
   Q q1;
 
@@ -20,12 +33,6 @@ class QuantityRange<Q extends Quantity> {
   Q _maxValue;
   Q _centerValue;
   Q _span;
-
-  /// Constructs a new quantity range, from [q1] to [q2].
-  QuantityRange(this.q1, this.q2) {
-    if (q1 is! Quantity || q2 is! Quantity)
-      throw const QuantityException('QuantityRange endpoints must be Quantity objects');
-  }
 
   /// The minimum value in this range.
   Q get minValue => _minValue ??= (q1.valueSI <= q2.valueSI) ? q1 : q2;

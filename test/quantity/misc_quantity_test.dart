@@ -6,7 +6,7 @@ void main() {
   group('MiscQuantity', () {
     test('constructors', () {
       // no-args
-      MiscQuantity mq = new MiscQuantity();
+      var mq = MiscQuantity();
       expect(mq, isNotNull);
       expect(mq.valueSI, isNotNull);
       expect(mq.valueSI.toDouble(), 0.0);
@@ -16,7 +16,7 @@ void main() {
       expect(mq.preferredUnits, isNull);
 
       // int value only
-      mq = new MiscQuantity(42);
+      mq = MiscQuantity(42);
       expect(mq, isNotNull);
       expect(mq.valueSI is Integer, true);
       expect(mq.valueSI.toDouble(), 42.0);
@@ -26,7 +26,7 @@ void main() {
       expect(mq.preferredUnits, isNull);
 
       // double value only
-      mq = new MiscQuantity(42.42);
+      mq = MiscQuantity(42.42);
       expect(mq, isNotNull);
       expect(mq.valueSI is Double, true);
       expect(mq.valueSI.toDouble(), 42.42);
@@ -36,7 +36,7 @@ void main() {
       expect(mq.preferredUnits, isNull);
 
       // Number (Integer) value only
-      mq = new MiscQuantity(new Integer(56));
+      mq = MiscQuantity(Integer(56));
       expect(mq, isNotNull);
       expect(mq.valueSI is Integer, true);
       expect(mq.valueSI.toDouble(), 56.0);
@@ -46,7 +46,7 @@ void main() {
       expect(mq.preferredUnits, isNull);
 
       // Number (Double) value only
-      mq = new MiscQuantity(new Double(67.89));
+      mq = MiscQuantity(Double(67.89));
       expect(mq, isNotNull);
       expect(mq.valueSI is Double, true);
       expect(mq.valueSI.toDouble(), 67.89);
@@ -56,13 +56,12 @@ void main() {
       expect(mq.preferredUnits, isNull);
 
       // with Dimensions
-      mq = new MiscQuantity(42.42, Angle.angleDimensions);
+      mq = MiscQuantity(42.42, Angle.angleDimensions);
       expect(mq, isNotNull);
       expect(mq.dimensions, isNotNull);
       expect(mq.dimensions, Angle.angleDimensions);
 
-      const MiscQuantity q =
-          const MiscQuantity.constant(const Double.constant(42.42), const Dimensions.constant(const <String, int>{'Amount': 2}));
+      const q = MiscQuantity.constant(Double.constant(42.42), Dimensions.constant(<String, int>{'Amount': 2}));
       expect(q, isNotNull);
 
       /*

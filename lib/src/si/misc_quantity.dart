@@ -1,4 +1,9 @@
-part of quantity_si;
+import '../number/number.dart';
+import 'dimensions.dart';
+import 'dimensions_exception.dart';
+import 'quantity.dart';
+import 'types/scalar.dart';
+import 'units.dart';
 
 /// A MiscQuantity is a general (miscellaneous) Quantity having arbitrary dimensions (including
 /// possibly the same dimensions as a named Quantity subclass).  MiscQuantity
@@ -11,16 +16,14 @@ part of quantity_si;
 /// object creation.  Other subclasses allow construction with any appropriate
 /// Units (and its implicit conversion factor to SI-MKS) and automatically
 /// initialize the Dimensions.
-///
 class MiscQuantity extends Quantity {
   /// This constructor sets the [value], [dim]ensions and relative
-  /// [uncert]ainty.
-  ///
+  /// uncertainty.
   /// [value] may be a num or Number object.
-  ///
   MiscQuantity([dynamic value = 0.0, Dimensions dim = Scalar.scalarDimensions, double uncert = 0.0])
-      : super._internal(value, dim, uncert);
+      : super.misc(value, dim, uncert);
 
+  /// Constructs a constant MiscQuantity.
   const MiscQuantity.constant(Number valueSI, Dimensions dim, {Units units, double uncert = 0.0})
       : super.constant(valueSI, dim, units, uncert);
 
@@ -31,13 +34,13 @@ class MiscQuantity extends Quantity {
   ///   units' Dimensions are not equal to this MiscQuantity object's Dimensions.
   /// * The value is returned in double precision even if the quantity's
   ///   value is stored internally in arbitrary precision.
-  ///
   Number getValue(Units units) {
     if (dimensions != (units as Quantity).dimensions) {
-      throw new DimensionsException('The units provided do not have proper dimensions for this Quantity.');
+      throw DimensionsException('The units provided do not have proper dimensions for this Quantity.');
     }
     return super.valueInUnits(units);
   }
 
-  Quantity toTypedQuantity() => dimensions.toQuantity(valueSI, null, _ur);
+  /// Attempts to construct a typed quantity from this miscellaneous quantity.
+  Quantity toTypedQuantity() => dimensions.toQuantity(valueSI, null, relativeUncertainty);
 }

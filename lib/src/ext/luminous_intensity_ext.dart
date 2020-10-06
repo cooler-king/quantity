@@ -1,6 +1,6 @@
-part of quantity_ext;
+import '../si/types/luminous_intensity.dart';
 
 // Useful metric units.
 
-/// A synonym for the standard SI-MKS unit of luminous intensity.
+/// The standard SI unit.
 final LuminousIntensityUnits candelas = LuminousIntensity.candelas;
