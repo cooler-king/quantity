@@ -4,8 +4,8 @@ enum UncertaintyFormat {
   /// Do not display uncertainty.
   none,
 
-  /// Display uncertainty in compact form.
-  compact,
+  /// Display uncertainty in parentheses directly after the value and before the units..
+  parens,
 
   /// Display uncertainty in full plus/minus form.
   plusMinus

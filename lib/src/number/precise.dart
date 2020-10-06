@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'double.dart';
 import 'integer.dart';
 import 'number.dart';
+import 'number_exception.dart';
 import 'real.dart';
 import 'util/jenkins_hash.dart';
 
@@ -499,8 +500,7 @@ class Precise extends Real {
         return p;
       }
     } else {
-      //TODO Precise to decimal power - unsupported or approximated?
-      throw UnsupportedError('decimal power of arbitrary precision not supported');
+      throw NumberException('Decimal power of an arbitrary precision number not supported');
     }
   }
 

@@ -115,9 +115,11 @@ void main() {
       expect(range.contains360(Angle(deg: 375), true), true);
       expect(range.contains360(Angle(deg: 430.1), true), true);
       expect(range.contains360(Angle(deg: 375), false, 0), false);
-      //TODO see issue #4 expect(range.contains360(Angle(deg: 430.1), false, 0.0), false);
-      expect(range.contains360(Angle(deg: 430.1), false, 1.0e-9), true);
-      //TODO issue #4 expect(range.contains360(Angle(deg: -345), false, 0.0), false);
+      expect(range.contains360(Angle(deg: 430.0000009), false, 0.0), true);
+      expect(range.contains360(Angle(deg: 430.1), false, 1.0e-15), true);
+      expect(range.contains360(Angle(deg: 430.1), true, 0), true);
+      expect(range.contains360(Angle(deg: 430.1000001), false, 0.0), false);
+      expect(range.contains360(Angle(deg: -345), true, 0.0), true);
       expect(range.contains360(Angle(deg: 259.9), false), false);
       expect(range.contains360(Angle(deg: -345), true, 0), true);
       expect(range.contains360(Angle(deg: -289.9), true), true);

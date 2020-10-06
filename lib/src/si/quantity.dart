@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
+import 'package:quantity/quantity.dart';
 import '../../number.dart';
 import 'dimensions.dart';
 import 'dimensions_exception.dart';
@@ -516,8 +517,10 @@ abstract class Quantity implements Comparable<dynamic> {
     if (preferredUnits != null) {
       final val = preferredUnits.fromMks(mks);
 
+      final nf = numberFormat ?? ScientificFormatSI();
+
       // Format the number.
-      buffer.write(numberFormat?.format(val) ?? '$val');
+      buffer.write(nf.format(val) ?? '$val');
 
       // Uncertainty.
       if (_ur != 0 && uncertFormat != UncertaintyFormat.none) {
@@ -525,14 +528,12 @@ abstract class Quantity implements Comparable<dynamic> {
             ? standardUncertainty.valueInUnits(preferredUnits).toDouble()
             : standardUncertainty.mks.toDouble();
 
-        if (uncertFormat == UncertaintyFormat.compact) {
-          //TODO compact
+        if (uncertFormat == UncertaintyFormat.parens) {
+          final unicode = nf is NumberFormatSI && nf.unicode == true;
+          buffer.write('(${nf.format(uncert)})');
         } else if (uncertFormat == UncertaintyFormat.plusMinus) {
-          final unicode = numberFormat is NumberFormatSI && numberFormat.unicode == true;
-          if (unicode) {
-          } else {
-            buffer.write(' ${numberFormat.format(uncert)}');
-          }
+          final unicode = nf is NumberFormatSI && nf.unicode == true;
+          buffer.write(' ${unicode ? '\u{00b1}' : '+/-'} ${nf.format(uncert)}');
         }
       }
 
@@ -540,7 +541,6 @@ abstract class Quantity implements Comparable<dynamic> {
       String unitStr;
       if (symbols) {
         unitStr = preferredUnits.getShortestName(val.abs() <= 1.0);
-        //unitStr = preferredUnits.getShortestDialogName(true);
       } else {
         if (val.abs() <= 1.0) {
           unitStr = preferredUnits.singular;

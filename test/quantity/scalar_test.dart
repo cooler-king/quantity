@@ -46,8 +46,6 @@ void main() {
       expect(s2 == s7, true);
       expect(s6 == s8, true);
 
-      //TODO double hashcodes are NOT unique!!!!  (only do integer part right now)
-
       expect(s1.hashCode == s2.hashCode, false);
       expect(s1.hashCode == s3.hashCode, true);
       expect(s2.hashCode == s4.hashCode, true);

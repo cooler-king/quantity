@@ -2,11 +2,15 @@ import '../src/number/util/jenkins_hash.dart';
 import '../src/si/quantity.dart';
 import '../src/si/quantity_exception.dart';
 
-//TODO k value?
 /// Creates a [QuantityRange] that represents the standard uncertainty of [q].
-QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q) {
+QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q, {double k = 1.0}) {
   final std = q.standardUncertainty;
-  return QuantityRange<Quantity>(q - std, q + std);
+  if (k == 1.0) {
+    return QuantityRange<Quantity>(q - std, q + std);
+  } else {
+    final expanded = q.calcExpandedUncertainty(k);
+    return QuantityRange<Quantity>(q - expanded, q + expanded);
+  }
 }
 
 /// Represents a range of quantity values.

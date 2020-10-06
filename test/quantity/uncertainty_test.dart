@@ -141,5 +141,33 @@ void main() {
       expect(q2b.valueSI.toDouble(), closeTo(1000.08, 100));
       expect(identical(q2, q2b), false);
     });
+
+    test('output', () {
+      final q1 = Mass(kg: 1000.08, uncert: 0.002);
+      final buf = StringBuffer();
+      q1.outputText(buf);
+      expect(buf.toString(), '1.000 08 x 10^3 kg');
+
+      buf.clear();
+      q1.outputText(buf, uncertFormat: UncertaintyFormat.none, numberFormat: ScientificFormatSI(unicode: true));
+      expect(buf.toString(), '1.000\u{2009}08 \u{00d7} 10\u{00b3} kg');
+
+      buf.clear();
+      q1.outputText(buf, uncertFormat: UncertaintyFormat.parens);
+      expect(buf.toString(), '1.000 08 x 10^3(2.000 16) kg');
+
+      buf.clear();
+      q1.outputText(buf, uncertFormat: UncertaintyFormat.parens, numberFormat: ScientificFormatSI(unicode: true));
+      expect(buf.toString(), '1.000\u{2009}08 \u{00d7} 10\u{00b3}(2.000\u{2009}16) kg');
+
+      buf.clear();
+      q1.outputText(buf, uncertFormat: UncertaintyFormat.plusMinus);
+      expect(buf.toString(), '1.000 08 x 10^3 +/- 2.000 16 kg');
+
+      buf.clear();
+      q1.outputText(buf, uncertFormat: UncertaintyFormat.plusMinus, numberFormat: ScientificFormatSI(unicode: true));
+      ;
+      expect(buf.toString(), '1.000\u{2009}08 \u{00d7} 10\u{00b3} \u{00b1} 2.000\u{2009}16 kg');
+    });
   });
 }

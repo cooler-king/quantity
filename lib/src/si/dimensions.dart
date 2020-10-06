@@ -359,7 +359,7 @@ class Dimensions {
     return result;
   }
 
-  /// Determines the Quantity type associated with the specified [dim]ensions.
+  /// Determines the Quantity type associated with the specified dimensions.
   ///
   /// * If no specific Quantity type is found that matches the dimensions
   ///   the MiscQuantity class will be returned.
@@ -367,11 +367,10 @@ class Dimensions {
   ///   of all the Quantity types included in this library.  Therefore, if new
   ///   Quantity subclasses are added outside of this library the Dimensions
   ///   class will not automatically be aware of them, which will affect this
-  ///   method.  Therefore, if Quantity subclasses are added, this methos should
+  ///   method.  Therefore, if Quantity subclasses are added, this method should
   ///   be modified to include the subclasses.
   /// * Some distinct Quantity types have identical dimensions.  In this case
   ///   the first Quantity type discovered is returned.
-  //TODO would a static dimensionsTypeMap be better?
   static Type determineQuantityType(Dimensions dim) {
     if (dim == null) return MiscQuantity;
 

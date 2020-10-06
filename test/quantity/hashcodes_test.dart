@@ -61,7 +61,7 @@ void main() {
       expect(a.hashCode == j.hashCode, false);
     });
 
-    test('Scalar same as int', () {
+    test('Scalar Integer same as int', () {
       final a = Scalar(value: 5.0);
       final b = Scalar(value: 5);
       expect(a.hashCode, 5.hashCode);
@@ -91,6 +91,14 @@ void main() {
       final j = Scalar(value: -5);
       expect(j.hashCode == 5.hashCode, false);
     });
+
+    test('Scalar double same as Precise', () {
+      final a = Scalar(value: 5.5);
+      final b = Scalar(value: -5.5);
+      expect(a.hashCode, Precise('5.5').hashCode);
+      expect(b.hashCode, Precise('-5.5').hashCode);
+    });
+
 
     test('scalar in map', () {
       final m = <int, String>{0: 'zero', 5: 'five', 10: 'ten'};
