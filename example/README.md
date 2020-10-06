@@ -8,11 +8,11 @@ The `example` folder contains some example code to help you get started with the
   print('Angle1 (deg): ${ang.valueInUnits(Angle.degrees)}');
 
   // Construct an Angle in degrees.
-  final Angle ang2 = new Angle(deg: 270);
+  final ang2 = new Angle(deg: 270);
   print('Angle2 (deg): $ang2');
 
   // Find the difference.
-  final Angle diff = ang2 - ang as Angle;
+  final diff = ang2 - ang as Angle;
 
   // Display the result in degrees.
   print('Difference (deg): ${diff.valueInUnits(Angle.degrees)}');
@@ -21,7 +21,7 @@ The `example` folder contains some example code to help you get started with the
   print('Difference (rad): ${diff.valueInUnits(Angle.radians)}');
 
   // Find the sum.
-  final Angle sum = ang2 + ang as Angle;
+  final sum = ang2 + ang as Angle;
 
   // Display the result in degrees.
   print('Sum (deg): ${sum.valueInUnits(Angle.degrees)}');
