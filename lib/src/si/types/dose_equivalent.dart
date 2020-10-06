@@ -15,7 +15,7 @@ class DoseEquivalent extends Quantity {
   DoseEquivalent({dynamic Sv, dynamic rems, double uncert = 0.0})
       : super(Sv ?? rems ?? 0.0, rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   DoseEquivalent.misc(dynamic conv) : super.misc(conv, DoseEquivalent.doseEquivalentDimensions);
 
   /// Constructs a DoseEquivalent based on the [value]
@@ -29,18 +29,18 @@ class DoseEquivalent extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions doseEquivalentDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: DoseEquivalent);
+      Dimensions.constant(<String, int>{'Length': 2, 'Time': -2}, qType: DoseEquivalent);
 
   /// The standard SI unit.
-  static final DoseEquivalentUnits seiverts = new DoseEquivalentUnits('seiverts', null, 'Sv', null, 1.0, true);
+  static final DoseEquivalentUnits seiverts = DoseEquivalentUnits('seiverts', null, 'Sv', null, 1.0, true);
 
   /// Accepted for use with the SI, subject to further review.
-  static final DoseEquivalentUnits rems = new DoseEquivalentUnits('rems', null, null, null, 1.0e-2, true);
+  static final DoseEquivalentUnits rems = DoseEquivalentUnits('rems', null, null, null, 1.0e-2, true);
 }
 
 /// Units acceptable for use in describing DoseEquivalent quantities.
 class DoseEquivalentUnits extends DoseEquivalent with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   DoseEquivalentUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -57,9 +57,9 @@ class DoseEquivalentUnits extends DoseEquivalent with Units {
   @override
   Type get quantityType => DoseEquivalent;
 
-  /// Derive new DoseEquivalentUnits using this DoseEquivalentUnits object as the base.
+  /// Derive DoseEquivalentUnits using this DoseEquivalentUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new DoseEquivalentUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => DoseEquivalentUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

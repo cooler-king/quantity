@@ -12,7 +12,7 @@ class CatalyticActivity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   CatalyticActivity({dynamic kat, double uncert = 0.0}) : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   CatalyticActivity.misc(dynamic conv) : super.misc(conv, CatalyticActivity.catalyticActivityDimensions);
 
   /// Constructs a CatalyticActivity based on the [value]
@@ -26,15 +26,15 @@ class CatalyticActivity extends Quantity {
 
   /// Dimensions for this type of quantity
   static const Dimensions catalyticActivityDimensions =
-      const Dimensions.constant(const <String, int>{'Amount': 1, 'Time': -1}, qType: CatalyticActivity);
+      Dimensions.constant(<String, int>{'Amount': 1, 'Time': -1}, qType: CatalyticActivity);
 
   /// The standard SI unit **/
-  static final CatalyticActivityUnits katals = new CatalyticActivityUnits('katals', 'kat', null, 'katal', 1.0, true);
+  static final CatalyticActivityUnits katals = CatalyticActivityUnits('katals', 'kat', null, 'katal', 1.0, true);
 }
 
 /// Units acceptable for use in describing CatalyticActivity quantities.
 class CatalyticActivityUnits extends CatalyticActivity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   CatalyticActivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,9 +51,9 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
   @override
   Type get quantityType => CatalyticActivity;
 
-  /// Derive new CatalyticActivityUnits using this CatalyticActivityUnits object as the base.
+  /// Derive CatalyticActivityUnits using this CatalyticActivityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CatalyticActivityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => CatalyticActivityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

@@ -13,7 +13,7 @@ class Currency extends Quantity {
   // ignore:non_constant_identifier_names
   Currency({dynamic USD, double uncert = 0.0}) : super(USD ?? 0.0, Currency.dollarsUS, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Currency.misc(dynamic conv) : super.misc(conv, Currency.currencyDimensions);
 
   /// Constructs a Currency based on the [value]
@@ -26,18 +26,18 @@ class Currency extends Quantity {
       : super.constant(valueSI, Currency.currencyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions currencyDimensions = const Dimensions.constant(const <String, int>{}, qType: Currency);
+  static const Dimensions currencyDimensions = Dimensions.constant(<String, int>{}, qType: Currency);
 
   /// The unit of currency in the United States.
-  static final CurrencyUnits dollarsUS = new CurrencyUnits('United States Dollars', '\$', 'USD', null, 1.0, false);
+  static final CurrencyUnits dollarsUS = CurrencyUnits('United States Dollars', '\$', 'USD', null, 1.0, false);
 
   /// One U.S. Cent is equal to 0.01 U.S. Dollar.
-  static final CurrencyUnits centsUS = new CurrencyUnits('United States Cents', 'cents', null, null, 0.01, false);
+  static final CurrencyUnits centsUS = CurrencyUnits('United States Cents', 'cents', null, null, 0.01, false);
 }
 
 /// Units acceptable for use in describing Currency quantities.
 class CurrencyUnits extends Currency with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   CurrencyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -54,9 +54,9 @@ class CurrencyUnits extends Currency with Units {
   @override
   Type get quantityType => Currency;
 
-  /// Derive new CurrencyUnits using this CurrencyUnits object as the base.
+  /// Derive CurrencyUnits using this CurrencyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CurrencyUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => CurrencyUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

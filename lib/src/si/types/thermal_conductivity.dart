@@ -16,7 +16,7 @@ class ThermalConductivity extends Quantity {
   ThermalConductivity({dynamic wattsPerMeterKelvin, double uncert = 0.0})
       : super(wattsPerMeterKelvin ?? 0.0, ThermalConductivity.wattsPerMeterKelvin, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   ThermalConductivity.misc(dynamic conv) : super.misc(conv, ThermalConductivity.thermalConductivityDimensions);
 
   /// Constructs a ThermalConductivity based on the [value]
@@ -29,18 +29,18 @@ class ThermalConductivity extends Quantity {
       : super.constant(valueSI, ThermalConductivity.thermalConductivityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions thermalConductivityDimensions = const Dimensions.constant(
-      const <String, int>{'Length': 1, 'Mass': 1, 'Time': -3, 'Temperature': -1},
+  static const Dimensions thermalConductivityDimensions = Dimensions.constant(
+      <String, int>{'Length': 1, 'Mass': 1, 'Time': -3, 'Temperature': -1},
       qType: ThermalConductivity);
 
   /// The standard SI unit.
   static final ThermalConductivityUnits wattsPerMeterKelvin =
-      new ThermalConductivityUnits.powerLengthTemperature(Power.watts, Length.meters, TemperatureInterval.kelvins);
+      ThermalConductivityUnits.powerLengthTemperature(Power.watts, Length.meters, TemperatureInterval.kelvins);
 }
 
 /// Units acceptable for use in describing ThermalConductivity quantities.
 class ThermalConductivityUnits extends ThermalConductivity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ThermalConductivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,7 +53,7 @@ class ThermalConductivityUnits extends ThermalConductivity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on power, length and temperature interval units.
+  /// Constructs a instance based on power, length and temperature interval units.
   ThermalConductivityUnits.powerLengthTemperature(PowerUnits pu, LengthUnits lu, TemperatureIntervalUnits tiu)
       : super.misc(pu.valueSI / (lu.valueSI * tiu.valueSI)) {
     name = '${pu.name} per ${lu.singular} ${tiu.singular}';
@@ -69,9 +69,9 @@ class ThermalConductivityUnits extends ThermalConductivity with Units {
   @override
   Type get quantityType => ThermalConductivity;
 
-  /// Derive new ThermalConductivityUnits using this ThermalConductivityUnits object as the base.
+  /// Derive ThermalConductivityUnits using this ThermalConductivityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ThermalConductivityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ThermalConductivityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

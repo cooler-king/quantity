@@ -15,7 +15,7 @@ class MolarEnergy extends Quantity {
   MolarEnergy({dynamic joulesPerMole, double uncert = 0.0})
       : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   MolarEnergy.misc(dynamic conv) : super.misc(conv, MolarEnergy.molarEnergyDimensions);
 
   /// Constructs a MolarEnergy based on the [value]
@@ -28,18 +28,16 @@ class MolarEnergy extends Quantity {
       : super.constant(valueSI, MolarEnergy.molarEnergyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions molarEnergyDimensions = const Dimensions.constant(
-      const <String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1},
-      qType: MolarEnergy);
+  static const Dimensions molarEnergyDimensions =
+      Dimensions.constant(<String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1}, qType: MolarEnergy);
 
   /// The standard SI unit.
-  static final MolarEnergyUnits joulesPerMole =
-      new MolarEnergyUnits.energyAmount(Energy.joules, AmountOfSubstance.moles);
+  static final MolarEnergyUnits joulesPerMole = MolarEnergyUnits.energyAmount(Energy.joules, AmountOfSubstance.moles);
 }
 
 /// Units acceptable for use in describing MolarEnergy quantities.
 class MolarEnergyUnits extends MolarEnergy with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   MolarEnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -52,7 +50,7 @@ class MolarEnergyUnits extends MolarEnergy with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on energy and amount of substance units.
+  /// Constructs a instance based on energy and amount of substance units.
   MolarEnergyUnits.energyAmount(EnergyUnits eu, AmountOfSubstanceUnits aosu) : super.misc(eu.valueSI * aosu.valueSI) {
     name = '${eu.name} per ${aosu.singular}';
     singular = '${eu.singular} per ${aosu.singular}';
@@ -67,9 +65,9 @@ class MolarEnergyUnits extends MolarEnergy with Units {
   @override
   Type get quantityType => MolarEnergy;
 
-  /// Derive new MolarEnergyUnits using this MolarEnergyUnits object as the base.
+  /// Derive MolarEnergyUnits using this MolarEnergyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MolarEnergyUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => MolarEnergyUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

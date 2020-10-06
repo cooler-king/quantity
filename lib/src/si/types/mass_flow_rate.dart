@@ -16,7 +16,7 @@ class MassFlowRate extends Quantity {
   MassFlowRate({dynamic kilogramsPerSecond, double uncert = 0.0})
       : super(kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   MassFlowRate.misc(dynamic conv) : super.misc(conv, MassFlowRate.massFlowRateDimensions);
 
   /// Constructs a MassFlowRate based on the [value]
@@ -30,15 +30,15 @@ class MassFlowRate extends Quantity {
 
   /// Dimensions for this type of quantity
   static const Dimensions massFlowRateDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -1}, qType: MassFlowRate);
+      Dimensions.constant(<String, int>{'Mass': 1, 'Time': -1}, qType: MassFlowRate);
 
   /// The standard SI unit.
-  static final MassFlowRateUnits kilogramsPerSecond = new MassFlowRateUnits.massTime(Mass.kilograms, Time.seconds);
+  static final MassFlowRateUnits kilogramsPerSecond = MassFlowRateUnits.massTime(Mass.kilograms, Time.seconds);
 }
 
 /// Units acceptable for use in describing MassFlowRate quantities.
 class MassFlowRateUnits extends MassFlowRate with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   MassFlowRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class MassFlowRateUnits extends MassFlowRate with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on mass and time units.
+  /// Constructs a instance based on mass and time units.
   MassFlowRateUnits.massTime(MassUnits mu, TimeUnits tu) : super.misc(mu.valueSI * tu.valueSI) {
     name = '${mu.name} per ${tu.singular}';
     singular = '${mu.singular} per ${tu.singular}';
@@ -66,9 +66,9 @@ class MassFlowRateUnits extends MassFlowRate with Units {
   @override
   Type get quantityType => MassFlowRate;
 
-  /// Derive new MassFlowRateUnits using this MassFlowRateUnits object as the base.
+  /// Derive MassFlowRateUnits using this MassFlowRateUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MassFlowRateUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => MassFlowRateUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

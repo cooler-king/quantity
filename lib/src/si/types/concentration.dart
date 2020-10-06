@@ -15,7 +15,7 @@ class Concentration extends Quantity {
   Concentration({dynamic molesPerCubicMeter, double uncert = 0.0})
       : super(molesPerCubicMeter ?? 0.0, Concentration.molesPerCubicMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Concentration.misc(dynamic conv) : super.misc(conv, Concentration.concentrationDimensions);
 
   /// Constructs a Concentration based on the [value]
@@ -29,16 +29,16 @@ class Concentration extends Quantity {
 
   /// Dimensions for this type of quantity
   static const Dimensions concentrationDimensions =
-      const Dimensions.constant(const <String, int>{'Amount': 1, 'Length': -3}, qType: Concentration);
+      Dimensions.constant(<String, int>{'Amount': 1, 'Length': -3}, qType: Concentration);
 
   /// The standard SI unit **/
   static final ConcentrationUnits molesPerCubicMeter =
-      new ConcentrationUnits.amountVolume(AmountOfSubstance.moles, Volume.cubicMeters);
+      ConcentrationUnits.amountVolume(AmountOfSubstance.moles, Volume.cubicMeters);
 }
 
 /// Units acceptable for use in describing Concentration quantities.
 class ConcentrationUnits extends Concentration with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ConcentrationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -66,9 +66,9 @@ class ConcentrationUnits extends Concentration with Units {
   @override
   Type get quantityType => Concentration;
 
-  /// Derive new ConcentrationUnits using this ConcentrationUnits object as the base.
+  /// Derive ConcentrationUnits using this ConcentrationUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ConcentrationUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ConcentrationUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

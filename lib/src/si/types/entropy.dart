@@ -18,7 +18,7 @@ class Entropy extends Quantity {
   Entropy({dynamic joulesPerKelvin, double uncert = 0.0})
       : super(joulesPerKelvin ?? 0.0, Entropy.joulesPerKelvin, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Entropy.misc(dynamic conv) : super.misc(conv, Entropy.entropyDimensions);
 
   /// Constructs a Entropy based on the [value]
@@ -31,18 +31,17 @@ class Entropy extends Quantity {
       : super.constant(valueSI, Entropy.entropyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions entropyDimensions = const Dimensions.constant(
-      const <String, int>{'Length': 2, 'Mass': 1, 'Temperature': -1, 'Time': -2},
-      qType: Entropy);
+  static const Dimensions entropyDimensions =
+      Dimensions.constant(<String, int>{'Length': 2, 'Mass': 1, 'Temperature': -1, 'Time': -2}, qType: Entropy);
 
   /// The standard SI unit.
   static final EntropyUnits joulesPerKelvin =
-      new EntropyUnits.energyTemperature(Energy.joules, TemperatureInterval.kelvins);
+      EntropyUnits.energyTemperature(Energy.joules, TemperatureInterval.kelvins);
 }
 
 /// Units acceptable for use in describing Entropy quantities.
 class EntropyUnits extends Entropy with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   EntropyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -55,7 +54,7 @@ class EntropyUnits extends Entropy with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on energy and temperature interval units.
+  /// Constructs a instance based on energy and temperature interval units.
   EntropyUnits.energyTemperature(EnergyUnits eu, TemperatureIntervalUnits tu) : super.misc(eu.valueSI * tu.valueSI) {
     name = '${eu.name} per ${tu.singular}';
     singular = '${eu.singular} per ${tu.singular}';
@@ -70,9 +69,9 @@ class EntropyUnits extends Entropy with Units {
   @override
   Type get quantityType => Entropy;
 
-  /// Derive new EntropyUnits using this EntropyUnits object as the base.
+  /// Derive EntropyUnits using this EntropyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new EntropyUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => EntropyUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

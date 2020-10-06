@@ -15,7 +15,7 @@ class Charge extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Charge({dynamic C, double uncert = 0.0}) : super(C ?? 0.0, Charge.coulombs, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Charge.misc(dynamic conv) : super.misc(conv, Charge.electricChargeDimensions);
 
   /// Constructs a Charge based on the [value]
@@ -29,15 +29,15 @@ class Charge extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions electricChargeDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1}, qType: Charge);
+      Dimensions.constant(<String, int>{'Current': 1, 'Time': 1}, qType: Charge);
 
   /// The standard SI unit.
-  static final ChargeUnits coulombs = new ChargeUnits('coulombs', null, 'C', null, 1.0, true);
+  static final ChargeUnits coulombs = ChargeUnits('coulombs', null, 'C', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing Charge quantities.
 class ChargeUnits extends Charge with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ChargeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -50,7 +50,7 @@ class ChargeUnits extends Charge with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from an electric current and time.
+  /// Constructs a instance from an electric current and time.
   ChargeUnits.currentTime(CurrentUnits cu, TimeUnits tu) : super.misc(cu.valueSI * tu.valueSI) {
     name = '${cu.name} ${tu.name}';
     singular = '${cu.singular} ${tu.singular}';
@@ -65,9 +65,9 @@ class ChargeUnits extends Charge with Units {
   @override
   Type get quantityType => Charge;
 
-  /// Derive new ChargeUnits using this ChargeUnits object as the base.
+  /// Derive ChargeUnits using this ChargeUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ChargeUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ChargeUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

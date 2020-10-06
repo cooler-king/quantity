@@ -17,7 +17,7 @@ class TemperatureInterval extends Quantity {
       : super(K ?? (degC ?? 0.0), degC != null ? TemperatureInterval.degreesCelsius : TemperatureInterval.kelvins,
             uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   TemperatureInterval.misc(dynamic conv) : super.misc(conv, TemperatureInterval.temperatureIntervalDimensions);
 
   /// Constructs a TemperatureInterval based on the [value]
@@ -31,14 +31,14 @@ class TemperatureInterval extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions temperatureIntervalDimensions =
-      const Dimensions.constant(const <String, int>{'Temperature': 1}, qType: TemperatureInterval);
+      Dimensions.constant(<String, int>{'Temperature': 1}, qType: TemperatureInterval);
 
   /// The standard SI unit.
-  static final TemperatureIntervalUnits kelvins = new TemperatureIntervalUnits('kelvins', null, 'K', null, 1.0, true);
+  static final TemperatureIntervalUnits kelvins = TemperatureIntervalUnits('kelvins', null, 'K', null, 1.0, true);
 
   /// Derived SI unit.
   static final TemperatureIntervalUnits degreesCelsius =
-      new TemperatureIntervalUnits('degrees Celsius', 'deg C', null, 'degree Celsius', 1.0, true);
+      TemperatureIntervalUnits('degrees Celsius', 'deg C', null, 'degree Celsius', 1.0, true);
 
   /// Override the addition operator to manage the [Temperature]/`TemperatureInterval` relationship.
   ///
@@ -47,13 +47,13 @@ class TemperatureInterval extends Quantity {
   @override
   Quantity operator +(dynamic addend) {
     if (addend is TemperatureInterval) {
-      final Number newValueSI = valueSI + addend.valueSI;
-      final double ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
-      return new TemperatureInterval(K: newValueSI, uncert: ur);
+      final newValueSI = valueSI + addend.valueSI;
+      final ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      return TemperatureInterval(K: newValueSI, uncert: ur);
     } else if (addend is Temperature) {
-      final Number newValueSI = valueSI + addend.valueSI;
-      final double ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
-      return new Temperature(K: newValueSI, uncert: ur);
+      final newValueSI = valueSI + addend.valueSI;
+      final ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+      return Temperature(K: newValueSI, uncert: ur);
     } else {
       return super + addend;
     }
@@ -67,9 +67,9 @@ class TemperatureInterval extends Quantity {
   @override
   Quantity operator -(dynamic subtrahend) {
     if (subtrahend is TemperatureInterval) {
-      final Number newValueSI = valueSI - subtrahend.valueSI;
-      final double ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
-      return new TemperatureInterval(K: newValueSI, uncert: ur);
+      final newValueSI = valueSI - subtrahend.valueSI;
+      final ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      return TemperatureInterval(K: newValueSI, uncert: ur);
     } else if (subtrahend is Temperature) {
       throw const QuantityException('Subtracting a Temperature from a TemperatureInterval is not supported.');
     } else {
@@ -78,12 +78,12 @@ class TemperatureInterval extends Quantity {
   }
 
   /// Returns the [Temperature] equal to this temperature interval measured from 0 degrees kelvin.
-  Temperature toTemperature() => new Temperature(K: valueSI, uncert: relativeUncertainty);
+  Temperature toTemperature() => Temperature(K: valueSI, uncert: relativeUncertainty);
 }
 
 /// Units acceptable for use in describing TemperatureInterval quantities.
 class TemperatureIntervalUnits extends TemperatureInterval with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   TemperatureIntervalUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -100,9 +100,9 @@ class TemperatureIntervalUnits extends TemperatureInterval with Units {
   @override
   Type get quantityType => TemperatureInterval;
 
-  /// Derive new TemperatureIntervalUnits using this TemperatureIntervalUnits object as the base.
+  /// Derive TemperatureIntervalUnits using this TemperatureIntervalUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TemperatureIntervalUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => TemperatureIntervalUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

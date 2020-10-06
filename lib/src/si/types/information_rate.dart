@@ -26,7 +26,7 @@ class InformationRate extends Quantity {
                         : (Tbps != null ? InformationRate.terabitsPerSecond : InformationRate.bitsPerSecond))),
             uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   InformationRate.misc(dynamic conv) : super.misc(conv, InformationRate.informationRateDimensions);
 
   /// Constructs a InformationRate based on the [value]
@@ -40,34 +40,34 @@ class InformationRate extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions informationRateDimensions =
-      const Dimensions.constant(const <String, int>{'Time': -1}, qType: InformationRate);
+      Dimensions.constant(<String, int>{'Time': -1}, qType: InformationRate);
 
   /// The standard SI unit.
   static final InformationRateUnits bitsPerSecond =
-      new InformationRateUnits.informationTime(Information.bits, Time.seconds);
+      InformationRateUnits.informationTime(Information.bits, Time.seconds);
 
   // Common metric units.
 
   /// The metric unit for one thousand bits per second.
   static final InformationRateUnits kilobitsPerSecond =
-      new InformationRateUnits.informationTime(Information.kilobits, Time.seconds);
+      InformationRateUnits.informationTime(Information.kilobits, Time.seconds);
 
   /// The metric unit for one million bits per second.
   static final InformationRateUnits megabitsPerSecond =
-      new InformationRateUnits.informationTime(Information.megabits, Time.seconds);
+      InformationRateUnits.informationTime(Information.megabits, Time.seconds);
 
   /// The metric unit for one billion bits per second.
   static final InformationRateUnits gigabitsPerSecond =
-      new InformationRateUnits.informationTime(Information.gigabits, Time.seconds);
+      InformationRateUnits.informationTime(Information.gigabits, Time.seconds);
 
   /// The metric unit for one trillion bits per second.
   static final InformationRateUnits terabitsPerSecond =
-      new InformationRateUnits.informationTime(Information.terabits, Time.seconds);
+      InformationRateUnits.informationTime(Information.terabits, Time.seconds);
 }
 
 /// Units acceptable for use in describing InformationRate quantities.
 class InformationRateUnits extends InformationRate with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   InformationRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -80,7 +80,7 @@ class InformationRateUnits extends InformationRate with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from information and time units.
+  /// Constructs a instance from information and time units.
   InformationRateUnits.informationTime(InformationUnits iu, TimeUnits tu) : super.misc(iu.valueSI * tu.valueSI) {
     name = '${iu.name} per ${tu.singular}';
     singular = '${iu.singular} per ${tu.singular}';
@@ -95,9 +95,9 @@ class InformationRateUnits extends InformationRate with Units {
   @override
   Type get quantityType => InformationRate;
 
-  /// Derive new InformationRateUnits using this InformationRateUnits object as the base.
+  /// Derive InformationRateUnits using this InformationRateUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new InformationRateUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => InformationRateUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

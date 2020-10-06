@@ -15,7 +15,7 @@ class EnergyFlux extends Quantity {
   EnergyFlux({dynamic wattsPerSquareMeter, double uncert = 0.0})
       : super(wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   EnergyFlux.misc(dynamic conv) : super.misc(conv, EnergyFlux.energyFluxDimensions);
 
   /// Constructs a EnergyFlux based on the [value]
@@ -29,15 +29,15 @@ class EnergyFlux extends Quantity {
 
   /// Dimensions for this type of quantity
   static const Dimensions energyFluxDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: EnergyFlux);
+      Dimensions.constant(<String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: EnergyFlux);
 
   /// The standard SI unit.
-  static final EnergyFluxUnits wattsPerSquareMeter = new EnergyFluxUnits.powerArea(Power.watts, Area.squareMeters);
+  static final EnergyFluxUnits wattsPerSquareMeter = EnergyFluxUnits.powerArea(Power.watts, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing EnergyFlux quantities.
 class EnergyFluxUnits extends EnergyFlux with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   EnergyFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -50,7 +50,7 @@ class EnergyFluxUnits extends EnergyFlux with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from power and area units.
+  /// Constructs a instance from power and area units.
   EnergyFluxUnits.powerArea(PowerUnits pu, AreaUnits au) : super.misc(pu.valueSI * au.valueSI) {
     name = '${pu.name} per ${au.singular}';
     singular = '${pu.singular} per ${au.singular}';
@@ -65,9 +65,9 @@ class EnergyFluxUnits extends EnergyFlux with Units {
   @override
   Type get quantityType => EnergyFlux;
 
-  /// Derive new EnergyFluxUnits using this EnergyFluxUnits object as the base.
+  /// Derive EnergyFluxUnits using this EnergyFluxUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new EnergyFluxUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => EnergyFluxUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

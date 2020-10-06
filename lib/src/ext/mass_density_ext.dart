@@ -6,13 +6,13 @@ import 'volume_ext.dart';
 MassDensityUnits kilogramsPerCubicMeter = MassDensity.kilogramsPerCubicMeter;
 
 /// Grams per cubic centimeter as a unit.
-MassDensityUnits gramsPerCubicCentimeter = new MassDensityUnits.massVolume(grams, cubicCentimeters);
+MassDensityUnits gramsPerCubicCentimeter = MassDensityUnits.massVolume(grams, cubicCentimeters);
 
 /// Pounds per cubic inch as a unit.
-MassDensityUnits poundsPerCubicInch = new MassDensityUnits.massVolume(poundsAvoirdupois, cubicInches);
+MassDensityUnits poundsPerCubicInch = MassDensityUnits.massVolume(poundsAvoirdupois, cubicInches);
 
 /// Pounds per cubic foot as a unit.
-MassDensityUnits poundsPerCubicFoot = new MassDensityUnits.massVolume(poundsAvoirdupois, cubicFeet);
+MassDensityUnits poundsPerCubicFoot = MassDensityUnits.massVolume(poundsAvoirdupois, cubicFeet);
 
 /// Slugs per cubic foot as a unit.
-MassDensityUnits slugsPerCubicFoot = new MassDensityUnits.massVolume(slugs, cubicFeet);
+MassDensityUnits slugsPerCubicFoot = MassDensityUnits.massVolume(slugs, cubicFeet);

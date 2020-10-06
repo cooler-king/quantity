@@ -19,7 +19,7 @@ class Power extends Quantity {
       : super(W ?? (kW ?? (MW ?? 0.0)), kW != null ? Power.kilowatts : (MW != null ? Power.megawatts : Power.watts),
             uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Power.misc(dynamic conv) : super.misc(conv, Power.powerDimensions);
 
   /// Constructs a Power based on the [value]
@@ -32,10 +32,10 @@ class Power extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions powerDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: Power);
+      Dimensions.constant(<String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: Power);
 
   /// The standard SI unit.
-  static final PowerUnits watts = new PowerUnits('watts', null, 'W', null, 1.0, true);
+  static final PowerUnits watts = PowerUnits('watts', null, 'W', null, 1.0, true);
 
   // Convenience.
 
@@ -48,7 +48,7 @@ class Power extends Quantity {
 
 /// Units acceptable for use in describing Power quantities.
 class PowerUnits extends Power with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   PowerUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -61,7 +61,7 @@ class PowerUnits extends Power with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on energy and time units.
+  /// Constructs a instance based on energy and time units.
   PowerUnits.energyTime(EnergyUnits eu, TimeUnits tu) : super.misc(eu.valueSI / tu.valueSI) {
     name = '${eu.name} per ${tu.singular}';
     singular = '${eu.singular} per ${tu.singular}';
@@ -76,9 +76,9 @@ class PowerUnits extends Power with Units {
   @override
   Type get quantityType => Power;
 
-  /// Derive new PowerUnits using this PowerUnits object as the base.
+  /// Derive PowerUnits using this PowerUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new PowerUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => PowerUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

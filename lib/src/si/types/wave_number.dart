@@ -14,7 +14,7 @@ class WaveNumber extends Quantity {
   WaveNumber({dynamic reciprocalMeters, double uncert = 0.0})
       : super(reciprocalMeters ?? 0.0, WaveNumber.reciprocalMeters, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   WaveNumber.misc(dynamic conv) : super.misc(conv, WaveNumber.waveNumberDimensions);
 
   /// Constructs a WaveNumber based on the [value]
@@ -27,16 +27,15 @@ class WaveNumber extends Quantity {
       : super.constant(valueSI, WaveNumber.waveNumberDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
-  static const Dimensions waveNumberDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -1}, qType: WaveNumber);
+  static const Dimensions waveNumberDimensions = Dimensions.constant(<String, int>{'Length': -1}, qType: WaveNumber);
 
   /// The standard SI unit.
-  static final WaveNumberUnits reciprocalMeters = new WaveNumberUnits.inverseLength(Length.meters);
+  static final WaveNumberUnits reciprocalMeters = WaveNumberUnits.inverseLength(Length.meters);
 }
 
 /// Units acceptable for use in describing WaveNumber quantities.
 class WaveNumberUnits extends WaveNumber with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   WaveNumberUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -49,7 +48,7 @@ class WaveNumberUnits extends WaveNumber with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on length units.
+  /// Constructs a instance based on length units.
   WaveNumberUnits.inverseLength(LengthUnits lu) : super.misc(Integer.one / lu.valueSI) {
     name = 'reciprocal ${lu.name}';
     singular = 'reciprocal ${lu.singular}';
@@ -64,9 +63,9 @@ class WaveNumberUnits extends WaveNumber with Units {
   @override
   Type get quantityType => WaveNumber;
 
-  /// Derive new WaveNumberUnits using this WaveNumberUnits object as the base.
+  /// Derive WaveNumberUnits using this WaveNumberUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new WaveNumberUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => WaveNumberUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

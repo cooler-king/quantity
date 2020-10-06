@@ -16,7 +16,7 @@ class AbsorbedDose extends Quantity {
   AbsorbedDose({dynamic Gy, dynamic rads, double uncert = 0.0})
       : super(Gy ?? (rads ?? 0.0), rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   AbsorbedDose.misc(dynamic conv) : super.misc(conv, AbsorbedDose.absorbedDoseDimensions);
 
   /// Constructs an AbsorbedDose based on the [value]
@@ -30,20 +30,20 @@ class AbsorbedDose extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions absorbedDoseDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: AbsorbedDose);
+      Dimensions.constant(<String, int>{'Length': 2, 'Time': -2}, qType: AbsorbedDose);
 
   /// The standard SI unit.
-  static final AbsorbedDoseUnits grays = new AbsorbedDoseUnits('grays', null, 'Gy', null, 1.0, true);
+  static final AbsorbedDoseUnits grays = AbsorbedDoseUnits('grays', null, 'Gy', null, 1.0, true);
 
   /// Accepted for use with the SI, subject to further review.
   // Note:  do not use 'rad' for singular to avoid confusion with
   // Angle's radians during parsing & output
-  static final AbsorbedDoseUnits rads = new AbsorbedDoseUnits('rads', null, null, 'rads', 1.0e-2, true);
+  static final AbsorbedDoseUnits rads = AbsorbedDoseUnits('rads', null, null, 'rads', 1.0e-2, true);
 }
 
 /// Units acceptable for use in describing AbsorbedDose quantities.
 class AbsorbedDoseUnits extends AbsorbedDose with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   AbsorbedDoseUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -56,7 +56,7 @@ class AbsorbedDoseUnits extends AbsorbedDose with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on length and time units.
+  /// Constructs a instance based on length and time units.
   AbsorbedDoseUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super.misc(lu.valueSI * su.valueSI) {
     name = '${lu.name} per ${su.singular} squared';
     singular = '${lu.singular} per ${su.singular} squared';
@@ -71,9 +71,9 @@ class AbsorbedDoseUnits extends AbsorbedDose with Units {
   @override
   Type get quantityType => AbsorbedDose;
 
-  /// Derive new AbsorbedDoseUnits using this AbsorbedDoseUnits object as the base.
+  /// Derive AbsorbedDoseUnits using this AbsorbedDoseUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AbsorbedDoseUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AbsorbedDoseUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

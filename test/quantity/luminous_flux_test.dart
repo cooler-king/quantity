@@ -5,14 +5,14 @@ import 'package:quantity/number.dart';
 void main() {
   group('LuminousFlux', () {
     test('constructors', () {
-      LuminousFlux q = new LuminousFlux();
+      var q = LuminousFlux();
       expect(q.valueSI, Double.zero);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, LuminousFlux.luminousFluxDimensions);
       expect(q.preferredUnits, LuminousFlux.lumens);
       expect(q.relativeUncertainty, 0);
 
-      q = new LuminousFlux(lm: 42, uncert: 0.001);
+      q = LuminousFlux(lm: 42, uncert: 0.001);
       expect(q.valueSI?.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, LuminousFlux.luminousFluxDimensions);

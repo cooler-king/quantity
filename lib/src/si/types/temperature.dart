@@ -15,7 +15,7 @@ class Temperature extends Quantity {
   Temperature({dynamic K, dynamic C, double uncert = 0.0})
       : super(K ?? (C ?? 0.0), C != null ? Temperature.degreesCelsius : Temperature.kelvins, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Temperature.misc(dynamic conv) : super.misc(conv, Temperature.temperatureDimensions);
 
   /// Constructs a Temperature based on the [value]
@@ -29,25 +29,25 @@ class Temperature extends Quantity {
 
   /// Dimensions for this type of quantity
   static const Dimensions temperatureDimensions =
-      const Dimensions.constant(const <String, int>{'Temperature': 1}, qType: Temperature);
+      Dimensions.constant(<String, int>{'Temperature': 1}, qType: Temperature);
 
   // Units
 
   /// The standard SI unit.
-  static final TemperatureUnits kelvins = new TemperatureUnits('kelvins', 'K', null, null, Double.one, true, 0);
+  static final TemperatureUnits kelvins = TemperatureUnits('kelvins', 'K', null, null, Double.one, true, 0);
 
   /// Derived SI unit.
   static final TemperatureUnits degreesCelsius =
-      new TemperatureUnits('degrees Celsius', 'deg C', null, 'degree Celsius', Double.one, false, 273.15);
+      TemperatureUnits('degrees Celsius', 'deg C', null, 'degree Celsius', Double.one, false, 273.15);
 
   /// Override the addition operator to manage the `Temperature`/[TemperatureInterval] relationship.
   ///
   @override
   Quantity operator +(dynamic addend) {
     if (addend is TemperatureInterval || addend is Temperature) {
-      final Number newValueSI = valueSI + addend.valueSI;
-      final double ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, addend as Quantity, newValueSI);
-      return new Temperature(K: newValueSI, uncert: ur);
+      final newValueSI = valueSI + addend.valueSI;
+      final ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, addend as Quantity, newValueSI);
+      return Temperature(K: newValueSI, uncert: ur);
     } else {
       return super + addend;
     }
@@ -61,13 +61,13 @@ class Temperature extends Quantity {
   @override
   Quantity operator -(dynamic subtrahend) {
     if (subtrahend is TemperatureInterval) {
-      final Number newValueSI = valueSI - subtrahend.valueSI;
-      final double ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
-      return new Temperature(K: newValueSI, uncert: ur);
+      final newValueSI = valueSI - subtrahend.valueSI;
+      final ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      return Temperature(K: newValueSI, uncert: ur);
     } else if (subtrahend is Temperature) {
-      final Number newValueSI = valueSI - subtrahend.valueSI;
-      final double ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
-      return new TemperatureInterval(K: newValueSI, uncert: ur);
+      final newValueSI = valueSI - subtrahend.valueSI;
+      final ur = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      return TemperatureInterval(K: newValueSI, uncert: ur);
     } else {
       return super - subtrahend;
     }
@@ -75,12 +75,12 @@ class Temperature extends Quantity {
 
   /// Returns the [TemperatureInterval] equal to this temperature in kelvins.
   ///
-  TemperatureInterval toInterval() => new TemperatureInterval(K: valueSI, uncert: relativeUncertainty);
+  TemperatureInterval toInterval() => TemperatureInterval(K: valueSI, uncert: relativeUncertainty);
 }
 
 /// Units acceptable for use in describing [Temperature] quantities.
 class TemperatureUnits extends Temperature with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   TemperatureUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, double offset = 0.0])
       : super.misc(conv) {
@@ -97,9 +97,9 @@ class TemperatureUnits extends Temperature with Units {
   @override
   Type get quantityType => Temperature;
 
-  /// Derive new TemperatureUnits using this TemperatureUnits object as the base.
+  /// Derive TemperatureUnits using this TemperatureUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TemperatureUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => TemperatureUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

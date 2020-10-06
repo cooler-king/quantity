@@ -16,7 +16,7 @@ class DynamicViscosity extends Quantity {
   // ignore: non_constant_identifier_names
   DynamicViscosity({dynamic Pas, double uncert = 0.0}) : super(Pas ?? 0.0, DynamicViscosity.pascalSeconds, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   DynamicViscosity.misc(dynamic conv) : super.misc(conv, DynamicViscosity.dynamicViscosityDimensions);
 
   /// Constructs a DynamicViscosity based on the [value]
@@ -30,11 +30,10 @@ class DynamicViscosity extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions dynamicViscosityDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': -1, 'Time': -1}, qType: DynamicViscosity);
+      Dimensions.constant(<String, int>{'Mass': 1, 'Length': -1, 'Time': -1}, qType: DynamicViscosity);
 
   /// The standard SI unit.
-  static final DynamicViscosityUnits pascalSeconds =
-      new DynamicViscosityUnits.pressureTime(Pressure.pascals, Time.seconds);
+  static final DynamicViscosityUnits pascalSeconds = DynamicViscosityUnits.pressureTime(Pressure.pascals, Time.seconds);
 
   /// Another name for [pascalSeconds].
   static final DynamicViscosityUnits poiseuille = pascalSeconds;
@@ -42,7 +41,7 @@ class DynamicViscosity extends Quantity {
 
 /// Units acceptable for use in describing DynamicViscosity quantities.
 class DynamicViscosityUnits extends DynamicViscosity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   DynamicViscosityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -55,7 +54,7 @@ class DynamicViscosityUnits extends DynamicViscosity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on pressure and time units.
+  /// Constructs a instance based on pressure and time units.
   DynamicViscosityUnits.pressureTime(PressureUnits pu, TimeUnits tu) : super.misc(pu.valueSI * tu.valueSI) {
     name = '${pu.singular} ${tu.name}';
     singular = '${pu.singular} ${tu.singular}';
@@ -70,9 +69,9 @@ class DynamicViscosityUnits extends DynamicViscosity with Units {
   @override
   Type get quantityType => DynamicViscosity;
 
-  /// Derive new DynamicViscosityUnits using this DynamicViscosityUnits object as the base.
+  /// Derive DynamicViscosityUnits using this DynamicViscosityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new DynamicViscosityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => DynamicViscosityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

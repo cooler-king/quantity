@@ -15,7 +15,7 @@ class Force extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Force({dynamic N, double uncert = 0.0}) : super(N ?? 0.0, Force.newtons, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Force.misc(dynamic conv) : super.misc(conv, Force.forceDimensions);
 
   /// Constructs a Force based on the [value]
@@ -26,22 +26,22 @@ class Force extends Quantity {
   const Force.constant(Number valueSI, {ForceUnits units, double uncert = 0.0})
       : super.constant(valueSI, Force.forceDimensions, units, uncert);
 
-  /// Constructs a new instance from mass and acceleration.
+  /// Constructs a instance from mass and acceleration.
   Force.ma(Mass m, Acceleration a)
       : super(m.valueSI * a.valueSI, Force.newtons,
             math.sqrt(m.relativeUncertainty * m.relativeUncertainty + a.relativeUncertainty * a.relativeUncertainty));
 
   /// Dimensions for this type of quantity.
   static const Dimensions forceDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 1, 'Mass': 1, 'Time': -2}, qType: Force);
+      Dimensions.constant(<String, int>{'Length': 1, 'Mass': 1, 'Time': -2}, qType: Force);
 
   /// The standard SI unit.
-  static final ForceUnits newtons = new ForceUnits('newtons', null, 'N', null, 1.0, true);
+  static final ForceUnits newtons = ForceUnits('newtons', null, 'N', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing Force quantities.
 class ForceUnits extends Force with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ForceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -58,9 +58,9 @@ class ForceUnits extends Force with Units {
   @override
   Type get quantityType => Force;
 
-  /// Derive new ForceUnits using this ForceUnits object as the base.
+  /// Derive ForceUnits using this ForceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ForceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ForceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

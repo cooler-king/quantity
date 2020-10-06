@@ -16,7 +16,7 @@ class AngularMomentum extends Quantity {
   // ignore: non_constant_identifier_names
   AngularMomentum({dynamic Js, double uncert = 0.0}) : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   AngularMomentum.misc(dynamic conv) : super.misc(conv, AngularMomentum.angularMometumDimensions);
 
   /// Constructs a AngularMomentum based on the [value]
@@ -30,15 +30,15 @@ class AngularMomentum extends Quantity {
 
   /// Dimensions for this type of quantity
   static const Dimensions angularMometumDimensions =
-      const Dimensions.constant(const <String, int>{'Angle': 1, 'Length': 1, 'Time': -1}, qType: AngularMomentum);
+      Dimensions.constant(<String, int>{'Angle': 1, 'Length': 1, 'Time': -1}, qType: AngularMomentum);
 
   /// The standard SI unit.
-  static final AngularMomentumUnits jouleSecond = new AngularMomentumUnits.energyTime(Energy.joules, Time.seconds);
+  static final AngularMomentumUnits jouleSecond = AngularMomentumUnits.energyTime(Energy.joules, Time.seconds);
 }
 
 /// Units acceptable for use in describing AngularMomentum quantities.
 class AngularMomentumUnits extends AngularMomentum with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   AngularMomentumUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class AngularMomentumUnits extends AngularMomentum with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on energy and time units.
+  /// Constructs a instance based on energy and time units.
   AngularMomentumUnits.energyTime(EnergyUnits eu, TimeUnits tu) : super.misc(eu.valueSI * tu.valueSI) {
     name = '${eu.singular} ${tu.name}';
     singular = '${eu.singular} ${tu.singular}';
@@ -66,9 +66,9 @@ class AngularMomentumUnits extends AngularMomentum with Units {
   @override
   Type get quantityType => AngularMomentum;
 
-  /// Derive new AngularMomentumUnits using this AngularMomentumUnits object as the base.
+  /// Derive AngularMomentumUnits using this AngularMomentumUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AngularMomentumUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AngularMomentumUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

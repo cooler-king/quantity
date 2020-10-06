@@ -15,7 +15,7 @@ class ChargeDensity extends Quantity {
   ChargeDensity({dynamic coulombsPerCubicMeter, double uncert = 0.0})
       : super(coulombsPerCubicMeter ?? 0.0, ChargeDensity.coulombsPerCubicMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   ChargeDensity.misc(dynamic conv) : super.misc(conv, ChargeDensity.electricChargeDensityDimensions);
 
   /// Constructs a ChargeDensity based on the [value]
@@ -29,16 +29,16 @@ class ChargeDensity extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions electricChargeDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1, 'Length': -3}, qType: ChargeDensity);
+      Dimensions.constant(<String, int>{'Current': 1, 'Time': 1, 'Length': -3}, qType: ChargeDensity);
 
   /// The standard SI unit.
   static final ChargeDensityUnits coulombsPerCubicMeter =
-      new ChargeDensityUnits.chargeVolume(Charge.coulombs, Volume.cubicMeters);
+      ChargeDensityUnits.chargeVolume(Charge.coulombs, Volume.cubicMeters);
 }
 
 /// Units acceptable for use in describing ChargeDensity quantities.
 class ChargeDensityUnits extends ChargeDensity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ChargeDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class ChargeDensityUnits extends ChargeDensity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on charge and volume units.
+  /// Constructs a instance based on charge and volume units.
   ChargeDensityUnits.chargeVolume(ChargeUnits ecu, VolumeUnits vu) : super.misc(ecu.valueSI * vu.valueSI) {
     name = '${ecu.name} per ${vu.singular}';
     singular = '${ecu.singular} per ${vu.singular}';
@@ -66,9 +66,9 @@ class ChargeDensityUnits extends ChargeDensity with Units {
   @override
   Type get quantityType => ChargeDensity;
 
-  /// Derive new ChargeDensityUnits using this ChargeDensityUnits object as the base.
+  /// Derive ChargeDensityUnits using this ChargeDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ChargeDensityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ChargeDensityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

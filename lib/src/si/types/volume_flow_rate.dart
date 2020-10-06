@@ -15,7 +15,7 @@ class VolumeFlowRate extends Quantity {
   VolumeFlowRate({dynamic cubicMetersPerSecond, double uncert = 0.0})
       : super(cubicMetersPerSecond ?? 0.0, VolumeFlowRate.cubicMetersPerSecond, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   VolumeFlowRate.misc(dynamic conv) : super.misc(conv, VolumeFlowRate.volumeFlowRateDimensions);
 
   /// Constructs a VolumeFlowRate based on the [value]
@@ -29,16 +29,16 @@ class VolumeFlowRate extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions volumeFlowRateDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 3, 'Time': -1}, qType: VolumeFlowRate);
+      Dimensions.constant(<String, int>{'Length': 3, 'Time': -1}, qType: VolumeFlowRate);
 
   /// The standard SI unit.
   static final VolumeFlowRateUnits cubicMetersPerSecond =
-      new VolumeFlowRateUnits.volumeTime(Volume.cubicMeters, Time.seconds);
+      VolumeFlowRateUnits.volumeTime(Volume.cubicMeters, Time.seconds);
 }
 
 /// Units acceptable for use in describing VolumeFlowRate quantities.
 class VolumeFlowRateUnits extends VolumeFlowRate with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   VolumeFlowRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class VolumeFlowRateUnits extends VolumeFlowRate with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on volume and time units.
+  /// Constructs a instance based on volume and time units.
   VolumeFlowRateUnits.volumeTime(VolumeUnits vu, TimeUnits tu) : super.misc(vu.valueSI / tu.valueSI) {
     name = '${vu.name} per ${tu.singular}';
     singular = '${vu.singular} per ${tu.singular}';
@@ -66,9 +66,9 @@ class VolumeFlowRateUnits extends VolumeFlowRate with Units {
   @override
   Type get quantityType => VolumeFlowRate;
 
-  /// Derive new VolumeFlowRateUnits using this VolumeFlowRateUnits object as the base.
+  /// Derive VolumeFlowRateUnits using this VolumeFlowRateUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new VolumeFlowRateUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => VolumeFlowRateUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

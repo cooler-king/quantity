@@ -16,7 +16,7 @@ class AngularSpeed extends Quantity {
       : super(radiansPerSecond ?? (degreesPerSecond ?? 0.0),
             degreesPerSecond != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   AngularSpeed.misc(dynamic conv) : super.misc(conv, AngularSpeed.angularSpeedDimensions);
 
   /// Constructs a AngularSpeed based on the [value]
@@ -30,18 +30,18 @@ class AngularSpeed extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions angularSpeedDimensions =
-      const Dimensions.constant(const <String, int>{'Angle': 1, 'Time': -1}, qType: AngularSpeed);
+      Dimensions.constant(<String, int>{'Angle': 1, 'Time': -1}, qType: AngularSpeed);
 
   /// The standard SI unit.
-  static final AngularSpeedUnits radiansPerSecond = new AngularSpeedUnits.angleTime(Angle.radians, Time.seconds);
+  static final AngularSpeedUnits radiansPerSecond = AngularSpeedUnits.angleTime(Angle.radians, Time.seconds);
 
   /// Accepted for use with the SI.
-  static final AngularSpeedUnits degreesPerSecond = new AngularSpeedUnits.angleTime(Angle.degrees, Time.seconds);
+  static final AngularSpeedUnits degreesPerSecond = AngularSpeedUnits.angleTime(Angle.degrees, Time.seconds);
 }
 
 /// Units acceptable for use in describing AngularSpeed quantities.
 class AngularSpeedUnits extends AngularSpeed with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   AngularSpeedUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -54,7 +54,7 @@ class AngularSpeedUnits extends AngularSpeed with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on angle and time units.
+  /// Constructs a instance based on angle and time units.
   AngularSpeedUnits.angleTime(AngleUnits au, TimeUnits tu) : super.misc(au.valueSI * tu.valueSI) {
     name = '${au.name} per ${tu.singular} squared';
     singular = '${au.singular} per ${tu.singular} squared';
@@ -69,9 +69,9 @@ class AngularSpeedUnits extends AngularSpeed with Units {
   @override
   Type get quantityType => AngularSpeed;
 
-  /// Derive new AngularSpeedUnits using this AngularSpeedUnits object as the base.
+  /// Derive AngularSpeedUnits using this AngularSpeedUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AngularSpeedUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AngularSpeedUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

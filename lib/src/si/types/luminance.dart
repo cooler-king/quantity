@@ -15,7 +15,7 @@ class Luminance extends Quantity {
   Luminance({dynamic candelasPerSquareMeter, double uncert = 0.0})
       : super(candelasPerSquareMeter ?? 0.0, Luminance.candelasPerSquareMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Luminance.misc(dynamic conv) : super.misc(conv, Luminance.luminanceDimensions);
 
   /// Constructs a Luminance based on the [value]
@@ -29,16 +29,16 @@ class Luminance extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions luminanceDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -2, 'Intensity': 1}, qType: Luminance);
+      Dimensions.constant(<String, int>{'Length': -2, 'Intensity': 1}, qType: Luminance);
 
   /// The standard SI unit.
   static final LuminanceUnits candelasPerSquareMeter =
-      new LuminanceUnits.intensityArea(LuminousIntensity.candelas, Area.squareMeters);
+      LuminanceUnits.intensityArea(LuminousIntensity.candelas, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing Luminance quantities.
 class LuminanceUnits extends Luminance with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   LuminanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class LuminanceUnits extends Luminance with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from luminous intensity and area units.
+  /// Constructs a instance from luminous intensity and area units.
   LuminanceUnits.intensityArea(LuminousIntensityUnits liu, AreaUnits au) : super.misc(liu.valueSI * au.valueSI) {
     name = '${liu.name} per ${au.singular}';
     singular = '${liu.singular} per ${au.singular}';
@@ -66,9 +66,9 @@ class LuminanceUnits extends Luminance with Units {
   @override
   Type get quantityType => Luminance;
 
-  /// Derive new LuminanceUnits using this LuminanceUnits object as the base.
+  /// Derive LuminanceUnits using this LuminanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new LuminanceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => LuminanceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

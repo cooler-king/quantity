@@ -5,14 +5,14 @@ import 'package:quantity/number.dart';
 void main() {
   group('Radiance', () {
     test('constructors', () {
-      Radiance q = new Radiance();
+      var q = Radiance();
       expect(q.valueSI, Double.zero);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Radiance.radianceDimensions);
       expect(q.preferredUnits, Radiance.wattsPerSquareMeterSteradian);
       expect(q.relativeUncertainty, 0);
 
-      q = new Radiance(wattsPerSquareMeterSteradian: 42, uncert: 0.001);
+      q = Radiance(wattsPerSquareMeterSteradian: 42, uncert: 0.001);
       expect(q.valueSI?.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Radiance.radianceDimensions);

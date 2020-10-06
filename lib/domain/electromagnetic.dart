@@ -24,8 +24,8 @@ export 'package:quantity/quantity.dart'
 const Conductance G0 = conductanceQuantum;
 
 /// The inverse of the magnetic flux quantum.
-const MiscQuantity josephsonConstant = const MiscQuantity.constant(const Double.constant(483597848444444.44),
-    const Dimensions.constant(const <String, int>{'Length': -2, 'Mass': -1, 'Current': 1, 'Time': 2}));
+const MiscQuantity josephsonConstant = MiscQuantity.constant(Double.constant(483597848444444.44),
+    Dimensions.constant(<String, int>{'Length': -2, 'Mass': -1, 'Current': 1, 'Time': 2}));
 
 /// The common symbol for the Josephson constant.
 // ignore: constant_identifier_names
@@ -36,16 +36,16 @@ const MiscQuantity KJ = josephsonConstant;
 const Resistance RK = vonKlitzingConstant;
 
 /// Useful for expressing the magnetic moment of an electron caused by either its orbital or spin angular momentum.
-const MiscQuantity bohrMagneton = const MiscQuantity.constant(
-    const Double.constant(9.2740100783e-24), const Dimensions.constant(const <String, int>{'Length': 2, 'Current': 1}),
+const MiscQuantity bohrMagneton = MiscQuantity.constant(
+    Double.constant(9.2740100783e-24), Dimensions.constant(<String, int>{'Length': 2, 'Current': 1}),
     uncert: 3.019190163003642e-10);
 
 /// The common symbol for the Bohr Magneton constant.
 const MiscQuantity muB = bohrMagneton;
 
 /// Useful for expressing magnetic dipole moments of heavy particles.
-const MiscQuantity nuclearMagneton = const MiscQuantity.constant(
-    const Double.constant(5.0507837461e-27), const Dimensions.constant(const <String, int>{'Length': 2, 'Current': 1}),
+const MiscQuantity nuclearMagneton = MiscQuantity.constant(
+    Double.constant(5.0507837461e-27), Dimensions.constant(<String, int>{'Length': 2, 'Current': 1}),
     uncert: 2.9698361193116537e-10);
 
 /// The common symbol for the Nuclear Magneton constant.

@@ -15,7 +15,7 @@ class SpecificVolume extends Quantity {
   SpecificVolume({dynamic cubicMetersPerKilogram, double uncert = 0.0})
       : super(cubicMetersPerKilogram ?? 0.0, SpecificVolume.cubicMetersPerKilogram, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   SpecificVolume.misc(dynamic conv) : super.misc(conv, SpecificVolume.specificVolumeDimensions);
 
   /// Constructs a SpecificVolume based on the [value]
@@ -29,16 +29,16 @@ class SpecificVolume extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions specificVolumeDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 3, 'Mass': -1}, qType: SpecificVolume);
+      Dimensions.constant(<String, int>{'Length': 3, 'Mass': -1}, qType: SpecificVolume);
 
   /// The standard SI unit.
   static final SpecificVolumeUnits cubicMetersPerKilogram =
-      new SpecificVolumeUnits.lengthMass(Length.meters, Mass.kilograms);
+      SpecificVolumeUnits.lengthMass(Length.meters, Mass.kilograms);
 }
 
 /// Units acceptable for use in describing SpecificVolume quantities.
 class SpecificVolumeUnits extends SpecificVolume with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   SpecificVolumeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class SpecificVolumeUnits extends SpecificVolume with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance base don length and mass units.
+  /// Constructs a instance base don length and mass units.
   SpecificVolumeUnits.lengthMass(LengthUnits lu, MassUnits mu) : super.misc(lu.valueSI / mu.valueSI) {
     name = '${lu.name} per ${mu.singular}';
     singular = '${lu.singular} per ${mu.singular}';
@@ -66,9 +66,9 @@ class SpecificVolumeUnits extends SpecificVolume with Units {
   @override
   Type get quantityType => SpecificVolume;
 
-  /// Derive new SpecificVolumeUnits using this SpecificVolumeUnits object as the base.
+  /// Derive SpecificVolumeUnits using this SpecificVolumeUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpecificVolumeUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => SpecificVolumeUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

@@ -12,7 +12,7 @@ class Resistance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Resistance({dynamic ohms, double uncert = 0.0}) : super(ohms ?? 0.0, Resistance.ohms, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Resistance.misc(dynamic conv) : super.misc(conv, Resistance.electricResistanceDimensions);
 
   /// Constructs a Resistance based on the [value]
@@ -25,17 +25,16 @@ class Resistance extends Quantity {
       : super.constant(valueSI, Resistance.electricResistanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions electricResistanceDimensions = const Dimensions.constant(
-      const <String, int>{'Current': -2, 'Time': -3, 'Length': 2, 'Mass': 1},
-      qType: Resistance);
+  static const Dimensions electricResistanceDimensions =
+      Dimensions.constant(<String, int>{'Current': -2, 'Time': -3, 'Length': 2, 'Mass': 1}, qType: Resistance);
 
   /// The standard SI unit.
-  static final ResistanceUnits ohms = new ResistanceUnits('ohms', '\u2126', '\u03a9', null, 1.0, true);
+  static final ResistanceUnits ohms = ResistanceUnits('ohms', '\u2126', '\u03a9', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing Resistance quantities.
 class ResistanceUnits extends Resistance with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ResistanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -52,9 +51,9 @@ class ResistanceUnits extends Resistance with Units {
   @override
   Type get quantityType => Resistance;
 
-  /// Derive new ResistanceUnits using this ResistanceUnits object as the base.
+  /// Derive ResistanceUnits using this ResistanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ResistanceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ResistanceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

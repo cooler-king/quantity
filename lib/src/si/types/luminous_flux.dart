@@ -16,7 +16,7 @@ class LuminousFlux extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   LuminousFlux({dynamic lm, double uncert = 0.0}) : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   LuminousFlux.misc(dynamic conv) : super.misc(conv, LuminousFlux.luminousFluxDimensions);
 
   /// Constructs a LuminousFlux based on the [value]
@@ -30,15 +30,15 @@ class LuminousFlux extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions luminousFluxDimensions =
-      const Dimensions.constant(const <String, int>{'Intensity': 1, 'Solid Angle': 1}, qType: LuminousFlux);
+      Dimensions.constant(<String, int>{'Intensity': 1, 'Solid Angle': 1}, qType: LuminousFlux);
 
   /// The standard SI unit.
-  static final LuminousFluxUnits lumens = new LuminousFluxUnits('lumens', null, 'lm', null, 1.0, true);
+  static final LuminousFluxUnits lumens = LuminousFluxUnits('lumens', null, 'lm', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing LuminousFlux quantities.
 class LuminousFluxUnits extends LuminousFlux with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   LuminousFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -55,9 +55,9 @@ class LuminousFluxUnits extends LuminousFlux with Units {
   @override
   Type get quantityType => LuminousFlux;
 
-  /// Derive new LuminousFluxUnits using this LuminousFluxUnits object as the base.
+  /// Derive LuminousFluxUnits using this LuminousFluxUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new LuminousFluxUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => LuminousFluxUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

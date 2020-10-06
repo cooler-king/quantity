@@ -31,7 +31,7 @@ class Time extends Quantity {
                         : (h != null ? Time.hoursMeanSolar : (min != null ? Time.minutesMeanSolar : Time.seconds)))),
             uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Time.misc(dynamic conv) : super.misc(conv, Time.timeDimensions);
 
   /// Constructs a Time based on the [value]
@@ -46,23 +46,23 @@ class Time extends Quantity {
   Time.fromDuration(Duration d) : super((d != null) ? d.inMicroseconds.toDouble() / 1.0e6 : 0.0, Time.seconds);
 
   /// Dimensions for this type of quantity
-  static const Dimensions timeDimensions = const Dimensions.constant(const <String, int>{'Time': 1}, qType: Time);
+  static const Dimensions timeDimensions = Dimensions.constant(<String, int>{'Time': 1}, qType: Time);
 
   // Units.
 
   /// The standard SI unit.
-  static final TimeUnits seconds = new TimeUnits('seconds', 'sec', 's', null, Double.one, true);
+  static final TimeUnits seconds = TimeUnits('seconds', 'sec', 's', null, Double.one, true);
 
   /// Accepted for use with the SI.
   // ignore: prefer_int_literals
-  static final TimeUnits daysMeanSolar = new TimeUnits('days', 'days', 'd', null, const Double.constant(8.64e4), false);
+  static final TimeUnits daysMeanSolar = TimeUnits('days', 'days', 'd', null, const Double.constant(8.64e4), false);
 
   /// Accepted for use with the SI.
-  static final TimeUnits hoursMeanSolar = new TimeUnits('hours', 'hrs', 'h', null, const Double.constant(3600), false);
+  static final TimeUnits hoursMeanSolar = TimeUnits('hours', 'hrs', 'h', null, const Double.constant(3600), false);
 
   /// Accepted for use with the SI.
   static final TimeUnits minutesMeanSolar =
-      new TimeUnits('minutes', 'minutes', 'min', null, const Double.constant(60), false);
+      TimeUnits('minutes', 'minutes', 'min', null, const Double.constant(60), false);
 
   // Common metric derivations.
 
@@ -89,12 +89,12 @@ class Time extends Quantity {
   /// Create a dart:core Duration object with the same time interval as this
   /// Time object, to microsecond precision (the maximum precision of the
   /// Duration object).
-  Duration toDuration() => new Duration(microseconds: (valueSI.toDouble() * 1000000.0).round());
+  Duration toDuration() => Duration(microseconds: (valueSI.toDouble() * 1000000.0).round());
 }
 
 /// Units acceptable for use in describing [Time] quantities.
 class TimeUnits extends Time with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   TimeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -111,9 +111,9 @@ class TimeUnits extends Time with Units {
   @override
   Type get quantityType => Time;
 
-  /// Derive new TimeUnits using this TimeUnits object as the base.
+  /// Derive TimeUnits using this TimeUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TimeUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => TimeUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

@@ -21,7 +21,7 @@ class AngularAcceleration extends Quantity {
                 : AngularAcceleration.radiansPerSecondSquared,
             uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   AngularAcceleration.misc(dynamic conv) : super.misc(conv, AngularAcceleration.angularAccelerationDimensions);
 
   /// Constructs a AngularAcceleration based on the [value]
@@ -35,20 +35,20 @@ class AngularAcceleration extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions angularAccelerationDimensions =
-      const Dimensions.constant(const <String, int>{'Angle': 1, 'Time': -2}, qType: AngularAcceleration);
+      Dimensions.constant(<String, int>{'Angle': 1, 'Time': -2}, qType: AngularAcceleration);
 
   /// The Standard SI unit.
   static final AngularAccelerationUnits radiansPerSecondSquared =
-      new AngularAccelerationUnits.angleTime(Angle.radians, Time.seconds);
+      AngularAccelerationUnits.angleTime(Angle.radians, Time.seconds);
 
   /// Accepted for use with the SI.
   static final AngularAccelerationUnits degreesPerSecondSquared =
-      new AngularAccelerationUnits.angleTime(Angle.degrees, Time.seconds);
+      AngularAccelerationUnits.angleTime(Angle.degrees, Time.seconds);
 }
 
 /// Units acceptable for use in describing AngularAcceleration quantities.
 class AngularAccelerationUnits extends AngularAcceleration with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   AngularAccelerationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -61,7 +61,7 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from angle and time units.
+  /// Constructs a instance from angle and time units.
   AngularAccelerationUnits.angleTime(AngleUnits au, TimeUnits tu) : super.misc(au.valueSI * tu.valueSI) {
     name = '${au.name} per ${tu.singular} squared';
     singular = '${au.singular} per ${tu.singular} squared';
@@ -76,9 +76,9 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
   @override
   Type get quantityType => AngularAcceleration;
 
-  /// Derive new AngularAccelerationUnits using this AngularAccelerationUnits object as the base.
+  /// Derive AngularAccelerationUnits using this AngularAccelerationUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AngularAccelerationUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AngularAccelerationUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

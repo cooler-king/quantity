@@ -15,7 +15,7 @@ class SurfaceTension extends Quantity {
   SurfaceTension({dynamic newtonsPerMeter, double uncert = 0.0})
       : super(newtonsPerMeter ?? 0.0, SurfaceTension.newtonsPerMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   SurfaceTension.misc(dynamic conv) : super.misc(conv, SurfaceTension.surfaceTensionDimensions);
 
   /// Constructs a SurfaceTension based on the [value]
@@ -29,16 +29,15 @@ class SurfaceTension extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions surfaceTensionDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -2}, qType: SurfaceTension);
+      Dimensions.constant(<String, int>{'Mass': 1, 'Time': -2}, qType: SurfaceTension);
 
   /// The standard SI unit.
-  static final SurfaceTensionUnits newtonsPerMeter =
-      new SurfaceTensionUnits.forcePerLength(Force.newtons, Length.meters);
+  static final SurfaceTensionUnits newtonsPerMeter = SurfaceTensionUnits.forcePerLength(Force.newtons, Length.meters);
 }
 
 /// Units acceptable for use in describing SurfaceTension quantities.
 class SurfaceTensionUnits extends SurfaceTension with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   SurfaceTensionUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +50,7 @@ class SurfaceTensionUnits extends SurfaceTension with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on force and length units.
+  /// Constructs a instance based on force and length units.
   SurfaceTensionUnits.forcePerLength(ForceUnits fu, LengthUnits lu) : super.misc(fu.valueSI / lu.valueSI) {
     name = '${fu.name} per ${lu.singular}';
     singular = '${fu.singular} per ${lu.singular}';
@@ -66,9 +65,9 @@ class SurfaceTensionUnits extends SurfaceTension with Units {
   @override
   Type get quantityType => SurfaceTension;
 
-  /// Derive new SurfaceTensionUnits using this SurfaceTensionUnits object as the base.
+  /// Derive SurfaceTensionUnits using this SurfaceTensionUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SurfaceTensionUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => SurfaceTensionUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

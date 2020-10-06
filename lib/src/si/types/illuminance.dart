@@ -12,7 +12,7 @@ class Illuminance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Illuminance({dynamic lux, double uncert = 0.0}) : super(lux ?? 0.0, Illuminance.lux, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Illuminance.misc(dynamic conv) : super.misc(conv, Illuminance.illuminanceDimensions);
 
   /// Constructs a Illuminance based on the [value]
@@ -25,18 +25,17 @@ class Illuminance extends Quantity {
       : super.constant(valueSI, Illuminance.illuminanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions illuminanceDimensions = const Dimensions.constant(
-      const <String, int>{'Length': -2, 'Intensity': 1, 'Solid Angle': 1},
-      qType: Illuminance);
+  static const Dimensions illuminanceDimensions =
+      Dimensions.constant(<String, int>{'Length': -2, 'Intensity': 1, 'Solid Angle': 1}, qType: Illuminance);
 
   /// The standard SI unit.
   // Note: singular same as plural
-  static final IlluminanceUnits lux = new IlluminanceUnits('lux', null, 'lx', 'lux', 1.0, true);
+  static final IlluminanceUnits lux = IlluminanceUnits('lux', null, 'lx', 'lux', 1.0, true);
 }
 
 /// Units acceptable for use in describing Illuminance quantities.
 class IlluminanceUnits extends Illuminance with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   IlluminanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,9 +52,9 @@ class IlluminanceUnits extends Illuminance with Units {
   @override
   Type get quantityType => Illuminance;
 
-  /// Derive new IlluminanceUnits using this IlluminanceUnits object as the base.
+  /// Derive IlluminanceUnits using this IlluminanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new IlluminanceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => IlluminanceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

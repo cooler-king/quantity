@@ -82,7 +82,7 @@ import 'types/wave_number.dart';
 import 'units.dart';
 
 /// Logger for use across entire library
-Logger logger = new Logger('quantity core')
+Logger logger = Logger('quantity core')
   ..onRecord.listen((LogRecord record) {
     // ignore: avoid_print
     print('${record.level}: ${record.message}');
@@ -98,122 +98,113 @@ Logger logger = new Logger('quantity core')
 bool dynamicQuantityTyping = true;
 
 /// Maps each quantity type to a function that can be used to create an instance of that type.
-final LinkedHashMap<Type, Function> _typeInstantiatorMap = new LinkedHashMap<Type, Function>.from(<Type, Function>{
-  AbsorbedDose: (dynamic value, AbsorbedDoseUnits units, double uncert) =>
-      new AbsorbedDose.inUnits(value, units, uncert),
+final LinkedHashMap<Type, Function> _typeInstantiatorMap = LinkedHashMap<Type, Function>.from(<Type, Function>{
+  AbsorbedDose: (dynamic value, AbsorbedDoseUnits units, double uncert) => AbsorbedDose.inUnits(value, units, uncert),
   AbsorbedDoseRate: (dynamic value, AbsorbedDoseRateUnits units, double uncert) =>
-      new AbsorbedDoseRate.inUnits(value, units, uncert),
-  Acceleration: (dynamic value, AccelerationUnits units, double uncert) =>
-      new Acceleration.inUnits(value, units, uncert),
-  Activity: (dynamic value, ActivityUnits units, double uncert) => new Activity.inUnits(value, units, uncert),
+      AbsorbedDoseRate.inUnits(value, units, uncert),
+  Acceleration: (dynamic value, AccelerationUnits units, double uncert) => Acceleration.inUnits(value, units, uncert),
+  Activity: (dynamic value, ActivityUnits units, double uncert) => Activity.inUnits(value, units, uncert),
   AmountOfSubstance: (dynamic value, AmountOfSubstanceUnits units, double uncert) =>
-      new AmountOfSubstance.inUnits(value, units, uncert),
-  Angle: (dynamic value, AngleUnits units, double uncert) => new Angle.inUnits(value, units, uncert),
+      AmountOfSubstance.inUnits(value, units, uncert),
+  Angle: (dynamic value, AngleUnits units, double uncert) => Angle.inUnits(value, units, uncert),
   AngularAcceleration: (dynamic value, AngularAccelerationUnits units, double uncert) =>
-      new AngularAcceleration.inUnits(value, units, uncert),
+      AngularAcceleration.inUnits(value, units, uncert),
   AngularMomentum: (dynamic value, AngularMomentumUnits units, double uncert) =>
-      new AngularMomentum.inUnits(value, units, uncert),
-  AngularSpeed: (dynamic value, AngularSpeedUnits units, double uncert) =>
-      new AngularSpeed.inUnits(value, units, uncert),
-  Area: (dynamic value, AreaUnits units, double uncert) => new Area.inUnits(value, units, uncert),
-  Capacitance: (dynamic value, CapacitanceUnits units, double uncert) => new Capacitance.inUnits(value, units, uncert),
+      AngularMomentum.inUnits(value, units, uncert),
+  AngularSpeed: (dynamic value, AngularSpeedUnits units, double uncert) => AngularSpeed.inUnits(value, units, uncert),
+  Area: (dynamic value, AreaUnits units, double uncert) => Area.inUnits(value, units, uncert),
+  Capacitance: (dynamic value, CapacitanceUnits units, double uncert) => Capacitance.inUnits(value, units, uncert),
   CatalyticActivity: (dynamic value, CatalyticActivityUnits units, double uncert) =>
-      new CatalyticActivity.inUnits(value, units, uncert),
-  Charge: (dynamic value, ChargeUnits units, double uncert) => new Charge.inUnits(value, units, uncert),
+      CatalyticActivity.inUnits(value, units, uncert),
+  Charge: (dynamic value, ChargeUnits units, double uncert) => Charge.inUnits(value, units, uncert),
   ChargeDensity: (dynamic value, ChargeDensityUnits units, double uncert) =>
-      new ChargeDensity.inUnits(value, units, uncert),
+      ChargeDensity.inUnits(value, units, uncert),
   Concentration: (dynamic value, ConcentrationUnits units, double uncert) =>
-      new Concentration.inUnits(value, units, uncert),
-  Conductance: (dynamic value, ConductanceUnits units, double uncert) => new Conductance.inUnits(value, units, uncert),
-  Currency: (dynamic value, CurrencyUnits units, double uncert) => new Currency.inUnits(value, units, uncert),
-  Current: (dynamic value, CurrentUnits units, double uncert) => new Current.inUnits(value, units, uncert),
+      Concentration.inUnits(value, units, uncert),
+  Conductance: (dynamic value, ConductanceUnits units, double uncert) => Conductance.inUnits(value, units, uncert),
+  Currency: (dynamic value, CurrencyUnits units, double uncert) => Currency.inUnits(value, units, uncert),
+  Current: (dynamic value, CurrentUnits units, double uncert) => Current.inUnits(value, units, uncert),
   CurrentDensity: (dynamic value, CurrentDensityUnits units, double uncert) =>
-      new CurrentDensity.inUnits(value, units, uncert),
+      CurrentDensity.inUnits(value, units, uncert),
   DoseEquivalent: (dynamic value, DoseEquivalentUnits units, double uncert) =>
-      new DoseEquivalent.inUnits(value, units, uncert),
+      DoseEquivalent.inUnits(value, units, uncert),
   DynamicViscosity: (dynamic value, DynamicViscosityUnits units, double uncert) =>
-      new DynamicViscosity.inUnits(value, units, uncert),
+      DynamicViscosity.inUnits(value, units, uncert),
   ElectricFieldStrength: (dynamic value, ElectricFieldStrengthUnits units, double uncert) =>
-      new ElectricFieldStrength.inUnits(value, units, uncert),
+      ElectricFieldStrength.inUnits(value, units, uncert),
   ElectricFluxDensity: (dynamic value, ElectricFluxDensityUnits units, double uncert) =>
-      new ElectricFluxDensity.inUnits(value, units, uncert),
+      ElectricFluxDensity.inUnits(value, units, uncert),
   ElectricPotentialDifference: (dynamic value, ElectricPotentialDifferenceUnits units, double uncert) =>
-      new ElectricPotentialDifference.inUnits(value, units, uncert),
-  Energy: (dynamic value, EnergyUnits units, double uncert) => new Energy.inUnits(value, units, uncert),
+      ElectricPotentialDifference.inUnits(value, units, uncert),
+  Energy: (dynamic value, EnergyUnits units, double uncert) => Energy.inUnits(value, units, uncert),
   EnergyDensity: (dynamic value, EnergyDensityUnits units, double uncert) =>
-      new EnergyDensity.inUnits(value, units, uncert),
-  EnergyFlux: (dynamic value, EnergyFluxUnits units, double uncert) => new EnergyFlux.inUnits(value, units, uncert),
-  Entropy: (dynamic value, EntropyUnits units, double uncert) => new Entropy.inUnits(value, units, uncert),
-  Exposure: (dynamic value, ExposureUnits units, double uncert) => new Exposure.inUnits(value, units, uncert),
-  FieldLevel: (dynamic value, LevelUnits units, double uncert) => new FieldLevel.inUnits(value, units, uncert),
-  Force: (dynamic value, ForceUnits units, double uncert) => new Force.inUnits(value, units, uncert),
-  Frequency: (dynamic value, FrequencyUnits units, double uncert) => new Frequency.inUnits(value, units, uncert),
+      EnergyDensity.inUnits(value, units, uncert),
+  EnergyFlux: (dynamic value, EnergyFluxUnits units, double uncert) => EnergyFlux.inUnits(value, units, uncert),
+  Entropy: (dynamic value, EntropyUnits units, double uncert) => Entropy.inUnits(value, units, uncert),
+  Exposure: (dynamic value, ExposureUnits units, double uncert) => Exposure.inUnits(value, units, uncert),
+  FieldLevel: (dynamic value, LevelUnits units, double uncert) => FieldLevel.inUnits(value, units, uncert),
+  Force: (dynamic value, ForceUnits units, double uncert) => Force.inUnits(value, units, uncert),
+  Frequency: (dynamic value, FrequencyUnits units, double uncert) => Frequency.inUnits(value, units, uncert),
   HeatFluxDensity: (dynamic value, HeatFluxDensityUnits units, double uncert) =>
-      new HeatFluxDensity.inUnits(value, units, uncert),
-  Illuminance: (dynamic value, IlluminanceUnits units, double uncert) => new Illuminance.inUnits(value, units, uncert),
-  Inductance: (dynamic value, InductanceUnits units, double uncert) => new Inductance.inUnits(value, units, uncert),
-  Information: (dynamic value, InformationUnits units, double uncert) => new Information.inUnits(value, units, uncert),
+      HeatFluxDensity.inUnits(value, units, uncert),
+  Illuminance: (dynamic value, IlluminanceUnits units, double uncert) => Illuminance.inUnits(value, units, uncert),
+  Inductance: (dynamic value, InductanceUnits units, double uncert) => Inductance.inUnits(value, units, uncert),
+  Information: (dynamic value, InformationUnits units, double uncert) => Information.inUnits(value, units, uncert),
   InformationRate: (dynamic value, InformationRateUnits units, double uncert) =>
-      new InformationRate.inUnits(value, units, uncert),
+      InformationRate.inUnits(value, units, uncert),
   KinematicViscosity: (dynamic value, KinematicViscosityUnits units, double uncert) =>
-      new KinematicViscosity.inUnits(value, units, uncert),
-  Length: (dynamic value, LengthUnits units, double uncert) => new Length.inUnits(value, units, uncert),
-  Luminance: (dynamic value, LuminanceUnits units, double uncert) => new Luminance.inUnits(value, units, uncert),
-  LuminousFlux: (dynamic value, LuminousFluxUnits units, double uncert) =>
-      new LuminousFlux.inUnits(value, units, uncert),
+      KinematicViscosity.inUnits(value, units, uncert),
+  Length: (dynamic value, LengthUnits units, double uncert) => Length.inUnits(value, units, uncert),
+  Luminance: (dynamic value, LuminanceUnits units, double uncert) => Luminance.inUnits(value, units, uncert),
+  LuminousFlux: (dynamic value, LuminousFluxUnits units, double uncert) => LuminousFlux.inUnits(value, units, uncert),
   LuminousIntensity: (dynamic value, LuminousIntensityUnits units, double uncert) =>
-      new LuminousIntensity.inUnits(value, units, uncert),
+      LuminousIntensity.inUnits(value, units, uncert),
   MagneticFieldStrength: (dynamic value, MagneticFieldStrengthUnits units, double uncert) =>
-      new MagneticFieldStrength.inUnits(value, units, uncert),
-  MagneticFlux: (dynamic value, MagneticFluxUnits units, double uncert) =>
-      new MagneticFlux.inUnits(value, units, uncert),
+      MagneticFieldStrength.inUnits(value, units, uncert),
+  MagneticFlux: (dynamic value, MagneticFluxUnits units, double uncert) => MagneticFlux.inUnits(value, units, uncert),
   MagneticFluxDensity: (dynamic value, MagneticFluxDensityUnits units, double uncert) =>
-      new MagneticFluxDensity.inUnits(value, units, uncert),
-  Mass: (dynamic value, MassUnits units, double uncert) => new Mass.inUnits(value, units, uncert),
-  MassDensity: (dynamic value, MassDensityUnits units, double uncert) => new MassDensity.inUnits(value, units, uncert),
-  MassFlowRate: (dynamic value, MassFlowRateUnits units, double uncert) =>
-      new MassFlowRate.inUnits(value, units, uncert),
+      MagneticFluxDensity.inUnits(value, units, uncert),
+  Mass: (dynamic value, MassUnits units, double uncert) => Mass.inUnits(value, units, uncert),
+  MassDensity: (dynamic value, MassDensityUnits units, double uncert) => MassDensity.inUnits(value, units, uncert),
+  MassFlowRate: (dynamic value, MassFlowRateUnits units, double uncert) => MassFlowRate.inUnits(value, units, uncert),
   MassFluxDensity: (dynamic value, MassFluxDensityUnits units, double uncert) =>
-      new MassFluxDensity.inUnits(value, units, uncert),
-  MolarEnergy: (dynamic value, MolarEnergyUnits units, double uncert) => new MolarEnergy.inUnits(value, units, uncert),
-  MolarEntropy: (dynamic value, MolarEntropyUnits units, double uncert) =>
-      new MolarEntropy.inUnits(value, units, uncert),
-  Permeability: (dynamic value, PermeabilityUnits units, double uncert) =>
-      new Permeability.inUnits(value, units, uncert),
-  Permittivity: (dynamic value, PermittivityUnits units, double uncert) =>
-      new Permittivity.inUnits(value, units, uncert),
-  Power: (dynamic value, PowerUnits units, double uncert) => new Power.inUnits(value, units, uncert),
-  PowerLevel: (dynamic value, LevelUnits units, double uncert) => new PowerLevel.inUnits(value, units, uncert),
-  Pressure: (dynamic value, PressureUnits units, double uncert) => new Pressure.inUnits(value, units, uncert),
-  Radiance: (dynamic value, RadianceUnits units, double uncert) => new Radiance.inUnits(value, units, uncert),
+      MassFluxDensity.inUnits(value, units, uncert),
+  MolarEnergy: (dynamic value, MolarEnergyUnits units, double uncert) => MolarEnergy.inUnits(value, units, uncert),
+  MolarEntropy: (dynamic value, MolarEntropyUnits units, double uncert) => MolarEntropy.inUnits(value, units, uncert),
+  Permeability: (dynamic value, PermeabilityUnits units, double uncert) => Permeability.inUnits(value, units, uncert),
+  Permittivity: (dynamic value, PermittivityUnits units, double uncert) => Permittivity.inUnits(value, units, uncert),
+  Power: (dynamic value, PowerUnits units, double uncert) => Power.inUnits(value, units, uncert),
+  PowerLevel: (dynamic value, LevelUnits units, double uncert) => PowerLevel.inUnits(value, units, uncert),
+  Pressure: (dynamic value, PressureUnits units, double uncert) => Pressure.inUnits(value, units, uncert),
+  Radiance: (dynamic value, RadianceUnits units, double uncert) => Radiance.inUnits(value, units, uncert),
   RadiantIntensity: (dynamic value, RadiantIntensityUnits units, double uncert) =>
-      new RadiantIntensity.inUnits(value, units, uncert),
-  Resistance: (dynamic value, ResistanceUnits units, double uncert) => new Resistance.inUnits(value, units, uncert),
-  Scalar: (dynamic value, ScalarUnits units, double uncert) => new Scalar.inUnits(value, units, uncert),
-  SolidAngle: (dynamic value, SolidAngleUnits units, double uncert) => new SolidAngle.inUnits(value, units, uncert),
+      RadiantIntensity.inUnits(value, units, uncert),
+  Resistance: (dynamic value, ResistanceUnits units, double uncert) => Resistance.inUnits(value, units, uncert),
+  Scalar: (dynamic value, ScalarUnits units, double uncert) => Scalar.inUnits(value, units, uncert),
+  SolidAngle: (dynamic value, SolidAngleUnits units, double uncert) => SolidAngle.inUnits(value, units, uncert),
   SpecificEnergy: (dynamic value, SpecificEnergyUnits units, double uncert) =>
-      new SpecificEnergy.inUnits(value, units, uncert),
+      SpecificEnergy.inUnits(value, units, uncert),
   SpecificHeatCapacity: (dynamic value, SpecificHeatCapacityUnits units, double uncert) =>
-      new SpecificHeatCapacity.inUnits(value, units, uncert),
+      SpecificHeatCapacity.inUnits(value, units, uncert),
   SpecificVolume: (dynamic value, SpecificVolumeUnits units, double uncert) =>
-      new SpecificVolume.inUnits(value, units, uncert),
+      SpecificVolume.inUnits(value, units, uncert),
   SpectralIrradiance: (dynamic value, SpectralIrradianceUnits units, double uncert) =>
-      new SpectralIrradiance.inUnits(value, units, uncert),
-  Speed: (dynamic value, SpeedUnits units, double uncert) => new Speed.inUnits(value, units, uncert),
+      SpectralIrradiance.inUnits(value, units, uncert),
+  Speed: (dynamic value, SpeedUnits units, double uncert) => Speed.inUnits(value, units, uncert),
   SurfaceTension: (dynamic value, SurfaceTensionUnits units, double uncert) =>
-      new SurfaceTension.inUnits(value, units, uncert),
-  Temperature: (dynamic value, TemperatureUnits units, double uncert) => new Temperature.inUnits(value, units, uncert),
+      SurfaceTension.inUnits(value, units, uncert),
+  Temperature: (dynamic value, TemperatureUnits units, double uncert) => Temperature.inUnits(value, units, uncert),
   TemperatureInterval: (dynamic value, TemperatureIntervalUnits units, double uncert) =>
-      new TemperatureInterval.inUnits(value, units, uncert),
+      TemperatureInterval.inUnits(value, units, uncert),
   ThermalConductivity: (dynamic value, ThermalConductivityUnits units, double uncert) =>
-      new ThermalConductivity.inUnits(value, units, uncert),
-  Time: (dynamic value, TimeUnits units, double uncert) => new Time.inUnits(value, units, uncert),
-  TimeInstant: (dynamic value, TimeInstantUnits units, double uncert) => new TimeInstant.inUnits(value, units, uncert),
-  Torque: (dynamic value, TorqueUnits units, double uncert) => new Torque.inUnits(value, units, uncert),
-  Volume: (dynamic value, VolumeUnits units, double uncert) => new Volume.inUnits(value, units, uncert),
+      ThermalConductivity.inUnits(value, units, uncert),
+  Time: (dynamic value, TimeUnits units, double uncert) => Time.inUnits(value, units, uncert),
+  TimeInstant: (dynamic value, TimeInstantUnits units, double uncert) => TimeInstant.inUnits(value, units, uncert),
+  Torque: (dynamic value, TorqueUnits units, double uncert) => Torque.inUnits(value, units, uncert),
+  Volume: (dynamic value, VolumeUnits units, double uncert) => Volume.inUnits(value, units, uncert),
   VolumeFlowRate: (dynamic value, VolumeFlowRateUnits units, double uncert) =>
-      new VolumeFlowRate.inUnits(value, units, uncert),
-  WaveNumber: (dynamic value, WaveNumberUnits units, double uncert) => new WaveNumber.inUnits(value, units, uncert)
+      VolumeFlowRate.inUnits(value, units, uncert),
+  WaveNumber: (dynamic value, WaveNumberUnits units, double uncert) => WaveNumber.inUnits(value, units, uncert)
 });
 
 ///  Returns whether or not [q] is one of the seven SI base quantities.
@@ -235,7 +226,7 @@ bool siBaseQuantity(Quantity q) =>
 /// quantities is less than or equal to the specified [tolerance].
 bool areWithin(Quantity q1, Quantity q2, Quantity tolerance) {
   if (q1.dimensions != q2.dimensions || q2.dimensions != tolerance.dimensions) {
-    throw new DimensionsException('The two quantities and tolerance must have the same dimensions');
+    throw DimensionsException('The two quantities and tolerance must have the same dimensions');
   }
 
   return (q1 - q2).abs().valueSI <= tolerance.valueSI;
@@ -261,7 +252,7 @@ bool siDerivedQuantity(Quantity q) => !siBaseQuantity(q);
 ///    all quantity types that are NOT explicitly supported).
 Iterable<Type> get allQuantityTypes => _typeInstantiatorMap.keys;
 
-/// Creates a new instance of a typed quantity of type [t] having the specified
+/// Creates a instance of a typed quantity of type [t] having the specified
 /// [value] in [units].
 ///
 /// If type [t] is not recognized a [MiscQuantity] with [value] and the dimensions
@@ -273,19 +264,21 @@ Iterable<Type> get allQuantityTypes => _typeInstantiatorMap.keys;
 ///
 /// The quantity's relative uncertainty can optionally be provided (defaults to 0).
 Quantity createTypedQuantityInstance(Type t, dynamic value, Units units, {double uncert = 0.0, Dimensions dimensions}) {
-  final Function quantityInstantiator = _typeInstantiatorMap[t];
-  if (quantityInstantiator != null)
+  final quantityInstantiator = _typeInstantiatorMap[t];
+  if (quantityInstantiator != null) {
     return Function.apply(quantityInstantiator, <dynamic>[value, units, uncert]) as Quantity;
+  }
 
   // Fall back to MiscQuantity.
-  if (units == null && dimensions == null)
-    throw new DimensionsException(
+  if (units == null && dimensions == null) {
+    throw DimensionsException(
         'Dimensions must be provided if units are not when creating an instance of an unrecognized quantity type');
-  return new MiscQuantity(value, (units as Quantity)?.dimensions, uncert);
+  }
+  return MiscQuantity(value, (units as Quantity)?.dimensions, uncert);
 }
 
 /// Maps a digit, decimal point or minus sign string to a unicode exponent character.
-const Map<String, String> expUnicodeMap = const <String, String>{
+const Map<String, String> expUnicodeMap = <String, String>{
   '0': '\u{2070}',
   '1': '\u{00b9}',
   '2': '\u{00b2}',
@@ -303,11 +296,11 @@ const Map<String, String> expUnicodeMap = const <String, String>{
 /// Returns the unicode symbols that represent an exponent.
 String unicodeExponent(num exp) {
   if (exp == null) return '';
-  final String neg = exp < 0 ? '\u{207b}' : '';
-  final num absExp = exp.abs();
-  final String expStr = absExp.toString();
-  final StringBuffer buf = new StringBuffer()..write(neg);
-  for (int place = 0; place < expStr.length; place++) {
+  final neg = exp < 0 ? '\u{207b}' : '';
+  final absExp = exp.abs();
+  final expStr = absExp.toString();
+  final buf = StringBuffer()..write(neg);
+  for (var place = 0; place < expStr.length; place++) {
     buf.write(expUnicodeMap[expStr[place]]);
   }
 

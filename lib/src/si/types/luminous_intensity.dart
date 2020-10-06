@@ -14,7 +14,7 @@ class LuminousIntensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   LuminousIntensity({dynamic cd, double uncert = 0.0}) : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   LuminousIntensity.misc(dynamic conv) : super.misc(conv, LuminousIntensity.luminousIntensityDimensions);
 
   /// Constructs a LuminousIntensity based on the [value]
@@ -28,15 +28,15 @@ class LuminousIntensity extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions luminousIntensityDimensions =
-      const Dimensions.constant(const <String, int>{'Intensity': 1}, qType: LuminousIntensity);
+      Dimensions.constant(<String, int>{'Intensity': 1}, qType: LuminousIntensity);
 
   /// The standard SI unit.
-  static final LuminousIntensityUnits candelas = new LuminousIntensityUnits('candelas', 'cd', null, null, 1.0, true);
+  static final LuminousIntensityUnits candelas = LuminousIntensityUnits('candelas', 'cd', null, null, 1.0, true);
 }
 
 /// Units acceptable for use in describing [LuminousIntensity] quantities.
 class LuminousIntensityUnits extends LuminousIntensity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   LuminousIntensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,9 +53,9 @@ class LuminousIntensityUnits extends LuminousIntensity with Units {
   @override
   Type get quantityType => LuminousIntensity;
 
-  /// Derive new LuminousIntensityUnits using this LuminousIntensityUnits object as the base.
+  /// Derive LuminousIntensityUnits using this LuminousIntensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new LuminousIntensityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => LuminousIntensityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

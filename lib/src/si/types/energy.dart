@@ -18,7 +18,7 @@ class Energy extends Quantity {
   Energy({dynamic J, dynamic eV, double uncert = 0.0})
       : super(J ?? (eV ?? 0.0), eV != null ? Energy.electronVolts : Energy.joules, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Energy.misc(dynamic conv) : super.misc(conv, Energy.energyDimensions);
 
   /// Constructs a Energy based on the [value]
@@ -32,29 +32,29 @@ class Energy extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions energyDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Mass': 1, 'Time': -2}, qType: Energy);
+      Dimensions.constant(<String, int>{'Length': 2, 'Mass': 1, 'Time': -2}, qType: Energy);
 
   /// The standard SI unit.
-  static final EnergyUnits joules = new EnergyUnits('joules', null, 'J', null, 1.0, true);
+  static final EnergyUnits joules = EnergyUnits('joules', null, 'J', null, 1.0, true);
 
   /// Accepted for use with the SI.
-  static final EnergyUnits electronVolts = new EnergyUnits('electronvolts', null, 'eV', null, 1.60217653e-19, false);
+  static final EnergyUnits electronVolts = EnergyUnits('electronvolts', null, 'eV', null, 1.60217653e-19, false);
 
   /// Returns the [Mass] equivalent of this Energy using the famous E=mc^2 relationship.
   Mass toMass() {
     if (valueSI is Precise) {
-      final Precise c = new Precise('2.99792458e8');
-      return new Mass(kg: valueSI / (c * c), uncert: relativeUncertainty);
+      final c = Precise('2.99792458e8');
+      return Mass(kg: valueSI / (c * c), uncert: relativeUncertainty);
     } else {
-      const double c = 299792458;
-      return new Mass(kg: valueSI / (c * c), uncert: relativeUncertainty);
+      const c = 299792458;
+      return Mass(kg: valueSI / (c * c), uncert: relativeUncertainty);
     }
   }
 }
 
 /// Units acceptable for use in describing Energy quantities.
 class EnergyUnits extends Energy with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   EnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -67,7 +67,7 @@ class EnergyUnits extends Energy with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on power and time units.
+  /// Constructs a instance based on power and time units.
   EnergyUnits.powerTime(PowerUnits pu, TimeUnits tu) : super.misc(pu.valueSI * tu.valueSI) {
     name = '${pu.singular} ${tu.name}';
     singular = '${pu.singular} ${tu.singular}';
@@ -82,9 +82,9 @@ class EnergyUnits extends Energy with Units {
   @override
   Type get quantityType => Energy;
 
-  /// Derive new EnergyUnits using this EnergyUnits object as the base.
+  /// Derive EnergyUnits using this EnergyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new EnergyUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => EnergyUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

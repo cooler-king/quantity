@@ -30,7 +30,7 @@ import 'utilities.dart' show expUnicodeMap, logger;
 /// after the decimal.  Therefore, this class directly extends NumberFormat
 /// and provides implementations for format and parse.
 class NumberFormatSI extends NumberFormat {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   NumberFormatSI({this.unicode = false}) : super.scientificPattern();
 
   /// Output in unicode (using unicode thin spaces instead of regular ascii spaces).
@@ -44,7 +44,7 @@ class NumberFormatSI extends NumberFormat {
     if (value is num) {
       realStr = value.toString();
     } else {
-      final Number number = value is Number ? value : value is Quantity ? value.valueSI : null;
+      final number = value is Number ? value : value is Quantity ? value.valueSI : null;
       if (number is Integer) {
         realStr = number.toInt().toString();
       } else if (value is Double) {
@@ -52,13 +52,13 @@ class NumberFormatSI extends NumberFormat {
       } else if (number is Imaginary) {
         imagStr = number.value.toString();
       } else if (number is Complex) {
-        if (number.real != null && number.real.value.toDouble() != 0)
+        if (number.real != null && number.real.value.toDouble() != 0) {
           realStr = number.real?.isInteger == true ? '${number.real.toInt()}' : number.real?.toString();
-
-        if (number.imag != null && number.imag.value.toDouble() != 0)
+        }
+        if (number.imag != null && number.imag.value.toDouble() != 0) {
           imagStr =
               number.imag?.value?.isInteger == true ? '${number.imag.value.toInt()}' : number.imag?.value?.toString();
-
+        }
         if (realStr == null && imagStr == null) realStr = '0';
       } else if (number is Precise) {
         realStr = number.toString();
@@ -68,7 +68,7 @@ class NumberFormatSI extends NumberFormat {
     if (realStr?.isNotEmpty == true) realStr = adjustForExponent(realStr);
     if (imagStr?.isNotEmpty == true) imagStr = adjustForExponent(imagStr);
 
-    final StringBuffer buf = new StringBuffer();
+    final buf = StringBuffer();
     if (realStr?.isNotEmpty == true) buf.write(insertSpaces(realStr));
     if (imagStr?.isNotEmpty == true) {
       if (buf.isNotEmpty) {
@@ -79,8 +79,8 @@ class NumberFormatSI extends NumberFormat {
           buf.write(' + ');
         }
       }
-      final String s = insertSpaces(imagStr);
-      final int expIndex = _exponentIndex(s);
+      final s = insertSpaces(imagStr);
+      final expIndex = _exponentIndex(s);
       if (expIndex == -1) {
         buf..write(s)..write('i');
       } else {
@@ -97,31 +97,31 @@ class NumberFormatSI extends NumberFormat {
 
   /// Looks for the start of an exponent section.
   int _exponentIndex(String str) {
-    int expIndex = str.indexOf(' x 10');
+    var expIndex = str.indexOf(' x 10');
     if (expIndex == -1) expIndex = str.indexOf(' \u{00d7} 10');
     if (expIndex == -1) expIndex = str.indexOf('E');
     return expIndex;
   }
 
-  /// Returns a new String with spaces added according to SI guidelines.
+  /// Returns a String with spaces added according to SI guidelines.
   String insertSpaces(String str) {
     if (str == null) return null;
 
     // Remove any exponent piece and add it back in after spaces have been added.
-    final int expIndex = _exponentIndex(str);
-    final String numStr = expIndex != -1 ? str.substring(0, expIndex) : str;
+    final expIndex = _exponentIndex(str);
+    final numStr = expIndex != -1 ? str.substring(0, expIndex) : str;
 
-    final int decimalIndex = numStr.indexOf('.');
-    final int preCount = decimalIndex != -1 ? decimalIndex : numStr.length;
-    final int postCount = decimalIndex != -1 ? numStr.length - decimalIndex - 1 : 0;
+    final decimalIndex = numStr.indexOf('.');
+    final preCount = decimalIndex != -1 ? decimalIndex : numStr.length;
+    final postCount = decimalIndex != -1 ? numStr.length - decimalIndex - 1 : 0;
 
-    final StringBuffer buf = new StringBuffer();
+    final buf = StringBuffer();
 
     // Pre-decimal.
     if (preCount > 4) {
-      final String preStr = decimalIndex != -1 ? numStr.substring(0, decimalIndex) : numStr;
-      final int fullGroups = preStr.length ~/ 3;
-      int cursor = preStr.length - fullGroups * 3;
+      final preStr = decimalIndex != -1 ? numStr.substring(0, decimalIndex) : numStr;
+      final fullGroups = preStr.length ~/ 3;
+      var cursor = preStr.length - fullGroups * 3;
       if (cursor != 0) buf.write(preStr.substring(0, cursor));
       while (cursor + 3 <= preStr.length) {
         if (cursor != 0) buf.write(unicode ? '\u{2009}' : ' ');
@@ -142,7 +142,7 @@ class NumberFormatSI extends NumberFormat {
       if (postCount > 4) {
         // Insert a space after each grouping of 3.
         buf.write(numStr.substring(decimalIndex + 1, decimalIndex + 4));
-        int cursor = 3;
+        var cursor = 3;
         while (cursor < postCount) {
           buf
             ..write(unicode ? '\u{2009}' : ' ')
@@ -164,12 +164,12 @@ class NumberFormatSI extends NumberFormat {
   static String removeInsignificantZeros(String str) {
     try {
       if (str?.isNotEmpty != true) return str;
-      final int dotIndex = str.indexOf('.');
+      final dotIndex = str.indexOf('.');
       if (dotIndex == -1) return str;
-      final int eIndex = str.toLowerCase().indexOf('e');
-      final int decimalCount = eIndex == -1 ? str.length - dotIndex - 1 : eIndex - dotIndex - 1;
+      final eIndex = str.toLowerCase().indexOf('e');
+      final decimalCount = eIndex == -1 ? str.length - dotIndex - 1 : eIndex - dotIndex - 1;
       if (decimalCount < 2) return str;
-      final int lastDigitIndex = eIndex == -1 ? str.length - 1 : eIndex - 1;
+      final lastDigitIndex = eIndex == -1 ? str.length - 1 : eIndex - 1;
       int endIndex;
       for (endIndex = lastDigitIndex; endIndex > dotIndex + 1; endIndex--) {
         if (str.substring(endIndex, endIndex + 1) != '0') break;
@@ -186,9 +186,9 @@ class NumberFormatSI extends NumberFormat {
   @override
   num parse(String text) {
     // Replace spaces, unicode characters and exponential notation before parsing.
-    String adj = text.replaceAll(' ', '').replaceAll('\u{2009}', '').replaceAll('x10^', 'E').replaceAll('x10', 'E');
-    for (final String char in expUnicodeMap.keys) {
-      final String unicodeChar = expUnicodeMap[char];
+    var adj = text.replaceAll(' ', '').replaceAll('\u{2009}', '').replaceAll('x10^', 'E').replaceAll('x10', 'E');
+    for (final char in expUnicodeMap.keys) {
+      final unicodeChar = expUnicodeMap[char];
       adj = adj.replaceAll(unicodeChar, char);
     }
     return super.parse(adj);

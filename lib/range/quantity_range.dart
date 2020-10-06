@@ -5,16 +5,17 @@ import '../src/si/quantity_exception.dart';
 //TODO k value?
 /// Creates a [QuantityRange] that represents the standard uncertainty of [q].
 QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q) {
-  final Quantity std = q.standardUncertainty;
-  return new QuantityRange<Quantity>(q - std, q + std);
+  final std = q.standardUncertainty;
+  return QuantityRange<Quantity>(q - std, q + std);
 }
 
 /// Represents a range of quantity values.
 class QuantityRange<Q extends Quantity> {
-  /// Constructs a new quantity range, from [q1] to [q2].
+  /// Constructs a quantity range, from [q1] to [q2].
   QuantityRange(this.q1, this.q2) {
-    if (q1 is! Quantity || q2 is! Quantity)
+    if (q1 is! Quantity || q2 is! Quantity) {
       throw const QuantityException('QuantityRange endpoints must be Quantity objects');
+    }
   }
 
   /// The starting quantity of the range.

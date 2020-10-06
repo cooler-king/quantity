@@ -6,7 +6,7 @@ void main() {
   group('Temperature', () {
     test('constructors', () {
       // default ctor, K 0
-      Temperature a = new Temperature();
+      var a = Temperature();
       expect(a.valueSI, Integer.zero);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Temperature.temperatureDimensions);
@@ -14,7 +14,7 @@ void main() {
       expect(a.relativeUncertainty, 0);
 
       // default ctor, K +
-      a = new Temperature(K: 42);
+      a = Temperature(K: 42);
       expect(a.valueSI?.toDouble(), 42);
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Temperature.temperatureDimensions);
@@ -22,7 +22,7 @@ void main() {
       expect(a.relativeUncertainty, 0);
 
       // default ctor, K -
-      a = new Temperature(K: -99.33);
+      a = Temperature(K: -99.33);
       expect(a.valueSI?.toDouble(), -99.33);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Temperature.temperatureDimensions);
@@ -32,7 +32,7 @@ void main() {
       // K = C + 273.15
 
       // default ctor, degC +
-      a = new Temperature(C: 100);
+      a = Temperature(C: 100);
       expect(a.valueSI?.toDouble(), 373.15);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Temperature.temperatureDimensions);
@@ -40,7 +40,7 @@ void main() {
       expect(a.relativeUncertainty, 0);
 
       // default ctor, degC -
-      a = new Temperature(C: -53.4);
+      a = Temperature(C: -53.4);
       expect(a.valueSI.toDouble(), closeTo(219.75, 0.000001));
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Temperature.temperatureDimensions);
@@ -49,26 +49,26 @@ void main() {
     });
 
     test('operator +', () {
-      final Temperature a = new Temperature(K: 12.34);
-      final Temperature b = new Temperature(K: 56.78);
+      final a = Temperature(K: 12.34);
+      final b = Temperature(K: 56.78);
       dynamic sum = a + b;
       expect(sum is Temperature, true);
       expect(sum.valueSI.toDouble(), 69.12);
 
-      final Temperature c = new Temperature(C: 34);
+      final c = Temperature(C: 34);
       sum = a + c;
       expect(sum is Temperature, true);
       expect(sum.valueSI.toDouble(), closeTo(319.49, 0.000001));
 
-      final TemperatureInterval d = new TemperatureInterval(K: 12.3);
+      final d = TemperatureInterval(K: 12.3);
       sum = b + d;
       expect(sum is Temperature, true);
       expect(sum.valueSI.toDouble(), closeTo(69.08, 0.000001));
     });
 
     test('operator -', () {
-      final Temperature a = new Temperature(K: 56.78);
-      final Temperature b = new Temperature(K: 12.34);
+      final a = Temperature(K: 56.78);
+      final b = Temperature(K: 12.34);
       dynamic diff = a - b;
       expect(diff is TemperatureInterval, true);
       expect(diff.valueSI.toDouble(), 44.44);
@@ -76,12 +76,12 @@ void main() {
       expect(diff is TemperatureInterval, true);
       expect(diff.valueSI.toDouble(), -44.44);
 
-      final Temperature c = new Temperature(C: 34);
+      final c = Temperature(C: 34);
       diff = a - c;
       expect(diff is TemperatureInterval, true);
       expect(diff.valueSI.toDouble(), closeTo(-250.37, 0.000001));
 
-      final TemperatureInterval d = new TemperatureInterval(K: 12.3);
+      final d = TemperatureInterval(K: 12.3);
       diff = b - d;
       expect(diff is Temperature, true);
       expect(diff.valueSI.toDouble(), closeTo(0.04, 0.000001));

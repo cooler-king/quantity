@@ -15,7 +15,7 @@ class KinematicViscosity extends Quantity {
   KinematicViscosity({dynamic metersSquaredPerSecond, double uncert = 0.0})
       : super(metersSquaredPerSecond ?? 0.0, KinematicViscosity.metersSquaredPerSecond, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   KinematicViscosity.misc(dynamic conv) : super.misc(conv, KinematicViscosity.kinematicViscosityDimensions);
 
   /// Constructs a KinematicViscosity based on the [value]
@@ -29,16 +29,16 @@ class KinematicViscosity extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions kinematicViscosityDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -1}, qType: KinematicViscosity);
+      Dimensions.constant(<String, int>{'Length': 2, 'Time': -1}, qType: KinematicViscosity);
 
   /// The standard SI unit.
   static final KinematicViscosityUnits metersSquaredPerSecond =
-      new KinematicViscosityUnits.areaTime(Area.squareMeters, Time.seconds);
+      KinematicViscosityUnits.areaTime(Area.squareMeters, Time.seconds);
 }
 
 /// Units acceptable for use in describing KinematicViscosity quantities.
 class KinematicViscosityUnits extends KinematicViscosity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   KinematicViscosityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class KinematicViscosityUnits extends KinematicViscosity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on area and time units.
+  /// Constructs a instance based on area and time units.
   KinematicViscosityUnits.areaTime(AreaUnits au, TimeUnits tu) : super.misc(au.valueSI * tu.valueSI) {
     name = '${au.name} per ${tu.singular}';
     singular = '${au.singular} per ${tu.singular}';
@@ -66,9 +66,9 @@ class KinematicViscosityUnits extends KinematicViscosity with Units {
   @override
   Type get quantityType => KinematicViscosity;
 
-  /// Derive new KinematicViscosityUnits using this KinematicViscosityUnits object as the base.
+  /// Derive KinematicViscosityUnits using this KinematicViscosityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new KinematicViscosityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => KinematicViscosityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

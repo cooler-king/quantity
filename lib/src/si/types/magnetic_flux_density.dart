@@ -13,7 +13,7 @@ class MagneticFluxDensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   MagneticFluxDensity({dynamic T, double uncert = 0.0}) : super(T ?? 0.0, MagneticFluxDensity.teslas, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   MagneticFluxDensity.misc(dynamic conv) : super.misc(conv, MagneticFluxDensity.magneticFluxDensityDimensions);
 
   /// Constructs a MagneticFluxDensity based on the [value]
@@ -27,15 +27,15 @@ class MagneticFluxDensity extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions magneticFluxDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Current': -1, 'Time': -2}, qType: MagneticFluxDensity);
+      Dimensions.constant(<String, int>{'Mass': 1, 'Current': -1, 'Time': -2}, qType: MagneticFluxDensity);
 
   /// The standard SI unit.
-  static final MagneticFluxDensityUnits teslas = new MagneticFluxDensityUnits('teslas', null, 'T', null, 1.0, true);
+  static final MagneticFluxDensityUnits teslas = MagneticFluxDensityUnits('teslas', null, 'T', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing MagneticFluxDensity quantities.
 class MagneticFluxDensityUnits extends MagneticFluxDensity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   MagneticFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -52,9 +52,9 @@ class MagneticFluxDensityUnits extends MagneticFluxDensity with Units {
   @override
   Type get quantityType => MagneticFluxDensity;
 
-  /// Derive new MagneticFluxDensityUnits using this MagneticFluxDensityUnits object as the base.
+  /// Derive MagneticFluxDensityUnits using this MagneticFluxDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MagneticFluxDensityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => MagneticFluxDensityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

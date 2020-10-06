@@ -7,11 +7,11 @@ import 'dart:math';
 /// * The approximation is based on Chebyshev fitting.
 ///
 double erf(double x) {
-  final double z = x.abs();
-  final double t = 1.0 / (1.0 + 0.5 * z);
+  final z = x.abs();
+  final t = 1.0 / (1.0 + 0.5 * z);
 
   // Approximate the complementary error function
-  double erfc = t *
+  var erfc = t *
       exp(-z * z -
           1.26551223 +
           t *

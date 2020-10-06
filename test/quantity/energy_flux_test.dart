@@ -5,14 +5,14 @@ import 'package:quantity/number.dart';
 void main() {
   group('EnergyFlux', () {
     test('constructors', () {
-      EnergyFlux q = new EnergyFlux();
+      var q = EnergyFlux();
       expect(q.valueSI, Double.zero);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, EnergyFlux.energyFluxDimensions);
       expect(q.preferredUnits, EnergyFlux.wattsPerSquareMeter);
       expect(q.relativeUncertainty, 0);
 
-      q = new EnergyFlux(wattsPerSquareMeter: 42, uncert: 0.001);
+      q = EnergyFlux(wattsPerSquareMeter: 42, uncert: 0.001);
       expect(q.valueSI?.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, EnergyFlux.energyFluxDimensions);

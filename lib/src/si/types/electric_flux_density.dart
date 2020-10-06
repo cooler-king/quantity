@@ -16,7 +16,7 @@ class ElectricFluxDensity extends Quantity {
   ElectricFluxDensity({dynamic coulombsPerSquareMeter, double uncert = 0.0})
       : super(coulombsPerSquareMeter ?? 0.0, ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   ElectricFluxDensity.misc(dynamic conv) : super.misc(conv, ElectricFluxDensity.electricFluxDensityDimensions);
 
   /// Constructs a ElectricFluxDensity based on the [value]
@@ -30,16 +30,16 @@ class ElectricFluxDensity extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions electricFluxDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 1, 'Time': 1, 'Length': -2}, qType: ElectricFluxDensity);
+      Dimensions.constant(<String, int>{'Current': 1, 'Time': 1, 'Length': -2}, qType: ElectricFluxDensity);
 
   /// The standard SI unit.
   static final ElectricFluxDensityUnits coulombsPerSquareMeter =
-      new ElectricFluxDensityUnits.chargeArea(Charge.coulombs, Area.squareMeters);
+      ElectricFluxDensityUnits.chargeArea(Charge.coulombs, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing ElectricFluxDensity quantities.
 class ElectricFluxDensityUnits extends ElectricFluxDensity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ElectricFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -52,7 +52,7 @@ class ElectricFluxDensityUnits extends ElectricFluxDensity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from a charge and an area.
+  /// Constructs a instance from a charge and an area.
   ElectricFluxDensityUnits.chargeArea(ChargeUnits ecu, AreaUnits au) : super.misc(ecu.valueSI * au.valueSI) {
     name = '${ecu.name} per ${au.singular}';
     singular = '${ecu.singular} per ${au.singular}';
@@ -67,9 +67,9 @@ class ElectricFluxDensityUnits extends ElectricFluxDensity with Units {
   @override
   Type get quantityType => ElectricFluxDensity;
 
-  /// Derive new ElectricFluxDensityUnits using this ElectricFluxDensityUnits object as the base.
+  /// Derive ElectricFluxDensityUnits using this ElectricFluxDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ElectricFluxDensityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ElectricFluxDensityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

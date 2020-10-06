@@ -1,7 +1,7 @@
 /// Generates a unique hash for a set of objects.
 int hashObjects(Iterable<Object> objects) {
-  int hash = 0;
-  for (final Object obj in objects) {
+  var hash = 0;
+  for (final obj in objects) {
     hash = 0x1fffffff & (hash + obj.hashCode);
     hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
     hash = hash ^ (hash >> 6);

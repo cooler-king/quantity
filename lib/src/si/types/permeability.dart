@@ -20,7 +20,7 @@ class Permeability extends Quantity {
             newtonsPerAmpereSquared != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter,
             uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Permeability.misc(dynamic conv) : super.misc(conv, Permeability.permeabilityDimensions);
 
   /// Constructs a Permeability based on the [value]
@@ -33,22 +33,21 @@ class Permeability extends Quantity {
       : super.constant(valueSI, Permeability.permeabilityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions permeabilityDimensions = const Dimensions.constant(
-      const <String, int>{'Length': 1, 'Mass': 1, 'Time': -2, 'Current': -2},
-      qType: Permeability);
+  static const Dimensions permeabilityDimensions =
+      Dimensions.constant(<String, int>{'Length': 1, 'Mass': 1, 'Time': -2, 'Current': -2}, qType: Permeability);
 
   /// The standard SI unit.
   static final PermeabilityUnits henriesPerMeter =
-      new PermeabilityUnits.inductanceLength(Inductance.henries, Length.meters);
+      PermeabilityUnits.inductanceLength(Inductance.henries, Length.meters);
 
   /// The standard SI unit (alternate form).
   static final PermeabilityUnits newtonsPerAmpereSquared =
-      new PermeabilityUnits.forceCurrent(Force.newtons, Current.amperes);
+      PermeabilityUnits.forceCurrent(Force.newtons, Current.amperes);
 }
 
 /// Units acceptable for use in describing Permeability quantities.
 class PermeabilityUnits extends Permeability with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   PermeabilityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -61,7 +60,7 @@ class PermeabilityUnits extends Permeability with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on inductance and length units.
+  /// Constructs a instance based on inductance and length units.
   PermeabilityUnits.inductanceLength(InductanceUnits iu, LengthUnits lu) : super.misc(iu.valueSI / lu.valueSI) {
     name = '${iu.name} per ${lu.singular}';
     singular = '${iu.singular} per ${lu.singular}';
@@ -72,7 +71,7 @@ class PermeabilityUnits extends Permeability with Units {
     offset = 0.0;
   }
 
-  /// Constructs a new instance based on force and electric current units.
+  /// Constructs a instance based on force and electric current units.
   PermeabilityUnits.forceCurrent(ForceUnits fu, CurrentUnits ecu) : super.misc(fu.valueSI / (ecu.valueSI ^ 2)) {
     name = '${fu.name} per ${ecu.singular} squared';
     singular = '${fu.singular} per ${ecu.singular} squared';
@@ -87,9 +86,9 @@ class PermeabilityUnits extends Permeability with Units {
   @override
   Type get quantityType => Permeability;
 
-  /// Derive new PermeabilityUnits using this PermeabilityUnits object as the base.
+  /// Derive PermeabilityUnits using this PermeabilityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new PermeabilityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => PermeabilityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

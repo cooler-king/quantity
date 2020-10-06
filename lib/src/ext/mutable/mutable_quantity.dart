@@ -13,24 +13,24 @@ import '../../si/uncertainty_format.dart';
 import '../../si/units.dart';
 
 /// Create a [MutableQuantity] with the same value, dimensions and uncertainty as [q].
-MutableQuantity toMutable(Quantity q) => new MutableQuantity()..setEqualTo(q);
+MutableQuantity toMutable(Quantity q) => MutableQuantity()..setEqualTo(q);
 
 /// MutableQuantity supports updates to its value, dimensions and uncertainty.
 /// Changes are broadcast over the `onChange` stream.
 ///
 /// ## Inversion
 /// The Quantity class supports inversion through the `inverse`
-/// method, which returns a new Quantity object that is the result of the
+/// method, which returns a Quantity object that is the result of the
 /// inversion process.  MiscQuantity adds to this capability with the
 /// `invert` method, which inverts the MiscQuantity in place without
-/// returning a new object.  This is possible because a MiscQuantity may have
+/// returning a object.  This is possible because a MiscQuantity may have
 /// any Dimensions, whereas other Quantity subclasses have fixed Dimensions.
 // ignore: avoid_implementing_value_types
 class MutableQuantity implements Quantity {
-  /// Constructs a new instance, with optional SI-MKS value, dimensions and/or relative uncertainty.
+  /// Constructs a instance, with optional SI-MKS value, dimensions and/or relative uncertainty.
   MutableQuantity([this._valueSI = Double.zero, this._dimensions = Scalar.scalarDimensions, this._ur = 0.0]);
 
-  /// Constructs a new instance from an existing Quantity.
+  /// Constructs a instance from an existing Quantity.
   MutableQuantity.from(Quantity q)
       : _valueSI = q.valueSI,
         _dimensions = q.dimensions,
@@ -43,7 +43,7 @@ class MutableQuantity implements Quantity {
   Number _valueSI;
   set valueSI(dynamic value) {
     if (value != _valueSI) {
-      if (!mutable) throw new ImmutableQuantityException(q: this);
+      if (!mutable) throw ImmutableQuantityException(q: this);
       _valueSI = objToNumber(value);
       _onChange.add(snapshot);
     }
@@ -55,7 +55,7 @@ class MutableQuantity implements Quantity {
   Dimensions _dimensions;
   set dimensions(Dimensions dim) {
     if (dim != _dimensions) {
-      if (!mutable) throw new ImmutableQuantityException(q: this);
+      if (!mutable) throw ImmutableQuantityException(q: this);
       _dimensions = dim;
 
       // Any preferred units will no longer be valid.
@@ -82,7 +82,7 @@ class MutableQuantity implements Quantity {
   ///   corresponds to a coverage factor of 1 (k=1) and a confidence of approximately 68%.
   set relativeUncertainty(double value) {
     if (value != _ur) {
-      if (!mutable) throw new ImmutableQuantityException(q: this);
+      if (!mutable) throw ImmutableQuantityException(q: this);
       _ur = value;
       _onChange.add(snapshot);
     }
@@ -97,14 +97,14 @@ class MutableQuantity implements Quantity {
 
   /// Broadcasts a snapshot of quantity whenever its value, dimensions or uncertainty changes.
   Stream<Quantity> get onChange => _onChange.stream;
-  final StreamController<Quantity> _onChange = new StreamController<Quantity>.broadcast();
+  final StreamController<Quantity> _onChange = StreamController<Quantity>.broadcast();
 
   @override
   Number get mks => valueSI;
 
   /// Sets the [value] of this quantity in standard MKS (meter-kilogram-second) units.
   set mks(Number value) {
-    if (!mutable) throw new ImmutableQuantityException(q: this);
+    if (!mutable) throw ImmutableQuantityException(q: this);
     if (value != valueSI) valueSI = value; // valueSI send the change event
   }
 
@@ -112,7 +112,7 @@ class MutableQuantity implements Quantity {
   /// uncertainty of this MutableQuantity at this moment.
   Quantity get snapshot =>
       dimensions?.toQuantity(preferredUnits?.fromMks(valueSI) ?? valueSI, preferredUnits, _ur) ??
-      new Scalar(value: valueSI, uncert: _ur);
+      Scalar(value: valueSI, uncert: _ur);
 
   @override
   Number get cgs => snapshot.cgs;
@@ -127,25 +127,25 @@ class MutableQuantity implements Quantity {
   ///
   /// See [set mks(double)].
   set cgs(Number value) {
-    if (!mutable) throw new ImmutableQuantityException(q: this);
+    if (!mutable) throw ImmutableQuantityException(q: this);
 
-    Number val = value;
+    var val = value;
 
     // Adjust for centimeters vs. meters.
-    final num lengthExp = dimensions.getComponentExponent(Dimensions.baseLengthKey);
+    final lengthExp = dimensions.getComponentExponent(Dimensions.baseLengthKey);
     val /= pow(100.0, lengthExp.toDouble());
 
     // Adjust for grams vs. kilograms.
-    final num massExp = dimensions.getComponentExponent(Dimensions.baseMassKey);
+    final massExp = dimensions.getComponentExponent(Dimensions.baseMassKey);
     val /= pow(1000.0, massExp.toDouble());
 
-    mks = new Double(val.toDouble());
+    mks = Double(val.toDouble());
   }
 
   /// Modifies this MutableQuantity to have the value, dimensions, uncertainty and
   /// preferred units of [q2].
   Quantity setEqualTo(Quantity q2) {
-    if (!mutable) throw new ImmutableQuantityException(q: this);
+    if (!mutable) throw ImmutableQuantityException(q: this);
 
     preferredUnits = q2.preferredUnits;
 
@@ -176,13 +176,13 @@ class MutableQuantity implements Quantity {
   /// estimated variance.  One standard deviate in a Normal distribution
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately 68%.
   set standardUncertainty(Quantity su) {
-    if (!mutable) throw new ImmutableQuantityException(q: this);
+    if (!mutable) throw ImmutableQuantityException(q: this);
     if (!(dimensions == su.dimensions)) {
-      throw new DimensionsException('The standard uncertainty must have the same dimensions as this Quantity object');
+      throw DimensionsException('The standard uncertainty must have the same dimensions as this Quantity object');
     }
 
     // Determine ur.
-    final Quantity ratio = su / this; // Scalar
+    final ratio = su / this; // Scalar
     _ur = ratio.mks.toDouble();
     _onChange.add(snapshot);
   }
@@ -191,21 +191,21 @@ class MutableQuantity implements Quantity {
   /// be a num or Number object.  The [units] must match the current [dimensions] or a
   /// [DimensionsException] will be thrown.
   void setValueInUnits(dynamic value, Units units) {
-    if (!mutable) throw new ImmutableQuantityException(q: this);
+    if (!mutable) throw ImmutableQuantityException(q: this);
 
     // Check for compatible dimensions.
     if (units is Quantity && (units as Quantity).dimensions == dimensions) {
       valueSI = units.toMks(value);
     } else {
-      throw new DimensionsException('Cannot set quantity value using units with incompatible dimensions');
+      throw DimensionsException('Cannot set quantity value using units with incompatible dimensions');
     }
   }
 
   /// Converts the value of this MutableQuantity to its absolute value.  Returns itself.
   @override
   Quantity abs() {
-    if (!mutable) throw new ImmutableQuantityException(q: this);
-    final Number n = valueSI.abs();
+    if (!mutable) throw ImmutableQuantityException(q: this);
+    final n = valueSI.abs();
     if (n != _valueSI) valueSI = n; // valueSI sends the change event
     return this;
   }
@@ -230,7 +230,7 @@ class MutableQuantity implements Quantity {
 
   /// Inverts this MutableQuantity, both value and dimensions, in place.
   void invert() {
-    if (!mutable) throw new ImmutableQuantityException(q: this);
+    if (!mutable) throw ImmutableQuantityException(q: this);
     _valueSI = valueSI.reciprocal();
     _dimensions = dimensions.inverse();
 
@@ -260,7 +260,7 @@ class MutableQuantity implements Quantity {
   /// Negates the value of this MutableQuantity and returns a reference to itself.
   @override
   Quantity operator -() {
-    if (!mutable) throw new ImmutableQuantityException(q: this);
+    if (!mutable) throw ImmutableQuantityException(q: this);
     _valueSI = -_valueSI;
     _onChange.add(snapshot);
     return this;

@@ -16,7 +16,7 @@ class Activity extends Quantity {
   Activity({dynamic Bq, dynamic Ci, double uncert = 0.0})
       : super(Bq ?? (Ci ?? 0.0), Ci != null ? Activity.curies : Activity.becquerels, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Activity.misc(dynamic conv) : super.misc(conv, Activity.activityDimensions);
 
   /// Constructs a Activity based on the [value]
@@ -29,19 +29,18 @@ class Activity extends Quantity {
       : super.constant(valueSI, Activity.activityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions activityDimensions =
-      const Dimensions.constant(const <String, int>{'Time': -1}, qType: Activity);
+  static const Dimensions activityDimensions = Dimensions.constant(<String, int>{'Time': -1}, qType: Activity);
 
   /// The standard SI unit.
-  static final ActivityUnits becquerels = new ActivityUnits('becquerels', null, 'Bq', null, 1.0, true);
+  static final ActivityUnits becquerels = ActivityUnits('becquerels', null, 'Bq', null, 1.0, true);
 
   /// Accepted for use with the SI, subject to further review.
-  static final ActivityUnits curies = new ActivityUnits('curies', null, 'Ci', null, 3.7e10, false);
+  static final ActivityUnits curies = ActivityUnits('curies', null, 'Ci', null, 3.7e10, false);
 }
 
 /// Units acceptable for use in describing Activity quantities.
 class ActivityUnits extends Activity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ActivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -54,7 +53,7 @@ class ActivityUnits extends Activity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from length and time units.
+  /// Constructs a instance from length and time units.
   ActivityUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super.misc(lu.valueSI * su.valueSI) {
     name = '${lu.name} per ${su.singular} squared';
     singular = '${lu.singular} per ${su.singular} squared';
@@ -69,9 +68,9 @@ class ActivityUnits extends Activity with Units {
   @override
   Type get quantityType => Activity;
 
-  /// Derive new ActivityUnits using this ActivityUnits object as the base.
+  /// Derive ActivityUnits using this ActivityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ActivityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ActivityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

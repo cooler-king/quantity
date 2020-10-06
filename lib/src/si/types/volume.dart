@@ -14,7 +14,7 @@ class Volume extends Quantity {
   Volume({dynamic m3, dynamic L, double uncert = 0.0})
       : super(m3 ?? (L ?? 0.0), L != null ? Volume.liters : Volume.cubicMeters, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Volume.misc(dynamic conv) : super.misc(conv, Volume.volumeDimensions);
 
   /// Constructs a Volume based on the [value]
@@ -27,19 +27,18 @@ class Volume extends Quantity {
       : super.constant(valueSI, Volume.volumeDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions volumeDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -3}, qType: Volume);
+  static const Dimensions volumeDimensions = Dimensions.constant(<String, int>{'Length': -3}, qType: Volume);
 
   /// The standard SI unit.
-  static final VolumeUnits cubicMeters = new VolumeUnits.lengthCubed(Length.meters);
+  static final VolumeUnits cubicMeters = VolumeUnits.lengthCubed(Length.meters);
 
   /// Accepted for use with the SI; equal to one thousandth of a cubic meter.
-  static final VolumeUnits liters = new VolumeUnits('liters', null, 'L', null, 1.0e-3, true);
+  static final VolumeUnits liters = VolumeUnits('liters', null, 'L', null, 1.0e-3, true);
 }
 
 /// Units acceptable for use in describing Volume quantities.
 class VolumeUnits extends Volume with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   VolumeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -52,7 +51,7 @@ class VolumeUnits extends Volume with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on length units.
+  /// Constructs a instance based on length units.
   VolumeUnits.lengthCubed(LengthUnits lu) : super.misc(lu.valueSI ^ 3) {
     name = 'cubic ${lu.name}';
     singular = 'cubic ${lu.singular}';
@@ -67,9 +66,9 @@ class VolumeUnits extends Volume with Units {
   @override
   Type get quantityType => Volume;
 
-  /// Derive new VolumeUnits using this VolumeUnits object as the base.
+  /// Derive VolumeUnits using this VolumeUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new VolumeUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => VolumeUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

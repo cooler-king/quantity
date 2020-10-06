@@ -14,53 +14,53 @@ void main() {
     });
 
     test('TDT', () {
-      final TimeInstant t1 = new TimeInstant(TAI: 1234.567);
-      final TimeInstant t2 = new TimeInstant.inUnits(1234.567, TDT);
+      final t1 = TimeInstant(TAI: 1234.567);
+      final t2 = TimeInstant.inUnits(1234.567, TDT);
 
       expect(t2.valueSI.toDouble(), 1202.383);
-      expect(t2.valueInUnits(TAI), new Double(1202.383));
-      expect(t2.valueInUnits(TDT), new Double(1234.567));
+      expect(t2.valueInUnits(TAI), Double(1202.383));
+      expect(t2.valueInUnits(TDT), Double(1234.567));
 
       expect(t1.valueSI.toDouble(), 1234.567);
-      expect(t1.valueInUnits(TAI), new Double(1234.567));
-      expect(t1.valueInUnits(TDT), new Double(1266.751));
+      expect(t1.valueInUnits(TAI), Double(1234.567));
+      expect(t1.valueInUnits(TDT), Double(1266.751));
 
-      expect(areWithin(t1 - t2, new Time(s: 32.184), new Time(ns: 1)), true);
-      expect(new TimeInstant(TAI: 0).valueInUnits(TDT), new Double(32.184));
+      expect(areWithin(t1 - t2, Time(s: 32.184), Time(ns: 1)), true);
+      expect(TimeInstant(TAI: 0).valueInUnits(TDT), Double(32.184));
 
-      final TimeInstant t3 = new TimeInstant.inUnits(0, TDT);
+      final t3 = TimeInstant.inUnits(0, TDT);
       expect(t3.mks.toDouble(), -32.184);
-      expect(t3.valueInUnits(TAI), new Double(-32.184));
+      expect(t3.valueInUnits(TAI), Double(-32.184));
       expect(t3.valueInUnits(TDT).toDouble(), 0);
     });
 
     test('GPST', () {
-      final TimeInstant t1 = new TimeInstant(TAI: 1234);
-      final TimeInstant t2 = new TimeInstant.inUnits(1234, GPST);
+      final t1 = TimeInstant(TAI: 1234);
+      final t2 = TimeInstant.inUnits(1234, GPST);
 
       expect(t2.valueSI.toDouble(), 1253);
-      expect(t2.valueInUnits(TAI), new Integer(1253));
-      expect(t2.valueInUnits(GPST), new Integer(1234));
+      expect(t2.valueInUnits(TAI), Integer(1253));
+      expect(t2.valueInUnits(GPST), Integer(1234));
 
-      expect(t1.valueInUnits(GPST), new Integer(1215));
+      expect(t1.valueInUnits(GPST), Integer(1215));
 
-      expect(areWithin(t1 - t2, new Time(s: -19), new Time(ns: 1)), true);
+      expect(areWithin(t1 - t2, Time(s: -19), Time(ns: 1)), true);
 
-      expect(new TimeInstant(TAI: 0).valueInUnits(GPST), new Integer(-19));
+      expect(TimeInstant(TAI: 0).valueInUnits(GPST), Integer(-19));
 
-      final TimeInstant t3 = new TimeInstant.inUnits(0, GPST);
+      final t3 = TimeInstant.inUnits(0, GPST);
       expect(t3.mks.toDouble(), 19);
-      expect(t3.valueInUnits(TAI), new Integer(19));
+      expect(t3.valueInUnits(TAI), Integer(19));
       expect(t3.valueInUnits(GPST).toDouble(), 0);
     });
 
     test('TAI 2000000000', () {
-      final TimeInstant tai = new TimeInstant(TAI: 2000000000);
+      final tai = TimeInstant(TAI: 2000000000);
 
       expect(tai.valueInUnits(TAI).toDouble(), 2000000000);
       expect(tai.valueInUnits(UTC).toDouble(), 1999999963);
       expect(tai.valueInUnits(system).toDouble(), 1621308763000);
-      print(new DateTime.fromMillisecondsSinceEpoch(1621308763000));
+      print(DateTime.fromMillisecondsSinceEpoch(1621308763000));
       expect(tai.valueInUnits(UT1).toDouble(), closeTo(1999999962.824, 0.000001));
       expect(tai.valueInUnits(UT2).toDouble(), closeTo(1999999962.8541603, 0.000001));
       expect(tai.valueInUnits(TDT).toDouble(), 2000000032.184);

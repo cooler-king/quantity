@@ -29,10 +29,10 @@ const double twoPi = 2.0 * math.pi;
 /// Example usage:
 ///
 ///     // Construct an Angle in radians.
-///     var ang = new Angle(rad: 1.1);
+///     var ang = Angle(rad: 1.1);
 ///
 ///     // Construct an Angle in degrees.
-///     var ang2 = new Angle(deg: 270);
+///     var ang2 = Angle(deg: 270);
 ///
 ///     // Find the difference.
 ///     var diff = ang2 - ang;
@@ -48,7 +48,7 @@ class Angle extends Quantity {
   Angle({dynamic rad, dynamic deg, double uncert = 0.0})
       : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Angle.misc(dynamic conv) : super.misc(conv, Angle.angleDimensions);
 
   /// Constructs an Angle based on the [value]
@@ -75,22 +75,22 @@ class Angle extends Quantity {
       : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s), Angle.radians, uncert);
 
   /// Dimensions for this type of quantity
-  static const Dimensions angleDimensions = const Dimensions.constant(const <String, int>{'Angle': 1}, qType: Angle);
+  static const Dimensions angleDimensions = Dimensions.constant(<String, int>{'Angle': 1}, qType: Angle);
 
   /// The standard SI unit.
-  static final AngleUnits radians = new AngleUnits('radians', null, 'rad', null, Integer.one, true);
+  static final AngleUnits radians = AngleUnits('radians', null, 'rad', null, Integer.one, true);
 
   /// Accepted for use with the SI.
   static final AngleUnits degrees =
-      new AngleUnits('degrees', '\u{00b0}', 'deg', null, const Double.constant(1.7453292519943e-2), false);
+      AngleUnits('degrees', '\u{00b0}', 'deg', null, const Double.constant(1.7453292519943e-2), false);
 
   /// Accepted for use with the SI.
   static final AngleUnits minutesArc =
-      new AngleUnits('arc minutes', '\'', 'arc min', null, const Double.constant(2.9088821e-4), false);
+      AngleUnits('arc minutes', '\'', 'arc min', null, const Double.constant(2.9088821e-4), false);
 
   /// Accepted for use with the SI.
   static final AngleUnits secondsArc =
-      new AngleUnits('arc seconds', '\'', 'arc sec', null, const Double.constant(4.8481368e-6), false);
+      AngleUnits('arc seconds', '\'', 'arc sec', null, const Double.constant(4.8481368e-6), false);
 
   // convenience units
 
@@ -106,10 +106,14 @@ class Angle extends Quantity {
   Angle get angle180 {
     if (valueSI >= -math.pi && valueSI <= math.pi) return this;
 
-    double rad = valueSI.toDouble();
-    while (rad < -math.pi) rad += twoPi;
-    while (rad > math.pi) rad -= twoPi;
-    return new Angle(rad: rad);
+    var rad = valueSI.toDouble();
+    while (rad < -math.pi) {
+      rad += twoPi;
+    }
+    while (rad > math.pi) {
+      rad -= twoPi;
+    }
+    return Angle(rad: rad);
   }
 
   /// Returns an equivalent angle bounded to between 0 and 2PI
@@ -117,10 +121,10 @@ class Angle extends Quantity {
   /// If this Angle is already within that range then it is returned directly.
   Angle get angle360 {
     if (valueSI >= 0.0 && valueSI <= twoPi) return this;
-    double rad = valueSI.toDouble();
+    var rad = valueSI.toDouble();
     rad = rad.remainder(twoPi);
     if (valueSI < 0) rad += twoPi;
-    return new Angle(rad: rad);
+    return Angle(rad: rad);
   }
 
   /// Calculates the cosine of this angle.
@@ -148,20 +152,20 @@ class Angle extends Quantity {
   /// in degrees, minutes arc and seconds arc.  The first value (degrees) may
   /// be either positive or negative; the other two values will be positive.
   List<double> get degMinSec {
-    final List<double> dms = new List<double>.generate(3, (_) => null, growable: false);
+    final dms = List<double>.generate(3, (_) => null, growable: false);
 
-    final double decimalDegrees = valueInUnits(degrees).toDouble();
+    final decimalDegrees = valueInUnits(degrees).toDouble();
 
     // Degrees
     dms[0] = decimalDegrees.toInt().toDouble();
 
     // Minutes
-    final double remainder1 = decimalDegrees.abs() - dms[0].abs();
-    final double decimalMinutes = remainder1 * 60.0;
+    final remainder1 = decimalDegrees.abs() - dms[0].abs();
+    final decimalMinutes = remainder1 * 60.0;
     dms[1] = decimalMinutes.toInt().toDouble();
 
     // Seconds
-    final double remainder2 = decimalMinutes - dms[1];
+    final remainder2 = decimalMinutes - dms[1];
     dms[2] = remainder2 * 60.0;
 
     return dms;
@@ -171,20 +175,20 @@ class Angle extends Quantity {
   /// (where there are 24 hours in a complete circle).  The first value (hours)
   /// may be either positive or negative; the other two values will be positive.
   List<double> get hrMinSec {
-    final List<double> hms = new List<double>.generate(3, (_) => null, growable: false);
+    final hms = List<double>.generate(3, (_) => null, growable: false);
 
-    final double decimalHours = valueInUnits(degrees).toDouble() / 15.0;
+    final decimalHours = valueInUnits(degrees).toDouble() / 15.0;
 
     // Hours
     hms[0] = decimalHours.toInt().toDouble();
 
     // Minutes
-    final double remainder1 = decimalHours.abs() - hms[0].abs();
-    final double decimalMinutes = remainder1 * 60.0;
+    final remainder1 = decimalHours.abs() - hms[0].abs();
+    final decimalMinutes = remainder1 * 60.0;
     hms[1] = decimalMinutes.toInt().toDouble();
 
     // Seconds
-    final double remainder2 = decimalMinutes - hms[1];
+    final remainder2 = decimalMinutes - hms[1];
     hms[2] = remainder2 * 60.0;
 
     return hms;
@@ -193,7 +197,7 @@ class Angle extends Quantity {
 
 /// Units acceptable for use in describing Angle quantities.
 class AngleUnits extends Angle with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   AngleUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -210,9 +214,9 @@ class AngleUnits extends Angle with Units {
   @override
   Type get quantityType => Angle;
 
-  /// Derive new AngleUnits using this AngleUnits object as the base.
+  /// Derive AngleUnits using this AngleUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AngleUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AngleUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

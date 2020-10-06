@@ -5,7 +5,7 @@ void main() {
   group('NumberFormatSI', () {
     group('insertSpaces', () {
       test('regular spaces; no uncertainty', () {
-        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
+        final f1 = NumberFormatSI(unicode: false);
         expect(f1.insertSpaces('1'), '1');
         expect(f1.insertSpaces('12'), '12');
         expect(f1.insertSpaces('123'), '123');
@@ -27,7 +27,7 @@ void main() {
       });
 
       test('unicode thin spaces; no uncertainty', () {
-        final NumberFormatSI f1 = new NumberFormatSI(unicode: true);
+        final f1 = NumberFormatSI(unicode: true);
         expect(f1.insertSpaces('1'), '1');
         expect(f1.insertSpaces('12'), '12');
         expect(f1.insertSpaces('123'), '123');
@@ -51,7 +51,7 @@ void main() {
 
     group('format', () {
       test('real only; num; regular spaces', () {
-        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
+        final f1 = NumberFormatSI(unicode: false);
         expect(f1.format(1), '1');
         expect(f1.format(12), '12');
         expect(f1.format(123), '123');
@@ -73,71 +73,70 @@ void main() {
       });
 
       test('real only; Number; regular spaces', () {
-        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
-        expect(f1.format(new Integer(1)), '1');
-        expect(f1.format(new Integer(12)), '12');
-        expect(f1.format(new Integer(123)), '123');
-        expect(f1.format(new Integer(1234)), '1234');
-        expect(f1.format(new Integer(12345)), '12 345');
-        expect(f1.format(new Integer(123456)), '123 456');
-        expect(f1.format(new Integer(1234567)), '1 234 567');
-        expect(f1.format(new Integer(12345678)), '12 345 678');
-        expect(f1.format(new Integer(123456789)), '123 456 789');
-        expect(f1.format(new Integer(1234567890)), '1 234 567 890');
+        final f1 = NumberFormatSI(unicode: false);
+        expect(f1.format(Integer(1)), '1');
+        expect(f1.format(Integer(12)), '12');
+        expect(f1.format(Integer(123)), '123');
+        expect(f1.format(Integer(1234)), '1234');
+        expect(f1.format(Integer(12345)), '12 345');
+        expect(f1.format(Integer(123456)), '123 456');
+        expect(f1.format(Integer(1234567)), '1 234 567');
+        expect(f1.format(Integer(12345678)), '12 345 678');
+        expect(f1.format(Integer(123456789)), '123 456 789');
+        expect(f1.format(Integer(1234567890)), '1 234 567 890');
 
-        expect(f1.format(new Double(0)), '0.0');
-        expect(f1.format(new Double(10.01)), '10.01');
-        expect(f1.format(new Double(100.001)), '100.001');
-        expect(f1.format(new Double(1000.0001)), '1000.0001');
-        expect(f1.format(new Double(10000.00001)), '10 000.000 01');
-        expect(f1.format(new Double(9876543210.1234)), '9 876 543 210.1234');
-        expect(f1.format(new Double(1234.9876543219)), '1234.987 654 321 9');
+        expect(f1.format(Double(0)), '0.0');
+        expect(f1.format(Double(10.01)), '10.01');
+        expect(f1.format(Double(100.001)), '100.001');
+        expect(f1.format(Double(1000.0001)), '1000.0001');
+        expect(f1.format(Double(10000.00001)), '10 000.000 01');
+        expect(f1.format(Double(9876543210.1234)), '9 876 543 210.1234');
+        expect(f1.format(Double(1234.9876543219)), '1234.987 654 321 9');
       });
 
       test('imaginary only; regular spaces', () {
-        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
-        expect(f1.format(new Imaginary(1)), '1i');
-        expect(f1.format(new Imaginary(12)), '12i');
-        expect(f1.format(new Imaginary(123)), '123i');
-        expect(f1.format(new Imaginary(1234)), '1234i');
-        expect(f1.format(new Imaginary(12345)), '12 345i');
-        expect(f1.format(new Imaginary(123456)), '123 456i');
-        expect(f1.format(new Imaginary(1234567)), '1 234 567i');
-        expect(f1.format(new Imaginary(12345678)), '12 345 678i');
-        expect(f1.format(new Imaginary(123456789)), '123 456 789i');
-        expect(f1.format(new Imaginary(1234567890)), '1 234 567 890i');
+        final f1 = NumberFormatSI(unicode: false);
+        expect(f1.format(Imaginary(1)), '1i');
+        expect(f1.format(Imaginary(12)), '12i');
+        expect(f1.format(Imaginary(123)), '123i');
+        expect(f1.format(Imaginary(1234)), '1234i');
+        expect(f1.format(Imaginary(12345)), '12 345i');
+        expect(f1.format(Imaginary(123456)), '123 456i');
+        expect(f1.format(Imaginary(1234567)), '1 234 567i');
+        expect(f1.format(Imaginary(12345678)), '12 345 678i');
+        expect(f1.format(Imaginary(123456789)), '123 456 789i');
+        expect(f1.format(Imaginary(1234567890)), '1 234 567 890i');
 
-        expect(f1.format(new Imaginary(0.0)), '0.0i');
-        expect(f1.format(new Imaginary(10.01)), '10.01i');
-        expect(f1.format(new Imaginary(100.001)), '100.001i');
-        expect(f1.format(new Imaginary(1000.0001)), '1000.0001i');
-        expect(f1.format(new Imaginary(10000.00001)), '10 000.000 01i');
-        expect(f1.format(new Imaginary(9876543210.1234)), '9 876 543 210.1234i');
-        expect(f1.format(new Imaginary(1234.9876543219)), '1234.987 654 321 9i');
+        expect(f1.format(Imaginary(0.0)), '0.0i');
+        expect(f1.format(Imaginary(10.01)), '10.01i');
+        expect(f1.format(Imaginary(100.001)), '100.001i');
+        expect(f1.format(Imaginary(1000.0001)), '1000.0001i');
+        expect(f1.format(Imaginary(10000.00001)), '10 000.000 01i');
+        expect(f1.format(Imaginary(9876543210.1234)), '9 876 543 210.1234i');
+        expect(f1.format(Imaginary(1234.9876543219)), '1234.987 654 321 9i');
       });
 
       test('complex; regular spaces', () {
-        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
-        expect(f1.format(new Complex.coeff(1, 2)), '1 + 2i');
-        expect(f1.format(new Complex.coeff(1, 0)), '1');
-        expect(f1.format(new Complex.coeff(0, 2)), '2i');
-        expect(f1.format(new Complex.coeff(12, 21)), '12 + 21i');
-        expect(f1.format(new Complex.coeff(123, 321)), '123 + 321i');
-        expect(f1.format(new Complex.coeff(1234, 4321)), '1234 + 4321i');
-        expect(f1.format(new Complex.coeff(12345, 54321)), '12 345 + 54 321i');
-        expect(f1.format(new Complex.coeff(123456, 654321)), '123 456 + 654 321i');
-        expect(f1.format(new Complex.coeff(1234567, 7654321)), '1 234 567 + 7 654 321i');
-        expect(f1.format(new Complex.coeff(12345678, 87654321)), '12 345 678 + 87 654 321i');
-        expect(f1.format(new Complex.coeff(123456789, 987654321)), '123 456 789 + 987 654 321i');
-        expect(f1.format(new Complex.coeff(1234567898, 8987654321)), '1 234 567 898 + 8 987 654 321i');
+        final f1 = NumberFormatSI(unicode: false);
+        expect(f1.format(Complex.coeff(1, 2)), '1 + 2i');
+        expect(f1.format(Complex.coeff(1, 0)), '1');
+        expect(f1.format(Complex.coeff(0, 2)), '2i');
+        expect(f1.format(Complex.coeff(12, 21)), '12 + 21i');
+        expect(f1.format(Complex.coeff(123, 321)), '123 + 321i');
+        expect(f1.format(Complex.coeff(1234, 4321)), '1234 + 4321i');
+        expect(f1.format(Complex.coeff(12345, 54321)), '12 345 + 54 321i');
+        expect(f1.format(Complex.coeff(123456, 654321)), '123 456 + 654 321i');
+        expect(f1.format(Complex.coeff(1234567, 7654321)), '1 234 567 + 7 654 321i');
+        expect(f1.format(Complex.coeff(12345678, 87654321)), '12 345 678 + 87 654 321i');
+        expect(f1.format(Complex.coeff(123456789, 987654321)), '123 456 789 + 987 654 321i');
+        expect(f1.format(Complex.coeff(1234567898, 8987654321)), '1 234 567 898 + 8 987 654 321i');
 
-        expect(f1.format(new Complex.coeff(0, 0)), '0');
-        expect(f1.format(new Complex.coeff(10.01, 11.22)), '10.01 + 11.22i');
-        expect(f1.format(new Complex.coeff(100.001, 111.222)), '100.001 + 111.222i');
-        expect(f1.format(new Complex.coeff(1000.0001, 1111.2222)), '1000.0001 + 1111.2222i');
-        expect(f1.format(new Complex.coeff(10000.00001, 11111.22222)), '10 000.000 01 + 11 111.222 22i');
-        expect(
-            f1.format(new Complex.coeff(9876543210.1234, 4321.0123456789)), '9 876 543 210.1234 + 4321.012 345 678 9i');
+        expect(f1.format(Complex.coeff(0, 0)), '0');
+        expect(f1.format(Complex.coeff(10.01, 11.22)), '10.01 + 11.22i');
+        expect(f1.format(Complex.coeff(100.001, 111.222)), '100.001 + 111.222i');
+        expect(f1.format(Complex.coeff(1000.0001, 1111.2222)), '1000.0001 + 1111.2222i');
+        expect(f1.format(Complex.coeff(10000.00001, 11111.22222)), '10 000.000 01 + 11 111.222 22i');
+        expect(f1.format(Complex.coeff(9876543210.1234, 4321.0123456789)), '9 876 543 210.1234 + 4321.012 345 678 9i');
       });
 
       test('removeInsignificantZeros', () {
@@ -163,7 +162,7 @@ void main() {
 
     group('parse', () {
       test('real with regular spaces', () {
-        final NumberFormatSI f1 = new NumberFormatSI(unicode: false);
+        final f1 = NumberFormatSI(unicode: false);
         expect(f1.parse('12 345'), 12345);
         expect(f1.parse('12 345.678 90'), 12345.67890);
         expect(f1.parse('1\u{2009}234\u{2009}567'), 1234567);

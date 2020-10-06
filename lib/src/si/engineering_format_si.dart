@@ -4,15 +4,15 @@ import 'number_format_si.dart';
 /// A version of scientific notation in which the exponent of ten must be divisible by
 /// three (e.g., 123.345 x 10^3).
 class EngineeringFormatSI extends NumberFormatSI {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   EngineeringFormatSI({bool unicode = false}) : super(unicode: unicode);
 
   /// Move the decimal point.
   @override
   String adjustForExponent(String str) {
     if (str?.isNotEmpty != true) return str;
-    String trimmed = str.trim();
-    String sign = '';
+    var trimmed = str.trim();
+    var sign = '';
     if (trimmed.startsWith('-')) {
       sign = '-';
       trimmed = trimmed.substring(1);
@@ -20,12 +20,12 @@ class EngineeringFormatSI extends NumberFormatSI {
       trimmed = trimmed.substring(1);
     }
 
-    final int dotIndex = trimmed.indexOf('.');
-    final int eIndex = trimmed.toLowerCase().indexOf('e');
+    final dotIndex = trimmed.indexOf('.');
+    final eIndex = trimmed.toLowerCase().indexOf('e');
 
-    int firstNonZeroDigit = -1;
-    for (int i = 0; i < trimmed.length; i++) {
-      final String s = trimmed[i];
+    var firstNonZeroDigit = -1;
+    for (var i = 0; i < trimmed.length; i++) {
+      final s = trimmed[i];
       if (s != '0' && s != '.' && s != '-' && s != '+') {
         firstNonZeroDigit = i;
         break;
@@ -34,16 +34,16 @@ class EngineeringFormatSI extends NumberFormatSI {
 
     if (firstNonZeroDigit == -1) return '0.0';
 
-    final num includedExponent = eIndex != -1 ? num.parse(trimmed.substring(eIndex + 1)) : 0;
+    final includedExponent = eIndex != -1 ? num.parse(trimmed.substring(eIndex + 1)) : 0;
 
-    final int length = eIndex != -1 ? eIndex : trimmed.length;
-    num exp = (dotIndex == -1 ? length - 1 : dotIndex - firstNonZeroDigit) + includedExponent;
+    final length = eIndex != -1 ? eIndex : trimmed.length;
+    var exp = (dotIndex == -1 ? length - 1 : dotIndex - firstNonZeroDigit) + includedExponent;
     if (dotIndex > firstNonZeroDigit) exp--;
 
     final num effExp = exp < 0 ? ((exp + 1) ~/ 3) * 3 - 3 : (exp ~/ 3) * 3;
-    final int adj = (exp - effExp).floor();
+    final adj = (exp - effExp).floor();
 
-    String engStr = eIndex != -1 ? trimmed.substring(firstNonZeroDigit, eIndex) : trimmed.substring(firstNonZeroDigit);
+    var engStr = eIndex != -1 ? trimmed.substring(firstNonZeroDigit, eIndex) : trimmed.substring(firstNonZeroDigit);
     if (engStr.length == 1 && firstNonZeroDigit < dotIndex) {
       engStr = '$engStr.0';
     } else {

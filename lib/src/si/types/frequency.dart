@@ -20,7 +20,7 @@ class Frequency extends Quantity {
                 : (MHz != null ? Frequency.megahertz : (GHz != null ? Frequency.gigahertz : Frequency.hertz)),
             uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Frequency.misc(dynamic conv) : super.misc(conv, Frequency.frequencyDimensions);
 
   /// Constructs a Frequency based on the [value]
@@ -33,11 +33,10 @@ class Frequency extends Quantity {
       : super.constant(valueSI, Frequency.frequencyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions frequencyDimensions =
-      const Dimensions.constant(const <String, int>{'Time': -1}, qType: Frequency);
+  static const Dimensions frequencyDimensions = Dimensions.constant(<String, int>{'Time': -1}, qType: Frequency);
 
   /// The standard SI unit.
-  static final FrequencyUnits hertz = new FrequencyUnits('hertz', 'Hz', null, 'hertz', 1.0, true);
+  static final FrequencyUnits hertz = FrequencyUnits('hertz', 'Hz', null, 'hertz', 1.0, true);
 
   // Convenience units.
 
@@ -53,7 +52,7 @@ class Frequency extends Quantity {
 
 /// Units acceptable for use in describing Frequency quantities.
 class FrequencyUnits extends Frequency with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   FrequencyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -70,9 +69,9 @@ class FrequencyUnits extends Frequency with Units {
   @override
   Type get quantityType => Frequency;
 
-  /// Derive new FrequencyUnits using this FrequencyUnits object as the base.
+  /// Derive FrequencyUnits using this FrequencyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new FrequencyUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => FrequencyUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

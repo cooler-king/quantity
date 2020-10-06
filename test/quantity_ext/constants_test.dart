@@ -70,20 +70,20 @@ Map<String, Quantity> nistNameConstantMap = <String, Quantity>{
 void main() {
   group('constants', () {
     test('check against NIST values', () {
-      final List<String> lines = new File('test/quantity_ext/txt/nist_constants.txt').readAsLinesSync();
+      final lines = File('test/quantity_ext/txt/nist_constants.txt').readAsLinesSync();
       double value, uncert;
-      for (final String line in lines) {
-        final String name = line.substring(0, 60).trim();
-        String valueStr = line.substring(60, 85);
+      for (final line in lines) {
+        final name = line.substring(0, 60).trim();
+        var valueStr = line.substring(60, 85);
 
-        bool approxValue = false;
+        var approxValue = false;
         valueStr = valueStr.replaceAll(' ', '');
         if (valueStr.contains('...')) {
           valueStr = valueStr.replaceAll('...', '');
           uncert = 0.0;
           approxValue = true;
         } else {
-          String uncertStr = line.substring(85, min(line.length, 110));
+          var uncertStr = line.substring(85, min(line.length, 110));
           if (uncertStr.contains('exact')) {
             uncert = 0.0;
           } else {
@@ -95,7 +95,7 @@ void main() {
         value = double.parse(valueStr);
 
         if (nistNameConstantMap.containsKey(name)) {
-          final Quantity q = nistNameConstantMap[name];
+          final q = nistNameConstantMap[name];
           if (approxValue) {
             expect(q.valueSI.toDouble() / value, closeTo(1.0, 0.000001));
           } else {

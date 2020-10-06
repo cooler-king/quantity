@@ -14,7 +14,7 @@ class AmountOfSubstance extends Quantity {
   AmountOfSubstance({dynamic mol, dynamic kmol, double uncert = 0.0})
       : super(mol ?? (kmol ?? 0.0), kmol != null ? AmountOfSubstance.kilomoles : AmountOfSubstance.moles, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   AmountOfSubstance.misc(dynamic conv) : super.misc(conv, AmountOfSubstance.amountOfSubstanceDimensions);
 
   /// Constructs a AmountOfSubstance based on the [value]
@@ -28,10 +28,10 @@ class AmountOfSubstance extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions amountOfSubstanceDimensions =
-      const Dimensions.constant(const <String, int>{'Amount': 1}, qType: AmountOfSubstance);
+      Dimensions.constant(<String, int>{'Amount': 1}, qType: AmountOfSubstance);
 
   /// The standard SI unit.
-  static final AmountOfSubstanceUnits moles = new AmountOfSubstanceUnits('moles', null, 'mol', null, 1.0, true);
+  static final AmountOfSubstanceUnits moles = AmountOfSubstanceUnits('moles', null, 'mol', null, 1.0, true);
 
   /// A common metric derivative of the standard SI unit.
   static final AmountOfSubstanceUnits kilomoles = moles.kilo() as AmountOfSubstanceUnits;
@@ -39,7 +39,7 @@ class AmountOfSubstance extends Quantity {
 
 /// Units acceptable for use in describing [AmountOfSubstance] quantities.
 class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   AmountOfSubstanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -56,9 +56,9 @@ class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
   @override
   Type get quantityType => AmountOfSubstance;
 
-  /// Derive new AmountOfSubstanceUnits using this AmountOfSubstanceUnits object as the base.
+  /// Derive AmountOfSubstanceUnits using this AmountOfSubstanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AmountOfSubstanceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AmountOfSubstanceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

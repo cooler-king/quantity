@@ -18,7 +18,7 @@ class SpecificHeatCapacity extends Quantity {
   SpecificHeatCapacity({dynamic joulesPerKilogramKelvin, double uncert = 0.0})
       : super(joulesPerKilogramKelvin ?? 0.0, SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   SpecificHeatCapacity.misc(dynamic conv) : super.misc(conv, SpecificHeatCapacity.specificHeatCapacityDimensions);
 
   /// Constructs a SpecificHeatCapacity based on the [value]
@@ -31,18 +31,17 @@ class SpecificHeatCapacity extends Quantity {
       : super.constant(valueSI, SpecificHeatCapacity.specificHeatCapacityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions specificHeatCapacityDimensions = const Dimensions.constant(
-      const <String, int>{'Length': 2, 'Time': -2, 'Temperature': -1},
-      qType: SpecificHeatCapacity);
+  static const Dimensions specificHeatCapacityDimensions =
+      Dimensions.constant(<String, int>{'Length': 2, 'Time': -2, 'Temperature': -1}, qType: SpecificHeatCapacity);
 
   /// The standard SI unit.
   static final SpecificHeatCapacityUnits joulesPerKilogramKelvin =
-      new SpecificHeatCapacityUnits.energyMassTemperature(Energy.joules, Mass.kilograms, TemperatureInterval.kelvins);
+      SpecificHeatCapacityUnits.energyMassTemperature(Energy.joules, Mass.kilograms, TemperatureInterval.kelvins);
 }
 
 /// Units acceptable for use in describing SpecificHeatCapacity quantities.
 class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   SpecificHeatCapacityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -55,7 +54,7 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from energy, mass and temperature interval units.
+  /// Constructs a instance from energy, mass and temperature interval units.
   SpecificHeatCapacityUnits.energyMassTemperature(EnergyUnits eu, MassUnits mu, TemperatureIntervalUnits tu)
       : super.misc(eu.valueSI / (mu.valueSI * tu.valueSI)) {
     name = '${eu.name} per ${mu.singular} ${tu.singular}';
@@ -71,9 +70,9 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
   @override
   Type get quantityType => SpecificHeatCapacity;
 
-  /// Derive new SpecificHeatCapacityUnits using this SpecificHeatCapacityUnits object as the base.
+  /// Derive SpecificHeatCapacityUnits using this SpecificHeatCapacityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpecificHeatCapacityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => SpecificHeatCapacityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

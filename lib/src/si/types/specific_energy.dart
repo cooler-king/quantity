@@ -20,7 +20,7 @@ class SpecificEnergy extends Quantity {
   SpecificEnergy({dynamic joulesPerKilogram, double uncert = 0.0})
       : super(joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   SpecificEnergy.misc(dynamic conv) : super.misc(conv, SpecificEnergy.specificEnergyDimensions);
 
   /// Constructs a SpecificEnergy based on the [value]
@@ -34,16 +34,15 @@ class SpecificEnergy extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions specificEnergyDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2}, qType: SpecificEnergy);
+      Dimensions.constant(<String, int>{'Length': 2, 'Time': -2}, qType: SpecificEnergy);
 
   /// The standard SI unit.
-  static final SpecificEnergyUnits joulesPerKilogram =
-      new SpecificEnergyUnits.energyMass(Energy.joules, Mass.kilograms);
+  static final SpecificEnergyUnits joulesPerKilogram = SpecificEnergyUnits.energyMass(Energy.joules, Mass.kilograms);
 }
 
 /// Units acceptable for use in describing SpecificEnergy quantities.
 class SpecificEnergyUnits extends SpecificEnergy with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   SpecificEnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -56,7 +55,7 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on energy and mass units.
+  /// Constructs a instance based on energy and mass units.
   SpecificEnergyUnits.energyMass(EnergyUnits eu, MassUnits mu) : super.misc(eu.valueSI / mu.valueSI) {
     name = '${eu.name} per ${mu.singular}';
     singular = '${eu.singular} per ${mu.singular}';
@@ -67,7 +66,7 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
     offset = 0.0;
   }
 
-  /// Constructs a new instance based on length and time units.
+  /// Constructs a instance based on length and time units.
   SpecificEnergyUnits.lengthTime(LengthUnits lu, TimeUnits tu)
       : super.misc(lu.valueSI * lu.valueSI / (tu.valueSI * tu.valueSI)) {
     name = '${lu.name} squared per ${tu.singular} squared';
@@ -79,7 +78,7 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
     offset = 0.0;
   }
 
-  /// Constructs a new instance based on speed units.
+  /// Constructs a instance based on speed units.
   SpecificEnergyUnits.speed(SpeedUnits su) : super.misc(su.valueSI) {
     name = '${su.name} squared';
     singular = '${su.singular} squared';
@@ -94,9 +93,9 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
   @override
   Type get quantityType => SpecificEnergy;
 
-  /// Derive new SpecificEnergyUnits using this SpecificEnergyUnits object as the base.
+  /// Derive SpecificEnergyUnits using this SpecificEnergyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpecificEnergyUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => SpecificEnergyUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

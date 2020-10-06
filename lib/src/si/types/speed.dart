@@ -15,7 +15,7 @@ class Speed extends Quantity {
   Speed({dynamic metersPerSecond, dynamic knots, double uncert = 0.0})
       : super(metersPerSecond ?? (knots ?? 0.0), knots != null ? Speed.knots : Speed.metersPerSecond, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Speed.misc(dynamic conv) : super.misc(conv, Speed.speedDimensions);
 
   /// Constructs a Speed based on the [value]
@@ -28,19 +28,18 @@ class Speed extends Quantity {
       : super.constant(valueSI, Speed.speedDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions speedDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 1, 'Time': -1}, qType: Speed);
+  static const Dimensions speedDimensions = Dimensions.constant(<String, int>{'Length': 1, 'Time': -1}, qType: Speed);
 
   /// The standard SI unit.
-  static final SpeedUnits metersPerSecond = new SpeedUnits.lengthTime(Length.meters, Time.seconds);
+  static final SpeedUnits metersPerSecond = SpeedUnits.lengthTime(Length.meters, Time.seconds);
 
   /// Accepted for use with the SI, subject to further review.
-  static final SpeedUnits knots = new SpeedUnits('knots', null, null, null, 5.144444444e-1, false);
+  static final SpeedUnits knots = SpeedUnits('knots', null, null, null, 5.144444444e-1, false);
 }
 
 /// Units acceptable for use in describing Speed quantities.
 class SpeedUnits extends Speed with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   SpeedUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,7 +52,7 @@ class SpeedUnits extends Speed with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on length and time units.
+  /// Constructs a instance based on length and time units.
   SpeedUnits.lengthTime(LengthUnits lu, TimeUnits tu) : super.misc(lu.valueSI / tu.valueSI) {
     name = '${lu.name} per ${tu.singular}';
     singular = '${lu.singular} per ${tu.singular}';
@@ -68,9 +67,9 @@ class SpeedUnits extends Speed with Units {
   @override
   Type get quantityType => Speed;
 
-  /// Derive new SpeedUnits using this SpeedUnits object as the base.
+  /// Derive SpeedUnits using this SpeedUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpeedUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => SpeedUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

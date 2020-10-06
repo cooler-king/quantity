@@ -102,17 +102,17 @@ class Dimensions {
 
   /// Constructs a Dimensions object with a map of base dimension keys to base dimension exponents.
   Dimensions.fromMap(Map<String, num> typeValuePairs)
-      : _dimensionMap = new Map<String, num>.from(typeValuePairs),
+      : _dimensionMap = Map<String, num>.from(typeValuePairs),
         qType = null;
 
-  /// Creates a new Dimensions object by copying an existing Dimensions object.
+  /// Creates a Dimensions object by copying an existing Dimensions object.
   ///
   /// This is a deep copy that clones the internal _dimensionMap HashMap
   /// object (which in turn contains only immutable objects of classes String and num).
   ///
   /// Any type hint is preserved by default but can be cleared by setting `includeTypeHint` to false.
   Dimensions.copy(Dimensions d2, {bool includeTypeHint = true})
-      : _dimensionMap = new Map<String, num>.from(d2._dimensionMap),
+      : _dimensionMap = Map<String, num>.from(d2._dimensionMap),
         qType = includeTypeHint ? d2.qType : null;
 
   /// The dimensions (base dimension key -> base dimension exponent)
@@ -166,7 +166,7 @@ class Dimensions {
       if (_dimensionMap.keys.length != d2._dimensionMap.keys.length) return false;
 
       // Check Values
-      for (final String key in _dimensionMap.keys) {
+      for (final key in _dimensionMap.keys) {
         if (!d2._dimensionMap.containsKey(key) || (_dimensionMap[key] != d2._dimensionMap[key])) return false;
       }
 
@@ -182,7 +182,7 @@ class Dimensions {
     if (_dimensionMap.isEmpty) return 0;
 
     // Construct a unique string key and take its hashcode
-    final StringBuffer buffer = (new StringBuffer())
+    final buffer = (StringBuffer())
       ..write('L${getComponentExponent(Dimensions.baseLengthKey)}')
       ..write('M${getComponentExponent(Dimensions.baseMassKey)}')
       ..write('T${getComponentExponent(Dimensions.baseTimeKey)}')
@@ -257,13 +257,13 @@ class Dimensions {
     if (other?._dimensionMap?.isNotEmpty != true) return this;
 
     // Copy.  Clear the type hint.
-    final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
+    final result = Dimensions.copy(this, includeTypeHint: false);
 
     // Add other's dimensions to my dimensions.
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (final String key in other._dimensionMap.keys) {
+    for (final key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       newValue = otherValue + myValue;
@@ -278,7 +278,7 @@ class Dimensions {
     return result;
   }
 
-  /// Divides this Dimension by [other] Dimensions, creating a new Dimensions
+  /// Divides this Dimension by [other] Dimensions, creating a Dimensions
   /// object.
   ///
   /// Dimension division (as occurs when two quantities are
@@ -290,13 +290,13 @@ class Dimensions {
     if (other._dimensionMap.isEmpty) return this;
 
     // Copy.  Clear the type hint.
-    final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
+    final result = Dimensions.copy(this, includeTypeHint: false);
 
     // Add other's dimensions to my dimensions
     num otherValue = 0;
     num myValue = 0;
     num newValue = 0;
-    for (final String key in other._dimensionMap.keys) {
+    for (final key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key];
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       if (myValue == null) {
@@ -315,20 +315,20 @@ class Dimensions {
   }
 
   /// Determines the inverse of the dimensions represented by this object,
-  /// creating a new Dimension object.  This object is not modified.
+  /// creating a Dimension object.  This object is not modified.
   ///
   /// Dimension inversion occurs when a Quantity is divided into 1 and is
   /// accomplished by simply negating the sign of each dimension component.
   /// For example the inverse of frequency dimensions (time: -1) is duration
   /// (time: +1).
   Dimensions inverse() {
-    final Map<String, num> invertedMap = <String, num>{};
-    for (final String t in _dimensionMap.keys) {
-      final num value = _dimensionMap[t];
+    final invertedMap = <String, num>{};
+    for (final t in _dimensionMap.keys) {
+      final value = _dimensionMap[t];
       if (value != null) invertedMap[t] = value * -1;
     }
 
-    return new Dimensions.fromMap(invertedMap);
+    return Dimensions.fromMap(invertedMap);
   }
 
   /// Calculates these Dimensions raised to the power specified by [exp]onent
@@ -336,15 +336,15 @@ class Dimensions {
   /// Each base dimension component exponent is multiplied by [exp] to achieve
   /// the desired result.
   Dimensions operator ^(num exp) {
-    if (exp == 0) return new Dimensions();
+    if (exp == 0) return Dimensions();
     if (exp == 1) return this;
 
     // Make a copy of this Object.  Clear the type hint.
-    final Dimensions result = new Dimensions.copy(this, includeTypeHint: false);
+    final result = Dimensions.copy(this, includeTypeHint: false);
 
-    final List<String> keysToRemove = <String>[];
+    final keysToRemove = <String>[];
     num value;
-    for (final String k in result._dimensionMap.keys) {
+    for (final k in result._dimensionMap.keys) {
       value = result._dimensionMap[k];
       if (value != null && value != 0) {
         result._dimensionMap[k] = value * exp;
@@ -367,8 +367,8 @@ class Dimensions {
   ///   of all the Quantity types included in this library.  Therefore, if new
   ///   Quantity subclasses are added outside of this library the Dimensions
   ///   class will not automatically be aware of them, which will affect this
-  ///   method.  Therefore, if new Quantity subclasses are added, this methos should
-  ///   be modified to include the new subclasses.
+  ///   method.  Therefore, if Quantity subclasses are added, this methos should
+  ///   be modified to include the subclasses.
   /// * Some distinct Quantity types have identical dimensions.  In this case
   ///   the first Quantity type discovered is returned.
   //TODO would a static dimensionsTypeMap be better?
@@ -376,7 +376,7 @@ class Dimensions {
     if (dim == null) return MiscQuantity;
 
     // Get the number of dimension components
-    final int numDims = dim._dimensionMap.length;
+    final numDims = dim._dimensionMap.length;
 
     // Check Scalar first for all 0's case
     if (numDims == 0) return Scalar;
@@ -385,7 +385,7 @@ class Dimensions {
     if (numDims > 5) return MiscQuantity;
 
     // Bin Possibilities By Length Dimension and number of components
-    final num lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
+    final lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
     if (lengthExp is! int) return MiscQuantity; // non-integer exponents means MiscQuantity
 
     if (lengthExp == -3) {
@@ -471,11 +471,13 @@ class Dimensions {
       } else if (numDims == 3) {
         if (dim == Energy.energyDimensions) return Energy;
         if (dim == Power.powerDimensions) return Power;
-        if (dim == SpecificHeatCapacity.specificHeatCapacityDimensions)
+        if (dim == SpecificHeatCapacity.specificHeatCapacityDimensions) {
           return SpecificHeatCapacity; // or specific entropy
+        }
       } else if (numDims == 4) {
-        if (dim == ElectricPotentialDifference.electricPotentialDifferenceDimensions)
+        if (dim == ElectricPotentialDifference.electricPotentialDifferenceDimensions) {
           return ElectricPotentialDifference;
+        }
         if (dim == Resistance.electricResistanceDimensions) return Resistance;
         if (dim == MagneticFlux.magneticFluxDimensions) return MagneticFlux;
         if (dim == Inductance.inductanceDimensions) return Inductance;
@@ -501,21 +503,21 @@ class Dimensions {
     return MiscQuantity;
   }
 
-  /// Returns a new instance of the Quantity type associated with these dimensions.
+  /// Returns a instance of the Quantity type associated with these dimensions.
   /// If no specific Quantity type is found with dimensions that match these dimensions
-  /// a new instance of the [MiscQuantity] class will be returned.
+  /// a instance of the [MiscQuantity] class will be returned.
   /// If no [value] is provided, it defaults to zero.
   /// If no [units] are provided, then MKS units are assumed.
   /// If no uncertainty is provided, the value is presumed to be exact.
   Quantity toQuantity([dynamic value = 0.0, Units units, double uncert = 0.0]) {
     // Check that the units match the dimensions, if provided.
-    if (units is Quantity && (units as Quantity).dimensions != this)
-      throw new DimensionsException('The dimensions of the provided units must equal the dimensions');
-
+    if (units is Quantity && (units as Quantity).dimensions != this) {
+      throw DimensionsException('The dimensions of the provided units must equal the dimensions');
+    }
     try {
-      final Type type = qType ?? determineQuantityType(this);
+      final type = qType ?? determineQuantityType(this);
       if (type != null && type is! MiscQuantity) {
-        final Quantity q = createTypedQuantityInstance(type, value, units, uncert: uncert);
+        final q = createTypedQuantityInstance(type, value, units, uncert: uncert);
         if (q != null) return q;
       }
     } catch (e) {
@@ -523,7 +525,7 @@ class Dimensions {
     }
 
     // Unable to create a typed instance; return a MiscQuantity with these dimensions.
-    return new MiscQuantity(units?.toMks(value) ?? value, this, uncert);
+    return MiscQuantity(units?.toMks(value) ?? value, this, uncert);
   }
 
   /// Returns a String representation of this Dimensions object in the form:
@@ -531,9 +533,9 @@ class Dimensions {
   ///     'Dimensions [<type>=<value>; <type2>=<value2> ... ]'
   @override
   String toString() {
-    final StringBuffer buffer = (new StringBuffer())..write(' Dimensions [');
-    bool first = true;
-    for (final String t in _dimensionMap.keys) {
+    final buffer = (StringBuffer())..write(' Dimensions [');
+    var first = true;
+    for (final t in _dimensionMap.keys) {
       if (!first) {
         buffer.write('; ');
       } else {

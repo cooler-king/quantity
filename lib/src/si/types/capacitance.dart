@@ -12,7 +12,7 @@ class Capacitance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Capacitance({dynamic F, double uncert = 0.0}) : super(F ?? 0.0, Capacitance.farads, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Capacitance.misc(dynamic conv) : super.misc(conv, Capacitance.electricCapacitanceDimensions);
 
   /// Constructs a Capacitance based on the [value]
@@ -25,17 +25,16 @@ class Capacitance extends Quantity {
       : super.constant(valueSI, Capacitance.electricCapacitanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions electricCapacitanceDimensions = const Dimensions.constant(
-      const <String, int>{'Time': 4, 'Current': 2, 'Length': -2, 'Mass': -1},
-      qType: Capacitance);
+  static const Dimensions electricCapacitanceDimensions =
+      Dimensions.constant(<String, int>{'Time': 4, 'Current': 2, 'Length': -2, 'Mass': -1}, qType: Capacitance);
 
   /// The standard SI unit.
-  static final CapacitanceUnits farads = new CapacitanceUnits('farads', null, 'F', null, 1.0, true);
+  static final CapacitanceUnits farads = CapacitanceUnits('farads', null, 'F', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing Capacitance quantities.
 class CapacitanceUnits extends Capacitance with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   CapacitanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -52,9 +51,9 @@ class CapacitanceUnits extends Capacitance with Units {
   @override
   Type get quantityType => Capacitance;
 
-  /// Derive new CapacitanceUnits using this CapacitanceUnits object as the base.
+  /// Derive CapacitanceUnits using this CapacitanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CapacitanceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => CapacitanceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

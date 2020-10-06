@@ -5,10 +5,10 @@ import 'package:quantity/number.dart';
 void main() {
   group('hashCodes', () {
     test('int and Integer', () {
-      const Integer d = const Integer.constant(42);
+      const d = Integer.constant(42);
       expect(d.hashCode, 42.hashCode);
 
-      final Integer d2 = new Integer(-42);
+      final d2 = Integer(-42);
       expect(d2.hashCode, -42.hashCode);
 
       expect(d.hashCode == d2.hashCode, false);
@@ -21,70 +21,70 @@ void main() {
     });
 
     test('Double', () {
-      final Double d = new Double(34.56);
-      final Double d2 = new Double(3.456e1);
+      final d = Double(34.56);
+      final d2 = Double(3.456e1);
       expect(d.hashCode, d2.hashCode);
 
-      final Double d3 = new Double(-34.56);
+      final d3 = Double(-34.56);
       expect(d.hashCode == d3.hashCode, false);
 
-      final Double d4 = new Double(217);
+      final d4 = Double(217);
       expect(d4.hashCode, 217.hashCode);
 
-      final Double d5 = new Double(217.000000001);
+      final d5 = Double(217.000000001);
       expect(d5.hashCode == 217.hashCode, false);
       expect(d5.hashCode == d4.hashCode, false);
 
-      final Double d6 = new Double(-217);
+      final d6 = Double(-217);
       expect(d6.hashCode, -217.hashCode);
       expect(d6.hashCode == 217.hashCode, false);
       expect(d6.hashCode == d4.hashCode, false);
 
-      final Double d7 = new Double(1.234e-2);
-      final Double d8 = new Double(1.234e2);
+      final d7 = Double(1.234e-2);
+      final d8 = Double(1.234e2);
       expect(d7.hashCode == d8.hashCode, false);
     });
 
     test('Imaginary', () {
-      final Imaginary d = new Imaginary(7);
-      final Imaginary d2 = new Imaginary(7);
+      final d = Imaginary(7);
+      final d2 = Imaginary(7);
       expect(d.hashCode, d2.hashCode);
       expect(d.hashCode == 7.hashCode, false);
 
-      final Imaginary d3 = new Imaginary(-7);
+      final d3 = Imaginary(-7);
       expect(d3.hashCode == d2.hashCode, false);
 
-      final Imaginary d4 = new Imaginary(23.43);
-      expect(d4.hashCode == new Double(23.43).hashCode, false);
+      final d4 = Imaginary(23.43);
+      expect(d4.hashCode == Double(23.43).hashCode, false);
 
-      final Imaginary d5 = new Imaginary(0);
+      final d5 = Imaginary(0);
       expect(d5.hashCode, 0.hashCode);
     });
 
     test('Complex', () {
-      final Complex d = new Complex(new Double(34.56), new Imaginary(7));
-      final Complex d2 = new Complex(new Double(34.56), new Imaginary(7));
+      final d = Complex(Double(34.56), Imaginary(7));
+      final d2 = Complex(Double(34.56), Imaginary(7));
       expect(d.hashCode, d2.hashCode);
 
-      final Complex d3 = new Complex(Double.zero, new Imaginary(7));
+      final d3 = Complex(Double.zero, Imaginary(7));
       expect(d3.hashCode == d2.hashCode, false);
 
-      final Complex d4 = new Complex(new Double(34.56), new Imaginary(0));
+      final d4 = Complex(Double(34.56), Imaginary(0));
       expect(d4.hashCode == d2.hashCode, false);
     });
 
     test('Precise', () {
-      final Precise d = new Precise('32.456');
-      final Precise d2 = new Precise('32.456');
+      final d = Precise('32.456');
+      final d2 = Precise('32.456');
       expect(d.hashCode, d2.hashCode);
 
-      final Double d3 = new Double(32.456);
+      final d3 = Double(32.456);
       expect(d2.hashCode, d3.hashCode);
 
-      final Complex d4 = new Complex(new Double(32.456), new Imaginary(0));
+      final d4 = Complex(Double(32.456), Imaginary(0));
       expect(d2.hashCode, d4.hashCode);
 
-      final Precise d5 = new Precise('-32.456');
+      final d5 = Precise('-32.456');
       expect(d.hashCode == d5.hashCode, false);
     });
   });

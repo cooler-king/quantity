@@ -100,8 +100,8 @@ mixin Units {
   /// cause a [QuantityException].
   Number fromMks(dynamic mks) {
     if (mks is num) {
-      if (offset == 0) return new Double(mks.toDouble()) / convToMKS;
-      return (new Double(mks.toDouble()) / convToMKS) - objToNumber(offset);
+      if (offset == 0) return Double(mks.toDouble()) / convToMKS;
+      return (Double(mks.toDouble()) / convToMKS) - objToNumber(offset);
     } else if (mks is Number) {
       if (offset == 0) return mks / convToMKS;
       return (mks / convToMKS) - objToNumber(offset);
@@ -110,7 +110,7 @@ mixin Units {
     }
   }
 
-  /// Derive new Units using this Units object as the base.
+  /// Derive Units using this Units object as the base.
   Units derive(String fullPrefix, String abbrevPrefix, double conv);
 
   /// Returns the derived Units having the 10^24 prefix, yotta (Y).

@@ -70,138 +70,132 @@ final LengthUnits yoctometers = Length.meters.yocto() as LengthUnits;
 final LengthUnits astronomicalUnits = Length.astronomicalUnits;
 
 /// A non-standard unit of length.
-final LengthUnits fermis = new LengthUnits('fermis', null, null, null, 1.0e-15, true);
+final LengthUnits fermis = LengthUnits('fermis', null, null, null, 1.0e-15, true);
 
 /// A non-standard unit of length.
-final LengthUnits cables = new LengthUnits('cables', null, null, null, 2.19456e2, false);
+final LengthUnits cables = LengthUnits('cables', null, null, null, 2.19456e2, false);
 
 /// A non-standard unit of length.
-final LengthUnits calibers = new LengthUnits('calibers', null, null, null, 2.54e-4, false);
+final LengthUnits calibers = LengthUnits('calibers', null, null, null, 2.54e-4, false);
 
 /// A non-standard unit of length.
-final LengthUnits chainsSurveyor =
-    new LengthUnits('chains (surveyor)', null, null, 'chain (surveyor)', 2.01168e1, false);
+final LengthUnits chainsSurveyor = LengthUnits('chains (surveyor)', null, null, 'chain (surveyor)', 2.01168e1, false);
 
 /// A non-standard unit of length.
-final LengthUnits chainsEngineer = new LengthUnits('chains (engineer)', null, null, 'chain (engineer)', 3.048e1, false);
+final LengthUnits chainsEngineer = LengthUnits('chains (engineer)', null, null, 'chain (engineer)', 3.048e1, false);
 
 /// A non-standard unit of length.
-final LengthUnits cubits = new LengthUnits('cubits', null, null, null, 5.472e-1, false);
+final LengthUnits cubits = LengthUnits('cubits', null, null, null, 5.472e-1, false);
 
 /// A non-standard unit of length.
-final LengthUnits fathoms = new LengthUnits('fathoms', null, null, null, 1.8288, false);
+final LengthUnits fathoms = LengthUnits('fathoms', null, null, null, 1.8288, false);
 
 /// A non-standard unit of length.
-final LengthUnits feet = new LengthUnits('feet', "'", 'ft', 'foot', 3.048e-1, false);
+final LengthUnits feet = LengthUnits('feet', "'", 'ft', 'foot', 3.048e-1, false);
 
 /// A non-standard unit of length.
 final LengthUnits feetUsSurvey =
-    new LengthUnits('feet (US survey)', 'ft (US)', null, 'foot (US survey)', 3.048006096e-1, false);
+    LengthUnits('feet (US survey)', 'ft (US)', null, 'foot (US survey)', 3.048006096e-1, false);
 
 /// A non-standard unit of length.
-final LengthUnits furlongs = new LengthUnits('furlongs', null, null, null, 2.01168e2, false);
+final LengthUnits furlongs = LengthUnits('furlongs', null, null, null, 2.01168e2, false);
 
 /// A non-standard unit of length.
-final LengthUnits hands = new LengthUnits('hands', null, null, null, 1.016e-1, false);
+final LengthUnits hands = LengthUnits('hands', null, null, null, 1.016e-1, false);
 
 /// A non-standard unit of length.
-final LengthUnits inches = new LengthUnits('inches', '\'', 'in', 'inch', 2.54e-2, false);
+final LengthUnits inches = LengthUnits('inches', '\'', 'in', 'inch', 2.54e-2, false);
 
 /// A non-standard unit of length.
 final LengthUnits leaguesUkNautical =
-    new LengthUnits('leagues (UK nautical)', null, null, 'league (UK nautical)', 5.559552e3, false);
+    LengthUnits('leagues (UK nautical)', null, null, 'league (UK nautical)', 5.559552e3, false);
 
 /// A non-standard unit of length.
-final LengthUnits leaguesNautical =
-    new LengthUnits('leagues (nautical)', null, null, 'league (nautical)', 5.556e3, false);
+final LengthUnits leaguesNautical = LengthUnits('leagues (nautical)', null, null, 'league (nautical)', 5.556e3, false);
 
 /// A non-standard unit of length.
-final LengthUnits leaguesStatute =
-    new LengthUnits('leagues (statute)', null, null, 'league (statute)', 4.828032e3, false);
+final LengthUnits leaguesStatute = LengthUnits('leagues (statute)', null, null, 'league (statute)', 4.828032e3, false);
 
 /// The distance light travels in one year.
-final LengthUnits lightYears = new LengthUnits('light years', 'LY', null, null, 9.46055e15, false);
+final LengthUnits lightYears = LengthUnits('light years', 'LY', null, null, 9.46055e15, false);
 
 /// A non-standard unit of length.
-final LengthUnits linksEngineer = new LengthUnits('links (engineer)', null, null, 'link (engineer)', 3.048e-1, false);
+final LengthUnits linksEngineer = LengthUnits('links (engineer)', null, null, 'link (engineer)', 3.048e-1, false);
 
 /// A non-standard unit of length.
-final LengthUnits linksSurveyor = new LengthUnits('links (surveyor)', null, null, 'link (surveyor)', 2.01168e-1, false);
+final LengthUnits linksSurveyor = LengthUnits('links (surveyor)', null, null, 'link (surveyor)', 2.01168e-1, false);
 
 /// A synonym for micrometers.
 final LengthUnits microns = Length.meters.micro() as LengthUnits;
 
 /// A non-standard unit of length.
-final LengthUnits mils = new LengthUnits('mils', null, null, null, 2.54e-5, false);
+final LengthUnits mils = LengthUnits('mils', null, null, null, 2.54e-5, false);
 
 /// A non-standard unit of length.
-final LengthUnits miles = new LengthUnits('miles', 'mi', null, null, 1.609344e3, false);
+final LengthUnits miles = LengthUnits('miles', 'mi', null, null, 1.609344e3, false);
 
 /// A non-standard unit of length.
 final LengthUnits nauticalMilesUk =
-    new LengthUnits('nautical miles (UK)', 'NM (UK)', null, 'nautical mile (UK)', 1.853184e3, false);
+    LengthUnits('nautical miles (UK)', 'NM (UK)', null, 'nautical mile (UK)', 1.853184e3, false);
 
 /// A non-standard unit of length.
-final LengthUnits paces = new LengthUnits('paces', null, null, null, 7.62e-1, false);
+final LengthUnits paces = LengthUnits('paces', null, null, null, 7.62e-1, false);
 
 /// A non-standard unit of length.
-final LengthUnits parsecs = new LengthUnits('parsecs', 'pc', null, null, 3.0857e16, false);
+final LengthUnits parsecs = LengthUnits('parsecs', 'pc', null, null, 3.0857e16, false);
 
 /// A non-standard unit of length.
-final LengthUnits perches = new LengthUnits('perches', null, null, 'perch', 5.0292, false);
+final LengthUnits perches = LengthUnits('perches', null, null, 'perch', 5.0292, false);
 
 /// A non-standard unit of length.
-final LengthUnits picas = new LengthUnits('picas', null, null, null, 4.2175176e-3, false);
+final LengthUnits picas = LengthUnits('picas', null, null, null, 4.2175176e-3, false);
 
 /// A non-standard unit of length.
-final LengthUnits points = new LengthUnits('points', null, null, null, 3.514598e-4, false);
+final LengthUnits points = LengthUnits('points', null, null, null, 3.514598e-4, false);
 
 /// A non-standard unit of length.
-final LengthUnits poles = new LengthUnits('poles', null, null, null, 5.0292, false);
+final LengthUnits poles = LengthUnits('poles', null, null, null, 5.0292, false);
 
 /// A non-standard unit of length.
-final LengthUnits rods = new LengthUnits('rods', null, null, null, 5.0292, false);
+final LengthUnits rods = LengthUnits('rods', null, null, null, 5.0292, false);
 
 /// A non-standard unit of length.
-final LengthUnits skeins = new LengthUnits('skeins', null, null, null, 1.09728e2, false);
+final LengthUnits skeins = LengthUnits('skeins', null, null, null, 1.09728e2, false);
 
 /// A non-standard unit of length.
-final LengthUnits spans = new LengthUnits('spans', null, null, null, 2.286e-1, false);
+final LengthUnits spans = LengthUnits('spans', null, null, null, 2.286e-1, false);
 
 /// A non-standard unit of length.
-final LengthUnits yards = new LengthUnits('yards', 'yd', null, null, 9.144e-1, false);
+final LengthUnits yards = LengthUnits('yards', 'yd', null, null, 9.144e-1, false);
 
 /// A non-standard unit of length.
-final LengthUnits xUnits = new LengthUnits('X units', 'Siegbahn', 'Xu', null, 1.00208e-13, false);
+final LengthUnits xUnits = LengthUnits('X units', 'Siegbahn', 'Xu', null, 1.00208e-13, false);
 
 /// A non-standard unit of length.
-final LengthUnits angstromStars = new LengthUnits('Angstrom stars', 'A*', null, null, 1.00001495e-10, false);
+final LengthUnits angstromStars = LengthUnits('Angstrom stars', 'A*', null, null, 1.00001495e-10, false);
 
 // CONSTANTS.
 
 /// A constant representing zero length.
-const Length lengthZero = const Length.constant(Double.zero);
+const Length lengthZero = Length.constant(Double.zero);
 
 /// The threshold length at which classical ideas about gravity and space-time cease to be valid
 /// and quantum effects dominate.
-const Length planckLength = const Length.constant(const Double.constant(1.616255e-35), uncert: 0.000011136856498510445);
+const Length planckLength = Length.constant(Double.constant(1.616255e-35), uncert: 0.000011136856498510445);
 
 /// Often used to represent the wavelengths of X rays and the distances between atoms in crystals.
-const Length angstromStar = const Length.constant(const Double.constant(1.00001495e-10), uncert: 8.999865452011492e-7);
+const Length angstromStar = Length.constant(Double.constant(1.00001495e-10), uncert: 8.999865452011492e-7);
 
 /// The mean radius of the orbit of an electron around the nucleus of a hydrogen atom at its ground state.
-const Length bohrRadius =
-    const Length.constant(const Double.constant(5.29177210903e-11), uncert: 1.511780899700616e-10);
+const Length bohrRadius = Length.constant(Double.constant(5.29177210903e-11), uncert: 1.511780899700616e-10);
 
 /// The wavelength of a photon whose energy is the same as the mass energy equivalent of that particle.
-const Length comptonWavelength =
-    const Length.constant(const Double.constant(2.42631023867e-12), uncert: 3.0086836727035986e-10);
+const Length comptonWavelength = Length.constant(Double.constant(2.42631023867e-12), uncert: 3.0086836727035986e-10);
 
 /// The tau Compton wavelength.
-const Length tauComptonWavelength =
-    const Length.constant(const Double.constant(6.97771e-16), uncert: 0.00006735734216526625);
+const Length tauComptonWavelength = Length.constant(Double.constant(6.97771e-16), uncert: 0.00006735734216526625);
 
 /// The classical electron radius is a combination of fundamental physical quantities that define a length scale
 /// for problems involving an electron interacting with electromagnetic radiation.
 const Length classicalElectronRadius =
-    const Length.constant(const Double.constant(2.8179403262e-15), uncert: 4.6132985426027577e-10);
+    Length.constant(Double.constant(2.8179403262e-15), uncert: 4.6132985426027577e-10);

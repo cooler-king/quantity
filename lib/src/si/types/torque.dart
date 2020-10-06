@@ -17,7 +17,7 @@ class Torque extends Quantity {
   // ignore: non_constant_identifier_names
   Torque({dynamic Nm, double uncert = 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Torque.misc(dynamic conv) : super.misc(conv, Torque.torqueDimensions);
 
   /// Constructs a Torque based on the [value]
@@ -31,15 +31,15 @@ class Torque extends Quantity {
 
   /// Dimensions for this type of quantity (energy per angle rather than Length x Force).
   static const Dimensions torqueDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1}, qType: Torque);
+      Dimensions.constant(<String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1}, qType: Torque);
 
   /// The standard SI unit.
-  static final TorqueUnits newtonMeters = new TorqueUnits.forceLength(Force.newtons, Length.meters);
+  static final TorqueUnits newtonMeters = TorqueUnits.forceLength(Force.newtons, Length.meters);
 }
 
 /// Units acceptable for use in describing Torque quantities.
 class TorqueUnits extends Torque with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   TorqueUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -52,7 +52,7 @@ class TorqueUnits extends Torque with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from force and length units.
+  /// Constructs a instance from force and length units.
   TorqueUnits.forceLength(ForceUnits fu, LengthUnits lu) : super.misc(fu.valueSI * lu.valueSI) {
     name = '${fu.singular} ${lu.name}';
     singular = '${fu.singular} ${lu.singular}';
@@ -67,9 +67,9 @@ class TorqueUnits extends Torque with Units {
   @override
   Type get quantityType => Torque;
 
-  /// Derive new TorqueUnits using this TorqueUnits object as the base.
+  /// Derive TorqueUnits using this TorqueUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new TorqueUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => TorqueUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

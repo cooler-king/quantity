@@ -13,7 +13,7 @@ class Current extends Quantity {
   Current({dynamic A, dynamic mA, double uncert = 0.0})
       : super(A ?? (mA ?? 0.0), mA != null ? Current.milliamperes : Current.amperes, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Current.misc(dynamic conv) : super.misc(conv, Current.electricCurrentDimensions);
 
   /// Constructs a Current based on the [value]
@@ -26,11 +26,10 @@ class Current extends Quantity {
       : super.constant(valueSI, Current.electricCurrentDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions electricCurrentDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 1}, qType: Current);
+  static const Dimensions electricCurrentDimensions = Dimensions.constant(<String, int>{'Current': 1}, qType: Current);
 
   /// The standard SI unit.
-  static final CurrentUnits amperes = new CurrentUnits('amperes', 'A', null, null, 1.0, true);
+  static final CurrentUnits amperes = CurrentUnits('amperes', 'A', null, null, 1.0, true);
 
   /// A common metric derivative.
   static final CurrentUnits milliamperes = amperes.milli() as CurrentUnits;
@@ -38,7 +37,7 @@ class Current extends Quantity {
 
 /// Units acceptable for use in describing [Current] quantities.
 class CurrentUnits extends Current with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   CurrentUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -55,9 +54,9 @@ class CurrentUnits extends Current with Units {
   @override
   Type get quantityType => Current;
 
-  /// Derive new CurrentUnits using this CurrentUnits object as the base.
+  /// Derive CurrentUnits using this CurrentUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CurrentUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => CurrentUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

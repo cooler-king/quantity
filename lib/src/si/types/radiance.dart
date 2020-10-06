@@ -17,7 +17,7 @@ class Radiance extends Quantity {
   Radiance({dynamic wattsPerSquareMeterSteradian, double uncert = 0.0})
       : super(wattsPerSquareMeterSteradian ?? 0.0, Radiance.wattsPerSquareMeterSteradian, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Radiance.misc(dynamic conv) : super.misc(conv, Radiance.radianceDimensions);
 
   /// Constructs a Radiance based on the [value]
@@ -31,16 +31,16 @@ class Radiance extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions radianceDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Solid Angle': -1, 'Time': -3}, qType: Radiance);
+      Dimensions.constant(<String, int>{'Mass': 1, 'Solid Angle': -1, 'Time': -3}, qType: Radiance);
 
   /// The standard SI unit.
   static final RadianceUnits wattsPerSquareMeterSteradian =
-      new RadianceUnits.powerAreaSolidAngle(Power.watts, Area.squareMeters, SolidAngle.steradians);
+      RadianceUnits.powerAreaSolidAngle(Power.watts, Area.squareMeters, SolidAngle.steradians);
 }
 
 /// Units acceptable for use in describing Radiance quantities.
 class RadianceUnits extends Radiance with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   RadianceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,7 +53,7 @@ class RadianceUnits extends Radiance with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from power, area and solid angle units.
+  /// Constructs a instance from power, area and solid angle units.
   RadianceUnits.powerAreaSolidAngle(PowerUnits ecu, AreaUnits mu, SolidAngleUnits sau)
       : super.misc(ecu.valueSI / (mu.valueSI * sau.valueSI)) {
     name = '${ecu.name} per ${mu.singular} ${sau.singular}';
@@ -69,9 +69,9 @@ class RadianceUnits extends Radiance with Units {
   @override
   Type get quantityType => Radiance;
 
-  /// Derive new RadianceUnits using this RadianceUnits object as the base.
+  /// Derive RadianceUnits using this RadianceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new RadianceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => RadianceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

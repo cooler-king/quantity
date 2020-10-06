@@ -15,7 +15,7 @@ class ElectricPotentialDifference extends Quantity {
   ElectricPotentialDifference({dynamic V, double uncert = 0.0})
       : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   ElectricPotentialDifference.misc(dynamic conv)
       : super.misc(conv, ElectricPotentialDifference.electricPotentialDifferenceDimensions);
 
@@ -30,18 +30,18 @@ class ElectricPotentialDifference extends Quantity {
       : super.constant(valueSI, ElectricPotentialDifference.electricPotentialDifferenceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions electricPotentialDifferenceDimensions = const Dimensions.constant(
-      const <String, int>{'Current': -1, 'Time': -3, 'Length': 2, 'Mass': 1},
+  static const Dimensions electricPotentialDifferenceDimensions = Dimensions.constant(
+      <String, int>{'Current': -1, 'Time': -3, 'Length': 2, 'Mass': 1},
       qType: ElectricPotentialDifference);
 
   /// The standard SI unit.
   static final ElectricPotentialDifferenceUnits volts =
-      new ElectricPotentialDifferenceUnits('volts', null, 'V', null, 1.0, true);
+      ElectricPotentialDifferenceUnits('volts', null, 'V', null, 1.0, true);
 }
 
 /// Units acceptable for use in describing ElectricPotentialDifference quantities.
 class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ElectricPotentialDifferenceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -58,9 +58,9 @@ class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with 
   @override
   Type get quantityType => ElectricPotentialDifference;
 
-  /// Derive new ElectricPotentialDifferenceUnits using this ElectricPotentialDifferenceUnits object as the base.
+  /// Derive ElectricPotentialDifferenceUnits using this ElectricPotentialDifferenceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ElectricPotentialDifferenceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ElectricPotentialDifferenceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

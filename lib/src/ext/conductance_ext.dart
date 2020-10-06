@@ -2,7 +2,7 @@ import '../number/double.dart';
 import '../si/types/conductance.dart';
 
 /// A non-SI unit of electrical conductance.
-final ConductanceUnits statmhos = new ConductanceUnits('statmhos', null, null, null, 1.1127e-12, false);
+final ConductanceUnits statmhos = ConductanceUnits('statmhos', null, null, null, 1.1127e-12, false);
 
 // Convenience units.
 
@@ -18,4 +18,4 @@ final ConductanceUnits abmho = Conductance.siemens.giga() as ConductanceUnits;
 /// It appears when measuring the conductance of a quantum point contact, and, more generally,
 /// is a key component of Landauer formula which relates the electrical conductance of a quantum
 /// conductor to its quantum properties.
-const Conductance conductanceQuantum = const Conductance.constant(const Double.constant(7.7480917299999999e-5));
+const Conductance conductanceQuantum = Conductance.constant(Double.constant(7.7480917299999999e-5));

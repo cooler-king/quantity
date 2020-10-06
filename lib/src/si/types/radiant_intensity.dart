@@ -15,7 +15,7 @@ class RadiantIntensity extends Quantity {
   RadiantIntensity({dynamic wattsPerSteradian, double uncert = 0.0})
       : super(wattsPerSteradian ?? 0.0, RadiantIntensity.wattsPerSteradian, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   RadiantIntensity.misc(dynamic conv) : super.misc(conv, RadiantIntensity.radiantIntensityDimensions);
 
   /// Constructs a RadiantIntensity based on the [value]
@@ -28,18 +28,18 @@ class RadiantIntensity extends Quantity {
       : super.constant(valueSI, RadiantIntensity.radiantIntensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions radiantIntensityDimensions = const Dimensions.constant(
-      const <String, int>{'Length': 2, 'Mass': 1, 'Time': -3, 'Solid Angle': -1},
+  static const Dimensions radiantIntensityDimensions = Dimensions.constant(
+      <String, int>{'Length': 2, 'Mass': 1, 'Time': -3, 'Solid Angle': -1},
       qType: RadiantIntensity);
 
   /// The standard SI unit.
   static final RadiantIntensityUnits wattsPerSteradian =
-      new RadiantIntensityUnits.powerSolidAngle(Power.watts, SolidAngle.steradians);
+      RadiantIntensityUnits.powerSolidAngle(Power.watts, SolidAngle.steradians);
 }
 
 /// Units acceptable for use in describing RadiantIntensity quantities.
 class RadiantIntensityUnits extends RadiantIntensity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   RadiantIntensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -52,7 +52,7 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on power nad solid angle units.
+  /// Constructs a instance based on power nad solid angle units.
   RadiantIntensityUnits.powerSolidAngle(PowerUnits pu, SolidAngleUnits sau) : super.misc(pu.valueSI / sau.valueSI) {
     name = '${pu.name} per ${sau.singular}';
     singular = '${pu.singular} per ${sau.singular}';
@@ -67,9 +67,9 @@ class RadiantIntensityUnits extends RadiantIntensity with Units {
   @override
   Type get quantityType => RadiantIntensity;
 
-  /// Derive new RadiantIntensityUnits using this RadiantIntensityUnits object as the base.
+  /// Derive RadiantIntensityUnits using this RadiantIntensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new RadiantIntensityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => RadiantIntensityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

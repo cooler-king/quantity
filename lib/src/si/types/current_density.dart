@@ -15,7 +15,7 @@ class CurrentDensity extends Quantity {
   CurrentDensity({dynamic amperesPerSquareMeter, double uncert = 0.0})
       : super(amperesPerSquareMeter ?? 0.0, CurrentDensity.amperesPerSquareMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   CurrentDensity.misc(dynamic conv) : super.misc(conv, CurrentDensity.electricCurrentDensityDimensions);
 
   /// Constructs a CurrentDensity based on the [value]
@@ -29,16 +29,16 @@ class CurrentDensity extends Quantity {
 
   /// Dimensions for this type of quantity
   static const Dimensions electricCurrentDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 1, 'Length': -2}, qType: CurrentDensity);
+      Dimensions.constant(<String, int>{'Current': 1, 'Length': -2}, qType: CurrentDensity);
 
   /// The standard SI unit.
   static final CurrentDensityUnits amperesPerSquareMeter =
-      new CurrentDensityUnits.currentArea(Current.amperes, Area.squareMeters);
+      CurrentDensityUnits.currentArea(Current.amperes, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing CurrentDensity quantities.
 class CurrentDensityUnits extends CurrentDensity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   CurrentDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class CurrentDensityUnits extends CurrentDensity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from current and area quantities.
+  /// Constructs a instance from current and area quantities.
   CurrentDensityUnits.currentArea(CurrentUnits ecu, AreaUnits au) : super.misc(ecu.valueSI * au.valueSI) {
     name = '${ecu.name} per ${au.singular}';
     singular = '${ecu.singular} per ${au.singular}';
@@ -66,9 +66,9 @@ class CurrentDensityUnits extends CurrentDensity with Units {
   @override
   Type get quantityType => CurrentDensity;
 
-  /// Derive new CurrentDensityUnits using this CurrentDensityUnits object as the base.
+  /// Derive CurrentDensityUnits using this CurrentDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new CurrentDensityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => CurrentDensityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

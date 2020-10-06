@@ -19,7 +19,7 @@ class Pressure extends Quantity {
   Pressure({dynamic Pa, dynamic bars, double uncert = 0.0})
       : super(Pa ?? (bars ?? 0.0), bars != null ? Pressure.bars : Pressure.pascals, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Pressure.misc(dynamic conv) : super.misc(conv, Pressure.pressureDimensions);
 
   /// Constructs a Pressure based on the [value]
@@ -33,18 +33,18 @@ class Pressure extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions pressureDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: Pressure);
+      Dimensions.constant(<String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: Pressure);
 
   /// The standard SI unit.
-  static final PressureUnits pascals = new PressureUnits('pascals', null, 'Pa', null, 1.0, true);
+  static final PressureUnits pascals = PressureUnits('pascals', null, 'Pa', null, 1.0, true);
 
   /// Accepted for use with the SI, subject to further review.
-  static final PressureUnits bars = new PressureUnits('bars', null, null, null, 1.0e5, true);
+  static final PressureUnits bars = PressureUnits('bars', null, null, null, 1.0e5, true);
 }
 
 /// Units acceptable for use in describing Pressure quantities.
 class PressureUnits extends Pressure with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   PressureUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -57,7 +57,7 @@ class PressureUnits extends Pressure with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from force and area units.
+  /// Constructs a instance from force and area units.
   PressureUnits.forceArea(ForceUnits fu, AreaUnits au) : super.misc(fu.valueSI * au.valueSI) {
     name = '${fu.name} per ${au.singular}';
     singular = '${fu.singular} per ${au.singular}';
@@ -72,9 +72,9 @@ class PressureUnits extends Pressure with Units {
   @override
   Type get quantityType => Pressure;
 
-  /// Derive new PressureUnits using this PressureUnits object as the base.
+  /// Derive PressureUnits using this PressureUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new PressureUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => PressureUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

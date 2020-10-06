@@ -20,7 +20,7 @@ class AbsorbedDoseRate extends Quantity {
       : super(graysPerSecond ?? (radsPerSecond ?? 0.0),
             radsPerSecond != null ? AbsorbedDoseRate.radsPerSecond : AbsorbedDoseRate.graysPerSecond, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   AbsorbedDoseRate.misc(dynamic conv) : super.misc(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
 
   /// Constructs an AbsorbedDoseRate based on the [value]
@@ -35,21 +35,21 @@ class AbsorbedDoseRate extends Quantity {
 
   /// Dimensions for this type of quantity
   static const Dimensions absorbedDoseRateDimensions =
-      const Dimensions.constant(const <String, int>{'Length': 2, 'Time': -3}, qType: AbsorbedDoseRate);
+      Dimensions.constant(<String, int>{'Length': 2, 'Time': -3}, qType: AbsorbedDoseRate);
 
   /// The standard SI unit.
   static final AbsorbedDoseRateUnits graysPerSecond =
-      new AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDose.grays, Time.seconds);
+      AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDose.grays, Time.seconds);
 
   /// Accepted for use with the SI.
   static final AbsorbedDoseRateUnits radsPerSecond =
-      new AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDose.rads, Time.seconds);
+      AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDose.rads, Time.seconds);
 }
 
 /// Units acceptable for use in describing AbsorbedDoseRate quantities.
 ///
 class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   AbsorbedDoseRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -62,7 +62,7 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on absorbed dose and time units.
+  /// Constructs a instance based on absorbed dose and time units.
   AbsorbedDoseRateUnits.absorbedDoseTime(AbsorbedDoseUnits adu, TimeUnits tu) : super.misc(adu.valueSI * tu.valueSI) {
     name = '${adu.name} per ${tu.singular} squared';
     singular = '${adu.singular} per ${tu.singular} squared';
@@ -77,9 +77,9 @@ class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
   @override
   Type get quantityType => AbsorbedDoseRate;
 
-  /// Derive new AbsorbedDoseRateUnits using this AbsorbedDoseRateUnits object as the base.
+  /// Derive AbsorbedDoseRateUnits using this AbsorbedDoseRateUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AbsorbedDoseRateUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AbsorbedDoseRateUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

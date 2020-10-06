@@ -12,7 +12,7 @@ class Conductance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Conductance({dynamic S, double uncert = 0.0}) : super(S ?? 0.0, Conductance.siemens, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Conductance.misc(dynamic conv) : super.misc(conv, Conductance.electricConductanceDimensions);
 
   /// Constructs a Conductance based on the [value]
@@ -25,18 +25,17 @@ class Conductance extends Quantity {
       : super.constant(valueSI, Conductance.electricConductanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
-  static const Dimensions electricConductanceDimensions = const Dimensions.constant(
-      const <String, int>{'Current': 2, 'Time': 3, 'Length': -2, 'Mass': -1},
-      qType: Conductance);
+  static const Dimensions electricConductanceDimensions =
+      Dimensions.constant(<String, int>{'Current': 2, 'Time': 3, 'Length': -2, 'Mass': -1}, qType: Conductance);
 
   /// The standard SI unit.
   /// Note: singular still has an 's'
-  static final ConductanceUnits siemens = new ConductanceUnits('siemens', null, 'S', 'siemens', 1.0, true);
+  static final ConductanceUnits siemens = ConductanceUnits('siemens', null, 'S', 'siemens', 1.0, true);
 }
 
 /// Units acceptable for use in describing Conductance quantities.
 class ConductanceUnits extends Conductance with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ConductanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,9 +52,9 @@ class ConductanceUnits extends Conductance with Units {
   @override
   Type get quantityType => Conductance;
 
-  /// Derive new ConductanceUnits using this ConductanceUnits object as the base.
+  /// Derive ConductanceUnits using this ConductanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ConductanceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ConductanceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

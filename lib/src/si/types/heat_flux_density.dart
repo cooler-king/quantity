@@ -17,7 +17,7 @@ class HeatFluxDensity extends Quantity {
   HeatFluxDensity({dynamic wattsPerSquareMeter, double uncert = 0.0})
       : super(wattsPerSquareMeter ?? 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   HeatFluxDensity.misc(dynamic conv) : super.misc(conv, HeatFluxDensity.heatFluxDensityDimensions);
 
   /// Constructs a HeatFluxDensity based on the [value]
@@ -31,16 +31,16 @@ class HeatFluxDensity extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions heatFluxDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -3}, qType: HeatFluxDensity);
+      Dimensions.constant(<String, int>{'Mass': 1, 'Time': -3}, qType: HeatFluxDensity);
 
   /// The standard SI unit.
   static final HeatFluxDensityUnits wattsPerSquareMeter =
-      new HeatFluxDensityUnits.powerArea(Power.watts, Area.squareMeters);
+      HeatFluxDensityUnits.powerArea(Power.watts, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing HeatFluxDensity quantities.
 class HeatFluxDensityUnits extends HeatFluxDensity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   HeatFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,7 +53,7 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from power and area units.
+  /// Constructs a instance from power and area units.
   HeatFluxDensityUnits.powerArea(PowerUnits pu, AreaUnits au) : super.misc(pu.valueSI * au.valueSI) {
     name = '${pu.name} per ${au.singular}';
     singular = '${pu.singular} per ${au.singular}';
@@ -68,9 +68,9 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
   @override
   Type get quantityType => HeatFluxDensity;
 
-  /// Derive new HeatFluxDensityUnits using this HeatFluxDensityUnits object as the base.
+  /// Derive HeatFluxDensityUnits using this HeatFluxDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new HeatFluxDensityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => HeatFluxDensityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

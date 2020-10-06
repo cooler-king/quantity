@@ -13,7 +13,7 @@ class SpectralIrradiance extends Quantity {
   SpectralIrradiance({dynamic wattsPerSquareMeterPerHertz, double uncert = 0.0})
       : super(wattsPerSquareMeterPerHertz ?? 0.0, SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   SpectralIrradiance.misc(dynamic conv) : super.misc(conv, SpectralIrradiance.spectralIrradianceDimensions);
 
   /// Constructs a SpectralIrradiance based on the [value]
@@ -27,16 +27,16 @@ class SpectralIrradiance extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions spectralIrradianceDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Time': -2}, qType: SpectralIrradiance);
+      Dimensions.constant(<String, int>{'Mass': 1, 'Time': -2}, qType: SpectralIrradiance);
 
   /// The standard SI unit.
   static final SpectralIrradianceUnits wattsPerSquareMeterPerHertz =
-      new SpectralIrradianceUnits('watts per square meter per hertz', 'W m-2 Hz-1', null, null, 1.0, true);
+      SpectralIrradianceUnits('watts per square meter per hertz', 'W m-2 Hz-1', null, null, 1.0, true);
 }
 
 /// Units acceptable for use in describing SpectralIrradiance quantities.
 class SpectralIrradianceUnits extends SpectralIrradiance with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   SpectralIrradianceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,9 +53,9 @@ class SpectralIrradianceUnits extends SpectralIrradiance with Units {
   @override
   Type get quantityType => SpectralIrradiance;
 
-  /// Derive new SpectralIrradianceUnits using this SpectralIrradianceUnits object as the base.
+  /// Derive SpectralIrradianceUnits using this SpectralIrradianceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new SpectralIrradianceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => SpectralIrradianceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

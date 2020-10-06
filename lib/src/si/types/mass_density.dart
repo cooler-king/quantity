@@ -15,7 +15,7 @@ class MassDensity extends Quantity {
   MassDensity({dynamic kilogramsPerCubicMeter, double uncert = 0.0})
       : super(kilogramsPerCubicMeter ?? 0.0, MassDensity.kilogramsPerCubicMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   MassDensity.misc(dynamic conv) : super.misc(conv, MassDensity.massDensityDimensions);
 
   /// Constructs a MassDensity based on the [value]
@@ -29,16 +29,16 @@ class MassDensity extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions massDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Mass': 1, 'Length': -3}, qType: MassDensity);
+      Dimensions.constant(<String, int>{'Mass': 1, 'Length': -3}, qType: MassDensity);
 
   /// The standard SI unit.
   static final MassDensityUnits kilogramsPerCubicMeter =
-      new MassDensityUnits.massVolume(Mass.kilograms, Volume.cubicMeters);
+      MassDensityUnits.massVolume(Mass.kilograms, Volume.cubicMeters);
 }
 
 /// Units acceptable for use in describing MassDensity quantities.
 class MassDensityUnits extends MassDensity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   MassDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class MassDensityUnits extends MassDensity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from mass and volume units.
+  /// Constructs a instance from mass and volume units.
   MassDensityUnits.massVolume(MassUnits mu, VolumeUnits vu) : super.misc(mu.valueSI * vu.valueSI) {
     name = '${mu.name} per ${vu.singular}';
     singular = '${mu.singular} per ${vu.singular}';
@@ -66,9 +66,9 @@ class MassDensityUnits extends MassDensity with Units {
   @override
   Type get quantityType => MassDensity;
 
-  /// Derive new MassDensityUnits using this MassDensityUnits object as the base.
+  /// Derive MassDensityUnits using this MassDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MassDensityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => MassDensityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

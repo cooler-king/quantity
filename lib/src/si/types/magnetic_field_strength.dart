@@ -19,7 +19,7 @@ class MagneticFieldStrength extends Quantity {
   MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
       : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   MagneticFieldStrength.misc(dynamic conv) : super.misc(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
 
   /// Constructs a MagneticFieldStrength based on the [value]
@@ -34,17 +34,17 @@ class MagneticFieldStrength extends Quantity {
 
   /// Dimensions for this type of quantity
   static const Dimensions magneticFieldStrengthDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -1, 'Current': 1}, qType: MagneticFieldStrength);
+      Dimensions.constant(<String, int>{'Length': -1, 'Current': 1}, qType: MagneticFieldStrength);
 
   /// The standard SI unit.
   static final MagneticFieldStrengthUnits amperesPerMeter =
-      new MagneticFieldStrengthUnits.currentLength(Current.amperes, Length.meters);
+      MagneticFieldStrengthUnits.currentLength(Current.amperes, Length.meters);
 }
 
 /// Units acceptable for use in describing MagneticFieldStrength quantities.
 ///
 class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   MagneticFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -57,7 +57,7 @@ class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on electric current and length units.
+  /// Constructs a instance based on electric current and length units.
   MagneticFieldStrengthUnits.currentLength(CurrentUnits ecu, LengthUnits lu) : super.misc(ecu.valueSI * lu.valueSI) {
     name = '${ecu.name} per ${lu.singular}';
     singular = '${ecu.singular} per ${lu.singular}';
@@ -72,9 +72,9 @@ class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
   @override
   Type get quantityType => MagneticFieldStrength;
 
-  /// Derive new MagneticFieldStrengthUnits using this MagneticFieldStrengthUnits object as the base.
+  /// Derive MagneticFieldStrengthUnits using this MagneticFieldStrengthUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new MagneticFieldStrengthUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => MagneticFieldStrengthUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

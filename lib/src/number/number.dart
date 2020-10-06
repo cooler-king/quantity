@@ -23,12 +23,13 @@ abstract class Number implements Comparable<dynamic> {
   ///
   /// If the map contents are not recognized [Integer.zero] will be returned.
   factory Number.fromMap(Map<String, dynamic> m) {
-    if (m.containsKey('d') && m['d'] is num) return new Double.fromMap(m as Map<String, num>);
-    if (m.containsKey('i') && m['i'] is int) return new Integer.fromMap(m as Map<String, int>);
-    if (m.containsKey('precise') && m['precise'] is Map<String, String>)
-      return new Precise.fromMap(m as Map<String, String>);
-    if (m.containsKey('real') && m is Map<String, Map<String, dynamic>>) return new Complex.fromMap(m);
-    if (m.containsKey('imag') && m is Map<String, Map<String, dynamic>>) return new Imaginary.fromMap(m);
+    if (m.containsKey('d') && m['d'] is num) return Double.fromMap(m as Map<String, num>);
+    if (m.containsKey('i') && m['i'] is int) return Integer.fromMap(m as Map<String, int>);
+    if (m.containsKey('precise') && m['precise'] is Map<String, String>) {
+      return Precise.fromMap(m as Map<String, String>);
+    }
+    if (m.containsKey('real') && m is Map<String, Map<String, dynamic>>) return Complex.fromMap(m);
+    if (m.containsKey('imag') && m is Map<String, Map<String, dynamic>>) return Imaginary.fromMap(m);
     return Integer.zero;
   }
 
@@ -119,26 +120,26 @@ abstract class Number implements Comparable<dynamic> {
   /// Precise Numbers always remain Precise.
   static Number simplifyType(Number n) {
     if (n is Integer || n is Precise) return n;
-    if (n is Double) return n.isInteger ? new Integer(n.toInt()) : n;
+    if (n is Double) return n.isInteger ? Integer(n.toInt()) : n;
     if (n is Imaginary) {
       if (n.value is Precise) return n;
-      if (n.value.toDouble() == 0) return new Integer(0);
-      if (n.value.isInteger && n.value is Double) return new Imaginary(new Integer(n.value.toInt()));
+      if (n.value.toDouble() == 0) return Integer(0);
+      if (n.value.isInteger && n.value is Double) return Imaginary(Integer(n.value.toInt()));
       return n;
     }
     if (n is Complex) {
-      final bool realZero = n.real.value == 0 && (n.real is! Precise || n.real == Precise.zero);
-      final bool imagZero = n.imag.value.value.toDouble() == 0 && (n.imag.value is! Precise || n.imag.value == Precise.zero);
+      final realZero = n.real.value == 0 && (n.real is! Precise || n.real == Precise.zero);
+      final imagZero = n.imag.value.value.toDouble() == 0 && (n.imag.value is! Precise || n.imag.value == Precise.zero);
       if (realZero) {
         if (imagZero) return simplifyType(n.real);
-        return new Imaginary(simplifyType(n.imag.value));
+        return Imaginary(simplifyType(n.imag.value));
       } else if (imagZero) {
         return simplifyType(n.real);
       } else {
-        final Real simpleReal = simplifyType(n.real) as Real;
-        final Number simpleImag = simplifyType(n.imag.value);
+        final simpleReal = simplifyType(n.real) as Real;
+        final simpleImag = simplifyType(n.imag.value);
         if (identical(simpleReal, n.real) && identical(simpleImag, n.imag.value)) return n;
-        return new Complex(simpleReal, new Imaginary(simpleImag));
+        return Complex(simpleReal, Imaginary(simpleImag));
       }
     }
 

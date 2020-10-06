@@ -17,7 +17,7 @@ class Area extends Quantity {
       : super(m2 ?? (ha ?? (b ?? 0.0)), ha != null ? Area.hectares : (b != null ? Area.barns : Area.squareMeters),
             uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Area.misc(dynamic conv) : super.misc(conv, Area.areaDimensions);
 
   /// Constructs a Area based on the [value]
@@ -29,7 +29,7 @@ class Area extends Quantity {
   const Area.constant(Number valueSI, {AreaUnits units, double uncert = 0.0})
       : super.constant(valueSI, Area.areaDimensions, units, uncert);
 
-  /// Constructs a new Area by multiplying two lengths together.
+  /// Constructs a Area by multiplying two lengths together.
   Area.fromLengths(Length l1, Length l2)
       : super(
             l1.valueSI * l2.valueSI,
@@ -38,27 +38,27 @@ class Area extends Quantity {
                 l1.relativeUncertainty * l1.relativeUncertainty + l2.relativeUncertainty * l2.relativeUncertainty));
 
   /// Dimensions for this type of quantity.
-  static const Dimensions areaDimensions = const Dimensions.constant(const <String, int>{'Length': 2}, qType: Area);
+  static const Dimensions areaDimensions = Dimensions.constant(<String, int>{'Length': 2}, qType: Area);
 
   /// The standard SI unit.
-  static final AreaUnits squareMeters = new AreaUnits.lengthSquared(Length.meters);
+  static final AreaUnits squareMeters = AreaUnits.lengthSquared(Length.meters);
 
   /// Accepted for use with the SI,
   /// equals 1 square hectometer, or 10 000 square meters.
-  static final AreaUnits hectares = new AreaUnits('hectares', 'ha', null, null, 1.0e4, true);
+  static final AreaUnits hectares = AreaUnits('hectares', 'ha', null, null, 1.0e4, true);
 
   /// Accepted for use with the SI, subject to further review...
   /// equals one square decameter, or 100 square meters.
-  static final AreaUnits ares = new AreaUnits('ares', 'a', null, null, 1.0e2, true);
+  static final AreaUnits ares = AreaUnits('ares', 'a', null, null, 1.0e2, true);
 
   /// Accepted for use with the SI, subject to further review...
   /// equals 100 square femtometers, or 1.0e-28 square meters
-  static final AreaUnits barns = new AreaUnits('barns', 'b', null, null, 1.0e-28, true);
+  static final AreaUnits barns = AreaUnits('barns', 'b', null, null, 1.0e-28, true);
 }
 
 /// Units acceptable for use in describing Area quantities.
 class AreaUnits extends Area with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   AreaUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -71,7 +71,7 @@ class AreaUnits extends Area with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on length units.
+  /// Constructs a instance based on length units.
   AreaUnits.lengthSquared(LengthUnits lu) : super.misc(lu.valueSI * lu.valueSI) {
     name = 'square ${lu.name}';
     singular = 'square ${lu.singular}';
@@ -86,9 +86,9 @@ class AreaUnits extends Area with Units {
   @override
   Type get quantityType => Area;
 
-  /// Derive new AreaUnits using this AreaUnits object as the base.
+  /// Derive AreaUnits using this AreaUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new AreaUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AreaUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

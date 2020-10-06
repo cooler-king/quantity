@@ -6,13 +6,13 @@ import 'real.dart';
 
 /// Wraps Dart's core [int] type, so that it can share a common base type with other [Number]s.
 class Integer extends Real {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   Integer(this._value);
 
   /// Constructs a constant Integer.
   const Integer.constant(this._value) : super.constant();
 
-  /// Constructs a new instance.
+  /// Constructs a instance.
   Integer.parse(String str, {int radix = 10}) : _value = int.parse(str, radix: radix);
 
   /// Construct an Integer from a Map:
@@ -21,7 +21,7 @@ class Integer extends Real {
   /// If the map contents are not recognized, [Integer.zero] is returned.
   factory Integer.fromMap(Map<String, int> m) {
     if (m?.containsKey('i') == true) {
-      return new Integer(m['i']);
+      return Integer(m['i']);
     }
     return Integer.zero;
   }
@@ -29,22 +29,22 @@ class Integer extends Real {
   final int _value;
 
   /// Zero, as an Integer.
-  static const Integer zero = const Integer.constant(0);
+  static const Integer zero = Integer.constant(0);
 
   /// One, as an Integer.
-  static const Integer one = const Integer.constant(1);
+  static const Integer one = Integer.constant(1);
 
   /// Negative one, as an Integer.
-  static const Integer negOne = const Integer.constant(-1);
+  static const Integer negOne = Integer.constant(-1);
 
   /// Ten, as an Integer.
-  static const Integer ten = const Integer.constant(10);
+  static const Integer ten = Integer.constant(10);
 
   /// One hundred, as an Integer.
-  static const Integer hundred = const Integer.constant(100);
+  static const Integer hundred = Integer.constant(100);
 
   /// One thousand, as an Integer.
-  static const Integer thousand = const Integer.constant(1000);
+  static const Integer thousand = Integer.constant(1000);
 
   @override
   int get value => _value;
@@ -85,34 +85,34 @@ class Integer extends Real {
 
   @override
   Number operator +(dynamic addend) {
-    if (addend is int) return new Integer(addend + value);
-    if (addend is Integer) return new Integer(addend.value + value);
+    if (addend is int) return Integer(addend + value);
+    if (addend is Integer) return Integer(addend.value + value);
     return super + addend;
   }
 
   /// Negation operator.
   @override
-  Integer operator -() => new Integer(-value);
+  Integer operator -() => Integer(-value);
 
   @override
   Number operator -(dynamic subtrahend) {
-    if (subtrahend is int) return new Integer(value - subtrahend);
-    if (subtrahend is Integer) return new Integer(value - subtrahend.value);
+    if (subtrahend is int) return Integer(value - subtrahend);
+    if (subtrahend is Integer) return Integer(value - subtrahend.value);
     return super - subtrahend;
   }
 
   @override
   Number operator *(dynamic multiplicand) {
-    if (multiplicand is int) return new Integer(multiplicand * value);
-    if (multiplicand is Integer) return new Integer(multiplicand.value * value);
+    if (multiplicand is int) return Integer(multiplicand * value);
+    if (multiplicand is Integer) return Integer(multiplicand.value * value);
     return super * multiplicand;
   }
 
   /// The modulo operator.
   @override
   Number operator %(dynamic divisor) {
-    if (divisor is int) return new Integer(_value % divisor);
-    if (divisor is Integer) return new Integer(_value % divisor._value);
+    if (divisor is int) return Integer(_value % divisor);
+    if (divisor is Integer) return Integer(_value % divisor._value);
     return super % divisor;
   }
 
@@ -120,57 +120,57 @@ class Integer extends Real {
 
   /// Bitwise AND.
   Number operator &(dynamic n) {
-    if (n is int) return new Integer(_value & n);
-    if (n is Integer) return new Integer(_value & n._value);
-    throw new UnsupportedError('Bitwise AND operations are only supported for int and Integer objects');
+    if (n is int) return Integer(_value & n);
+    if (n is Integer) return Integer(_value & n._value);
+    throw UnsupportedError('Bitwise AND operations are only supported for int and Integer objects');
   }
 
   /// Bitwise OR.
   Number operator |(dynamic n) {
-    if (n is int) return new Integer(_value | n);
-    if (n is Integer) return new Integer(_value | n._value);
-    throw new UnsupportedError('Bitwise OR operations are only supported for int and Integer objects');
+    if (n is int) return Integer(_value | n);
+    if (n is Integer) return Integer(_value | n._value);
+    throw UnsupportedError('Bitwise OR operations are only supported for int and Integer objects');
   }
 
   /// Shift the bits of this integer to the left by n.
   Number operator <<(dynamic n) {
-    if (n is int) return new Integer(_value << n);
-    if (n is Integer) return new Integer(_value << n._value);
-    throw new UnsupportedError('Bit shift operations are only supported for int and Integer objects');
+    if (n is int) return Integer(_value << n);
+    if (n is Integer) return Integer(_value << n._value);
+    throw UnsupportedError('Bit shift operations are only supported for int and Integer objects');
   }
 
   /// Shift the bits of this integer to the right by n.
   Number operator >>(dynamic n) {
-    if (n is int) return new Integer(_value >> n);
-    if (n is Integer) return new Integer(_value >> n._value);
-    throw new UnsupportedError('Bit shift operations are only supported for int and Integer objects');
+    if (n is int) return Integer(_value >> n);
+    if (n is Integer) return Integer(_value >> n._value);
+    throw UnsupportedError('Bit shift operations are only supported for int and Integer objects');
   }
 
   /// A substitute method to perform bitwise XOR operation on integers.
   /// The caret operator is overridden to provide a power operator for all Numbers.
   Integer bitwiseXor(dynamic n) {
-    if (n is int) return new Integer(_value ^ n);
-    if (n is Integer) return new Integer(_value ^ n._value);
-    throw new UnsupportedError('Bitwise XOR operations are only supported for int and Integer objects');
+    if (n is int) return Integer(_value ^ n);
+    if (n is Integer) return Integer(_value ^ n._value);
+    throw UnsupportedError('Bitwise XOR operations are only supported for int and Integer objects');
   }
 
   /// The bit-wise negate operator.
-  Integer operator ~() => new Integer(~_value);
+  Integer operator ~() => Integer(~_value);
 
   /// The absolute value, returned as an [Integer].
   /// Returns itself if its value is greater than or equal to zero.
   @override
-  Integer abs() => _value >= 0 ? this : new Integer(value.abs());
+  Integer abs() => _value >= 0 ? this : Integer(value.abs());
 
   @override
   Number ceil() => this;
 
   @override
   Number clamp(dynamic lowerLimit, dynamic upperLimit) {
-    final num lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toDouble() : 0;
-    final num upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toDouble() : 0;
-    final num clamped = value?.clamp(lower, upper) ?? lower;
-    return clamped.toInt() == clamped ? new Integer(clamped.toInt()) : new Double(clamped.toDouble());
+    final lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toDouble() : 0;
+    final upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toDouble() : 0;
+    final clamped = value?.clamp(lower, upper) ?? lower;
+    return clamped.toInt() == clamped ? Integer(clamped.toInt()) : Double(clamped.toDouble());
   }
 
   @override
@@ -189,7 +189,7 @@ class Integer extends Real {
 
 /// Represents an integer as a binary number.
 class Binary extends Integer {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   Binary(String binaryStr) : super.parse(binaryStr, radix: 2);
 
   @override
@@ -198,7 +198,7 @@ class Binary extends Integer {
 
 /// Represents an integer as an octal number.
 class Octal extends Integer {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   Octal(String octalStr) : super.parse(octalStr, radix: 8);
 
   @override
@@ -207,7 +207,7 @@ class Octal extends Integer {
 
 /// Represents an integer as a hexadecimal number.
 class Hexadecimal extends Integer {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   Hexadecimal(String hexStr) : super.parse(hexStr, radix: 16);
 
   @override

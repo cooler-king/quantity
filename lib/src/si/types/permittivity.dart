@@ -15,7 +15,7 @@ class Permittivity extends Quantity {
   Permittivity({dynamic faradsPerMeter, double uncert = 0.0})
       : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Permittivity.misc(dynamic conv) : super.misc(conv, Permittivity.permittivityDimensions);
 
   /// Constructs a Permittivity based on the [value]
@@ -28,18 +28,17 @@ class Permittivity extends Quantity {
       : super.constant(valueSI, Permittivity.permittivityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions permittivityDimensions = const Dimensions.constant(
-      const <String, int>{'Length': -3, 'Time': 4, 'Current': 2, 'Mass': -1},
-      qType: Permittivity);
+  static const Dimensions permittivityDimensions =
+      Dimensions.constant(<String, int>{'Length': -3, 'Time': 4, 'Current': 2, 'Mass': -1}, qType: Permittivity);
 
   /// The standard SI unit.
   static final PermittivityUnits faradsPerMeter =
-      new PermittivityUnits.capacitanceLength(Capacitance.farads, Length.meters);
+      PermittivityUnits.capacitanceLength(Capacitance.farads, Length.meters);
 }
 
 /// Units acceptable for use in describing Permittivity quantities.
 class PermittivityUnits extends Permittivity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   PermittivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -52,7 +51,7 @@ class PermittivityUnits extends Permittivity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on capacitance and length units.
+  /// Constructs a instance based on capacitance and length units.
   PermittivityUnits.capacitanceLength(CapacitanceUnits ecu, LengthUnits lu) : super.misc(ecu.valueSI / lu.valueSI) {
     name = '${ecu.name} per ${lu.singular}';
     singular = '${ecu.singular} per ${lu.singular}';
@@ -67,9 +66,9 @@ class PermittivityUnits extends Permittivity with Units {
   @override
   Type get quantityType => Permittivity;
 
-  /// Derive new PermittivityUnits using this PermittivityUnits object as the base.
+  /// Derive PermittivityUnits using this PermittivityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new PermittivityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => PermittivityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

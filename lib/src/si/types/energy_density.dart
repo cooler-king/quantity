@@ -15,7 +15,7 @@ class EnergyDensity extends Quantity {
   EnergyDensity({dynamic joulesPerCubicMeter, double uncert = 0.0})
       : super(joulesPerCubicMeter ?? 0.0, EnergyDensity.joulesPerCubicMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   EnergyDensity.misc(dynamic conv) : super.misc(conv, EnergyDensity.energyDensityDimensions);
 
   /// Constructs a EnergyDensity based on the [value]
@@ -29,16 +29,16 @@ class EnergyDensity extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions energyDensityDimensions =
-      const Dimensions.constant(const <String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: EnergyDensity);
+      Dimensions.constant(<String, int>{'Length': -1, 'Mass': 1, 'Time': -2}, qType: EnergyDensity);
 
   /// The standard SI unit.
   static final EnergyDensityUnits joulesPerCubicMeter =
-      new EnergyDensityUnits.energyVolume(Energy.joules, Volume.cubicMeters);
+      EnergyDensityUnits.energyVolume(Energy.joules, Volume.cubicMeters);
 }
 
 /// Units acceptable for use in describing EnergyDensity quantities.
 class EnergyDensityUnits extends EnergyDensity with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   EnergyDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -51,7 +51,7 @@ class EnergyDensityUnits extends EnergyDensity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on energy and volume units.
+  /// Constructs a instance based on energy and volume units.
   EnergyDensityUnits.energyVolume(EnergyUnits eu, VolumeUnits vu) : super.misc(eu.valueSI * vu.valueSI) {
     name = '${eu.name} per ${vu.singular}';
     singular = '${eu.singular} per ${vu.singular}';
@@ -66,9 +66,9 @@ class EnergyDensityUnits extends EnergyDensity with Units {
   @override
   Type get quantityType => EnergyDensity;
 
-  /// Derive new EnergyDensityUnits using this EnergyDensityUnits object as the base.
+  /// Derive EnergyDensityUnits using this EnergyDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new EnergyDensityUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => EnergyDensityUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

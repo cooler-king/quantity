@@ -22,7 +22,7 @@ class Length extends Quantity {
                     : (ua != null ? Length.astronomicalUnits : (NM != null ? Length.nauticalMiles : Length.meters))),
             uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Length.misc(dynamic conv) : super.misc(conv, Length.lengthDimensions);
 
   /// Constructs a Length based on the [value]
@@ -35,10 +35,10 @@ class Length extends Quantity {
       : super.constant(valueSI, Length.lengthDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions lengthDimensions = const Dimensions.constant(const <String, int>{'Length': 1}, qType: Length);
+  static const Dimensions lengthDimensions = Dimensions.constant(<String, int>{'Length': 1}, qType: Length);
 
   /// The standard SI unit.
-  static final LengthUnits meters = new LengthUnits('meters', 'm', null, null, 1.0, true);
+  static final LengthUnits meters = LengthUnits('meters', 'm', null, null, 1.0, true);
 
   /// Accepted for use with the SI... the value of the astronomical unit must be
   /// obtained by experiment and is therefore not known exactly... its value is
@@ -46,13 +46,13 @@ class Length extends Quantity {
   /// the heliocentric gravitation constant is 0.017 202 098 85 squared (in units
   /// of ua+3 d-2, where d is day).
   static final LengthUnits astronomicalUnits =
-      new LengthUnits('astronomical units', 'AU', 'ua', null, 1.495978707e11, false);
+      LengthUnits('astronomical units', 'AU', 'ua', null, 1.495978707e11, false);
 
   /// Accepted for use with the SI, subject to further review.
-  static final LengthUnits angstroms = new LengthUnits('angstroms', '\u212b', '\u00c5', null, 1.0e-10, true);
+  static final LengthUnits angstroms = LengthUnits('angstroms', '\u212b', '\u00c5', null, 1.0e-10, true);
 
   /// Accepted for use with the SI, subject to further review.
-  static final LengthUnits nauticalMiles = new LengthUnits('nautical miles', null, 'NM', null, 1.852e3, false);
+  static final LengthUnits nauticalMiles = LengthUnits('nautical miles', null, 'NM', null, 1.852e3, false);
 
   // Convenience Units.
 
@@ -71,7 +71,7 @@ class Length extends Quantity {
 
 /// Units acceptable for use in describing Length quantities.
 class LengthUnits extends Length with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   LengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -88,9 +88,9 @@ class LengthUnits extends Length with Units {
   @override
   Type get quantityType => Length;
 
-  /// Derive new LengthUnits using this LengthUnits object as the base.
+  /// Derive LengthUnits using this LengthUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new LengthUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => LengthUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

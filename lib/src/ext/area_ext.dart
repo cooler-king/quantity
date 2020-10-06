@@ -18,35 +18,35 @@ final AreaUnits barns = Area.barns;
 final AreaUnits hectares = Area.hectares;
 
 /// An acre is about three-quarters of the size of an American football field.
-final AreaUnits acres = new AreaUnits('acres', null, null, null, 4.0468564224e3, false);
+final AreaUnits acres = AreaUnits('acres', null, null, null, 4.0468564224e3, false);
 
 /// Equal to the area of a circle with a diameter of one mil (one thousandth of an inch).
 /// It is often used for representing the area of a wire's circular cross section.
-final AreaUnits circularMils = new AreaUnits('circular mils', null, null, null, 5.0670748e-10, false);
+final AreaUnits circularMils = AreaUnits('circular mils', null, null, null, 5.0670748e-10, false);
 
 /// An area unit equivalent to a square with sides having a length of one foot.
-final AreaUnits squareFeet = new AreaUnits.lengthSquared(feet);
+final AreaUnits squareFeet = AreaUnits.lengthSquared(feet);
 
 /// An area unit equivalent to a square with sides having a length of one inch.
-final AreaUnits squareInches = new AreaUnits.lengthSquared(inches);
+final AreaUnits squareInches = AreaUnits.lengthSquared(inches);
 
 /// An area unit equivalent to a square with sides having a length of one kilometer.
-final AreaUnits squareKilometers = new AreaUnits.lengthSquared(kilometers);
+final AreaUnits squareKilometers = AreaUnits.lengthSquared(kilometers);
 
 /// An area unit equivalent to a square with sides having a length of one centimeter.
-final AreaUnits squareCentimeters = new AreaUnits.lengthSquared(centimeters);
+final AreaUnits squareCentimeters = AreaUnits.lengthSquared(centimeters);
 
 /// An area unit equivalent to a square with sides having a length of one mile.
-final AreaUnits squareMiles = new AreaUnits.lengthSquared(miles);
+final AreaUnits squareMiles = AreaUnits.lengthSquared(miles);
 
 /// An area unit used in US surveyors' measures equalling 36 square miles.
-final AreaUnits townships = new AreaUnits('townships', null, null, null, 9.3239572e7, false);
+final AreaUnits townships = AreaUnits('townships', null, null, null, 9.3239572e7, false);
 
 /// An area unit equivalent to a square with sides having a length of one yard.
-final AreaUnits squareYards = new AreaUnits.lengthSquared(yards);
+final AreaUnits squareYards = AreaUnits.lengthSquared(yards);
 
 /// An area unit equivalent to a square with sides having a length of one rod.
-final AreaUnits squareRods = new AreaUnits.lengthSquared(rods);
+final AreaUnits squareRods = AreaUnits.lengthSquared(rods);
 
 // Synonym units.
 
@@ -63,8 +63,7 @@ final AreaUnits squarePerches = squareRods;
 
 /// Helpful for describing the scattering of photons when the energy of each individual photon is much smaller
 /// than the rest energy of the electron.
-const Area thomsonCrossSection =
-    const Area.constant(const Double.constant(6.6524587321e-29), uncert: 9.019221676713751e-10);
+const Area thomsonCrossSection = Area.constant(Double.constant(6.6524587321e-29), uncert: 9.019221676713751e-10);
 
 /// A synonym for the [thomsonCrossSection].
 const Area sigma0 = thomsonCrossSection;

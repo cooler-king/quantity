@@ -36,7 +36,7 @@ class MiscQuantity extends Quantity {
   ///   value is stored internally in arbitrary precision.
   Number getValue(Units units) {
     if (dimensions != (units as Quantity).dimensions) {
-      throw new DimensionsException('The units provided do not have proper dimensions for this Quantity.');
+      throw DimensionsException('The units provided do not have proper dimensions for this Quantity.');
     }
     return super.valueInUnits(units);
   }

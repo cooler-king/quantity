@@ -21,16 +21,16 @@ export '../util/jenkins_hash.dart';
 Number objToNumber(Object object) {
   if (object is num) return numToNumber(object);
   if (object is Number) return object;
-  throw new Exception('num or Number expected');
+  throw Exception('num or Number expected');
 }
 
 /// Converts a num [value] to associated [Number] object
 /// ([Integer] for `int`s and `double`s that have an integer value,
 /// [Double] for other `double`s).
 Number numToNumber(num value) {
-  if (value is int) return new Integer(value);
-  if (value.toInt() == value) return new Integer(value.toInt());
-  return new Double(value.toDouble());
+  if (value is int) return Integer(value);
+  if (value.toInt() == value) return Integer(value.toInt());
+  return Double(value.toDouble());
 }
 
 /// Converts a Number to the equivalent [num].

@@ -14,12 +14,12 @@ class Scalar extends Quantity {
   Scalar({dynamic value, dynamic percent, double uncert = 0.0})
       : super(percent ?? (value ?? 0.0), percent != null ? Scalar.percent : Scalar.one, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Scalar.misc(dynamic conv) : super.misc(conv, Scalar.scalarDimensions);
 
   // CONSTRUCTORS.
 
-  /// Constructs a new instance in specified [units].
+  /// Constructs a instance in specified [units].
   Scalar.inUnits(dynamic value, ScalarUnits units, [double uncert = 0.0]) : super(value, units ?? Scalar.one, uncert);
 
   /// Constructs a constant Scalar.
@@ -27,16 +27,15 @@ class Scalar extends Quantity {
       : super.constant(value, Scalar.scalarDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions scalarDimensions = const Dimensions.constant(const <String, int>{}, qType: Scalar);
+  static const Dimensions scalarDimensions = Dimensions.constant(<String, int>{}, qType: Scalar);
 
   // Units.
 
   /// The standard SI unit; may be represented by '1' but is typically not displayed at all.
-  static final ScalarUnits one = new ScalarUnits('1', null, null, '1', Double.one, false);
+  static final ScalarUnits one = ScalarUnits('1', null, null, '1', Double.one, false);
 
   /// Acceptable for use with the SI; percent (%) represents the number 0.01.
-  static final ScalarUnits percent =
-      new ScalarUnits('percent', null, '%', 'percent', const Double.constant(0.01), false);
+  static final ScalarUnits percent = ScalarUnits('percent', null, '%', 'percent', const Double.constant(0.01), false);
 
   /// Scalar's hash code is identical to the hash code of its SI value
   /// in order to support functional equality of [Scalar] quantities,
@@ -64,7 +63,7 @@ class Scalar extends Quantity {
 
 /// Units acceptable for use in describing Scalar quantities.
 class ScalarUnits extends Scalar with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ScalarUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -81,9 +80,9 @@ class ScalarUnits extends Scalar with Units {
   @override
   Type get quantityType => Scalar;
 
-  /// Derive new ScalarUnits using this ScalarUnits object as the base.
+  /// Derive ScalarUnits using this ScalarUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ScalarUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ScalarUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

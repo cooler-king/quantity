@@ -15,7 +15,7 @@ class Exposure extends Quantity {
   Exposure({dynamic coulombsPerKilogram, dynamic R, double uncert = 0.0})
       : super(coulombsPerKilogram ?? (R ?? 0.0), R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Exposure.misc(dynamic conv) : super.misc(conv, Exposure.exposureDimensions);
 
   /// Constructs a Exposure based on the [value]
@@ -29,18 +29,18 @@ class Exposure extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions exposureDimensions =
-      const Dimensions.constant(const <String, int>{'Current': 1, 'Mass': -1, 'Time': 1}, qType: Exposure);
+      Dimensions.constant(<String, int>{'Current': 1, 'Mass': -1, 'Time': 1}, qType: Exposure);
 
   /// The standard SI unit.
-  static final ExposureUnits coulombsPerKilogram = new ExposureUnits.chargeMass(Charge.coulombs, Mass.kilograms);
+  static final ExposureUnits coulombsPerKilogram = ExposureUnits.chargeMass(Charge.coulombs, Mass.kilograms);
 
   /// Accepted for use with the SI, subject to further review.
-  static final ExposureUnits roentgens = new ExposureUnits('roentgens', null, 'R', null, 2.58e-4, false);
+  static final ExposureUnits roentgens = ExposureUnits('roentgens', null, 'R', null, 2.58e-4, false);
 }
 
 /// Units acceptable for use in describing Exposure quantities.
 class ExposureUnits extends Exposure with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ExposureUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,7 +53,7 @@ class ExposureUnits extends Exposure with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance based on charge and mass units.
+  /// Constructs a instance based on charge and mass units.
   ExposureUnits.chargeMass(ChargeUnits ecu, MassUnits mu) : super.misc(ecu.valueSI * mu.valueSI) {
     name = '${ecu.name} per ${mu.singular}';
     singular = '${ecu.singular} per ${mu.singular}';
@@ -68,9 +68,9 @@ class ExposureUnits extends Exposure with Units {
   @override
   Type get quantityType => Exposure;
 
-  /// Derive new ExposureUnits using this ExposureUnits object as the base.
+  /// Derive ExposureUnits using this ExposureUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ExposureUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ExposureUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

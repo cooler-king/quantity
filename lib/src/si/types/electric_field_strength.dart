@@ -15,7 +15,7 @@ class ElectricFieldStrength extends Quantity {
   ElectricFieldStrength({dynamic voltsPerMeter, double uncert = 0.0})
       : super(voltsPerMeter ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   ElectricFieldStrength.misc(dynamic conv) : super.misc(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
 
   /// Constructs an ElectricFieldStrength based on the [value]
@@ -28,19 +28,19 @@ class ElectricFieldStrength extends Quantity {
       : super.constant(valueSI, ElectricFieldStrength.electricFieldStrengthDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions electricFieldStrengthDimensions = const Dimensions.constant(
-      const <String, int>{'Current': -1, 'Time': -3, 'Length': 1, 'Mass': 1},
+  static const Dimensions electricFieldStrengthDimensions = Dimensions.constant(
+      <String, int>{'Current': -1, 'Time': -3, 'Length': 1, 'Mass': 1},
       qType: ElectricFieldStrength);
 
   /// The standard SI unit.
   static final ElectricFieldStrengthUnits voltsPerMeter =
-      new ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifference.volts, Length.meters);
+      ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifference.volts, Length.meters);
 }
 
 /// Units acceptable for use in describing ElectricFieldStrength quantities.
 ///
 class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   ElectricFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -53,7 +53,7 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a new instance from a potential difference and length.
+  /// Constructs a instance from a potential difference and length.
   ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifferenceUnits epdu, LengthUnits lu)
       : super.misc(epdu.valueSI * lu.valueSI) {
     name = '${epdu.name} per ${lu.singular}';
@@ -69,9 +69,9 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
   @override
   Type get quantityType => ElectricFieldStrength;
 
-  /// Derive new ElectricFieldStrengthUnits using this ElectricFieldStrengthUnits object as the base.
+  /// Derive ElectricFieldStrengthUnits using this ElectricFieldStrengthUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new ElectricFieldStrengthUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ElectricFieldStrengthUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,

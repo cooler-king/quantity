@@ -9,7 +9,7 @@ final AngularSpeedUnits radiansPerSecond = AngularSpeed.radiansPerSecond;
 final AngularSpeedUnits degreesPerSecond = AngularSpeed.degreesPerSecond;
 
 /// Rotation frequency.
-final AngularSpeedUnits revolutionsPerMinute = new AngularSpeedUnits.angleTime(revolutions, Time.minutes);
+final AngularSpeedUnits revolutionsPerMinute = AngularSpeedUnits.angleTime(revolutions, Time.minutes);
 
 /// A synonym for [revolutionsPerMinute].
 final AngularSpeedUnits rpm = revolutionsPerMinute;

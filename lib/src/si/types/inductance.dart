@@ -14,7 +14,7 @@ class Inductance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Inductance({dynamic H, double uncert = 0.0}) : super(H ?? 0.0, Inductance.henries, uncert);
 
-  /// Constructs a new instance without preferred units.
+  /// Constructs a instance without preferred units.
   Inductance.misc(dynamic conv) : super.misc(conv, Inductance.inductanceDimensions);
 
   /// Constructs a Inductance based on the [value]
@@ -27,17 +27,16 @@ class Inductance extends Quantity {
       : super.constant(valueSI, Inductance.inductanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions inductanceDimensions = const Dimensions.constant(
-      const <String, int>{'Length': 2, 'Mass': 1, 'Current': -2, 'Time': -2},
-      qType: Inductance);
+  static const Dimensions inductanceDimensions =
+      Dimensions.constant(<String, int>{'Length': 2, 'Mass': 1, 'Current': -2, 'Time': -2}, qType: Inductance);
 
   /// The standard SI unit.
-  static final InductanceUnits henries = new InductanceUnits('henries', null, 'H', 'henry', 1.0, true);
+  static final InductanceUnits henries = InductanceUnits('henries', null, 'H', 'henry', 1.0, true);
 }
 
 /// Units acceptable for use in describing Inductance quantities.
 class InductanceUnits extends Inductance with Units {
-  /// Constructs a new instance.
+  /// Constructs a instance.
   InductanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
@@ -54,9 +53,9 @@ class InductanceUnits extends Inductance with Units {
   @override
   Type get quantityType => Inductance;
 
-  /// Derive new InductanceUnits using this InductanceUnits object as the base.
+  /// Derive InductanceUnits using this InductanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => new InductanceUnits(
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) => InductanceUnits(
       '$fullPrefix$name',
       abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
       abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
