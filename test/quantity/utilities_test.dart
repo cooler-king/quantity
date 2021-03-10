@@ -4,7 +4,6 @@ import 'package:test/test.dart';
 void main() {
   group('utilities', () {
     test('unicodeExponent', () {
-      expect(unicodeExponent(null), '');
       expect(unicodeExponent(0), '\u{2070}');
       expect(unicodeExponent(1), '\u{00b9}');
       expect(unicodeExponent(2), '\u{00b2}');

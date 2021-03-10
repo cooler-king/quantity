@@ -21,10 +21,10 @@ class Luminance extends Quantity {
   /// Constructs a Luminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Luminance.inUnits(dynamic value, LuminanceUnits units, [double uncert = 0.0])
-      : super(value, units ?? Luminance.candelasPerSquareMeter, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Luminance.
-  const Luminance.constant(Number valueSI, {LuminanceUnits units, double uncert = 0.0})
+  const Luminance.constant(Number valueSI, {LuminanceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Luminance.luminanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +39,7 @@ class Luminance extends Quantity {
 /// Units acceptable for use in describing Luminance quantities.
 class LuminanceUnits extends Luminance with Units {
   /// Constructs a instance.
-  LuminanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  LuminanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

@@ -20,10 +20,10 @@ class Scalar extends Quantity {
   // CONSTRUCTORS.
 
   /// Constructs a instance in specified [units].
-  Scalar.inUnits(dynamic value, ScalarUnits units, [double uncert = 0.0]) : super(value, units ?? Scalar.one, uncert);
+  Scalar.inUnits(dynamic value, ScalarUnits units, [double uncert = 0.0]) : super(value, units, uncert);
 
   /// Constructs a constant Scalar.
-  const Scalar.constant(Number value, {ScalarUnits units, double uncert = 0.0})
+  const Scalar.constant(Number value, {ScalarUnits? units, double uncert = 0.0})
       : super.constant(value, Scalar.scalarDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -64,7 +64,7 @@ class Scalar extends Quantity {
 /// Units acceptable for use in describing Scalar quantities.
 class ScalarUnits extends Scalar with Units {
   /// Constructs a instance.
-  ScalarUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ScalarUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

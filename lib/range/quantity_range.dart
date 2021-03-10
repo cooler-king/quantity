@@ -29,10 +29,10 @@ class QuantityRange<Q extends Quantity> {
   Q q2;
 
   // Derived values (calculated on first use)
-  Q _minValue;
-  Q _maxValue;
-  Q _centerValue;
-  Q _span;
+  Q? _minValue;
+  Q? _maxValue;
+  Q? _centerValue;
+  Q? _span;
 
   /// The minimum value in this range.
   Q get minValue => _minValue ??= (q1.valueSI <= q2.valueSI) ? q1 : q2;

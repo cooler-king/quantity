@@ -21,10 +21,10 @@ class RadiantIntensity extends Quantity {
   /// Constructs a RadiantIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   RadiantIntensity.inUnits(dynamic value, RadiantIntensityUnits units, [double uncert = 0.0])
-      : super(value, units ?? RadiantIntensity.wattsPerSteradian, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant RadiantIntensity.
-  const RadiantIntensity.constant(Number valueSI, {RadiantIntensityUnits units, double uncert = 0.0})
+  const RadiantIntensity.constant(Number valueSI, {RadiantIntensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, RadiantIntensity.radiantIntensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -40,7 +40,7 @@ class RadiantIntensity extends Quantity {
 /// Units acceptable for use in describing RadiantIntensity quantities.
 class RadiantIntensityUnits extends RadiantIntensity with Units {
   /// Constructs a instance.
-  RadiantIntensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  RadiantIntensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

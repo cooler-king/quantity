@@ -20,10 +20,12 @@ class Double extends Real {
   ///     { 'd': integer value }
   ///
   /// If the map contents are not recognized, [Double.zero] is returned.
-  factory Double.fromMap(Map<String, num> m) {
-    if (m?.containsKey('d') == true) return Double(m['d']?.toDouble() ?? 0.0);
+  factory Double.fromMap(Map<String, num>? m) {
+    if (m == null) return Double.zero;
+    if (m.containsKey('d') == true) return Double(m['d']?.toDouble() ?? 0.0);
     return Double.zero;
   }
+
   final double _value;
 
   /// Zero as a Double.
@@ -73,8 +75,8 @@ class Double extends Real {
   bool operator ==(dynamic obj) {
     if (obj is num && obj.isNaN) return value.isNaN;
     if (obj is Real || obj is num) return obj == value;
-    if (obj is Imaginary) return value == 0.0 && obj.value?.toDouble() == 0.0;
-    if (obj is Complex) return obj.real?.toDouble() == value && obj.imaginary?.toDouble() == 0.0;
+    if (obj is Imaginary) return value == 0.0 && obj.value.toDouble() == 0.0;
+    if (obj is Complex) return obj.real.toDouble() == value && obj.imaginary.toDouble() == 0.0;
 
     return false;
   }
@@ -86,7 +88,7 @@ class Double extends Real {
   Number clamp(dynamic lowerLimit, dynamic upperLimit) {
     final lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
     final upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
-    final clamped = value?.clamp(lower, upper) ?? 0.0;
+    final clamped = value.clamp(lower, upper);
     return clamped.toInt() == clamped ? Integer(clamped.toInt()) : Double(clamped.toDouble());
   }
 

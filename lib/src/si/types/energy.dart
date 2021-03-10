@@ -24,10 +24,10 @@ class Energy extends Quantity {
   /// Constructs a Energy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Energy.inUnits(dynamic value, EnergyUnits units, [double uncert = 0.0])
-      : super(value, units ?? Energy.joules, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Energy.
-  const Energy.constant(Number valueSI, {EnergyUnits units, double uncert = 0.0})
+  const Energy.constant(Number valueSI, {EnergyUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Energy.energyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -55,7 +55,7 @@ class Energy extends Quantity {
 /// Units acceptable for use in describing Energy quantities.
 class EnergyUnits extends Energy with Units {
   /// Constructs a instance.
-  EnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  EnergyUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

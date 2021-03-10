@@ -90,7 +90,7 @@ class MutableQuantity implements Quantity {
 
   /// Preferred units for display.
   @override
-  Units preferredUnits;
+  Units? preferredUnits;
 
   /// Mutability can be turned on and off (defaults to true).
   bool mutable = true;
@@ -110,9 +110,7 @@ class MutableQuantity implements Quantity {
 
   /// Creates and returns an immutable typed [Quantity] that represents the value and
   /// uncertainty of this MutableQuantity at this moment.
-  Quantity get snapshot =>
-      dimensions?.toQuantity(preferredUnits?.fromMks(valueSI) ?? valueSI, preferredUnits, _ur) ??
-      Scalar(value: valueSI, uncert: _ur);
+  Quantity get snapshot => dimensions.toQuantity(preferredUnits?.fromMks(valueSI) ?? valueSI, preferredUnits, _ur);
 
   @override
   Number get cgs => snapshot.cgs;
@@ -245,7 +243,7 @@ class MutableQuantity implements Quantity {
 
   @override
   void outputText(StringBuffer buffer,
-          {UncertaintyFormat uncertFormat = UncertaintyFormat.none, bool symbols = true, NumberFormat numberFormat}) =>
+          {UncertaintyFormat uncertFormat = UncertaintyFormat.none, bool symbols = true, NumberFormat? numberFormat}) =>
       snapshot.outputText(buffer, uncertFormat: uncertFormat, symbols: symbols, numberFormat: numberFormat);
 
   @override
@@ -255,7 +253,7 @@ class MutableQuantity implements Quantity {
   Map<String, dynamic> toJson() => snapshot.toJson();
 
   @override
-  Number valueInUnits(Units units) => snapshot.valueInUnits(units);
+  Number valueInUnits(Units? units) => snapshot.valueInUnits(units);
 
   /// Negates the value of this MutableQuantity and returns a reference to itself.
   @override

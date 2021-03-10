@@ -19,10 +19,10 @@ class MagneticFlux extends Quantity {
   /// Constructs a MagneticFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MagneticFlux.inUnits(dynamic value, MagneticFluxUnits units, [double uncert = 0.0])
-      : super(value, units ?? MagneticFlux.webers, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant MagneticFlux.
-  const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits units, double uncert = 0.0})
+  const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits? units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFlux.magneticFluxDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -36,7 +36,7 @@ class MagneticFlux extends Quantity {
 /// Units acceptable for use in describing MagneticFlux quantities.
 class MagneticFluxUnits extends MagneticFlux with Units {
   /// Constructs a instance.
-  MagneticFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  MagneticFluxUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

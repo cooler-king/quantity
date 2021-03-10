@@ -24,10 +24,10 @@ class Entropy extends Quantity {
   /// Constructs a Entropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Entropy.inUnits(dynamic value, EntropyUnits units, [double uncert = 0.0])
-      : super(value, units ?? Entropy.joulesPerKelvin, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Entropy.
-  const Entropy.constant(Number valueSI, {EntropyUnits units, double uncert = 0.0})
+  const Entropy.constant(Number valueSI, {EntropyUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Entropy.entropyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -42,7 +42,7 @@ class Entropy extends Quantity {
 /// Units acceptable for use in describing Entropy quantities.
 class EntropyUnits extends Entropy with Units {
   /// Constructs a instance.
-  EntropyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  EntropyUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

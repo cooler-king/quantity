@@ -21,10 +21,10 @@ class MagneticFieldStrength extends Quantity {
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MagneticFieldStrength.inUnits(dynamic value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
-      : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant MagneticFieldStrength.
-  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits units, double uncert = 0.0})
+  const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits? units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFieldStrength.magneticFieldStrengthDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
@@ -39,7 +39,7 @@ class MagneticFieldStrength extends Quantity {
 /// Units acceptable for use in describing MagneticFieldStrength quantities.
 class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
   /// Constructs a instance.
-  MagneticFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  MagneticFieldStrengthUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

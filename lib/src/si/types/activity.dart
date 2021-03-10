@@ -22,10 +22,10 @@ class Activity extends Quantity {
   /// Constructs a Activity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Activity.inUnits(dynamic value, ActivityUnits units, [double uncert = 0.0])
-      : super(value, units ?? Activity.becquerels, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Activity.
-  const Activity.constant(Number valueSI, {ActivityUnits units, double uncert = 0.0})
+  const Activity.constant(Number valueSI, {ActivityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Activity.activityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -41,7 +41,7 @@ class Activity extends Quantity {
 /// Units acceptable for use in describing Activity quantities.
 class ActivityUnits extends Activity with Units {
   /// Constructs a instance.
-  ActivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ActivityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

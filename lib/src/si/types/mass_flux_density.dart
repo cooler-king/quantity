@@ -22,10 +22,10 @@ class MassFluxDensity extends Quantity {
   /// Constructs a MassFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MassFluxDensity.inUnits(dynamic value, MassFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units ?? MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant MassFluxDensity.
-  const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits units, double uncert = 0.0})
+  const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, MassFluxDensity.massFluxDensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -40,7 +40,7 @@ class MassFluxDensity extends Quantity {
 /// Units acceptable for use in describing MassFluxDensity quantities.
 class MassFluxDensityUnits extends MassFluxDensity with Units {
   /// Constructs a instance.
-  MassFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  MassFluxDensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

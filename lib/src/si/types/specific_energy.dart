@@ -26,10 +26,10 @@ class SpecificEnergy extends Quantity {
   /// Constructs a SpecificEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SpecificEnergy.inUnits(dynamic value, SpecificEnergyUnits units, [double uncert = 0.0])
-      : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant SpecificEnergy.
-  const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits units, double uncert = 0.0})
+  const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits? units, double uncert = 0.0})
       : super.constant(valueSI, SpecificEnergy.specificEnergyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -43,7 +43,7 @@ class SpecificEnergy extends Quantity {
 /// Units acceptable for use in describing SpecificEnergy quantities.
 class SpecificEnergyUnits extends SpecificEnergy with Units {
   /// Constructs a instance.
-  SpecificEnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  SpecificEnergyUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

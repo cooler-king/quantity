@@ -19,10 +19,10 @@ class MagneticFluxDensity extends Quantity {
   /// Constructs a MagneticFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MagneticFluxDensity.inUnits(dynamic value, MagneticFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units ?? MagneticFluxDensity.teslas, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant MagneticFluxDensity.
-  const MagneticFluxDensity.constant(Number valueSI, {MagneticFluxDensityUnits units, double uncert = 0.0})
+  const MagneticFluxDensity.constant(Number valueSI, {MagneticFluxDensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, MagneticFluxDensity.magneticFluxDensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -36,7 +36,7 @@ class MagneticFluxDensity extends Quantity {
 /// Units acceptable for use in describing MagneticFluxDensity quantities.
 class MagneticFluxDensityUnits extends MagneticFluxDensity with Units {
   /// Constructs a instance.
-  MagneticFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  MagneticFluxDensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

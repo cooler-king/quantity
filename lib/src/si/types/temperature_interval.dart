@@ -23,10 +23,10 @@ class TemperatureInterval extends Quantity {
   /// Constructs a TemperatureInterval based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   TemperatureInterval.inUnits(dynamic value, TemperatureIntervalUnits units, [double uncert = 0.0])
-      : super(value, units ?? TemperatureInterval.kelvins, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant TemperatureInterval.
-  const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits units, double uncert = 0.0})
+  const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits? units, double uncert = 0.0})
       : super.constant(valueSI, TemperatureInterval.temperatureIntervalDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -82,7 +82,7 @@ class TemperatureInterval extends Quantity {
 /// Units acceptable for use in describing TemperatureInterval quantities.
 class TemperatureIntervalUnits extends TemperatureInterval with Units {
   /// Constructs a instance.
-  TemperatureIntervalUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  TemperatureIntervalUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

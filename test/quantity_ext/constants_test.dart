@@ -95,7 +95,7 @@ void main() {
         value = double.parse(valueStr);
 
         if (nistNameConstantMap.containsKey(name)) {
-          final q = nistNameConstantMap[name];
+          final q = nistNameConstantMap[name] as Quantity;
           if (approxValue) {
             expect(q.valueSI.toDouble() / value, closeTo(1.0, 0.000001));
           } else {

@@ -21,10 +21,10 @@ class Exposure extends Quantity {
   /// Constructs a Exposure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Exposure.inUnits(dynamic value, ExposureUnits units, [double uncert = 0.0])
-      : super(value, units ?? Exposure.coulombsPerKilogram, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Exposure.
-  const Exposure.constant(Number valueSI, {ExposureUnits units, double uncert = 0.0})
+  const Exposure.constant(Number valueSI, {ExposureUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Exposure.exposureDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -41,7 +41,7 @@ class Exposure extends Quantity {
 /// Units acceptable for use in describing Exposure quantities.
 class ExposureUnits extends Exposure with Units {
   /// Constructs a instance.
-  ExposureUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ExposureUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

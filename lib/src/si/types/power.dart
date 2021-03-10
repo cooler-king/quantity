@@ -24,10 +24,10 @@ class Power extends Quantity {
 
   /// Constructs a Power based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Power.inUnits(dynamic value, PowerUnits units, [double uncert = 0.0]) : super(value, units ?? Power.watts, uncert);
+  Power.inUnits(dynamic value, PowerUnits units, [double uncert = 0.0]) : super(value, units, uncert);
 
   /// Constructs a constant Power.
-  const Power.constant(Number valueSI, {PowerUnits units, double uncert = 0.0})
+  const Power.constant(Number valueSI, {PowerUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Power.powerDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -49,7 +49,7 @@ class Power extends Quantity {
 /// Units acceptable for use in describing Power quantities.
 class PowerUnits extends Power with Units {
   /// Constructs a instance.
-  PowerUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  PowerUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -91,6 +91,6 @@ class PowerUnits extends Power with Units {
 /// Radiant flux is another way to express power.
 class RadiantFlux extends Power {
   /// Constructs a constant RadiantFlux.
-  const RadiantFlux.constant(Number valueSI, {PowerUnits units, double uncert = 0.0})
+  const RadiantFlux.constant(Number valueSI, {PowerUnits? units, double uncert = 0.0})
       : super.constant(valueSI, units: units, uncert: uncert);
 }

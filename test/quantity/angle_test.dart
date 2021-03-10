@@ -17,7 +17,7 @@ void main() {
       // Default ctor: rad +
       a = Angle(rad: 2.4);
       expect(a, isNotNull);
-      expect(a.valueSI?.toDouble(), 2.4);
+      expect(a.valueSI.toDouble(), 2.4);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);

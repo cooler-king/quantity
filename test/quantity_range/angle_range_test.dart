@@ -71,21 +71,18 @@ void main() {
     test('ranges360', () {
       var range = AngleRange(Angle(deg: 15), Angle(deg: 70.1));
       var list = range.ranges360;
-      expect(list != null, true);
       expect(list.length, 1);
       expect(list[0].startAngle == Angle(deg: 15), true);
       expect(list[0].endAngle == Angle(deg: 70.1), true);
 
       range = AngleRange(Angle(deg: 5), Angle(deg: 370));
       list = range.ranges360;
-      expect(list != null, true);
       expect(list.length, 1);
       expect(list[0].startAngle == Angle(deg: 0), true);
       expect(list[0].endAngle == Angle(deg: 360), true);
 
       range = AngleRange(Angle(deg: -25), Angle(deg: 45));
       list = range.ranges360;
-      expect(list != null, true);
       expect(list.length, 2);
       expect(list[0].startAngle == Angle(deg: 0), true);
       expect(list[0].endAngle.valueSI.toDouble(), closeTo(Angle(deg: 45).valueSI.toDouble(), 0.00001));

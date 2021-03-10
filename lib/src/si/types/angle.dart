@@ -63,10 +63,10 @@ class Angle extends Quantity {
   ///
   /// The internal value is automatically bounded between -PI and PI
   /// radians (-180 to 180 degrees)
-  Angle.inUnits(dynamic value, AngleUnits units, [double uncert = 0.0]) : super(value, units ?? Angle.radians, uncert);
+  Angle.inUnits(dynamic value, AngleUnits units, [double uncert = 0.0]) : super(value, units, uncert);
 
   /// Constructs a constant angle.
-  const Angle.constant(Number valueSI, {AngleUnits units, double uncert = 0.0})
+  const Angle.constant(Number valueSI, {required AngleUnits units, double uncert = 0.0})
       : super.constant(valueSI, Angle.angleDimensions, units, uncert);
 
   ///  This constructor creates an angle value from the three values
@@ -152,7 +152,7 @@ class Angle extends Quantity {
   /// in degrees, minutes arc and seconds arc.  The first value (degrees) may
   /// be either positive or negative; the other two values will be positive.
   List<double> get degMinSec {
-    final dms = List<double>.generate(3, (_) => null, growable: false);
+    final dms = List<double>.generate(3, (_) => 0.0, growable: false);
 
     final decimalDegrees = valueInUnits(degrees).toDouble();
 
@@ -175,7 +175,7 @@ class Angle extends Quantity {
   /// (where there are 24 hours in a complete circle).  The first value (hours)
   /// may be either positive or negative; the other two values will be positive.
   List<double> get hrMinSec {
-    final hms = List<double>.generate(3, (_) => null, growable: false);
+    final hms = List<double>.generate(3, (_) => 0.0, growable: false);
 
     final decimalHours = valueInUnits(degrees).toDouble() / 15.0;
 
@@ -198,7 +198,7 @@ class Angle extends Quantity {
 /// Units acceptable for use in describing Angle quantities.
 class AngleUnits extends Angle with Units {
   /// Constructs a instance.
-  AngleUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  AngleUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

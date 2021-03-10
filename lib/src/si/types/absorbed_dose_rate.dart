@@ -22,10 +22,10 @@ class AbsorbedDoseRate extends Quantity {
   /// Constructs an AbsorbedDoseRate based on the [value]
   /// and the conversion factor intrinsic to the provided [units].
   AbsorbedDoseRate.inUnits(dynamic value, AbsorbedDoseRateUnits units, [double uncert = 0.0])
-      : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant AbsorbedDoseRate with its SI value.
-  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits units, double uncert = 0.0})
+  const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits? units, double uncert = 0.0})
       : super.constant(valueSI, AbsorbedDoseRate.absorbedDoseRateDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
@@ -44,7 +44,7 @@ class AbsorbedDoseRate extends Quantity {
 /// Units acceptable for use in describing AbsorbedDoseRate quantities.
 class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
   /// Constructs a instance.
-  AbsorbedDoseRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  AbsorbedDoseRateUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

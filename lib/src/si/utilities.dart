@@ -263,18 +263,18 @@ Iterable<Type> get allQuantityTypes => _typeInstantiatorMap.keys;
 /// instantiator.
 ///
 /// The quantity's relative uncertainty can optionally be provided (defaults to 0).
-Quantity createTypedQuantityInstance(Type t, dynamic value, Units units, {double uncert = 0.0, Dimensions dimensions}) {
+Quantity createTypedQuantityInstance(Type t, dynamic value, Units? units, {double uncert = 0.0, Dimensions? dimensions}) {
   final quantityInstantiator = _typeInstantiatorMap[t];
   if (quantityInstantiator != null) {
     return Function.apply(quantityInstantiator, <dynamic>[value, units, uncert]) as Quantity;
   }
 
   // Fall back to MiscQuantity.
-  if (units == null && dimensions == null) {
+  if (dimensions == null) {
     throw DimensionsException(
         'Dimensions must be provided if units are not when creating an instance of an unrecognized quantity type');
   }
-  return MiscQuantity(value, (units as Quantity)?.dimensions, uncert);
+  return MiscQuantity(value, (units as Quantity).dimensions, uncert);
 }
 
 /// Maps a digit, decimal point or minus sign string to a unicode exponent character.
@@ -295,7 +295,6 @@ const Map<String, String> expUnicodeMap = <String, String>{
 
 /// Returns the unicode symbols that represent an exponent.
 String unicodeExponent(num exp) {
-  if (exp == null) return '';
   final neg = exp < 0 ? '\u{207b}' : '';
   final absExp = exp.abs();
   final expStr = absExp.toString();

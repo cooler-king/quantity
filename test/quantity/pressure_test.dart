@@ -13,14 +13,14 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = Pressure(Pa: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Pressure.pressureDimensions);
       expect(q.preferredUnits, Pressure.pascals);
       expect(q.relativeUncertainty, 0.001);
 
       q = Pressure(bars: 1);
-      expect(q.valueSI?.toDouble(), 100000);
+      expect(q.valueSI.toDouble(), 100000);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Pressure.pressureDimensions);
       expect(q.preferredUnits, Pressure.bars);

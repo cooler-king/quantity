@@ -21,10 +21,10 @@ class CurrentDensity extends Quantity {
   /// Constructs a CurrentDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   CurrentDensity.inUnits(dynamic value, CurrentDensityUnits units, [double uncert = 0.0])
-      : super(value, units ?? CurrentDensity.amperesPerSquareMeter, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant CurrentDensity.
-  const CurrentDensity.constant(Number valueSI, {CurrentDensityUnits units, double uncert = 0.0})
+  const CurrentDensity.constant(Number valueSI, {CurrentDensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, CurrentDensity.electricCurrentDensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
@@ -39,7 +39,7 @@ class CurrentDensity extends Quantity {
 /// Units acceptable for use in describing CurrentDensity quantities.
 class CurrentDensityUnits extends CurrentDensity with Units {
   /// Constructs a instance.
-  CurrentDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  CurrentDensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

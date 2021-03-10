@@ -18,10 +18,10 @@ class Conductance extends Quantity {
   /// Constructs a Conductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Conductance.inUnits(dynamic value, ConductanceUnits units, [double uncert = 0.0])
-      : super(value, units ?? Conductance.siemens, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Conductance.
-  const Conductance.constant(Number valueSI, {ConductanceUnits units, double uncert = 0.0})
+  const Conductance.constant(Number valueSI, {ConductanceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Conductance.electricConductanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
@@ -36,7 +36,7 @@ class Conductance extends Quantity {
 /// Units acceptable for use in describing Conductance quantities.
 class ConductanceUnits extends Conductance with Units {
   /// Constructs a instance.
-  ConductanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ConductanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

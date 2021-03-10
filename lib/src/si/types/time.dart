@@ -36,14 +36,14 @@ class Time extends Quantity {
 
   /// Constructs a Time based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Time.inUnits(dynamic value, TimeUnits units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
+  Time.inUnits(dynamic value, TimeUnits units, [double uncert = 0.0]) : super(value, units, uncert);
 
   /// Constructs a constant Time.
-  const Time.constant(Number valueSI, {TimeUnits units, double uncert = 0.0})
+  const Time.constant(Number valueSI, {TimeUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Time.timeDimensions, units, uncert);
 
   /// Constructs a Time object from an existing dart:core Duration object.
-  Time.fromDuration(Duration d) : super((d != null) ? d.inMicroseconds.toDouble() / 1.0e6 : 0.0, Time.seconds);
+  Time.fromDuration(Duration d) : super(d.inMicroseconds.toDouble() / 1.0e6, Time.seconds);
 
   /// Dimensions for this type of quantity
   static const Dimensions timeDimensions = Dimensions.constant(<String, int>{'Time': 1}, qType: Time);
@@ -95,7 +95,7 @@ class Time extends Quantity {
 /// Units acceptable for use in describing [Time] quantities.
 class TimeUnits extends Time with Units {
   /// Constructs a instance.
-  TimeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  TimeUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

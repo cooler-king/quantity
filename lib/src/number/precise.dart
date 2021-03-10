@@ -79,8 +79,10 @@ class Precise extends Real {
 
   /// Constructs a Precise number, applying the values found in map [m].
   /// See `toJson` for the expected format.
-  factory Precise.fromMap(Map<String, String> m) =>
-      m?.containsKey('precise') ?? false ? Precise(m['precise']) : Precise.zero;
+  factory Precise.fromMap(Map<String, String>? m) {
+    if (m == null) return Precise.zero;
+    return Precise(m['precise'] ?? '0');
+  }
 
   /// Creates a arbitrary precision number directly from digits.
   ///
@@ -96,7 +98,7 @@ class Precise extends Real {
   /// The default precision is 50 significant digits.
   Precise.raw(List<Digit> digits, {int power = 0, bool neg = false, int sigDigits = 50}) {
     _precision = sigDigits;
-    if (digits?.isNotEmpty == true) {
+    if (digits.isNotEmpty) {
       _digits.addAll(digits);
     } else {
       _digits.add(Digit.zero);
@@ -131,8 +133,8 @@ class Precise extends Real {
 
   /// Optional precision cutoff (maximum number of significant digits allowed).
   int get precision => _precision;
-  int _precision;
-  set precision(int sigDigits) {
+  int _precision = 50;
+  set precision(int? sigDigits) {
     _precision = sigDigits ?? 50;
     _limitPrecision();
   }
@@ -145,7 +147,7 @@ class Precise extends Real {
   /// Rounds the least significant digit based on the
   /// most significant truncated digit.
   void _limitPrecision() {
-    if (_digits.length > (_precision ?? 50)) {
+    if (_digits.length > _precision) {
       final numCull = _digits.length - _precision;
       var roundUp = false;
 
@@ -439,7 +441,7 @@ class Precise extends Real {
   /// Less than operator.
   @override
   bool operator <(dynamic other) {
-    final p2 = toPrecise(other) ?? Precise.zero;
+    final p2 = toPrecise(other);
     if (_neg && !p2._neg) return true;
     if (!_neg && p2._neg) return false;
     final result = !_neg || !p2._neg;
@@ -461,7 +463,6 @@ class Precise extends Real {
   @override
   bool operator >(dynamic other) {
     var p2 = toPrecise(other);
-    p2 ??= Precise.zero;
     if (_neg && !p2._neg) return false;
     if (!_neg && p2._neg) return true;
     final result = !_neg || !p2._neg;
@@ -701,17 +702,17 @@ class Digit {
   int get hashCode => value.getUint8(0);
 
   /// Adds two digits together, returning the result as an [int].
-  int operator +(Digit addend) => toInt() + (addend?.toInt() ?? 0);
+  int operator +(Digit addend) => toInt() + (addend.toInt());
 
   /// Subtracts [subtrahend] from this digit, returning the result as an `int`.
   /// The result may be negative.
   int operator -(Digit subtrahend) => toInt() - subtrahend.toInt();
 
   /// Tests whether this digit is less than [other].
-  bool operator <(Digit other) => toInt() < (other?.toInt() ?? 0);
+  bool operator <(Digit other) => toInt() < (other.toInt());
 
   /// Tests whether this digit is greater than [other].
-  bool operator >(Digit other) => toInt() > (other?.toInt() ?? 0);
+  bool operator >(Digit other) => toInt() > (other.toInt());
 
   /// Returns the integer equivalent of this digit.
   int toInt() => value.getUint8(0);

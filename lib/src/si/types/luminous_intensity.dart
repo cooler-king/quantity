@@ -20,10 +20,10 @@ class LuminousIntensity extends Quantity {
   /// Constructs a LuminousIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   LuminousIntensity.inUnits(dynamic value, LuminousIntensityUnits units, [double uncert = 0.0])
-      : super(value, units ?? LuminousIntensity.candelas, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant LuminousIntensity.
-  const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits units, double uncert = 0.0})
+  const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, LuminousIntensity.luminousIntensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -37,7 +37,7 @@ class LuminousIntensity extends Quantity {
 /// Units acceptable for use in describing [LuminousIntensity] quantities.
 class LuminousIntensityUnits extends LuminousIntensity with Units {
   /// Constructs a instance.
-  LuminousIntensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  LuminousIntensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

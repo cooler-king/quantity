@@ -22,10 +22,10 @@ class AngularSpeed extends Quantity {
   /// Constructs a AngularSpeed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AngularSpeed.inUnits(dynamic value, AngularSpeedUnits units, [double uncert = 0.0])
-      : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant AngularSpeed.
-  const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits units, double uncert = 0.0})
+  const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits? units, double uncert = 0.0})
       : super.constant(valueSI, AngularSpeed.angularSpeedDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -42,7 +42,7 @@ class AngularSpeed extends Quantity {
 /// Units acceptable for use in describing AngularSpeed quantities.
 class AngularSpeedUnits extends AngularSpeed with Units {
   /// Constructs a instance.
-  AngularSpeedUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  AngularSpeedUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

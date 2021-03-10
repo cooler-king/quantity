@@ -33,10 +33,10 @@ class Information extends Quantity {
   /// Constructs an Information instance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Information.inUnits(dynamic value, InformationUnits units, [double uncert = 0.0])
-      : super(value, units ?? Information.bits, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Information.
-  const Information.constant(Number valueSI, {InformationUnits units, double uncert = 0.0})
+  const Information.constant(Number valueSI, {InformationUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Information.informationDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -117,7 +117,7 @@ class Information extends Quantity {
 /// Units acceptable for use in describing Information quantities.
 class InformationUnits extends Information with Units {
   /// Constructs a instance.
-  InformationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  InformationUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

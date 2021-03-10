@@ -14,7 +14,7 @@ void main() {
 
       a = LuminousIntensity(cd: 2.4);
       expect(a, isNotNull);
-      expect(a.valueSI?.toDouble(), 2.4);
+      expect(a.valueSI.toDouble(), 2.4);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, LuminousIntensity.luminousIntensityDimensions);
       expect(a.preferredUnits, LuminousIntensity.candelas);

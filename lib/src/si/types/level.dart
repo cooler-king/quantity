@@ -39,10 +39,10 @@ abstract class Level extends Quantity {
   /// Constructs a Level based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Level.inUnits(dynamic value, LevelUnits units, [double uncert = 0.0]) : super(value, units ?? Level.nepers, uncert);
+  Level.inUnits(dynamic value, LevelUnits units, [double uncert = 0.0]) : super(value, units, uncert);
 
   /// Constructs a constant Level.
-  const Level.constant(Number valueSI, {LevelUnits units, double uncert = 0.0})
+  const Level.constant(Number valueSI, {LevelUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Level.levelDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -66,7 +66,7 @@ abstract class Level extends Quantity {
 /// Units acceptable for use in describing Level quantities.
 class LevelUnits extends Level with Units {
   /// Constructs a instance.
-  LevelUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  LevelUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

@@ -36,12 +36,6 @@ void main() {
         expect(e is Exception, true);
       }
       try {
-        Digit(null);
-        fail('Should not be allowed to construct a Digit with null');
-      } catch (e) {
-        expect(e is Exception, true);
-      }
-      try {
         Digit.char('12');
         fail('Should not be allowed to construct a Digit with a string having more than one character');
       } catch (e) {
@@ -50,12 +44,6 @@ void main() {
       try {
         Digit.char('');
         fail('Should not be allowed to construct a Digit with an empty string');
-      } catch (e) {
-        expect(e is Exception, true);
-      }
-      try {
-        Digit.char(null);
-        fail('Should not be allowed to construct a Digit with a null string');
       } catch (e) {
         expect(e is Exception, true);
       }
@@ -237,49 +225,49 @@ void main() {
       Number sum = p + p2;
       expect(sum is Precise, true);
       expect((sum as Precise).digits.length, 3);
-      expect((sum as Precise).power, 0);
-      expect((sum as Precise).digits[0], Digit.nine);
-      expect((sum as Precise).digits[1], Digit.seven);
-      expect((sum as Precise).digits[2], Digit.five);
-      expect((sum as Precise).toString(), '579');
+      expect(sum.power, 0);
+      expect(sum.digits[0], Digit.nine);
+      expect(sum.digits[1], Digit.seven);
+      expect(sum.digits[2], Digit.five);
+      expect(sum.toString(), '579');
 
       final p3 = Precise('9999');
       sum = p + p3;
       expect(sum is Precise, true);
-      expect((sum as Precise).digits.length, 5);
-      expect((sum as Precise).power, 0);
-      expect((sum as Precise).digits[0], Digit.two);
-      expect((sum as Precise).digits[1], Digit.two);
-      expect((sum as Precise).digits[2], Digit.one);
-      expect((sum as Precise).digits[3], Digit.zero);
-      expect((sum as Precise).digits[4], Digit.one);
-      expect((sum as Precise).toString(), '10122');
+      expect(sum.digits.length, 5);
+      expect(sum.power, 0);
+      expect(sum.digits[0], Digit.two);
+      expect(sum.digits[1], Digit.two);
+      expect(sum.digits[2], Digit.one);
+      expect(sum.digits[3], Digit.zero);
+      expect(sum.digits[4], Digit.one);
+      expect(sum.toString(), '10122');
 
       final p4 = Precise('123.456');
       final p5 = Precise('987.654');
       sum = p4 + p5; // 1111.110
       expect(sum is Precise, true);
-      expect((sum as Precise).digits.length, 7);
-      expect((sum as Precise).power, -3);
-      expect((sum as Precise).digits[0], Digit.zero);
-      expect((sum as Precise).digits[1], Digit.one);
-      expect((sum as Precise).digits[2], Digit.one);
-      expect((sum as Precise).digits[3], Digit.one);
-      expect((sum as Precise).digits[4], Digit.one);
-      expect((sum as Precise).digits[5], Digit.one);
-      expect((sum as Precise).digits[6], Digit.one);
-      expect((sum as Precise).toString(), '1111.110');
+      expect(sum.digits.length, 7);
+      expect(sum.power, -3);
+      expect(sum.digits[0], Digit.zero);
+      expect(sum.digits[1], Digit.one);
+      expect(sum.digits[2], Digit.one);
+      expect(sum.digits[3], Digit.one);
+      expect(sum.digits[4], Digit.one);
+      expect(sum.digits[5], Digit.one);
+      expect(sum.digits[6], Digit.one);
+      expect(sum.toString(), '1111.110');
 
       final p6 = Precise('-382');
       sum = p + p6; // -259
       expect(sum is Precise, true);
-      expect((sum as Precise).digits.length, 3);
-      expect((sum as Precise).power, 0);
-      expect((sum as Precise).isNegative, true);
-      expect((sum as Precise).digits[0], Digit.nine);
-      expect((sum as Precise).digits[1], Digit.five);
-      expect((sum as Precise).digits[2], Digit.two);
-      expect((sum as Precise).toString(), '-259');
+      expect(sum.digits.length, 3);
+      expect(sum.power, 0);
+      expect(sum.isNegative, true);
+      expect(sum.digits[0], Digit.nine);
+      expect(sum.digits[1], Digit.five);
+      expect(sum.digits[2], Digit.two);
+      expect(sum.toString(), '-259');
     });
 
     test('operator -', () {
@@ -288,50 +276,50 @@ void main() {
       Number diff = p - p2;
       expect(diff is Precise, true);
       expect((diff as Precise).digits.length, 3);
-      expect((diff as Precise).power, 0);
-      expect((diff as Precise).digits[0], Digit.five);
-      expect((diff as Precise).digits[1], Digit.three);
-      expect((diff as Precise).digits[2], Digit.one);
-      expect((diff as Precise).toString(), '135');
+      expect(diff.power, 0);
+      expect(diff.digits[0], Digit.five);
+      expect(diff.digits[1], Digit.three);
+      expect(diff.digits[2], Digit.one);
+      expect(diff.toString(), '135');
 
       diff = p2 - p; // -135
-      expect((diff as Precise).digits.length, 3);
-      expect((diff as Precise).power, 0);
-      expect((diff as Precise).isNegative, true);
-      expect((diff as Precise).digits[0], Digit.five);
-      expect((diff as Precise).digits[1], Digit.three);
-      expect((diff as Precise).digits[2], Digit.one);
-      expect((diff as Precise).toString(), '-135');
+      expect(diff.digits.length, 3);
+      expect(diff.power, 0);
+      expect(diff.isNegative, true);
+      expect(diff.digits[0], Digit.five);
+      expect(diff.digits[1], Digit.three);
+      expect(diff.digits[2], Digit.one);
+      expect(diff.toString(), '-135');
 
       final p3 = Precise('-5');
       final p4 = Precise('-7');
       diff = p3 - p4;
-      expect((diff as Precise).digits.length, 1);
-      expect((diff as Precise).power, 0);
-      expect((diff as Precise).isNegative, false);
-      expect((diff as Precise).digits[0], Digit.two);
-      expect((diff as Precise).toString(), '2');
+      expect(diff.digits.length, 1);
+      expect(diff.power, 0);
+      expect(diff.isNegative, false);
+      expect(diff.digits[0], Digit.two);
+      expect(diff.toString(), '2');
 
       diff = p4 - p3;
-      expect((diff as Precise).digits.length, 1);
-      expect((diff as Precise).power, 0);
-      expect((diff as Precise).isNegative, true);
-      expect((diff as Precise).digits[0], Digit.two);
-      expect((diff as Precise).toString(), '-2');
+      expect(diff.digits.length, 1);
+      expect(diff.power, 0);
+      expect(diff.isNegative, true);
+      expect(diff.digits[0], Digit.two);
+      expect(diff.toString(), '-2');
 
       final p5 = Precise('12345.6789');
       diff = p - p5; // -11889.6789
-      expect((diff as Precise).digits.length, 9);
-      expect((diff as Precise).power, -4);
-      expect((diff as Precise).isNegative, true);
-      expect((diff as Precise).toString(), '-11889.6789');
+      expect(diff.digits.length, 9);
+      expect(diff.power, -4);
+      expect(diff.isNegative, true);
+      expect(diff.toString(), '-11889.6789');
 
       final p6 = Precise('-0.5371057032');
       diff = p5 - p6; // 12345.1417942968
-      expect((diff as Precise).digits.length, 15);
-      expect((diff as Precise).power, -10);
-      expect((diff as Precise).isNegative, false);
-      expect((diff as Precise).toString(), '12346.2160057032');
+      expect(diff.digits.length, 15);
+      expect(diff.power, -10);
+      expect(diff.isNegative, false);
+      expect(diff.toString(), '12346.2160057032');
     });
 
     group('operator *', () {
@@ -343,88 +331,88 @@ void main() {
         Number prod = p0 * p0;
         expect(prod is Precise, true);
         expect((prod as Precise).digits.length, 1);
-        expect((prod as Precise).power, 0);
-        expect((prod as Precise).digits[0], Digit.zero);
-        expect((prod as Precise).toString(), '0');
+        expect(prod.power, 0);
+        expect(prod.digits[0], Digit.zero);
+        expect(prod.toString(), '0');
 
         prod = p0 * p1;
-        expect((prod as Precise).digits.length, 1);
-        expect((prod as Precise).power, 0);
-        expect((prod as Precise).digits[0], Digit.zero);
-        expect((prod as Precise).toString(), '0');
+        expect(prod.digits.length, 1);
+        expect(prod.power, 0);
+        expect(prod.digits[0], Digit.zero);
+        expect(prod.toString(), '0');
 
         prod = p1 * p2;
-        expect((prod as Precise).digits.length, 1);
-        expect((prod as Precise).power, 0);
-        expect((prod as Precise).digits[0], Digit.two);
-        expect((prod as Precise).toString(), '2');
+        expect(prod.digits.length, 1);
+        expect(prod.power, 0);
+        expect(prod.digits[0], Digit.two);
+        expect(prod.toString(), '2');
 
         prod = p3 * p3;
-        expect((prod as Precise).digits.length, 1);
-        expect((prod as Precise).power, 0);
-        expect((prod as Precise).digits[0], Digit.nine);
-        expect((prod as Precise).toString(), '9');
+        expect(prod.digits.length, 1);
+        expect(prod.power, 0);
+        expect(prod.digits[0], Digit.nine);
+        expect(prod.toString(), '9');
 
         final p4 = Precise('4');
         prod = p3 * p4;
-        expect((prod as Precise).digits.length, 2);
-        expect((prod as Precise).power, 0);
-        expect((prod as Precise).digits[0], Digit.two);
-        expect((prod as Precise).digits[1], Digit.one);
-        expect((prod as Precise).toString(), '12');
+        expect(prod.digits.length, 2);
+        expect(prod.power, 0);
+        expect(prod.digits[0], Digit.two);
+        expect(prod.digits[1], Digit.one);
+        expect(prod.toString(), '12');
 
         final pNeg5 = Precise('-5');
         prod = p4 * pNeg5;
-        expect((prod as Precise).digits.length, 2);
-        expect((prod as Precise).power, 0);
-        expect((prod as Precise).isNegative, true);
-        expect((prod as Precise).digits[0], Digit.zero);
-        expect((prod as Precise).digits[1], Digit.two);
-        expect((prod as Precise).toString(), '-20');
+        expect(prod.digits.length, 2);
+        expect(prod.power, 0);
+        expect(prod.isNegative, true);
+        expect(prod.digits[0], Digit.zero);
+        expect(prod.digits[1], Digit.two);
+        expect(prod.toString(), '-20');
 
         final p123 = Precise('123');
         prod = p4 * p123;
-        expect((prod as Precise).digits.length, 3);
-        expect((prod as Precise).power, 0);
-        expect((prod as Precise).digits[0], Digit.two);
-        expect((prod as Precise).digits[1], Digit.nine);
-        expect((prod as Precise).digits[2], Digit.four);
-        expect((prod as Precise).toString(), '492');
+        expect(prod.digits.length, 3);
+        expect(prod.power, 0);
+        expect(prod.digits[0], Digit.two);
+        expect(prod.digits[1], Digit.nine);
+        expect(prod.digits[2], Digit.four);
+        expect(prod.toString(), '492');
 
         final pNeg432 = Precise('-432');
         prod = p123 * pNeg432;
-        expect((prod as Precise).digits.length, 5);
-        expect((prod as Precise).power, 0);
-        expect((prod as Precise).isNegative, true);
-        expect((prod as Precise).digits[0], Digit.six);
-        expect((prod as Precise).digits[1], Digit.three);
-        expect((prod as Precise).digits[2], Digit.one);
-        expect((prod as Precise).digits[3], Digit.three);
-        expect((prod as Precise).digits[4], Digit.five);
-        expect((prod as Precise).toString(), '-53136');
+        expect(prod.digits.length, 5);
+        expect(prod.power, 0);
+        expect(prod.isNegative, true);
+        expect(prod.digits[0], Digit.six);
+        expect(prod.digits[1], Digit.three);
+        expect(prod.digits[2], Digit.one);
+        expect(prod.digits[3], Digit.three);
+        expect(prod.digits[4], Digit.five);
+        expect(prod.toString(), '-53136');
 
         final p1pt2 = Precise('1.2');
         prod = p123 * p1pt2;
-        expect((prod as Precise).digits.length, 4);
-        expect((prod as Precise).power, -1);
-        expect((prod as Precise).digits[0], Digit.six);
-        expect((prod as Precise).digits[1], Digit.seven);
-        expect((prod as Precise).digits[2], Digit.four);
-        expect((prod as Precise).digits[3], Digit.one);
-        expect((prod as Precise).toString(), '147.6');
+        expect(prod.digits.length, 4);
+        expect(prod.power, -1);
+        expect(prod.digits[0], Digit.six);
+        expect(prod.digits[1], Digit.seven);
+        expect(prod.digits[2], Digit.four);
+        expect(prod.digits[3], Digit.one);
+        expect(prod.toString(), '147.6');
 
         final pNeg478pt192 = Precise('-478.192');
         prod = p1pt2 * pNeg478pt192;
-        expect((prod as Precise).digits.length, 7);
-        expect((prod as Precise).power, -4);
-        expect((prod as Precise).digits[0], Digit.four);
-        expect((prod as Precise).digits[1], Digit.zero);
-        expect((prod as Precise).digits[2], Digit.three);
-        expect((prod as Precise).digits[3], Digit.eight);
-        expect((prod as Precise).digits[4], Digit.three);
-        expect((prod as Precise).digits[5], Digit.seven);
-        expect((prod as Precise).digits[6], Digit.five);
-        expect((prod as Precise).toString(), '-573.8304');
+        expect(prod.digits.length, 7);
+        expect(prod.power, -4);
+        expect(prod.digits[0], Digit.four);
+        expect(prod.digits[1], Digit.zero);
+        expect(prod.digits[2], Digit.three);
+        expect(prod.digits[3], Digit.eight);
+        expect(prod.digits[4], Digit.three);
+        expect(prod.digits[5], Digit.seven);
+        expect(prod.digits[6], Digit.five);
+        expect(prod.toString(), '-573.8304');
       });
 
       test('operator * num', () {
@@ -450,9 +438,9 @@ void main() {
       result = p1 / p1;
       expect(result, Precise.one);
       expect((result as Precise).digits.length, 1);
-      expect((result as Precise).power, 0);
-      expect((result as Precise).digits[0], Digit.one);
-      expect((result as Precise).toString(), '1');
+      expect(result.power, 0);
+      expect(result.digits[0], Digit.one);
+      expect(result.toString(), '1');
 
       result = p2 / p1;
       expect(identical(result, p2), true);
@@ -621,8 +609,8 @@ void main() {
       expect(ceil is Precise, true);
       expect((ceil as Precise).digits.length, 1);
       expect(ceil.isNegative, false);
-      expect((ceil as Precise).power, 0);
-      expect((ceil as Precise).digits[0], Digit.six);
+      expect(ceil.power, 0);
+      expect(ceil.digits[0], Digit.six);
       expect(ceil.toString(), '6');
 
       p = Precise('-5.678');
@@ -683,8 +671,8 @@ void main() {
       expect(floor is Precise, true);
       expect((floor as Precise).digits.length, 1);
       expect(floor.isNegative, false);
-      expect((floor as Precise).power, 0);
-      expect((floor as Precise).digits[0], Digit.five);
+      expect(floor.power, 0);
+      expect(floor.digits[0], Digit.five);
       expect(floor.toString(), '5');
 
       p = Precise('-5.678');
@@ -752,10 +740,10 @@ void main() {
       expect(recip is Precise, true);
       expect((recip as Precise).digits.length, 3);
       expect(recip.isNegative, false);
-      expect((recip as Precise).power, -2);
-      expect((recip as Precise).digits[0], Digit.five);
-      expect((recip as Precise).digits[1], Digit.two);
-      expect((recip as Precise).digits[2], Digit.zero);
+      expect(recip.power, -2);
+      expect(recip.digits[0], Digit.five);
+      expect(recip.digits[1], Digit.two);
+      expect(recip.digits[2], Digit.zero);
       expect(recip.toString(), '0.25');
     });
 
@@ -770,8 +758,8 @@ void main() {
       expect(round is Precise, true);
       expect((round as Precise).digits.length, 1);
       expect(round.isNegative, false);
-      expect((round as Precise).power, 0);
-      expect((round as Precise).digits[0], Digit.six);
+      expect(round.power, 0);
+      expect(round.digits[0], Digit.six);
       expect(round.toString(), '6');
 
       p = Precise('-5.678');
@@ -808,37 +796,37 @@ void main() {
       expect(trunc is Precise, true);
       expect((trunc as Precise).digits.length, 1);
       expect(trunc.isNegative, false);
-      expect((trunc as Precise).power, 0);
-      expect((trunc as Precise).digits[0], Digit.five);
+      expect(trunc.power, 0);
+      expect(trunc.digits[0], Digit.five);
       expect(trunc.toString(), '5');
 
       p = Precise('-1234.5678');
       trunc = p.truncate();
       expect(trunc.isNegative, true);
-      expect((trunc as Precise).power, 0);
+      expect(trunc.power, 0);
       expect(trunc.toString(), '-1234');
 
       p = Precise('123456.78');
       trunc = p.truncate();
-      expect((trunc as Precise).power, 0);
+      expect(trunc.power, 0);
       expect(trunc.toString(), '123456');
 
       p = Precise('0.999999999999999999999999999999999');
       trunc = p.truncate();
       expect(trunc.isNegative, false);
-      expect((trunc as Precise).power, 0);
+      expect(trunc.power, 0);
       expect(trunc.toString(), '0');
 
       p = Precise('-0.000000000000000000000000000001');
       trunc = p.truncate();
       expect(trunc.isNegative, false);
-      expect((trunc as Precise).power, 0);
+      expect(trunc.power, 0);
       expect(trunc.toString(), '0');
 
       p = Precise('10.000000000001');
       trunc = p.truncate();
       expect(trunc.isNegative, false);
-      expect((trunc as Precise).power, 0);
+      expect(trunc.power, 0);
       expect(trunc.toString(), '10');
     });
   });

@@ -20,10 +20,10 @@ class Force extends Quantity {
 
   /// Constructs a Force based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Force.inUnits(dynamic value, ForceUnits units, [double uncert = 0.0]) : super(value, units ?? Force.newtons, uncert);
+  Force.inUnits(dynamic value, ForceUnits units, [double uncert = 0.0]) : super(value, units, uncert);
 
   /// Constructs a constant Force.
-  const Force.constant(Number valueSI, {ForceUnits units, double uncert = 0.0})
+  const Force.constant(Number valueSI, {ForceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Force.forceDimensions, units, uncert);
 
   /// Constructs a instance from mass and acceleration.
@@ -42,7 +42,7 @@ class Force extends Quantity {
 /// Units acceptable for use in describing Force quantities.
 class ForceUnits extends Force with Units {
   /// Constructs a instance.
-  ForceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ForceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

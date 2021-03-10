@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:intl/intl.dart' show NumberFormat;
+import 'package:intl/number_symbols.dart';
 import '../number/complex.dart';
 import '../number/double.dart';
 import '../number/imaginary.dart';
@@ -29,9 +30,11 @@ import 'utilities.dart' show expUnicodeMap, logger;
 /// The standard DecimalFormat class is unable to apply grouping to digits
 /// after the decimal.  Therefore, this class directly extends NumberFormat
 /// and provides implementations for format and parse.
-class NumberFormatSI extends NumberFormat {
+class NumberFormatSI implements NumberFormat {
   /// Constructs a instance.
-  NumberFormatSI({this.unicode = false}) : super.scientificPattern();
+  NumberFormatSI({this.unicode = false});
+
+  final NumberFormat _scientific = NumberFormat.scientificPattern();
 
   /// Output in unicode (using unicode thin spaces instead of regular ascii spaces).
   bool unicode;
@@ -39,25 +42,28 @@ class NumberFormatSI extends NumberFormat {
   /// [value] is expected to be a Quantity, Number or num object.
   @override
   String format(dynamic value) {
-    String realStr;
-    String imagStr;
+    String? realStr;
+    String? imagStr;
     if (value is num) {
       realStr = value.toString();
     } else {
-      final number = value is Number ? value : value is Quantity ? value.valueSI : null;
+      final number = value is Number
+          ? value
+          : value is Quantity
+              ? value.valueSI
+              : null;
       if (number is Integer) {
         realStr = number.toInt().toString();
-      } else if (value is Double) {
+      } else if (number is Double) {
         realStr = number.toDouble().toString();
       } else if (number is Imaginary) {
         imagStr = number.value.toString();
       } else if (number is Complex) {
-        if (number.real != null && number.real.value.toDouble() != 0) {
-          realStr = number.real?.isInteger == true ? '${number.real.toInt()}' : number.real?.toString();
+        if (number.real.value.toDouble() != 0) {
+          realStr = number.real.isInteger == true ? '${number.real.toInt()}' : number.real.toString();
         }
-        if (number.imag != null && number.imag.value.toDouble() != 0) {
-          imagStr =
-              number.imag?.value?.isInteger == true ? '${number.imag.value.toInt()}' : number.imag?.value?.toString();
+        if (number.imag.value.toDouble() != 0) {
+          imagStr = number.imag.value.isInteger == true ? '${number.imag.value.toInt()}' : number.imag.value.toString();
         }
         if (realStr == null && imagStr == null) realStr = '0';
       } else if (number is Precise) {
@@ -65,21 +71,21 @@ class NumberFormatSI extends NumberFormat {
       }
     }
 
-    if (realStr?.isNotEmpty == true) realStr = adjustForExponent(realStr);
-    if (imagStr?.isNotEmpty == true) imagStr = adjustForExponent(imagStr);
+    if (realStr?.isNotEmpty == true) realStr = adjustForExponent(realStr!);
+    if (imagStr?.isNotEmpty == true) imagStr = adjustForExponent(imagStr!);
 
     final buf = StringBuffer();
-    if (realStr?.isNotEmpty == true) buf.write(insertSpaces(realStr));
+    if (realStr?.isNotEmpty == true) buf.write(insertSpaces(realStr!));
     if (imagStr?.isNotEmpty == true) {
       if (buf.isNotEmpty) {
-        if (imagStr.startsWith('-')) {
+        if (imagStr?.startsWith('-') == true) {
           buf.write(' - ');
-          imagStr = imagStr.substring(1);
+          imagStr = imagStr!.substring(1);
         } else {
           buf.write(' + ');
         }
       }
-      final s = insertSpaces(imagStr);
+      final s = insertSpaces(imagStr!);
       final expIndex = _exponentIndex(s);
       if (expIndex == -1) {
         buf..write(s)..write('i');
@@ -105,8 +111,6 @@ class NumberFormatSI extends NumberFormat {
 
   /// Returns a String with spaces added according to SI guidelines.
   String insertSpaces(String str) {
-    if (str == null) return null;
-
     // Remove any exponent piece and add it back in after spaces have been added.
     final expIndex = _exponentIndex(str);
     final numStr = expIndex != -1 ? str.substring(0, expIndex) : str;
@@ -163,7 +167,7 @@ class NumberFormatSI extends NumberFormat {
   /// follows the decimal point).
   static String removeInsignificantZeros(String str) {
     try {
-      if (str?.isNotEmpty != true) return str;
+      if (str.isNotEmpty != true) return str;
       final dotIndex = str.indexOf('.');
       if (dotIndex == -1) return str;
       final eIndex = str.toLowerCase().indexOf('e');
@@ -188,9 +192,110 @@ class NumberFormatSI extends NumberFormat {
     // Replace spaces, unicode characters and exponential notation before parsing.
     var adj = text.replaceAll(' ', '').replaceAll('\u{2009}', '').replaceAll('x10^', 'E').replaceAll('x10', 'E');
     for (final char in expUnicodeMap.keys) {
-      final unicodeChar = expUnicodeMap[char];
+      final unicodeChar = expUnicodeMap[char]!;
       adj = adj.replaceAll(unicodeChar, char);
     }
-    return super.parse(adj);
+    return _scientific.parse(adj);
+  }
+
+  @override
+  late String? currencyName = _scientific.currencyName;
+
+  @override
+  int get maximumFractionDigits => _scientific.maximumFractionDigits;
+
+  @override
+  set maximumFractionDigits(int value) {
+    _scientific.maximumFractionDigits = value;
+  }
+
+  @override
+  int get maximumIntegerDigits => _scientific.maximumIntegerDigits;
+
+  @override
+  set maximumIntegerDigits(int value) {
+    _scientific.maximumIntegerDigits = value;
+  }
+
+  @override
+  int get minimumExponentDigits => _scientific.minimumExponentDigits;
+
+  @override
+  set minimumExponentDigits(int value) {
+    _scientific.minimumExponentDigits = value;
+  }
+
+  @override
+  int get minimumFractionDigits => _scientific.minimumFractionDigits;
+
+  @override
+  set minimumFractionDigits(int value) {
+    _scientific.minimumFractionDigits = value;
+  }
+
+  @override
+  int get minimumIntegerDigits => _scientific.minimumIntegerDigits;
+
+  @override
+  set minimumIntegerDigits(int value) {
+    _scientific.minimumIntegerDigits = value;
+  }
+
+  @override
+  int? get significantDigits => _scientific.significantDigits;
+
+  @override
+  set significantDigits(int? value) {
+    _scientific.significantDigits = value;
+  }
+
+  @override
+  bool get significantDigitsInUse => _scientific.significantDigitsInUse;
+
+  @override
+  set significantDigitsInUse(bool value) {
+    _scientific.significantDigitsInUse = value;
+  }
+
+  @override
+  String get currencySymbol => _scientific.currencySymbol;
+
+  @override
+  int? get decimalDigits => _scientific.decimalDigits;
+
+  @override
+  String get locale => _scientific.locale;
+
+  @override
+  int get localeZero => _scientific.localeZero;
+
+  @override
+  int get multiplier => _scientific.multiplier;
+
+  @override
+  String get negativePrefix => _scientific.negativePrefix;
+
+  @override
+  String get negativeSuffix => _scientific.negativeSuffix;
+
+  @override
+  String get positivePrefix => _scientific.positivePrefix;
+
+  @override
+  String get positiveSuffix => _scientific.positiveSuffix;
+
+  @override
+  String simpleCurrencySymbol(String currencyCode) {
+    // TODO: implement simpleCurrencySymbol
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement symbols
+  NumberSymbols get symbols => throw UnimplementedError();
+
+  @override
+  void turnOffGrouping() {
+    // TODO: implement turnOffGrouping
   }
 }

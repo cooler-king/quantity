@@ -20,10 +20,10 @@ class Inductance extends Quantity {
   /// Constructs a Inductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Inductance.inUnits(dynamic value, InductanceUnits units, [double uncert = 0.0])
-      : super(value, units ?? Inductance.henries, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Inductance.
-  const Inductance.constant(Number valueSI, {InductanceUnits units, double uncert = 0.0})
+  const Inductance.constant(Number valueSI, {InductanceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Inductance.inductanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -37,7 +37,7 @@ class Inductance extends Quantity {
 /// Units acceptable for use in describing Inductance quantities.
 class InductanceUnits extends Inductance with Units {
   /// Constructs a instance.
-  InductanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  InductanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

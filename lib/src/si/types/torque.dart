@@ -23,10 +23,10 @@ class Torque extends Quantity {
   /// Constructs a Torque based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Torque.inUnits(dynamic value, TorqueUnits units, [double uncert = 0.0])
-      : super(value, units ?? Torque.newtonMeters, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Torque.
-  const Torque.constant(Number valueSI, {TorqueUnits units, double uncert = 0.0})
+  const Torque.constant(Number valueSI, {TorqueUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Torque.torqueDimensions, units, uncert);
 
   /// Dimensions for this type of quantity (energy per angle rather than Length x Force).
@@ -40,7 +40,7 @@ class Torque extends Quantity {
 /// Units acceptable for use in describing Torque quantities.
 class TorqueUnits extends Torque with Units {
   /// Constructs a instance.
-  TorqueUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  TorqueUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

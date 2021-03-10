@@ -20,8 +20,8 @@ class Imaginary extends Number {
   const Imaginary.constant(this.value) : super.constant();
 
   /// Constructs a instance, applying the values in map [m].
-  factory Imaginary.fromMap(Map<String, Map<String, dynamic>> m) => (m?.containsKey('imag') ?? false)
-      ? Imaginary.fromMap(m['imag'] as Map<String, Map<String, dynamic>>)
+  factory Imaginary.fromMap(Map<String, Map<String, dynamic>>? m) => (m?.containsKey('imag') == true)
+      ? Imaginary.fromMap(m?['imag'] as Map<String, Map<String, dynamic>>)
       : const Imaginary.constant(Integer.zero);
 
   /// The value of the imaginary component as a Real number.

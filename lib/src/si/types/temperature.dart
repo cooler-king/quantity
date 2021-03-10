@@ -20,10 +20,10 @@ class Temperature extends Quantity {
   /// Constructs a Temperature based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Temperature.inUnits(dynamic value, TemperatureUnits units, [double uncert = 0.0])
-      : super(value, units ?? Temperature.kelvins, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Temperature.
-  const Temperature.constant(Number valueSI, {TemperatureUnits units, double uncert = 0.0})
+  const Temperature.constant(Number valueSI, {TemperatureUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Temperature.temperatureDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
@@ -80,7 +80,7 @@ class Temperature extends Quantity {
 /// Units acceptable for use in describing [Temperature] quantities.
 class TemperatureUnits extends Temperature with Units {
   /// Constructs a instance.
-  TemperatureUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  TemperatureUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, double offset = 0.0])
       : super.misc(conv) {
     this.name = name;

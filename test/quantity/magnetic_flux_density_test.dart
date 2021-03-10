@@ -13,7 +13,7 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = MagneticFluxDensity(T: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, MagneticFluxDensity.magneticFluxDensityDimensions);
       expect(q.preferredUnits, MagneticFluxDensity.teslas);

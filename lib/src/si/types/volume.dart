@@ -20,10 +20,10 @@ class Volume extends Quantity {
   /// Constructs a Volume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Volume.inUnits(dynamic value, VolumeUnits units, [double uncert = 0.0])
-      : super(value, units ?? Volume.cubicMeters, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Volume.
-  const Volume.constant(Number valueSI, {VolumeUnits units, double uncert = 0.0})
+  const Volume.constant(Number valueSI, {VolumeUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Volume.volumeDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +39,7 @@ class Volume extends Quantity {
 /// Units acceptable for use in describing Volume quantities.
 class VolumeUnits extends Volume with Units {
   /// Constructs a instance.
-  VolumeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  VolumeUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

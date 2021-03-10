@@ -26,10 +26,10 @@ class Frequency extends Quantity {
   /// Constructs a Frequency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Frequency.inUnits(dynamic value, FrequencyUnits units, [double uncert = 0.0])
-      : super(value, units ?? Frequency.hertz, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant Frequency.
-  const Frequency.constant(Number valueSI, {FrequencyUnits units, double uncert = 0.0})
+  const Frequency.constant(Number valueSI, {FrequencyUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Frequency.frequencyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -53,7 +53,7 @@ class Frequency extends Quantity {
 /// Units acceptable for use in describing Frequency quantities.
 class FrequencyUnits extends Frequency with Units {
   /// Constructs a instance.
-  FrequencyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  FrequencyUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

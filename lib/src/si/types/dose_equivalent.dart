@@ -21,10 +21,10 @@ class DoseEquivalent extends Quantity {
   /// Constructs a DoseEquivalent based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   DoseEquivalent.inUnits(dynamic value, DoseEquivalentUnits units, [double uncert = 0.0])
-      : super(value, units ?? DoseEquivalent.seiverts, uncert);
+      : super(value, units, uncert);
 
   /// Constructs a constant DoseEquivalent.
-  const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits units, double uncert = 0.0})
+  const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits? units, double uncert = 0.0})
       : super.constant(valueSI, DoseEquivalent.doseEquivalentDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -41,7 +41,7 @@ class DoseEquivalent extends Quantity {
 /// Units acceptable for use in describing DoseEquivalent quantities.
 class DoseEquivalentUnits extends DoseEquivalent with Units {
   /// Constructs a instance.
-  DoseEquivalentUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  DoseEquivalentUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

@@ -15,7 +15,7 @@ abstract class Real extends Number {
   const Real.constant() : super.constant();
 
   /// Constructs a instance using the value for property `d` (decimal) or `i` (integer) in Map [m].
-  factory Real.fromMap(Map<String, dynamic> m) =>
+  factory Real.fromMap(Map<String, dynamic>? m) =>
       m?.containsKey('d') == true || m?.containsKey('i') == true ? Number.fromMap(m) as Real : Integer.zero;
 
   /// All Real subclasses must be able to provide their value as a [dart:core] [num].
@@ -217,7 +217,7 @@ abstract class Real extends Number {
   Number floor() => Integer(value.floor());
 
   @override
-  Number round() => Integer(value?.round());
+  Number round() => Integer(value.round());
 
   @override
   Number truncate() => Integer(value.truncate());

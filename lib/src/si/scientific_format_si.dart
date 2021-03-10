@@ -10,7 +10,7 @@ class ScientificFormatSI extends NumberFormatSI {
   /// Move the decimal point to just after the first integer digit.
   @override
   String adjustForExponent(String str) {
-    if (str?.isNotEmpty != true) return str;
+    if (str.isNotEmpty != true) return str;
     var trimmed = str.trim();
     var sign = '';
     if (trimmed.startsWith('-')) {
