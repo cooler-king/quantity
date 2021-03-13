@@ -109,7 +109,8 @@ class TimeInstant extends Quantity {
 
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  TimeInstant.inUnits(dynamic value, TimeInstantUnits units, [double uncert = 0.0]) : super(value, units, uncert);
+  TimeInstant.inUnits(dynamic value, TimeInstantUnits? units, [double uncert = 0.0])
+      : super(value, units ?? TimeInstant.TAI, uncert);
 
   /// Constructs a constant TimeInstant object.
   const TimeInstant.constant(Number valueSI, {TimeInstantUnits? units, double uncert = 0.0})

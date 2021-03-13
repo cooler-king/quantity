@@ -20,8 +20,8 @@ class DoseEquivalent extends Quantity {
 
   /// Constructs a DoseEquivalent based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  DoseEquivalent.inUnits(dynamic value, DoseEquivalentUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  DoseEquivalent.inUnits(dynamic value, DoseEquivalentUnits? units, [double uncert = 0.0])
+      : super(value, units ?? DoseEquivalent.seiverts, uncert);
 
   /// Constructs a constant DoseEquivalent.
   const DoseEquivalent.constant(Number valueSI, {DoseEquivalentUnits? units, double uncert = 0.0})

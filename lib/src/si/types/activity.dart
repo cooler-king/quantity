@@ -21,8 +21,8 @@ class Activity extends Quantity {
 
   /// Constructs a Activity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Activity.inUnits(dynamic value, ActivityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Activity.inUnits(dynamic value, ActivityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Activity.becquerels, uncert);
 
   /// Constructs a constant Activity.
   const Activity.constant(Number valueSI, {ActivityUnits? units, double uncert = 0.0})

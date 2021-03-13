@@ -20,8 +20,8 @@ class MagneticFieldStrength extends Quantity {
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MagneticFieldStrength.inUnits(dynamic value, MagneticFieldStrengthUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  MagneticFieldStrength.inUnits(dynamic value, MagneticFieldStrengthUnits? units, [double uncert = 0.0])
+      : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
 
   /// Constructs a constant MagneticFieldStrength.
   const MagneticFieldStrength.constant(Number valueSI, {MagneticFieldStrengthUnits? units, double uncert = 0.0})

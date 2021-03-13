@@ -18,8 +18,8 @@ class MagneticFluxDensity extends Quantity {
 
   /// Constructs a MagneticFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MagneticFluxDensity.inUnits(dynamic value, MagneticFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  MagneticFluxDensity.inUnits(dynamic value, MagneticFluxDensityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? MagneticFluxDensity.teslas, uncert);
 
   /// Constructs a constant MagneticFluxDensity.
   const MagneticFluxDensity.constant(Number valueSI, {MagneticFluxDensityUnits? units, double uncert = 0.0})

@@ -21,8 +21,8 @@ class LuminousFlux extends Quantity {
 
   /// Constructs a LuminousFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  LuminousFlux.inUnits(dynamic value, LuminousFluxUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  LuminousFlux.inUnits(dynamic value, LuminousFluxUnits? units, [double uncert = 0.0])
+      : super(value, units ?? LuminousFlux.lumens, uncert);
 
   /// Constructs a constant LuminousFlux.
   const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits? units, double uncert = 0.0})

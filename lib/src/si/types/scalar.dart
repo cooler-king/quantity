@@ -20,7 +20,7 @@ class Scalar extends Quantity {
   // CONSTRUCTORS.
 
   /// Constructs a instance in specified [units].
-  Scalar.inUnits(dynamic value, ScalarUnits units, [double uncert = 0.0]) : super(value, units, uncert);
+  Scalar.inUnits(dynamic value, ScalarUnits? units, [double uncert = 0.0]) : super(value, units ?? Scalar.one, uncert);
 
   /// Constructs a constant Scalar.
   const Scalar.constant(Number value, {ScalarUnits? units, double uncert = 0.0})

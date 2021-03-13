@@ -21,8 +21,8 @@ class DynamicViscosity extends Quantity {
 
   /// Constructs a DynamicViscosity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  DynamicViscosity.inUnits(dynamic value, DynamicViscosityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  DynamicViscosity.inUnits(dynamic value, DynamicViscosityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? DynamicViscosity.pascalSeconds, uncert);
 
   /// Constructs a constant DynamicViscosity.
   const DynamicViscosity.constant(Number valueSI, {DynamicViscosityUnits? units, double uncert = 0.0})

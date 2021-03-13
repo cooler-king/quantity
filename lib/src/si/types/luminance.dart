@@ -20,8 +20,8 @@ class Luminance extends Quantity {
 
   /// Constructs a Luminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Luminance.inUnits(dynamic value, LuminanceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Luminance.inUnits(dynamic value, LuminanceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Luminance.candelasPerSquareMeter, uncert);
 
   /// Constructs a constant Luminance.
   const Luminance.constant(Number valueSI, {LuminanceUnits? units, double uncert = 0.0})

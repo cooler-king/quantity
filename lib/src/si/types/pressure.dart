@@ -24,8 +24,8 @@ class Pressure extends Quantity {
 
   /// Constructs a Pressure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Pressure.inUnits(dynamic value, PressureUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Pressure.inUnits(dynamic value, PressureUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Pressure.pascals, uncert);
 
   /// Constructs a constant Pressure.
   const Pressure.constant(Number valueSI, {PressureUnits? units, double uncert = 0.0})

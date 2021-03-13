@@ -20,8 +20,8 @@ class RadiantIntensity extends Quantity {
 
   /// Constructs a RadiantIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  RadiantIntensity.inUnits(dynamic value, RadiantIntensityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  RadiantIntensity.inUnits(dynamic value, RadiantIntensityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? RadiantIntensity.wattsPerSteradian, uncert);
 
   /// Constructs a constant RadiantIntensity.
   const RadiantIntensity.constant(Number valueSI, {RadiantIntensityUnits? units, double uncert = 0.0})

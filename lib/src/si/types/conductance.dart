@@ -17,8 +17,8 @@ class Conductance extends Quantity {
 
   /// Constructs a Conductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Conductance.inUnits(dynamic value, ConductanceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Conductance.inUnits(dynamic value, ConductanceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Conductance.siemens, uncert);
 
   /// Constructs a constant Conductance.
   const Conductance.constant(Number valueSI, {ConductanceUnits? units, double uncert = 0.0})

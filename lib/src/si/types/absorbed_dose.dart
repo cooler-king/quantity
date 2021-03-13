@@ -22,7 +22,7 @@ class AbsorbedDose extends Quantity {
   /// Constructs an AbsorbedDose based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AbsorbedDose.inUnits(dynamic value, AbsorbedDoseUnits? units, [double uncert = 0.0])
-      : super(value, units, uncert);
+      : super(value, units ?? AbsorbedDose.grays, uncert);
 
   /// Constructs a constant AbsorbedDose.
   const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits? units, double uncert = 0.0})

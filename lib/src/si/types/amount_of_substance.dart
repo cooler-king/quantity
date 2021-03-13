@@ -19,8 +19,8 @@ class AmountOfSubstance extends Quantity {
 
   /// Constructs a AmountOfSubstance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? AmountOfSubstance.moles, uncert);
 
   /// Constructs a constant AmountOfSubstance.
   const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits? units, double uncert = 0.0})

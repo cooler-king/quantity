@@ -25,8 +25,8 @@ class SpecificEnergy extends Quantity {
 
   /// Constructs a SpecificEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  SpecificEnergy.inUnits(dynamic value, SpecificEnergyUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  SpecificEnergy.inUnits(dynamic value, SpecificEnergyUnits? units, [double uncert = 0.0])
+      : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert);
 
   /// Constructs a constant SpecificEnergy.
   const SpecificEnergy.constant(Number valueSI, {SpecificEnergyUnits? units, double uncert = 0.0})

@@ -18,8 +18,8 @@ class Current extends Quantity {
 
   /// Constructs a Current based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Current.inUnits(dynamic value, CurrentUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Current.inUnits(dynamic value, CurrentUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Current.amperes, uncert);
 
   /// Constructs a constant electric Current.
   const Current.constant(Number valueSI, {CurrentUnits? units, double uncert = 0.0})

@@ -27,8 +27,8 @@ class Length extends Quantity {
 
   /// Constructs a Length based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Length.inUnits(dynamic value, LengthUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Length.inUnits(dynamic value, LengthUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Length.meters, uncert);
 
   /// Constructs constant Length.
   const Length.constant(Number valueSI, {LengthUnits? units, double uncert = 0.0})

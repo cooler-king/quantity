@@ -20,8 +20,8 @@ class EnergyFlux extends Quantity {
 
   /// Constructs a EnergyFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  EnergyFlux.inUnits(dynamic value, EnergyFluxUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  EnergyFlux.inUnits(dynamic value, EnergyFluxUnits? units, [double uncert = 0.0])
+      : super(value, units ?? EnergyFlux.wattsPerSquareMeter, uncert);
 
   /// Constructs a constant EnergyFlux.
   const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits? units, double uncert = 0.0})

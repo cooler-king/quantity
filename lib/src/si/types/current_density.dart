@@ -20,8 +20,8 @@ class CurrentDensity extends Quantity {
 
   /// Constructs a CurrentDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  CurrentDensity.inUnits(dynamic value, CurrentDensityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  CurrentDensity.inUnits(dynamic value, CurrentDensityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? CurrentDensity.amperesPerSquareMeter, uncert);
 
   /// Constructs a constant CurrentDensity.
   const CurrentDensity.constant(Number valueSI, {CurrentDensityUnits? units, double uncert = 0.0})

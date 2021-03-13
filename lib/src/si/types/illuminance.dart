@@ -17,8 +17,8 @@ class Illuminance extends Quantity {
 
   /// Constructs a Illuminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Illuminance.inUnits(dynamic value, IlluminanceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Illuminance.inUnits(dynamic value, IlluminanceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Illuminance.lux, uncert);
 
   /// Constructs a constant Illuminance.
   const Illuminance.constant(Number valueSI, {IlluminanceUnits? units, double uncert = 0.0})

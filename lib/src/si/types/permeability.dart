@@ -25,8 +25,8 @@ class Permeability extends Quantity {
 
   /// Constructs a Permeability based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Permeability.inUnits(dynamic value, PermeabilityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Permeability.inUnits(dynamic value, PermeabilityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Permeability.henriesPerMeter, uncert);
 
   /// Constructs a constant Permeability.
   const Permeability.constant(Number valueSI, {PermeabilityUnits? units, double uncert = 0.0})

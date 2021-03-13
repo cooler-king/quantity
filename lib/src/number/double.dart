@@ -86,8 +86,16 @@ class Double extends Real {
 
   @override
   Number clamp(dynamic lowerLimit, dynamic upperLimit) {
-    final lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toInt() : 0;
-    final upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toInt() : 0;
+    final lower = lowerLimit is num
+        ? lowerLimit
+        : lowerLimit is Number
+            ? lowerLimit.toInt()
+            : 0;
+    final upper = upperLimit is num
+        ? upperLimit
+        : upperLimit is Number
+            ? upperLimit.toInt()
+            : 0;
     final clamped = value.clamp(lower, upper);
     return clamped.toInt() == clamped ? Integer(clamped.toInt()) : Double(clamped.toDouble());
   }

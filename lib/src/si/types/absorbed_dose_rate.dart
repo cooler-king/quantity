@@ -21,8 +21,8 @@ class AbsorbedDoseRate extends Quantity {
 
   /// Constructs an AbsorbedDoseRate based on the [value]
   /// and the conversion factor intrinsic to the provided [units].
-  AbsorbedDoseRate.inUnits(dynamic value, AbsorbedDoseRateUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  AbsorbedDoseRate.inUnits(dynamic value, AbsorbedDoseRateUnits? units, [double uncert = 0.0])
+      : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert);
 
   /// Constructs a constant AbsorbedDoseRate with its SI value.
   const AbsorbedDoseRate.constant(Number valueSI, {AbsorbedDoseRateUnits? units, double uncert = 0.0})

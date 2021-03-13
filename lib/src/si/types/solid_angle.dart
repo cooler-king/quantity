@@ -19,8 +19,8 @@ class SolidAngle extends Quantity {
   // CONSTRUCTORS.
 
   /// Constructs a instance in the specified [units].
-  SolidAngle.inUnits(dynamic value, SolidAngleUnits units, [double uncert = 0])
-      : super(value, units, uncert);
+  SolidAngle.inUnits(dynamic value, SolidAngleUnits? units, [double uncert = 0])
+      : super(value, units ?? SolidAngle.steradians, uncert);
 
   /// Constructs a constant SolidAngle.
   const SolidAngle.constant(Number value, [SolidAngleUnits? units])

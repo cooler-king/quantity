@@ -21,8 +21,8 @@ class AngularSpeed extends Quantity {
 
   /// Constructs a AngularSpeed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  AngularSpeed.inUnits(dynamic value, AngularSpeedUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  AngularSpeed.inUnits(dynamic value, AngularSpeedUnits? units, [double uncert = 0.0])
+      : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
 
   /// Constructs a constant AngularSpeed.
   const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits? units, double uncert = 0.0})

@@ -20,8 +20,8 @@ class ChargeDensity extends Quantity {
 
   /// Constructs a ChargeDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ChargeDensity.inUnits(dynamic value, ChargeDensityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  ChargeDensity.inUnits(dynamic value, ChargeDensityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? ChargeDensity.coulombsPerCubicMeter, uncert);
 
   /// Constructs a constant ChargeDensity.
   const ChargeDensity.constant(Number valueSI, {ChargeDensityUnits? units, double uncert = 0.0})

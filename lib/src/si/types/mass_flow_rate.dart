@@ -20,8 +20,8 @@ class MassFlowRate extends Quantity {
 
   /// Constructs a MassFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MassFlowRate.inUnits(dynamic value, MassFlowRateUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  MassFlowRate.inUnits(dynamic value, MassFlowRateUnits? units, [double uncert = 0.0])
+      : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert);
 
   /// Construct a constant MassFlowRate.
   const MassFlowRate.constant(Number valueSI, {MassFlowRateUnits? units, double uncert = 0.0})

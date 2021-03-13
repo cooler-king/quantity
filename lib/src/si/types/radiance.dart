@@ -22,8 +22,8 @@ class Radiance extends Quantity {
 
   /// Constructs a Radiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Radiance.inUnits(dynamic value, RadianceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Radiance.inUnits(dynamic value, RadianceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert);
 
   /// Constructs a constant Radiance.
   const Radiance.constant(Number valueSI, {RadianceUnits? units, double uncert = 0.0})

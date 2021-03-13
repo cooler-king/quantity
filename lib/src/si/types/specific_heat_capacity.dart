@@ -23,8 +23,8 @@ class SpecificHeatCapacity extends Quantity {
 
   /// Constructs a SpecificHeatCapacity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  SpecificHeatCapacity.inUnits(dynamic value, SpecificHeatCapacityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  SpecificHeatCapacity.inUnits(dynamic value, SpecificHeatCapacityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
 
   /// Constructs a constant SpecificHeatCapacity.
   const SpecificHeatCapacity.constant(Number valueSI, {SpecificHeatCapacityUnits? units, double uncert = 0.0})

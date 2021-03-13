@@ -22,8 +22,8 @@ class TemperatureInterval extends Quantity {
 
   /// Constructs a TemperatureInterval based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  TemperatureInterval.inUnits(dynamic value, TemperatureIntervalUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  TemperatureInterval.inUnits(dynamic value, TemperatureIntervalUnits? units, [double uncert = 0.0])
+      : super(value, units ?? TemperatureInterval.kelvins, uncert);
 
   /// Constructs a constant TemperatureInterval.
   const TemperatureInterval.constant(Number valueSI, {TemperatureIntervalUnits? units, double uncert = 0.0})

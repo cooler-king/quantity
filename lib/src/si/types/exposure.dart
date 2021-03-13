@@ -20,8 +20,8 @@ class Exposure extends Quantity {
 
   /// Constructs a Exposure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Exposure.inUnits(dynamic value, ExposureUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Exposure.inUnits(dynamic value, ExposureUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Exposure.coulombsPerKilogram, uncert);
 
   /// Constructs a constant Exposure.
   const Exposure.constant(Number valueSI, {ExposureUnits? units, double uncert = 0.0})

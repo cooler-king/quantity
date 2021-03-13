@@ -23,8 +23,8 @@ class Entropy extends Quantity {
 
   /// Constructs a Entropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Entropy.inUnits(dynamic value, EntropyUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Entropy.inUnits(dynamic value, EntropyUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Entropy.joulesPerKelvin, uncert);
 
   /// Constructs a constant Entropy.
   const Entropy.constant(Number valueSI, {EntropyUnits? units, double uncert = 0.0})

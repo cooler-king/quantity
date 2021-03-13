@@ -20,8 +20,8 @@ class Charge extends Quantity {
 
   /// Constructs a Charge based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Charge.inUnits(dynamic value, ChargeUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Charge.inUnits(dynamic value, ChargeUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Charge.coulombs, uncert);
 
   /// Constructs a constant Charge.
   const Charge.constant(Number valueSI, {ChargeUnits? units, double uncert = 0.0})

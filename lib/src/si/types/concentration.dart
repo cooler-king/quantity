@@ -20,8 +20,8 @@ class Concentration extends Quantity {
 
   /// Constructs a Concentration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Concentration.inUnits(dynamic value, ConcentrationUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Concentration.inUnits(dynamic value, ConcentrationUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Concentration.molesPerCubicMeter, uncert);
 
   /// Constructs a constant Concentration.
   const Concentration.constant(Number valueSI, {ConcentrationUnits? units, double uncert = 0.0})

@@ -17,8 +17,8 @@ class CatalyticActivity extends Quantity {
 
   /// Constructs a CatalyticActivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? CatalyticActivity.katals, uncert);
 
   /// Constructs a constant CatalyticActivity.
   const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits? units, double uncert = 0.0})

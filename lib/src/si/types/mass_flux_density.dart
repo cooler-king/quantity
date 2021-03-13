@@ -21,8 +21,8 @@ class MassFluxDensity extends Quantity {
 
   /// Constructs a MassFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MassFluxDensity.inUnits(dynamic value, MassFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  MassFluxDensity.inUnits(dynamic value, MassFluxDensityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
 
   /// Constructs a constant MassFluxDensity.
   const MassFluxDensity.constant(Number valueSI, {MassFluxDensityUnits? units, double uncert = 0.0})

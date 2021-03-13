@@ -36,7 +36,7 @@ class Time extends Quantity {
 
   /// Constructs a Time based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Time.inUnits(dynamic value, TimeUnits units, [double uncert = 0.0]) : super(value, units, uncert);
+  Time.inUnits(dynamic value, TimeUnits? units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
 
   /// Constructs a constant Time.
   const Time.constant(Number valueSI, {TimeUnits? units, double uncert = 0.0})

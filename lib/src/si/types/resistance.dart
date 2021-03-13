@@ -17,8 +17,8 @@ class Resistance extends Quantity {
 
   /// Constructs a Resistance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Resistance.inUnits(dynamic value, ResistanceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Resistance.inUnits(dynamic value, ResistanceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Resistance.ohms, uncert);
 
   /// Constructs a constant electrical Resistance.
   const Resistance.constant(Number valueSI, {ResistanceUnits? units, double uncert = 0.0})

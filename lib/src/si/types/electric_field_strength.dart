@@ -20,8 +20,8 @@ class ElectricFieldStrength extends Quantity {
 
   /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ElectricFieldStrength.inUnits(dynamic value, ElectricFieldStrengthUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  ElectricFieldStrength.inUnits(dynamic value, ElectricFieldStrengthUnits? units, [double uncert = 0.0])
+      : super(value, units ?? ElectricFieldStrength.voltsPerMeter, uncert);
 
   /// Constructs a constant ElectricFieldStrength.
   const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits? units, double uncert = 0.0})

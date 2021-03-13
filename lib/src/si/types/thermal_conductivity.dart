@@ -21,8 +21,8 @@ class ThermalConductivity extends Quantity {
 
   /// Constructs a ThermalConductivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ThermalConductivity.inUnits(dynamic value, ThermalConductivityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  ThermalConductivity.inUnits(dynamic value, ThermalConductivityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert);
 
   /// Constructs a constant ThermalConductivity.
   const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits? units, double uncert = 0.0})

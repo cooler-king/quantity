@@ -31,8 +31,8 @@ class InformationRate extends Quantity {
 
   /// Constructs a InformationRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  InformationRate.inUnits(dynamic value, InformationRateUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  InformationRate.inUnits(dynamic value, InformationRateUnits? units, [double uncert = 0.0])
+      : super(value, units ?? InformationRate.bitsPerSecond, uncert);
 
   /// Constructs a constant InformationRate.
   const InformationRate.constant(Number valueSI, {InformationRateUnits? units, double uncert = 0.0})

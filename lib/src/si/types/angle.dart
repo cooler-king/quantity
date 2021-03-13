@@ -63,7 +63,7 @@ class Angle extends Quantity {
   ///
   /// The internal value is automatically bounded between -PI and PI
   /// radians (-180 to 180 degrees)
-  Angle.inUnits(dynamic value, AngleUnits units, [double uncert = 0.0]) : super(value, units, uncert);
+  Angle.inUnits(dynamic value, AngleUnits? units, [double uncert = 0.0]) : super(value, units ?? Angle.radians, uncert);
 
   /// Constructs a constant angle.
   const Angle.constant(Number valueSI, {required AngleUnits units, double uncert = 0.0})

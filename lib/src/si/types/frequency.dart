@@ -25,8 +25,8 @@ class Frequency extends Quantity {
 
   /// Constructs a Frequency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Frequency.inUnits(dynamic value, FrequencyUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Frequency.inUnits(dynamic value, FrequencyUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Frequency.hertz, uncert);
 
   /// Constructs a constant Frequency.
   const Frequency.constant(Number valueSI, {FrequencyUnits? units, double uncert = 0.0})

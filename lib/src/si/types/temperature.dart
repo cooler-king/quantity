@@ -19,8 +19,8 @@ class Temperature extends Quantity {
 
   /// Constructs a Temperature based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Temperature.inUnits(dynamic value, TemperatureUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Temperature.inUnits(dynamic value, TemperatureUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Temperature.kelvins, uncert);
 
   /// Constructs a constant Temperature.
   const Temperature.constant(Number valueSI, {TemperatureUnits? units, double uncert = 0.0})

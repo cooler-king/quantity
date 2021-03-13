@@ -20,8 +20,8 @@ class EnergyDensity extends Quantity {
 
   /// Constructs a EnergyDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  EnergyDensity.inUnits(dynamic value, EnergyDensityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  EnergyDensity.inUnits(dynamic value, EnergyDensityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? EnergyDensity.joulesPerCubicMeter, uncert);
 
   /// Constructs a constant EnergyDensity.
   const EnergyDensity.constant(Number valueSI, {EnergyDensityUnits? units, double uncert = 0.0})

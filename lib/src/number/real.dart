@@ -92,14 +92,26 @@ abstract class Real extends Number {
   Number operator /(dynamic divisor) {
     if (divisor is num) {
       if (divisor.isNaN) return Double.NaN;
-      if (divisor == 0) return value == 0 ? Double.NaN : value > 0 ? Double.infinity : Double.negInfinity;
+      if (divisor == 0) {
+        return value == 0
+            ? Double.NaN
+            : value > 0
+                ? Double.infinity
+                : Double.negInfinity;
+      }
       final num quotient = value / divisor;
       return quotient.toInt() == quotient ? Integer(quotient.toInt()) : Double(quotient.toDouble());
     }
     if (divisor is Precise) return (Precise.num(value)) / divisor;
     if (divisor is Real) {
       if (divisor.isNaN) return Double.NaN;
-      if (divisor.value == 0) return value == 0 ? Double.NaN : value > 0 ? Double.infinity : Double.negInfinity;
+      if (divisor.value == 0) {
+        return value == 0
+            ? Double.NaN
+            : value > 0
+                ? Double.infinity
+                : Double.negInfinity;
+      }
       final num quotient = value / divisor.value;
       return quotient.toInt() == quotient ? Integer(quotient.toInt()) : Double(quotient.toDouble());
     }
@@ -208,7 +220,11 @@ abstract class Real extends Number {
   bool operator <=(dynamic obj) => !(this > obj);
 
   @override
-  Number abs() => value >= 0 ? this : value is int ? Integer(value.abs().toInt()) : Double(value.abs().toDouble());
+  Number abs() => value >= 0
+      ? this
+      : value is int
+          ? Integer(value.abs().toInt())
+          : Double(value.abs().toDouble());
 
   @override
   Number ceil() => Integer(value.ceil());
@@ -231,7 +247,11 @@ abstract class Real extends Number {
 
   @override
   Number remainder(dynamic divisor) {
-    final div = divisor is num ? divisor : divisor is Number ? divisor.toDouble() : 0;
+    final div = divisor is num
+        ? divisor
+        : divisor is Number
+            ? divisor.toDouble()
+            : 0;
     final rem = value.remainder(div);
     if (rem is int) return Integer(rem);
     return Double(rem.toDouble());

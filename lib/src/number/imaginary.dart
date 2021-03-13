@@ -13,8 +13,11 @@ import 'util/jenkins_hash.dart';
 class Imaginary extends Number {
   /// Constructs a instance.
   Imaginary(dynamic val)
-      : value =
-            (val is num) ? ((val is int) ? Integer(val) : Double(val as double)) : (val is Real) ? val : Double.zero;
+      : value = (val is num)
+            ? ((val is int) ? Integer(val) : Double(val as double))
+            : (val is Real)
+                ? val
+                : Double.zero;
 
   /// Constructs a constant Imaginary number.
   const Imaginary.constant(this.value) : super.constant();

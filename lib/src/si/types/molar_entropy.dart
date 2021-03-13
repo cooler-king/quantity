@@ -21,8 +21,8 @@ class MolarEntropy extends Quantity {
 
   /// Constructs a MolarEntropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MolarEntropy.inUnits(dynamic value, MolarEntropyUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  MolarEntropy.inUnits(dynamic value, MolarEntropyUnits? units, [double uncert = 0.0])
+      : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert);
 
   /// Constructs a constant MolarEntropy.
   const MolarEntropy.constant(Number valueSI, {MolarEntropyUnits? units, double uncert = 0.0})

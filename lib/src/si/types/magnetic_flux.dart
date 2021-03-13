@@ -18,8 +18,8 @@ class MagneticFlux extends Quantity {
 
   /// Constructs a MagneticFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MagneticFlux.inUnits(dynamic value, MagneticFluxUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  MagneticFlux.inUnits(dynamic value, MagneticFluxUnits? units, [double uncert = 0.0])
+      : super(value, units ?? MagneticFlux.webers, uncert);
 
   /// Constructs a constant MagneticFlux.
   const MagneticFlux.constant(Number valueSI, {MagneticFluxUnits? units, double uncert = 0.0})

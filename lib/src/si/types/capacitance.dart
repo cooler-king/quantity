@@ -17,8 +17,8 @@ class Capacitance extends Quantity {
 
   /// Constructs a Capacitance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Capacitance.inUnits(dynamic value, CapacitanceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Capacitance.inUnits(dynamic value, CapacitanceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Capacitance.farads, uncert);
 
   /// Constructs a constant Capacitance.
   const Capacitance.constant(Number valueSI, {CapacitanceUnits? units, double uncert = 0.0})

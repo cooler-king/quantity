@@ -21,8 +21,8 @@ class ElectricPotentialDifference extends Quantity {
 
   /// Constructs a ElectricPotentialDifference based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ElectricPotentialDifference.inUnits(dynamic value, ElectricPotentialDifferenceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  ElectricPotentialDifference.inUnits(dynamic value, ElectricPotentialDifferenceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? ElectricPotentialDifference.volts, uncert);
 
   /// Constructs a constant ElectricPotentialDifference.
   const ElectricPotentialDifference.constant(Number valueSI,

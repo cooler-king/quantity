@@ -20,8 +20,8 @@ class MassDensity extends Quantity {
 
   /// Constructs a MassDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MassDensity.inUnits(dynamic value, MassDensityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  MassDensity.inUnits(dynamic value, MassDensityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? MassDensity.kilogramsPerCubicMeter, uncert);
 
   /// Constructs a constant MassDensity.
   const MassDensity.constant(Number valueSI, {MassDensityUnits? units, double uncert = 0.0})

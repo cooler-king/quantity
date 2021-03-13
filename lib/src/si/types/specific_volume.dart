@@ -20,8 +20,8 @@ class SpecificVolume extends Quantity {
 
   /// Constructs a SpecificVolume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  SpecificVolume.inUnits(dynamic value, SpecificVolumeUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  SpecificVolume.inUnits(dynamic value, SpecificVolumeUnits? units, [double uncert = 0.0])
+      : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert);
 
   /// Constructs a constant SpecificVolume.
   const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits? units, double uncert = 0.0})

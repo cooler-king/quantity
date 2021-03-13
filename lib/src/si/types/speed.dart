@@ -20,8 +20,8 @@ class Speed extends Quantity {
 
   /// Constructs a Speed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Speed.inUnits(dynamic value, SpeedUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Speed.inUnits(dynamic value, SpeedUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Speed.metersPerSecond, uncert);
 
   /// Constructs a constant Speed.
   const Speed.constant(Number valueSI, {SpeedUnits? units, double uncert = 0.0})

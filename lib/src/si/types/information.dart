@@ -32,8 +32,8 @@ class Information extends Quantity {
 
   /// Constructs an Information instance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Information.inUnits(dynamic value, InformationUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Information.inUnits(dynamic value, InformationUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Information.bits, uncert);
 
   /// Constructs a constant Information.
   const Information.constant(Number valueSI, {InformationUnits? units, double uncert = 0.0})

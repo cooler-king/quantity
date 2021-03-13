@@ -19,8 +19,8 @@ class Inductance extends Quantity {
 
   /// Constructs a Inductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Inductance.inUnits(dynamic value, InductanceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Inductance.inUnits(dynamic value, InductanceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Inductance.henries, uncert);
 
   /// Constructs a constant Inductance.
   const Inductance.constant(Number valueSI, {InductanceUnits? units, double uncert = 0.0})

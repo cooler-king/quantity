@@ -20,7 +20,7 @@ class Force extends Quantity {
 
   /// Constructs a Force based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Force.inUnits(dynamic value, ForceUnits units, [double uncert = 0.0]) : super(value, units, uncert);
+  Force.inUnits(dynamic value, ForceUnits? units, [double uncert = 0.0]) : super(value, units ?? Force.newtons, uncert);
 
   /// Constructs a constant Force.
   const Force.constant(Number valueSI, {ForceUnits? units, double uncert = 0.0})

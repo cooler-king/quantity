@@ -18,8 +18,8 @@ class SpectralIrradiance extends Quantity {
 
   /// Constructs a SpectralIrradiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  SpectralIrradiance.inUnits(dynamic value, SpectralIrradianceUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  SpectralIrradiance.inUnits(dynamic value, SpectralIrradianceUnits? units, [double uncert = 0.0])
+      : super(value, units ?? SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
   /// Constructs a constant SpectralIrradiance.
   const SpectralIrradiance.constant(Number valueSI, {SpectralIrradianceUnits? units, double uncert = 0.0})

@@ -20,8 +20,8 @@ class MolarEnergy extends Quantity {
 
   /// Constructs a MolarEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MolarEnergy.inUnits(dynamic value, MolarEnergyUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  MolarEnergy.inUnits(dynamic value, MolarEnergyUnits? units, [double uncert = 0.0])
+      : super(value, units ?? MolarEnergy.joulesPerMole, uncert);
 
   /// Constructs a constant MolarEnergy.
   const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits? units, double uncert = 0.0})

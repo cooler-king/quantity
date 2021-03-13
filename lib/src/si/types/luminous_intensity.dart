@@ -19,8 +19,8 @@ class LuminousIntensity extends Quantity {
 
   /// Constructs a LuminousIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  LuminousIntensity.inUnits(dynamic value, LuminousIntensityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  LuminousIntensity.inUnits(dynamic value, LuminousIntensityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? LuminousIntensity.candelas, uncert);
 
   /// Constructs a constant LuminousIntensity.
   const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits? units, double uncert = 0.0})

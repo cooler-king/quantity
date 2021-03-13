@@ -21,8 +21,8 @@ class AngularMomentum extends Quantity {
 
   /// Constructs a AngularMomentum based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  AngularMomentum.inUnits(dynamic value, AngularMomentumUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  AngularMomentum.inUnits(dynamic value, AngularMomentumUnits? units, [double uncert = 0.0])
+      : super(value, units ?? AngularMomentum.jouleSecond, uncert);
 
   /// Constructs a constant AngularMomentum.
   const AngularMomentum.constant(Number valueSI, {AngularMomentumUnits? units, double uncert = 0.0})

@@ -20,8 +20,8 @@ class VolumeFlowRate extends Quantity {
 
   /// Constructs a VolumeFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  VolumeFlowRate.inUnits(dynamic value, VolumeFlowRateUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  VolumeFlowRate.inUnits(dynamic value, VolumeFlowRateUnits? units, [double uncert = 0.0])
+      : super(value, units ?? VolumeFlowRate.cubicMetersPerSecond, uncert);
 
   /// Constructs a constant VolumeFlowRate.
   const VolumeFlowRate.constant(Number valueSI, {VolumeFlowRateUnits? units, double uncert = 0.0})

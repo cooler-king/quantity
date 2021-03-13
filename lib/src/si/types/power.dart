@@ -24,7 +24,7 @@ class Power extends Quantity {
 
   /// Constructs a Power based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Power.inUnits(dynamic value, PowerUnits units, [double uncert = 0.0]) : super(value, units, uncert);
+  Power.inUnits(dynamic value, PowerUnits? units, [double uncert = 0.0]) : super(value, units ?? Power.watts, uncert);
 
   /// Constructs a constant Power.
   const Power.constant(Number valueSI, {PowerUnits? units, double uncert = 0.0})

@@ -22,8 +22,8 @@ class Acceleration extends Quantity {
 
   /// Constructs a Acceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Acceleration.inUnits(dynamic value, AccelerationUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Acceleration.inUnits(dynamic value, AccelerationUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Acceleration.metersPerSecondSquared, uncert);
 
   /// Constructs a constant Acceleration.
   const Acceleration.constant(Number valueSI, {AccelerationUnits? units, double uncert = 0.0})

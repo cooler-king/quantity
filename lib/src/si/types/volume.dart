@@ -19,8 +19,8 @@ class Volume extends Quantity {
 
   /// Constructs a Volume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Volume.inUnits(dynamic value, VolumeUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Volume.inUnits(dynamic value, VolumeUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Volume.cubicMeters, uncert);
 
   /// Constructs a constant Volume.
   const Volume.constant(Number valueSI, {VolumeUnits? units, double uncert = 0.0})

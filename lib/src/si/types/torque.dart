@@ -22,8 +22,8 @@ class Torque extends Quantity {
 
   /// Constructs a Torque based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Torque.inUnits(dynamic value, TorqueUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  Torque.inUnits(dynamic value, TorqueUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Torque.newtonMeters, uncert);
 
   /// Constructs a constant Torque.
   const Torque.constant(Number valueSI, {TorqueUnits? units, double uncert = 0.0})

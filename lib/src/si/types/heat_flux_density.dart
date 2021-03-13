@@ -22,8 +22,8 @@ class HeatFluxDensity extends Quantity {
 
   /// Constructs a HeatFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  HeatFluxDensity.inUnits(dynamic value, HeatFluxDensityUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  HeatFluxDensity.inUnits(dynamic value, HeatFluxDensityUnits? units, [double uncert = 0.0])
+      : super(value, units ?? HeatFluxDensity.wattsPerSquareMeter, uncert);
 
   /// Constructs a constant HeatFluxDensity.
   const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits? units, double uncert = 0.0})

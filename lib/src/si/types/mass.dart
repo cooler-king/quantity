@@ -21,7 +21,7 @@ class Mass extends Quantity {
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Mass.inUnits(dynamic value, MassUnits units, [double uncert = 0.0]) : super(value, units, uncert);
+  Mass.inUnits(dynamic value, MassUnits? units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
 
   /// Constructs a constant Mass.
   const Mass.constant(Number valueSI, {MassUnits? units, double uncert = 0.0})

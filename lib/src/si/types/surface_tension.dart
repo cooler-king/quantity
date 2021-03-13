@@ -20,8 +20,8 @@ class SurfaceTension extends Quantity {
 
   /// Constructs a SurfaceTension based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits units, [double uncert = 0.0])
-      : super(value, units, uncert);
+  SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits? units, [double uncert = 0.0])
+      : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert);
 
   /// Constructs a constant SurfaceTension.
   const SurfaceTension.constant(Number valueSI, {SurfaceTensionUnits? units, double uncert = 0.0})
