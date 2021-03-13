@@ -23,10 +23,10 @@ class Complex extends Number {
 
   /// Constructs a instance, applying the values in map [m].
   /// See `toJson` for the expected format.
-  Complex.fromMap(Map<String, Map<String, dynamic>> m)
-      : real = (m?.containsKey('real') ?? false) ? Real.fromMap(m['real']) : Double.zero,
+  Complex.fromMap(Map<String, Map<String, dynamic>>? m)
+      : real = (m?.containsKey('real') == true) ? Real.fromMap(m?['real']) : Double.zero,
         imaginary = m?.containsKey('real') ?? false
-            ? Imaginary.constant(Real.fromMap(m['imag']))
+            ? Imaginary.constant(Real.fromMap(m?['imag']))
             : const Imaginary.constant(Integer.zero);
 
   /// The real number component of the complex number.
@@ -72,7 +72,7 @@ class Complex extends Number {
 
   /// Whether the real part of this complex number is an integer.
   @override
-  bool get isInteger => (imaginary == null || imaginary.toDouble() == 0) && real.isInteger;
+  bool get isInteger => (imaginary.toDouble() == 0) && real.isInteger;
 
   /// Returns the real part of this complex number as a double.
   @override
@@ -84,11 +84,11 @@ class Complex extends Number {
 
   @override
   int get hashCode {
-    if (imaginary == null || imaginary.value.toDouble() == 0) {
+    if (imaginary.value.toDouble() == 0) {
       if (real is Precise) return real.hashCode;
       return Precise.num(real.toDouble()).hashCode;
     } else {
-      if (real == null || real.toDouble() == 0) return hashObjects(<Object>[0, imaginary.value]);
+      if (real.toDouble() == 0) return hashObjects(<Object>[0, imaginary.value]);
       return hashObjects(<Object>[real, imaginary.value]);
     }
   }

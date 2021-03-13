@@ -20,11 +20,11 @@ class MolarEnergy extends Quantity {
 
   /// Constructs a MolarEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MolarEnergy.inUnits(dynamic value, MolarEnergyUnits units, [double uncert = 0.0])
+  MolarEnergy.inUnits(dynamic value, MolarEnergyUnits? units, [double uncert = 0.0])
       : super(value, units ?? MolarEnergy.joulesPerMole, uncert);
 
   /// Constructs a constant MolarEnergy.
-  const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits units, double uncert = 0.0})
+  const MolarEnergy.constant(Number valueSI, {MolarEnergyUnits? units, double uncert = 0.0})
       : super.constant(valueSI, MolarEnergy.molarEnergyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -38,7 +38,7 @@ class MolarEnergy extends Quantity {
 /// Units acceptable for use in describing MolarEnergy quantities.
 class MolarEnergyUnits extends MolarEnergy with Units {
   /// Constructs a instance.
-  MolarEnergyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  MolarEnergyUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

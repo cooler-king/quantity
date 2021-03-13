@@ -19,11 +19,11 @@ class AmountOfSubstance extends Quantity {
 
   /// Constructs a AmountOfSubstance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits units, [double uncert = 0.0])
+  AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits? units, [double uncert = 0.0])
       : super(value, units ?? AmountOfSubstance.moles, uncert);
 
   /// Constructs a constant AmountOfSubstance.
-  const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits units, double uncert = 0.0})
+  const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, AmountOfSubstance.amountOfSubstanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -40,7 +40,7 @@ class AmountOfSubstance extends Quantity {
 /// Units acceptable for use in describing [AmountOfSubstance] quantities.
 class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
   /// Constructs a instance.
-  AmountOfSubstanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  AmountOfSubstanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

@@ -18,11 +18,11 @@ class Currency extends Quantity {
 
   /// Constructs a Currency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Currency.inUnits(dynamic value, CurrencyUnits units, [double uncert = 0.0])
+  Currency.inUnits(dynamic value, CurrencyUnits? units, [double uncert = 0.0])
       : super(value, units ?? Currency.dollarsUS, uncert);
 
   /// Constructs a constant Currency.
-  const Currency.constant(Number valueSI, {CurrencyUnits units, double uncert = 0.0})
+  const Currency.constant(Number valueSI, {CurrencyUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Currency.currencyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -38,7 +38,7 @@ class Currency extends Quantity {
 /// Units acceptable for use in describing Currency quantities.
 class CurrencyUnits extends Currency with Units {
   /// Constructs a instance.
-  CurrencyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  CurrencyUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

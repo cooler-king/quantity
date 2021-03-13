@@ -21,11 +21,11 @@ class ElectricFluxDensity extends Quantity {
 
   /// Constructs a ElectricFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ElectricFluxDensity.inUnits(dynamic value, ElectricFluxDensityUnits units, [double uncert = 0.0])
+  ElectricFluxDensity.inUnits(dynamic value, ElectricFluxDensityUnits? units, [double uncert = 0.0])
       : super(value, units ?? ElectricFluxDensity.coulombsPerSquareMeter, uncert);
 
   /// Constructs a constant ElectricFluxDensity.
-  const ElectricFluxDensity.constant(Number valueSI, {ElectricFluxDensityUnits units, double uncert = 0.0})
+  const ElectricFluxDensity.constant(Number valueSI, {ElectricFluxDensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, ElectricFluxDensity.electricFluxDensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -40,7 +40,7 @@ class ElectricFluxDensity extends Quantity {
 /// Units acceptable for use in describing ElectricFluxDensity quantities.
 class ElectricFluxDensityUnits extends ElectricFluxDensity with Units {
   /// Constructs a instance.
-  ElectricFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ElectricFluxDensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

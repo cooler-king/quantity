@@ -12,21 +12,21 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = Mass(kg: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Mass.massDimensions);
       expect(q.preferredUnits, Mass.kilograms);
       expect(q.relativeUncertainty, 0.001);
 
       q = Mass(g: 1);
-      expect(q.valueSI?.toDouble(), 0.001);
+      expect(q.valueSI.toDouble(), 0.001);
       expect(q.valueSI is Double, true);
       expect(q.dimensions, Mass.massDimensions);
       expect(q.preferredUnits, Mass.grams);
       expect(q.relativeUncertainty, 0);
 
       q = Mass(u: 1);
-      expect(q.valueSI?.toDouble(), 1.66053886e-27);
+      expect(q.valueSI.toDouble(), 1.66053886e-27);
       expect(q.valueSI is Double, true);
       expect(q.dimensions, Mass.massDimensions);
       expect(q.preferredUnits, Mass.unifiedAtomicMassUnits);

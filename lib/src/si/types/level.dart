@@ -39,10 +39,10 @@ abstract class Level extends Quantity {
   /// Constructs a Level based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Level.inUnits(dynamic value, LevelUnits units, [double uncert = 0.0]) : super(value, units ?? Level.nepers, uncert);
+  Level.inUnits(dynamic value, LevelUnits? units, [double uncert = 0.0]) : super(value, units ?? Level.nepers, uncert);
 
   /// Constructs a constant Level.
-  const Level.constant(Number valueSI, {LevelUnits units, double uncert = 0.0})
+  const Level.constant(Number valueSI, {LevelUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Level.levelDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -66,7 +66,7 @@ abstract class Level extends Quantity {
 /// Units acceptable for use in describing Level quantities.
 class LevelUnits extends Level with Units {
   /// Constructs a instance.
-  LevelUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  LevelUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -104,7 +104,7 @@ class PowerLevel extends Level {
   PowerLevel(Power p, Power refP) : super(Np: 0.5 * math.log((p.mks / refP.mks).toDouble()));
 
   /// Constructs a instance having specified [units].
-  PowerLevel.inUnits(dynamic value, LevelUnits units, [double uncert = 0.0]) : super.inUnits(value, units, uncert);
+  PowerLevel.inUnits(dynamic value, LevelUnits? units, [double uncert = 0.0]) : super.inUnits(value, units, uncert);
 
   /// Returns the ratio represented by this power level.
   double get ratio => math.exp(2.0 * valueSI.toDouble());
@@ -138,7 +138,7 @@ class FieldLevel extends Level {
   FieldLevel(Quantity q1, Quantity refQ) : super(Np: 0.5 * math.log((q1.mks / refQ.mks).toDouble()));
 
   /// Constructs a instance in the specified [units].
-  FieldLevel.inUnits(dynamic value, LevelUnits units, [double uncert = 0.0]) : super.inUnits(value, units, uncert);
+  FieldLevel.inUnits(dynamic value, LevelUnits? units, [double uncert = 0.0]) : super.inUnits(value, units, uncert);
 
   /// Returns the ratio that this field level represents..
   double get ratio => math.exp(valueSI.toDouble());

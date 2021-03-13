@@ -1,3 +1,5 @@
+import 'package:quantity/domain/astronomical.dart';
+
 import '../../number/number.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
@@ -20,11 +22,11 @@ class Acceleration extends Quantity {
 
   /// Constructs a Acceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Acceleration.inUnits(dynamic value, AccelerationUnits units, [double uncert = 0.0])
+  Acceleration.inUnits(dynamic value, AccelerationUnits? units, [double uncert = 0.0])
       : super(value, units ?? Acceleration.metersPerSecondSquared, uncert);
 
   /// Constructs a constant Acceleration.
-  const Acceleration.constant(Number valueSI, {AccelerationUnits units, double uncert = 0.0})
+  const Acceleration.constant(Number valueSI, {AccelerationUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Acceleration.accelerationDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +41,7 @@ class Acceleration extends Quantity {
 /// Units acceptable for use in describing Acceleration quantities.
 class AccelerationUnits extends Acceleration with Units {
   /// Constructs a instance.
-  AccelerationUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  AccelerationUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

@@ -20,11 +20,11 @@ class ChargeDensity extends Quantity {
 
   /// Constructs a ChargeDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ChargeDensity.inUnits(dynamic value, ChargeDensityUnits units, [double uncert = 0.0])
+  ChargeDensity.inUnits(dynamic value, ChargeDensityUnits? units, [double uncert = 0.0])
       : super(value, units ?? ChargeDensity.coulombsPerCubicMeter, uncert);
 
   /// Constructs a constant ChargeDensity.
-  const ChargeDensity.constant(Number valueSI, {ChargeDensityUnits units, double uncert = 0.0})
+  const ChargeDensity.constant(Number valueSI, {ChargeDensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, ChargeDensity.electricChargeDensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +39,7 @@ class ChargeDensity extends Quantity {
 /// Units acceptable for use in describing ChargeDensity quantities.
 class ChargeDensityUnits extends ChargeDensity with Units {
   /// Constructs a instance.
-  ChargeDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ChargeDensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

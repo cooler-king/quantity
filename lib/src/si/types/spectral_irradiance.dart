@@ -18,11 +18,11 @@ class SpectralIrradiance extends Quantity {
 
   /// Constructs a SpectralIrradiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  SpectralIrradiance.inUnits(dynamic value, SpectralIrradianceUnits units, [double uncert = 0.0])
+  SpectralIrradiance.inUnits(dynamic value, SpectralIrradianceUnits? units, [double uncert = 0.0])
       : super(value, units ?? SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
 
   /// Constructs a constant SpectralIrradiance.
-  const SpectralIrradiance.constant(Number valueSI, {SpectralIrradianceUnits units, double uncert = 0.0})
+  const SpectralIrradiance.constant(Number valueSI, {SpectralIrradianceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, SpectralIrradiance.spectralIrradianceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -37,7 +37,7 @@ class SpectralIrradiance extends Quantity {
 /// Units acceptable for use in describing SpectralIrradiance quantities.
 class SpectralIrradianceUnits extends SpectralIrradiance with Units {
   /// Constructs a instance.
-  SpectralIrradianceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  SpectralIrradianceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

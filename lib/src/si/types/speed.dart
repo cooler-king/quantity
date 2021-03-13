@@ -20,11 +20,11 @@ class Speed extends Quantity {
 
   /// Constructs a Speed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Speed.inUnits(dynamic value, SpeedUnits units, [double uncert = 0.0])
+  Speed.inUnits(dynamic value, SpeedUnits? units, [double uncert = 0.0])
       : super(value, units ?? Speed.metersPerSecond, uncert);
 
   /// Constructs a constant Speed.
-  const Speed.constant(Number valueSI, {SpeedUnits units, double uncert = 0.0})
+  const Speed.constant(Number valueSI, {SpeedUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Speed.speedDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -40,7 +40,7 @@ class Speed extends Quantity {
 /// Units acceptable for use in describing Speed quantities.
 class SpeedUnits extends Speed with Units {
   /// Constructs a instance.
-  SpeedUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  SpeedUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

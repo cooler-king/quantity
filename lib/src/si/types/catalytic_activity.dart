@@ -17,11 +17,11 @@ class CatalyticActivity extends Quantity {
 
   /// Constructs a CatalyticActivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits units, [double uncert = 0.0])
+  CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits? units, [double uncert = 0.0])
       : super(value, units ?? CatalyticActivity.katals, uncert);
 
   /// Constructs a constant CatalyticActivity.
-  const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits units, double uncert = 0.0})
+  const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, CatalyticActivity.catalyticActivityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
@@ -35,7 +35,7 @@ class CatalyticActivity extends Quantity {
 /// Units acceptable for use in describing CatalyticActivity quantities.
 class CatalyticActivityUnits extends CatalyticActivity with Units {
   /// Constructs a instance.
-  CatalyticActivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  CatalyticActivityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

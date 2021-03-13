@@ -38,11 +38,11 @@ num numberToNum(Number number) {
   if (number is Double) return number.value;
   if (number is Integer) return number.value;
   if (number is Imaginary) return 0;
-  if (number is Complex) return number.real?.toDouble() ?? 0.0;
+  if (number is Complex) return number.real.toDouble();
   if (number is Precise) {
     if (number.isInteger) return number.toInt();
     return number.toDouble();
   } else {
-    return number?.toDouble() ?? 0;
+    return number.toDouble();
   }
 }

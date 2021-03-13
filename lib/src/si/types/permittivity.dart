@@ -20,11 +20,11 @@ class Permittivity extends Quantity {
 
   /// Constructs a Permittivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Permittivity.inUnits(dynamic value, PermittivityUnits units, [double uncert = 0.0])
+  Permittivity.inUnits(dynamic value, PermittivityUnits? units, [double uncert = 0.0])
       : super(value, units ?? Permittivity.faradsPerMeter, uncert);
 
   /// Constructs a constant Permittivity.
-  const Permittivity.constant(Number valueSI, {PermittivityUnits units, double uncert = 0.0})
+  const Permittivity.constant(Number valueSI, {PermittivityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Permittivity.permittivityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +39,7 @@ class Permittivity extends Quantity {
 /// Units acceptable for use in describing Permittivity quantities.
 class PermittivityUnits extends Permittivity with Units {
   /// Constructs a instance.
-  PermittivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  PermittivityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

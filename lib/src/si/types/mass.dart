@@ -21,10 +21,10 @@ class Mass extends Quantity {
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Mass.inUnits(dynamic value, MassUnits units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
+  Mass.inUnits(dynamic value, MassUnits? units, [double uncert = 0.0]) : super(value, units ?? Mass.kilograms, uncert);
 
   /// Constructs a constant Mass.
-  const Mass.constant(Number valueSI, {MassUnits units, double uncert = 0.0})
+  const Mass.constant(Number valueSI, {MassUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Mass.massDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -64,7 +64,7 @@ class Mass extends Quantity {
 /// Units acceptable for use in describing [Mass] quantities.
 class MassUnits extends Mass with Units {
   /// Constructs a instance.
-  MassUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  MassUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

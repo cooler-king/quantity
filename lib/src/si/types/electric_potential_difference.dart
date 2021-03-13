@@ -21,12 +21,12 @@ class ElectricPotentialDifference extends Quantity {
 
   /// Constructs a ElectricPotentialDifference based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ElectricPotentialDifference.inUnits(dynamic value, ElectricPotentialDifferenceUnits units, [double uncert = 0.0])
+  ElectricPotentialDifference.inUnits(dynamic value, ElectricPotentialDifferenceUnits? units, [double uncert = 0.0])
       : super(value, units ?? ElectricPotentialDifference.volts, uncert);
 
   /// Constructs a constant ElectricPotentialDifference.
   const ElectricPotentialDifference.constant(Number valueSI,
-      {ElectricPotentialDifferenceUnits units, double uncert = 0.0})
+      {ElectricPotentialDifferenceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, ElectricPotentialDifference.electricPotentialDifferenceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -42,7 +42,7 @@ class ElectricPotentialDifference extends Quantity {
 /// Units acceptable for use in describing ElectricPotentialDifference quantities.
 class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with Units {
   /// Constructs a instance.
-  ElectricPotentialDifferenceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ElectricPotentialDifferenceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

@@ -152,7 +152,7 @@ class Dimensions {
   static const String baseSolidAngleKey = 'Solid Angle';
 
   /// Optional associated Quantity type
-  final Type qType;
+  final Type? qType;
 
   /// Tests the equality of this Dimensions object and another Dimensions object.
   /// Two Dimensions objects are only equal if they have exactly equal
@@ -202,7 +202,7 @@ class Dimensions {
   ///
   /// Two Dimensions objects are only equal if they have exactly equal
   /// exponents for each base component dimension.
-  bool equalsSI(Dimensions d2) {
+  bool equalsSI(Dimensions? d2) {
     if (d2 == null) return false;
     if (d2 == this) return true;
 
@@ -254,7 +254,7 @@ class Dimensions {
   /// (1 + (-1) = 0).
   Dimensions operator *(Dimensions other) {
     // Return self if other is Scalar.
-    if (other?._dimensionMap?.isNotEmpty != true) return this;
+    if (other._dimensionMap.isNotEmpty != true) return this;
 
     // Copy.  Clear the type hint.
     final result = Dimensions.copy(this, includeTypeHint: false);
@@ -264,8 +264,8 @@ class Dimensions {
     num myValue = 0;
     num newValue = 0;
     for (final key in other._dimensionMap.keys) {
-      otherValue = other._dimensionMap[key];
-      myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
+      otherValue = other._dimensionMap[key] as num;
+      myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] as num : 0;
       newValue = otherValue + myValue;
 
       if (newValue != 0.0) {
@@ -294,10 +294,10 @@ class Dimensions {
 
     // Add other's dimensions to my dimensions
     num otherValue = 0;
-    num myValue = 0;
+    num? myValue = 0;
     num newValue = 0;
     for (final key in other._dimensionMap.keys) {
-      otherValue = other._dimensionMap[key];
+      otherValue = other._dimensionMap[key] as num;
       myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
       if (myValue == null) {
         result._dimensionMap[key] = otherValue * -1;
@@ -345,8 +345,8 @@ class Dimensions {
     final keysToRemove = <String>[];
     num value;
     for (final k in result._dimensionMap.keys) {
-      value = result._dimensionMap[k];
-      if (value != null && value != 0) {
+      value = result._dimensionMap[k] as num;
+      if (value != 0) {
         result._dimensionMap[k] = value * exp;
       } else {
         keysToRemove.add(k);
@@ -371,7 +371,7 @@ class Dimensions {
   ///   be modified to include the subclasses.
   /// * Some distinct Quantity types have identical dimensions.  In this case
   ///   the first Quantity type discovered is returned.
-  static Type determineQuantityType(Dimensions dim) {
+  static Type determineQuantityType(Dimensions? dim) {
     if (dim == null) return MiscQuantity;
 
     // Get the number of dimension components
@@ -508,19 +508,20 @@ class Dimensions {
   /// If no [value] is provided, it defaults to zero.
   /// If no [units] are provided, then MKS units are assumed.
   /// If no uncertainty is provided, the value is presumed to be exact.
-  Quantity toQuantity([dynamic value = 0.0, Units units, double uncert = 0.0]) {
+  Quantity toQuantity([dynamic value = 0.0, Units? units, double uncert = 0.0]) {
     // Check that the units match the dimensions, if provided.
     if (units is Quantity && (units as Quantity).dimensions != this) {
       throw DimensionsException('The dimensions of the provided units must equal the dimensions');
     }
     try {
       final type = qType ?? determineQuantityType(this);
-      if (type != null && type is! MiscQuantity) {
-        final q = createTypedQuantityInstance(type, value, units, uncert: uncert);
+      print(type);
+      if (type is! MiscQuantity) {
+        final Quantity? q = createTypedQuantityInstance(type, value, units, uncert: uncert);
         if (q != null) return q;
       }
-    } catch (e) {
-      logger.warning('Problem creating type instance; falling back to MiscQuantity for ${this}');
+    } catch (e, s) {
+      logger.warning('Problem creating type instance; falling back to MiscQuantity for ${this}', e, s);
     }
 
     // Unable to create a typed instance; return a MiscQuantity with these dimensions.

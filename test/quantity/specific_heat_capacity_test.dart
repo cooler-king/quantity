@@ -13,7 +13,7 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = SpecificHeatCapacity(joulesPerKilogramKelvin: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, SpecificHeatCapacity.specificHeatCapacityDimensions);
       expect(q.preferredUnits, SpecificHeatCapacity.joulesPerKilogramKelvin);

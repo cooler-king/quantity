@@ -20,11 +20,11 @@ class SurfaceTension extends Quantity {
 
   /// Constructs a SurfaceTension based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits units, [double uncert = 0.0])
+  SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits? units, [double uncert = 0.0])
       : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert);
 
   /// Constructs a constant SurfaceTension.
-  const SurfaceTension.constant(Number valueSI, {SurfaceTensionUnits units, double uncert = 0.0})
+  const SurfaceTension.constant(Number valueSI, {SurfaceTensionUnits? units, double uncert = 0.0})
       : super.constant(valueSI, SurfaceTension.surfaceTensionDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -38,7 +38,7 @@ class SurfaceTension extends Quantity {
 /// Units acceptable for use in describing SurfaceTension quantities.
 class SurfaceTensionUnits extends SurfaceTension with Units {
   /// Constructs a instance.
-  SurfaceTensionUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  SurfaceTensionUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

@@ -18,11 +18,11 @@ class Current extends Quantity {
 
   /// Constructs a Current based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Current.inUnits(dynamic value, CurrentUnits units, [double uncert = 0.0])
+  Current.inUnits(dynamic value, CurrentUnits? units, [double uncert = 0.0])
       : super(value, units ?? Current.amperes, uncert);
 
   /// Constructs a constant electric Current.
-  const Current.constant(Number valueSI, {CurrentUnits units, double uncert = 0.0})
+  const Current.constant(Number valueSI, {CurrentUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Current.electricCurrentDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -38,7 +38,7 @@ class Current extends Quantity {
 /// Units acceptable for use in describing [Current] quantities.
 class CurrentUnits extends Current with Units {
   /// Constructs a instance.
-  CurrentUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  CurrentUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

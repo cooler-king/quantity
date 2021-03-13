@@ -20,11 +20,11 @@ class EnergyFlux extends Quantity {
 
   /// Constructs a EnergyFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  EnergyFlux.inUnits(dynamic value, EnergyFluxUnits units, [double uncert = 0.0])
+  EnergyFlux.inUnits(dynamic value, EnergyFluxUnits? units, [double uncert = 0.0])
       : super(value, units ?? EnergyFlux.wattsPerSquareMeter, uncert);
 
   /// Constructs a constant EnergyFlux.
-  const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits units, double uncert = 0.0})
+  const EnergyFlux.constant(Number valueSI, {EnergyFluxUnits? units, double uncert = 0.0})
       : super.constant(valueSI, EnergyFlux.energyFluxDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
@@ -38,7 +38,7 @@ class EnergyFlux extends Quantity {
 /// Units acceptable for use in describing EnergyFlux quantities.
 class EnergyFluxUnits extends EnergyFlux with Units {
   /// Constructs a instance.
-  EnergyFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  EnergyFluxUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

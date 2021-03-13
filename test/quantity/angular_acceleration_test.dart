@@ -13,14 +13,14 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = AngularAcceleration(radiansPerSecondSquared: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, AngularAcceleration.angularAccelerationDimensions);
       expect(q.preferredUnits, AngularAcceleration.radiansPerSecondSquared);
       expect(q.relativeUncertainty, 0.001);
 
       q = AngularAcceleration(degreesPerSecondSquared: 1);
-      expect(q.valueSI?.toDouble(), 0.017453292519943);
+      expect(q.valueSI.toDouble(), 0.017453292519943);
       expect(q.valueSI is Double, true);
       expect(q.dimensions, AngularAcceleration.angularAccelerationDimensions);
       expect(q.preferredUnits, AngularAcceleration.degreesPerSecondSquared);

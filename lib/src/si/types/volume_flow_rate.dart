@@ -20,11 +20,11 @@ class VolumeFlowRate extends Quantity {
 
   /// Constructs a VolumeFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  VolumeFlowRate.inUnits(dynamic value, VolumeFlowRateUnits units, [double uncert = 0.0])
+  VolumeFlowRate.inUnits(dynamic value, VolumeFlowRateUnits? units, [double uncert = 0.0])
       : super(value, units ?? VolumeFlowRate.cubicMetersPerSecond, uncert);
 
   /// Constructs a constant VolumeFlowRate.
-  const VolumeFlowRate.constant(Number valueSI, {VolumeFlowRateUnits units, double uncert = 0.0})
+  const VolumeFlowRate.constant(Number valueSI, {VolumeFlowRateUnits? units, double uncert = 0.0})
       : super.constant(valueSI, VolumeFlowRate.volumeFlowRateDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +39,7 @@ class VolumeFlowRate extends Quantity {
 /// Units acceptable for use in describing VolumeFlowRate quantities.
 class VolumeFlowRateUnits extends VolumeFlowRate with Units {
   /// Constructs a instance.
-  VolumeFlowRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  VolumeFlowRateUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

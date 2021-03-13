@@ -19,10 +19,8 @@ class Integer extends Real {
   ///     { 'i': integer value }
   ///
   /// If the map contents are not recognized, [Integer.zero] is returned.
-  factory Integer.fromMap(Map<String, int> m) {
-    if (m?.containsKey('i') == true) {
-      return Integer(m['i']);
-    }
+  factory Integer.fromMap(Map<String, int>? m) {
+    if (m?['i'] is int) return Integer(m?['i'] as int);
     return Integer.zero;
   }
 
@@ -78,7 +76,7 @@ class Integer extends Real {
 
   /// Returns the same hash as the [int] with the same value.
   @override
-  int get hashCode => _value?.hashCode;
+  int get hashCode => _value.hashCode;
 
   @override
   bool get isInteger => true;
@@ -167,9 +165,17 @@ class Integer extends Real {
 
   @override
   Number clamp(dynamic lowerLimit, dynamic upperLimit) {
-    final lower = lowerLimit is num ? lowerLimit : lowerLimit is Number ? lowerLimit.toDouble() : 0;
-    final upper = upperLimit is num ? upperLimit : upperLimit is Number ? upperLimit.toDouble() : 0;
-    final clamped = value?.clamp(lower, upper) ?? lower;
+    final lower = lowerLimit is num
+        ? lowerLimit
+        : lowerLimit is Number
+            ? lowerLimit.toDouble()
+            : 0;
+    final upper = upperLimit is num
+        ? upperLimit
+        : upperLimit is Number
+            ? upperLimit.toDouble()
+            : 0;
+    final clamped = value.clamp(lower, upper);
     return clamped.toInt() == clamped ? Integer(clamped.toInt()) : Double(clamped.toDouble());
   }
 

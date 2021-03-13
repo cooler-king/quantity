@@ -13,14 +13,14 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = Scalar(value: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Scalar.scalarDimensions);
       expect(q.preferredUnits, Scalar.one);
       expect(q.relativeUncertainty, 0.001);
 
       q = Scalar(percent: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 0.42);
+      expect(q.valueSI.toDouble(), 0.42);
       expect(q.valueSI is Double, true);
       expect(q.dimensions, Scalar.scalarDimensions);
       expect(q.preferredUnits, Scalar.percent);

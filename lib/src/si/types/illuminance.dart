@@ -17,11 +17,11 @@ class Illuminance extends Quantity {
 
   /// Constructs a Illuminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Illuminance.inUnits(dynamic value, IlluminanceUnits units, [double uncert = 0.0])
+  Illuminance.inUnits(dynamic value, IlluminanceUnits? units, [double uncert = 0.0])
       : super(value, units ?? Illuminance.lux, uncert);
 
   /// Constructs a constant Illuminance.
-  const Illuminance.constant(Number valueSI, {IlluminanceUnits units, double uncert = 0.0})
+  const Illuminance.constant(Number valueSI, {IlluminanceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Illuminance.illuminanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -36,7 +36,7 @@ class Illuminance extends Quantity {
 /// Units acceptable for use in describing Illuminance quantities.
 class IlluminanceUnits extends Illuminance with Units {
   /// Constructs a instance.
-  IlluminanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  IlluminanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

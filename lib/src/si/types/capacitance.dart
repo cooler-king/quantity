@@ -17,11 +17,11 @@ class Capacitance extends Quantity {
 
   /// Constructs a Capacitance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Capacitance.inUnits(dynamic value, CapacitanceUnits units, [double uncert = 0.0])
+  Capacitance.inUnits(dynamic value, CapacitanceUnits? units, [double uncert = 0.0])
       : super(value, units ?? Capacitance.farads, uncert);
 
   /// Constructs a constant Capacitance.
-  const Capacitance.constant(Number valueSI, {CapacitanceUnits units, double uncert = 0.0})
+  const Capacitance.constant(Number valueSI, {CapacitanceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Capacitance.electricCapacitanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -35,7 +35,7 @@ class Capacitance extends Quantity {
 /// Units acceptable for use in describing Capacitance quantities.
 class CapacitanceUnits extends Capacitance with Units {
   /// Constructs a instance.
-  CapacitanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  CapacitanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

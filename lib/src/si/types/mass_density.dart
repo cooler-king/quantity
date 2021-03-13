@@ -20,11 +20,11 @@ class MassDensity extends Quantity {
 
   /// Constructs a MassDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MassDensity.inUnits(dynamic value, MassDensityUnits units, [double uncert = 0.0])
+  MassDensity.inUnits(dynamic value, MassDensityUnits? units, [double uncert = 0.0])
       : super(value, units ?? MassDensity.kilogramsPerCubicMeter, uncert);
 
   /// Constructs a constant MassDensity.
-  const MassDensity.constant(Number valueSI, {MassDensityUnits units, double uncert = 0.0})
+  const MassDensity.constant(Number valueSI, {MassDensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, MassDensity.massDensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +39,7 @@ class MassDensity extends Quantity {
 /// Units acceptable for use in describing MassDensity quantities.
 class MassDensityUnits extends MassDensity with Units {
   /// Constructs a instance.
-  MassDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  MassDensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

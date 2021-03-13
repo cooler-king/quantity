@@ -21,11 +21,11 @@ class LuminousFlux extends Quantity {
 
   /// Constructs a LuminousFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  LuminousFlux.inUnits(dynamic value, LuminousFluxUnits units, [double uncert = 0.0])
+  LuminousFlux.inUnits(dynamic value, LuminousFluxUnits? units, [double uncert = 0.0])
       : super(value, units ?? LuminousFlux.lumens, uncert);
 
   /// Constructs a constant LuminousFlux.
-  const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits units, double uncert = 0.0})
+  const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits? units, double uncert = 0.0})
       : super.constant(valueSI, LuminousFlux.luminousFluxDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +39,7 @@ class LuminousFlux extends Quantity {
 /// Units acceptable for use in describing LuminousFlux quantities.
 class LuminousFluxUnits extends LuminousFlux with Units {
   /// Constructs a instance.
-  LuminousFluxUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  LuminousFluxUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

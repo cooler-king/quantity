@@ -30,19 +30,19 @@ import '../si/quantity_exception.dart';
 /// more natural expression upon Quantity object creation and value manipulation.
 mixin Units {
   /// The name of the units (plural).
-  String name;
+  late String name;
 
   /// The name of the units in singular form.
-  String singular;
+  String? singular;
 
   /// The primary abbreviation for the units.
-  String abbrev1;
+  String? abbrev1;
 
   /// A secondary abbreviation for the units.
-  String abbrev2;
+  String? abbrev2;
 
   /// Multiply by this value to convert a Quantity in these units to SI-MKS units.
-  Number convToMKS;
+  late Number convToMKS;
 
   /// Whether these units are considered a base metric unit.
   bool metricBase = false;
@@ -69,13 +69,13 @@ mixin Units {
 
   /// Returns the alternate name for the units.  This may be a non-standard
   /// representation.  If no alternate name exists, then null is returned.
-  String get alternateName => abbrev1;
+  String? get alternateName => abbrev1;
 
   /// Returns the shortest name for the units.  This will be the first non-null name
   /// found when inspecting secondary abbreviation, primary abbreviation and full name,
   /// in that order.  If [sing] is true and no symbol or alternate name are available
   /// then the singular version of the name will be returned.
-  String getShortestName(bool sing) => abbrev2 ?? abbrev1 ?? (sing ? singular : name);
+  String getShortestName(bool sing) => abbrev2 ?? abbrev1 ?? (sing ? (singular ?? name) : name);
 
   /// Calculates and returns the value in SI-MKS units of the specified [value]
   /// (that is implicitly in these units).

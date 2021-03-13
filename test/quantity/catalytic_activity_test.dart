@@ -13,7 +13,7 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = CatalyticActivity(kat: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, CatalyticActivity.catalyticActivityDimensions);
       expect(q.preferredUnits, CatalyticActivity.katals);

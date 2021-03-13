@@ -22,11 +22,11 @@ class Area extends Quantity {
 
   /// Constructs a Area based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Area.inUnits(dynamic value, AreaUnits units, [double uncert = 0.0])
+  Area.inUnits(dynamic value, AreaUnits? units, [double uncert = 0.0])
       : super(value, units ?? Area.squareMeters, uncert);
 
   /// Constructs a constant Area.
-  const Area.constant(Number valueSI, {AreaUnits units, double uncert = 0.0})
+  const Area.constant(Number valueSI, {AreaUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Area.areaDimensions, units, uncert);
 
   /// Constructs a Area by multiplying two lengths together.
@@ -59,7 +59,7 @@ class Area extends Quantity {
 /// Units acceptable for use in describing Area quantities.
 class AreaUnits extends Area with Units {
   /// Constructs a instance.
-  AreaUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  AreaUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

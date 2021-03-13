@@ -13,14 +13,14 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = TimeInstant(TAI: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, TimeInstant.timeInstantDimensions);
       expect(q.preferredUnits, TimeInstant.TAI);
       expect(q.relativeUncertainty, 0.001);
 
       q = TimeInstant(UTC: 1900000000);
-      expect(q.valueSI?.toDouble(), 1900000037);
+      expect(q.valueSI.toDouble(), 1900000037);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, TimeInstant.timeInstantDimensions);
       expect(q.preferredUnits, TimeInstant.UTC);

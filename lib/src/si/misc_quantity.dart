@@ -24,7 +24,7 @@ class MiscQuantity extends Quantity {
       : super.misc(value, dim, uncert);
 
   /// Constructs a constant MiscQuantity.
-  const MiscQuantity.constant(Number valueSI, Dimensions dim, {Units units, double uncert = 0.0})
+  const MiscQuantity.constant(Number valueSI, Dimensions dim, {Units? units, double uncert = 0.0})
       : super.constant(valueSI, dim, units, uncert);
 
   ///  Gets this quantity's value in [units].

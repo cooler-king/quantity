@@ -90,8 +90,13 @@ abstract class Quantity implements Comparable<dynamic> {
   const Quantity.constant(this.valueSI, this.dimensions, this.preferredUnits, this._ur);
 
   /// A constructor to support miscellaneous quantities:  dimensions are known, units are not.
-  Quantity.misc([dynamic value = 0.0, this.dimensions, double uncert = 0.0])
-      : valueSI = (value is num) ? numToNumber(value) : value is Number ? value : null,
+  Quantity.misc([dynamic value = 0.0, Dimensions? dimensions, double uncert = 0.0])
+      : valueSI = (value is num)
+            ? numToNumber(value)
+            : value is Number
+                ? value
+                : Integer.zero,
+        dimensions = dimensions ?? Scalar.scalarDimensions,
         preferredUnits = null,
         _ur = uncert;
 
@@ -113,7 +118,7 @@ abstract class Quantity implements Comparable<dynamic> {
   final double _ur;
 
   /// Preferred units for display.
-  final Units preferredUnits;
+  final Units? preferredUnits;
 
   ///  Whether or not this Quantity is represented using arbitrary precision.
   ///
@@ -250,14 +255,14 @@ abstract class Quantity implements Comparable<dynamic> {
     if (addend is! Quantity) {
       throw const QuantityException('Cannot add a anything other than a Quantity to a non-Scalar Quantity');
     }
-    final q2 = addend as Quantity;
+    final q2 = addend;
     if (dimensions != q2.dimensions) {
       throw DimensionsException('Can\'t add Quantities having different dimensions:  $dimensions and ${q2.dimensions}');
     }
 
     // Calculate the uncertainty, if necessary.
     final newValueSI = valueSI + q2.valueSI;
-    final sumUr = calcRelativeCombinedUncertaintySumDiff(this, addend as Quantity, newValueSI);
+    final sumUr = calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
 
     if (dynamicQuantityTyping) {
       return dimensions.toQuantity(newValueSI, null, sumUr);
@@ -293,14 +298,14 @@ abstract class Quantity implements Comparable<dynamic> {
     if (subtrahend is! Quantity) {
       throw QuantityException('Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity');
     }
-    final q2 = subtrahend as Quantity;
+    final q2 = subtrahend;
     if (dimensions != q2.dimensions) {
       throw DimensionsException('''Can't subtract Quantities having different 
         dimensions:  $dimensions and ${q2.dimensions}''');
     }
 
     final newValueSI = valueSI - q2.valueSI;
-    final diffUr = calcRelativeCombinedUncertaintySumDiff(this, subtrahend as Quantity, newValueSI);
+    final diffUr = calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
 
     if (dynamicQuantityTyping) {
       return dimensions.toQuantity(valueSI - q2.valueSI, null, diffUr);
@@ -465,7 +470,7 @@ abstract class Quantity implements Comparable<dynamic> {
     if (q2 is! Quantity) {
       throw const QuantityException('A Quantity cannot be compared to anything besides another Quantity');
     }
-    return valueSI.compareTo((q2 as Quantity).valueSI);
+    return valueSI.compareTo(q2.valueSI);
   }
 
   /// Returns the value of this quantity in standard MKS (or meter-kilogram-second) units.
@@ -495,7 +500,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// Gets the Quantity's value in the specified [units].  If units is null,
   /// the MKS value is returned.  If not null, [units] must have dimensions
   /// compatible with this Quantity or a DimensionsException will be thrown.
-  Number valueInUnits(Units units) {
+  Number valueInUnits(Units? units) {
     if (units == null) {
       return mks;
     } else {
@@ -513,14 +518,14 @@ abstract class Quantity implements Comparable<dynamic> {
   /// been specified, then MKS units are used.  Uncertainty in the value of the
   /// Quantity is optionally shown as a plus/minus value in the same units.
   void outputText(StringBuffer buffer,
-      {UncertaintyFormat uncertFormat = UncertaintyFormat.none, bool symbols = true, NumberFormat numberFormat}) {
+      {UncertaintyFormat uncertFormat = UncertaintyFormat.none, bool symbols = true, NumberFormat? numberFormat}) {
     if (preferredUnits != null) {
-      final val = preferredUnits.fromMks(mks);
+      final val = preferredUnits!.fromMks(mks);
 
       final nf = numberFormat ?? NumberFormatSI();
 
       // Format the number.
-      buffer.write(nf.format(val) ?? '$val');
+      buffer.write(nf.format(val));
 
       // Uncertainty.
       if (_ur != 0 && uncertFormat != UncertaintyFormat.none) {
@@ -539,16 +544,16 @@ abstract class Quantity implements Comparable<dynamic> {
       // Get the units string (singular or plural, as appropriate).
       String unitStr;
       if (symbols) {
-        unitStr = preferredUnits.getShortestName(val.abs() <= 1.0);
+        unitStr = preferredUnits!.getShortestName(val.abs() <= 1.0);
       } else {
         if (val.abs() <= 1.0) {
-          unitStr = preferredUnits.singular;
+          unitStr = preferredUnits!.singular ?? preferredUnits!.name;
         } else {
-          unitStr = preferredUnits.name;
+          unitStr = preferredUnits!.name;
         }
       }
 
-      if (unitStr != null && !(unitStr == '1')) buffer..write(' ')..write(unitStr);
+      if (!(unitStr == '1')) buffer..write(' ')..write(unitStr);
     } else {
       // Couldn't find any preferred units.
       buffer..write(mks)..write(' [MKS]');
@@ -571,7 +576,7 @@ abstract class Quantity implements Comparable<dynamic> {
     // Use value in preferred units, if available, for better readability.
     if (preferredUnits != null) {
       m['value'] = valueInUnits(preferredUnits).toJson();
-      m['prefUnits'] = preferredUnits.name;
+      m['prefUnits'] = preferredUnits!.name;
     }
 
     // Only include non-zero relative uncertainty

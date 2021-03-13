@@ -20,11 +20,11 @@ class SpecificVolume extends Quantity {
 
   /// Constructs a SpecificVolume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  SpecificVolume.inUnits(dynamic value, SpecificVolumeUnits units, [double uncert = 0.0])
+  SpecificVolume.inUnits(dynamic value, SpecificVolumeUnits? units, [double uncert = 0.0])
       : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert);
 
   /// Constructs a constant SpecificVolume.
-  const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits units, double uncert = 0.0})
+  const SpecificVolume.constant(Number valueSI, {SpecificVolumeUnits? units, double uncert = 0.0})
       : super.constant(valueSI, SpecificVolume.specificVolumeDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +39,7 @@ class SpecificVolume extends Quantity {
 /// Units acceptable for use in describing SpecificVolume quantities.
 class SpecificVolumeUnits extends SpecificVolume with Units {
   /// Constructs a instance.
-  SpecificVolumeUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  SpecificVolumeUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

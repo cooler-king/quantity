@@ -13,7 +13,7 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = Luminance(candelasPerSquareMeter: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Luminance.luminanceDimensions);
       expect(q.preferredUnits, Luminance.candelasPerSquareMeter);

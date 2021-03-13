@@ -13,14 +13,14 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = Exposure(coulombsPerKilogram: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Exposure.exposureDimensions);
       expect(q.preferredUnits, Exposure.coulombsPerKilogram);
       expect(q.relativeUncertainty, 0.001);
 
       q = Exposure(R: 1);
-      expect(q.valueSI?.toDouble(), 0.000258);
+      expect(q.valueSI.toDouble(), 0.000258);
       expect(q.valueSI is Double, true);
       expect(q.dimensions, Exposure.exposureDimensions);
       expect(q.preferredUnits, Exposure.roentgens);

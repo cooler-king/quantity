@@ -20,11 +20,11 @@ class ElectricFieldStrength extends Quantity {
 
   /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ElectricFieldStrength.inUnits(dynamic value, ElectricFieldStrengthUnits units, [double uncert = 0.0])
+  ElectricFieldStrength.inUnits(dynamic value, ElectricFieldStrengthUnits? units, [double uncert = 0.0])
       : super(value, units ?? ElectricFieldStrength.voltsPerMeter, uncert);
 
   /// Constructs a constant ElectricFieldStrength.
-  const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits units, double uncert = 0.0})
+  const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits? units, double uncert = 0.0})
       : super.constant(valueSI, ElectricFieldStrength.electricFieldStrengthDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -40,7 +40,7 @@ class ElectricFieldStrength extends Quantity {
 /// Units acceptable for use in describing ElectricFieldStrength quantities.
 class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
   /// Constructs a instance.
-  ElectricFieldStrengthUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ElectricFieldStrengthUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

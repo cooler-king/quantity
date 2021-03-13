@@ -21,11 +21,11 @@ class AbsorbedDose extends Quantity {
 
   /// Constructs an AbsorbedDose based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  AbsorbedDose.inUnits(dynamic value, AbsorbedDoseUnits units, [double uncert = 0.0])
+  AbsorbedDose.inUnits(dynamic value, AbsorbedDoseUnits? units, [double uncert = 0.0])
       : super(value, units ?? AbsorbedDose.grays, uncert);
 
   /// Constructs a constant AbsorbedDose.
-  const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits units, double uncert = 0.0})
+  const AbsorbedDose.constant(Number valueSI, {AbsorbedDoseUnits? units, double uncert = 0.0})
       : super.constant(valueSI, AbsorbedDose.absorbedDoseDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -44,7 +44,7 @@ class AbsorbedDose extends Quantity {
 /// Units acceptable for use in describing AbsorbedDose quantities.
 class AbsorbedDoseUnits extends AbsorbedDose with Units {
   /// Constructs a instance.
-  AbsorbedDoseUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  AbsorbedDoseUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

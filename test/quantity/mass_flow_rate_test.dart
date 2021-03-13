@@ -13,7 +13,7 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = MassFlowRate(kilogramsPerSecond: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, MassFlowRate.massFlowRateDimensions);
       expect(q.preferredUnits, MassFlowRate.kilogramsPerSecond);

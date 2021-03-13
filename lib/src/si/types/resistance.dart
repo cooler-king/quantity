@@ -17,11 +17,11 @@ class Resistance extends Quantity {
 
   /// Constructs a Resistance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Resistance.inUnits(dynamic value, ResistanceUnits units, [double uncert = 0.0])
+  Resistance.inUnits(dynamic value, ResistanceUnits? units, [double uncert = 0.0])
       : super(value, units ?? Resistance.ohms, uncert);
 
   /// Constructs a constant electrical Resistance.
-  const Resistance.constant(Number valueSI, {ResistanceUnits units, double uncert = 0.0})
+  const Resistance.constant(Number valueSI, {ResistanceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Resistance.electricResistanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -35,7 +35,7 @@ class Resistance extends Quantity {
 /// Units acceptable for use in describing Resistance quantities.
 class ResistanceUnits extends Resistance with Units {
   /// Constructs a instance.
-  ResistanceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ResistanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

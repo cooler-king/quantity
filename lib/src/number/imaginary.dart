@@ -13,15 +13,18 @@ import 'util/jenkins_hash.dart';
 class Imaginary extends Number {
   /// Constructs a instance.
   Imaginary(dynamic val)
-      : value =
-            (val is num) ? ((val is int) ? Integer(val) : Double(val as double)) : (val is Real) ? val : Double.zero;
+      : value = (val is num)
+            ? ((val is int) ? Integer(val) : Double(val as double))
+            : (val is Real)
+                ? val
+                : Double.zero;
 
   /// Constructs a constant Imaginary number.
   const Imaginary.constant(this.value) : super.constant();
 
   /// Constructs a instance, applying the values in map [m].
-  factory Imaginary.fromMap(Map<String, Map<String, dynamic>> m) => (m?.containsKey('imag') ?? false)
-      ? Imaginary.fromMap(m['imag'] as Map<String, Map<String, dynamic>>)
+  factory Imaginary.fromMap(Map<String, Map<String, dynamic>>? m) => (m?.containsKey('imag') == true)
+      ? Imaginary.fromMap(m?['imag'] as Map<String, Map<String, dynamic>>)
       : const Imaginary.constant(Integer.zero);
 
   /// The value of the imaginary component as a Real number.

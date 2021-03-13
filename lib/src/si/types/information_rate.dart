@@ -31,11 +31,11 @@ class InformationRate extends Quantity {
 
   /// Constructs a InformationRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  InformationRate.inUnits(dynamic value, InformationRateUnits units, [double uncert = 0.0])
+  InformationRate.inUnits(dynamic value, InformationRateUnits? units, [double uncert = 0.0])
       : super(value, units ?? InformationRate.bitsPerSecond, uncert);
 
   /// Constructs a constant InformationRate.
-  const InformationRate.constant(Number valueSI, {InformationRateUnits units, double uncert = 0.0})
+  const InformationRate.constant(Number valueSI, {InformationRateUnits? units, double uncert = 0.0})
       : super.constant(valueSI, InformationRate.informationRateDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -68,7 +68,7 @@ class InformationRate extends Quantity {
 /// Units acceptable for use in describing InformationRate quantities.
 class InformationRateUnits extends InformationRate with Units {
   /// Constructs a instance.
-  InformationRateUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  InformationRateUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

@@ -60,10 +60,9 @@ void main() {
       for (final t in allQuantityTypes) {
         try {
           final q = createTypedQuantityInstance(t, 1.1, null, uncert: random.nextDouble() * 10.0);
-          expect(q != null, true);
           expect(q.runtimeType == t, true);
         } catch (err) {
-          expect(err == null, true);
+          expect(err, isNull);
         }
       }
     });

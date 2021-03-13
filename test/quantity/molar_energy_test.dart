@@ -14,7 +14,7 @@ void main() {
 
       a = MolarEnergy(joulesPerMole: 2.4);
       expect(a, isNotNull);
-      expect(a.valueSI?.toDouble(), 2.4);
+      expect(a.valueSI.toDouble(), 2.4);
       expect(a.valueSI is Double, true);
       expect(a.dimensions, MolarEnergy.molarEnergyDimensions);
       expect(a.preferredUnits, MolarEnergy.joulesPerMole);

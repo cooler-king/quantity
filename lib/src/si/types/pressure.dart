@@ -24,11 +24,11 @@ class Pressure extends Quantity {
 
   /// Constructs a Pressure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Pressure.inUnits(dynamic value, PressureUnits units, [double uncert = 0.0])
+  Pressure.inUnits(dynamic value, PressureUnits? units, [double uncert = 0.0])
       : super(value, units ?? Pressure.pascals, uncert);
 
   /// Constructs a constant Pressure.
-  const Pressure.constant(Number valueSI, {PressureUnits units, double uncert = 0.0})
+  const Pressure.constant(Number valueSI, {PressureUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Pressure.pressureDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -45,7 +45,7 @@ class Pressure extends Quantity {
 /// Units acceptable for use in describing Pressure quantities.
 class PressureUnits extends Pressure with Units {
   /// Constructs a instance.
-  PressureUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  PressureUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

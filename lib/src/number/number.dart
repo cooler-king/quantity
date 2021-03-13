@@ -22,7 +22,8 @@ abstract class Number implements Comparable<dynamic> {
   ///     {'imag': {i or d map}}
   ///
   /// If the map contents are not recognized [Integer.zero] will be returned.
-  factory Number.fromMap(Map<String, dynamic> m) {
+  factory Number.fromMap(Map<String, dynamic>? m) {
+    if (m == null) return Integer.zero;
     if (m.containsKey('d') && m['d'] is num) return Double.fromMap(m as Map<String, num>);
     if (m.containsKey('i') && m['i'] is int) return Integer.fromMap(m as Map<String, int>);
     if (m.containsKey('precise') && m['precise'] is Map<String, String>) {

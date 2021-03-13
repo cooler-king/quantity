@@ -13,14 +13,14 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = Current(A: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Current.electricCurrentDimensions);
       expect(q.preferredUnits, Current.amperes);
       expect(q.relativeUncertainty, 0.001);
 
       q = Current(mA: 1);
-      expect(q.valueSI?.toDouble(), 0.001);
+      expect(q.valueSI.toDouble(), 0.001);
       expect(q.valueSI is Double, true);
       expect(q.dimensions, Current.electricCurrentDimensions);
       expect(q.preferredUnits, Current.milliamperes);

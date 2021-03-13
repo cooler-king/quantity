@@ -21,11 +21,11 @@ class MolarEntropy extends Quantity {
 
   /// Constructs a MolarEntropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  MolarEntropy.inUnits(dynamic value, MolarEntropyUnits units, [double uncert = 0.0])
+  MolarEntropy.inUnits(dynamic value, MolarEntropyUnits? units, [double uncert = 0.0])
       : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert);
 
   /// Constructs a constant MolarEntropy.
-  const MolarEntropy.constant(Number valueSI, {MolarEntropyUnits units, double uncert = 0.0})
+  const MolarEntropy.constant(Number valueSI, {MolarEntropyUnits? units, double uncert = 0.0})
       : super.constant(valueSI, MolarEntropy.molarEntropyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -41,7 +41,7 @@ class MolarEntropy extends Quantity {
 /// Units acceptable for use in describing MolarEntropy quantities.
 class MolarEntropyUnits extends MolarEntropy with Units {
   /// Constructs a instance.
-  MolarEntropyUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  MolarEntropyUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

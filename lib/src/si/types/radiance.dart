@@ -22,11 +22,11 @@ class Radiance extends Quantity {
 
   /// Constructs a Radiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Radiance.inUnits(dynamic value, RadianceUnits units, [double uncert = 0.0])
+  Radiance.inUnits(dynamic value, RadianceUnits? units, [double uncert = 0.0])
       : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert);
 
   /// Constructs a constant Radiance.
-  const Radiance.constant(Number valueSI, {RadianceUnits units, double uncert = 0.0})
+  const Radiance.constant(Number valueSI, {RadianceUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Radiance.radianceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -41,7 +41,7 @@ class Radiance extends Quantity {
 /// Units acceptable for use in describing Radiance quantities.
 class RadianceUnits extends Radiance with Units {
   /// Constructs a instance.
-  RadianceUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  RadianceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

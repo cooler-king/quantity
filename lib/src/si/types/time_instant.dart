@@ -109,11 +109,11 @@ class TimeInstant extends Quantity {
 
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  TimeInstant.inUnits(dynamic value, TimeInstantUnits units, [double uncert = 0.0])
+  TimeInstant.inUnits(dynamic value, TimeInstantUnits? units, [double uncert = 0.0])
       : super(value, units ?? TimeInstant.TAI, uncert);
 
   /// Constructs a constant TimeInstant object.
-  const TimeInstant.constant(Number valueSI, {TimeInstantUnits units, double uncert = 0.0})
+  const TimeInstant.constant(Number valueSI, {TimeInstantUnits? units, double uncert = 0.0})
       : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
 
   /// Constructs a TimeInstant from an existing [dateTime] object.
@@ -134,12 +134,20 @@ class TimeInstant extends Quantity {
   static final TimeInstantUnits UTC =
       TimeInstantUnits('Coordinated Universal Time', null, 'UTC', null, 1.0, false, 0.0, (dynamic d) {
     // Have to remove leap seconds when converting to UTC.
-    var value = d is num ? d.toDouble() : d is Number ? d.toDouble() : 0.0;
+    var value = d is num
+        ? d.toDouble()
+        : d is Number
+            ? d.toDouble()
+            : 0.0;
     value -= getLeapSeconds(value);
 
     return value.toInt() == value ? Integer(value.toInt()) : Double(value);
   }, (dynamic d) {
-    var value = d is num ? d.toDouble() : d is Number ? d.toDouble() : 0.0;
+    var value = d is num
+        ? d.toDouble()
+        : d is Number
+            ? d.toDouble()
+            : 0.0;
 
     // For conversion from UTC to TAI, the offset depends on the
     // time itself due to the addition of leap seconds.
@@ -239,7 +247,7 @@ typedef ToMksOverride = Number Function(dynamic val);
 /// Units acceptable for use in describing TimeInstant quantities.
 class TimeInstantUnits extends TimeInstant with Units {
   /// Constructs a instance.
-  TimeInstantUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  TimeInstantUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0, this._fromMks, this._toMks])
       : super.misc(conv) {
     this.name = name;
@@ -251,15 +259,15 @@ class TimeInstantUnits extends TimeInstant with Units {
     this.offset = offset.toDouble();
   }
 
-  final FromMksOverride _fromMks;
-  final ToMksOverride _toMks;
+  final FromMksOverride? _fromMks;
+  final ToMksOverride? _toMks;
 
   /// Calculates and returns the value in SI-MKS units of the specified [value]
   /// (that is implicitly in these units).
   @override
   Number toMks(dynamic value) {
     if (_toMks != null) {
-      return Function.apply(_toMks, <dynamic>[value]) as Number;
+      return Function.apply(_toMks as ToMksOverride, <dynamic>[value]) as Number;
     } else {
       return super.toMks(value);
     }
@@ -270,7 +278,7 @@ class TimeInstantUnits extends TimeInstant with Units {
   @override
   Number fromMks(dynamic mks) {
     if (_fromMks != null) {
-      return Function.apply(_fromMks, <dynamic>[mks]) as Number;
+      return Function.apply(_fromMks as FromMksOverride, <dynamic>[mks]) as Number;
     } else {
       return super.fromMks(mks);
     }
@@ -416,12 +424,12 @@ double getDeltaT(TimeInstant time) {
     final index1 = year - 1620;
     final index2 = index1 + 1;
 
-    if (index1 > (_deltaT.length - 2)) {
+    if (index1 > ((_deltaT as List<num>).length - 2)) {
       // Out of range... just use the last value (as good a guess as any!)
-      return (_deltaT[_deltaT.length - 1]).toDouble();
+      return ((_deltaT as List<num>)[(_deltaT as List<num>).length - 1]).toDouble();
     } else {
-      final dt1 = _deltaT[index1];
-      final dt2 = _deltaT[index2];
+      final dt1 = (_deltaT as List<num>)[index1];
+      final dt2 = (_deltaT as List<num>)[index2];
       final change = dt2 - dt1;
 
       return (dt1 + time.fractionOfYear * change).toDouble();
@@ -429,7 +437,7 @@ double getDeltaT(TimeInstant time) {
   }
 }
 
-List<num> _deltaT;
+List<num>? _deltaT;
 
 /// Initializes the values in the _deltaT array, which is used by the
 /// getDeltaT() method.  Delta T relates TDT to UT1.

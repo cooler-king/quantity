@@ -20,11 +20,11 @@ class EnergyDensity extends Quantity {
 
   /// Constructs a EnergyDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  EnergyDensity.inUnits(dynamic value, EnergyDensityUnits units, [double uncert = 0.0])
+  EnergyDensity.inUnits(dynamic value, EnergyDensityUnits? units, [double uncert = 0.0])
       : super(value, units ?? EnergyDensity.joulesPerCubicMeter, uncert);
 
   /// Constructs a constant EnergyDensity.
-  const EnergyDensity.constant(Number valueSI, {EnergyDensityUnits units, double uncert = 0.0})
+  const EnergyDensity.constant(Number valueSI, {EnergyDensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, EnergyDensity.energyDensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -39,7 +39,7 @@ class EnergyDensity extends Quantity {
 /// Units acceptable for use in describing EnergyDensity quantities.
 class EnergyDensityUnits extends EnergyDensity with Units {
   /// Constructs a instance.
-  EnergyDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  EnergyDensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

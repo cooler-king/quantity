@@ -19,11 +19,11 @@ class SolidAngle extends Quantity {
   // CONSTRUCTORS.
 
   /// Constructs a instance in the specified [units].
-  SolidAngle.inUnits(dynamic value, SolidAngleUnits units, [double uncert = 0])
+  SolidAngle.inUnits(dynamic value, SolidAngleUnits? units, [double uncert = 0])
       : super(value, units ?? SolidAngle.steradians, uncert);
 
   /// Constructs a constant SolidAngle.
-  const SolidAngle.constant(Number value, [SolidAngleUnits units])
+  const SolidAngle.constant(Number value, [SolidAngleUnits? units])
       : super.constant(value, SolidAngle.solidAngleDimensions, units, 0);
 
   /// Dimensions for this type of quantity.
@@ -37,7 +37,7 @@ class SolidAngle extends Quantity {
 /// Units acceptable for use in describing SolidAngle quantities.
 class SolidAngleUnits extends SolidAngle with Units {
   /// Constructs a instance.
-  SolidAngleUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  SolidAngleUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0])
       : super.misc(conv) {
     this.name = name;

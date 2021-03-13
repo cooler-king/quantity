@@ -40,7 +40,7 @@ class AngleRange extends QuantityRange<Angle> {
 
   /// A range is considered tiny if its width is less than or equal to
   /// [epsilon], which is 0.001 degree by default.
-  bool isTiny({Angle epsilon}) {
+  bool isTiny({Angle? epsilon}) {
     epsilon ??= Angle(deg: 0.001);
     if (span <= epsilon) return true;
     return false;
@@ -101,7 +101,7 @@ class AngleRange extends QuantityRange<Angle> {
   /// Scale: grow or shrink the range about its center by a [scale] factor
   /// Reverse:  flip the direction by exchanging the start and end angles
   ///
-  AngleRange deriveRange({double rotate, double scale, bool reverse}) {
+  AngleRange deriveRange({double? rotate, double? scale, bool? reverse}) {
     var start = q1;
     var end = q2;
     if (reverse != null && reverse) {
@@ -184,19 +184,17 @@ class AngleRange extends QuantityRange<Angle> {
   /// range.  If [strict] is false then the closest angle as if the
   /// ranges were projected onto a single circle is returned.
   Angle angleClosestTo(Angle angle, [bool strict = false]) {
-    final ang = angle ?? angle0;
-
     // Contains?
-    if (!strict && contains360(ang)) {
-      return ang;
-    } else if (contains(ang)) {
-      return ang;
+    if (!strict && contains360(angle)) {
+      return angle;
+    } else if (contains(angle)) {
+      return angle;
     }
 
     // Not contained... return closest endpoint.
     if (!strict) {
-      final angRev0 = ang.angle360;
-      Angle closest;
+      final angRev0 = angle.angle360;
+      late Angle closest;
       num minDeltaRad = angle360.mks.toDouble();
       final ranges = ranges360;
       num deltaStartRad;
@@ -221,8 +219,8 @@ class AngleRange extends QuantityRange<Angle> {
       }
       return closest;
     } else {
-      final num deltaStartRad = (startAngle.mks.toDouble() - ang.mks.toDouble()).abs();
-      final num deltaEndRad = (endAngle.mks.toDouble() - ang.mks.toDouble()).abs();
+      final num deltaStartRad = (startAngle.mks.toDouble() - angle.mks.toDouble()).abs();
+      final num deltaEndRad = (endAngle.mks.toDouble() - angle.mks.toDouble()).abs();
       return (deltaStartRad <= deltaEndRad) ? Angle(rad: deltaStartRad) : Angle(rad: deltaEndRad);
     }
   }

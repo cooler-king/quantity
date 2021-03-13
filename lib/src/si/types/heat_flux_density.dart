@@ -22,11 +22,11 @@ class HeatFluxDensity extends Quantity {
 
   /// Constructs a HeatFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  HeatFluxDensity.inUnits(dynamic value, HeatFluxDensityUnits units, [double uncert = 0.0])
+  HeatFluxDensity.inUnits(dynamic value, HeatFluxDensityUnits? units, [double uncert = 0.0])
       : super(value, units ?? HeatFluxDensity.wattsPerSquareMeter, uncert);
 
   /// Constructs a constant HeatFluxDensity.
-  const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits units, double uncert = 0.0})
+  const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, HeatFluxDensity.heatFluxDensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -41,7 +41,7 @@ class HeatFluxDensity extends Quantity {
 /// Units acceptable for use in describing HeatFluxDensity quantities.
 class HeatFluxDensityUnits extends HeatFluxDensity with Units {
   /// Constructs a instance.
-  HeatFluxDensityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  HeatFluxDensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

@@ -13,7 +13,7 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = RadiantIntensity(wattsPerSteradian: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, RadiantIntensity.radiantIntensityDimensions);
       expect(q.preferredUnits, RadiantIntensity.wattsPerSteradian);

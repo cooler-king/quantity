@@ -13,14 +13,14 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = Activity(Bq: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Activity.activityDimensions);
       expect(q.preferredUnits, Activity.becquerels);
       expect(q.relativeUncertainty, 0.001);
 
       q = Activity(Ci: 1);
-      expect(q.valueSI?.toDouble(), 3.7e10);
+      expect(q.valueSI.toDouble(), 3.7e10);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, Activity.activityDimensions);
       expect(q.preferredUnits, Activity.curies);

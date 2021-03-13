@@ -13,7 +13,7 @@ void main() {
       expect(q.relativeUncertainty, 0);
 
       q = ThermalConductivity(wattsPerMeterKelvin: 42, uncert: 0.001);
-      expect(q.valueSI?.toDouble(), 42);
+      expect(q.valueSI.toDouble(), 42);
       expect(q.valueSI is Integer, true);
       expect(q.dimensions, ThermalConductivity.thermalConductivityDimensions);
       expect(q.preferredUnits, ThermalConductivity.wattsPerMeterKelvin);

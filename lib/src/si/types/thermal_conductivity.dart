@@ -21,11 +21,11 @@ class ThermalConductivity extends Quantity {
 
   /// Constructs a ThermalConductivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ThermalConductivity.inUnits(dynamic value, ThermalConductivityUnits units, [double uncert = 0.0])
+  ThermalConductivity.inUnits(dynamic value, ThermalConductivityUnits? units, [double uncert = 0.0])
       : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert);
 
   /// Constructs a constant ThermalConductivity.
-  const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits units, double uncert = 0.0})
+  const ThermalConductivity.constant(Number valueSI, {ThermalConductivityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, ThermalConductivity.thermalConductivityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -41,7 +41,7 @@ class ThermalConductivity extends Quantity {
 /// Units acceptable for use in describing ThermalConductivity quantities.
 class ThermalConductivityUnits extends ThermalConductivity with Units {
   /// Constructs a instance.
-  ThermalConductivityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  ThermalConductivityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

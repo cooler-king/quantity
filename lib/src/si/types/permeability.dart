@@ -25,11 +25,11 @@ class Permeability extends Quantity {
 
   /// Constructs a Permeability based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Permeability.inUnits(dynamic value, PermeabilityUnits units, [double uncert = 0.0])
+  Permeability.inUnits(dynamic value, PermeabilityUnits? units, [double uncert = 0.0])
       : super(value, units ?? Permeability.henriesPerMeter, uncert);
 
   /// Constructs a constant Permeability.
-  const Permeability.constant(Number valueSI, {PermeabilityUnits units, double uncert = 0.0})
+  const Permeability.constant(Number valueSI, {PermeabilityUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Permeability.permeabilityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
@@ -48,7 +48,7 @@ class Permeability extends Quantity {
 /// Units acceptable for use in describing Permeability quantities.
 class PermeabilityUnits extends Permeability with Units {
   /// Constructs a instance.
-  PermeabilityUnits(String name, String abbrev1, String abbrev2, String singular, dynamic conv,
+  PermeabilityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;

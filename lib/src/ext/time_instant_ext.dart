@@ -40,11 +40,19 @@ final TimeInstantUnits GPST = TimeInstantUnits('GPS Satellite Time', null, 'GPST
 final TimeInstantUnits TCG =
     TimeInstantUnits('Geocentric Coordinate Time', null, 'TCG', null, 1.0, false, 0.0, (dynamic val) {
   // TCG = TAI + 32.184 + (6.969291e-10)(JD - 2443144.5)(86400)... where the Julian Date is in the TAI scale
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   return Double(d + 32.184 + (6.969291e-10 * (d - 599616000.0)));
 }, (dynamic val) {
   // TAI = TCG - 32.184 - (6.969291e-10)(JD - 2443144.5)(86400)... where the Julian Date is in the TAI scale
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   final taiApprox = d - 32.184 - (6.969291e-10 * (d - 599616000.0)); // get closer to the actual JD TAI (s)
   return Double(d - 32.184 - (6.969291e-10 * (taiApprox - 599616000.0)));
 });
@@ -57,14 +65,22 @@ final TimeInstantUnits TDB =
     TimeInstantUnits('Barycentric Dynamical Time', null, 'TDB', null, 1.0, false, -32.184, (dynamic val) {
   // TDB = TAI + 32.184 + 0.001658sin(g) + 0.000014sin(2g)...
   // where g = 357.53 deg + 0.9856003(JD - 2451545.0) deg... (Julian dates are in the TAI time scale)
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   final gRad = (357.53 + 0.9856003 * ((d / 86400.0) - 15341.0)) * (pi / 180.0);
   return Double(d + 32.184 + 0.001658 * sin(gRad) + 0.000014 * sin(2.0 * gRad));
 }, (dynamic val) {
   // TAI = TDB - 32.184 - 0.001658sin(g) - 0.000014sin(2g)...
   // where g = 357.53 deg + 0.9856003(JD - 2451545.0) deg... (Julian dates are in the TAI time scale)
 
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
 
   // Too convoluted to solve analytically (because g is a function of
   // the Julian Date in the TAI scale... instead, get close and then search).
@@ -107,11 +123,19 @@ final TimeInstantUnits TB = TDB;
 // ignore: non_constant_identifier_names
 final TimeInstantUnits TCB = TimeInstantUnits(
     'Barycentric Coordinate Time', null, 'TCB', null, 1.0 - 1.550505e-8, false, 599616000.0 - 32.184, (dynamic val) {
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   var tdb = TDB.fromMks(val); // TDB seconds
   return tdb += 1.550505e-8 * (d - 5.99616e8);
 }, (dynamic val) {
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
 
   // Too convoluted to solve analytically... instead, get close and then search
   var taiTest = d;
@@ -147,10 +171,18 @@ final TimeInstantUnits TCB = TimeInstantUnits(
 // ignore: non_constant_identifier_names
 final TimeInstantUnits UT1 =
     TimeInstantUnits('Universal Time (UT1)', null, 'UT1', null, 1.0, false, 0.0, (dynamic val) {
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   return TDT.fromMks(d) - getDeltaT(TimeInstant(TAI: d));
 }, (dynamic val) {
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
 
   // Converge on a Delta T & TAI that work together
   var count = 0;
@@ -184,7 +216,11 @@ final TimeInstantUnits UT2 =
   final t = B.fromMks(UT1.toMks(d)).toDouble();
   return d + (0.022 * sin(twoPI * t) - 0.012 * cos(twoPI * t) - 0.006 * sin(fourPI * t) + 0.007 * cos(fourPI * t));
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   const twoPI = 2.0 * pi;
   const fourPI = 2.0 * twoPI;
   final t = B.fromMks(UT1.toMks(d)).toDouble(); // besselian -- use UT2 value as UT1... close enough
@@ -222,7 +258,11 @@ final TimeInstantUnits JD_UTC =
 
   return Double(2436204.5 + jd0 + frac);
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
 
   // Adjust origin to TAI/UTC origin
   d -= 2436204.5;
@@ -243,7 +283,11 @@ final TimeInstantUnits MJD_UTC =
   final jd = JD_UTC.fromMks(val);
   return jd - 2400000.5;
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d += 2400000.5; // convert MJD(UTC) to JD(UTC)
   return JD_UTC.toMks(d);
 });
@@ -254,7 +298,11 @@ final TimeInstantUnits MJD_UTC =
 // ignore: non_constant_identifier_names
 final TimeInstantUnits JD_UT1 =
     TimeInstantUnits('Julian Date (UT1)', null, 'JD(UT1)', null, 86400.0, false, -2436204.5, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
 
   // Find average seconds in day for the year in question
   final deltaT0 = getDeltaT(TimeInstant(TAI: d - 1.57788e7));
@@ -274,7 +322,11 @@ final TimeInstantUnits JD_UT1 =
 
   return Double(2436204.5 + jd0 + frac);
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
 
   // Adjust origin to TAI/UT1 origin
   d -= 2436204.5;
@@ -306,7 +358,11 @@ final TimeInstantUnits MJD_UT1 =
   final jd = JD_UT1.fromMks(val);
   return jd - 2400000.5;
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d += 2400000.5; // convert MJD(UTC) to JD(UTC)
   return JD_UT1.toMks(d);
 });
@@ -317,7 +373,11 @@ final TimeInstantUnits MJD_UT1 =
 // ignore: non_constant_identifier_names
 final TimeInstantUnits JD_TDT = TimeInstantUnits('Julian Date (TDT)', null, 'JD(TDT)', null, 86400.0, false, -2436204.5,
     (dynamic val) => (TDT.fromMks(val) / 86400.0) + 2436204.5, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
 
   // Adjust origin to TAI/UT1 origin
   d -= 2436204.5;
@@ -335,7 +395,11 @@ final TimeInstantUnits MJD_TDT =
   final jd = JD_TDT.fromMks(val);
   return jd - 2400000.5;
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d += 2400000.5; // convert MJD(TDT) to JD(TDT)
   return JD_TDT.toMks(d);
 });
@@ -346,10 +410,18 @@ final TimeInstantUnits MJD_TDT =
 // ignore: non_constant_identifier_names
 final TimeInstantUnits JD_TDB =
     TimeInstantUnits('Julian Date (TDB)', null, 'JD(TDB)', null, 86400.0, false, -2436204.5, (dynamic val) {
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   return (TDB.fromMks(d) / 86400.0) + 2436204.5;
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d -= 2436204.5;
   return TDB.toMks(d * 86400.0);
 });
@@ -364,7 +436,11 @@ final TimeInstantUnits MJD_TDB =
   final jd = JD_TDB.fromMks(val);
   return jd - 2400000.5;
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d += 2400000.5; // convert MJD(TDB) to JD(TDB)
   return JD_TDB.toMks(d);
 });
@@ -375,10 +451,18 @@ final TimeInstantUnits MJD_TDB =
 // ignore: non_constant_identifier_names
 final TimeInstantUnits JD_TCG =
     TimeInstantUnits('Julian Date (TCG)', null, 'JD(TCG)', null, 86400.0, false, -2436204.5, (dynamic val) {
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   return (TCG.fromMks(d) / 86400.0) + 2436204.5;
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d -= 2436204.5;
   return TCG.toMks(d * 86400.0);
 });
@@ -393,7 +477,11 @@ final TimeInstantUnits MJD_TCG =
   final jd = JD_TCG.fromMks(val);
   return jd - 2400000.5;
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d += 2400000.5; // convert MJD(TCG) to JD(TCG)
   return JD_TCG.toMks(d);
 });
@@ -404,7 +492,11 @@ final TimeInstantUnits MJD_TCG =
 // ignore: non_constant_identifier_names
 final TimeInstantUnits JD_TCB = TimeInstantUnits('Julian Date (TCB)', null, 'JD(TCB)', null, 86400.0, false, -2436204.5,
     (dynamic val) => (TCB.fromMks(val) / 86400.0) + 2436204.5, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d -= 2436204.5;
   return TCB.toMks(d * 86400.0);
 });
@@ -418,7 +510,11 @@ final TimeInstantUnits MJD_TCB =
   final jd = JD_TCB.fromMks(val);
   return jd - 2400000.5;
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d += 2400000.5; // convert MJD(TCB) to JD(TCB)
   return JD_TCB.toMks(d);
 });
@@ -430,7 +526,11 @@ final TimeInstantUnits B = TimeInstantUnits('Bessellian', null, 'B', null, 1.0, 
   final jd = JD_TAI.fromMks(val).toDouble();
   return Double(1900.0 + ((jd - 2415020.31352) / 365.242198781));
 }, (dynamic val) {
-  final d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  final d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   final jd = ((d - 1900.0) * 365.242198781) + 2415020.31352;
   return JD_TAI.toMks(jd);
 });
@@ -444,7 +544,11 @@ final TimeInstantUnits NTP =
   var d = UTC.fromMks(val);
   return d += 1.8302976e9;
 }, (dynamic val) {
-  var d = val is num ? val.toDouble() : val is Number ? val.toDouble() : 0.0;
+  var d = val is num
+      ? val.toDouble()
+      : val is Number
+          ? val.toDouble()
+          : 0.0;
   d -= 1.8302976e9;
   return UTC.toMks(d);
 });

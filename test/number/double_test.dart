@@ -100,12 +100,12 @@ void main() {
       sum = d + cx;
       expect(sum is Complex, true);
       expect((sum as Complex).real.toDouble(), closeTo(44.156, 0.000001));
-      expect((sum as Complex).imag.value.toDouble(), 9.6);
+      expect(sum.imag.value.toDouble(), 9.6);
       cx = Complex(Double(-2.1), Imaginary(-9.6));
       sum = d + cx;
       expect(sum is Complex, true);
       expect((sum as Complex).real.toDouble(), closeTo(39.956, 0.000001));
-      expect((sum as Complex).imag.value.toDouble(), -9.6);
+      expect(sum.imag.value.toDouble(), -9.6);
 
       // + Precise
       var p = Precise('123.456');
@@ -168,24 +168,24 @@ void main() {
       diff = d - i;
       expect(diff is Complex, true);
       expect((diff as Complex).real.toDouble(), closeTo(42.056, 0.000001));
-      expect((diff as Complex).imag.value.toDouble(), closeTo(-34.21, 0.000001));
+      expect(diff.imag.value.toDouble(), closeTo(-34.21, 0.000001));
       i = Imaginary(-6);
       diff = d - i;
       expect(diff is Complex, true);
       expect((diff as Complex).real.toDouble(), closeTo(42.056, 0.000001));
-      expect((diff as Complex).imag.value.toDouble(), 6);
+      expect(diff.imag.value.toDouble(), 6);
 
       // - Complex
       var cx = Complex(Double(2.1), Imaginary(9.6));
       diff = d - cx;
       expect(diff is Complex, true);
       expect((diff as Complex).real.toDouble(), closeTo(39.956, 0.000001));
-      expect((diff as Complex).imag.value.toDouble(), -9.6);
+      expect(diff.imag.value.toDouble(), -9.6);
       cx = Complex(Double(-2.1), Imaginary(-9.6));
       diff = d - cx;
       expect(diff is Complex, true);
       expect((diff as Complex).real.toDouble(), closeTo(44.156, 0.000001));
-      expect((diff as Complex).imag.value.toDouble(), 9.6);
+      expect(diff.imag.value.toDouble(), 9.6);
 
       // - Precise
       var p = Precise('1.013');
@@ -261,12 +261,12 @@ void main() {
       prod = d * cx;
       expect(prod is Complex, true);
       expect((prod as Complex).real.toDouble(), closeTo(2.52, 0.000001));
-      expect((prod as Complex).imag.value.toDouble(), 11.52);
+      expect(prod.imag.value.toDouble(), 11.52);
       cx = Complex(Double(-2.1), Imaginary(-9.6));
       prod = d * cx;
       expect(prod is Complex, true);
       expect((prod as Complex).real.toDouble(), closeTo(-2.52, 0.000001));
-      expect((prod as Complex).imag.value.toDouble(), -11.52);
+      expect(prod.imag.value.toDouble(), -11.52);
 
       // * Precise
       var p = Precise('1.013');
@@ -334,12 +334,12 @@ void main() {
       quot = Double(4) / cx;
       expect(quot is Complex, true);
       expect((quot as Complex).real.toDouble(), closeTo(0.8, 0.000001));
-      expect((quot as Complex).imag.value.toDouble(), -1.6);
+      expect(quot.imag.value.toDouble(), -1.6);
       cx = Complex(Double(-1), Imaginary(-2));
       quot = Double(4) / cx;
       expect(quot is Complex, true);
       expect((quot as Complex).real.toDouble(), closeTo(-0.8, 0.000001));
-      expect((quot as Complex).imag.value.toDouble(), 1.6);
+      expect(quot.imag.value.toDouble(), 1.6);
 
       // / Precise
       var p = Precise('4.8');
