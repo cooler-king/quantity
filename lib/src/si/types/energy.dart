@@ -24,7 +24,7 @@ class Energy extends Quantity {
   /// Constructs a Energy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Energy.inUnits(dynamic value, EnergyUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Energy.electronVolts, uncert);
+      : super(value, units ?? Energy.joules, uncert);
 
   /// Constructs a constant Energy.
   const Energy.constant(Number valueSI, {EnergyUnits? units, double uncert = 0.0})
