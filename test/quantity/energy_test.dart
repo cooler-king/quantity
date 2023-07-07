@@ -30,7 +30,6 @@ void main() {
       var e = Energy(J: 1);
       var m = e.toMass();
 
-      expect(m is Mass, true);
       expect(m.valueSI.toDouble(), 1.1126500560536185e-17);
 
       e = Energy(J: 2.2);

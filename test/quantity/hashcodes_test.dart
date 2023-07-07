@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
-import 'package:quantity/number.dart';
 
 void main() {
   group('hashcodes', () {
@@ -68,7 +67,7 @@ void main() {
       expect(b.hashCode, 5.hashCode);
 
       final c = Scalar(value: -5.0);
-      expect(c.hashCode, -5.hashCode);
+      expect(c.hashCode, (-5).hashCode);
 
       final d = Scalar(value: Integer(5));
       expect(d.hashCode, 5.hashCode);
@@ -83,7 +82,7 @@ void main() {
       expect(g.hashCode, 5.hashCode);
 
       final h = Scalar(value: Precise.num(-5));
-      expect(h.hashCode, -5.hashCode);
+      expect(h.hashCode, (-5).hashCode);
 
       final i = Scalar(value: Precise.num(5.0));
       expect(i.hashCode, 5.hashCode);

@@ -505,7 +505,7 @@ void main() {
       expect(Double.negInfinity.hashCode, double.negativeInfinity.hashCode);
       expect(Double(0).hashCode, 0.hashCode);
       expect(Double(1).hashCode, 1.hashCode);
-      expect(Double(-5).hashCode, -5.hashCode);
+      expect(Double(-5).hashCode, (-5).hashCode);
       expect(Double(99.99).hashCode, Precise('99.99').hashCode);
       expect(Double(98765.4321).hashCode, Precise('98765.4321').hashCode);
       expect(Double(-98765.4321).hashCode, Precise('-98765.4321').hashCode);

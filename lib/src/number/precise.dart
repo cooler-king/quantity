@@ -74,7 +74,7 @@ class Precise extends Real {
   /// The number of significant digits defaults to 50 but may be specified.
   factory Precise.num(num value, {int sigDigits = 50}) {
     if (value.isNaN || value.isInfinite) throw Exception('Precise value must be a valid finite number');
-    return value != null ? Precise(value.toString(), sigDigits: sigDigits) : Precise.zero;
+    return Precise(value.toString(), sigDigits: sigDigits);
   }
 
   /// Constructs a Precise number, applying the values found in map [m].
@@ -496,11 +496,11 @@ class Precise extends Real {
       } else {
         final recip = reciprocal();
         if (recip is! Precise) return recip;
-        var p = recip as Precise;
+        var p = recip;
         for (var i = -1; i > exp; i--) {
           final n = p / this;
           if (n is! Precise) return n;
-          p = n as Precise;
+          p = n;
         }
         return p;
       }
@@ -638,14 +638,12 @@ class Precise extends Real {
 class Digit {
   /// Constructs a digit that matches the value of [num].
   Digit(int num) {
-    if (num == null) throw Exception('Digit cannot be constructed with null');
     if (num > 9 || num < 0) throw Exception('Digit must be between 0 and 9, inclusive ($num)');
     value.setUint8(0, num);
   }
 
   /// Constructs a digit from the character representing the digit.
   factory Digit.char(String digitChar) {
-    if (digitChar == null) throw Exception('Digit cannot be constructed with null character');
     if (digitChar.length != 1) throw Exception('Digit must be constructed with a single character');
     return Digit(digitChar.codeUnitAt(0) - codeUnit0);
   }

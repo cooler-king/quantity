@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
-import 'package:quantity/quantity_range.dart';
 
 void main() {
   group('TimePeriod', () {

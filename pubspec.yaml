@@ -1,13 +1,13 @@
 name: quantity
-version: 2.0.1
+version: 3.0.0
 description: Facilitates working with physical quantities such as angles, lengths, masses, temperatures and many others.  Supports uncertainty and arbitrary precision.
 homepage: https://github.com/cooler-king/quantity
 documentation: https://github.com/cooler-king/quantity/wiki
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 dependencies:
   intl: '>=0.17.0 <1.0.0'
   logging: ^1.0.0
 dev_dependencies:
   test: ^1.16.0
-  pedantic: ^1.11.0
+  lints: ^2.1.0

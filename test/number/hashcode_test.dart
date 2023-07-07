@@ -9,7 +9,7 @@ void main() {
       expect(d.hashCode, 42.hashCode);
 
       final d2 = Integer(-42);
-      expect(d2.hashCode, -42.hashCode);
+      expect(d2.hashCode, (-42).hashCode);
 
       expect(d.hashCode == d2.hashCode, false);
 
@@ -36,7 +36,7 @@ void main() {
       expect(d5.hashCode == d4.hashCode, false);
 
       final d6 = Double(-217);
-      expect(d6.hashCode, -217.hashCode);
+      expect(d6.hashCode, (-217).hashCode);
       expect(d6.hashCode == 217.hashCode, false);
       expect(d6.hashCode == d4.hashCode, false);
 

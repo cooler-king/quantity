@@ -1,16 +1,6 @@
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
 import 'package:quantity/quantity.dart';
-import '../../number.dart';
-import 'dimensions.dart';
-import 'dimensions_exception.dart';
-import 'misc_quantity.dart';
-import 'number_format_si.dart';
-import 'quantity_exception.dart';
-import 'types/scalar.dart';
-import 'uncertainty_format.dart';
-import 'units.dart';
-import 'utilities.dart';
 
 /// The abstract base class for all quantities.  The Quantity class represents
 /// the value of a physical quantity and its

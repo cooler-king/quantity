@@ -515,13 +515,11 @@ class Dimensions {
     }
     try {
       final type = qType ?? determineQuantityType(this);
-      print(type);
       if (type is! MiscQuantity) {
-        final Quantity? q = createTypedQuantityInstance(type, value, units, uncert: uncert);
-        if (q != null) return q;
+        return createTypedQuantityInstance(type, value, units, uncert: uncert);
       }
     } catch (e, s) {
-      logger.warning('Problem creating type instance; falling back to MiscQuantity for ${this}', e, s);
+      logger.warning('Problem creating type instance; falling back to MiscQuantity for$this', e, s);
     }
 
     // Unable to create a typed instance; return a MiscQuantity with these dimensions.

@@ -7,7 +7,7 @@ void main() {
 
   /// Construct a second Temperature in degrees Kelvin.
   final temp2 = Temperature(K: 100);
-  print('Temperature2: $temp2  (${temp.valueInUnits(Temperature.degreesCelsius)} C)');
+  print('Temperature2: $temp2  (${temp2.valueInUnits(Temperature.degreesCelsius)} C)');
 
   /// Calculate the difference in temperatures.
   final diff = temp - temp2 as TemperatureInterval;

@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
-import 'package:quantity/number.dart';
 
 void main() {
   group('Length', () {
@@ -181,8 +180,6 @@ void main() {
       final dynamic ff = b / Speed(metersPerSecond: 10.5);
       expect(ff.valueSI == 4, true);
       expect(ff.valueSI is Integer, true);
-      print('Expecting time dimensions:');
-      print(ff.dimensions);
       expect(ff.dimensions.equalsSI(Time.timeDimensions), true);
       expect(ff is Time, true);
     });
