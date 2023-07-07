@@ -1,5 +1,8 @@
+### 2.0.1
+* Support for intl 0.18
+
 ### 2.0.0
-  * Support for Dart 2.12, null safety.
+* Support for Dart 2.12, null safety.
 
 ### 1.0.0
   * Requires >= Dart SDK 2.3.
