@@ -241,6 +241,7 @@ class NumberFormatSI implements NumberFormat {
     _scientific.minimumIntegerDigits = value;
   }
 
+  @Deprecated('Use maximumSignificantDigits / minimumSignificantDigits')
   @override
   int? get significantDigits => _scientific.significantDigits;
 
@@ -255,6 +256,30 @@ class NumberFormatSI implements NumberFormat {
   @override
   set significantDigitsInUse(bool value) {
     _scientific.significantDigitsInUse = value;
+  }
+
+  @override
+  int? get maximumSignificantDigits => _scientific.maximumSignificantDigits;
+
+  @override
+  set maximumSignificantDigits(int? value) {
+    _scientific.maximumSignificantDigits = value;
+  }
+
+  @override
+  int? get minimumSignificantDigits => _scientific.minimumSignificantDigits;
+
+  @override
+  set minimumSignificantDigits(int? value) {
+    _scientific.minimumSignificantDigits = value;
+  }
+
+  @override
+  bool get minimumSignificantDigitsStrict => _scientific.minimumSignificantDigitsStrict;
+
+  @override
+  set minimumSignificantDigitsStrict(bool value) {
+    _scientific.minimumSignificantDigitsStrict = value;
   }
 
   @override
