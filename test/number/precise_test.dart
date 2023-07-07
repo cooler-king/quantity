@@ -233,7 +233,6 @@ void main() {
 
       final p3 = Precise('9999');
       sum = p + p3;
-      expect(sum is Precise, true);
       expect(sum.digits.length, 5);
       expect(sum.power, 0);
       expect(sum.digits[0], Digit.two);
@@ -246,7 +245,6 @@ void main() {
       final p4 = Precise('123.456');
       final p5 = Precise('987.654');
       sum = p4 + p5; // 1111.110
-      expect(sum is Precise, true);
       expect(sum.digits.length, 7);
       expect(sum.power, -3);
       expect(sum.digits[0], Digit.zero);
@@ -260,7 +258,6 @@ void main() {
 
       final p6 = Precise('-382');
       sum = p + p6; // -259
-      expect(sum is Precise, true);
       expect(sum.digits.length, 3);
       expect(sum.power, 0);
       expect(sum.isNegative, true);
@@ -583,7 +580,6 @@ void main() {
     test('abs', () {
       var p = Precise('0');
       var abs = p.abs();
-      expect(abs is Precise, true);
       expect(abs, Precise.zero);
 
       p = Precise('-0.00000001');
@@ -636,7 +632,6 @@ void main() {
       var p = Precise('5.678');
 
       var clamp = p.clamp(5.7, 6);
-      expect(clamp is Precise, true);
       expect(clamp.toString(), '5.7');
 
       clamp = p.clamp(5.1, 5.5111);

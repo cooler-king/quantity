@@ -59,7 +59,7 @@ void main() {
       expect(Double.negInfinity.hashCode, double.negativeInfinity.hashCode);
       expect(Integer(0).hashCode, 0.hashCode);
       expect(Integer(1).hashCode, 1.hashCode);
-      expect(Integer(-5).hashCode, -5.hashCode);
+      expect(Integer(-5).hashCode, (-5).hashCode);
       expect(Integer(99).hashCode, Precise('99').hashCode);
       expect(Integer(-99).hashCode, Precise('-99').hashCode);
       expect(Integer(-99).hashCode == Integer(99).hashCode, false);

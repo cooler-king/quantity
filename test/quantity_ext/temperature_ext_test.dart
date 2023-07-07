@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
-import 'package:quantity/quantity_ext.dart';
 
 void main() {
   group('temperature ext', () {

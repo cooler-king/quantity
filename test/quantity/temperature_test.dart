@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
-import 'package:quantity/number.dart';
 
 void main() {
   group('Temperature', () {
@@ -85,6 +84,13 @@ void main() {
       diff = b - d;
       expect(diff is Temperature, true);
       expect(diff.valueSI.toDouble(), closeTo(0.04, 0.000001));
+    });
+
+    test('valueInUnits', () {
+      final a = Temperature(K: 100.0);
+      final b = a.valueInUnits(Temperature.degreesCelsius);
+      expect(a.valueSI.toDouble(), 100.0);
+      expect(b.toDouble(), closeTo(-173.15, 0.000001));
     });
   });
 }

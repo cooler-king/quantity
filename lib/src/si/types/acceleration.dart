@@ -1,11 +1,8 @@
 import 'package:quantity/domain/astronomical.dart';
-
-import '../../number/number.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
-import 'length.dart';
 import 'time.dart';
 
 /// The rate of change of speed of an object.

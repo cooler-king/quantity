@@ -19,14 +19,12 @@ void main() {
         final c1 = Complex.coeff(1, 2);
         expect(c1.real is Integer, true);
         expect(c1.real, Integer(1));
-        expect(c1.imag is Imaginary, true);
         expect(c1.imag.value is Integer, true);
         expect(c1.imag.value, Integer(2));
 
         final c2 = Complex.coeff(3.3, 4.4);
         expect(c2.real is Double, true);
         expect(c2.real, Double(3.3));
-        expect(c2.imag is Imaginary, true);
         expect(c2.imag.value is Double, true);
         expect(c2.imag.value, Double(4.4));
       });

@@ -1,7 +1,5 @@
-import 'package:quantity/quantity_si.dart';
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
-import 'package:quantity/quantity_ext.dart';
 
 void main() {
   group('mutable quantity', () {

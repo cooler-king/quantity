@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-import '../../number/number.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';

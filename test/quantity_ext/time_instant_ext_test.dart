@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
-import 'package:quantity/quantity_ext.dart';
 
 void main() {
   group('time instant ext', () {
@@ -60,7 +59,6 @@ void main() {
       expect(tai.valueInUnits(TAI).toDouble(), 2000000000);
       expect(tai.valueInUnits(UTC).toDouble(), 1999999963);
       expect(tai.valueInUnits(system).toDouble(), 1621308763000);
-      print(DateTime.fromMillisecondsSinceEpoch(1621308763000));
       expect(tai.valueInUnits(UT1).toDouble(), closeTo(1999999962.824, 0.000001));
       expect(tai.valueInUnits(UT2).toDouble(), closeTo(1999999962.8541603, 0.000001));
       expect(tai.valueInUnits(TDT).toDouble(), 2000000032.184);

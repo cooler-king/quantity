@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
-import 'package:quantity/number.dart';
 
 void main() {
   group('SpectralIrradiance', () {

@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:intl/intl.dart' show NumberFormat;
-import '../../number/double.dart';
-import '../../number/number.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/dimensions_exception.dart';

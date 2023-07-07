@@ -2,8 +2,6 @@ import 'dart:io';
 import 'dart:math' show min;
 import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
-import 'package:quantity/quantity_ext.dart';
-import 'package:quantity/domain/astronomical.dart';
 import 'package:quantity/domain/electromagnetic.dart';
 import 'package:quantity/domain/thermodynamic.dart';
 import 'package:quantity/domain/universal.dart';

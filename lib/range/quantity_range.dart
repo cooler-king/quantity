@@ -1,6 +1,5 @@
 import '../src/number/util/jenkins_hash.dart';
 import '../src/si/quantity.dart';
-import '../src/si/quantity_exception.dart';
 
 /// Creates a [QuantityRange] that represents the standard uncertainty of [q].
 QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q, {double k = 1.0}) {
@@ -16,11 +15,7 @@ QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q, {double k = 1.0}
 /// Represents a range of quantity values.
 class QuantityRange<Q extends Quantity> {
   /// Constructs a quantity range, from [q1] to [q2].
-  QuantityRange(this.q1, this.q2) {
-    if (q1 is! Quantity || q2 is! Quantity) {
-      throw const QuantityException('QuantityRange endpoints must be Quantity objects');
-    }
-  }
+  QuantityRange(this.q1, this.q2);
 
   /// The starting quantity of the range.
   Q q1;
