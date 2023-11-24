@@ -59,7 +59,9 @@ mixin Units {
   bool operator ==(dynamic obj) {
     if (identical(this, obj)) return true;
 
-    if (obj is Units) return singular == obj.singular && convToMKS == obj.convToMKS;
+    if (obj is Units) {
+      return singular == obj.singular && convToMKS == obj.convToMKS;
+    }
     return false;
   }
 
@@ -75,7 +77,8 @@ mixin Units {
   /// found when inspecting secondary abbreviation, primary abbreviation and full name,
   /// in that order.  If [sing] is true and no symbol or alternate name are available
   /// then the singular version of the name will be returned.
-  String getShortestName(bool sing) => abbrev2 ?? abbrev1 ?? (sing ? (singular ?? name) : name);
+  String getShortestName(bool sing) =>
+      abbrev2 ?? abbrev1 ?? (sing ? (singular ?? name) : name);
 
   /// Calculates and returns the value in SI-MKS units of the specified [value]
   /// (that is implicitly in these units).
@@ -83,8 +86,19 @@ mixin Units {
   /// cause a [QuantityException].
   Number toMks(dynamic value) {
     if (value is num || value is Number) {
-      if (offset == 0) return convToMKS * value;
-      return (convToMKS * value) + objToNumber(offset);
+      Number term;
+      if (value is Precise) {
+        // Preserve the Precise value's precision.
+        var preciseConv =
+            Precise(convToMKS.toString(), sigDigits: value.precision + 1);
+        term = preciseConv * value;
+        if (offset == 0) return term;
+        return term + Precise(offset.toString(), sigDigits: value.precision + 1);
+      } else {
+        term = convToMKS * value;
+        if (offset == 0) return term;
+        return term + objToNumber(offset);
+      }
     } else {
       throw const QuantityException('num or Number expected');
     }

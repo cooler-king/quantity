@@ -1,5 +1,5 @@
 name: quantity
-version: 3.0.0
+version: 3.0.1
 description: Facilitates working with physical quantities such as angles, lengths, masses, temperatures and many others.  Supports uncertainty and arbitrary precision.
 homepage: https://github.com/cooler-king/quantity
 documentation: https://github.com/cooler-king/quantity/wiki

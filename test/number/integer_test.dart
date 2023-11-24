@@ -342,7 +342,7 @@ void main() {
       p = Precise('-4.876876858');
       quot = d / p;
       expect(quot is Precise, true);
-      expect(quot.toDouble(), closeTo(-0.0821970475097036, 0.000000000000001));
+      expect(quot.toDouble(), closeTo(-0.8201970475097036, 0.000000000000001));
       expect(Integer(0) / Precise('0'), Double.NaN);
       expect(Integer(1) / Precise('0'), Double.infinity);
       expect(Integer(-1) / Precise('0'), Double.negInfinity);

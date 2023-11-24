@@ -121,6 +121,25 @@ void main() {
       expect(p.digits[0].toInt(), 1);
       expect(p.digits.last.toInt(), 5);
       expect(p.power < -49, true);
+
+      p = Precise('1000.0');
+      expect(Precise('1000'), p);
+      expect(p.digits.length, 5);
+      expect(p.digits[0].toInt(), 0);
+      expect(p.digits[1].toInt(), 0);
+      expect(p.digits[2].toInt(), 0);
+      expect(p.digits[3].toInt(), 0);
+      expect(p.digits[4].toInt(), 1);
+      expect(p.power, -1);
+
+      p = Precise('1007.1');
+      expect(p.digits.length, 5);
+      expect(p.digits[0].toInt(), 1);
+      expect(p.digits[1].toInt(), 7);
+      expect(p.digits[2].toInt(), 0);
+      expect(p.digits[3].toInt(), 0);
+      expect(p.digits[4].toInt(), 1);
+      expect(p.power, -1);
     });
 
     test('decimalPortion', () {
@@ -410,12 +429,39 @@ void main() {
         expect(prod.digits[5], Digit.seven);
         expect(prod.digits[6], Digit.five);
         expect(prod.toString(), '-573.8304');
+
+        expect(Precise('000010') * Precise('100'), Precise('1000'));
+        expect(Precise('0.00010') * Precise('.100'), Precise('0.00001'));
+        expect(Precise('000000.000100000') * Precise('000000000.10000000000000000000000000000'), Precise('0.00001'));
+        expect(Precise('0.987654321') * Precise('1000'), Precise('987.654321'));
+        expect(Precise('0.987654321') * Precise('1000.0'), Precise('987.654321'));
+        expect(Precise('0.987654321') * Precise('1e3'), Precise('987.654321'));
+        expect(Precise('0.00987654321') * Precise('1000'), Precise('9.87654321'));
+        expect(Precise('0.00987654321') * Precise('1000.0'), Precise('9.87654321'));
+        expect(Precise('0.00987654321') * Precise('1e3'), Precise('9.87654321'));
+        expect(Precise('0987654321e-11') * Precise('1000'), Precise('9.87654321'));
+        expect(Precise('0987654321e-11') * Precise('1000.0'), Precise('9.87654321'));
+        expect(Precise('0987654321e-11') * Precise('1e3'), Precise('9.87654321'));
+        expect(Precise('098765e-6') * Precise('1000'), Precise('98.765'));
+        expect(Precise('098765e-6') * Precise('1000.0'), Precise('98.765'));
+        expect(Precise('0.09929500546122530036739152020653361135934862476417', sigDigits: 51), Precise('09929500546122530036739152020653361135934862476417e-50'));
+        expect(Precise('0.09929500546122530036739152020653361135934862476417', sigDigits: 51) * Precise('10'), Precise('0.9929500546122530036739152020653361135934862476417'));
+        expect(Precise('099295005e-9') * Precise('100'), Precise('9.9295005'));
+        expect(Precise('0992950054612253003673915202065336113593486247641e-49') * Precise('100'), Precise('9.92950054612253003673915202065336113593486247641'));
+        expect(Precise('0.0992950054612253003673915202065336113593486247641') * Precise('100'), Precise('9.92950054612253003673915202065336113593486247641'));
+        expect(Precise('0992950054612253003673915202065336113593486247641e-49') * Precise('1000'), Precise('99.2950054612253003673915202065336113593486247641'));
+        expect(Precise('0992950054612253003673915202065336113593486247641e-49') * Precise('1000.0'), Precise('99.2950054612253003673915202065336113593486247641'));
+        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('10'), Precise('0.9929500546122530036739152020653361135934862476417'));
+        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('100'), Precise('9.929500546122530036739152020653361135934862476417'));
+        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('1000'), Precise('99.29500546122530036739152020653361135934862476417'));
+        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('1000'), Precise('99.29500546122530036739152020653361135934862476417'));
+        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('1000.0'), Precise('99.29500546122530036739152020653361135934862476417'));
       });
 
       test('operator * num', () {
         expect(Precise('0') * 0, Precise('0'));
-        expect(Precise('0') * -9, Precise('0'));
-        expect(Precise('1.00000000000000000001') * -9, Precise('-9.00000000000000000009'));
+        expect(Precise('0') * -9, Precise.zero);
+        expect(Precise('1.000000000000001') * -9, Precise('-9.000000000000009'));
       });
     });
 
@@ -486,6 +532,33 @@ void main() {
       expect(result, Precise('-0.002'));
       result = pPt1 / pNegPt0002;
       expect(result, Precise('-500'));
+
+      final p100 = Precise('100');
+      final p1000 = Precise('1000');
+      final p10000 = Precise('10000');
+      expect(Precise('12367.4') / p100, Precise('123.674'));
+      expect(Precise('12367.4') / p1000, Precise('12.3674'));
+      expect(Precise('12367.4') / p10000, Precise('1.23674'));
+      expect(Precise('10000.1') / p100, Precise('100.001'));
+      expect(Precise('10000.1') / p1000, Precise('10.0001'));
+      expect(Precise('10000.1') / p10000, Precise('1.00001'));
+      expect(Precise('10167.4') / p100, Precise('101.674'));
+      expect(Precise('10167.4') / p1000, Precise('10.1674'));
+      expect(Precise('10167.4') / p10000, Precise('1.01674'));
+      expect(Precise('100010101010101.10100101000') / p100, Precise('1000101010101.0110100101000'));
+      expect(Precise('100010101010101.10100101000') / p1000, Precise('100010101010.10110100101'));
+      expect(Precise('100010101010101.10100101000') / p10000, Precise('10001010101.0101101001010'));
+      expect(Precise('-100010101010101.10100101000') / p100, Precise('-1000101010101.0110100101000'));
+      expect(Precise('-100010101010101.10100101000') / p1000, Precise('-100010101010.10110100101'));
+      expect(Precise('-100010101010101.10100101000') / p10000, Precise('-10001010101.0101101001010'));
+      expect(Precise('-100010101010101.10100101000') / -p100, Precise('1000101010101.0110100101000'));
+      expect(Precise('-100010101010101.10100101000') / -p1000, Precise('100010101010.10110100101'));
+      expect(Precise('-100010101010101.10100101000') / -p10000, Precise('10001010101.0101101001010'));
+      expect(Precise('100010101010101.10100101000') / -p100, Precise('-1000101010101.0110100101000'));
+      expect(Precise('100010101010101.10100101000') / -p1000, Precise('-100010101010.10110100101'));
+      expect(Precise('100010101010101.10100101000') / -p10000, Precise('-10001010101.0101101001010'));
+
+      expect(p100 / Precise('1007.1'), Precise('0.09929500546122530036739152020653361135934862476417', sigDigits: 51));
     });
 
     test('operator ^', () {
@@ -747,6 +820,72 @@ void main() {
       expect(p.remainder(3), Precise('1'));
     });
 
+    test('set precision', () {
+      var p = Precise('123456');
+      expect(p.digits.length, 6);
+
+      p.precision = 5;
+      expect(p.precision, 5);
+      expect(p.power, 1);
+      expect(p.digits.length, 5);
+      expect(p, Precise('123460'));
+
+      p.precision = 2;
+      expect(p.precision, 2);
+      expect(p.digits.length, 2);
+      expect(p.power, 4);
+      expect(p, Precise('120000'));
+
+      p = Precise('19999');
+      p.precision = 4;
+      expect(p.precision, 4);
+      expect(p.digits.length, 4);
+      expect(p.power, 1);
+      expect(p, Precise('20000'));
+
+      p = Precise('99999');
+      p.precision = 4;
+      expect(p.precision, 4);
+      expect(p.digits.length, 4);
+      expect(p.power, 2);
+      expect(p, Precise('100000'));
+
+      p = Precise('99.99');
+      p.precision = 3;
+      expect(p.precision, 3);
+      expect(p.digits.length, 3);
+      expect(p.power, 0);
+      expect(p, Precise('100'));
+
+      p = Precise('-99.99');
+      p.precision = 3;
+      expect(p.precision, 3);
+      expect(p.digits.length, 3);
+      expect(p.power, 0);
+      expect(p, Precise('-100'));
+
+      p = Precise('123499999.99');
+      p.precision = 3;
+      expect(p.precision, 3);
+      expect(p.digits.length, 3);
+      expect(p.power, 6);
+      expect(p, Precise('123000000'));
+
+      p = Precise('123499999.99');
+      p.precision = 4;
+      expect(p.precision, 4);
+      expect(p.digits.length, 4);
+      expect(p.power, 5);
+      expect(p, Precise('123500000'));
+
+      p = Precise('123499999.99');
+      p.precision = 9;
+      expect(p.precision, 9);
+      expect(p.digits.length, 9);
+      expect(p.power, 0);
+      expect(p, Precise('123500000'));
+    });
+
     test('round', () {
       var p = Precise('5.678');
       Number round = p.round();
@@ -823,6 +962,124 @@ void main() {
       expect(trunc.isNegative, false);
       expect(trunc.power, 0);
       expect(trunc.toString(), '10');
+    });
+
+    test("round trip * / Precise", () {
+      var p1 = Precise('100.0');
+      var p2 = Precise('1007.1');
+      var p3 = Precise('10000.9999');
+      var p4 = Precise('-9901454.0009292');
+
+      // Some matches are not exact due to rounding of the intermediate term
+      // at the precision boundary.
+      expect((p1 * p2) / p2, p1);
+      expect((p1 * p3) / p3, p1);
+      expect((p1 * p4) / p4, p1);
+      expect((p2 * p1) / p1, p2);
+      expect((p2 * p3) / p3, p2);
+      expect((p2 * p4) / p4, p2);
+      expect((p3 * p1) / p1, p3);
+      expect((p3 * p2) / p2, p3);
+      expect((p3 * p4) / p4, p3);
+      expect((p4 * p1) / p1, p4);
+      expect((p4 * p2) / p2, p4);
+      expect((p4 * p3) / p3, p4);
+      expect((((p1 / p2) * p2) as Precise)..precision = 49, Precise(p1.toString(), sigDigits: 49));
+      expect((((p1 / p3) * p3) as Precise)..precision = 48, Precise(p1.toString(), sigDigits: 48));
+      expect((((p1 / p4) * p4) as Precise)..precision = 47, Precise(p1.toString(), sigDigits: 47));
+      expect((p2 / p1) * p1, p2);
+      expect((p2 / p3) * p3, p2);
+      expect((((p2 / p4) * p4) as Precise)..precision = 49, Precise(p2.toString(), sigDigits: 49));
+      expect((p3 / p1) * p1, p3);
+      expect((p3 / p2) * p2, p3);
+      expect((((p3 / p4) * p4) as Precise)..precision = 48, Precise(p3.toString(), sigDigits: 48));
+      expect((p4 / p1) * p1, p4);
+      expect((p4 / p2) * p2, p4);
+      expect((((p4 / p3) * p3) as Precise)..precision = 49, Precise(p4.toString(), sigDigits: 49));
+    });
+
+    test("round trip * / num", () {
+      var p1 = Precise.num(100.0);
+      var p2 = Precise.num(1007.1);
+      var p3 = Precise.num(10000.9999);
+      var p4 = Precise.num(-9901454.0009292);
+
+      // Some matches are not exact due to rounding of the intermediate term
+      // at the precision boundary.
+      expect((p1 * p2) / p2, p1);
+      expect((p1 * p3) / p3, p1);
+      expect((p1 * p4) / p4, p1);
+      expect((p2 * p1) / p1, p2);
+      expect((p2 * p3) / p3, p2);
+      expect((p2 * p4) / p4, p2);
+      expect((p3 * p1) / p1, p3);
+      expect((p3 * p2) / p2, p3);
+      expect((((p3 / p4) * p4) as Precise)..precision = 13, Precise(p3.toString(), sigDigits: 13));
+      expect((p4 * p1) / p1, p4);
+      expect((p4 * p2) / p2, p4);
+      expect((((p4 / p3) * p3) as Precise)..precision = 14, Precise(p4.toString(), sigDigits: 14));
+      expect((((p1 / p2) * p2) as Precise)..precision = 14, Precise(p1.toString(), sigDigits: 14));
+      expect((p1 / p3) * p3, p1);
+      expect((((p1 / p4) * p4) as Precise)..precision = 12, Precise(p1.toString(), sigDigits: 12));
+      expect((p2 / p1) * p1, p2);
+      expect((((p2 / p3) * p3) as Precise)..precision = 14, Precise(p2.toString(), sigDigits: 14));
+      expect((p2 / p4) * p4, p2);
+      expect((p3 / p1) * p1, p3);
+      expect((p3 / p2) * p2, p3);
+      expect((((p3 / p4) * p4) as Precise)..precision = 13, Precise(p3.toString(), sigDigits: 13));
+      expect((p4 / p1) * p1, p4);
+      expect((p4 / p2) * p2, p4);
+      expect((((p4 / p3) * p3) as Precise)..precision = 14, Precise(p4.toString(), sigDigits: 14));
+    });
+
+    test('toPrecise', () {
+      var dartIntPrecision = 19;
+      var dartDoublePrecision = 15; // 15-17, we take the worst case
+
+      // Precise pass through.
+      var p1 = Precise('100');
+      var p2 = Precise.toPrecise(p1);
+      expect(p2, p1);
+
+      // Integers.
+      p1 = Precise.toPrecise(42);
+      expect(p1.precision, dartIntPrecision);
+      expect(p1, Precise('42', sigDigits: dartIntPrecision));
+
+      p1 = Precise.toPrecise(42, desiredPrecision: 25);
+      expect(p1.precision, 25);
+      expect(p1, Precise('42'));
+      expect(p1.toInt(), 42);
+      expect(p1.toDouble(), 42.0);
+
+      p1 = Precise.toPrecise(Integer(8327494763829289204));
+      expect(p1, Precise('8327494763829289204'));
+      expect(p1.precision, dartIntPrecision);
+
+      // Doubles.
+      p1 = Precise.toPrecise(42.0);
+      expect(p1.precision, 15);
+      expect(p1, Precise('42.0', sigDigits: dartDoublePrecision));
+      expect(p1, Precise('42'));
+
+      p1 = Precise.toPrecise(42.0, desiredPrecision: 25);
+      expect(p1.precision, 25);
+      expect(p1, Precise('42.0'));
+      expect(p1.toInt(), 42);
+      expect(p1.toDouble(), 42.0);
+
+      p1 = Precise.toPrecise(Double(54839476382.9284));
+      expect(p1, Precise('54839476382.9284'));
+      expect(p1.precision, dartDoublePrecision);
+
+      // Strings.
+      p1 = Precise.toPrecise('1234.5678');
+      expect(p1, Precise('1234.5678'));
+      expect(p1.precision, 50);
+
+      p1 = Precise.toPrecise('1234.5678', desiredPrecision: 99);
+      expect(p1, Precise('1234.5678'));
+      expect(p1.precision, 99);
     });
   });
 }

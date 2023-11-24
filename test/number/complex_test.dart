@@ -102,8 +102,8 @@ void main() {
         expect(c0 + Precise('7.5') is Precise, true);
 
         final c1 = Complex.coeff(1.1, 2.2);
-        expect(c1 + Precise('0.00000000000000000000000002'),
-            Complex(Precise('1.10000000000000000000000002'), Imaginary(2.2)));
+        expect(c1 + Precise('0.0000000002'),
+            Complex(Precise('1.1000000002'), Imaginary(2.2)));
       });
     });
 
@@ -179,8 +179,8 @@ void main() {
         expect(c0 - Precise('7.5') is Precise, true);
 
         final c1 = Complex.coeff(1.1, 2.2);
-        expect(c1 - Precise('0.00000000000000000000000002'),
-            Complex(Precise('1.09999999999999999999999998'), Imaginary(2.2)));
+        expect(c1 - Precise('0.0000000002'),
+            Complex(Precise('1.0999999998'), Imaginary(2.2)));
       });
     });
 
@@ -277,11 +277,11 @@ void main() {
         expect(c1 * Precise('1'), Complex.coeff(2, 3));
         expect(c1 * Precise('-9'), Complex.coeff(-18, -27));
 
-        final c2 = Complex.coeff(2, 3) * Precise('-2.000000000000000000002') as Complex;
+        final c2 = Complex.coeff(2, 3) * Precise('-2.0000002') as Complex;
         expect(c2.real is Precise, true);
-        expect(c2.real, Precise('-4.000000000000000000004'));
+        expect(c2.real, Precise('-4.0000004'));
         expect(c2.imag.value is Precise, true);
-        expect(c2.imag.value, Precise('-6.000000000000000000006'));
+        expect(c2.imag.value, Precise('-6.0000006'));
       });
     });
 
