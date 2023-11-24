@@ -518,8 +518,8 @@ class Dimensions {
       if (type is! MiscQuantity) {
         return createTypedQuantityInstance(type, value, units, uncert: uncert);
       }
-    } catch (e, s) {
-      logger.warning('Problem creating type instance; falling back to MiscQuantity for$this', e, s);
+    } catch (e) {
+      logger.warning('Problem creating type instance; falling back to MiscQuantity for$this');
     }
 
     // Unable to create a typed instance; return a MiscQuantity with these dimensions.

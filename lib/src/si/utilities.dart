@@ -271,7 +271,7 @@ Quantity createTypedQuantityInstance(Type t, dynamic value, Units? units,
   }
 
   // Fall back to MiscQuantity.
-  if (dimensions == null) {
+  if (dimensions == null && units == null) {
     throw DimensionsException(
         'Dimensions must be provided if units are not when creating an instance of an unrecognized quantity type');
   }
