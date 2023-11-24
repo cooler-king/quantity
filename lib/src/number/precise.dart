@@ -371,12 +371,8 @@ class Precise extends Real {
         intermediateProduct.insert(0, Digit.zero);
       }
 
-      var raw = Precise.raw(intermediateProduct,
+      product += Precise.raw(intermediateProduct,
           sigDigits: max(_precision, preciseMultiplier.precision) + 5);
-      product += raw;
-
-      //product += Precise.raw(intermediateProduct,
-      //    sigDigits: max(_precision, preciseMultiplier.precision) + 5);
       offset += 1;
     }
 
@@ -617,7 +613,6 @@ class Precise extends Real {
       for (var i = 0; i < _power; i++) {
         buf.write('0');
       }
-      // }
     } else if (_power < 0) {
       if (_power.abs() < _digits.length) {
         // Insert decimal point
