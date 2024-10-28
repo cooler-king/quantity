@@ -1,5 +1,8 @@
+### 3.0.2
+* Update lint dependency to `^3.0.0`.
+
 ### 3.0.1
-  * Fixed bugs in Precise class.
+* Fixed bugs in Precise class.
 
 ### 3.0.0
   * Requires >= Dart SDK 3.0

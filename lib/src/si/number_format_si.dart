@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:intl/intl.dart' show NumberFormat;
+import 'package:intl/intl.dart' show NumberFormat, NumberParserBase;
 import 'package:intl/number_symbols.dart';
 import '../number/complex.dart';
 import '../number/double.dart';
@@ -36,7 +36,7 @@ class NumberFormatSI implements NumberFormat {
 
   final NumberFormat _scientific = NumberFormat.scientificPattern();
 
-  /// Output in unicode (using unicode thin spaces instead of regular ascii spaces).
+  /// Output in unicode (unicode thin spaces instead of regular ascii spaces).
   bool unicode;
 
   /// [value] is expected to be a Quantity, Number or num object.
@@ -60,10 +60,14 @@ class NumberFormatSI implements NumberFormat {
         imagStr = number.value.toString();
       } else if (number is Complex) {
         if (number.real.value.toDouble() != 0) {
-          realStr = number.real.isInteger == true ? '${number.real.toInt()}' : number.real.toString();
+          realStr = number.real.isInteger == true
+              ? '${number.real.toInt()}'
+              : number.real.toString();
         }
         if (number.imag.value.toDouble() != 0) {
-          imagStr = number.imag.value.isInteger == true ? '${number.imag.value.toInt()}' : number.imag.value.toString();
+          imagStr = number.imag.value.isInteger == true
+              ? '${number.imag.value.toInt()}'
+              : number.imag.value.toString();
         }
         if (realStr == null && imagStr == null) realStr = '0';
       } else if (number is Precise) {
@@ -88,9 +92,14 @@ class NumberFormatSI implements NumberFormat {
       final s = insertSpaces(imagStr!);
       final expIndex = _exponentIndex(s);
       if (expIndex == -1) {
-        buf..write(s)..write('i');
+        buf
+          ..write(s)
+          ..write('i');
       } else {
-        buf..write(s.substring(0, expIndex))..write('i')..write(s.substring(expIndex));
+        buf
+          ..write(s.substring(0, expIndex))
+          ..write('i')
+          ..write(s.substring(expIndex));
       }
     }
 
@@ -111,7 +120,7 @@ class NumberFormatSI implements NumberFormat {
 
   /// Returns a String with spaces added according to SI guidelines.
   String insertSpaces(String str) {
-    // Remove any exponent piece and add it back in after spaces have been added.
+    // Remove any exponent piece and add it back in after spaces are added.
     final expIndex = _exponentIndex(str);
     final numStr = expIndex != -1 ? str.substring(0, expIndex) : str;
 
@@ -123,7 +132,8 @@ class NumberFormatSI implements NumberFormat {
 
     // Pre-decimal.
     if (preCount > 4) {
-      final preStr = decimalIndex != -1 ? numStr.substring(0, decimalIndex) : numStr;
+      final preStr =
+          decimalIndex != -1 ? numStr.substring(0, decimalIndex) : numStr;
       final fullGroups = preStr.length ~/ 3;
       var cursor = preStr.length - fullGroups * 3;
       if (cursor != 0) buf.write(preStr.substring(0, cursor));
@@ -150,7 +160,8 @@ class NumberFormatSI implements NumberFormat {
         while (cursor < postCount) {
           buf
             ..write(unicode ? '\u{2009}' : ' ')
-            ..write(numStr.substring(decimalIndex + 1 + cursor, min(decimalIndex + 4 + cursor, numStr.length)));
+            ..write(numStr.substring(decimalIndex + 1 + cursor,
+                min(decimalIndex + 4 + cursor, numStr.length)));
           cursor += 3;
         }
       } else {
@@ -163,15 +174,16 @@ class NumberFormatSI implements NumberFormat {
     return buf.toString();
   }
 
-  /// Removes any zeros at the end of a number string that follow a decimal point (except for one that immediately
-  /// follows the decimal point).
+  /// Removes any zeros at the end of a number string that follow a decimal
+  /// point (except for one that immediately follows the decimal point).
   static String removeInsignificantZeros(String str) {
     try {
       if (str.isNotEmpty != true) return str;
       final dotIndex = str.indexOf('.');
       if (dotIndex == -1) return str;
       final eIndex = str.toLowerCase().indexOf('e');
-      final decimalCount = eIndex == -1 ? str.length - dotIndex - 1 : eIndex - dotIndex - 1;
+      final decimalCount =
+          eIndex == -1 ? str.length - dotIndex - 1 : eIndex - dotIndex - 1;
       if (decimalCount < 2) return str;
       final lastDigitIndex = eIndex == -1 ? str.length - 1 : eIndex - 1;
       int endIndex;
@@ -187,16 +199,25 @@ class NumberFormatSI implements NumberFormat {
     }
   }
 
-  @override
-  num parse(String text) {
-    // Replace spaces, unicode characters and exponential notation before parsing.
-    var adj = text.replaceAll(' ', '').replaceAll('\u{2009}', '').replaceAll('x10^', 'E').replaceAll('x10', 'E');
+  String _normalizeText(String text) {
+    // Replace spaces, unicode chars and exponential notation before parsing.
+    var adj = text
+        .replaceAll(' ', '')
+        .replaceAll('\u{2009}', '')
+        .replaceAll('x10^', 'E')
+        .replaceAll('x10', 'E');
     for (final char in expUnicodeMap.keys) {
       final unicodeChar = expUnicodeMap[char]!;
       adj = adj.replaceAll(unicodeChar, char);
     }
-    return _scientific.parse(adj);
+    return adj;
   }
+
+  @override
+  num parse(String text) => _scientific.parse(_normalizeText(text));
+
+  @override
+  num? tryParse(String text) => _scientific.tryParse(_normalizeText(text));
 
   @override
   late String? currencyName = _scientific.currencyName;
@@ -275,7 +296,8 @@ class NumberFormatSI implements NumberFormat {
   }
 
   @override
-  bool get minimumSignificantDigitsStrict => _scientific.minimumSignificantDigitsStrict;
+  bool get minimumSignificantDigitsStrict =>
+      _scientific.minimumSignificantDigitsStrict;
 
   @override
   set minimumSignificantDigitsStrict(bool value) {
@@ -322,5 +344,18 @@ class NumberFormatSI implements NumberFormat {
   @override
   void turnOffGrouping() {
     // TODO: implement turnOffGrouping
+    throw UnimplementedError();
   }
+
+  @override
+  R parseWith<R, P extends NumberParserBase<R>>(
+          P Function(NumberFormat p1, String p2) parserGenerator,
+          String text) =>
+      _scientific.parseWith(parserGenerator, _normalizeText(text));
+
+  @override
+  R? tryParseWith<R, P extends NumberParserBase<R>>(
+          P Function(NumberFormat p1, String p2) parserGenerator,
+          String text) =>
+      _scientific.tryParseWith(parserGenerator, _normalizeText(text));
 }
