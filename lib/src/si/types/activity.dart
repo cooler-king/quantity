@@ -2,8 +2,6 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
-import 'length.dart';
-import 'time.dart';
 
 /// A measure of the _effective concentration_ of a species in a mixture.
 /// See the [Wikipedia entry for Thermodynamic activity](https://en.wikipedia.org/wiki/Thermodynamic_activity)
@@ -50,17 +48,6 @@ class ActivityUnits extends Activity with Units {
     this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
-  }
-
-  /// Constructs a instance from length and time units.
-  ActivityUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super.misc(lu.valueSI * su.valueSI) {
-    name = '${lu.name} per ${su.singular} squared';
-    singular = '${lu.singular} per ${su.singular} squared';
-    convToMKS = lu.valueSI * su.valueSI;
-    abbrev1 = lu.abbrev1 != null && su.abbrev1 != null ? '${lu.abbrev1} / ${su.abbrev1}' : null;
-    abbrev2 = lu.abbrev2 != null && su.abbrev2 != null ? '${lu.abbrev2}${su.abbrev2}' : null;
-    metricBase = metricBase;
-    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply.

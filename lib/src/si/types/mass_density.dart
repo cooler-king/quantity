@@ -51,12 +51,12 @@ class MassDensityUnits extends MassDensity with Units {
   }
 
   /// Constructs a instance from mass and volume units.
-  MassDensityUnits.massVolume(MassUnits mu, VolumeUnits vu) : super.misc(mu.valueSI * vu.valueSI) {
+  MassDensityUnits.massVolume(MassUnits mu, VolumeUnits vu) : super.misc(mu.valueSI / vu.valueSI) {
     name = '${mu.name} per ${vu.singular}';
     singular = '${mu.singular} per ${vu.singular}';
-    convToMKS = mu.valueSI * vu.valueSI;
+    convToMKS = mu.valueSI / vu.valueSI;
     abbrev1 = mu.abbrev1 != null && vu.abbrev1 != null ? '${mu.abbrev1} / ${vu.abbrev1}' : null;
-    abbrev2 = mu.abbrev2 != null && vu.abbrev2 != null ? '${mu.abbrev2}${vu.abbrev2}' : null;
+    abbrev2 = mu.abbrev2 != null && vu.abbrev2 != null ? '${mu.abbrev2}/${vu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }

@@ -2,8 +2,6 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
-import 'length.dart';
-import 'time.dart';
 
 /// The mean energy imparted to matter per unit mass by ionizing radiation.
 /// See the [Wikipedia entry for Absorbed Dose](https://en.wikipedia.org/wiki/Absorbed_dose)
@@ -53,17 +51,6 @@ class AbsorbedDoseUnits extends AbsorbedDose with Units {
     this.abbrev2 = abbrev2;
     this.metricBase = metricBase;
     this.offset = offset.toDouble();
-  }
-
-  /// Constructs a instance based on length and time units.
-  AbsorbedDoseUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super.misc(lu.valueSI * su.valueSI) {
-    name = '${lu.name} per ${su.singular} squared';
-    singular = '${lu.singular} per ${su.singular} squared';
-    convToMKS = lu.valueSI * su.valueSI;
-    abbrev1 = lu.abbrev1 != null && su.abbrev1 != null ? '${lu.abbrev1} / ${su.abbrev1}' : null;
-    abbrev2 = lu.abbrev2 != null && su.abbrev2 != null ? '${lu.abbrev2}${su.abbrev2}' : null;
-    metricBase = metricBase;
-    offset = offset.toDouble();
   }
 
   /// Returns the Type of the Quantity to which these Units apply.

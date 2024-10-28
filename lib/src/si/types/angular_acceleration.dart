@@ -61,12 +61,12 @@ class AngularAccelerationUnits extends AngularAcceleration with Units {
   }
 
   /// Constructs a instance from angle and time units.
-  AngularAccelerationUnits.angleTime(AngleUnits au, TimeUnits tu) : super.misc(au.valueSI * tu.valueSI) {
+  AngularAccelerationUnits.angleTime(AngleUnits au, TimeUnits tu) : super.misc(au.valueSI / tu.valueSI ^ 2) {
     name = '${au.name} per ${tu.singular} squared';
     singular = '${au.singular} per ${tu.singular} squared';
-    convToMKS = au.valueSI * tu.valueSI;
-    abbrev1 = au.abbrev1 != null && tu.abbrev1 != null ? '${au.abbrev1} / ${tu.abbrev1}' : null;
-    abbrev2 = au.abbrev2 != null && tu.abbrev2 != null ? '${au.abbrev2}${tu.abbrev2}' : null;
+    convToMKS = au.valueSI / tu.valueSI;
+    abbrev1 = au.abbrev1 != null && tu.abbrev1 != null ? '${au.abbrev1} / ${tu.abbrev1}^2' : null;
+    abbrev2 = au.abbrev2 != null && tu.abbrev2 != null ? '${au.abbrev2}${tu.abbrev2}^-2' : null;
     metricBase = false;
     offset = 0.0;
   }

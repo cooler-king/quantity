@@ -51,10 +51,10 @@ class ChargeDensityUnits extends ChargeDensity with Units {
   }
 
   /// Constructs a instance based on charge and volume units.
-  ChargeDensityUnits.chargeVolume(ChargeUnits ecu, VolumeUnits vu) : super.misc(ecu.valueSI * vu.valueSI) {
+  ChargeDensityUnits.chargeVolume(ChargeUnits ecu, VolumeUnits vu) : super.misc(ecu.valueSI / vu.valueSI) {
     name = '${ecu.name} per ${vu.singular}';
     singular = '${ecu.singular} per ${vu.singular}';
-    convToMKS = ecu.valueSI * vu.valueSI;
+    convToMKS = ecu.valueSI / vu.valueSI;
     abbrev1 = ecu.abbrev1 != null && vu.abbrev1 != null ? '${ecu.abbrev1}/${vu.abbrev1}' : null;
     abbrev2 = ecu.abbrev2 != null && vu.abbrev2 != null ? '${ecu.abbrev2}/${vu.abbrev2}' : null;
     metricBase = false;

@@ -53,10 +53,10 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
   }
 
   /// Constructs a instance from power and area units.
-  HeatFluxDensityUnits.powerArea(PowerUnits pu, AreaUnits au) : super.misc(pu.valueSI * au.valueSI) {
+  HeatFluxDensityUnits.powerArea(PowerUnits pu, AreaUnits au) : super.misc(pu.valueSI / au.valueSI) {
     name = '${pu.name} per ${au.singular}';
     singular = '${pu.singular} per ${au.singular}';
-    convToMKS = pu.valueSI * au.valueSI;
+    convToMKS = pu.valueSI / au.valueSI;
     abbrev1 = pu.abbrev1 != null && au.abbrev1 != null ? '${pu.abbrev1} / ${au.abbrev1}' : null;
     abbrev2 = pu.abbrev2 != null && au.abbrev2 != null ? '${pu.abbrev2}${au.abbrev2}' : null;
     metricBase = false;

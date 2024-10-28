@@ -51,10 +51,10 @@ class CurrentDensityUnits extends CurrentDensity with Units {
   }
 
   /// Constructs a instance from current and area quantities.
-  CurrentDensityUnits.currentArea(CurrentUnits ecu, AreaUnits au) : super.misc(ecu.valueSI * au.valueSI) {
+  CurrentDensityUnits.currentArea(CurrentUnits ecu, AreaUnits au) : super.misc(ecu.valueSI / au.valueSI) {
     name = '${ecu.name} per ${au.singular}';
     singular = '${ecu.singular} per ${au.singular}';
-    convToMKS = ecu.valueSI * au.valueSI;
+    convToMKS = ecu.valueSI / au.valueSI;
     abbrev1 = ecu.abbrev1 != null && au.abbrev1 != null ? '${ecu.abbrev1} / ${au.abbrev1}' : null;
     abbrev2 = ecu.abbrev2 != null && au.abbrev2 != null ? '${ecu.abbrev2}/${au.abbrev2}' : null;
     metricBase = false;

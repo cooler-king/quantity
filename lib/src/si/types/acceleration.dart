@@ -1,4 +1,5 @@
 import 'package:quantity/domain/astronomical.dart';
+
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -51,12 +52,12 @@ class AccelerationUnits extends Acceleration with Units {
   }
 
   /// Constructs a instance based on length and time units.
-  AccelerationUnits.lengthTimeUnits(LengthUnits lu, TimeUnits su) : super.misc(lu.valueSI * su.valueSI) {
-    name = '${lu.name} per ${su.singular} squared';
-    singular = '${lu.singular} per ${su.singular} squared';
-    convToMKS = lu.valueSI * su.valueSI;
-    abbrev1 = lu.abbrev1 != null && su.abbrev1 != null ? '${lu.abbrev1} / ${su.abbrev1}' : null;
-    abbrev2 = lu.abbrev2 != null && su.abbrev2 != null ? '${lu.abbrev2}${su.abbrev2}' : null;
+  AccelerationUnits.lengthTimeUnits(LengthUnits lu, TimeUnits tu) : super.misc(lu.valueSI * tu.valueSI ^ 2) {
+    name = '${lu.name} per ${tu.singular} squared';
+    singular = '${lu.singular} per ${tu.singular} squared';
+    convToMKS = lu.valueSI * tu.valueSI ^ 2;
+    abbrev1 = lu.abbrev1 != null && tu.abbrev1 != null ? '${lu.abbrev1} / ${tu.abbrev1}^2' : null;
+    abbrev2 = lu.abbrev2 != null && tu.abbrev2 != null ? '${lu.abbrev2}${tu.abbrev2}^-2' : null;
     metricBase = metricBase;
     offset = offset.toDouble();
   }

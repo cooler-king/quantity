@@ -53,10 +53,10 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
 
   /// Constructs a instance from a potential difference and length.
   ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifferenceUnits epdu, LengthUnits lu)
-      : super.misc(epdu.valueSI * lu.valueSI) {
+      : super.misc(epdu.valueSI / lu.valueSI) {
     name = '${epdu.name} per ${lu.singular}';
     singular = '${epdu.singular} per ${lu.singular}';
-    convToMKS = epdu.valueSI * lu.valueSI;
+    convToMKS = epdu.valueSI / lu.valueSI;
     abbrev1 = epdu.abbrev1 != null && lu.abbrev1 != null ? '${epdu.abbrev1} / ${lu.abbrev1}' : null;
     abbrev2 = epdu.abbrev2 != null && lu.abbrev2 != null ? '${epdu.abbrev2}/${lu.abbrev2}' : null;
     metricBase = false;

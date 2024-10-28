@@ -51,12 +51,12 @@ class LuminanceUnits extends Luminance with Units {
   }
 
   /// Constructs a instance from luminous intensity and area units.
-  LuminanceUnits.intensityArea(LuminousIntensityUnits liu, AreaUnits au) : super.misc(liu.valueSI * au.valueSI) {
+  LuminanceUnits.intensityArea(LuminousIntensityUnits liu, AreaUnits au) : super.misc(liu.valueSI / au.valueSI) {
     name = '${liu.name} per ${au.singular}';
     singular = '${liu.singular} per ${au.singular}';
-    convToMKS = liu.valueSI * au.valueSI;
+    convToMKS = liu.valueSI / au.valueSI;
     abbrev1 = liu.abbrev1 != null && au.abbrev1 != null ? '${liu.abbrev1} / ${au.abbrev1}' : null;
-    abbrev2 = liu.abbrev2 != null && au.abbrev2 != null ? '${liu.abbrev2}${au.abbrev2}' : null;
+    abbrev2 = liu.abbrev2 != null && au.abbrev2 != null ? '${liu.abbrev2}/${au.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }

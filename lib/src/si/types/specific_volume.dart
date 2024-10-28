@@ -2,7 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
-import 'length.dart';
+import 'volume.dart';
 import 'mass.dart';
 
 /// The ratio of the substance's volume to its mass.
@@ -32,7 +32,7 @@ class SpecificVolume extends Quantity {
 
   /// The standard SI unit.
   static final SpecificVolumeUnits cubicMetersPerKilogram =
-      SpecificVolumeUnits.lengthMass(Length.meters, Mass.kilograms);
+      SpecificVolumeUnits.volumeMass(Volume.cubicMeters, Mass.kilograms);
 }
 
 /// Units acceptable for use in describing SpecificVolume quantities.
@@ -50,13 +50,13 @@ class SpecificVolumeUnits extends SpecificVolume with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance base don length and mass units.
-  SpecificVolumeUnits.lengthMass(LengthUnits lu, MassUnits mu) : super.misc(lu.valueSI / mu.valueSI) {
-    name = '${lu.name} per ${mu.singular}';
-    singular = '${lu.singular} per ${mu.singular}';
-    convToMKS = lu.valueSI / mu.valueSI;
-    abbrev1 = lu.abbrev1 != null && mu.abbrev1 != null ? '${lu.abbrev1} / ${mu.abbrev1}' : null;
-    abbrev2 = lu.abbrev2 != null && mu.abbrev2 != null ? '${lu.abbrev2}${mu.abbrev2}' : null;
+  /// Constructs a instance based on volume and mass units.
+  SpecificVolumeUnits.volumeMass(VolumeUnits vu, MassUnits mu) : super.misc(vu.valueSI / mu.valueSI) {
+    name = '${vu.name} per ${mu.singular}';
+    singular = '${vu.singular} per ${mu.singular}';
+    convToMKS = vu.valueSI / mu.valueSI;
+    abbrev1 = vu.abbrev1 != null && mu.abbrev1 != null ? '${vu.abbrev1} / ${mu.abbrev1}' : null;
+    abbrev2 = vu.abbrev2 != null && mu.abbrev2 != null ? '${vu.abbrev2}${mu.abbrev2}' : null;
     metricBase = false;
     offset = 0.0;
   }
