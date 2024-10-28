@@ -196,7 +196,7 @@ class Integer extends Real {
 /// Represents an integer as a binary number.
 class Binary extends Integer {
   /// Constructs a instance.
-  Binary(String binaryStr) : super.parse(binaryStr, radix: 2);
+  Binary(super.binaryStr) : super.parse(radix: 2);
 
   @override
   String toString() => _value.toRadixString(2);
@@ -205,7 +205,7 @@ class Binary extends Integer {
 /// Represents an integer as an octal number.
 class Octal extends Integer {
   /// Constructs a instance.
-  Octal(String octalStr) : super.parse(octalStr, radix: 8);
+  Octal(super.octalStr) : super.parse(radix: 8);
 
   @override
   String toString() => _value.toRadixString(8);
@@ -214,7 +214,7 @@ class Octal extends Integer {
 /// Represents an integer as a hexadecimal number.
 class Hexadecimal extends Integer {
   /// Constructs a instance.
-  Hexadecimal(String hexStr) : super.parse(hexStr, radix: 16);
+  Hexadecimal(super.hexStr) : super.parse(radix: 16);
 
   @override
   String toString() => _value.toRadixString(16);

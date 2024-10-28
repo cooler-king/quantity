@@ -7,7 +7,7 @@ import 'quantity_range.dart';
 /// implicit direction.
 class AngleRange extends QuantityRange<Angle> {
   /// Constructs an angle range.
-  AngleRange(Angle startAngle, Angle endAngle) : super(startAngle, endAngle);
+  AngleRange(super.startAngle, super.endAngle);
 
   /// Constructs an angle range in radians.
   AngleRange.radians(double startAngleRad, double endAngleRad)
