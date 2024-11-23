@@ -519,7 +519,10 @@ class Dimensions {
         return createTypedQuantityInstance(type, value, units, uncert: uncert);
       }
     } catch (e) {
-      logger.warning('Problem creating type instance; falling back to MiscQuantity for$this');
+      // This can happen during intermediate equation calculations, for example when
+      // an element in the a is inverted to a miscellaneous type in preparation
+      // for multiplication.  Since it's not really a problem, log at the finest level.
+      logger.finest('Unable to create type instance; falling back to MiscQuantity for$this');
     }
 
     // Unable to create a typed instance; return a MiscQuantity with these dimensions.
