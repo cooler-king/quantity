@@ -353,10 +353,29 @@ abstract class Quantity implements Comparable<dynamic> {
   Quantity operator /(dynamic divisor) {
     if (divisor is num || divisor is Number) return this / Scalar(value: divisor);
 
+    // Product uncertainty
+    var quotientUr = _ur;
+
+    // Product value
+    Number quotientValue;
+
+    // Quotient dimensions
+    var quotientDimensions = dimensions;
+
+    // Branch on Quantity, num, Number
     if (divisor is Quantity) {
-      return this * divisor.inverse();
+      final q2 = divisor;
+      quotientDimensions = dimensions / q2.dimensions;
+      quotientValue = valueSI / q2.valueSI;
+      quotientUr = (_ur != 0.0 || q2._ur != 0.0) ? math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
     } else {
       throw const QuantityException('Expected a Quantity, num or Number object');
+    }
+
+    if (dynamicQuantityTyping) {
+      return quotientDimensions.toQuantity(quotientValue, null, quotientUr);
+    } else {
+      return MiscQuantity(quotientValue, quotientDimensions, quotientUr);
     }
   }
 
