@@ -10,14 +10,16 @@ import 'angle.dart';
 class SolidAngle extends Quantity {
   /// Constructs a SolidAngle with steradians ([sr]).
   /// Optionally specify a relative standard uncertainty.
-  SolidAngle({dynamic sr, double uncert = 0.0}) : super(sr ?? 0.0, SolidAngle.steradians, uncert);
+  SolidAngle({dynamic sr, double uncert = 0.0})
+      : super(sr ?? 0.0, SolidAngle.steradians, uncert);
 
-  /// Constructs a instance without preferred units.
-  SolidAngle.misc(dynamic conv) : super.misc(conv, SolidAngle.solidAngleDimensions);
+  /// Constructs an instance without preferred units.
+  SolidAngle.misc(dynamic conv)
+      : super.misc(conv, SolidAngle.solidAngleDimensions);
 
   // CONSTRUCTORS.
 
-  /// Constructs a instance in the specified [units].
+  /// Constructs an instance in the specified [units].
   SolidAngle.inUnits(dynamic value, SolidAngleUnits? units, [double uncert = 0])
       : super(value, units ?? SolidAngle.steradians, uncert);
 
@@ -30,13 +32,15 @@ class SolidAngle extends Quantity {
       Dimensions.constant(<String, int>{'Solid Angle': 1}, qType: SolidAngle);
 
   /// The standard SI unit.
-  static final SolidAngleUnits steradians = SolidAngleUnits('steradians', null, 'sr', null, 1.0, true);
+  static final SolidAngleUnits steradians =
+      SolidAngleUnits('steradians', 'sr', 'sr', 'steradian', 1.0, true);
 }
 
 /// Units acceptable for use in describing SolidAngle quantities.
 class SolidAngleUnits extends SolidAngle with Units {
-  /// Constructs a instance.
-  SolidAngleUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  SolidAngleUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0])
       : super.misc(conv) {
     this.name = name;
@@ -48,13 +52,14 @@ class SolidAngleUnits extends SolidAngle with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance based on angle units.
-  SolidAngleUnits.angleUnits(AngleUnits au) : super.misc(au.valueSI * au.valueSI) {
+  /// Constructs an instance based on angle units.
+  SolidAngleUnits.angleSquared(AngleUnits au)
+      : super.misc(au.valueSI * au.valueSI) {
     name = '${au.name} squared';
     singular = '${au.singular} squared';
     convToMKS = au.valueSI * au.valueSI;
-    abbrev1 = au.abbrev1 != null ? '${au.abbrev1}^2' : null;
-    abbrev2 = au.abbrev2 != null ? '${au.abbrev2}^2' : null;
+    abbrev1 = au.abbrev1 != null ? '${au.abbrev1}\u{00b2}' : null;
+    abbrev2 = au.abbrev2 != null ? '${au.abbrev2}\u{00b2}' : null;
     metricBase = metricBase;
     offset = offset.toDouble();
   }
@@ -65,12 +70,13 @@ class SolidAngleUnits extends SolidAngle with Units {
 
   /// Derive SolidAngleUnits using this SolidAngleUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => SolidAngleUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      SolidAngleUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

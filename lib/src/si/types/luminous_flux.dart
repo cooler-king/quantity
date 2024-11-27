@@ -13,32 +13,40 @@ import '../../si/units.dart';
 class LuminousFlux extends Quantity {
   /// Constructs a LuminousFlux with lumens ([lm]).
   /// Optionally specify a relative standard uncertainty.
-  LuminousFlux({dynamic lm, double uncert = 0.0}) : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
+  LuminousFlux({dynamic lm, double uncert = 0.0})
+      : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
 
-  /// Constructs a instance without preferred units.
-  LuminousFlux.misc(dynamic conv) : super.misc(conv, LuminousFlux.luminousFluxDimensions);
+  /// Constructs an instance without preferred units.
+  LuminousFlux.misc(dynamic conv)
+      : super.misc(conv, LuminousFlux.luminousFluxDimensions);
 
   /// Constructs a LuminousFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  LuminousFlux.inUnits(dynamic value, LuminousFluxUnits? units, [double uncert = 0.0])
+  LuminousFlux.inUnits(dynamic value, LuminousFluxUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? LuminousFlux.lumens, uncert);
 
   /// Constructs a constant LuminousFlux.
-  const LuminousFlux.constant(Number valueSI, {LuminousFluxUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, LuminousFlux.luminousFluxDimensions, units, uncert);
+  const LuminousFlux.constant(Number valueSI,
+      {LuminousFluxUnits? units, double uncert = 0.0})
+      : super.constant(
+            valueSI, LuminousFlux.luminousFluxDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions luminousFluxDimensions =
-      Dimensions.constant(<String, int>{'Intensity': 1, 'Solid Angle': 1}, qType: LuminousFlux);
+  static const Dimensions luminousFluxDimensions = Dimensions.constant(
+      <String, int>{'Intensity': 1, 'Solid Angle': 1},
+      qType: LuminousFlux);
 
   /// The standard SI unit.
-  static final LuminousFluxUnits lumens = LuminousFluxUnits('lumens', null, 'lm', null, 1.0, true);
+  static final LuminousFluxUnits lumens =
+      LuminousFluxUnits('lumens', 'lm', 'lm', 'lumen', 1.0, true);
 }
 
 /// Units acceptable for use in describing LuminousFlux quantities.
 class LuminousFluxUnits extends LuminousFlux with Units {
-  /// Constructs a instance.
-  LuminousFluxUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  LuminousFluxUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -56,12 +64,13 @@ class LuminousFluxUnits extends LuminousFlux with Units {
 
   /// Derive LuminousFluxUnits using this LuminousFluxUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => LuminousFluxUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      LuminousFluxUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

@@ -113,7 +113,10 @@ void main() {
       a = Angle(deg: Complex.coeff(12.34, 98.76));
       expect(a, isNotNull);
       expect(a.valueSI is Complex, true);
-      expect(a.valueSI == Complex.coeff(Angle.degrees.toMks(12.34).toDouble(), Angle.degrees.toMks(98.76).toDouble()),
+      expect(
+          a.valueSI ==
+              Complex.coeff(Angle.degrees.toMks(12.34).toDouble(),
+                  Angle.degrees.toMks(98.76).toDouble()),
           true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.degrees);
@@ -139,11 +142,13 @@ void main() {
 
       a = Angle(deg: 400);
       a360 = a.angle360;
-      expect(a360.valueSI.toDouble(), closeTo(Angle(deg: 40).valueSI.toDouble(), 0.00001));
+      expect(a360.valueSI.toDouble(),
+          closeTo(Angle(deg: 40).valueSI.toDouble(), 0.00001));
 
       a = Angle(deg: -25);
       a360 = a.angle360;
-      expect(a360.valueSI.toDouble(), closeTo(Angle(deg: 335).valueSI.toDouble(), 0.00001));
+      expect(a360.valueSI.toDouble(),
+          closeTo(Angle(deg: 335).valueSI.toDouble(), 0.00001));
     });
   });
 }

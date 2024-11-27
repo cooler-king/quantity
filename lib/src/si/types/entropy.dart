@@ -17,7 +17,7 @@ class Entropy extends Quantity {
   Entropy({dynamic joulesPerKelvin, double uncert = 0.0})
       : super(joulesPerKelvin ?? 0.0, Entropy.joulesPerKelvin, uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Entropy.misc(dynamic conv) : super.misc(conv, Entropy.entropyDimensions);
 
   /// Constructs a Entropy based on the [value]
@@ -26,22 +26,25 @@ class Entropy extends Quantity {
       : super(value, units ?? Entropy.joulesPerKelvin, uncert);
 
   /// Constructs a constant Entropy.
-  const Entropy.constant(Number valueSI, {EntropyUnits? units, double uncert = 0.0})
+  const Entropy.constant(Number valueSI,
+      {EntropyUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Entropy.entropyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions entropyDimensions =
-      Dimensions.constant(<String, int>{'Length': 2, 'Mass': 1, 'Temperature': -1, 'Time': -2}, qType: Entropy);
+  static const Dimensions entropyDimensions = Dimensions.constant(
+      <String, int>{'Length': 2, 'Mass': 1, 'Temperature': -1, 'Time': -2},
+      qType: Entropy);
 
   /// The standard SI unit.
-  static final EntropyUnits joulesPerKelvin =
-      EntropyUnits.energyTemperature(Energy.joules, TemperatureInterval.kelvins);
+  static final EntropyUnits joulesPerKelvin = EntropyUnits.energyPerTemperature(
+      Energy.joules, TemperatureInterval.kelvins);
 }
 
 /// Units acceptable for use in describing Entropy quantities.
 class EntropyUnits extends Entropy with Units {
-  /// Constructs a instance.
-  EntropyUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  EntropyUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -53,13 +56,18 @@ class EntropyUnits extends Entropy with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance based on energy and temperature interval units.
-  EntropyUnits.energyTemperature(EnergyUnits eu, TemperatureIntervalUnits tu) : super.misc(eu.valueSI * tu.valueSI) {
+  /// Constructs an instance based on energy and temperature interval units.
+  EntropyUnits.energyPerTemperature(EnergyUnits eu, TemperatureIntervalUnits tu)
+      : super.misc(eu.valueSI / tu.valueSI) {
     name = '${eu.name} per ${tu.singular}';
     singular = '${eu.singular} per ${tu.singular}';
-    convToMKS = eu.valueSI * tu.valueSI;
-    abbrev1 = eu.abbrev1 != null && tu.abbrev1 != null ? '${eu.abbrev1} / ${tu.abbrev1}' : null;
-    abbrev2 = eu.abbrev2 != null && tu.abbrev2 != null ? '${eu.abbrev2}${tu.abbrev2}' : null;
+    convToMKS = eu.valueSI / tu.valueSI;
+    abbrev1 = eu.abbrev1 != null && tu.abbrev1 != null
+        ? '${eu.abbrev1} / ${tu.abbrev1}'
+        : null;
+    abbrev2 = eu.abbrev2 != null && tu.abbrev2 != null
+        ? '${eu.abbrev2} ${tu.abbrev2}\u{207b}\u{00b9}'
+        : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -70,12 +78,13 @@ class EntropyUnits extends Entropy with Units {
 
   /// Derive EntropyUnits using this EntropyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => EntropyUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      EntropyUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

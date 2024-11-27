@@ -7,38 +7,70 @@ import 'time_ext.dart';
 PowerUnits watts = Power.watts;
 
 /// Square degrees as a unit.
-PowerUnits btuThermsPerHour = PowerUnits.energyTime(btuThermo, hours);
+PowerUnits btuThermsPerHour = PowerUnits.energyPerTime(btuThermo, hours);
 
 /// Thermochemical BTUs per second as a unit.
-PowerUnits btuThermsPerSecond = PowerUnits.energyTime(btuThermo, seconds);
+PowerUnits btuThermsPerSecond = PowerUnits.energyPerTime(btuThermo, seconds);
 
 /// Thermochemical calories as a unit.
-PowerUnits caloriesThermoPerSecond = PowerUnits.energyTime(caloriesThermo, seconds);
+PowerUnits caloriesThermoPerSecond =
+    PowerUnits.energyPerTime(caloriesThermo, seconds);
 
 /// Ergs per second as a unit.
-PowerUnits ergsPerSecond = PowerUnits.energyTime(ergs, seconds);
+PowerUnits ergsPerSecond = PowerUnits.energyPerTime(ergs, seconds);
 
 /// Force de cheval as a unit.
-PowerUnits forceDeCheval = PowerUnits('force de cheval', null, null, 'force de cheval', 735.5, false);
+PowerUnits forceDeCheval = PowerUnits('force de cheval', 'force de cheval',
+    'force de cheval', 'force de cheval', 735.5, false);
 
 /// Horsepower (550 ft lbs/s) as a unit.
-PowerUnits horsepower550 =
-    PowerUnits('horsepower (550 ft lbs/s)', null, null, 'horsepower (550 ft lbs/s)', 745.70, false);
+PowerUnits horsepower550 = PowerUnits(
+    'horsepower (550 ft lbs/s)',
+    'horsepower (550 ft lbs/s)',
+    'horsepower (550 ft lbs/s)',
+    'horsepower (550 ft lbs/s)',
+    745.70,
+    false);
 
 /// Horsepower (boiler) as a unit.
-PowerUnits horsepowerBoiler = PowerUnits('horsepower (boiler)', null, null, 'horsepower (boiler)', 9809.5, false);
+PowerUnits horsepowerBoiler = PowerUnits(
+    'horsepower (boiler)',
+    'horsepower (boiler)',
+    'horsepower (boiler)',
+    'horsepower (boiler)',
+    9809.5,
+    false);
 
 /// Horsepower (electric) as a unit.
-PowerUnits horsepowerElectric = PowerUnits('horsepower (electric)', null, null, 'horsepower (electric)', 746.0, false);
+PowerUnits horsepowerElectric = PowerUnits(
+    'horsepower (electric)',
+    'horsepower (elec)',
+    'horsepower (elec)',
+    'horsepower (electric)',
+    746.0,
+    false);
 
 /// Horsepower (metric) as a unit.
-PowerUnits horsepowerMetric = PowerUnits('horsepower (metric)', null, null, 'horsepower (metric)', 735.5, false);
+PowerUnits horsepowerMetric = PowerUnits(
+    'horsepower (metric)',
+    'horsepower (metric)',
+    'horsepower (metric)',
+    'horsepower (metric)',
+    735.5,
+    false);
 
 /// Horsepower (water) as a unit.
-PowerUnits horsepowerWater = PowerUnits('horsepower (water)', null, null, 'horsepower (water)', 746.04, false);
+PowerUnits horsepowerWater = PowerUnits(
+    'horsepower (water)',
+    'horsepower (water)',
+    'horsepower (water)',
+    'horsepower (water)',
+    746.04,
+    false);
 
 /// A power commonly used as the reference power for calculation of sound power _levels_.
-PowerUnits referenceSound = PowerUnits('reference (sound)', null, null, 'reference (sound)', 1.0e-12, false);
+PowerUnits referenceSound = PowerUnits('reference (sound)', 'reference (sound)',
+    'reference (sound)', 'reference (sound)', 1.0e-12, false);
 
 // Convenience units.
 

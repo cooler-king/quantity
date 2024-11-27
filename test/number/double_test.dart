@@ -89,11 +89,13 @@ void main() {
       var i = Imaginary(34.21);
       expect(d + i is Complex, true);
       expect((d + i as Complex).real.toDouble(), closeTo(42.056, 0.000001));
-      expect((d + i as Complex).imag.value.toDouble(), closeTo(34.21, 0.000001));
+      expect(
+          (d + i as Complex).imag.value.toDouble(), closeTo(34.21, 0.000001));
       i = Imaginary(-34.21);
       expect(d + i is Complex, true);
       expect((d + i as Complex).real.toDouble(), closeTo(42.056, 0.000001));
-      expect((d + i as Complex).imag.value.toDouble(), closeTo(-34.21, 0.000001));
+      expect(
+          (d + i as Complex).imag.value.toDouble(), closeTo(-34.21, 0.000001));
 
       // + Complex
       var cx = Complex(Double(2.1), Imaginary(9.6));

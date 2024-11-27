@@ -12,9 +12,10 @@ import 'time.dart';
 class Charge extends Quantity {
   /// Constructs a Charge with coulombs ([C]).
   /// Optionally specify a relative standard uncertainty.
-  Charge({dynamic C, double uncert = 0.0}) : super(C ?? 0.0, Charge.coulombs, uncert);
+  Charge({dynamic C, double uncert = 0.0})
+      : super(C ?? 0.0, Charge.coulombs, uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Charge.misc(dynamic conv) : super.misc(conv, Charge.electricChargeDimensions);
 
   /// Constructs a Charge based on the [value]
@@ -23,21 +24,25 @@ class Charge extends Quantity {
       : super(value, units ?? Charge.coulombs, uncert);
 
   /// Constructs a constant Charge.
-  const Charge.constant(Number valueSI, {ChargeUnits? units, double uncert = 0.0})
+  const Charge.constant(Number valueSI,
+      {ChargeUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Charge.electricChargeDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions electricChargeDimensions =
-      Dimensions.constant(<String, int>{'Current': 1, 'Time': 1}, qType: Charge);
+  static const Dimensions electricChargeDimensions = Dimensions.constant(
+      <String, int>{'Current': 1, 'Time': 1},
+      qType: Charge);
 
   /// The standard SI unit.
-  static final ChargeUnits coulombs = ChargeUnits('coulombs', null, 'C', null, 1.0, true);
+  static final ChargeUnits coulombs =
+      ChargeUnits('coulombs', 'C', 'C', 'coulomb', 1.0, true);
 }
 
 /// Units acceptable for use in describing Charge quantities.
 class ChargeUnits extends Charge with Units {
-  /// Constructs a instance.
-  ChargeUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  ChargeUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -49,13 +54,18 @@ class ChargeUnits extends Charge with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance from an electric current and time.
-  ChargeUnits.currentTime(CurrentUnits cu, TimeUnits tu) : super.misc(cu.valueSI * tu.valueSI) {
-    name = '${cu.name} ${tu.name}';
+  /// Constructs an instance from an electric current and time.
+  ChargeUnits.currentTime(CurrentUnits cu, TimeUnits tu)
+      : super.misc(cu.valueSI * tu.valueSI) {
+    name = '${cu.singular} ${tu.name}';
     singular = '${cu.singular} ${tu.singular}';
     convToMKS = cu.valueSI * tu.valueSI;
-    abbrev1 = cu.abbrev1 != null && tu.abbrev1 != null ? '${cu.abbrev1}${tu.abbrev1}' : null;
-    abbrev2 = cu.abbrev2 != null && tu.abbrev2 != null ? '${cu.abbrev2}${tu.abbrev2}' : null;
+    abbrev1 = cu.abbrev1 != null && tu.abbrev1 != null
+        ? '${cu.abbrev1}${tu.abbrev1}'
+        : null;
+    abbrev2 = cu.abbrev2 != null && tu.abbrev2 != null
+        ? '${cu.abbrev2} ${tu.abbrev2}'
+        : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -66,12 +76,13 @@ class ChargeUnits extends Charge with Units {
 
   /// Derive ChargeUnits using this ChargeUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ChargeUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      ChargeUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

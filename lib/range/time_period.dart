@@ -30,10 +30,11 @@ class FiscalYear extends TimePeriod {
 /// The period of 365 days (or 366 days in leap years) starting from the first of January;
 /// used for reckoning time in ordinary affairs.
 class CalendarYear extends TimePeriod {
-  /// Constructs a instance for [year].
+  /// Constructs an instance for [year].
   CalendarYear(int year)
       : _year = year,
-        super(TimeInstant.dateTime(DateTime(year, 1)), TimeInstant.dateTime(DateTime(year + 1)));
+        super(TimeInstant.dateTime(DateTime(year, 1)),
+            TimeInstant.dateTime(DateTime(year + 1)));
 
   final int _year;
 

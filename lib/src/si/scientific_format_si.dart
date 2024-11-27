@@ -4,7 +4,7 @@ import 'number_format_si.dart';
 /// Formats a number as a single integer digit, followed by decimal digits
 /// and raised to a power of 10 (e.g., 1.2345 x 10^3).
 class ScientificFormatSI extends NumberFormatSI {
-  /// Constructs a instance.
+  /// Constructs an instance.
   ScientificFormatSI({super.unicode});
 
   /// Move the decimal point to just after the first integer digit.
@@ -34,13 +34,17 @@ class ScientificFormatSI extends NumberFormatSI {
 
     if (firstNonZeroDigit == -1) return '0.0';
 
-    final includedExponent = eIndex != -1 ? num.parse(trimmed.substring(eIndex + 1)) : 0;
+    final includedExponent =
+        eIndex != -1 ? num.parse(trimmed.substring(eIndex + 1)) : 0;
 
     final length = eIndex != -1 ? eIndex : trimmed.length;
-    var exp = (dotIndex == -1 ? length - 1 : dotIndex - firstNonZeroDigit) + includedExponent;
+    var exp = (dotIndex == -1 ? length - 1 : dotIndex - firstNonZeroDigit) +
+        includedExponent;
     if (dotIndex > firstNonZeroDigit) exp--;
 
-    var sciStr = eIndex != -1 ? trimmed.substring(firstNonZeroDigit, eIndex) : trimmed.substring(firstNonZeroDigit);
+    var sciStr = eIndex != -1
+        ? trimmed.substring(firstNonZeroDigit, eIndex)
+        : trimmed.substring(firstNonZeroDigit);
     if (sciStr.length == 1) {
       sciStr = '$sciStr.0';
     } else {
@@ -55,7 +59,11 @@ class ScientificFormatSI extends NumberFormatSI {
     sciStr = '$sign$sciStr';
 
     // Append the exponent.
-    if (exp != 0) sciStr = unicode ? '$sciStr \u{00d7} 10${unicodeExponent(exp)}' : '$sciStr x 10^$exp';
+    if (exp != 0) {
+      sciStr = unicode
+          ? '$sciStr \u{00d7} 10${unicodeExponent(exp)}'
+          : '$sciStr x 10^$exp';
+    }
 
     return sciStr;
   }

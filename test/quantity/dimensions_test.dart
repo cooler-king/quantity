@@ -36,9 +36,11 @@ void main() {
     });
 
     test('equality', () {
-      final d1 = Dimensions.fromMap(<String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
+      final d1 = Dimensions.fromMap(
+          <String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
 
-      final d2 = Dimensions.fromMap(<String, int>{'Angle': 1, 'Amount': -2, 'Time': -1, 'Length': 1});
+      final d2 = Dimensions.fromMap(
+          <String, int>{'Angle': 1, 'Amount': -2, 'Time': -1, 'Length': 1});
 
       expect(d1 == d2, true);
       expect(d1 != d2, false);
@@ -47,11 +49,19 @@ void main() {
     });
 
     test('equalsSI', () {
-      final d1 = Dimensions.fromMap(<String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
+      final d1 = Dimensions.fromMap(
+          <String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
 
-      final d2 = Dimensions.fromMap(<String, int>{'Amount': -2, 'Time': -1, 'Length': 1});
+      final d2 = Dimensions.fromMap(
+          <String, int>{'Amount': -2, 'Time': -1, 'Length': 1});
 
-      final d3 = Dimensions.fromMap(<String, int>{'Time': -1, 'Length': 1, 'Angle': 5, 'Amount': -2, 'Solid Angle': 3});
+      final d3 = Dimensions.fromMap(<String, int>{
+        'Time': -1,
+        'Length': 1,
+        'Angle': 5,
+        'Amount': -2,
+        'Solid Angle': 3
+      });
 
       expect(d1 == d2, false);
       expect(d1 == d3, false);
@@ -65,11 +75,19 @@ void main() {
     });
 
     test('hashCode', () {
-      final d1 = Dimensions.fromMap(<String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
+      final d1 = Dimensions.fromMap(
+          <String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
 
-      final d2 = Dimensions.fromMap(<String, int>{'Angle': 1, 'Amount': -2, 'Time': -1, 'Length': 1});
+      final d2 = Dimensions.fromMap(
+          <String, int>{'Angle': 1, 'Amount': -2, 'Time': -1, 'Length': 1});
 
-      final d3 = Dimensions.fromMap(<String, int>{'Time': -1, 'Length': 1, 'Angle': 5, 'Amount': -2, 'Solid Angle': 3});
+      final d3 = Dimensions.fromMap(<String, int>{
+        'Time': -1,
+        'Length': 1,
+        'Angle': 5,
+        'Amount': -2,
+        'Solid Angle': 3
+      });
 
       final testMap = <Dimensions, int>{};
       testMap[d1] = 1;
@@ -83,13 +101,17 @@ void main() {
     });
 
     test('operator *', () {
-      final d1 = Dimensions.fromMap(<String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
+      final d1 = Dimensions.fromMap(
+          <String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
 
-      final d2 = Dimensions.fromMap(<String, int>{'Amount': 2, 'Time': -1, 'Length': 2});
+      final d2 = Dimensions.fromMap(
+          <String, int>{'Amount': 2, 'Time': -1, 'Length': 2});
 
-      final d3 = Dimensions.fromMap(<String, int>{'Time': -2, 'Length': 3, 'Angle': 1});
+      final d3 = Dimensions.fromMap(
+          <String, int>{'Time': -2, 'Length': 3, 'Angle': 1});
 
-      final d4 = Dimensions.fromMap(<String, int>{'Time': -2, 'Length': 2, 'Angle': 2, 'Amount': -4});
+      final d4 = Dimensions.fromMap(
+          <String, int>{'Time': -2, 'Length': 2, 'Angle': 2, 'Amount': -4});
 
       final d5 = Dimensions();
 
@@ -101,17 +123,22 @@ void main() {
     });
 
     test('operator /', () {
-      final d1 = Dimensions.fromMap(<String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
+      final d1 = Dimensions.fromMap(
+          <String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
 
-      final d2 = Dimensions.fromMap(<String, int>{'Amount': 2, 'Time': -1, 'Length': 2});
+      final d2 = Dimensions.fromMap(
+          <String, int>{'Amount': 2, 'Time': -1, 'Length': 2});
 
-      final d3 = Dimensions.fromMap(<String, int>{'Length': -1, 'Angle': 1, 'Amount': -4});
+      final d3 = Dimensions.fromMap(
+          <String, int>{'Length': -1, 'Angle': 1, 'Amount': -4});
 
-      final d4 = Dimensions.fromMap(<String, int>{'Length': 1, 'Angle': -1, 'Amount': 4});
+      final d4 = Dimensions.fromMap(
+          <String, int>{'Length': 1, 'Angle': -1, 'Amount': 4});
 
       final d5 = Dimensions();
 
-      final d6 = Dimensions.fromMap(<String, int>{'Time': 1, 'Length': -1, 'Angle': -1, 'Amount': 2});
+      final d6 = Dimensions.fromMap(
+          <String, int>{'Time': 1, 'Length': -1, 'Angle': -1, 'Amount': 2});
 
       expect(d1 / d2, d3);
       expect(d2 / d1, d4);
@@ -121,17 +148,22 @@ void main() {
     });
 
     test('operator ^', () {
-      final d1 = Dimensions.fromMap(<String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
+      final d1 = Dimensions.fromMap(
+          <String, int>{'Time': -1, 'Length': 1, 'Angle': 1, 'Amount': -2});
 
-      final d2 = Dimensions.fromMap(<String, int>{'Amount': 2, 'Time': -1, 'Length': 2});
+      final d2 = Dimensions.fromMap(
+          <String, int>{'Amount': 2, 'Time': -1, 'Length': 2});
 
-      final d3 = Dimensions.fromMap(<String, int>{'Length': -1, 'Angle': 1, 'Amount': -4});
+      final d3 = Dimensions.fromMap(
+          <String, int>{'Length': -1, 'Angle': 1, 'Amount': -4});
 
-      final d4 = Dimensions.fromMap(<String, int>{'Length': 1, 'Angle': -1, 'Amount': 4});
+      final d4 = Dimensions.fromMap(
+          <String, int>{'Length': 1, 'Angle': -1, 'Amount': 4});
 
       final d5 = Dimensions();
 
-      final d6 = Dimensions.fromMap(<String, int>{'Time': 1, 'Length': -1, 'Angle': -1, 'Amount': 2});
+      final d6 = Dimensions.fromMap(
+          <String, int>{'Time': 1, 'Length': -1, 'Angle': -1, 'Amount': 2});
 
       expect(d1 ^ 1, d1);
       expect(d1 ^ 0, d5);
@@ -198,88 +230,165 @@ void main() {
 
     test('determine quantity type', () {
       // BASE QUANTITIES
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 1})), Length);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Mass': 1})), Mass);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Time': 1})), Time);
       expect(
-          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Temperature': 1})), TemperatureInterval);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Current': 1})), Current);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Intensity': 1})), LuminousIntensity);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Amount': 1})), AmountOfSubstance);
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': 1})),
+          Length);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Mass': 1})),
+          Mass);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Time': 1})),
+          Time);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Temperature': 1})),
+          TemperatureInterval);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Current': 1})),
+          Current);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Intensity': 1})),
+          LuminousIntensity);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Amount': 1})),
+          AmountOfSubstance);
 
       // AUX BASE
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Angle': 1})), Angle);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Solid Angle': 1})), SolidAngle);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Angle': 1})),
+          Angle);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Solid Angle': 1})),
+          SolidAngle);
 
       // THE REST
 
       // x-AbsorbedDose (SpecificEnergy)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 2, 'Time': -3})),
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': 2, 'Time': -3})),
           AbsorbedDoseRate);
       expect(
-          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 1, 'Time': -2})), Acceleration);
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': 1, 'Time': -2})),
+          Acceleration);
 
       // x-Activity (Frequency)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Angle': 1, 'Time': -2})),
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Angle': 1, 'Time': -2})),
           AngularAcceleration);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Angle': 1, 'Time': -1, 'Length': 1})),
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Angle': 1, 'Time': -1, 'Length': 1})),
           AngularMomentum);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Angle': 1, 'Time': -1})), AngularSpeed);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Angle': 1, 'Time': -1})),
+          AngularSpeed);
 
       // x-AngularVelocity (AngularSpeed)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 2})), Area);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': 2})),
+          Area);
 
       // x-Capacitance (Capacitance)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Amount': 1, 'Time': -1})),
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Amount': 1, 'Time': -1})),
           CatalyticActivity);
 
       // x-Charge (Charge)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Amount': 1, 'Length': -3})),
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Amount': 1, 'Length': -3})),
           Concentration);
 
       // x-Conductance (Conductance)
       // x-Currency (Scalar)
       // x-DoseEquivalent (SpecificEnergy)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Mass': 1, 'Length': -1, 'Time': -1})),
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Mass': 1, 'Length': -1, 'Time': -1})),
           DynamicViscosity);
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Time': 4, 'Current': 2, 'Length': -2, 'Mass': -1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Time': 4,
+            'Current': 2,
+            'Length': -2,
+            'Mass': -1
+          })),
           Capacitance);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Current': 1, 'Time': 1})), Charge);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Current': 1, 'Time': 1, 'Length': -3})),
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Current': 1, 'Time': 1})),
+          Charge);
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Current': 1, 'Time': 1, 'Length': -3})),
           ChargeDensity);
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Current': 2, 'Time': 3, 'Length': -2, 'Mass': -1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Current': 2,
+            'Time': 3,
+            'Length': -2,
+            'Mass': -1
+          })),
           Conductance);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Current': 1, 'Length': -2})),
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Current': 1, 'Length': -2})),
           CurrentDensity);
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Current': -1, 'Time': -3, 'Length': 1, 'Mass': 1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Current': -1,
+            'Time': -3,
+            'Length': 1,
+            'Mass': 1
+          })),
           ElectricFieldStrength);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Current': 1, 'Time': 1, 'Length': -2})),
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Current': 1, 'Time': 1, 'Length': -2})),
           ElectricFluxDensity);
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Current': -1, 'Time': -3, 'Length': 2, 'Mass': 1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Current': -1,
+            'Time': -3,
+            'Length': 2,
+            'Mass': 1
+          })),
           ElectricPotentialDifference);
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Current': -2, 'Time': -3, 'Length': 2, 'Mass': 1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Current': -2,
+            'Time': -3,
+            'Length': 2,
+            'Mass': 1
+          })),
           Resistance);
 
       // x-ElectromotiveForce (ElectricPotentialDifference)
       // x-Emf (PotentialDifference)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 2, 'Mass': 1, 'Time': -2})),
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Length': 2, 'Mass': 1, 'Time': -2})),
           Energy);
 
       // x-EnergyDensity (Pressure)
@@ -287,29 +396,42 @@ void main() {
       // x-EnergyFluxDensity (HeatFluxDensity)
 
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': 2, 'Mass': 1, 'Temperature': -1, 'Time': -2})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Length': 2,
+            'Mass': 1,
+            'Temperature': -1,
+            'Time': -2
+          })),
           Entropy);
 
       // x-Epoch (TimeInstant)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Current': 1, 'Mass': -1, 'Time': 1})),
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Current': 1, 'Mass': -1, 'Time': 1})),
           Exposure);
 
       // x-FieldLevel (Level)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 1, 'Mass': 1, 'Time': -2})),
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Length': 1, 'Mass': 1, 'Time': -2})),
           Force);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Time': -1})), Frequency);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Time': -1})),
+          Frequency);
 
       // x-HeatCapacity (Entropy)
       // x-HeatFlowRate (Power)
 
       expect(
-          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Mass': 1, 'Time': -3})), HeatFluxDensity);
-      expect(
           Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': -2, 'Intensity': 1, 'Solid Angle': 1})),
+              Dimensions.fromMap(<String, int>{'Mass': 1, 'Time': -3})),
+          HeatFluxDensity);
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Length': -2, 'Intensity': 1, 'Solid Angle': 1})),
           Illuminance);
 
       // x-ImpartedSpecificEnergy (SpecificEnergy)
@@ -317,121 +439,192 @@ void main() {
       // x-InformationRate (Scalar)
 
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': 2, 'Mass': 1, 'Current': -2, 'Time': -2})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Length': 2,
+            'Mass': 1,
+            'Current': -2,
+            'Time': -2
+          })),
           Inductance);
 
       // x-Irradiance (HeatFluxDensity)
       // x-Kerma (SpecificEnergy)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 2, 'Time': -1})),
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': 2, 'Time': -1})),
           KinematicViscosity);
 
       // x-Level (Scalar)
 
       expect(
-          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': -2, 'Intensity': 1})), Luminance);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Intensity': 1, 'Solid Angle': 1})),
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': -2, 'Intensity': 1})),
+          Luminance);
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Intensity': 1, 'Solid Angle': 1})),
           LuminousFlux);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': -1, 'Current': 1})),
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': -1, 'Current': 1})),
           MagneticFieldStrength);
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': 2, 'Time': -2, 'Current': -1, 'Mass': 1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Length': 2,
+            'Time': -2,
+            'Current': -1,
+            'Mass': 1
+          })),
           MagneticFlux);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Mass': 1, 'Current': -1, 'Time': -2})),
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Mass': 1, 'Current': -1, 'Time': -2})),
           MagneticFluxDensity);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Mass': 1, 'Length': -3})), MassDensity);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Mass': 1, 'Time': -1})), MassFlowRate);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Mass': 1, 'Time': -1, 'Length': -2})),
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Mass': 1, 'Length': -3})),
+          MassDensity);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Mass': 1, 'Time': -1})),
+          MassFlowRate);
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Mass': 1, 'Time': -1, 'Length': -2})),
           MassFluxDensity);
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1})),
           MolarEnergy);
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Mass': 1, 'Length': 2, 'Time': -2, 'Amount': -1, 'Temperature': -1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Mass': 1,
+            'Length': 2,
+            'Time': -2,
+            'Amount': -1,
+            'Temperature': -1
+          })),
           MolarEntropy);
 
       // x-MolarHeatCapacity (MolarEntropy), MomentOfForce (Torque)
 
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': 1, 'Mass': 1, 'Time': -2, 'Current': -2})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Length': 1,
+            'Mass': 1,
+            'Time': -2,
+            'Current': -2
+          })),
           Permeability);
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': -3, 'Time': 4, 'Current': 2, 'Mass': -1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Length': -3,
+            'Time': 4,
+            'Current': 2,
+            'Mass': -1
+          })),
           Permittivity);
 
       // x-Potential (PotentialDifference)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 2, 'Mass': 1, 'Time': -3})),
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Length': 2, 'Mass': 1, 'Time': -3})),
           Power);
 
       // x-PowerFluxDensity (HeatFluxDensity)
       // x-PowerLevel (Level)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': -1, 'Mass': 1, 'Time': -2})),
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Length': -1, 'Mass': 1, 'Time': -2})),
           Pressure);
       expect(
-          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Mass': 1, 'Solid Angle': -1, 'Time': -3})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Mass': 1, 'Solid Angle': -1, 'Time': -3})),
           Radiance);
 
       // x-RadiantFlux (Power)
 
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': 2, 'Mass': 1, 'Time': -3, 'Solid Angle': -1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Length': 2,
+            'Mass': 1,
+            'Time': -3,
+            'Solid Angle': -1
+          })),
           RadiantIntensity);
 
       // x-Resistance (Resistance)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{})), Scalar);
+      expect(
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{})),
+          Scalar);
 
       // x-SoundIntensity (HeatFluxDensity)
       // x-SoundIntensityLevel (PowerLevel => Level)
       // x-SoundPressureLevel (FieldLevel => Level)
 
       expect(
-          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 2, 'Time': -2})), SpecificEnergy);
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': 2, 'Time': -2})),
+          SpecificEnergy);
 
       // x-SpecificEntropy (SpecificHeatCapacity)
 
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': 2, 'Time': -2, 'Temperature': -1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Length': 2, 'Time': -2, 'Temperature': -1})),
           SpecificHeatCapacity);
       expect(
-          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 3, 'Mass': -1})), SpecificVolume);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 1, 'Time': -1})), Speed);
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': 3, 'Mass': -1})),
+          SpecificVolume);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': 1, 'Time': -1})),
+          Speed);
 
       // x-Stress (Pressure)
 
       expect(
-          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Mass': 1, 'Time': -2})), SurfaceTension);
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Mass': 1, 'Time': -2})),
+          SurfaceTension);
 
       // x-Temperature (TemperatureInterval returned instead)
 
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': 1, 'Mass': 1, 'Time': -3, 'Temperature': -1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{
+            'Length': 1,
+            'Mass': 1,
+            'Time': -3,
+            'Temperature': -1
+          })),
           ThermalConductivity);
 
       // x-TimeInstant (Time returned instead)
 
       expect(
-          Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1})),
+          Dimensions.determineQuantityType(Dimensions.fromMap(
+              <String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1})),
           Torque);
 
       // x-Velocity (Speed)
 
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': -3})), Volume);
       expect(
-          Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': 3, 'Time': -1})), VolumeFlowRate);
-      expect(Dimensions.determineQuantityType(Dimensions.fromMap(<String, int>{'Length': -1})), WaveNumber);
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': -3})),
+          Volume);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': 3, 'Time': -1})),
+          VolumeFlowRate);
+      expect(
+          Dimensions.determineQuantityType(
+              Dimensions.fromMap(<String, int>{'Length': -1})),
+          WaveNumber);
 
       // x-Work (Energy)
     });

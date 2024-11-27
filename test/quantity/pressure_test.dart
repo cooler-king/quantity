@@ -35,5 +35,25 @@ void main() {
       expect(q.valueSI.toDouble(), 10.0);
       expect(q is Pressure, true);
     });
+
+    test('units', () {
+      var u = PressureUnits.forcePerArea(Force.newtons, Area.squareMeters);
+      expect(u.name, "newtons per square meter");
+      expect(u.singular, "newton per square meter");
+      expect(u.convToMKS.toDouble(), 1.0);
+      expect(u.abbrev1, "N / m\u{00b2}");
+      expect(u.abbrev2, "N m\u{207b}\u{00b2}");
+
+      var nPerHa = PressureUnits.forcePerArea(Force.newtons, Area.hectares);
+      expect(nPerHa.name, "newtons per hectare");
+      expect(nPerHa.singular, "newton per hectare");
+      expect(nPerHa.convToMKS.toDouble(), 0.0001);
+      expect(nPerHa.abbrev1, "N / ha");
+      expect(nPerHa.abbrev2, "N ha\u{207b}\u{00b9}");
+
+      var q1 = Pressure(Pa: 1.0);
+      var q2 = Pressure.inUnits(1.0e4, nPerHa);
+      expect(q1 == q2, true);
+    });
   });
 }

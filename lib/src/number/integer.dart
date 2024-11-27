@@ -6,14 +6,15 @@ import 'real.dart';
 
 /// Wraps Dart's core [int] type, so that it can share a common base type with other [Number]s.
 class Integer extends Real {
-  /// Constructs a instance.
+  /// Constructs an instance.
   Integer(this._value);
 
   /// Constructs a constant Integer.
   const Integer.constant(this._value) : super.constant();
 
-  /// Constructs a instance.
-  Integer.parse(String str, {int radix = 10}) : _value = int.parse(str, radix: radix);
+  /// Constructs an instance.
+  Integer.parse(String str, {int radix = 10})
+      : _value = int.parse(str, radix: radix);
 
   /// Construct an Integer from a Map:
   ///     { 'i': integer value }
@@ -66,9 +67,11 @@ class Integer extends Real {
   /// Only [num] and [Number] objects having the same real
   /// integer value (and no imaginary component) are considered equal.
   @override
-  bool operator ==(dynamic obj) {
+  bool operator ==(Object obj) {
     if (obj is Number || obj is num) return obj == value;
-    if (obj is Complex) return obj.real.value == value && obj.imaginary.value.value == 0.0;
+    if (obj is Complex) {
+      return obj.real.value == value && obj.imaginary.value.value == 0.0;
+    }
     if (obj is Imaginary) return value == 0.0 && obj.value.value == 0.0;
 
     return false;
@@ -120,28 +123,32 @@ class Integer extends Real {
   Number operator &(dynamic n) {
     if (n is int) return Integer(_value & n);
     if (n is Integer) return Integer(_value & n._value);
-    throw UnsupportedError('Bitwise AND operations are only supported for int and Integer objects');
+    throw UnsupportedError(
+        'Bitwise AND operations are only supported for int and Integer objects');
   }
 
   /// Bitwise OR.
   Number operator |(dynamic n) {
     if (n is int) return Integer(_value | n);
     if (n is Integer) return Integer(_value | n._value);
-    throw UnsupportedError('Bitwise OR operations are only supported for int and Integer objects');
+    throw UnsupportedError(
+        'Bitwise OR operations are only supported for int and Integer objects');
   }
 
   /// Shift the bits of this integer to the left by n.
   Number operator <<(dynamic n) {
     if (n is int) return Integer(_value << n);
     if (n is Integer) return Integer(_value << n._value);
-    throw UnsupportedError('Bit shift operations are only supported for int and Integer objects');
+    throw UnsupportedError(
+        'Bit shift operations are only supported for int and Integer objects');
   }
 
   /// Shift the bits of this integer to the right by n.
   Number operator >>(dynamic n) {
     if (n is int) return Integer(_value >> n);
     if (n is Integer) return Integer(_value >> n._value);
-    throw UnsupportedError('Bit shift operations are only supported for int and Integer objects');
+    throw UnsupportedError(
+        'Bit shift operations are only supported for int and Integer objects');
   }
 
   /// A substitute method to perform bitwise XOR operation on integers.
@@ -149,7 +156,8 @@ class Integer extends Real {
   Integer bitwiseXor(dynamic n) {
     if (n is int) return Integer(_value ^ n);
     if (n is Integer) return Integer(_value ^ n._value);
-    throw UnsupportedError('Bitwise XOR operations are only supported for int and Integer objects');
+    throw UnsupportedError(
+        'Bitwise XOR operations are only supported for int and Integer objects');
   }
 
   /// The bit-wise negate operator.
@@ -176,7 +184,9 @@ class Integer extends Real {
             ? upperLimit.toDouble()
             : 0;
     final clamped = value.clamp(lower, upper);
-    return clamped.toInt() == clamped ? Integer(clamped.toInt()) : Double(clamped.toDouble());
+    return clamped.toInt() == clamped
+        ? Integer(clamped.toInt())
+        : Double(clamped.toDouble());
   }
 
   @override
@@ -195,7 +205,7 @@ class Integer extends Real {
 
 /// Represents an integer as a binary number.
 class Binary extends Integer {
-  /// Constructs a instance.
+  /// Constructs an instance.
   Binary(super.binaryStr) : super.parse(radix: 2);
 
   @override
@@ -204,7 +214,7 @@ class Binary extends Integer {
 
 /// Represents an integer as an octal number.
 class Octal extends Integer {
-  /// Constructs a instance.
+  /// Constructs an instance.
   Octal(super.octalStr) : super.parse(radix: 8);
 
   @override
@@ -213,7 +223,7 @@ class Octal extends Integer {
 
 /// Represents an integer as a hexadecimal number.
 class Hexadecimal extends Integer {
-  /// Constructs a instance.
+  /// Constructs an instance.
   Hexadecimal(super.hexStr) : super.parse(radix: 16);
 
   @override

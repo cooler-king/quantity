@@ -14,34 +14,44 @@ class ElectricPotentialDifference extends Quantity {
   ElectricPotentialDifference({dynamic V, double uncert = 0.0})
       : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   ElectricPotentialDifference.misc(dynamic conv)
-      : super.misc(conv, ElectricPotentialDifference.electricPotentialDifferenceDimensions);
+      : super.misc(conv,
+            ElectricPotentialDifference.electricPotentialDifferenceDimensions);
 
   /// Constructs a ElectricPotentialDifference based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ElectricPotentialDifference.inUnits(dynamic value, ElectricPotentialDifferenceUnits? units, [double uncert = 0.0])
+  ElectricPotentialDifference.inUnits(
+      dynamic value, ElectricPotentialDifferenceUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? ElectricPotentialDifference.volts, uncert);
 
   /// Constructs a constant ElectricPotentialDifference.
   const ElectricPotentialDifference.constant(Number valueSI,
       {ElectricPotentialDifferenceUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, ElectricPotentialDifference.electricPotentialDifferenceDimensions, units, uncert);
+      : super.constant(
+            valueSI,
+            ElectricPotentialDifference.electricPotentialDifferenceDimensions,
+            units,
+            uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions electricPotentialDifferenceDimensions = Dimensions.constant(
-      <String, int>{'Current': -1, 'Time': -3, 'Length': 2, 'Mass': 1},
-      qType: ElectricPotentialDifference);
+  static const Dimensions electricPotentialDifferenceDimensions =
+      Dimensions.constant(
+          <String, int>{'Current': -1, 'Time': -3, 'Length': 2, 'Mass': 1},
+          qType: ElectricPotentialDifference);
 
   /// The standard SI unit.
   static final ElectricPotentialDifferenceUnits volts =
-      ElectricPotentialDifferenceUnits('volts', null, 'V', null, 1.0, true);
+      ElectricPotentialDifferenceUnits('volts', 'V', 'V', 'volt', 1.0, true);
 }
 
 /// Units acceptable for use in describing ElectricPotentialDifference quantities.
-class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with Units {
-  /// Constructs a instance.
-  ElectricPotentialDifferenceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference
+    with Units {
+  /// Constructs an instance.
+  ElectricPotentialDifferenceUnits(String name, String? abbrev1,
+      String? abbrev2, String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -59,12 +69,13 @@ class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference with 
 
   /// Derive ElectricPotentialDifferenceUnits using this ElectricPotentialDifferenceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ElectricPotentialDifferenceUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      ElectricPotentialDifferenceUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

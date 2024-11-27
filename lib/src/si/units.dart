@@ -33,7 +33,7 @@ mixin Units {
   late String name;
 
   /// The name of the units in singular form.
-  String? singular;
+  late String singular;
 
   /// The primary abbreviation for the units.
   String? abbrev1;
@@ -56,7 +56,7 @@ mixin Units {
   /// Two units are considered equal if their conversions to MKS are equal and
   /// they have the same singular name.
   @override
-  bool operator ==(dynamic obj) {
+  bool operator ==(Object obj) {
     if (identical(this, obj)) return true;
 
     if (obj is Units) {
@@ -78,7 +78,7 @@ mixin Units {
   /// in that order.  If [sing] is true and no symbol or alternate name are available
   /// then the singular version of the name will be returned.
   String getShortestName(bool sing) =>
-      abbrev2 ?? abbrev1 ?? (sing ? (singular ?? name) : name);
+      abbrev2 ?? abbrev1 ?? (sing ? singular : name);
 
   /// Calculates and returns the value in SI-MKS units of the specified [value]
   /// (that is implicitly in these units).
@@ -93,7 +93,8 @@ mixin Units {
             Precise(convToMKS.toString(), sigDigits: value.precision + 1);
         term = preciseConv * value;
         if (offset == 0) return term;
-        return term + Precise(offset.toString(), sigDigits: value.precision + 1);
+        return term +
+            Precise(offset.toString(), sigDigits: value.precision + 1);
       } else {
         term = convToMKS * value;
         if (offset == 0) return term;

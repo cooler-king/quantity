@@ -11,7 +11,7 @@ import 'util/jenkins_hash.dart';
 /// An imaginary number is usually displayed as a value followed by small letter 'i'.
 /// 'i' squared is defined as -1 (or equivalently, the square root of -1 is defined as 'i').
 class Imaginary extends Number {
-  /// Constructs a instance.
+  /// Constructs an instance.
   Imaginary(dynamic val)
       : value = (val is num)
             ? ((val is int) ? Integer(val) : Double(val as double))
@@ -22,10 +22,11 @@ class Imaginary extends Number {
   /// Constructs a constant Imaginary number.
   const Imaginary.constant(this.value) : super.constant();
 
-  /// Constructs a instance, applying the values in map [m].
-  factory Imaginary.fromMap(Map<String, Map<String, dynamic>>? m) => (m?.containsKey('imag') == true)
-      ? Imaginary.fromMap(m?['imag'] as Map<String, Map<String, dynamic>>)
-      : const Imaginary.constant(Integer.zero);
+  /// Constructs an instance, applying the values in map [m].
+  factory Imaginary.fromMap(Map<String, Map<String, dynamic>>? m) =>
+      (m?.containsKey('imag') == true)
+          ? Imaginary.fromMap(m?['imag'] as Map<String, Map<String, dynamic>>)
+          : const Imaginary.constant(Integer.zero);
 
   /// The value of the imaginary component as a Real number.
   final Real value;
@@ -39,8 +40,10 @@ class Imaginary extends Number {
   int toInt() => 0;
 
   /// Returns a Complex number equivalent to this Imaginary number.
-  Complex toComplex() =>
-      Complex(Integer(0), Imaginary(value.isInteger ? Integer(value.toInt()) : Double(value.toDouble())));
+  Complex toComplex() => Complex(
+      Integer(0),
+      Imaginary(
+          value.isInteger ? Integer(value.toInt()) : Double(value.toDouble())));
 
   /// Always returns false as the value in the real dimension is 0.
   /// To find whether the imaginary component is infinite use `value.isInfinite`.
@@ -63,7 +66,7 @@ class Imaginary extends Number {
   bool get isInteger => true;
 
   @override
-  bool operator ==(dynamic obj) {
+  bool operator ==(Object obj) {
     if (obj is Imaginary) return value == obj.value;
     if (obj is Complex) return obj.real.value == 0.0 && this == obj.imaginary;
     if (obj is Real || obj is num) return value.toDouble() == 0.0 && obj == 0.0;
@@ -79,12 +82,17 @@ class Imaginary extends Number {
 
   @override
   Number operator +(dynamic addend) {
-    if (addend is Imaginary) return Number.simplifyType(Imaginary(value + addend.value));
+    if (addend is Imaginary) {
+      return Number.simplifyType(Imaginary(value + addend.value));
+    }
     if (addend is Complex) {
-      return Number.simplifyType(Complex(addend.real, Imaginary(value + addend.imag.value)));
+      return Number.simplifyType(
+          Complex(addend.real, Imaginary(value + addend.imag.value)));
     }
     if (addend is Real) return Number.simplifyType(Complex(addend, this));
-    if (addend is num) return Number.simplifyType(Complex(Double(addend.toDouble()), this));
+    if (addend is num) {
+      return Number.simplifyType(Complex(Double(addend.toDouble()), this));
+    }
     return this;
   }
 
@@ -94,14 +102,22 @@ class Imaginary extends Number {
   @override
   Number operator -(dynamic subtrahend) {
     if (subtrahend is num) {
-      return Number.simplifyType(
-          Complex(subtrahend is int ? Integer(-subtrahend) : Double(-subtrahend as double), this));
+      return Number.simplifyType(Complex(
+          subtrahend is int
+              ? Integer(-subtrahend)
+              : Double(-subtrahend as double),
+          this));
     }
-    if (subtrahend is Real) return Number.simplifyType(Complex(-subtrahend, this));
+    if (subtrahend is Real) {
+      return Number.simplifyType(Complex(-subtrahend, this));
+    }
     if (subtrahend is Complex) {
-      return Number.simplifyType(Complex(-subtrahend.real, this - subtrahend.imaginary as Imaginary));
+      return Number.simplifyType(
+          Complex(-subtrahend.real, this - subtrahend.imaginary as Imaginary));
     }
-    if (subtrahend is Imaginary) return Number.simplifyType(Imaginary(value - subtrahend.value));
+    if (subtrahend is Imaginary) {
+      return Number.simplifyType(Imaginary(value - subtrahend.value));
+    }
 
     return this;
   }
@@ -109,9 +125,15 @@ class Imaginary extends Number {
   @override
   Number operator *(dynamic multiplicand) {
     // i * i = -1
-    if (multiplicand is Imaginary) return Number.simplifyType(value * multiplicand.value * -1);
-    if (multiplicand is num) return Number.simplifyType(Imaginary(value * multiplicand));
-    if (multiplicand is Real) return Number.simplifyType(Imaginary(multiplicand * value));
+    if (multiplicand is Imaginary) {
+      return Number.simplifyType(value * multiplicand.value * -1);
+    }
+    if (multiplicand is num) {
+      return Number.simplifyType(Imaginary(value * multiplicand));
+    }
+    if (multiplicand is Real) {
+      return Number.simplifyType(Imaginary(multiplicand * value));
+    }
     if (multiplicand is Complex) {
       // ai * (b + ci) = -ac + abi
       final real = value * multiplicand.imag.value.toDouble() * -1.0 as Real;
@@ -132,38 +154,58 @@ class Imaginary extends Number {
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
-      if (divisor.real.isNaN || divisor.imag.isNaN) return Complex(Double.NaN, Imaginary(Double.NaN));
+      if (divisor.real.isNaN || divisor.imag.isNaN) {
+        return Complex(Double.NaN, Imaginary(Double.NaN));
+      }
       if (divisor.real.value == 0 && divisor.imag.value.value == 0) {
         if (value.value == 0) return Complex(Double.NaN, Imaginary(Double.NaN));
-        if (value.isNegative) return Complex(Double.negInfinity, Imaginary(Double.negInfinity));
+        if (value.isNegative) {
+          return Complex(Double.negInfinity, Imaginary(Double.negInfinity));
+        }
         return Complex(Double.infinity, Imaginary(Double.infinity));
       }
-      final bOverc2d2 = value / ((divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0));
-      return Number.simplifyType(
-          Complex(bOverc2d2 * divisor.imaginary.value as Real, Imaginary(bOverc2d2 * divisor.real)));
+      final bOverc2d2 =
+          value / ((divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0));
+      return Number.simplifyType(Complex(
+          bOverc2d2 * divisor.imaginary.value as Real,
+          Imaginary(bOverc2d2 * divisor.real)));
     }
 
     // Treat divisor as 0.
-    return value.isNegative ? Imaginary(Double.negInfinity) : Imaginary(Double.infinity);
+    return value.isNegative
+        ? Imaginary(Double.negInfinity)
+        : Imaginary(Double.infinity);
   }
 
   /// The truncating division operator.
   @override
   Number operator ~/(dynamic divisor) {
-    if (divisor == 0) return value < 0 ? Imaginary(Double.negInfinity) : Imaginary(Double.infinity);
+    if (divisor == 0) {
+      return value < 0
+          ? Imaginary(Double.negInfinity)
+          : Imaginary(Double.infinity);
+    }
     if (divisor is num) return Number.simplifyType(Imaginary(value ~/ divisor));
-    if (divisor is Imaginary) return Number.simplifyType(value ~/ divisor.value);
-    if (divisor is Real) return Number.simplifyType(Imaginary(value ~/ divisor.value));
+    if (divisor is Imaginary) {
+      return Number.simplifyType(value ~/ divisor.value);
+    }
+    if (divisor is Real) {
+      return Number.simplifyType(Imaginary(value ~/ divisor.value));
+    }
     if (divisor is Complex) {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
-      final bOverc2d2 = value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
-      return Number.simplifyType(Complex((bOverc2d2 * divisor.real).truncate() as Real,
+      final bOverc2d2 =
+          value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
+      return Number.simplifyType(Complex(
+          (bOverc2d2 * divisor.real).truncate() as Real,
           Imaginary((bOverc2d2 * divisor.imaginary.value * -1.0).truncate())));
     }
 
     // Treat divisor as 0.
-    return value < 0 ? Imaginary(Double.negInfinity) : Imaginary(Double.infinity);
+    return value < 0
+        ? Imaginary(Double.negInfinity)
+        : Imaginary(Double.infinity);
   }
 
   /// The modulo operator (not supported).
@@ -224,7 +266,9 @@ class Imaginary extends Number {
   /// Complex number space (e.g., the absolute value of 0 + 4i = 4).  The absolute
   /// value is always a real number.
   @override
-  Number abs() => value.isInteger ? Integer(value.abs().toInt()) : Double(value.abs().toDouble());
+  Number abs() => value.isInteger
+      ? Integer(value.abs().toInt())
+      : Double(value.abs().toDouble());
 
   /// The integer ceiling of a purely imaginary number is always zero.
   @override
@@ -232,8 +276,8 @@ class Imaginary extends Number {
 
   /// Clamps the real portion of a complex number having this imaginary value.
   @override
-  Number clamp(dynamic lowerLimit, dynamic upperLimit) =>
-      Number.simplifyType(Complex(Integer(0), this).clamp(lowerLimit, upperLimit));
+  Number clamp(dynamic lowerLimit, dynamic upperLimit) => Number.simplifyType(
+      Complex(Integer(0), this).clamp(lowerLimit, upperLimit));
 
   /// The integer floor of a purely imaginary number is always zero.
   @override

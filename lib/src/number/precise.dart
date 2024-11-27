@@ -475,7 +475,7 @@ class Precise extends Real {
 
   /// Equals operator.
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (other is double && (other.isNaN || other.isInfinite)) return false;
     final p2 = other is Precise ? other : toPrecise(other);
     if (_neg != p2._neg) return false;
@@ -780,7 +780,7 @@ class Digit {
   final ByteData value = ByteData(1);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (other is Digit) return value.getUint8(0) == other.value.getUint8(0);
     if (other is num) return value.getUint8(0) == other;
     if (other is Number) return other.toDouble() == value.getUint8(0);

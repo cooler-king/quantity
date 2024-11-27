@@ -13,29 +13,35 @@ class WaveNumber extends Quantity {
   WaveNumber({dynamic reciprocalMeters, double uncert = 0.0})
       : super(reciprocalMeters ?? 0.0, WaveNumber.reciprocalMeters, uncert);
 
-  /// Constructs a instance without preferred units.
-  WaveNumber.misc(dynamic conv) : super.misc(conv, WaveNumber.waveNumberDimensions);
+  /// Constructs an instance without preferred units.
+  WaveNumber.misc(dynamic conv)
+      : super.misc(conv, WaveNumber.waveNumberDimensions);
 
   /// Constructs a WaveNumber based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  WaveNumber.inUnits(dynamic value, WaveNumberUnits? units, [double uncert = 0.0])
+  WaveNumber.inUnits(dynamic value, WaveNumberUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? WaveNumber.reciprocalMeters, uncert);
 
   /// Constructs a constant WaveNumber.
-  const WaveNumber.constant(Number valueSI, {WaveNumberUnits? units, double uncert = 0.0})
+  const WaveNumber.constant(Number valueSI,
+      {WaveNumberUnits? units, double uncert = 0.0})
       : super.constant(valueSI, WaveNumber.waveNumberDimensions, units, uncert);
 
   /// Dimensions for this type of quantity
-  static const Dimensions waveNumberDimensions = Dimensions.constant(<String, int>{'Length': -1}, qType: WaveNumber);
+  static const Dimensions waveNumberDimensions =
+      Dimensions.constant(<String, int>{'Length': -1}, qType: WaveNumber);
 
   /// The standard SI unit.
-  static final WaveNumberUnits reciprocalMeters = WaveNumberUnits.inverseLength(Length.meters);
+  static final WaveNumberUnits reciprocalMeters =
+      WaveNumberUnits.inverseLength(Length.meters);
 }
 
 /// Units acceptable for use in describing WaveNumber quantities.
 class WaveNumberUnits extends WaveNumber with Units {
-  /// Constructs a instance.
-  WaveNumberUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  WaveNumberUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -47,13 +53,14 @@ class WaveNumberUnits extends WaveNumber with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance based on length units.
-  WaveNumberUnits.inverseLength(LengthUnits lu) : super.misc(Integer.one / lu.valueSI) {
+  /// Constructs an instance based on length units.
+  WaveNumberUnits.inverseLength(LengthUnits lu)
+      : super.misc(Integer.one / lu.valueSI) {
     name = 'reciprocal ${lu.name}';
     singular = 'reciprocal ${lu.singular}';
     convToMKS = Integer.one / lu.valueSI;
     abbrev1 = lu.abbrev1 != null ? '1 / ${lu.abbrev1}' : null;
-    abbrev2 = lu.abbrev2 != null ? '${lu.abbrev2}-1' : null;
+    abbrev2 = lu.abbrev2 != null ? '${lu.abbrev2}\u{207b}\u{00b9}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -64,12 +71,13 @@ class WaveNumberUnits extends WaveNumber with Units {
 
   /// Derive WaveNumberUnits using this WaveNumberUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => WaveNumberUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      WaveNumberUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

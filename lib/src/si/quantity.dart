@@ -71,16 +71,22 @@ abstract class Quantity implements Comparable<dynamic> {
   /// standard deviation, which is equal to the positive square root of the
   /// estimated variance.  One standard deviate in a Normal distribution
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately 68%.
-  Quantity([dynamic value = Integer.zero, this.preferredUnits, double uncert = 0.0])
-      : valueSI = preferredUnits?.toMks(value ?? 0) ?? (value is Number ? value : numToNumber(value as num)),
-        dimensions = (preferredUnits is Quantity) ? (preferredUnits as Quantity).dimensions : Scalar.scalarDimensions,
+  Quantity(
+      [dynamic value = Integer.zero, this.preferredUnits, double uncert = 0.0])
+      : valueSI = preferredUnits?.toMks(value ?? 0) ??
+            (value is Number ? value : numToNumber(value as num)),
+        dimensions = (preferredUnits is Quantity)
+            ? (preferredUnits as Quantity).dimensions
+            : Scalar.scalarDimensions,
         _ur = uncert;
 
   /// Used to construct a constant Quantity.
-  const Quantity.constant(this.valueSI, this.dimensions, this.preferredUnits, this._ur);
+  const Quantity.constant(
+      this.valueSI, this.dimensions, this.preferredUnits, this._ur);
 
   /// A constructor to support miscellaneous quantities:  dimensions are known, units are not.
-  Quantity.misc([dynamic value = 0.0, Dimensions? dimensions, double uncert = 0.0])
+  Quantity.misc(
+      [dynamic value = 0.0, Dimensions? dimensions, double uncert = 0.0])
       : valueSI = (value is num)
             ? numToNumber(value)
             : value is Number
@@ -161,7 +167,8 @@ abstract class Quantity implements Comparable<dynamic> {
   /// 2. 95.45% for k=2,
   /// 3. 99% for k=2.576 and
   /// 4. 99.73% for k=3.
-  Quantity calcExpandedUncertainty(double k) => dimensions.toQuantity(valueSI.abs() * _ur * k);
+  Quantity calcExpandedUncertainty(double k) =>
+      dimensions.toQuantity(valueSI.abs() * _ur * k);
 
   /// Returns the standard uncertainty in this Quantity object's value as a typed
   /// Quantity object.
@@ -172,7 +179,8 @@ abstract class Quantity implements Comparable<dynamic> {
   /// estimated variance.  One standard deviate in a Normal distribution
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
-  Quantity get standardUncertainty => dimensions.toQuantity(valueSI.abs() * _ur);
+  Quantity get standardUncertainty =>
+      dimensions.toQuantity(valueSI.abs() * _ur);
 
   /// Randomly generates a Quantity from this Quantity's value and uncertainty.
   /// The uncertainty is represented by a Normal (Gaussian) continuous
@@ -236,23 +244,30 @@ abstract class Quantity implements Comparable<dynamic> {
   /// (NIST Reference on Constants, Units, and Uncertainty: Combining
   /// Uncertainty Components](http://physics.nist.gov/cuu/Uncertainty/combination.html))
   Quantity operator +(dynamic addend) {
-    if (addend == null) throw const QuantityException('Cannot add NULL to Quantity');
+    if (addend == null) {
+      throw const QuantityException('Cannot add NULL to Quantity');
+    }
 
     // Scalars allow addition of numbers (the standard uncertainty remains the same).
-    if (isScalar && (addend is num || addend is Number)) return this + Scalar(value: addend);
+    if (isScalar && (addend is num || addend is Number)) {
+      return this + Scalar(value: addend);
+    }
 
     // Every other Quantity type can only add another Quantity.
     if (addend is! Quantity) {
-      throw const QuantityException('Cannot add a anything other than a Quantity to a non-Scalar Quantity');
+      throw const QuantityException(
+          'Cannot add a anything other than a Quantity to a non-Scalar Quantity');
     }
     final q2 = addend;
     if (dimensions != q2.dimensions) {
-      throw DimensionsException('Can\'t add Quantities having different dimensions:  $dimensions and ${q2.dimensions}');
+      throw DimensionsException(
+          'Can\'t add Quantities having different dimensions:  $dimensions and ${q2.dimensions}');
     }
 
     // Calculate the uncertainty, if necessary.
     final newValueSI = valueSI + q2.valueSI;
-    final sumUr = calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
+    final sumUr =
+        calcRelativeCombinedUncertaintySumDiff(this, addend, newValueSI);
 
     if (dynamicQuantityTyping) {
       return dimensions.toQuantity(newValueSI, null, sumUr);
@@ -279,14 +294,19 @@ abstract class Quantity implements Comparable<dynamic> {
   /// uncertainty components.
   Quantity operator -(dynamic subtrahend) {
     // Null check
-    if (subtrahend == null) throw const QuantityException('Cannot subtract NULL from Quantity');
+    if (subtrahend == null) {
+      throw const QuantityException('Cannot subtract NULL from Quantity');
+    }
 
     // Scalars allow subtraction of numbers.
-    if (isScalar && (subtrahend is num || subtrahend is Number)) return this - Scalar(value: subtrahend);
+    if (isScalar && (subtrahend is num || subtrahend is Number)) {
+      return this - Scalar(value: subtrahend);
+    }
 
     // Every other Quantity type can only subtract another Quantity.
     if (subtrahend is! Quantity) {
-      throw QuantityException('Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity');
+      throw QuantityException(
+          'Cannot subtract a ${subtrahend.runtimeType} from a non-Scalar Quantity');
     }
     final q2 = subtrahend;
     if (dimensions != q2.dimensions) {
@@ -295,7 +315,8 @@ abstract class Quantity implements Comparable<dynamic> {
     }
 
     final newValueSI = valueSI - q2.valueSI;
-    final diffUr = calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+    final diffUr =
+        calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
 
     if (dynamicQuantityTyping) {
       return dimensions.toQuantity(valueSI - q2.valueSI, null, diffUr);
@@ -314,7 +335,9 @@ abstract class Quantity implements Comparable<dynamic> {
   /// defined as the square root of the sum of the squares of the two
   /// quantities' relative standard uncertainties.
   Quantity operator *(dynamic multiplier) {
-    if (multiplier is num || multiplier is Number) return this * Scalar(value: multiplier);
+    if (multiplier is num || multiplier is Number) {
+      return this * Scalar(value: multiplier);
+    }
 
     // Product uncertainty
     var productUr = _ur;
@@ -330,9 +353,12 @@ abstract class Quantity implements Comparable<dynamic> {
       final q2 = multiplier;
       productDimensions = dimensions * q2.dimensions;
       productValue = valueSI * q2.valueSI;
-      productUr = (_ur != 0.0 || q2._ur != 0.0) ? math.sqrt(_ur * _ur + q2._ur * q2._ur) : 0.0;
+      productUr = (_ur != 0.0 || q2._ur != 0.0)
+          ? math.sqrt(_ur * _ur + q2._ur * q2._ur)
+          : 0.0;
     } else {
-      throw const QuantityException('Expected a Quantity, num or Number object');
+      throw const QuantityException(
+          'Expected a Quantity, num or Number object');
     }
 
     if (dynamicQuantityTyping) {
@@ -351,12 +377,15 @@ abstract class Quantity implements Comparable<dynamic> {
   /// defined as the square root of the sum of the squares of the two quantities'
   /// relative standard uncertainties.
   Quantity operator /(dynamic divisor) {
-    if (divisor is num || divisor is Number) return this / Scalar(value: divisor);
+    if (divisor is num || divisor is Number) {
+      return this / Scalar(value: divisor);
+    }
 
     if (divisor is Quantity) {
       return this * divisor.inverse();
     } else {
-      throw const QuantityException('Expected a Quantity, num or Number object');
+      throw const QuantityException(
+          'Expected a Quantity, num or Number object');
     }
   }
 
@@ -376,20 +405,24 @@ abstract class Quantity implements Comparable<dynamic> {
     }
 
     if (exponent is num) {
-      return (dimensions ^ exponent).toQuantity(valueSI ^ exponent, null, _ur * exponent);
+      return (dimensions ^ exponent)
+          .toQuantity(valueSI ^ exponent, null, _ur * exponent);
     } else if (exponent is Number) {
-      return (dimensions ^ exponent.toDouble()).toQuantity(valueSI ^ exponent, null, _ur * exponent.toDouble());
+      return (dimensions ^ exponent.toDouble())
+          .toQuantity(valueSI ^ exponent, null, _ur * exponent.toDouble());
     } else if (exponent is Scalar) {
-      return (dimensions ^ exponent.valueSI.toDouble())
-          .toQuantity(valueSI ^ exponent, null, _ur * exponent.valueSI.toDouble());
+      return (dimensions ^ exponent.valueSI.toDouble()).toQuantity(
+          valueSI ^ exponent, null, _ur * exponent.valueSI.toDouble());
     }
 
-    throw const QuantityException('Cannot raise a quantity to a non-numeric power');
+    throw const QuantityException(
+        'Cannot raise a quantity to a non-numeric power');
   }
 
   /// The unary minus operator returns a Quantity whose value
   /// is the negative of this Quantity's value.
-  Quantity operator -() => dimensions.toQuantity(valueSI * -1, preferredUnits, _ur);
+  Quantity operator -() =>
+      dimensions.toQuantity(valueSI * -1, preferredUnits, _ur);
 
   /// Returns a [Quantity] that represents the square root of this Quantity,
   /// in terms of both value and dimensions (for example, if this Quantity were an
@@ -405,7 +438,8 @@ abstract class Quantity implements Comparable<dynamic> {
   /// accomplished by simply inverting the dimensions and dividing the SI MKS value
   /// into 1.0.
   /// * The relative standard uncertainty is unchanged by inversion.
-  Quantity inverse() => dimensions.inverse().toQuantity(valueSI.reciprocal(), null, _ur);
+  Quantity inverse() =>
+      dimensions.inverse().toQuantity(valueSI.reciprocal(), null, _ur);
 
   /// Determines whether on not this Quantity is less than a specified Quantity by
   /// comparing their MKS values.  The two Quantities need not be of the same
@@ -458,7 +492,8 @@ abstract class Quantity implements Comparable<dynamic> {
   @override
   int compareTo(dynamic q2) {
     if (q2 is! Quantity) {
-      throw const QuantityException('A Quantity cannot be compared to anything besides another Quantity');
+      throw const QuantityException(
+          'A Quantity cannot be compared to anything besides another Quantity');
     }
     return valueSI.compareTo(q2.valueSI);
   }
@@ -498,7 +533,8 @@ abstract class Quantity implements Comparable<dynamic> {
       if (units is Quantity && (units as Quantity).dimensions == dimensions) {
         return units.fromMks(valueSI);
       } else {
-        throw DimensionsException('Cannot retrieve quantity value using units with incompatible dimensions');
+        throw DimensionsException(
+            'Cannot retrieve quantity value using units with incompatible dimensions');
       }
     }
   }
@@ -508,7 +544,9 @@ abstract class Quantity implements Comparable<dynamic> {
   /// been specified, then MKS units are used.  Uncertainty in the value of the
   /// Quantity is optionally shown as a plus/minus value in the same units.
   void outputText(StringBuffer buffer,
-      {UncertaintyFormat uncertFormat = UncertaintyFormat.none, bool symbols = true, NumberFormat? numberFormat}) {
+      {UncertaintyFormat uncertFormat = UncertaintyFormat.none,
+      bool symbols = true,
+      NumberFormat? numberFormat}) {
     if (preferredUnits != null) {
       final val = preferredUnits!.fromMks(mks);
 
@@ -537,16 +575,22 @@ abstract class Quantity implements Comparable<dynamic> {
         unitStr = preferredUnits!.getShortestName(val.abs() <= 1.0);
       } else {
         if (val.abs() <= 1.0) {
-          unitStr = preferredUnits!.singular ?? preferredUnits!.name;
+          unitStr = preferredUnits!.singular;
         } else {
           unitStr = preferredUnits!.name;
         }
       }
 
-      if (!(unitStr == '1')) buffer..write(' ')..write(unitStr);
+      if (!(unitStr == '1')) {
+        buffer
+          ..write(' ')
+          ..write(unitStr);
+      }
     } else {
       // Couldn't find any preferred units.
-      buffer..write(mks)..write(' [MKS]');
+      buffer
+        ..write(mks)
+        ..write(' [MKS]');
     }
   }
 
@@ -577,7 +621,8 @@ abstract class Quantity implements Comparable<dynamic> {
 
   /// Calculates the relative combined uncertainty resulting from the addition or
   /// subtraction of two Quantities.
-  static double calcRelativeCombinedUncertaintySumDiff(Quantity q1, Quantity q2, Number valueSI) {
+  static double calcRelativeCombinedUncertaintySumDiff(
+      Quantity q1, Quantity q2, Number valueSI) {
     if (q1._ur != 0.0 || q2._ur != 0.0) {
       // Standard uncertainties (derived from relative standard uncertainties).
       final u1 = q1._ur * q1.valueSI.abs().toDouble();

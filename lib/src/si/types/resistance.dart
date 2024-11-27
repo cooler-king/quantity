@@ -9,32 +9,40 @@ import '../../si/units.dart';
 class Resistance extends Quantity {
   /// Constructs a Resistance with [ohms].
   /// Optionally specify a relative standard uncertainty.
-  Resistance({dynamic ohms, double uncert = 0.0}) : super(ohms ?? 0.0, Resistance.ohms, uncert);
+  Resistance({dynamic ohms, double uncert = 0.0})
+      : super(ohms ?? 0.0, Resistance.ohms, uncert);
 
-  /// Constructs a instance without preferred units.
-  Resistance.misc(dynamic conv) : super.misc(conv, Resistance.electricResistanceDimensions);
+  /// Constructs an instance without preferred units.
+  Resistance.misc(dynamic conv)
+      : super.misc(conv, Resistance.electricResistanceDimensions);
 
   /// Constructs a Resistance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Resistance.inUnits(dynamic value, ResistanceUnits? units, [double uncert = 0.0])
+  Resistance.inUnits(dynamic value, ResistanceUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? Resistance.ohms, uncert);
 
   /// Constructs a constant electrical Resistance.
-  const Resistance.constant(Number valueSI, {ResistanceUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, Resistance.electricResistanceDimensions, units, uncert);
+  const Resistance.constant(Number valueSI,
+      {ResistanceUnits? units, double uncert = 0.0})
+      : super.constant(
+            valueSI, Resistance.electricResistanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions electricResistanceDimensions =
-      Dimensions.constant(<String, int>{'Current': -2, 'Time': -3, 'Length': 2, 'Mass': 1}, qType: Resistance);
+  static const Dimensions electricResistanceDimensions = Dimensions.constant(
+      <String, int>{'Current': -2, 'Time': -3, 'Length': 2, 'Mass': 1},
+      qType: Resistance);
 
   /// The standard SI unit.
-  static final ResistanceUnits ohms = ResistanceUnits('ohms', '\u2126', '\u03a9', null, 1.0, true);
+  static final ResistanceUnits ohms =
+      ResistanceUnits('ohms', '\u2126', '\u03a9', 'ohm', 1.0, true);
 }
 
 /// Units acceptable for use in describing Resistance quantities.
 class ResistanceUnits extends Resistance with Units {
-  /// Constructs a instance.
-  ResistanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  ResistanceUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -52,12 +60,13 @@ class ResistanceUnits extends Resistance with Units {
 
   /// Derive ResistanceUnits using this ResistanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ResistanceUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      ResistanceUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

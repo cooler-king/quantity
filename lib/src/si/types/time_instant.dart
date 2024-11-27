@@ -18,7 +18,7 @@ import 'time.dart';
 /// to a possibly infinite future.  Therefore it is suitable for use within
 /// science and engineering disciplines that involve very long and/or very short
 /// time spans.
-//
+///
 /// ## Internal Representation in the International Atomic Time Scale
 /// The time instant is represented internally as the number of (SI) seconds elapsed
 /// since January 1, 1958 0h 0m 0s, which is the origin of the International
@@ -100,37 +100,56 @@ class TimeInstant extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
-      : super(TAI ?? (UTC ?? 0.0), UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
+      : super(TAI ?? (UTC ?? 0.0),
+            UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
 
-  /// Constructs a instance without preferred units.
-  TimeInstant.misc(dynamic conv) : super.misc(conv, TimeInstant.timeInstantDimensions);
+  /// Constructs an instance without preferred units.
+  TimeInstant.misc(dynamic conv)
+      : super.misc(conv, TimeInstant.timeInstantDimensions);
 
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  TimeInstant.inUnits(dynamic value, TimeInstantUnits? units, [double uncert = 0.0])
+  TimeInstant.inUnits(dynamic value, TimeInstantUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? TimeInstant.TAI, uncert);
 
   /// Constructs a constant TimeInstant object.
-  const TimeInstant.constant(Number valueSI, {TimeInstantUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, TimeInstant.timeInstantDimensions, units, uncert);
+  const TimeInstant.constant(Number valueSI,
+      {TimeInstantUnits? units, double uncert = 0.0})
+      : super.constant(
+            valueSI, TimeInstant.timeInstantDimensions, units, uncert);
 
   /// Constructs a TimeInstant from an existing [dateTime] object.
   TimeInstant.dateTime(DateTime dateTime, {double uncert = 0.0})
       : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
 
   /// Dimensions for this type of quantity
-  static const Dimensions timeInstantDimensions = Dimensions.constant(<String, int>{'Time': 1}, qType: TimeInstant);
+  static const Dimensions timeInstantDimensions =
+      Dimensions.constant(<String, int>{'Time': 1}, qType: TimeInstant);
 
   /// TAI  - International Atomic Time
   // ignore: non_constant_identifier_names
-  static final TimeInstantUnits TAI = TimeInstantUnits('International Atomic Time', null, 'TAI', null, 1.0, true, 0.0);
+  static final TimeInstantUnits TAI = TimeInstantUnits(
+      'International Atomic Time',
+      'TAI',
+      'TAI',
+      'International Atomic Time',
+      1.0,
+      true,
+      0.0);
 
   /// UTC - Coordinated Universal Time
   // Note that UTC offset from TAI must be calculated dynamically--changes with
   // addition of leap seconds
   // ignore: non_constant_identifier_names
-  static final TimeInstantUnits UTC =
-      TimeInstantUnits('Coordinated Universal Time', null, 'UTC', null, 1.0, false, 0.0, (dynamic d) {
+  static final TimeInstantUnits UTC = TimeInstantUnits(
+      'Coordinated Universal Time',
+      null,
+      'UTC',
+      'Coordinated Universal Time',
+      1.0,
+      false,
+      0.0, (dynamic d) {
     // Have to remove leap seconds when converting to UTC.
     var value = d is num
         ? d.toDouble()
@@ -167,9 +186,9 @@ class TimeInstant extends Quantity {
   /// time defined by the Dart VM.
   static final TimeInstantUnits system = TimeInstantUnits(
       'System Time (ms since 1 Jan 1970 0h 0m 0s)',
-      null,
       'System Time',
-      null,
+      'System Time',
+      'System Time (ms since 1 Jan 1970 0h 0m 0s)',
       .001,
       false,
       4383000.0 * 86400.0,
@@ -194,7 +213,8 @@ class TimeInstant extends Quantity {
       msSince1970 += 0.5;
     }
 
-    return DateTime.fromMillisecondsSinceEpoch(msSince1970.toInt(), isUtc: true);
+    return DateTime.fromMillisecondsSinceEpoch(msSince1970.toInt(),
+        isUtc: true);
   }
 
   /// Override the default [Quantity] subtraction operator to return a Time
@@ -203,7 +223,8 @@ class TimeInstant extends Quantity {
   Quantity operator -(dynamic subtrahend) {
     final newValueSI = valueSI - subtrahend.valueSI;
     if (subtrahend is Quantity) {
-      final diffUr = Quantity.calcRelativeCombinedUncertaintySumDiff(this, subtrahend, newValueSI);
+      final diffUr = Quantity.calcRelativeCombinedUncertaintySumDiff(
+          this, subtrahend, newValueSI);
       if (subtrahend is TimeInstant) {
         return Time(s: newValueSI, uncert: diffUr);
       } else if (subtrahend is Time) {
@@ -211,7 +232,8 @@ class TimeInstant extends Quantity {
       }
     }
 
-    throw const QuantityException('Only a Time or another TimeInstant can be subtracted from a TimeInstant');
+    throw const QuantityException(
+        'Only a Time or another TimeInstant can be subtracted from a TimeInstant');
   }
 
   /// Tests if this time instant is before the specified time instant.
@@ -227,7 +249,8 @@ class TimeInstant extends Quantity {
     final yearStartMillis = DateTime(dt.year).millisecondsSinceEpoch;
     final yearEndMillis = DateTime(dt.year + 1).millisecondsSinceEpoch;
 
-    return (dt.millisecondsSinceEpoch - yearStartMillis) / (yearEndMillis - yearStartMillis);
+    return (dt.millisecondsSinceEpoch - yearStartMillis) /
+        (yearEndMillis - yearStartMillis);
   }
 
   /// Returns true if the year that contains this TimeInstant is a leap year.
@@ -244,8 +267,9 @@ typedef ToMksOverride = Number Function(dynamic val);
 
 /// Units acceptable for use in describing TimeInstant quantities.
 class TimeInstantUnits extends TimeInstant with Units {
-  /// Constructs a instance.
-  TimeInstantUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  TimeInstantUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0, this._fromMks, this._toMks])
       : super.misc(conv) {
     this.name = name;
@@ -265,7 +289,8 @@ class TimeInstantUnits extends TimeInstant with Units {
   @override
   Number toMks(dynamic value) {
     if (_toMks != null) {
-      return Function.apply(_toMks as ToMksOverride, <dynamic>[value]) as Number;
+      return Function.apply(_toMks as ToMksOverride, <dynamic>[value])
+          as Number;
     } else {
       return super.toMks(value);
     }
@@ -276,7 +301,8 @@ class TimeInstantUnits extends TimeInstant with Units {
   @override
   Number fromMks(dynamic mks) {
     if (_fromMks != null) {
-      return Function.apply(_fromMks as FromMksOverride, <dynamic>[mks]) as Number;
+      return Function.apply(_fromMks as FromMksOverride, <dynamic>[mks])
+          as Number;
     } else {
       return super.fromMks(mks);
     }
@@ -288,14 +314,15 @@ class TimeInstantUnits extends TimeInstant with Units {
 
   /// Derive TimeInstantUnits using this TimeInstantUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => TimeInstantUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      TimeInstantUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }
 
 /// Returns the number of leap seconds in effect for the specified time
@@ -320,8 +347,12 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
   // Use the TAI scale to identify when leap seconds occur
 
   // Outside thresholds?
-  if (tai < 94694400.0) return 0; //   (2441317.5-2436204.5) * 86400.0         [< 1 Jan 1961]
-  if (tai >= 1861920036.0) return 37; //  ((2457754.5-2436204.5) * 86400.0) + 36 [>= 1 Jan 2017]
+  if (tai < 94694400.0) {
+    return 0; //   (2441317.5-2436204.5) * 86400.0         [< 1 Jan 1961]
+  }
+  if (tai >= 1861920036.0) {
+    return 37; //  ((2457754.5-2436204.5) * 86400.0) + 36 [>= 1 Jan 2017]
+  }
 
   // Pre-1972? (2441317.5 - 2436204.5) * 86400.0 [< 1 Jan 1972]
   if (tai < 441763200.0) {
@@ -332,18 +363,42 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
       // which is within the accuracy of this method.
       final mjdTAI = (tai / 86400.0) + 36204.0;
 
-      if (tai < 113011201.6975700) return 1.422818 + (mjdTAI - 37300.0) * 0.0012960; // [< 1 Aug 1961]
-      if (tai < 126230401.8458580) return 1.372818 + (mjdTAI - 37300.0) * 0.0012960; // [< 1 Jan 1962]
-      if (tai < 184032002.5972788) return 1.845858 + (mjdTAI - 37665.0) * 0.0011232; // [< 1 Nov 1963]
-      if (tai < 189302402.7657940) return 1.945858 + (mjdTAI - 37665.0) * 0.0011232; // [< 1 Jan 1964]
-      if (tai < 197164802.8837300) return 3.240130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Apr 1964]
-      if (tai < 210384003.1820180) return 3.340130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Sep 1964]
-      if (tai < 220924803.4401300) return 3.440130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Jan 1965]
-      if (tai < 226022403.6165940) return 3.540130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Mar 1965]
-      if (tai < 236563203.8747060) return 3.640130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Jul 1965]
-      if (tai < 241920004.0550580) return 3.740130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Sep 1965]
-      if (tai < 252460804.3123170) return 3.840130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Jan 1966]
-      if (tai < 318211206.2856820) return 4.313170 + (mjdTAI - 39126.0) * 0.0025920; // [< 1 Feb 1968]
+      if (tai < 113011201.6975700) {
+        return 1.422818 + (mjdTAI - 37300.0) * 0.0012960; // [< 1 Aug 1961]
+      }
+      if (tai < 126230401.8458580) {
+        return 1.372818 + (mjdTAI - 37300.0) * 0.0012960; // [< 1 Jan 1962]
+      }
+      if (tai < 184032002.5972788) {
+        return 1.845858 + (mjdTAI - 37665.0) * 0.0011232; // [< 1 Nov 1963]
+      }
+      if (tai < 189302402.7657940) {
+        return 1.945858 + (mjdTAI - 37665.0) * 0.0011232; // [< 1 Jan 1964]
+      }
+      if (tai < 197164802.8837300) {
+        return 3.240130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Apr 1964]
+      }
+      if (tai < 210384003.1820180) {
+        return 3.340130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Sep 1964]
+      }
+      if (tai < 220924803.4401300) {
+        return 3.440130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Jan 1965]
+      }
+      if (tai < 226022403.6165940) {
+        return 3.540130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Mar 1965]
+      }
+      if (tai < 236563203.8747060) {
+        return 3.640130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Jul 1965]
+      }
+      if (tai < 241920004.0550580) {
+        return 3.740130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Sep 1965]
+      }
+      if (tai < 252460804.3123170) {
+        return 3.840130 + (mjdTAI - 38761.0) * 0.0012960; // [< 1 Jan 1966]
+      }
+      if (tai < 318211206.2856820) {
+        return 4.313170 + (mjdTAI - 39126.0) * 0.0025920; // [< 1 Feb 1968]
+      }
       return 4.213170 + (mjdTAI - 39126.0) * 0.0025920; // [< 1 Jan 1972]
     }
 
@@ -351,32 +406,84 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
   }
 
   // Integral Leap Seconds (1972- )
-  if (tai < 457488010.0) return 10; // ((2441499.5-2436204.5) * 86400.0) + 10 [< 1 Jul 1972]
-  if (tai < 473385611.0) return 11; // ((2441683.5-2436204.5) * 86400.0) + 11 [< 1 Jan 1973]
-  if (tai < 504921612.0) return 12; // ((2442048.5-2436204.5) * 86400.0) + 12 [< 1 Jan 1974]
-  if (tai < 536457613.0) return 13; // ((2442413.5-2436204.5) * 86400.0) + 13 [< 1 Jan 1975]
-  if (tai < 567993614.0) return 14; // ((2442778.5-2436204.5) * 86400.0) + 14 [< 1 Jan 1976]
-  if (tai < 599616015.0) return 15; // ((2443144.5-2436204.5) * 86400.0) + 15 [< 1 Jan 1977]
-  if (tai < 631152016.0) return 16; // ((2443509.5-2436204.5) * 86400.0) + 16 [< 1 Jan 1978]
-  if (tai < 662688017.0) return 17; // ((2443874.5-2436204.5) * 86400.0) + 17 [< 1 Jan 1979]
-  if (tai < 694224018.0) return 18; // ((2444239.5-2436204.5) * 86400.0) + 18 [< 1 Jan 1980]
-  if (tai < 741484819.0) return 19; // ((2444786.5-2436204.5) * 86400.0) + 19 [< 1 Jul 1981]
-  if (tai < 773020820.0) return 20; // ((2445151.5-2436204.5) * 86400.0) + 20 [< 1 Jul 1982]
-  if (tai < 804556821.0) return 21; // ((2445516.5-2436204.5) * 86400.0) + 21 [< 1 Jul 1983]
-  if (tai < 867715222.0) return 22; // ((2446247.5-2436204.5) * 86400.0) + 22 [< 1 Jul 1985]
-  if (tai < 946684823.0) return 23; // ((2447161.5-2436204.5) * 86400.0) + 23 [< 1 Jan 1988]
-  if (tai < 1009843224.0) return 24; // ((2447892.5-2436204.5) * 86400.0) + 24 [< 1 Jan 1990]
-  if (tai < 1041379225.0) return 25; // ((2448257.5-2436204.5) * 86400.0) + 25 [< 1 Jan 1991]
-  if (tai < 1088640026.0) return 26; // ((2448804.5-2436204.5) * 86400.0) + 26 [< 1 Jul 1992]
-  if (tai < 1120176027.0) return 27; // ((2449169.5-2436204.5) * 86400.0) + 27 [< 1 Jul 1993]
-  if (tai < 1151712028.0) return 28; // ((2449534.5-2436204.5) * 86400.0) + 28 [< 1 Jul 1994]
-  if (tai < 1199145629.0) return 29; // ((2450083.5-2436204.5) * 86400.0) + 29 [< 1 Jan 1996]
-  if (tai < 1246406430.0) return 30; // ((2450630.5-2436204.5) * 86400.0) + 30 [< 1 Jul 1997]
-  if (tai < 1293840031.0) return 31; // ((2451179.5-2436204.5) * 86400.0) + 31 [< 1 Jan 1999]
-  if (tai < 1514764832.0) return 32; // ((2453736.5-2436204.5) * 86400.0) + 32 [< 1 Jan 2006]
-  if (tai < 1609459233.0) return 33; // ((2454832.5-2436204.5) * 86400.0) + 33 [< 1 Jan 2009]
-  if (tai < 1719792034.0) return 34; // ((2456109.5-2436204.5) * 86400.0) + 34 [< 1 Jul 2012]
-  if (tai < 1814400035.0) return 35; // ((2457204.5-2436204.5) * 86400.0) + 35 [< 1 Jul 2015]
+  if (tai < 457488010.0) {
+    return 10; // ((2441499.5-2436204.5) * 86400.0) + 10 [< 1 Jul 1972]
+  }
+  if (tai < 473385611.0) {
+    return 11; // ((2441683.5-2436204.5) * 86400.0) + 11 [< 1 Jan 1973]
+  }
+  if (tai < 504921612.0) {
+    return 12; // ((2442048.5-2436204.5) * 86400.0) + 12 [< 1 Jan 1974]
+  }
+  if (tai < 536457613.0) {
+    return 13; // ((2442413.5-2436204.5) * 86400.0) + 13 [< 1 Jan 1975]
+  }
+  if (tai < 567993614.0) {
+    return 14; // ((2442778.5-2436204.5) * 86400.0) + 14 [< 1 Jan 1976]
+  }
+  if (tai < 599616015.0) {
+    return 15; // ((2443144.5-2436204.5) * 86400.0) + 15 [< 1 Jan 1977]
+  }
+  if (tai < 631152016.0) {
+    return 16; // ((2443509.5-2436204.5) * 86400.0) + 16 [< 1 Jan 1978]
+  }
+  if (tai < 662688017.0) {
+    return 17; // ((2443874.5-2436204.5) * 86400.0) + 17 [< 1 Jan 1979]
+  }
+  if (tai < 694224018.0) {
+    return 18; // ((2444239.5-2436204.5) * 86400.0) + 18 [< 1 Jan 1980]
+  }
+  if (tai < 741484819.0) {
+    return 19; // ((2444786.5-2436204.5) * 86400.0) + 19 [< 1 Jul 1981]
+  }
+  if (tai < 773020820.0) {
+    return 20; // ((2445151.5-2436204.5) * 86400.0) + 20 [< 1 Jul 1982]
+  }
+  if (tai < 804556821.0) {
+    return 21; // ((2445516.5-2436204.5) * 86400.0) + 21 [< 1 Jul 1983]
+  }
+  if (tai < 867715222.0) {
+    return 22; // ((2446247.5-2436204.5) * 86400.0) + 22 [< 1 Jul 1985]
+  }
+  if (tai < 946684823.0) {
+    return 23; // ((2447161.5-2436204.5) * 86400.0) + 23 [< 1 Jan 1988]
+  }
+  if (tai < 1009843224.0) {
+    return 24; // ((2447892.5-2436204.5) * 86400.0) + 24 [< 1 Jan 1990]
+  }
+  if (tai < 1041379225.0) {
+    return 25; // ((2448257.5-2436204.5) * 86400.0) + 25 [< 1 Jan 1991]
+  }
+  if (tai < 1088640026.0) {
+    return 26; // ((2448804.5-2436204.5) * 86400.0) + 26 [< 1 Jul 1992]
+  }
+  if (tai < 1120176027.0) {
+    return 27; // ((2449169.5-2436204.5) * 86400.0) + 27 [< 1 Jul 1993]
+  }
+  if (tai < 1151712028.0) {
+    return 28; // ((2449534.5-2436204.5) * 86400.0) + 28 [< 1 Jul 1994]
+  }
+  if (tai < 1199145629.0) {
+    return 29; // ((2450083.5-2436204.5) * 86400.0) + 29 [< 1 Jan 1996]
+  }
+  if (tai < 1246406430.0) {
+    return 30; // ((2450630.5-2436204.5) * 86400.0) + 30 [< 1 Jul 1997]
+  }
+  if (tai < 1293840031.0) {
+    return 31; // ((2451179.5-2436204.5) * 86400.0) + 31 [< 1 Jan 1999]
+  }
+  if (tai < 1514764832.0) {
+    return 32; // ((2453736.5-2436204.5) * 86400.0) + 32 [< 1 Jan 2006]
+  }
+  if (tai < 1609459233.0) {
+    return 33; // ((2454832.5-2436204.5) * 86400.0) + 33 [< 1 Jan 2009]
+  }
+  if (tai < 1719792034.0) {
+    return 34; // ((2456109.5-2436204.5) * 86400.0) + 34 [< 1 Jul 2012]
+  }
+  if (tai < 1814400035.0) {
+    return 35; // ((2457204.5-2436204.5) * 86400.0) + 35 [< 1 Jul 2015]
+  }
   return 36; // ((2457754.5-2436204.5) * 86400.0) + 36 [< 1 Jan 2017]
 
   // 37 [>= 1861920036.0; 1 Jan 2017] handled at start of method.
@@ -411,10 +518,14 @@ double getDeltaT(TimeInstant time) {
     return 31.0 * (year - 1820.0) / 100.0;
   } else if (year < 948) {
     final u = (year - 2000.0) / 100.0;
-    return 2177.0 + (497.0 * u) + (44.1 * u * u); // Chapront, Chapront-Touze & Francou (1997)
+    return 2177.0 +
+        (497.0 * u) +
+        (44.1 * u * u); // Chapront, Chapront-Touze & Francou (1997)
   } else if (year < 1620) {
     final u = (year - 2000.0) / 100.0;
-    return 102.0 + (102.0 * u) + (25.3 * u * u); // Chapront, Chapront-Touze & Francou (1997)
+    return 102.0 +
+        (102.0 * u) +
+        (25.3 * u * u); // Chapront, Chapront-Touze & Francou (1997)
   } else {
     // Use tables of direct observations and interpolate between years
     if (_deltaT == null) _initDeltaT();
@@ -424,7 +535,8 @@ double getDeltaT(TimeInstant time) {
 
     if (index1 > ((_deltaT as List<num>).length - 2)) {
       // Out of range... just use the last value (as good a guess as any!)
-      return ((_deltaT as List<num>)[(_deltaT as List<num>).length - 1]).toDouble();
+      return ((_deltaT as List<num>)[(_deltaT as List<num>).length - 1])
+          .toDouble();
     } else {
       final dt1 = (_deltaT as List<num>)[index1];
       final dt2 = (_deltaT as List<num>)[index2];

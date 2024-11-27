@@ -25,10 +25,13 @@ MutableQuantity toMutable(Quantity q) => MutableQuantity()..setEqualTo(q);
 /// any Dimensions, whereas other Quantity subclasses have fixed Dimensions.
 // ignore: avoid_implementing_value_types
 class MutableQuantity implements Quantity {
-  /// Constructs a instance, with optional SI-MKS value, dimensions and/or relative uncertainty.
-  MutableQuantity([this._valueSI = Double.zero, this._dimensions = Scalar.scalarDimensions, this._ur = 0.0]);
+  /// Constructs an instance, with optional SI-MKS value, dimensions and/or relative uncertainty.
+  MutableQuantity(
+      [this._valueSI = Double.zero,
+      this._dimensions = Scalar.scalarDimensions,
+      this._ur = 0.0]);
 
-  /// Constructs a instance from an existing Quantity.
+  /// Constructs an instance from an existing Quantity.
   MutableQuantity.from(Quantity q)
       : _valueSI = q.valueSI,
         _dimensions = q.dimensions,
@@ -95,7 +98,8 @@ class MutableQuantity implements Quantity {
 
   /// Broadcasts a snapshot of quantity whenever its value, dimensions or uncertainty changes.
   Stream<Quantity> get onChange => _onChange.stream;
-  final StreamController<Quantity> _onChange = StreamController<Quantity>.broadcast();
+  final StreamController<Quantity> _onChange =
+      StreamController<Quantity>.broadcast();
 
   @override
   Number get mks => valueSI;
@@ -108,7 +112,8 @@ class MutableQuantity implements Quantity {
 
   /// Creates and returns an immutable typed [Quantity] that represents the value and
   /// uncertainty of this MutableQuantity at this moment.
-  Quantity get snapshot => dimensions.toQuantity(preferredUnits?.fromMks(valueSI) ?? valueSI, preferredUnits, _ur);
+  Quantity get snapshot => dimensions.toQuantity(
+      preferredUnits?.fromMks(valueSI) ?? valueSI, preferredUnits, _ur);
 
   @override
   Number get cgs => snapshot.cgs;
@@ -145,7 +150,9 @@ class MutableQuantity implements Quantity {
 
     preferredUnits = q2.preferredUnits;
 
-    if (valueSI != q2.valueSI || _dimensions != q2.dimensions || _ur != q2.relativeUncertainty) {
+    if (valueSI != q2.valueSI ||
+        _dimensions != q2.dimensions ||
+        _ur != q2.relativeUncertainty) {
       _valueSI = q2.valueSI;
       _dimensions = q2.dimensions;
       _ur = q2.relativeUncertainty;
@@ -174,7 +181,8 @@ class MutableQuantity implements Quantity {
   set standardUncertainty(Quantity su) {
     if (!mutable) throw ImmutableQuantityException(q: this);
     if (!(dimensions == su.dimensions)) {
-      throw DimensionsException('The standard uncertainty must have the same dimensions as this Quantity object');
+      throw DimensionsException(
+          'The standard uncertainty must have the same dimensions as this Quantity object');
     }
 
     // Determine ur.
@@ -193,7 +201,8 @@ class MutableQuantity implements Quantity {
     if (units is Quantity && (units as Quantity).dimensions == dimensions) {
       valueSI = units.toMks(value);
     } else {
-      throw DimensionsException('Cannot set quantity value using units with incompatible dimensions');
+      throw DimensionsException(
+          'Cannot set quantity value using units with incompatible dimensions');
     }
   }
 
@@ -210,7 +219,8 @@ class MutableQuantity implements Quantity {
   bool get arbitraryPrecision => valueSI is Precise;
 
   @override
-  Quantity calcExpandedUncertainty(double k) => snapshot.calcExpandedUncertainty(k);
+  Quantity calcExpandedUncertainty(double k) =>
+      snapshot.calcExpandedUncertainty(k);
 
   @override
   int compareTo(dynamic q2) => snapshot.compareTo(q2);
@@ -241,8 +251,13 @@ class MutableQuantity implements Quantity {
 
   @override
   void outputText(StringBuffer buffer,
-          {UncertaintyFormat uncertFormat = UncertaintyFormat.none, bool symbols = true, NumberFormat? numberFormat}) =>
-      snapshot.outputText(buffer, uncertFormat: uncertFormat, symbols: symbols, numberFormat: numberFormat);
+          {UncertaintyFormat uncertFormat = UncertaintyFormat.none,
+          bool symbols = true,
+          NumberFormat? numberFormat}) =>
+      snapshot.outputText(buffer,
+          uncertFormat: uncertFormat,
+          symbols: symbols,
+          numberFormat: numberFormat);
 
   @override
   Quantity randomSample() => snapshot.randomSample();

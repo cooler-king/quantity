@@ -14,9 +14,10 @@ class Torque extends Quantity {
   /// Constructs a Torque with newton meters ([Nm]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
-  Torque({dynamic Nm, double uncert = 0.0}) : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
+  Torque({dynamic Nm, double uncert = 0.0})
+      : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Torque.misc(dynamic conv) : super.misc(conv, Torque.torqueDimensions);
 
   /// Constructs a Torque based on the [value]
@@ -25,21 +26,25 @@ class Torque extends Quantity {
       : super(value, units ?? Torque.newtonMeters, uncert);
 
   /// Constructs a constant Torque.
-  const Torque.constant(Number valueSI, {TorqueUnits? units, double uncert = 0.0})
+  const Torque.constant(Number valueSI,
+      {TorqueUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Torque.torqueDimensions, units, uncert);
 
   /// Dimensions for this type of quantity (energy per angle rather than Length x Force).
-  static const Dimensions torqueDimensions =
-      Dimensions.constant(<String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1}, qType: Torque);
+  static const Dimensions torqueDimensions = Dimensions.constant(
+      <String, int>{'Length': 2, 'Time': -2, 'Mass': 1, 'Angle': -1},
+      qType: Torque);
 
   /// The standard SI unit.
-  static final TorqueUnits newtonMeters = TorqueUnits.forceLength(Force.newtons, Length.meters);
+  static final TorqueUnits newtonMeters =
+      TorqueUnits.forceLength(Force.newtons, Length.meters);
 }
 
 /// Units acceptable for use in describing Torque quantities.
 class TorqueUnits extends Torque with Units {
-  /// Constructs a instance.
-  TorqueUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  TorqueUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -51,13 +56,18 @@ class TorqueUnits extends Torque with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance from force and length units.
-  TorqueUnits.forceLength(ForceUnits fu, LengthUnits lu) : super.misc(fu.valueSI * lu.valueSI) {
+  /// Constructs an instance from force and length units.
+  TorqueUnits.forceLength(ForceUnits fu, LengthUnits lu)
+      : super.misc(fu.valueSI * lu.valueSI) {
     name = '${fu.singular} ${lu.name}';
     singular = '${fu.singular} ${lu.singular}';
     convToMKS = fu.valueSI * lu.valueSI;
-    abbrev1 = fu.abbrev1 != null && lu.abbrev1 != null ? '${fu.abbrev1} ${lu.abbrev1}' : null;
-    abbrev2 = fu.abbrev2 != null && lu.abbrev2 != null ? '${fu.abbrev2}${lu.abbrev2}' : null;
+    abbrev1 = fu.abbrev1 != null && lu.abbrev1 != null
+        ? '${fu.abbrev1} ${lu.abbrev1}'
+        : null;
+    abbrev2 = fu.abbrev2 != null && lu.abbrev2 != null
+        ? '${fu.abbrev2} ${lu.abbrev2}'
+        : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -68,12 +78,13 @@ class TorqueUnits extends Torque with Units {
 
   /// Derive TorqueUnits using this TorqueUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => TorqueUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      TorqueUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

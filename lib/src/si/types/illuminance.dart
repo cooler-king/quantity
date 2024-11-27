@@ -9,33 +9,41 @@ import '../../si/units.dart';
 class Illuminance extends Quantity {
   /// Constructs an Illuminance with [lux].
   /// Optionally specify a relative standard uncertainty.
-  Illuminance({dynamic lux, double uncert = 0.0}) : super(lux ?? 0.0, Illuminance.lux, uncert);
+  Illuminance({dynamic lux, double uncert = 0.0})
+      : super(lux ?? 0.0, Illuminance.lux, uncert);
 
-  /// Constructs a instance without preferred units.
-  Illuminance.misc(dynamic conv) : super.misc(conv, Illuminance.illuminanceDimensions);
+  /// Constructs an instance without preferred units.
+  Illuminance.misc(dynamic conv)
+      : super.misc(conv, Illuminance.illuminanceDimensions);
 
   /// Constructs a Illuminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Illuminance.inUnits(dynamic value, IlluminanceUnits? units, [double uncert = 0.0])
+  Illuminance.inUnits(dynamic value, IlluminanceUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? Illuminance.lux, uncert);
 
   /// Constructs a constant Illuminance.
-  const Illuminance.constant(Number valueSI, {IlluminanceUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, Illuminance.illuminanceDimensions, units, uncert);
+  const Illuminance.constant(Number valueSI,
+      {IlluminanceUnits? units, double uncert = 0.0})
+      : super.constant(
+            valueSI, Illuminance.illuminanceDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions illuminanceDimensions =
-      Dimensions.constant(<String, int>{'Length': -2, 'Intensity': 1, 'Solid Angle': 1}, qType: Illuminance);
+  static const Dimensions illuminanceDimensions = Dimensions.constant(
+      <String, int>{'Length': -2, 'Intensity': 1, 'Solid Angle': 1},
+      qType: Illuminance);
 
   /// The standard SI unit.
   // Note: singular same as plural
-  static final IlluminanceUnits lux = IlluminanceUnits('lux', null, 'lx', 'lux', 1.0, true);
+  static final IlluminanceUnits lux =
+      IlluminanceUnits('lux', 'lx', 'lx', 'lux', 1.0, true);
 }
 
 /// Units acceptable for use in describing Illuminance quantities.
 class IlluminanceUnits extends Illuminance with Units {
-  /// Constructs a instance.
-  IlluminanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  IlluminanceUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -53,12 +61,13 @@ class IlluminanceUnits extends Illuminance with Units {
 
   /// Derive IlluminanceUnits using this IlluminanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => IlluminanceUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      IlluminanceUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

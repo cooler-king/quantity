@@ -29,17 +29,20 @@ export 'package:quantity/quantity.dart'
 export 'package:quantity/domain/thermodynamic.dart' show wienDisplacement;
 
 /// One millionth of a Jansky.
-SpectralIrradianceUnits microjanskys = janskys.micro() as SpectralIrradianceUnits;
+SpectralIrradianceUnits microjanskys =
+    janskys.micro() as SpectralIrradianceUnits;
 
 // ---------------------
 
 // Astronomical Constants
 
 /// The gravitational acceleration experienced at the 'surface' of the Sun.
-const Acceleration gravitySolarSurface = Acceleration.constant(Double.constant(274));
+const Acceleration gravitySolarSurface =
+    Acceleration.constant(Double.constant(274));
 
 /// Used to describe the expansion of the universe.
-const Frequency hubbleConstant = Frequency.constant(Double.constant(2.4e-18), uncert: 0.3333333333);
+const Frequency hubbleConstant =
+    Frequency.constant(Double.constant(2.4e-18), uncert: 0.3333333333);
 
 /// The mean solar electromagnetic radiation (the solar irradiance) per unit area that would be incident on a
 /// plane perpendicular to the rays, at a distance of one astronomical unit (AU) from the Sun.

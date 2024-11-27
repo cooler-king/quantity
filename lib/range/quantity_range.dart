@@ -2,7 +2,8 @@ import '../src/number/util/jenkins_hash.dart';
 import '../src/si/quantity.dart';
 
 /// Creates a [QuantityRange] that represents the standard uncertainty of [q].
-QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q, {double k = 1.0}) {
+QuantityRange<Quantity> uncertaintyRangeForQuantity(Quantity q,
+    {double k = 1.0}) {
   final std = q.standardUncertainty;
   if (k == 1.0) {
     return QuantityRange<Quantity>(q - std, q + std);
@@ -64,18 +65,27 @@ class QuantityRange<Q extends Quantity> {
       if (q1 > quantity && q2 < quantity) return true;
     } else {
       if (inclusive) {
-        if (q1.mks - epsilon < quantity.mks && q2.mks + epsilon > quantity.mks) return true;
-        if (q1.mks + epsilon > quantity.mks && q2.mks - epsilon < quantity.mks) return true;
+        if (q1.mks - epsilon < quantity.mks &&
+            q2.mks + epsilon > quantity.mks) {
+          return true;
+        }
+        if (q1.mks + epsilon > quantity.mks &&
+            q2.mks - epsilon < quantity.mks) {
+          return true;
+        }
       } else {
-        if (q1.mks - epsilon <= quantity.mks && q2.mks + epsilon >= quantity.mks) return true;
-        if (q1.mks + epsilon >= quantity.mks && q2.mks - epsilon <= quantity.mks) return true;
+        if (q1.mks - epsilon <= quantity.mks &&
+            q2.mks + epsilon >= quantity.mks) return true;
+        if (q1.mks + epsilon >= quantity.mks &&
+            q2.mks - epsilon <= quantity.mks) return true;
       }
     }
     return false;
   }
 
   /// True only if this range completely encompasses range2.
-  bool encompasses(QuantityRange<Q> range2) => (minValue <= range2.minValue) && (maxValue >= range2.maxValue);
+  bool encompasses(QuantityRange<Q> range2) =>
+      (minValue <= range2.minValue) && (maxValue >= range2.maxValue);
 
   /// Returns a String representation of this range in the form '<Q1> to <Q2>'.
   @override
@@ -83,7 +93,7 @@ class QuantityRange<Q extends Quantity> {
 
   /// Two quantity ranges are considered equal only if their endpoints are exactly equal.
   @override
-  bool operator ==(dynamic obj) {
+  bool operator ==(Object obj) {
     if (obj is! QuantityRange) return false;
     return (q1 == obj.q1) && (q2 == obj.q2);
   }

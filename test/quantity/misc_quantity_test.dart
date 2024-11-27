@@ -60,7 +60,8 @@ void main() {
       expect(mq.dimensions, isNotNull);
       expect(mq.dimensions, Angle.angleDimensions);
 
-      const q = MiscQuantity.constant(Double.constant(42.42), Dimensions.constant(<String, int>{'Amount': 2}));
+      const q = MiscQuantity.constant(Double.constant(42.42),
+          Dimensions.constant(<String, int>{'Amount': 2}));
       expect(q, isNotNull);
 
       /*

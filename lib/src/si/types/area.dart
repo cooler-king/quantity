@@ -13,10 +13,14 @@ class Area extends Quantity {
   /// or barns ([b]).
   /// Optionally specify a relative standard uncertainty.
   Area({dynamic m2, dynamic ha, dynamic b, double uncert = 0.0})
-      : super(m2 ?? (ha ?? (b ?? 0.0)), ha != null ? Area.hectares : (b != null ? Area.barns : Area.squareMeters),
+      : super(
+            m2 ?? (ha ?? (b ?? 0.0)),
+            ha != null
+                ? Area.hectares
+                : (b != null ? Area.barns : Area.squareMeters),
             uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Area.misc(dynamic conv) : super.misc(conv, Area.areaDimensions);
 
   /// Constructs a Area based on the [value]
@@ -33,32 +37,36 @@ class Area extends Quantity {
       : super(
             l1.valueSI * l2.valueSI,
             Area.squareMeters,
-            math.sqrt(
-                l1.relativeUncertainty * l1.relativeUncertainty + l2.relativeUncertainty * l2.relativeUncertainty));
+            math.sqrt(l1.relativeUncertainty * l1.relativeUncertainty +
+                l2.relativeUncertainty * l2.relativeUncertainty));
 
   /// Dimensions for this type of quantity.
-  static const Dimensions areaDimensions = Dimensions.constant(<String, int>{'Length': 2}, qType: Area);
+  static const Dimensions areaDimensions =
+      Dimensions.constant(<String, int>{'Length': 2}, qType: Area);
 
   /// The standard SI unit.
   static final AreaUnits squareMeters = AreaUnits.lengthSquared(Length.meters);
 
   /// Accepted for use with the SI,
   /// equals 1 square hectometer, or 10 000 square meters.
-  static final AreaUnits hectares = AreaUnits('hectares', 'ha', null, null, 1.0e4, true);
+  static final AreaUnits hectares =
+      AreaUnits('hectares', 'ha', 'ha', 'hectare', 1.0e4, true);
 
   /// Accepted for use with the SI, subject to further review...
   /// equals one square decameter, or 100 square meters.
-  static final AreaUnits ares = AreaUnits('ares', 'a', null, null, 1.0e2, true);
+  static final AreaUnits ares = AreaUnits('ares', 'a', 'a', 'are', 1.0e2, true);
 
   /// Accepted for use with the SI, subject to further review...
   /// equals 100 square femtometers, or 1.0e-28 square meters
-  static final AreaUnits barns = AreaUnits('barns', 'b', null, null, 1.0e-28, true);
+  static final AreaUnits barns =
+      AreaUnits('barns', 'b', 'b', 'barn', 1.0e-28, true);
 }
 
 /// Units acceptable for use in describing Area quantities.
 class AreaUnits extends Area with Units {
-  /// Constructs a instance.
-  AreaUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  AreaUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -70,13 +78,18 @@ class AreaUnits extends Area with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance based on length units.
-  AreaUnits.lengthSquared(LengthUnits lu) : super.misc(lu.valueSI * lu.valueSI) {
+  /// Constructs an instance based on length units.
+  AreaUnits.lengthSquared(LengthUnits lu)
+      : super.misc(lu.valueSI * lu.valueSI) {
     name = 'square ${lu.name}';
     singular = 'square ${lu.singular}';
     convToMKS = lu.valueSI * lu.valueSI;
-    abbrev1 = lu.abbrev1 != null && lu.abbrev1 != null ? '${lu.abbrev1}2' : null;
-    abbrev2 = lu.abbrev2 != null && lu.abbrev2 != null ? '${lu.abbrev2}2' : null;
+    abbrev1 = lu.abbrev1 != null && lu.abbrev1 != null
+        ? '${lu.abbrev1}\u{00b2}'
+        : null;
+    abbrev2 = lu.abbrev2 != null && lu.abbrev2 != null
+        ? '${lu.abbrev2}\u{00b2}'
+        : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -87,12 +100,13 @@ class AreaUnits extends Area with Units {
 
   /// Derive AreaUnits using this AreaUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AreaUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      AreaUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

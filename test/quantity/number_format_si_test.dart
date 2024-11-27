@@ -37,15 +37,18 @@ void main() {
         expect(f1.insertSpaces('1234567'), '1\u{2009}234\u{2009}567');
         expect(f1.insertSpaces('12345678'), '12\u{2009}345\u{2009}678');
         expect(f1.insertSpaces('123456789'), '123\u{2009}456\u{2009}789');
-        expect(f1.insertSpaces('1234567890'), '1\u{2009}234\u{2009}567\u{2009}890');
+        expect(f1.insertSpaces('1234567890'),
+            '1\u{2009}234\u{2009}567\u{2009}890');
 
         expect(f1.insertSpaces('0.0'), '0.0');
         expect(f1.insertSpaces('10.01'), '10.01');
         expect(f1.insertSpaces('100.001'), '100.001');
         expect(f1.insertSpaces('1000.0001'), '1000.0001');
         expect(f1.insertSpaces('10000.00001'), '10\u{2009}000.000\u{2009}01');
-        expect(f1.insertSpaces('9876543210.1234'), '9\u{2009}876\u{2009}543\u{2009}210.1234');
-        expect(f1.insertSpaces('1234.9876543210'), '1234.987\u{2009}654\u{2009}321\u{2009}0');
+        expect(f1.insertSpaces('9876543210.1234'),
+            '9\u{2009}876\u{2009}543\u{2009}210.1234');
+        expect(f1.insertSpaces('1234.9876543210'),
+            '1234.987\u{2009}654\u{2009}321\u{2009}0');
       });
     });
 
@@ -126,17 +129,25 @@ void main() {
         expect(f1.format(Complex.coeff(1234, 4321)), '1234 + 4321i');
         expect(f1.format(Complex.coeff(12345, 54321)), '12 345 + 54 321i');
         expect(f1.format(Complex.coeff(123456, 654321)), '123 456 + 654 321i');
-        expect(f1.format(Complex.coeff(1234567, 7654321)), '1 234 567 + 7 654 321i');
-        expect(f1.format(Complex.coeff(12345678, 87654321)), '12 345 678 + 87 654 321i');
-        expect(f1.format(Complex.coeff(123456789, 987654321)), '123 456 789 + 987 654 321i');
-        expect(f1.format(Complex.coeff(1234567898, 8987654321)), '1 234 567 898 + 8 987 654 321i');
+        expect(f1.format(Complex.coeff(1234567, 7654321)),
+            '1 234 567 + 7 654 321i');
+        expect(f1.format(Complex.coeff(12345678, 87654321)),
+            '12 345 678 + 87 654 321i');
+        expect(f1.format(Complex.coeff(123456789, 987654321)),
+            '123 456 789 + 987 654 321i');
+        expect(f1.format(Complex.coeff(1234567898, 8987654321)),
+            '1 234 567 898 + 8 987 654 321i');
 
         expect(f1.format(Complex.coeff(0, 0)), '0');
         expect(f1.format(Complex.coeff(10.01, 11.22)), '10.01 + 11.22i');
-        expect(f1.format(Complex.coeff(100.001, 111.222)), '100.001 + 111.222i');
-        expect(f1.format(Complex.coeff(1000.0001, 1111.2222)), '1000.0001 + 1111.2222i');
-        expect(f1.format(Complex.coeff(10000.00001, 11111.22222)), '10 000.000 01 + 11 111.222 22i');
-        expect(f1.format(Complex.coeff(9876543210.1234, 4321.0123456789)), '9 876 543 210.1234 + 4321.012 345 678 9i');
+        expect(
+            f1.format(Complex.coeff(100.001, 111.222)), '100.001 + 111.222i');
+        expect(f1.format(Complex.coeff(1000.0001, 1111.2222)),
+            '1000.0001 + 1111.2222i');
+        expect(f1.format(Complex.coeff(10000.00001, 11111.22222)),
+            '10 000.000 01 + 11 111.222 22i');
+        expect(f1.format(Complex.coeff(9876543210.1234, 4321.0123456789)),
+            '9 876 543 210.1234 + 4321.012 345 678 9i');
       });
 
       test('removeInsignificantZeros', () {
@@ -152,11 +163,16 @@ void main() {
         expect(NumberFormatSI.removeInsignificantZeros('0.00010'), '0.0001');
         expect(NumberFormatSI.removeInsignificantZeros('1.0'), '1.0');
         expect(NumberFormatSI.removeInsignificantZeros('1.00'), '1.0');
-        expect(NumberFormatSI.removeInsignificantZeros('1.00000000000000000'), '1.0');
-        expect(NumberFormatSI.removeInsignificantZeros('-9000001.00000000000600000'), '-9000001.000000000006');
+        expect(NumberFormatSI.removeInsignificantZeros('1.00000000000000000'),
+            '1.0');
+        expect(
+            NumberFormatSI.removeInsignificantZeros(
+                '-9000001.00000000000600000'),
+            '-9000001.000000000006');
         expect(NumberFormatSI.removeInsignificantZeros('5E7'), '5E7');
         expect(NumberFormatSI.removeInsignificantZeros('5.870E12'), '5.87E12');
-        expect(NumberFormatSI.removeInsignificantZeros('5.920000E31'), '5.92E31');
+        expect(
+            NumberFormatSI.removeInsignificantZeros('5.920000E31'), '5.92E31');
       });
     });
 
