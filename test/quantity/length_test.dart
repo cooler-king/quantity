@@ -302,8 +302,10 @@ void main() {
     test('units - metric', () {
       expect(Length.meters.valueSI.toDouble() == 1, true);
 
-      expect((Length.meters.yotta() as Length).valueSI.toDouble() == 1e24, true);
-      expect((Length.meters.zetta() as Length).valueSI.toDouble() == 1e21, true);
+      expect(
+          (Length.meters.yotta() as Length).valueSI.toDouble() == 1e24, true);
+      expect(
+          (Length.meters.zetta() as Length).valueSI.toDouble() == 1e21, true);
       expect((Length.meters.exa() as Length).valueSI.toDouble() == 1e18, true);
       expect((Length.meters.peta() as Length).valueSI.toDouble() == 1e15, true);
       expect((Length.meters.tera() as Length).valueSI.toDouble() == 1e12, true);
@@ -315,13 +317,19 @@ void main() {
       expect((Length.meters.deci() as Length).valueSI.toDouble() == 0.1, true);
       expect(Length.centimeters.valueSI.toDouble() == 0.01, true);
       expect(Length.millimeters.valueSI.toDouble() == 0.001, true);
-      expect((Length.meters.micro() as Length).valueSI.toDouble() == 1e-6, true);
+      expect(
+          (Length.meters.micro() as Length).valueSI.toDouble() == 1e-6, true);
       expect(Length.nanometers.valueSI.toDouble() == 1e-9, true);
-      expect((Length.meters.pico() as Length).valueSI.toDouble() == 1e-12, true);
-      expect((Length.meters.femto() as Length).valueSI.toDouble() == 1e-15, true);
-      expect((Length.meters.atto() as Length).valueSI.toDouble() == 1e-18, true);
-      expect((Length.meters.zepto() as Length).valueSI.toDouble() == 1e-21, true);
-      expect((Length.meters.yocto() as Length).valueSI.toDouble() == 1e-24, true);
+      expect(
+          (Length.meters.pico() as Length).valueSI.toDouble() == 1e-12, true);
+      expect(
+          (Length.meters.femto() as Length).valueSI.toDouble() == 1e-15, true);
+      expect(
+          (Length.meters.atto() as Length).valueSI.toDouble() == 1e-18, true);
+      expect(
+          (Length.meters.zepto() as Length).valueSI.toDouble() == 1e-21, true);
+      expect(
+          (Length.meters.yocto() as Length).valueSI.toDouble() == 1e-24, true);
     });
 
     test('outputText', () {

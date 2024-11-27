@@ -36,7 +36,8 @@ void main() {
       expect(q.relativeUncertainty, 0.0);
 
       // uncertainty
-      q = createTypedQuantityInstance(Length, 23.45, Length.meters, uncert: 0.015);
+      q = createTypedQuantityInstance(Length, 23.45, Length.meters,
+          uncert: 0.015);
       expect(q is Length, true);
       expect(q.valueSI.toDouble(), 23.45);
       expect(q.preferredUnits, Length.meters);
@@ -45,20 +46,34 @@ void main() {
       // types
       expect(createTypedQuantityInstance(Mass, 1.1, null) is Mass, true);
       expect(createTypedQuantityInstance(Time, 1.1, null) is Time, true);
-      expect(createTypedQuantityInstance(TemperatureInterval, 1.1, null) is TemperatureInterval, true);
-      expect(createTypedQuantityInstance(AmountOfSubstance, 1.1, null) is AmountOfSubstance, true);
+      expect(
+          createTypedQuantityInstance(TemperatureInterval, 1.1, null)
+              is TemperatureInterval,
+          true);
+      expect(
+          createTypedQuantityInstance(AmountOfSubstance, 1.1, null)
+              is AmountOfSubstance,
+          true);
       expect(createTypedQuantityInstance(Current, 1.1, null) is Current, true);
       expect(
-          createTypedQuantityInstance(LuminousIntensity, 1.1, LuminousIntensity.candelas) is LuminousIntensity, true);
+          createTypedQuantityInstance(
+                  LuminousIntensity, 1.1, LuminousIntensity.candelas)
+              is LuminousIntensity,
+          true);
 
       expect(createTypedQuantityInstance(Scalar, 1.1, null) is Scalar, true);
-      expect(createTypedQuantityInstance(Angle, 1.1, Angle.degrees, uncert: 13.2) is Angle, true);
-      expect(createTypedQuantityInstance(SolidAngle, 1.1, null) is SolidAngle, true);
+      expect(
+          createTypedQuantityInstance(Angle, 1.1, Angle.degrees, uncert: 13.2)
+              is Angle,
+          true);
+      expect(createTypedQuantityInstance(SolidAngle, 1.1, null) is SolidAngle,
+          true);
 
       final random = Random();
       for (final t in allQuantityTypes) {
         try {
-          final q = createTypedQuantityInstance(t, 1.1, null, uncert: random.nextDouble() * 10.0);
+          final q = createTypedQuantityInstance(t, 1.1, null,
+              uncert: random.nextDouble() * 10.0);
           expect(q.runtimeType == t, true);
         } catch (err) {
           expect(err, isNull);

@@ -25,19 +25,22 @@ void main() {
       // Bad values
       try {
         Digit(10);
-        fail('Should not be allowed to construct a Digit with a value greater than 9');
+        fail(
+            'Should not be allowed to construct a Digit with a value greater than 9');
       } catch (e) {
         expect(e is Exception, true);
       }
       try {
         Digit(-1);
-        fail('Should not be allowed to construct a Digit with a value less than 0');
+        fail(
+            'Should not be allowed to construct a Digit with a value less than 0');
       } catch (e) {
         expect(e is Exception, true);
       }
       try {
         Digit.char('12');
-        fail('Should not be allowed to construct a Digit with a string having more than one character');
+        fail(
+            'Should not be allowed to construct a Digit with a string having more than one character');
       } catch (e) {
         expect(e is Exception, true);
       }
@@ -108,14 +111,16 @@ void main() {
       expect(p.power, 5);
 
       // Limited to default (50) sig digits
-      p = Precise('5.00000000000000000000000000000000000000000000000000000000000000000000000000000000001');
+      p = Precise(
+          '5.00000000000000000000000000000000000000000000000000000000000000000000000000000000001');
       expect(p.digits.length, 50);
       expect(p.digits[0].toInt(), 0);
       expect(p.digits[49].toInt(), 5);
       expect(p.power, -49);
 
       // Raised precision
-      p = Precise('5.00000000000000000000000000000000000000000000000000000000000000000000000000000000001',
+      p = Precise(
+          '5.00000000000000000000000000000000000000000000000000000000000000000000000000000000001',
           sigDigits: 500);
       expect(p.digits.length > 50, true);
       expect(p.digits[0].toInt(), 1);
@@ -432,36 +437,81 @@ void main() {
 
         expect(Precise('000010') * Precise('100'), Precise('1000'));
         expect(Precise('0.00010') * Precise('.100'), Precise('0.00001'));
-        expect(Precise('000000.000100000') * Precise('000000000.10000000000000000000000000000'), Precise('0.00001'));
+        expect(
+            Precise('000000.000100000') *
+                Precise('000000000.10000000000000000000000000000'),
+            Precise('0.00001'));
         expect(Precise('0.987654321') * Precise('1000'), Precise('987.654321'));
-        expect(Precise('0.987654321') * Precise('1000.0'), Precise('987.654321'));
+        expect(
+            Precise('0.987654321') * Precise('1000.0'), Precise('987.654321'));
         expect(Precise('0.987654321') * Precise('1e3'), Precise('987.654321'));
-        expect(Precise('0.00987654321') * Precise('1000'), Precise('9.87654321'));
-        expect(Precise('0.00987654321') * Precise('1000.0'), Precise('9.87654321'));
-        expect(Precise('0.00987654321') * Precise('1e3'), Precise('9.87654321'));
-        expect(Precise('0987654321e-11') * Precise('1000'), Precise('9.87654321'));
-        expect(Precise('0987654321e-11') * Precise('1000.0'), Precise('9.87654321'));
-        expect(Precise('0987654321e-11') * Precise('1e3'), Precise('9.87654321'));
+        expect(
+            Precise('0.00987654321') * Precise('1000'), Precise('9.87654321'));
+        expect(Precise('0.00987654321') * Precise('1000.0'),
+            Precise('9.87654321'));
+        expect(
+            Precise('0.00987654321') * Precise('1e3'), Precise('9.87654321'));
+        expect(
+            Precise('0987654321e-11') * Precise('1000'), Precise('9.87654321'));
+        expect(Precise('0987654321e-11') * Precise('1000.0'),
+            Precise('9.87654321'));
+        expect(
+            Precise('0987654321e-11') * Precise('1e3'), Precise('9.87654321'));
         expect(Precise('098765e-6') * Precise('1000'), Precise('98.765'));
         expect(Precise('098765e-6') * Precise('1000.0'), Precise('98.765'));
-        expect(Precise('0.09929500546122530036739152020653361135934862476417', sigDigits: 51), Precise('09929500546122530036739152020653361135934862476417e-50'));
-        expect(Precise('0.09929500546122530036739152020653361135934862476417', sigDigits: 51) * Precise('10'), Precise('0.9929500546122530036739152020653361135934862476417'));
+        expect(
+            Precise('0.09929500546122530036739152020653361135934862476417',
+                sigDigits: 51),
+            Precise('09929500546122530036739152020653361135934862476417e-50'));
+        expect(
+            Precise('0.09929500546122530036739152020653361135934862476417',
+                    sigDigits: 51) *
+                Precise('10'),
+            Precise('0.9929500546122530036739152020653361135934862476417'));
         expect(Precise('099295005e-9') * Precise('100'), Precise('9.9295005'));
-        expect(Precise('0992950054612253003673915202065336113593486247641e-49') * Precise('100'), Precise('9.92950054612253003673915202065336113593486247641'));
-        expect(Precise('0.0992950054612253003673915202065336113593486247641') * Precise('100'), Precise('9.92950054612253003673915202065336113593486247641'));
-        expect(Precise('0992950054612253003673915202065336113593486247641e-49') * Precise('1000'), Precise('99.2950054612253003673915202065336113593486247641'));
-        expect(Precise('0992950054612253003673915202065336113593486247641e-49') * Precise('1000.0'), Precise('99.2950054612253003673915202065336113593486247641'));
-        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('10'), Precise('0.9929500546122530036739152020653361135934862476417'));
-        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('100'), Precise('9.929500546122530036739152020653361135934862476417'));
-        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('1000'), Precise('99.29500546122530036739152020653361135934862476417'));
-        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('1000'), Precise('99.29500546122530036739152020653361135934862476417'));
-        expect(Precise('09929500546122530036739152020653361135934862476417e-50') * Precise('1000.0'), Precise('99.29500546122530036739152020653361135934862476417'));
+        expect(
+            Precise('0992950054612253003673915202065336113593486247641e-49') *
+                Precise('100'),
+            Precise('9.92950054612253003673915202065336113593486247641'));
+        expect(
+            Precise('0.0992950054612253003673915202065336113593486247641') *
+                Precise('100'),
+            Precise('9.92950054612253003673915202065336113593486247641'));
+        expect(
+            Precise('0992950054612253003673915202065336113593486247641e-49') *
+                Precise('1000'),
+            Precise('99.2950054612253003673915202065336113593486247641'));
+        expect(
+            Precise('0992950054612253003673915202065336113593486247641e-49') *
+                Precise('1000.0'),
+            Precise('99.2950054612253003673915202065336113593486247641'));
+        expect(
+            Precise('09929500546122530036739152020653361135934862476417e-50') *
+                Precise('10'),
+            Precise('0.9929500546122530036739152020653361135934862476417'));
+        expect(
+            Precise('09929500546122530036739152020653361135934862476417e-50') *
+                Precise('100'),
+            Precise('9.929500546122530036739152020653361135934862476417'));
+        expect(
+            Precise('09929500546122530036739152020653361135934862476417e-50') *
+                Precise('1000'),
+            Precise('99.29500546122530036739152020653361135934862476417'));
+        expect(
+            Precise('09929500546122530036739152020653361135934862476417e-50') *
+                Precise('1000'),
+            Precise('99.29500546122530036739152020653361135934862476417'));
+        expect(
+            Precise('09929500546122530036739152020653361135934862476417e-50') *
+                Precise('1000.0'),
+            Precise('99.29500546122530036739152020653361135934862476417'));
       });
 
       test('operator * num', () {
         expect(Precise('0') * 0, Precise('0'));
         expect(Precise('0') * -9, Precise.zero);
-        expect(Precise('1.000000000000001') * -9, Precise('-9.000000000000009'));
+        expect(
+            Precise('1.000000000000001') * -9, Precise('-9.000000000000009'));
       });
     });
 
@@ -545,20 +595,35 @@ void main() {
       expect(Precise('10167.4') / p100, Precise('101.674'));
       expect(Precise('10167.4') / p1000, Precise('10.1674'));
       expect(Precise('10167.4') / p10000, Precise('1.01674'));
-      expect(Precise('100010101010101.10100101000') / p100, Precise('1000101010101.0110100101000'));
-      expect(Precise('100010101010101.10100101000') / p1000, Precise('100010101010.10110100101'));
-      expect(Precise('100010101010101.10100101000') / p10000, Precise('10001010101.0101101001010'));
-      expect(Precise('-100010101010101.10100101000') / p100, Precise('-1000101010101.0110100101000'));
-      expect(Precise('-100010101010101.10100101000') / p1000, Precise('-100010101010.10110100101'));
-      expect(Precise('-100010101010101.10100101000') / p10000, Precise('-10001010101.0101101001010'));
-      expect(Precise('-100010101010101.10100101000') / -p100, Precise('1000101010101.0110100101000'));
-      expect(Precise('-100010101010101.10100101000') / -p1000, Precise('100010101010.10110100101'));
-      expect(Precise('-100010101010101.10100101000') / -p10000, Precise('10001010101.0101101001010'));
-      expect(Precise('100010101010101.10100101000') / -p100, Precise('-1000101010101.0110100101000'));
-      expect(Precise('100010101010101.10100101000') / -p1000, Precise('-100010101010.10110100101'));
-      expect(Precise('100010101010101.10100101000') / -p10000, Precise('-10001010101.0101101001010'));
+      expect(Precise('100010101010101.10100101000') / p100,
+          Precise('1000101010101.0110100101000'));
+      expect(Precise('100010101010101.10100101000') / p1000,
+          Precise('100010101010.10110100101'));
+      expect(Precise('100010101010101.10100101000') / p10000,
+          Precise('10001010101.0101101001010'));
+      expect(Precise('-100010101010101.10100101000') / p100,
+          Precise('-1000101010101.0110100101000'));
+      expect(Precise('-100010101010101.10100101000') / p1000,
+          Precise('-100010101010.10110100101'));
+      expect(Precise('-100010101010101.10100101000') / p10000,
+          Precise('-10001010101.0101101001010'));
+      expect(Precise('-100010101010101.10100101000') / -p100,
+          Precise('1000101010101.0110100101000'));
+      expect(Precise('-100010101010101.10100101000') / -p1000,
+          Precise('100010101010.10110100101'));
+      expect(Precise('-100010101010101.10100101000') / -p10000,
+          Precise('10001010101.0101101001010'));
+      expect(Precise('100010101010101.10100101000') / -p100,
+          Precise('-1000101010101.0110100101000'));
+      expect(Precise('100010101010101.10100101000') / -p1000,
+          Precise('-100010101010.10110100101'));
+      expect(Precise('100010101010101.10100101000') / -p10000,
+          Precise('-10001010101.0101101001010'));
 
-      expect(p100 / Precise('1007.1'), Precise('0.09929500546122530036739152020653361135934862476417', sigDigits: 51));
+      expect(
+          p100 / Precise('1007.1'),
+          Precise('0.09929500546122530036739152020653361135934862476417',
+              sigDigits: 51));
     });
 
     test('operator ^', () {
@@ -984,18 +1049,24 @@ void main() {
       expect((p4 * p1) / p1, p4);
       expect((p4 * p2) / p2, p4);
       expect((p4 * p3) / p3, p4);
-      expect((((p1 / p2) * p2) as Precise)..precision = 49, Precise(p1.toString(), sigDigits: 49));
-      expect((((p1 / p3) * p3) as Precise)..precision = 48, Precise(p1.toString(), sigDigits: 48));
-      expect((((p1 / p4) * p4) as Precise)..precision = 47, Precise(p1.toString(), sigDigits: 47));
+      expect((((p1 / p2) * p2) as Precise)..precision = 49,
+          Precise(p1.toString(), sigDigits: 49));
+      expect((((p1 / p3) * p3) as Precise)..precision = 48,
+          Precise(p1.toString(), sigDigits: 48));
+      expect((((p1 / p4) * p4) as Precise)..precision = 47,
+          Precise(p1.toString(), sigDigits: 47));
       expect((p2 / p1) * p1, p2);
       expect((p2 / p3) * p3, p2);
-      expect((((p2 / p4) * p4) as Precise)..precision = 49, Precise(p2.toString(), sigDigits: 49));
+      expect((((p2 / p4) * p4) as Precise)..precision = 49,
+          Precise(p2.toString(), sigDigits: 49));
       expect((p3 / p1) * p1, p3);
       expect((p3 / p2) * p2, p3);
-      expect((((p3 / p4) * p4) as Precise)..precision = 48, Precise(p3.toString(), sigDigits: 48));
+      expect((((p3 / p4) * p4) as Precise)..precision = 48,
+          Precise(p3.toString(), sigDigits: 48));
       expect((p4 / p1) * p1, p4);
       expect((p4 / p2) * p2, p4);
-      expect((((p4 / p3) * p3) as Precise)..precision = 49, Precise(p4.toString(), sigDigits: 49));
+      expect((((p4 / p3) * p3) as Precise)..precision = 49,
+          Precise(p4.toString(), sigDigits: 49));
     });
 
     test("round trip * / num", () {
@@ -1014,22 +1085,29 @@ void main() {
       expect((p2 * p4) / p4, p2);
       expect((p3 * p1) / p1, p3);
       expect((p3 * p2) / p2, p3);
-      expect((((p3 / p4) * p4) as Precise)..precision = 13, Precise(p3.toString(), sigDigits: 13));
+      expect((((p3 / p4) * p4) as Precise)..precision = 13,
+          Precise(p3.toString(), sigDigits: 13));
       expect((p4 * p1) / p1, p4);
       expect((p4 * p2) / p2, p4);
-      expect((((p4 / p3) * p3) as Precise)..precision = 14, Precise(p4.toString(), sigDigits: 14));
-      expect((((p1 / p2) * p2) as Precise)..precision = 14, Precise(p1.toString(), sigDigits: 14));
+      expect((((p4 / p3) * p3) as Precise)..precision = 14,
+          Precise(p4.toString(), sigDigits: 14));
+      expect((((p1 / p2) * p2) as Precise)..precision = 14,
+          Precise(p1.toString(), sigDigits: 14));
       expect((p1 / p3) * p3, p1);
-      expect((((p1 / p4) * p4) as Precise)..precision = 12, Precise(p1.toString(), sigDigits: 12));
+      expect((((p1 / p4) * p4) as Precise)..precision = 12,
+          Precise(p1.toString(), sigDigits: 12));
       expect((p2 / p1) * p1, p2);
-      expect((((p2 / p3) * p3) as Precise)..precision = 14, Precise(p2.toString(), sigDigits: 14));
+      expect((((p2 / p3) * p3) as Precise)..precision = 14,
+          Precise(p2.toString(), sigDigits: 14));
       expect((p2 / p4) * p4, p2);
       expect((p3 / p1) * p1, p3);
       expect((p3 / p2) * p2, p3);
-      expect((((p3 / p4) * p4) as Precise)..precision = 13, Precise(p3.toString(), sigDigits: 13));
+      expect((((p3 / p4) * p4) as Precise)..precision = 13,
+          Precise(p3.toString(), sigDigits: 13));
       expect((p4 / p1) * p1, p4);
       expect((p4 / p2) * p2, p4);
-      expect((((p4 / p3) * p3) as Precise)..precision = 14, Precise(p4.toString(), sigDigits: 14));
+      expect((((p4 / p3) * p3) as Precise)..precision = 14,
+          Precise(p4.toString(), sigDigits: 14));
     });
 
     test('toPrecise', () {

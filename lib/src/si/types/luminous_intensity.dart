@@ -11,32 +11,40 @@ import '../../si/units.dart';
 class LuminousIntensity extends Quantity {
   /// Constructs a LuminousIntensity with candelas ([cd]).
   /// Optionally specify a relative standard uncertainty.
-  LuminousIntensity({dynamic cd, double uncert = 0.0}) : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
+  LuminousIntensity({dynamic cd, double uncert = 0.0})
+      : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
 
-  /// Constructs a instance without preferred units.
-  LuminousIntensity.misc(dynamic conv) : super.misc(conv, LuminousIntensity.luminousIntensityDimensions);
+  /// Constructs an instance without preferred units.
+  LuminousIntensity.misc(dynamic conv)
+      : super.misc(conv, LuminousIntensity.luminousIntensityDimensions);
 
   /// Constructs a LuminousIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  LuminousIntensity.inUnits(dynamic value, LuminousIntensityUnits? units, [double uncert = 0.0])
+  LuminousIntensity.inUnits(dynamic value, LuminousIntensityUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? LuminousIntensity.candelas, uncert);
 
   /// Constructs a constant LuminousIntensity.
-  const LuminousIntensity.constant(Number valueSI, {LuminousIntensityUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, LuminousIntensity.luminousIntensityDimensions, units, uncert);
+  const LuminousIntensity.constant(Number valueSI,
+      {LuminousIntensityUnits? units, double uncert = 0.0})
+      : super.constant(valueSI, LuminousIntensity.luminousIntensityDimensions,
+            units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions luminousIntensityDimensions =
-      Dimensions.constant(<String, int>{'Intensity': 1}, qType: LuminousIntensity);
+  static const Dimensions luminousIntensityDimensions = Dimensions.constant(
+      <String, int>{'Intensity': 1},
+      qType: LuminousIntensity);
 
   /// The standard SI unit.
-  static final LuminousIntensityUnits candelas = LuminousIntensityUnits('candelas', 'cd', null, null, 1.0, true);
+  static final LuminousIntensityUnits candelas =
+      LuminousIntensityUnits('candelas', 'cd', 'cd', 'candela', 1.0, true);
 }
 
 /// Units acceptable for use in describing [LuminousIntensity] quantities.
 class LuminousIntensityUnits extends LuminousIntensity with Units {
-  /// Constructs a instance.
-  LuminousIntensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  LuminousIntensityUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -54,12 +62,13 @@ class LuminousIntensityUnits extends LuminousIntensity with Units {
 
   /// Derive LuminousIntensityUnits using this LuminousIntensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => LuminousIntensityUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      LuminousIntensityUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

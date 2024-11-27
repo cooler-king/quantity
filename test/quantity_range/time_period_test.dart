@@ -4,7 +4,8 @@ import 'package:quantity/quantity.dart';
 void main() {
   group('TimePeriod', () {
     test('constructors', () {
-      final period = TimePeriod(TimeInstant.dateTime(DateTime(1999)), TimeInstant.dateTime(DateTime(2007, 3)));
+      final period = TimePeriod(TimeInstant.dateTime(DateTime(1999)),
+          TimeInstant.dateTime(DateTime(2007, 3)));
       expect(period, isNotNull);
       expect(period.q1 == TimeInstant.dateTime(DateTime(1999)), true);
       expect(period.q2 == TimeInstant.dateTime(DateTime(2007, 3)), true);

@@ -11,37 +11,50 @@ import 'time.dart';
 class AngularSpeed extends Quantity {
   /// Construct an AngularSpeed with either radians per second or degrees per second.
   /// Optionally specify a relative standard uncertainty.
-  AngularSpeed({dynamic radiansPerSecond, dynamic degreesPerSecond, double uncert = 0.0})
-      : super(radiansPerSecond ?? (degreesPerSecond ?? 0.0),
-            degreesPerSecond != null ? AngularSpeed.degreesPerSecond : AngularSpeed.radiansPerSecond, uncert);
+  AngularSpeed(
+      {dynamic radiansPerSecond, dynamic degreesPerSecond, double uncert = 0.0})
+      : super(
+            radiansPerSecond ?? (degreesPerSecond ?? 0.0),
+            degreesPerSecond != null
+                ? AngularSpeed.degreesPerSecond
+                : AngularSpeed.radiansPerSecond,
+            uncert);
 
-  /// Constructs a instance without preferred units.
-  AngularSpeed.misc(dynamic conv) : super.misc(conv, AngularSpeed.angularSpeedDimensions);
+  /// Constructs an instance without preferred units.
+  AngularSpeed.misc(dynamic conv)
+      : super.misc(conv, AngularSpeed.angularSpeedDimensions);
 
   /// Constructs a AngularSpeed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  AngularSpeed.inUnits(dynamic value, AngularSpeedUnits? units, [double uncert = 0.0])
+  AngularSpeed.inUnits(dynamic value, AngularSpeedUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
 
   /// Constructs a constant AngularSpeed.
-  const AngularSpeed.constant(Number valueSI, {AngularSpeedUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, AngularSpeed.angularSpeedDimensions, units, uncert);
+  const AngularSpeed.constant(Number valueSI,
+      {AngularSpeedUnits? units, double uncert = 0.0})
+      : super.constant(
+            valueSI, AngularSpeed.angularSpeedDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions angularSpeedDimensions =
-      Dimensions.constant(<String, int>{'Angle': 1, 'Time': -1}, qType: AngularSpeed);
+  static const Dimensions angularSpeedDimensions = Dimensions.constant(
+      <String, int>{'Angle': 1, 'Time': -1},
+      qType: AngularSpeed);
 
   /// The standard SI unit.
-  static final AngularSpeedUnits radiansPerSecond = AngularSpeedUnits.angleTime(Angle.radians, Time.seconds);
+  static final AngularSpeedUnits radiansPerSecond =
+      AngularSpeedUnits.anglePerTime(Angle.radians, Time.seconds);
 
   /// Accepted for use with the SI.
-  static final AngularSpeedUnits degreesPerSecond = AngularSpeedUnits.angleTime(Angle.degrees, Time.seconds);
+  static final AngularSpeedUnits degreesPerSecond =
+      AngularSpeedUnits.anglePerTime(Angle.degrees, Time.seconds);
 }
 
 /// Units acceptable for use in describing AngularSpeed quantities.
 class AngularSpeedUnits extends AngularSpeed with Units {
-  /// Constructs a instance.
-  AngularSpeedUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  AngularSpeedUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -53,13 +66,18 @@ class AngularSpeedUnits extends AngularSpeed with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance based on angle and time units.
-  AngularSpeedUnits.angleTime(AngleUnits au, TimeUnits tu) : super.misc(au.valueSI * tu.valueSI) {
-    name = '${au.name} per ${tu.singular} squared';
-    singular = '${au.singular} per ${tu.singular} squared';
-    convToMKS = au.valueSI * tu.valueSI;
-    abbrev1 = au.abbrev1 != null && tu.abbrev1 != null ? '${au.abbrev1} / ${tu.abbrev1}' : null;
-    abbrev2 = au.abbrev2 != null && tu.abbrev2 != null ? '${au.abbrev2}${tu.abbrev2}' : null;
+  /// Constructs an instance based on angle and time units.
+  AngularSpeedUnits.anglePerTime(AngleUnits au, TimeUnits tu)
+      : super.misc(au.valueSI / tu.valueSI) {
+    name = '${au.name} per ${tu.singular}';
+    singular = '${au.singular} per ${tu.singular}';
+    convToMKS = au.valueSI / tu.valueSI;
+    abbrev1 = au.abbrev1 != null && tu.abbrev1 != null
+        ? '${au.abbrev1} / ${tu.abbrev1}'
+        : null;
+    abbrev2 = au.abbrev2 != null && tu.abbrev2 != null
+        ? '${au.abbrev2} ${tu.abbrev2}\u{207b}\u{00b9}'
+        : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -70,12 +88,13 @@ class AngularSpeedUnits extends AngularSpeed with Units {
 
   /// Derive AngularSpeedUnits using this AngularSpeedUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AngularSpeedUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      AngularSpeedUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

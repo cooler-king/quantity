@@ -4,23 +4,27 @@ import 'package:quantity/quantity.dart';
 void main() {
   group('QuantityRange', () {
     test('constructors', () {
-      final range = QuantityRange<Scalar>(Scalar(value: 5), Scalar(value: 23.3));
+      final range =
+          QuantityRange<Scalar>(Scalar(value: 5), Scalar(value: 23.3));
       expect(range, isNotNull);
       expect(range.q1 == Scalar(value: 5), true);
       expect(range.q2 == Scalar(value: 23.3), true);
     });
 
     test('min/max values', () {
-      var range = QuantityRange<Scalar>(Scalar(value: 15.2), Scalar(value: -1003.3));
+      var range =
+          QuantityRange<Scalar>(Scalar(value: 15.2), Scalar(value: -1003.3));
       expect(range.minValue == Scalar(value: -1003.3), true);
       expect(range.maxValue == Scalar(value: 15.2), true);
 
-      range = QuantityRange<Scalar>(Scalar(value: -1003.3), Scalar(value: 15.2));
+      range =
+          QuantityRange<Scalar>(Scalar(value: -1003.3), Scalar(value: 15.2));
       expect(range.minValue == Scalar(value: -1003.3), true);
       expect(range.maxValue == Scalar(value: 15.2), true);
 
       final range2 = QuantityRange<Length>(Length(m: 10000), Length(km: 1000));
-      expect(areWithin(range2.minValue, Length(km: 10), Length(m: 0.001)), true);
+      expect(
+          areWithin(range2.minValue, Length(km: 10), Length(m: 0.001)), true);
       expect(range2.maxValue == Length(km: 1000), true);
     });
 

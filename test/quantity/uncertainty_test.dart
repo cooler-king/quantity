@@ -24,7 +24,8 @@ void main() {
       expect(q.relativeUncertainty, 0.078);
       expect(q.standardUncertainty, Length(m: 0.507));
 
-      final misc = MiscQuantity(Double(99.9), SolidAngle.solidAngleDimensions, 0.0003);
+      final misc =
+          MiscQuantity(Double(99.9), SolidAngle.solidAngleDimensions, 0.0003);
       expect(misc.relativeUncertainty, 0.0003);
       expect(misc.standardUncertainty, SolidAngle(sr: 0.02997));
     });
@@ -33,11 +34,13 @@ void main() {
       final q1 = Length(m: 10, uncert: 0.01);
       final q2 = Length(m: 4, uncert: 0.002);
       final sumValueSI = q1.valueSI + q2.valueSI;
-      final urSum = Quantity.calcRelativeCombinedUncertaintySumDiff(q1, q2, sumValueSI);
+      final urSum =
+          Quantity.calcRelativeCombinedUncertaintySumDiff(q1, q2, sumValueSI);
       expect(urSum, closeTo(7.165678e-3, 0.000001e-3));
 
       final diffValueSI = q1.valueSI - q2.valueSI;
-      final urDiff = Quantity.calcRelativeCombinedUncertaintySumDiff(q1, q2, diffValueSI);
+      final urDiff =
+          Quantity.calcRelativeCombinedUncertaintySumDiff(q1, q2, diffValueSI);
       expect(urDiff, closeTo(1.6719915e-2, 0.000001e-2));
     });
 
@@ -148,7 +151,9 @@ void main() {
       expect(buf.toString(), '1000.08 kg');
 
       buf.clear();
-      q1.outputText(buf, uncertFormat: UncertaintyFormat.none, numberFormat: ScientificFormatSI(unicode: true));
+      q1.outputText(buf,
+          uncertFormat: UncertaintyFormat.none,
+          numberFormat: ScientificFormatSI(unicode: true));
       expect(buf.toString(), '1.000\u{2009}08 \u{00d7} 10\u{00b3} kg');
 
       buf.clear();
@@ -156,16 +161,22 @@ void main() {
       expect(buf.toString(), '1000.08(2.000 16) kg');
 
       buf.clear();
-      q1.outputText(buf, uncertFormat: UncertaintyFormat.parens, numberFormat: ScientificFormatSI(unicode: true));
-      expect(buf.toString(), '1.000\u{2009}08 \u{00d7} 10\u{00b3}(2.000\u{2009}16) kg');
+      q1.outputText(buf,
+          uncertFormat: UncertaintyFormat.parens,
+          numberFormat: ScientificFormatSI(unicode: true));
+      expect(buf.toString(),
+          '1.000\u{2009}08 \u{00d7} 10\u{00b3}(2.000\u{2009}16) kg');
 
       buf.clear();
       q1.outputText(buf, uncertFormat: UncertaintyFormat.plusMinus);
       expect(buf.toString(), '1000.08 +/- 2.000 16 kg');
 
       buf.clear();
-      q1.outputText(buf, uncertFormat: UncertaintyFormat.plusMinus, numberFormat: ScientificFormatSI(unicode: true));
-      expect(buf.toString(), '1.000\u{2009}08 \u{00d7} 10\u{00b3} \u{00b1} 2.000\u{2009}16 kg');
+      q1.outputText(buf,
+          uncertFormat: UncertaintyFormat.plusMinus,
+          numberFormat: ScientificFormatSI(unicode: true));
+      expect(buf.toString(),
+          '1.000\u{2009}08 \u{00d7} 10\u{00b3} \u{00b1} 2.000\u{2009}16 kg');
     });
   });
 }

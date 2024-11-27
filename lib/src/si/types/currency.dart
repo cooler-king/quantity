@@ -10,9 +10,10 @@ class Currency extends Quantity {
   /// Constructs a Currency with US dollars ([USD]).
   /// Optionally specify a relative standard uncertainty.
   // ignore:non_constant_identifier_names
-  Currency({dynamic USD, double uncert = 0.0}) : super(USD ?? 0.0, Currency.dollarsUS, uncert);
+  Currency({dynamic USD, double uncert = 0.0})
+      : super(USD ?? 0.0, Currency.dollarsUS, uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Currency.misc(dynamic conv) : super.misc(conv, Currency.currencyDimensions);
 
   /// Constructs a Currency based on the [value]
@@ -21,23 +22,28 @@ class Currency extends Quantity {
       : super(value, units ?? Currency.dollarsUS, uncert);
 
   /// Constructs a constant Currency.
-  const Currency.constant(Number valueSI, {CurrencyUnits? units, double uncert = 0.0})
+  const Currency.constant(Number valueSI,
+      {CurrencyUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Currency.currencyDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions currencyDimensions = Dimensions.constant(<String, int>{}, qType: Currency);
+  static const Dimensions currencyDimensions =
+      Dimensions.constant(<String, int>{}, qType: Currency);
 
   /// The unit of currency in the United States.
-  static final CurrencyUnits dollarsUS = CurrencyUnits('United States Dollars', '\$', 'USD', null, 1.0, false);
+  static final CurrencyUnits dollarsUS = CurrencyUnits(
+      'United States Dollars', '\$', 'USD', 'United States Dollar', 1.0, false);
 
   /// One U.S. Cent is equal to 0.01 U.S. Dollar.
-  static final CurrencyUnits centsUS = CurrencyUnits('United States Cents', 'cents', null, null, 0.01, false);
+  static final CurrencyUnits centsUS = CurrencyUnits('United States Cents',
+      'cents', 'cents', 'United States Cent', 0.01, false);
 }
 
 /// Units acceptable for use in describing Currency quantities.
 class CurrencyUnits extends Currency with Units {
-  /// Constructs a instance.
-  CurrencyUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  CurrencyUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -55,12 +61,13 @@ class CurrencyUnits extends Currency with Units {
 
   /// Derive CurrencyUnits using this CurrencyUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => CurrencyUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      CurrencyUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

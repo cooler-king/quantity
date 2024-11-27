@@ -11,9 +11,10 @@ class Volume extends Quantity {
   /// Constructs a Volume with cubic meters ([m3]) or liters ([L]).
   /// Optionally specify a relative standard uncertainty.
   Volume({dynamic m3, dynamic L, double uncert = 0.0})
-      : super(m3 ?? (L ?? 0.0), L != null ? Volume.liters : Volume.cubicMeters, uncert);
+      : super(m3 ?? (L ?? 0.0), L != null ? Volume.liters : Volume.cubicMeters,
+            uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Volume.misc(dynamic conv) : super.misc(conv, Volume.volumeDimensions);
 
   /// Constructs a Volume based on the [value]
@@ -22,23 +23,27 @@ class Volume extends Quantity {
       : super(value, units ?? Volume.cubicMeters, uncert);
 
   /// Constructs a constant Volume.
-  const Volume.constant(Number valueSI, {VolumeUnits? units, double uncert = 0.0})
+  const Volume.constant(Number valueSI,
+      {VolumeUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Volume.volumeDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions volumeDimensions = Dimensions.constant(<String, int>{'Length': -3}, qType: Volume);
+  static const Dimensions volumeDimensions =
+      Dimensions.constant(<String, int>{'Length': -3}, qType: Volume);
 
   /// The standard SI unit.
   static final VolumeUnits cubicMeters = VolumeUnits.lengthCubed(Length.meters);
 
   /// Accepted for use with the SI; equal to one thousandth of a cubic meter.
-  static final VolumeUnits liters = VolumeUnits('liters', null, 'L', null, 1.0e-3, true);
+  static final VolumeUnits liters =
+      VolumeUnits('liters', 'L', 'L', 'liter', 1.0e-3, true);
 }
 
 /// Units acceptable for use in describing Volume quantities.
 class VolumeUnits extends Volume with Units {
-  /// Constructs a instance.
-  VolumeUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  VolumeUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -50,13 +55,13 @@ class VolumeUnits extends Volume with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance based on length units.
+  /// Constructs an instance based on length units.
   VolumeUnits.lengthCubed(LengthUnits lu) : super.misc(lu.valueSI ^ 3) {
     name = 'cubic ${lu.name}';
     singular = 'cubic ${lu.singular}';
     convToMKS = lu.valueSI ^ 3;
-    abbrev1 = lu.abbrev1 != null ? '${lu.abbrev1}3' : null;
-    abbrev2 = lu.abbrev2 != null ? '${lu.abbrev2}3' : null;
+    abbrev1 = lu.abbrev1 != null ? '${lu.abbrev1}\u{00b3}' : null;
+    abbrev2 = lu.abbrev2 != null ? '${lu.abbrev2}\u{00b3}' : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -67,12 +72,13 @@ class VolumeUnits extends Volume with Units {
 
   /// Derive VolumeUnits using this VolumeUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => VolumeUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      VolumeUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

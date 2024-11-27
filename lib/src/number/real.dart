@@ -14,9 +14,11 @@ abstract class Real extends Number {
   /// Creates a constant real number.
   const Real.constant() : super.constant();
 
-  /// Constructs a instance using the value for property `d` (decimal) or `i` (integer) in Map [m].
+  /// Constructs an instance using the value for property `d` (decimal) or `i` (integer) in Map [m].
   factory Real.fromMap(Map<String, dynamic>? m) =>
-      m?.containsKey('d') == true || m?.containsKey('i') == true ? Number.fromMap(m) as Real : Integer.zero;
+      m?.containsKey('d') == true || m?.containsKey('i') == true
+          ? Number.fromMap(m) as Real
+          : Integer.zero;
 
   /// All Real subclasses must be able to provide their value as a [dart:core] [num].
   num get value;
@@ -28,7 +30,8 @@ abstract class Real extends Number {
   double toDouble();
 
   @override
-  bool get isInfinite => value == double.infinity || value == double.negativeInfinity;
+  bool get isInfinite =>
+      value == double.infinity || value == double.negativeInfinity;
 
   @override
   bool get isNaN => identical(value, double.nan);
@@ -49,7 +52,9 @@ abstract class Real extends Number {
     if (addend is num) return Double((value + addend).toDouble());
     if (addend is Precise) return addend + this;
     if (addend is Real) return Double((value + addend.value).toDouble());
-    if (addend is Complex) return Complex(Double(addend.real.toDouble() + value), addend.imag);
+    if (addend is Complex) {
+      return Complex(Double(addend.real.toDouble() + value), addend.imag);
+    }
     if (addend is Imaginary) return Complex(this, addend);
     return this;
   }
@@ -58,8 +63,13 @@ abstract class Real extends Number {
   Number operator -(dynamic subtrahend) {
     if (subtrahend is num) return Double((value - subtrahend).toDouble());
     if (subtrahend is Precise) return (-subtrahend) + this;
-    if (subtrahend is Real) return Double((value - subtrahend.value).toDouble());
-    if (subtrahend is Complex) return Complex(Double((value - subtrahend.real.value).toDouble()), -subtrahend.imag);
+    if (subtrahend is Real) {
+      return Double((value - subtrahend.value).toDouble());
+    }
+    if (subtrahend is Complex) {
+      return Complex(
+          Double((value - subtrahend.real.value).toDouble()), -subtrahend.imag);
+    }
     if (subtrahend is Imaginary) return Complex(this, -subtrahend);
     return this;
   }
@@ -78,11 +88,15 @@ abstract class Real extends Number {
       return Number.simplifyType(this * multiplicand.value);
     }
     if (multiplicand is Complex) {
-      if (multiplicand.real.isNaN || multiplicand.imag.value.isNaN) return Double.NaN;
-      return Number.simplifyType(
-          Complex(multiplicand.real * value as Real, Imaginary(multiplicand.imag.value * value)));
+      if (multiplicand.real.isNaN || multiplicand.imag.value.isNaN) {
+        return Double.NaN;
+      }
+      return Number.simplifyType(Complex(multiplicand.real * value as Real,
+          Imaginary(multiplicand.imag.value * value)));
     }
-    if (multiplicand is Imaginary) return Number.simplifyType(Imaginary(multiplicand.value * value));
+    if (multiplicand is Imaginary) {
+      return Number.simplifyType(Imaginary(multiplicand.value * value));
+    }
 
     // Treat multiplier as 0
     return Integer.zero;
@@ -100,7 +114,9 @@ abstract class Real extends Number {
                 : Double.negInfinity;
       }
       final num quotient = value / divisor;
-      return quotient.toInt() == quotient ? Integer(quotient.toInt()) : Double(quotient.toDouble());
+      return quotient.toInt() == quotient
+          ? Integer(quotient.toInt())
+          : Double(quotient.toDouble());
     }
     if (divisor is Precise) return (Precise.num(value)) / divisor;
     if (divisor is Real) {
@@ -113,14 +129,17 @@ abstract class Real extends Number {
                 : Double.negInfinity;
       }
       final num quotient = value / divisor.value;
-      return quotient.toInt() == quotient ? Integer(quotient.toInt()) : Double(quotient.toDouble());
+      return quotient.toInt() == quotient
+          ? Integer(quotient.toInt())
+          : Double(quotient.toDouble());
     }
     if (divisor is Complex) {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
       if (divisor.real.isNaN || divisor.imag.value.isNaN) return Double.NaN;
       final c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       final aOverc2d2 = this / c2d2;
-      return Complex(aOverc2d2 * divisor.real as Real, Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
+      return Complex(aOverc2d2 * divisor.real as Real,
+          Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
     if (divisor is Imaginary) {
       if (divisor.value.isNaN) return Imaginary(Double.NaN);
@@ -145,10 +164,12 @@ abstract class Real extends Number {
       // (a + 0i) / (c + di) = (ac - adi) / (c^2 + d^2)
       final c2d2 = (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
       final aOverc2d2 = this / c2d2;
-      return Complex(
-          (aOverc2d2 * divisor.real).truncate() as Real, Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
+      return Complex((aOverc2d2 * divisor.real).truncate() as Real,
+          Imaginary(aOverc2d2 * divisor.imaginary.value * -1.0));
     }
-    if (divisor is Imaginary) return Imaginary(((this / divisor.value) * -1).truncate());
+    if (divisor is Imaginary) {
+      return Imaginary(((this / divisor.value) * -1).truncate());
+    }
 
     // Treat divisor as 0
     return Double.infinity;
@@ -161,7 +182,8 @@ abstract class Real extends Number {
     if (divisor is num) return Double((value % divisor).toDouble());
     if (divisor is Real) return Double((value % divisor.value).toDouble());
     if (divisor is Complex || divisor is Imaginary) {
-      throw Exception('Unsupported operation (% with imaginary or complex divisor)');
+      throw Exception(
+          'Unsupported operation (% with imaginary or complex divisor)');
     }
     // Treat divisor as 0
     return Double.NaN;
@@ -242,7 +264,9 @@ abstract class Real extends Number {
   Number reciprocal() {
     if (value == 0) return Double.NaN;
     final num flipped = 1.0 / value;
-    return flipped.toInt() == flipped ? Integer(flipped.toInt()) : Double(flipped.toDouble());
+    return flipped.toInt() == flipped
+        ? Integer(flipped.toInt())
+        : Double(flipped.toDouble());
   }
 
   @override

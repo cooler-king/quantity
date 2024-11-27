@@ -17,16 +17,28 @@ void main() {
       expect(Number.simplifyType(Imaginary(Double(0))) is Integer, true);
       expect(Number.simplifyType(Imaginary(Integer(-2))) is Imaginary, true);
       expect(Number.simplifyType(Imaginary(Double(67.7))) is Imaginary, true);
-      expect((Number.simplifyType(Imaginary(Double(67.7))) as Imaginary).value is Double, true);
+      expect(
+          (Number.simplifyType(Imaginary(Double(67.7))) as Imaginary).value
+              is Double,
+          true);
       expect(Number.simplifyType(Imaginary(Double(67))) is Imaginary, true);
-      expect((Number.simplifyType(Imaginary(Double(67))) as Imaginary).value is Integer, true);
+      expect(
+          (Number.simplifyType(Imaginary(Double(67))) as Imaginary).value
+              is Integer,
+          true);
 
       expect(Number.simplifyType(Complex.coeff(0, 0)) is Integer, true);
       expect(Number.simplifyType(Complex.coeff(5.5, 0)) is Double, true);
       expect(Number.simplifyType(Complex.coeff(0, -9)) is Imaginary, true);
-      expect((Number.simplifyType(Complex.coeff(0, -9)) as Imaginary).value is Integer, true);
+      expect(
+          (Number.simplifyType(Complex.coeff(0, -9)) as Imaginary).value
+              is Integer,
+          true);
 
-      expect(Number.simplifyType(Complex(Precise('0'), Imaginary(Precise('0')))) is Precise, true);
+      expect(
+          Number.simplifyType(Complex(Precise('0'), Imaginary(Precise('0'))))
+              is Precise,
+          true);
     });
   });
 }

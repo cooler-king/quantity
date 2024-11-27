@@ -307,7 +307,8 @@ void main() {
         final c2 = Complex.coeff(-5, -2);
         expect(c2 / 1, Complex.coeff(-5, -2));
         expect(c2 / -4, Complex.coeff(1.25, 0.5));
-        expect(c2 / 0, Complex(Double.negInfinity, Imaginary(Double.negInfinity)));
+        expect(
+            c2 / 0, Complex(Double.negInfinity, Imaginary(Double.negInfinity)));
       });
 
       test('operator / Integer', () {
@@ -323,12 +324,14 @@ void main() {
         final c1 = Complex.coeff(2, 3);
         expect(c1 / Integer(1), Complex.coeff(2, 3));
         expect(c1 / Integer(4), Complex.coeff(0.5, 0.75));
-        expect(c1 / Integer(0), Complex(Double.infinity, Imaginary(Double.infinity)));
+        expect(c1 / Integer(0),
+            Complex(Double.infinity, Imaginary(Double.infinity)));
 
         final c2 = Complex.coeff(-5, -2);
         expect(c2 / Integer(4), Complex.coeff(-1.25, -0.5));
         expect(c2 / Integer(-4), Complex.coeff(1.25, 0.5));
-        expect(c2 / Integer(0), Complex(Double.negInfinity, Imaginary(Double.negInfinity)));
+        expect(c2 / Integer(0),
+            Complex(Double.negInfinity, Imaginary(Double.negInfinity)));
       });
 
       test('operator / Double', () {
@@ -344,12 +347,14 @@ void main() {
         final c1 = Complex.coeff(2, 3);
         expect(c1 / Double(0.5), Complex.coeff(4, 6));
         expect(c1 / Double(-0.25), Complex.coeff(-8, -12));
-        expect(c1 / Double(0), Complex(Double.infinity, Imaginary(Double.infinity)));
+        expect(c1 / Double(0),
+            Complex(Double.infinity, Imaginary(Double.infinity)));
 
         final c2 = Complex.coeff(-5, -2);
         expect(c2 / Double(0.2), Complex.coeff(-25, -10));
         expect(c2 / Double(-0.1), Complex.coeff(50, 20));
-        expect(c2 / Double(0), Complex(Double.negInfinity, Imaginary(Double.negInfinity)));
+        expect(c2 / Double(0),
+            Complex(Double.negInfinity, Imaginary(Double.negInfinity)));
       });
 
       test('operator / Imaginary', () {
@@ -365,12 +370,14 @@ void main() {
         final c1 = Complex.coeff(2, 8);
         expect(c1 / Imaginary(1), Complex.coeff(8, -2));
         expect(c1 / Imaginary(4), Complex.coeff(2, -0.5));
-        expect(c1 / Imaginary(0), Complex(Double.infinity, Imaginary(Double.negInfinity)));
+        expect(c1 / Imaginary(0),
+            Complex(Double.infinity, Imaginary(Double.negInfinity)));
 
         final c2 = Complex.coeff(-5, -2);
         expect(c2 / Imaginary(4), Complex.coeff(-0.5, 1.25));
         expect(c2 / Imaginary(-4), Complex.coeff(0.5, -1.25));
-        expect(c2 / Imaginary(0), Complex(Double.negInfinity, Imaginary(Double.infinity)));
+        expect(c2 / Imaginary(0),
+            Complex(Double.negInfinity, Imaginary(Double.infinity)));
       });
 
       test('operator / Complex', () {
@@ -383,21 +390,24 @@ void main() {
         expect(c0 / Complex.coeff(-9.9, -9.9) is Integer, true);
         expect(c0 / Complex.coeff(1, 0), Integer(0));
         expect(c0 / Complex.coeff(0, 1), Integer(0));
-        expect(c0 / Complex.coeff(0, 0), Complex(Double.NaN, Imaginary(Double.NaN)));
+        expect(c0 / Complex.coeff(0, 0),
+            Complex(Double.NaN, Imaginary(Double.NaN)));
 
         final c1 = Complex.coeff(2, 8);
         expect(c1 / Complex.coeff(1, 1), Complex.coeff(5, 3));
         expect(c1 / Complex.coeff(4, 2), Complex.coeff(1.2, 1.4));
         expect(c1 / Complex.coeff(1, 0), Complex.coeff(2, 8));
         expect(c1 / Complex.coeff(0, 1), Complex.coeff(8, -2));
-        expect(c1 / Complex.coeff(0, 0), Complex(Double.NaN, Imaginary(Double.NaN)));
+        expect(c1 / Complex.coeff(0, 0),
+            Complex(Double.NaN, Imaginary(Double.NaN)));
 
         final c2 = Complex.coeff(-5, -2);
         expect(c2 / Complex.coeff(4, 2), Complex.coeff(-1.2, 0.1));
         expect(c2 / Complex.coeff(-4, -2), Complex.coeff(1.2, -0.1));
         expect(c2 / Complex.coeff(1, 0), Complex.coeff(-5, -2));
         expect(c2 / Complex.coeff(0, 1), Complex.coeff(-2, 5));
-        expect(c2 / Complex.coeff(0, 0), Complex(Double.NaN, Imaginary(Double.NaN)));
+        expect(c2 / Complex.coeff(0, 0),
+            Complex(Double.NaN, Imaginary(Double.NaN)));
 
         final c3 = Complex.coeff(3, 2);
         expect(c3 / Complex.coeff(4, -3), Complex.coeff(0.24, 0.68));
@@ -487,11 +497,13 @@ void main() {
       });
 
       test('operator ^ Imaginary (exception)', () {
-        expect(() => Complex.coeff(1, 2) ^ Imaginary(3), throwsA(isA<NumberException>()));
+        expect(() => Complex.coeff(1, 2) ^ Imaginary(3),
+            throwsA(isA<NumberException>()));
       });
 
       test('operator ^ Complex (exception)', () {
-        expect(() => Complex.coeff(1, 2) ^ Complex.coeff(2, 5), throwsA(isA<NumberException>()));
+        expect(() => Complex.coeff(1, 2) ^ Complex.coeff(2, 5),
+            throwsA(isA<NumberException>()));
       });
     });
 
@@ -542,7 +554,8 @@ void main() {
 
       test('operator < Precise', () {
         expect(Complex.coeff(6, 2) < Precise('4.5'), false);
-        expect(Complex.coeff(6.1, 6.1) < Precise('6.10000000000000000000'), false);
+        expect(
+            Complex.coeff(6.1, 6.1) < Precise('6.10000000000000000000'), false);
         expect(Complex.coeff(2, 8) < Precise('4.5'), true);
       });
     });
@@ -584,7 +597,8 @@ void main() {
 
       test('operator < Precise', () {
         expect(Complex.coeff(6, 2) <= Precise('4.5'), false);
-        expect(Complex.coeff(6.1, 6.1) <= Precise('6.10000000000000000000'), true);
+        expect(
+            Complex.coeff(6.1, 6.1) <= Precise('6.10000000000000000000'), true);
         expect(Complex.coeff(2, 8) <= Precise('4.5'), true);
       });
     });
@@ -626,7 +640,8 @@ void main() {
 
       test('operator > Precise', () {
         expect(Complex.coeff(6, 2) > Precise('4.5'), true);
-        expect(Complex.coeff(6.1, 6.1) > Precise('6.10000000000000000000'), false);
+        expect(
+            Complex.coeff(6.1, 6.1) > Precise('6.10000000000000000000'), false);
         expect(Complex.coeff(2, 8) > Precise('4.5'), false);
       });
     });
@@ -668,7 +683,8 @@ void main() {
 
       test('operator >= Precise', () {
         expect(Complex.coeff(6, 2) >= Precise('4.5'), true);
-        expect(Complex.coeff(6.1, 6.1) >= Precise('6.10000000000000000000'), true);
+        expect(
+            Complex.coeff(6.1, 6.1) >= Precise('6.10000000000000000000'), true);
         expect(Complex.coeff(2, 8) >= Precise('4.5'), false);
       });
     });
@@ -718,20 +734,28 @@ void main() {
         // ignore: unrelated_type_equality_checks
         expect(Complex.coeff(5.5, -1) == Precise('5.5'), false);
         // ignore: unrelated_type_equality_checks
-        expect(Complex.coeff(5.5, 0) == Precise('5.50000000000000000000001'), false);
+        expect(Complex.coeff(5.5, 0) == Precise('5.50000000000000000000001'),
+            false);
       });
 
       test('operator == Reals', () {
         expect(Complex(Integer(0), Imaginary(8)), Imaginary(8));
         expect(Complex(Double(0), Imaginary(Double(8))), Imaginary(Integer(8)));
         expect(Complex(Double(8), Imaginary(0)), Double(8));
-        expect(Complex(Integer(5), Imaginary(8)), Complex(Integer(5), Imaginary(8)));
-        expect(Complex(Double(5), Imaginary(8)), Complex(Integer(5), Imaginary(8)));
-        expect(Complex(Integer(5), Imaginary(Integer(8))), Complex(Integer(5), Imaginary(8)));
-        expect(Complex(Integer(5), Imaginary(Double(8))), Complex(Integer(5), Imaginary(8)));
-        expect(Complex(Double(5), Imaginary(Double(8))), Complex(Integer(5), Imaginary(8)));
-        expect(Complex(Precise('5.00000'), Imaginary(Double(8))), Complex(Integer(5), Imaginary(8)));
-        expect(Complex(Precise('5.00000'), Imaginary(Precise('8'))), Complex(Integer(5), Imaginary(8)));
+        expect(Complex(Integer(5), Imaginary(8)),
+            Complex(Integer(5), Imaginary(8)));
+        expect(Complex(Double(5), Imaginary(8)),
+            Complex(Integer(5), Imaginary(8)));
+        expect(Complex(Integer(5), Imaginary(Integer(8))),
+            Complex(Integer(5), Imaginary(8)));
+        expect(Complex(Integer(5), Imaginary(Double(8))),
+            Complex(Integer(5), Imaginary(8)));
+        expect(Complex(Double(5), Imaginary(Double(8))),
+            Complex(Integer(5), Imaginary(8)));
+        expect(Complex(Precise('5.00000'), Imaginary(Double(8))),
+            Complex(Integer(5), Imaginary(8)));
+        expect(Complex(Precise('5.00000'), Imaginary(Precise('8'))),
+            Complex(Integer(5), Imaginary(8)));
       });
     });
 
@@ -749,7 +773,8 @@ void main() {
       expect(Complex(Integer(0), Imaginary(8)).complexModulus is Integer, true);
       expect(Complex(Integer(22), Imaginary(0)).complexModulus, Integer(22));
       expect(Complex(Integer(3), Imaginary(4)).complexModulus, Integer(5));
-      expect(Complex(Integer(4), Imaginary(5)).complexModulus, Double(sqrt(41)));
+      expect(
+          Complex(Integer(4), Imaginary(5)).complexModulus, Double(sqrt(41)));
       expect(Complex(Integer(4), Imaginary(5)).complexModulus is Double, true);
     });
 
@@ -773,8 +798,10 @@ void main() {
     });
 
     test('clamp', () {
-      expect(Complex(Double(3.2), Imaginary(43)).clamp(0, 2), Complex(Integer(2), Imaginary(43)));
-      expect(Complex(Double(-4.9), Imaginary(55)).clamp(-4.5, -2.1), Complex.coeff(-4.5, 55));
+      expect(Complex(Double(3.2), Imaginary(43)).clamp(0, 2),
+          Complex(Integer(2), Imaginary(43)));
+      expect(Complex(Double(-4.9), Imaginary(55)).clamp(-4.5, -2.1),
+          Complex.coeff(-4.5, 55));
     });
 
     test('complexArgument', () {
@@ -808,7 +835,8 @@ void main() {
       expect(Complex(Double.infinity, Imaginary(1)).isInfinite, true);
       expect(Complex(Double.negInfinity, Imaginary(1)).isInfinite, true);
       expect(Complex(Double(1), Imaginary(double.infinity)).isInfinite, false);
-      expect(Complex(Double(1), Imaginary(Double.negInfinity)).isInfinite, false);
+      expect(
+          Complex(Double(1), Imaginary(Double.negInfinity)).isInfinite, false);
     });
 
     test('isInteger', () {
@@ -827,7 +855,8 @@ void main() {
     test('reciprocal', () {
       expect(Complex.coeff(2, 4).reciprocal(), Complex.coeff(0.1, -0.2));
       expect(Complex.coeff(-2, -4).reciprocal(), Complex.coeff(-0.1, 0.2));
-      expect(Complex.coeff(0, 0).reciprocal(), Complex.coeff(double.nan, double.nan));
+      expect(Complex.coeff(0, 0).reciprocal(),
+          Complex.coeff(double.nan, double.nan));
     });
 
     test('isNegative', () {
@@ -872,8 +901,10 @@ void main() {
     });
 
     test('remainder', () {
-      expect(Complex.coeff(2.8, 4.3).remainder(2).toDouble(), closeTo(0.8, 0.000001));
-      expect(Complex.coeff(-2.8, 4.3).remainder(2).toDouble(), closeTo(-0.8, 0.000001));
+      expect(Complex.coeff(2.8, 4.3).remainder(2).toDouble(),
+          closeTo(0.8, 0.000001));
+      expect(Complex.coeff(-2.8, 4.3).remainder(2).toDouble(),
+          closeTo(-0.8, 0.000001));
     });
 
     test('toJson', () {

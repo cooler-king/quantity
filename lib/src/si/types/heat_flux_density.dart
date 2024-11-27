@@ -1,9 +1,4 @@
-import '../../number/util/converters.dart';
-import '../../si/dimensions.dart';
-import '../../si/quantity.dart';
-import '../../si/units.dart';
-import 'area.dart';
-import 'power.dart';
+import 'package:quantity/quantity.dart';
 
 // Also EnergyFluxDensity, Irradiance, PowerFluxDensity
 
@@ -14,33 +9,40 @@ class HeatFluxDensity extends Quantity {
   /// Constructs a HeatFluxDensity with watts per square meter.
   /// Optionally specify a relative standard uncertainty.
   HeatFluxDensity({dynamic wattsPerSquareMeter, double uncert = 0.0})
-      : super(wattsPerSquareMeter ?? 0.0, HeatFluxDensity.wattsPerSquareMeter, uncert);
+      : super(wattsPerSquareMeter ?? 0.0, HeatFluxDensity.wattsPerSquareMeter,
+            uncert);
 
-  /// Constructs a instance without preferred units.
-  HeatFluxDensity.misc(dynamic conv) : super.misc(conv, HeatFluxDensity.heatFluxDensityDimensions);
+  /// Constructs an instance without preferred units.
+  HeatFluxDensity.misc(dynamic conv)
+      : super.misc(conv, HeatFluxDensity.heatFluxDensityDimensions);
 
   /// Constructs a HeatFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  HeatFluxDensity.inUnits(dynamic value, HeatFluxDensityUnits? units, [double uncert = 0.0])
+  HeatFluxDensity.inUnits(dynamic value, HeatFluxDensityUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? HeatFluxDensity.wattsPerSquareMeter, uncert);
 
   /// Constructs a constant HeatFluxDensity.
-  const HeatFluxDensity.constant(Number valueSI, {HeatFluxDensityUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, HeatFluxDensity.heatFluxDensityDimensions, units, uncert);
+  const HeatFluxDensity.constant(Number valueSI,
+      {HeatFluxDensityUnits? units, double uncert = 0.0})
+      : super.constant(
+            valueSI, HeatFluxDensity.heatFluxDensityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions heatFluxDensityDimensions =
-      Dimensions.constant(<String, int>{'Mass': 1, 'Time': -3}, qType: HeatFluxDensity);
+  static const Dimensions heatFluxDensityDimensions = Dimensions.constant(
+      <String, int>{'Mass': 1, 'Time': -3},
+      qType: HeatFluxDensity);
 
   /// The standard SI unit.
   static final HeatFluxDensityUnits wattsPerSquareMeter =
-      HeatFluxDensityUnits.powerArea(Power.watts, Area.squareMeters);
+      HeatFluxDensityUnits.powerPerArea(Power.watts, Area.squareMeters);
 }
 
 /// Units acceptable for use in describing HeatFluxDensity quantities.
 class HeatFluxDensityUnits extends HeatFluxDensity with Units {
-  /// Constructs a instance.
-  HeatFluxDensityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  HeatFluxDensityUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -52,13 +54,18 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance from power and area units.
-  HeatFluxDensityUnits.powerArea(PowerUnits pu, AreaUnits au) : super.misc(pu.valueSI * au.valueSI) {
+  /// Constructs an instance from power and area units.
+  HeatFluxDensityUnits.powerPerArea(PowerUnits pu, AreaUnits au)
+      : super.misc(pu.valueSI / au.valueSI) {
     name = '${pu.name} per ${au.singular}';
     singular = '${pu.singular} per ${au.singular}';
-    convToMKS = pu.valueSI * au.valueSI;
-    abbrev1 = pu.abbrev1 != null && au.abbrev1 != null ? '${pu.abbrev1} / ${au.abbrev1}' : null;
-    abbrev2 = pu.abbrev2 != null && au.abbrev2 != null ? '${pu.abbrev2}${au.abbrev2}' : null;
+    convToMKS = pu.valueSI / au.valueSI;
+    abbrev1 = pu.abbrev1 != null && au.abbrev1 != null
+        ? '${pu.abbrev1} / ${au.abbrev1}'
+        : null;
+    abbrev2 = condenseUnicodeSequences(pu.abbrev2 != null && au.abbrev2 != null
+        ? '${pu.abbrev2} ${au.abbrev2}\u{207b}\u{00b9}'
+        : null);
     metricBase = false;
     offset = 0.0;
   }
@@ -69,12 +76,13 @@ class HeatFluxDensityUnits extends HeatFluxDensity with Units {
 
   /// Derive HeatFluxDensityUnits using this HeatFluxDensityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => HeatFluxDensityUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      HeatFluxDensityUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

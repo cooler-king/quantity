@@ -15,26 +15,33 @@ class Power extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Power({dynamic W, dynamic kW, dynamic MW, double uncert = 0.0})
-      : super(W ?? (kW ?? (MW ?? 0.0)), kW != null ? Power.kilowatts : (MW != null ? Power.megawatts : Power.watts),
+      : super(
+            W ?? (kW ?? (MW ?? 0.0)),
+            kW != null
+                ? Power.kilowatts
+                : (MW != null ? Power.megawatts : Power.watts),
             uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Power.misc(dynamic conv) : super.misc(conv, Power.powerDimensions);
 
   /// Constructs a Power based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Power.inUnits(dynamic value, PowerUnits? units, [double uncert = 0.0]) : super(value, units ?? Power.watts, uncert);
+  Power.inUnits(dynamic value, PowerUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Power.watts, uncert);
 
   /// Constructs a constant Power.
   const Power.constant(Number valueSI, {PowerUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Power.powerDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions powerDimensions =
-      Dimensions.constant(<String, int>{'Length': 2, 'Mass': 1, 'Time': -3}, qType: Power);
+  static const Dimensions powerDimensions = Dimensions.constant(
+      <String, int>{'Length': 2, 'Mass': 1, 'Time': -3},
+      qType: Power);
 
   /// The standard SI unit.
-  static final PowerUnits watts = PowerUnits('watts', null, 'W', null, 1.0, true);
+  static final PowerUnits watts =
+      PowerUnits('watts', 'W', 'W', 'watt', 1.0, true);
 
   // Convenience.
 
@@ -47,8 +54,9 @@ class Power extends Quantity {
 
 /// Units acceptable for use in describing Power quantities.
 class PowerUnits extends Power with Units {
-  /// Constructs a instance.
-  PowerUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  PowerUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -60,13 +68,18 @@ class PowerUnits extends Power with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance based on energy and time units.
-  PowerUnits.energyTime(EnergyUnits eu, TimeUnits tu) : super.misc(eu.valueSI / tu.valueSI) {
+  /// Constructs an instance based on energy and time units.
+  PowerUnits.energyPerTime(EnergyUnits eu, TimeUnits tu)
+      : super.misc(eu.valueSI / tu.valueSI) {
     name = '${eu.name} per ${tu.singular}';
     singular = '${eu.singular} per ${tu.singular}';
     convToMKS = eu.valueSI / tu.valueSI;
-    abbrev1 = eu.abbrev1 != null && tu.abbrev1 != null ? '${eu.abbrev1} / ${tu.abbrev1}' : null;
-    abbrev2 = eu.abbrev2 != null && tu.abbrev2 != null ? '${eu.abbrev2}${tu.abbrev2}' : null;
+    abbrev1 = eu.abbrev1 != null && tu.abbrev1 != null
+        ? '${eu.abbrev1} / ${tu.abbrev1}'
+        : null;
+    abbrev2 = eu.abbrev2 != null && tu.abbrev2 != null
+        ? '${eu.abbrev2} ${tu.abbrev2}\u{207b}\u{00b9}'
+        : null;
     metricBase = metricBase;
     offset = offset.toDouble();
   }
@@ -77,14 +90,15 @@ class PowerUnits extends Power with Units {
 
   /// Derive PowerUnits using this PowerUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => PowerUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      PowerUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }
 
 /// Radiant flux is another way to express power.

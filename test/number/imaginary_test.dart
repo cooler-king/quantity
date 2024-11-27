@@ -68,15 +68,18 @@ void main() {
 
       test('operator + Complex', () {
         expect(Imaginary(0) + Complex.coeff(5.5, 4.4), Complex.coeff(5.5, 4.4));
-        expect(Imaginary(1.4) + Complex.coeff(5.5, -3.4), Complex.coeff(5.5, -2));
-        expect(Imaginary(-1.1) + Complex.coeff(5.5, 2.2), Complex.coeff(5.5, 1.1));
+        expect(
+            Imaginary(1.4) + Complex.coeff(5.5, -3.4), Complex.coeff(5.5, -2));
+        expect(
+            Imaginary(-1.1) + Complex.coeff(5.5, 2.2), Complex.coeff(5.5, 1.1));
       });
 
       test('operator + Precise', () {
         expect(Imaginary(0) + Precise('5.5'), Precise('5.5'));
         expect(Imaginary(0) + Precise('5.5'), isA<Precise>());
         expect(Imaginary(1.1) + Precise('5.5'), Complex.coeff(5.5, 1.1));
-        expect((Imaginary(1.1) + Precise('5.5') as Complex).real, isA<Precise>());
+        expect(
+            (Imaginary(1.1) + Precise('5.5') as Complex).real, isA<Precise>());
         expect(Imaginary(-1.1) + Precise('5.5'), Complex.coeff(5.5, -1.1));
       });
     });
@@ -129,16 +132,20 @@ void main() {
       });
 
       test('operator - Complex', () {
-        expect(Imaginary(0) - Complex.coeff(5.5, 4.4), Complex.coeff(-5.5, -4.4));
-        expect(Imaginary(1.1) - Complex.coeff(5.5, -3.3), Complex.coeff(-5.5, 4.4));
-        expect(Imaginary(-1.8) - Complex.coeff(5.5, 2.2), Complex.coeff(-5.5, -4));
+        expect(
+            Imaginary(0) - Complex.coeff(5.5, 4.4), Complex.coeff(-5.5, -4.4));
+        expect(Imaginary(1.1) - Complex.coeff(5.5, -3.3),
+            Complex.coeff(-5.5, 4.4));
+        expect(
+            Imaginary(-1.8) - Complex.coeff(5.5, 2.2), Complex.coeff(-5.5, -4));
       });
 
       test('operator - Precise', () {
         expect(Imaginary(0) - Precise('5.5'), Precise('-5.5'));
         expect(Imaginary(0) - Precise('5.5'), isA<Precise>());
         expect(Imaginary(1.1) - Precise('5.5'), Complex.coeff(-5.5, 1.1));
-        expect((Imaginary(1.1) - Precise('5.5') as Complex).real, isA<Precise>());
+        expect(
+            (Imaginary(1.1) - Precise('5.5') as Complex).real, isA<Precise>());
         expect(Imaginary(-1.1) - Precise('5.5'), Complex.coeff(-5.5, -1.1));
       });
     });
@@ -214,13 +221,15 @@ void main() {
         expect(imag1 * Double(-5.5), Imaginary(-5.5));
         expect(imag2 * Double(1.1), Imaginary(6.16));
         expect(imag2 * Double(2.2), Imaginary(12.32));
-        expect((imag2 * Double(-5.5) as Imaginary).value.toDouble(), closeTo(-30.8, 1e-12));
+        expect((imag2 * Double(-5.5) as Imaginary).value.toDouble(),
+            closeTo(-30.8, 1e-12));
         expect(imag3 * Double(1.1), Imaginary(-9.9));
         expect(imag3 * Double(2.2), Imaginary(-19.8));
         expect(imag3 * Double(-5.5), Imaginary(49.5));
         expect(imag4 * Double(1.1), Imaginary(-28.5857));
         expect(imag4 * Double(2.2), Imaginary(-57.1714));
-        expect((imag4 * Double(-5.5) as Imaginary).value.toDouble(), closeTo(142.9285, 1e-12));
+        expect((imag4 * Double(-5.5) as Imaginary).value.toDouble(),
+            closeTo(142.9285, 1e-12));
       });
 
       test('operator * Imaginary', () {
@@ -268,7 +277,8 @@ void main() {
         expect(imag1 * complex01, Integer(-1));
         expect(imag1 * complex10, Imaginary(1));
         expect(imag1 * complex11, Complex(Integer(-1), Imaginary(1)));
-        expect(imag2 * complex99, Complex(Double(1694.3524), Imaginary(-2596.1013)));
+        expect(imag2 * complex99,
+            Complex(Double(1694.3524), Imaginary(-2596.1013)));
       });
 
       test('operator * Precise', () {
@@ -289,14 +299,16 @@ void main() {
         expect(imag1 * Precise('-5.5'), Imaginary(-5.5));
         expect(imag2 * Precise('1.1'), Imaginary(6.16));
         expect(imag2 * Precise('2.2'), Imaginary(12.32));
-        expect((imag2 * Precise('-5.5') as Imaginary).value.toDouble(), closeTo(-30.8, 1e-12));
+        expect((imag2 * Precise('-5.5') as Imaginary).value.toDouble(),
+            closeTo(-30.8, 1e-12));
         expect((imag2 * Precise('-5.5') as Imaginary).value, isA<Precise>());
         expect(imag3 * Precise('1.1'), Imaginary(-9.9));
         expect(imag3 * Precise('2.2'), Imaginary(-19.8));
         expect(imag3 * Precise('-5.5'), Imaginary(49.5));
         expect(imag4 * Precise('1.1'), Imaginary(-28.5857));
         expect(imag4 * Precise('2.2'), Imaginary(-57.1714));
-        expect((imag4 * Precise('-5.5') as Imaginary).value.toDouble(), closeTo(142.9285, 1e-12));
+        expect((imag4 * Precise('-5.5') as Imaginary).value.toDouble(),
+            closeTo(142.9285, 1e-12));
       });
     });
 
@@ -411,21 +423,24 @@ void main() {
         expect(i0 / Complex.coeff(-9.9, -9.9) is Integer, true);
         expect(i0 / Complex.coeff(1, 0), Integer(0));
         expect(i0 / Complex.coeff(0, 1), Integer(0));
-        expect(i0 / Complex.coeff(0, 0), Complex(Double.NaN, Imaginary(Double.NaN)));
+        expect(i0 / Complex.coeff(0, 0),
+            Complex(Double.NaN, Imaginary(Double.NaN)));
 
         final i1 = Imaginary(8);
         expect(i1 / Complex.coeff(1, 1), Complex.coeff(4, 4));
         expect(i1 / Complex.coeff(4, 2), Complex.coeff(0.8, 1.6));
         expect(i1 / Complex.coeff(1, 0), Imaginary(8));
         expect(i1 / Complex.coeff(0, 1), Integer(8));
-        expect(i1 / Complex.coeff(0, 0), Complex(Double.infinity, Imaginary(Double.infinity)));
+        expect(i1 / Complex.coeff(0, 0),
+            Complex(Double.infinity, Imaginary(Double.infinity)));
 
         final i2 = Imaginary(-2);
         expect(i2 / Complex.coeff(4, 2), Complex.coeff(-0.2, -0.4));
         expect(i2 / Complex.coeff(-4, -2), Complex.coeff(0.2, 0.4));
         expect(i2 / Complex.coeff(1, 0), Imaginary(-2));
         expect(i2 / Complex.coeff(0, 1), Integer(-2));
-        expect(i2 / Complex.coeff(0, 0), Complex(Double.negInfinity, Imaginary(Double.negInfinity)));
+        expect(i2 / Complex.coeff(0, 0),
+            Complex(Double.negInfinity, Imaginary(Double.negInfinity)));
 
         final i3 = Imaginary(5);
         expect(i3 / Complex.coeff(2, 6), Complex.coeff(0.75, 0.25));

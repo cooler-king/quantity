@@ -84,8 +84,10 @@ void main() {
       list = range.ranges360;
       expect(list.length, 2);
       expect(list[0].startAngle == Angle(deg: 0), true);
-      expect(list[0].endAngle.valueSI.toDouble(), closeTo(Angle(deg: 45).valueSI.toDouble(), 0.00001));
-      expect(list[1].startAngle.valueSI.toDouble(), closeTo(Angle(deg: 335).valueSI.toDouble(), 0.00001));
+      expect(list[0].endAngle.valueSI.toDouble(),
+          closeTo(Angle(deg: 45).valueSI.toDouble(), 0.00001));
+      expect(list[1].startAngle.valueSI.toDouble(),
+          closeTo(Angle(deg: 335).valueSI.toDouble(), 0.00001));
       expect(list[1].endAngle == Angle(deg: 360), true);
     });
 

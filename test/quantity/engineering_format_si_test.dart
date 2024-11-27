@@ -106,8 +106,10 @@ void main() {
           expect(f1.format(123456), '123.456 \u{00d7} 10\u{00b3}');
           expect(f1.format(1234567), '1.234\u{2009}567 \u{00d7} 10\u{2076}');
           expect(f1.format(12345678), '12.345\u{2009}678 \u{00d7} 10\u{2076}');
-          expect(f1.format(123456789), '123.456\u{2009}789 \u{00d7} 10\u{2076}');
-          expect(f1.format(1234567890), '1.234\u{2009}567\u{2009}89 \u{00d7} 10\u{2079}');
+          expect(
+              f1.format(123456789), '123.456\u{2009}789 \u{00d7} 10\u{2076}');
+          expect(f1.format(1234567890),
+              '1.234\u{2009}567\u{2009}89 \u{00d7} 10\u{2079}');
 
           expect(f1.format(-1), '-1.0');
           expect(f1.format(-12), '-12.0');
@@ -116,9 +118,12 @@ void main() {
           expect(f1.format(-12345), '-12.345 \u{00d7} 10\u{00b3}');
           expect(f1.format(-123456), '-123.456 \u{00d7} 10\u{00b3}');
           expect(f1.format(-1234567), '-1.234\u{2009}567 \u{00d7} 10\u{2076}');
-          expect(f1.format(-12345678), '-12.345\u{2009}678 \u{00d7} 10\u{2076}');
-          expect(f1.format(-123456789), '-123.456\u{2009}789 \u{00d7} 10\u{2076}');
-          expect(f1.format(-1234567890), '-1.234\u{2009}567\u{2009}89 \u{00d7} 10\u{2079}');
+          expect(
+              f1.format(-12345678), '-12.345\u{2009}678 \u{00d7} 10\u{2076}');
+          expect(
+              f1.format(-123456789), '-123.456\u{2009}789 \u{00d7} 10\u{2076}');
+          expect(f1.format(-1234567890),
+              '-1.234\u{2009}567\u{2009}89 \u{00d7} 10\u{2079}');
 
           expect(f1.format(0.0), '0.0');
           expect(f1.format(1.001), '1.001');
@@ -127,10 +132,14 @@ void main() {
           expect(f1.format(10.01), '10.01');
           expect(f1.format(100.01), '100.01');
           expect(f1.format(100.001), '100.001');
-          expect(f1.format(1000.0001), '1.000\u{2009}000\u{2009}1 \u{00d7} 10\u{00b3}');
-          expect(f1.format(10000.00001), '10.000\u{2009}000\u{2009}01 \u{00d7} 10\u{00b3}');
-          expect(f1.format(9876543210.1234), '9.876\u{2009}543\u{2009}210\u{2009}123\u{2009}4 \u{00d7} 10\u{2079}');
-          expect(f1.format(1234.9876543219), '1.234\u{2009}987\u{2009}654\u{2009}321\u{2009}9 \u{00d7} 10\u{00b3}');
+          expect(f1.format(1000.0001),
+              '1.000\u{2009}000\u{2009}1 \u{00d7} 10\u{00b3}');
+          expect(f1.format(10000.00001),
+              '10.000\u{2009}000\u{2009}01 \u{00d7} 10\u{00b3}');
+          expect(f1.format(9876543210.1234),
+              '9.876\u{2009}543\u{2009}210\u{2009}123\u{2009}4 \u{00d7} 10\u{2079}');
+          expect(f1.format(1234.9876543219),
+              '1.234\u{2009}987\u{2009}654\u{2009}321\u{2009}9 \u{00d7} 10\u{00b3}');
 
           expect(f1.format(-0.0), '0.0');
           expect(f1.format(-1.001), '-1.001');
@@ -139,10 +148,14 @@ void main() {
           expect(f1.format(-10.01), '-10.01');
           expect(f1.format(-100.01), '-100.01');
           expect(f1.format(-100.001), '-100.001');
-          expect(f1.format(-1000.0001), '-1.000\u{2009}000\u{2009}1 \u{00d7} 10\u{00b3}');
-          expect(f1.format(-10000.00001), '-10.000\u{2009}000\u{2009}01 \u{00d7} 10\u{00b3}');
-          expect(f1.format(-9876543210.1234), '-9.876\u{2009}543\u{2009}210\u{2009}123\u{2009}4 \u{00d7} 10\u{2079}');
-          expect(f1.format(-1234.9876543219), '-1.234\u{2009}987\u{2009}654\u{2009}321\u{2009}9 \u{00d7} 10\u{00b3}');
+          expect(f1.format(-1000.0001),
+              '-1.000\u{2009}000\u{2009}1 \u{00d7} 10\u{00b3}');
+          expect(f1.format(-10000.00001),
+              '-10.000\u{2009}000\u{2009}01 \u{00d7} 10\u{00b3}');
+          expect(f1.format(-9876543210.1234),
+              '-9.876\u{2009}543\u{2009}210\u{2009}123\u{2009}4 \u{00d7} 10\u{2079}');
+          expect(f1.format(-1234.9876543219),
+              '-1.234\u{2009}987\u{2009}654\u{2009}321\u{2009}9 \u{00d7} 10\u{00b3}');
 
           expect(f1.format(0.1), '100.0 \u{00d7} 10\u{207b}\u{00b3}');
           expect(f1.format(0.01), '10.0 \u{00d7} 10\u{207b}\u{00b3}');
@@ -153,8 +166,10 @@ void main() {
           expect(f1.format(0.01002), '10.02 \u{00d7} 10\u{207b}\u{00b3}');
           expect(f1.format(0.010002), '10.002 \u{00d7} 10\u{207b}\u{00b3}');
           expect(f1.format(0.0100002), '10.0002 \u{00d7} 10\u{207b}\u{00b3}');
-          expect(f1.format(0.01000002), '10.000\u{2009}02 \u{00d7} 10\u{207b}\u{00b3}');
-          expect(f1.format(0.00010020034), '100.200\u{2009}34 \u{00d7} 10\u{207b}\u{2076}');
+          expect(f1.format(0.01000002),
+              '10.000\u{2009}02 \u{00d7} 10\u{207b}\u{00b3}');
+          expect(f1.format(0.00010020034),
+              '100.200\u{2009}34 \u{00d7} 10\u{207b}\u{2076}');
 
           expect(f1.format(-0.1), '-100.0 \u{00d7} 10\u{207b}\u{00b3}');
           expect(f1.format(-0.01), '-10.0 \u{00d7} 10\u{207b}\u{00b3}');
@@ -165,8 +180,10 @@ void main() {
           expect(f1.format(-0.01002), '-10.02 \u{00d7} 10\u{207b}\u{00b3}');
           expect(f1.format(-0.010002), '-10.002 \u{00d7} 10\u{207b}\u{00b3}');
           expect(f1.format(-0.0100002), '-10.0002 \u{00d7} 10\u{207b}\u{00b3}');
-          expect(f1.format(-0.01000002), '-10.000\u{2009}02 \u{00d7} 10\u{207b}\u{00b3}');
-          expect(f1.format(-0.00010020034), '-100.200\u{2009}34 \u{00d7} 10\u{207b}\u{2076}');
+          expect(f1.format(-0.01000002),
+              '-10.000\u{2009}02 \u{00d7} 10\u{207b}\u{00b3}');
+          expect(f1.format(-0.00010020034),
+              '-100.200\u{2009}34 \u{00d7} 10\u{207b}\u{2076}');
         });
       });
 
@@ -201,16 +218,20 @@ void main() {
         expect(f1.format(Double(100.001)), '100.001');
         expect(f1.format(Double(1000.0001)), '1.000 000 1 x 10^3');
         expect(f1.format(Double(10000.00001)), '10.000 000 01 x 10^3');
-        expect(f1.format(Double(9876543210.1234)), '9.876 543 210 123 4 x 10^9');
-        expect(f1.format(Double(1234.9876543219)), '1.234 987 654 321 9 x 10^3');
+        expect(
+            f1.format(Double(9876543210.1234)), '9.876 543 210 123 4 x 10^9');
+        expect(
+            f1.format(Double(1234.9876543219)), '1.234 987 654 321 9 x 10^3');
 
         expect(f1.format(Double(-0)), '0.0');
         expect(f1.format(Double(-10.01)), '-10.01');
         expect(f1.format(Double(-100.001)), '-100.001');
         expect(f1.format(Double(-1000.0001)), '-1.000 000 1 x 10^3');
         expect(f1.format(Double(-10000.00001)), '-10.000 000 01 x 10^3');
-        expect(f1.format(Double(-9876543210.1234)), '-9.876 543 210 123 4 x 10^9');
-        expect(f1.format(Double(-1234.9876543219)), '-1.234 987 654 321 9 x 10^3');
+        expect(
+            f1.format(Double(-9876543210.1234)), '-9.876 543 210 123 4 x 10^9');
+        expect(
+            f1.format(Double(-1234.9876543219)), '-1.234 987 654 321 9 x 10^3');
       });
 
       test('imaginary only; regular spaces', () {
@@ -242,16 +263,20 @@ void main() {
         expect(f1.format(Imaginary(100.001)), '100.001i');
         expect(f1.format(Imaginary(1000.0001)), '1.000 000 1i x 10^3');
         expect(f1.format(Imaginary(10000.00001)), '10.000 000 01i x 10^3');
-        expect(f1.format(Imaginary(9876543210.1234)), '9.876 543 210 123 4i x 10^9');
-        expect(f1.format(Imaginary(1234.9876543219)), '1.234 987 654 321 9i x 10^3');
+        expect(f1.format(Imaginary(9876543210.1234)),
+            '9.876 543 210 123 4i x 10^9');
+        expect(f1.format(Imaginary(1234.9876543219)),
+            '1.234 987 654 321 9i x 10^3');
 
         expect(f1.format(Imaginary(-0.0)), '0.0i');
         expect(f1.format(Imaginary(-10.01)), '-10.01i');
         expect(f1.format(Imaginary(-100.001)), '-100.001i');
         expect(f1.format(Imaginary(-1000.0001)), '-1.000 000 1i x 10^3');
         expect(f1.format(Imaginary(-10000.00001)), '-10.000 000 01i x 10^3');
-        expect(f1.format(Imaginary(-9876543210.1234)), '-9.876 543 210 123 4i x 10^9');
-        expect(f1.format(Imaginary(-1234.9876543219)), '-1.234 987 654 321 9i x 10^3');
+        expect(f1.format(Imaginary(-9876543210.1234)),
+            '-9.876 543 210 123 4i x 10^9');
+        expect(f1.format(Imaginary(-1234.9876543219)),
+            '-1.234 987 654 321 9i x 10^3');
       });
 
       test('complex; regular spaces', () {
@@ -261,40 +286,60 @@ void main() {
         expect(f1.format(Complex.coeff(0, 2)), '2.0i');
         expect(f1.format(Complex.coeff(12, 21)), '12.0 + 21.0i');
         expect(f1.format(Complex.coeff(123, 321)), '123.0 + 321.0i');
-        expect(f1.format(Complex.coeff(1234, 4321)), '1.234 x 10^3 + 4.321i x 10^3');
-        expect(f1.format(Complex.coeff(12345, 54321)), '12.345 x 10^3 + 54.321i x 10^3');
-        expect(f1.format(Complex.coeff(123456, 654321)), '123.456 x 10^3 + 654.321i x 10^3');
-        expect(f1.format(Complex.coeff(1234567, 7654321)), '1.234 567 x 10^6 + 7.654 321i x 10^6');
-        expect(f1.format(Complex.coeff(12345678, 87654321)), '12.345 678 x 10^6 + 87.654 321i x 10^6');
-        expect(f1.format(Complex.coeff(123456789, 987654321)), '123.456 789 x 10^6 + 987.654 321i x 10^6');
-        expect(f1.format(Complex.coeff(1234567898, 8987654321)), '1.234 567 898 x 10^9 + 8.987 654 321i x 10^9');
+        expect(f1.format(Complex.coeff(1234, 4321)),
+            '1.234 x 10^3 + 4.321i x 10^3');
+        expect(f1.format(Complex.coeff(12345, 54321)),
+            '12.345 x 10^3 + 54.321i x 10^3');
+        expect(f1.format(Complex.coeff(123456, 654321)),
+            '123.456 x 10^3 + 654.321i x 10^3');
+        expect(f1.format(Complex.coeff(1234567, 7654321)),
+            '1.234 567 x 10^6 + 7.654 321i x 10^6');
+        expect(f1.format(Complex.coeff(12345678, 87654321)),
+            '12.345 678 x 10^6 + 87.654 321i x 10^6');
+        expect(f1.format(Complex.coeff(123456789, 987654321)),
+            '123.456 789 x 10^6 + 987.654 321i x 10^6');
+        expect(f1.format(Complex.coeff(1234567898, 8987654321)),
+            '1.234 567 898 x 10^9 + 8.987 654 321i x 10^9');
 
         expect(f1.format(Complex.coeff(-1, -2)), '-1.0 - 2.0i');
         expect(f1.format(Complex.coeff(-1, -0)), '-1.0');
         expect(f1.format(Complex.coeff(-0, -2)), '-2.0i');
         expect(f1.format(Complex.coeff(-12, -21)), '-12.0 - 21.0i');
         expect(f1.format(Complex.coeff(-123, -321)), '-123.0 - 321.0i');
-        expect(f1.format(Complex.coeff(-1234, -4321)), '-1.234 x 10^3 - 4.321i x 10^3');
-        expect(f1.format(Complex.coeff(-12345, -54321)), '-12.345 x 10^3 - 54.321i x 10^3');
-        expect(f1.format(Complex.coeff(-123456, -654321)), '-123.456 x 10^3 - 654.321i x 10^3');
-        expect(f1.format(Complex.coeff(-1234567, -7654321)), '-1.234 567 x 10^6 - 7.654 321i x 10^6');
-        expect(f1.format(Complex.coeff(-12345678, -87654321)), '-12.345 678 x 10^6 - 87.654 321i x 10^6');
-        expect(f1.format(Complex.coeff(-123456789, -987654321)), '-123.456 789 x 10^6 - 987.654 321i x 10^6');
-        expect(f1.format(Complex.coeff(-1234567898, -8987654321)), '-1.234 567 898 x 10^9 - 8.987 654 321i x 10^9');
+        expect(f1.format(Complex.coeff(-1234, -4321)),
+            '-1.234 x 10^3 - 4.321i x 10^3');
+        expect(f1.format(Complex.coeff(-12345, -54321)),
+            '-12.345 x 10^3 - 54.321i x 10^3');
+        expect(f1.format(Complex.coeff(-123456, -654321)),
+            '-123.456 x 10^3 - 654.321i x 10^3');
+        expect(f1.format(Complex.coeff(-1234567, -7654321)),
+            '-1.234 567 x 10^6 - 7.654 321i x 10^6');
+        expect(f1.format(Complex.coeff(-12345678, -87654321)),
+            '-12.345 678 x 10^6 - 87.654 321i x 10^6');
+        expect(f1.format(Complex.coeff(-123456789, -987654321)),
+            '-123.456 789 x 10^6 - 987.654 321i x 10^6');
+        expect(f1.format(Complex.coeff(-1234567898, -8987654321)),
+            '-1.234 567 898 x 10^9 - 8.987 654 321i x 10^9');
 
         expect(f1.format(Complex.coeff(0, 0)), '0.0');
         expect(f1.format(Complex.coeff(10.01, 11.22)), '10.01 + 11.22i');
-        expect(f1.format(Complex.coeff(100.001, 111.222)), '100.001 + 111.222i');
-        expect(f1.format(Complex.coeff(1000.0001, 1111.2222)), '1.000 000 1 x 10^3 + 1.111 222 2i x 10^3');
-        expect(f1.format(Complex.coeff(10000.00001, 11111.22222)), '10.000 000 01 x 10^3 + 11.111 222 22i x 10^3');
+        expect(
+            f1.format(Complex.coeff(100.001, 111.222)), '100.001 + 111.222i');
+        expect(f1.format(Complex.coeff(1000.0001, 1111.2222)),
+            '1.000 000 1 x 10^3 + 1.111 222 2i x 10^3');
+        expect(f1.format(Complex.coeff(10000.00001, 11111.22222)),
+            '10.000 000 01 x 10^3 + 11.111 222 22i x 10^3');
         expect(f1.format(Complex.coeff(9876543210.1234, 4321.0123456789)),
             '9.876 543 210 123 4 x 10^9 + 4.321 012 345 678 9i x 10^3');
 
         expect(f1.format(Complex.coeff(-0, -0)), '0.0');
         expect(f1.format(Complex.coeff(-10.01, -11.22)), '-10.01 - 11.22i');
-        expect(f1.format(Complex.coeff(-100.001, -111.222)), '-100.001 - 111.222i');
-        expect(f1.format(Complex.coeff(-1000.0001, -1111.2222)), '-1.000 000 1 x 10^3 - 1.111 222 2i x 10^3');
-        expect(f1.format(Complex.coeff(-10000.00001, -11111.22222)), '-10.000 000 01 x 10^3 - 11.111 222 22i x 10^3');
+        expect(f1.format(Complex.coeff(-100.001, -111.222)),
+            '-100.001 - 111.222i');
+        expect(f1.format(Complex.coeff(-1000.0001, -1111.2222)),
+            '-1.000 000 1 x 10^3 - 1.111 222 2i x 10^3');
+        expect(f1.format(Complex.coeff(-10000.00001, -11111.22222)),
+            '-10.000 000 01 x 10^3 - 11.111 222 22i x 10^3');
         expect(f1.format(Complex.coeff(-9876543210.1234, -4321.0123456789)),
             '-9.876 543 210 123 4 x 10^9 - 4.321 012 345 678 9i x 10^3');
       });
@@ -312,7 +357,8 @@ void main() {
       test('real unicode', () {
         final f1 = EngineeringFormatSI();
         expect(f1.parse('1\u{2009}234\u{2009}567'), 1234567);
-        expect(f1.parse('123\u{2009}234.56 x 10\u{207b}\u{00b3}\u{2076}'), 1.2323456E-31);
+        expect(f1.parse('123\u{2009}234.56 x 10\u{207b}\u{00b3}\u{2076}'),
+            1.2323456E-31);
       });
     });
   });

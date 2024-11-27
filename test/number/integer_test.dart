@@ -280,7 +280,8 @@ void main() {
       expect((quot as Double).value.toDouble(), closeTo(0.5, 0.000001));
       quot = d / (-6);
       expect(quot is Double, true);
-      expect((quot as Double).value.toDouble(), closeTo(-0.666666666, 0.000001));
+      expect(
+          (quot as Double).value.toDouble(), closeTo(-0.666666666, 0.000001));
 
       // * double
       quot = d / 0.1;
@@ -288,7 +289,8 @@ void main() {
       expect((quot as Integer).value.toInt(), 40);
       quot = d / (-0.044);
       expect(quot is Double, true);
-      expect((quot as Double).value.toDouble(), closeTo(-90.90909090909092, 0.000001));
+      expect((quot as Double).value.toDouble(),
+          closeTo(-90.90909090909092, 0.000001));
 
       // / Integer
       var a = Integer(16);
@@ -461,7 +463,8 @@ void main() {
       expect(Integer(77) <= Imaginary(77), false);
       expect(Integer(77) <= Complex(Double(6.5), Imaginary(99)), false);
       expect(Integer(77) <= Complex(Double(77), Imaginary(55)), true);
-      expect(Integer(77) <= Complex(Double(76.999999999), Imaginary(55)), false);
+      expect(
+          Integer(77) <= Complex(Double(76.999999999), Imaginary(55)), false);
 
       expect(Integer(88) <= Precise('87.999999999999999999'), false);
       expect(Integer(88) <= Precise('88.000000000000000000'), true);

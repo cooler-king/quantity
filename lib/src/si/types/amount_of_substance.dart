@@ -11,35 +11,47 @@ class AmountOfSubstance extends Quantity {
   /// or kilomoles ([kmol]).
   /// Optionally specify a relative standard uncertainty.
   AmountOfSubstance({dynamic mol, dynamic kmol, double uncert = 0.0})
-      : super(mol ?? (kmol ?? 0.0), kmol != null ? AmountOfSubstance.kilomoles : AmountOfSubstance.moles, uncert);
+      : super(
+            mol ?? (kmol ?? 0.0),
+            kmol != null
+                ? AmountOfSubstance.kilomoles
+                : AmountOfSubstance.moles,
+            uncert);
 
-  /// Constructs a instance without preferred units.
-  AmountOfSubstance.misc(dynamic conv) : super.misc(conv, AmountOfSubstance.amountOfSubstanceDimensions);
+  /// Constructs an instance without preferred units.
+  AmountOfSubstance.misc(dynamic conv)
+      : super.misc(conv, AmountOfSubstance.amountOfSubstanceDimensions);
 
   /// Constructs a AmountOfSubstance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits? units, [double uncert = 0.0])
+  AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? AmountOfSubstance.moles, uncert);
 
   /// Constructs a constant AmountOfSubstance.
-  const AmountOfSubstance.constant(Number valueSI, {AmountOfSubstanceUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, AmountOfSubstance.amountOfSubstanceDimensions, units, uncert);
+  const AmountOfSubstance.constant(Number valueSI,
+      {AmountOfSubstanceUnits? units, double uncert = 0.0})
+      : super.constant(valueSI, AmountOfSubstance.amountOfSubstanceDimensions,
+            units, uncert);
 
   /// Dimensions for this type of quantity.
   static const Dimensions amountOfSubstanceDimensions =
       Dimensions.constant(<String, int>{'Amount': 1}, qType: AmountOfSubstance);
 
   /// The standard SI unit.
-  static final AmountOfSubstanceUnits moles = AmountOfSubstanceUnits('moles', null, 'mol', null, 1.0, true);
+  static final AmountOfSubstanceUnits moles =
+      AmountOfSubstanceUnits('moles', 'mol', 'mol', 'mole', 1.0, true);
 
   /// A common metric derivative of the standard SI unit.
-  static final AmountOfSubstanceUnits kilomoles = moles.kilo() as AmountOfSubstanceUnits;
+  static final AmountOfSubstanceUnits kilomoles =
+      moles.kilo() as AmountOfSubstanceUnits;
 }
 
 /// Units acceptable for use in describing [AmountOfSubstance] quantities.
 class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
-  /// Constructs a instance.
-  AmountOfSubstanceUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  AmountOfSubstanceUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -57,12 +69,13 @@ class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
 
   /// Derive AmountOfSubstanceUnits using this AmountOfSubstanceUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AmountOfSubstanceUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      AmountOfSubstanceUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

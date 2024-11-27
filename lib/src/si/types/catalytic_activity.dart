@@ -9,32 +9,40 @@ import '../../si/units.dart';
 class CatalyticActivity extends Quantity {
   /// Constructs a CatalyticActivity with katals ([kat]).
   /// Optionally specify a relative standard uncertainty.
-  CatalyticActivity({dynamic kat, double uncert = 0.0}) : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
+  CatalyticActivity({dynamic kat, double uncert = 0.0})
+      : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
 
-  /// Constructs a instance without preferred units.
-  CatalyticActivity.misc(dynamic conv) : super.misc(conv, CatalyticActivity.catalyticActivityDimensions);
+  /// Constructs an instance without preferred units.
+  CatalyticActivity.misc(dynamic conv)
+      : super.misc(conv, CatalyticActivity.catalyticActivityDimensions);
 
   /// Constructs a CatalyticActivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits? units, [double uncert = 0.0])
+  CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? CatalyticActivity.katals, uncert);
 
   /// Constructs a constant CatalyticActivity.
-  const CatalyticActivity.constant(Number valueSI, {CatalyticActivityUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, CatalyticActivity.catalyticActivityDimensions, units, uncert);
+  const CatalyticActivity.constant(Number valueSI,
+      {CatalyticActivityUnits? units, double uncert = 0.0})
+      : super.constant(valueSI, CatalyticActivity.catalyticActivityDimensions,
+            units, uncert);
 
   /// Dimensions for this type of quantity
-  static const Dimensions catalyticActivityDimensions =
-      Dimensions.constant(<String, int>{'Amount': 1, 'Time': -1}, qType: CatalyticActivity);
+  static const Dimensions catalyticActivityDimensions = Dimensions.constant(
+      <String, int>{'Amount': 1, 'Time': -1},
+      qType: CatalyticActivity);
 
   /// The standard SI unit **/
-  static final CatalyticActivityUnits katals = CatalyticActivityUnits('katals', 'kat', null, 'katal', 1.0, true);
+  static final CatalyticActivityUnits katals =
+      CatalyticActivityUnits('katals', 'kat', null, 'katal', 1.0, true);
 }
 
 /// Units acceptable for use in describing CatalyticActivity quantities.
 class CatalyticActivityUnits extends CatalyticActivity with Units {
-  /// Constructs a instance.
-  CatalyticActivityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  CatalyticActivityUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -52,12 +60,13 @@ class CatalyticActivityUnits extends CatalyticActivity with Units {
 
   /// Derive CatalyticActivityUnits using this CatalyticActivityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => CatalyticActivityUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      CatalyticActivityUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

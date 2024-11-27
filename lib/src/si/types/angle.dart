@@ -43,9 +43,10 @@ class Angle extends Quantity {
   /// Constructs an Angle with either radians ([rad]) or degrees ([deg]).
   /// Optionally specify a relative standard uncertainty.
   Angle({dynamic rad, dynamic deg, double uncert = 0.0})
-      : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians, uncert);
+      : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians,
+            uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Angle.misc(dynamic conv) : super.misc(conv, Angle.angleDimensions);
 
   /// Constructs an Angle based on the [value]
@@ -60,34 +61,39 @@ class Angle extends Quantity {
   ///
   /// The internal value is automatically bounded between -PI and PI
   /// radians (-180 to 180 degrees)
-  Angle.inUnits(dynamic value, AngleUnits? units, [double uncert = 0.0]) : super(value, units ?? Angle.radians, uncert);
+  Angle.inUnits(dynamic value, AngleUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Angle.radians, uncert);
 
   /// Constructs a constant angle.
-  const Angle.constant(Number valueSI, {required AngleUnits units, double uncert = 0.0})
+  const Angle.constant(Number valueSI,
+      {required AngleUnits units, double uncert = 0.0})
       : super.constant(valueSI, Angle.angleDimensions, units, uncert);
 
   ///  This constructor creates an angle value from the three values
   ///  passed in for degrees, minutes, and seconds of arc.
   Angle.fromDegMinSec(int d, int m, double s, [double uncert = 0.0])
-      : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s), Angle.radians, uncert);
+      : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s),
+            Angle.radians, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions angleDimensions = Dimensions.constant(<String, int>{'Angle': 1}, qType: Angle);
+  static const Dimensions angleDimensions =
+      Dimensions.constant(<String, int>{'Angle': 1}, qType: Angle);
 
   /// The standard SI unit.
-  static final AngleUnits radians = AngleUnits('radians', null, 'rad', null, Integer.one, true);
+  static final AngleUnits radians =
+      AngleUnits('radians', 'rad', 'rad', 'radian', Integer.one, true);
 
   /// Accepted for use with the SI.
-  static final AngleUnits degrees =
-      AngleUnits('degrees', '\u{00b0}', 'deg', null, const Double.constant(1.7453292519943e-2), false);
+  static final AngleUnits degrees = AngleUnits('degrees', '\u{00b0}', 'deg',
+      'degree', const Double.constant(1.7453292519943e-2), false);
 
   /// Accepted for use with the SI.
-  static final AngleUnits minutesArc =
-      AngleUnits('arc minutes', '\'', 'arc min', null, const Double.constant(2.9088821e-4), false);
+  static final AngleUnits minutesArc = AngleUnits('arc minutes', '\'',
+      'arc min', 'arc minute', const Double.constant(2.9088821e-4), false);
 
   /// Accepted for use with the SI.
-  static final AngleUnits secondsArc =
-      AngleUnits('arc seconds', '\'', 'arc sec', null, const Double.constant(4.8481368e-6), false);
+  static final AngleUnits secondsArc = AngleUnits('arc seconds', '\'',
+      'arc sec', 'arc second', const Double.constant(4.8481368e-6), false);
 
   // convenience units
 
@@ -194,8 +200,9 @@ class Angle extends Quantity {
 
 /// Units acceptable for use in describing Angle quantities.
 class AngleUnits extends Angle with Units {
-  /// Constructs a instance.
-  AngleUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  AngleUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -213,12 +220,13 @@ class AngleUnits extends Angle with Units {
 
   /// Derive AngleUnits using this AngleUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => AngleUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      AngleUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

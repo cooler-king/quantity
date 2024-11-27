@@ -23,7 +23,8 @@ void main() {
     });
 
     test('dynamic value, dimsension and uncertainty', () {
-      final mq = MutableQuantity(Double(21.45), Length.lengthDimensions, 0.0004);
+      final mq =
+          MutableQuantity(Double(21.45), Length.lengthDimensions, 0.0004);
       expect(mq.mks.toDouble(), 21.45);
       expect(mq.dimensions, Length.lengthDimensions);
       expect(mq.relativeUncertainty, 0.0004);
@@ -56,7 +57,8 @@ void main() {
 
     test('change events', () async {
       // setEqualTo.
-      final mq1 = MutableQuantity(Double(21.45), Length.lengthDimensions, 0.0004);
+      final mq1 =
+          MutableQuantity(Double(21.45), Length.lengthDimensions, 0.0004);
       mq1.onChange.listen(expectAsync1((Quantity q) {
         expect(q.mks.toDouble(), 88.54);
         expect(q.dimensions, Luminance.luminanceDimensions);
@@ -101,7 +103,8 @@ void main() {
       mq4.setValueInUnits(77.99, Time.milliseconds);
 
       // set valueSI.
-      final mq5 = MutableQuantity(Double(12.3), Luminance.luminanceDimensions, 0.212);
+      final mq5 =
+          MutableQuantity(Double(12.3), Luminance.luminanceDimensions, 0.212);
       mq5.onChange.listen(expectAsync1((Quantity q) {
         expect(q.mks.toDouble(), 17.76);
         expect(q.dimensions, Luminance.luminanceDimensions);
@@ -168,7 +171,8 @@ void main() {
     });
 
     test('snapshot', () {
-      final mq = MutableQuantity(Double(21.45), Length.lengthDimensions, 0.0004);
+      final mq =
+          MutableQuantity(Double(21.45), Length.lengthDimensions, 0.0004);
       final q = mq.snapshot;
       expect(q is Length, true);
       expect(q.mks.toDouble(), 21.45);
@@ -206,21 +210,32 @@ void main() {
     });
 
     test('dynamic mutability', () {
-      final mq = MutableQuantity(Double(1.1), Mass.massDimensions)..mks = Integer(77);
+      final mq = MutableQuantity(Double(1.1), Mass.massDimensions)
+        ..mks = Integer(77);
       expect(mq.mks.toDouble(), 77.0);
 
       mq.mutable = false;
-      expect(() => mq.mks = Integer(99), throwsA(const TypeMatcher<ImmutableQuantityException>()));
-      expect(() => mq.cgs = Integer(98), throwsA(const TypeMatcher<ImmutableQuantityException>()));
-      expect(() => mq.valueSI = Integer(97), throwsA(const TypeMatcher<ImmutableQuantityException>()));
-      expect(() => mq.setValueInUnits(1, Mass.grams), throwsA(const TypeMatcher<ImmutableQuantityException>()));
-      expect(() => mq.setEqualTo(Mass(u: 12.0)), throwsA(const TypeMatcher<ImmutableQuantityException>()));
-      expect(() => mq.relativeUncertainty = 0.000004, throwsA(const TypeMatcher<ImmutableQuantityException>()));
-      expect(() => mq.standardUncertainty = Mass(g: 0.1), throwsA(const TypeMatcher<ImmutableQuantityException>()));
-      expect(() => mq.dimensions = Time.timeDimensions, throwsA(const TypeMatcher<ImmutableQuantityException>()));
-      expect(mq.invert, throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(() => mq.mks = Integer(99),
+          throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(() => mq.cgs = Integer(98),
+          throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(() => mq.valueSI = Integer(97),
+          throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(() => mq.setValueInUnits(1, Mass.grams),
+          throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(() => mq.setEqualTo(Mass(u: 12.0)),
+          throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(() => mq.relativeUncertainty = 0.000004,
+          throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(() => mq.standardUncertainty = Mass(g: 0.1),
+          throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(() => mq.dimensions = Time.timeDimensions,
+          throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(
+          mq.invert, throwsA(const TypeMatcher<ImmutableQuantityException>()));
       expect(mq.abs, throwsA(const TypeMatcher<ImmutableQuantityException>()));
-      expect(() => -mq, throwsA(const TypeMatcher<ImmutableQuantityException>()));
+      expect(
+          () => -mq, throwsA(const TypeMatcher<ImmutableQuantityException>()));
       expect(mq.inverse, returnsNormally);
 
       mq.mutable = true;
@@ -239,9 +254,12 @@ void main() {
     });
 
     test('dimension exceptions', () {
-      final mq = MutableQuantity(Double(1.1), Length.lengthDimensions)..mks = Integer(77);
-      expect(() => mq.standardUncertainty = Mass(g: 0.1), throwsA(const TypeMatcher<DimensionsException>()));
-      expect(() => mq.setValueInUnits(34, Time.days), throwsA(const TypeMatcher<DimensionsException>()));
+      final mq = MutableQuantity(Double(1.1), Length.lengthDimensions)
+        ..mks = Integer(77);
+      expect(() => mq.standardUncertainty = Mass(g: 0.1),
+          throwsA(const TypeMatcher<DimensionsException>()));
+      expect(() => mq.setValueInUnits(34, Time.days),
+          throwsA(const TypeMatcher<DimensionsException>()));
     });
   });
 }

@@ -4,7 +4,7 @@ import 'number_format_si.dart';
 /// A version of scientific notation in which the exponent of ten must be divisible by
 /// three (e.g., 123.345 x 10^3).
 class EngineeringFormatSI extends NumberFormatSI {
-  /// Constructs a instance.
+  /// Constructs an instance.
   EngineeringFormatSI({super.unicode});
 
   /// Move the decimal point.
@@ -34,16 +34,20 @@ class EngineeringFormatSI extends NumberFormatSI {
 
     if (firstNonZeroDigit == -1) return '0.0';
 
-    final includedExponent = eIndex != -1 ? num.parse(trimmed.substring(eIndex + 1)) : 0;
+    final includedExponent =
+        eIndex != -1 ? num.parse(trimmed.substring(eIndex + 1)) : 0;
 
     final length = eIndex != -1 ? eIndex : trimmed.length;
-    var exp = (dotIndex == -1 ? length - 1 : dotIndex - firstNonZeroDigit) + includedExponent;
+    var exp = (dotIndex == -1 ? length - 1 : dotIndex - firstNonZeroDigit) +
+        includedExponent;
     if (dotIndex > firstNonZeroDigit) exp--;
 
     final num effExp = exp < 0 ? ((exp + 1) ~/ 3) * 3 - 3 : (exp ~/ 3) * 3;
     final adj = (exp - effExp).floor();
 
-    var engStr = eIndex != -1 ? trimmed.substring(firstNonZeroDigit, eIndex) : trimmed.substring(firstNonZeroDigit);
+    var engStr = eIndex != -1
+        ? trimmed.substring(firstNonZeroDigit, eIndex)
+        : trimmed.substring(firstNonZeroDigit);
     if (engStr.length == 1 && firstNonZeroDigit < dotIndex) {
       engStr = '$engStr.0';
     } else {
@@ -60,7 +64,11 @@ class EngineeringFormatSI extends NumberFormatSI {
     engStr = '$sign$engStr';
 
     // Append the exponent.
-    if (effExp != 0) engStr = unicode ? '$engStr \u{00d7} 10${unicodeExponent(effExp)}' : '$engStr x 10^$effExp';
+    if (effExp != 0) {
+      engStr = unicode
+          ? '$engStr \u{00d7} 10${unicodeExponent(effExp)}'
+          : '$engStr x 10^$effExp';
+    }
 
     return engStr;
   }

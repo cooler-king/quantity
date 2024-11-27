@@ -7,13 +7,13 @@ import 'real.dart';
 
 /// Wraps Dart's core [double] type, so that it can share a common base type with other [Number]s.
 class Double extends Real {
-  /// Constructs a instance.
+  /// Constructs an instance.
   Double(this._value);
 
   /// Constructs a constant Double.
   const Double.constant(this._value) : super.constant();
 
-  /// Constructs a instance from an integer value.
+  /// Constructs an instance from an integer value.
   Double.fromInt(int val) : _value = val.toDouble();
 
   /// Construct an Double from a Map:
@@ -72,11 +72,13 @@ class Double extends Real {
   }
 
   @override
-  bool operator ==(dynamic obj) {
+  bool operator ==(Object obj) {
     if (obj is num && obj.isNaN) return value.isNaN;
     if (obj is Real || obj is num) return obj == value;
     if (obj is Imaginary) return value == 0.0 && obj.value.toDouble() == 0.0;
-    if (obj is Complex) return obj.real.toDouble() == value && obj.imaginary.toDouble() == 0.0;
+    if (obj is Complex) {
+      return obj.real.toDouble() == value && obj.imaginary.toDouble() == 0.0;
+    }
 
     return false;
   }
@@ -97,11 +99,14 @@ class Double extends Real {
             ? upperLimit.toInt()
             : 0;
     final clamped = value.clamp(lower, upper);
-    return clamped.toInt() == clamped ? Integer(clamped.toInt()) : Double(clamped.toDouble());
+    return clamped.toInt() == clamped
+        ? Integer(clamped.toInt())
+        : Double(clamped.toDouble());
   }
 
   @override
-  bool get isInteger => !value.isNaN && value.isFinite && value.toInt() == value;
+  bool get isInteger =>
+      !value.isNaN && value.isFinite && value.toInt() == value;
 
   /// Support [dart:json] stringify.
   ///

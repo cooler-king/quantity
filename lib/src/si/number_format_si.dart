@@ -31,7 +31,7 @@ import 'utilities.dart' show expUnicodeMap, logger;
 /// after the decimal.  Therefore, this class directly extends NumberFormat
 /// and provides implementations for format and parse.
 class NumberFormatSI implements NumberFormat {
-  /// Constructs a instance.
+  /// Constructs an instance.
   NumberFormatSI({this.unicode = false});
 
   final NumberFormat _scientific = NumberFormat.scientificPattern();
@@ -115,6 +115,7 @@ class NumberFormatSI implements NumberFormat {
     var expIndex = str.indexOf(' x 10');
     if (expIndex == -1) expIndex = str.indexOf(' \u{00d7} 10');
     if (expIndex == -1) expIndex = str.indexOf('E');
+    if (expIndex == -1) expIndex = str.indexOf('e');
     return expIndex;
   }
 

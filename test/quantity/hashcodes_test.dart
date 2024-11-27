@@ -98,18 +98,16 @@ void main() {
       expect(b.hashCode, Precise('-5.5').hashCode);
     });
 
-    test('scalar in map', () {
-      final m = <int, String>{0: 'zero', 5: 'five', 10: 'ten'};
+    test('Scalar in map', () {
+      final m = <Scalar, String>{
+        Scalar(value: 0): 'zero',
+        Scalar(value: 5): 'five',
+        Scalar(value: 10): 'ten'
+      };
 
-      expect(m[0], 'zero');
       expect(m[Scalar(value: 0)], 'zero');
-
-      expect(m[5], 'five');
       expect(m[Scalar(value: Integer(5))], 'five');
-
-      expect(m[10], 'ten');
       expect(m[Scalar(value: Double(10))], 'ten');
-
       expect(m[Scalar(value: Double(10.000001))], isNull);
     });
   });

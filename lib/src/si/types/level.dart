@@ -30,31 +30,36 @@ abstract class Level extends Quantity {
   /// Constructs a Level with nepers ([Np]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
-  Level({dynamic Np, double uncert = 0.0}) : super(Np ?? 0.0, Level.nepers, uncert);
+  Level({dynamic Np, double uncert = 0.0})
+      : super(Np ?? 0.0, Level.nepers, uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Level.misc(dynamic conv) : super.misc(conv, Level.levelDimensions);
 
   /// Constructs a Level based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
-  Level.inUnits(dynamic value, LevelUnits? units, [double uncert = 0.0]) : super(value, units ?? Level.nepers, uncert);
+  Level.inUnits(dynamic value, LevelUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Level.nepers, uncert);
 
   /// Constructs a constant Level.
   const Level.constant(Number valueSI, {LevelUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Level.levelDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions levelDimensions = Dimensions.constant(<String, int>{}, qType: Level);
+  static const Dimensions levelDimensions =
+      Dimensions.constant(<String, int>{}, qType: Level);
 
   /// Accepted for use with the SI...
   /// the level of a field quantity when F/F0 = e and P/P0 = e squared.
-  static final LevelUnits nepers = LevelUnits('nepers', null, 'Np', null, 1.0, true);
+  static final LevelUnits nepers =
+      LevelUnits('nepers', 'Np', 'Np', 'neper', 1.0, true);
 
   /// Accepted for use with the SI...
   /// the level of a field quantity when F/F0 = square root of 10 and P/P0 = 10.
   /// 1 B = (ln 10) / 2 Np exactly.
-  static final LevelUnits bels = LevelUnits('bels', null, 'B', null, 0.5 * math.log(10.0), true);
+  static final LevelUnits bels =
+      LevelUnits('bels', 'B', 'B', 'bel', 0.5 * math.log(10.0), true);
 
   // Convenience.
 
@@ -64,8 +69,9 @@ abstract class Level extends Quantity {
 
 /// Units acceptable for use in describing Level quantities.
 class LevelUnits extends Level with Units {
-  /// Constructs a instance.
-  LevelUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  LevelUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -83,14 +89,15 @@ class LevelUnits extends Level with Units {
 
   /// Derive LevelUnits using this LevelUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => LevelUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      LevelUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }
 
 // Also SoundIntensityLevel.
@@ -99,11 +106,13 @@ class LevelUnits extends Level with Units {
 /// Level of a power quantity is defined as 0.5*ln(P/P0), where P/P0 is the ratio
 /// of two powers and P0 is a reference power.
 class PowerLevel extends Level {
-  /// Constructs a instance.
-  PowerLevel(Power p, Power refP) : super(Np: 0.5 * math.log((p.mks / refP.mks).toDouble()));
+  /// Constructs an instance.
+  PowerLevel(Power p, Power refP)
+      : super(Np: 0.5 * math.log((p.mks / refP.mks).toDouble()));
 
-  /// Constructs a instance having specified [units].
-  PowerLevel.inUnits(super.value, super.units, [super.uncert]) : super.inUnits();
+  /// Constructs an instance having specified [units].
+  PowerLevel.inUnits(super.value, super.units, [super.uncert])
+      : super.inUnits();
 
   /// Returns the ratio represented by this power level.
   double get ratio => math.exp(2.0 * valueSI.toDouble());
@@ -111,7 +120,8 @@ class PowerLevel extends Level {
   @override
   Quantity operator +(dynamic addend) {
     if (addend is PowerLevel) {
-      return PowerLevel.inUnits(0.5 * math.log(ratio + addend.ratio), Level.nepers);
+      return PowerLevel.inUnits(
+          0.5 * math.log(ratio + addend.ratio), Level.nepers);
     } else {
       return super + addend;
     }
@@ -120,7 +130,8 @@ class PowerLevel extends Level {
   @override
   Quantity operator -(dynamic subtrahend) {
     if (subtrahend is PowerLevel) {
-      return PowerLevel.inUnits(0.5 * math.log(ratio - subtrahend.ratio), Level.nepers);
+      return PowerLevel.inUnits(
+          0.5 * math.log(ratio - subtrahend.ratio), Level.nepers);
     } else {
       return super - subtrahend;
     }
@@ -133,11 +144,13 @@ class PowerLevel extends Level {
 /// Level of a field quantity is defined as ln(F/F0), where F/F0 is the ratio
 /// of two field quantities and F0 is a reference amplitude of the appropriate type.
 class FieldLevel extends Level {
-  /// Constructs a instance.
-  FieldLevel(Quantity q1, Quantity refQ) : super(Np: 0.5 * math.log((q1.mks / refQ.mks).toDouble()));
+  /// Constructs an instance.
+  FieldLevel(Quantity q1, Quantity refQ)
+      : super(Np: 0.5 * math.log((q1.mks / refQ.mks).toDouble()));
 
-  /// Constructs a instance in the specified [units].
-  FieldLevel.inUnits(super.value, super.units, [super.uncert]) : super.inUnits();
+  /// Constructs an instance in the specified [units].
+  FieldLevel.inUnits(super.value, super.units, [super.uncert])
+      : super.inUnits();
 
   /// Returns the ratio that this field level represents..
   double get ratio => math.exp(valueSI.toDouble());
@@ -154,7 +167,8 @@ class FieldLevel extends Level {
   @override
   Quantity operator -(dynamic subtrahend) {
     if (subtrahend is FieldLevel) {
-      return FieldLevel.inUnits(math.log(ratio - subtrahend.ratio), Level.nepers);
+      return FieldLevel.inUnits(
+          math.log(ratio - subtrahend.ratio), Level.nepers);
     } else {
       return super - subtrahend;
     }

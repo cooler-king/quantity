@@ -24,13 +24,21 @@ abstract class Number implements Comparable<dynamic> {
   /// If the map contents are not recognized [Integer.zero] will be returned.
   factory Number.fromMap(Map<String, dynamic>? m) {
     if (m == null) return Integer.zero;
-    if (m.containsKey('d') && m['d'] is num) return Double.fromMap(m as Map<String, num>);
-    if (m.containsKey('i') && m['i'] is int) return Integer.fromMap(m as Map<String, int>);
+    if (m.containsKey('d') && m['d'] is num) {
+      return Double.fromMap(m as Map<String, num>);
+    }
+    if (m.containsKey('i') && m['i'] is int) {
+      return Integer.fromMap(m as Map<String, int>);
+    }
     if (m.containsKey('precise') && m['precise'] is Map<String, String>) {
       return Precise.fromMap(m as Map<String, String>);
     }
-    if (m.containsKey('real') && m is Map<String, Map<String, dynamic>>) return Complex.fromMap(m);
-    if (m.containsKey('imag') && m is Map<String, Map<String, dynamic>>) return Imaginary.fromMap(m);
+    if (m.containsKey('real') && m is Map<String, Map<String, dynamic>>) {
+      return Complex.fromMap(m);
+    }
+    if (m.containsKey('imag') && m is Map<String, Map<String, dynamic>>) {
+      return Imaginary.fromMap(m);
+    }
     return Integer.zero;
   }
 
@@ -39,7 +47,7 @@ abstract class Number implements Comparable<dynamic> {
   /// Two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
   @override
-  bool operator ==(dynamic obj);
+  bool operator ==(Object obj);
 
   /// The hash codes for two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
@@ -125,12 +133,16 @@ abstract class Number implements Comparable<dynamic> {
     if (n is Imaginary) {
       if (n.value is Precise) return n;
       if (n.value.toDouble() == 0) return Integer(0);
-      if (n.value.isInteger && n.value is Double) return Imaginary(Integer(n.value.toInt()));
+      if (n.value.isInteger && n.value is Double) {
+        return Imaginary(Integer(n.value.toInt()));
+      }
       return n;
     }
     if (n is Complex) {
-      final realZero = n.real.value == 0 && (n.real is! Precise || n.real == Precise.zero);
-      final imagZero = n.imag.value.value.toDouble() == 0 && (n.imag.value is! Precise || n.imag.value == Precise.zero);
+      final realZero =
+          n.real.value == 0 && (n.real is! Precise || n.real == Precise.zero);
+      final imagZero = n.imag.value.value.toDouble() == 0 &&
+          (n.imag.value is! Precise || n.imag.value == Precise.zero);
       if (realZero) {
         if (imagZero) return simplifyType(n.real);
         return Imaginary(simplifyType(n.imag.value));
@@ -139,7 +151,8 @@ abstract class Number implements Comparable<dynamic> {
       } else {
         final simpleReal = simplifyType(n.real) as Real;
         final simpleImag = simplifyType(n.imag.value);
-        if (identical(simpleReal, n.real) && identical(simpleImag, n.imag.value)) return n;
+        if (identical(simpleReal, n.real) &&
+            identical(simpleImag, n.imag.value)) return n;
         return Complex(simpleReal, Imaginary(simpleImag));
       }
     }

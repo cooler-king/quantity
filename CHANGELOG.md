@@ -1,14 +1,26 @@
+### 4.0.0
+  * Breaking changes:
+    * Changed some compound unit constructor names to be more descriptive.
+    * Made `Units.singular` property non-nullable.
+    * Number `==` operators now take an `Object` argument instead of `dynamic`,
+  * Updated the minimum `intl` dependency to `0.19.0`.
+  * Added unit tests for all compound unit constructors. 
+    * Fixed numerous bugs in compound unit constructor logic.
+  * Accounted for lower case `e` in number formatting/grouping.
+  * Removed logging of quantity type resolution failure from `inverse` method.
+  * Updated formatting; addressed pana suggestions.
+
 ### 3.0.2
-* Update lint dependency to `^3.0.0`.
+  * Update lint dependency to `^3.0.0`.
 
 ### 3.0.1
-* Fixed bugs in Precise class.
+  * Fixed bugs in Precise class.
 
 ### 3.0.0
-  * Requires >= Dart SDK 3.0
+  * Requires >= Dart SDK 3.0.
 
 ### 2.0.1
-  * Support for intl 0.18
+  * Support for intl 0.18.
 
 ### 2.0.0
   * Support for Dart 2.12, null safety.

@@ -12,19 +12,28 @@ class ElectricFieldStrength extends Quantity {
   /// Constructs an ElectricFieldStrength with volts per meter.
   /// Optionally specify a relative standard uncertainty.
   ElectricFieldStrength({dynamic voltsPerMeter, double uncert = 0.0})
-      : super(voltsPerMeter ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
+      : super(
+            voltsPerMeter ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
 
-  /// Constructs a instance without preferred units.
-  ElectricFieldStrength.misc(dynamic conv) : super.misc(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
+  /// Constructs an instance without preferred units.
+  ElectricFieldStrength.misc(dynamic conv)
+      : super.misc(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
 
   /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  ElectricFieldStrength.inUnits(dynamic value, ElectricFieldStrengthUnits? units, [double uncert = 0.0])
+  ElectricFieldStrength.inUnits(
+      dynamic value, ElectricFieldStrengthUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? ElectricFieldStrength.voltsPerMeter, uncert);
 
   /// Constructs a constant ElectricFieldStrength.
-  const ElectricFieldStrength.constant(Number valueSI, {ElectricFieldStrengthUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, ElectricFieldStrength.electricFieldStrengthDimensions, units, uncert);
+  const ElectricFieldStrength.constant(Number valueSI,
+      {ElectricFieldStrengthUnits? units, double uncert = 0.0})
+      : super.constant(
+            valueSI,
+            ElectricFieldStrength.electricFieldStrengthDimensions,
+            units,
+            uncert);
 
   /// Dimensions for this type of quantity.
   static const Dimensions electricFieldStrengthDimensions = Dimensions.constant(
@@ -33,13 +42,15 @@ class ElectricFieldStrength extends Quantity {
 
   /// The standard SI unit.
   static final ElectricFieldStrengthUnits voltsPerMeter =
-      ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifference.volts, Length.meters);
+      ElectricFieldStrengthUnits.potentialPerLength(
+          ElectricPotentialDifference.volts, Length.meters);
 }
 
 /// Units acceptable for use in describing ElectricFieldStrength quantities.
 class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
-  /// Constructs a instance.
-  ElectricFieldStrengthUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  ElectricFieldStrengthUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -51,14 +62,19 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance from a potential difference and length.
-  ElectricFieldStrengthUnits.potentialLength(ElectricPotentialDifferenceUnits epdu, LengthUnits lu)
-      : super.misc(epdu.valueSI * lu.valueSI) {
+  /// Constructs an instance from a potential difference and length.
+  ElectricFieldStrengthUnits.potentialPerLength(
+      ElectricPotentialDifferenceUnits epdu, LengthUnits lu)
+      : super.misc(epdu.valueSI / lu.valueSI) {
     name = '${epdu.name} per ${lu.singular}';
     singular = '${epdu.singular} per ${lu.singular}';
-    convToMKS = epdu.valueSI * lu.valueSI;
-    abbrev1 = epdu.abbrev1 != null && lu.abbrev1 != null ? '${epdu.abbrev1} / ${lu.abbrev1}' : null;
-    abbrev2 = epdu.abbrev2 != null && lu.abbrev2 != null ? '${epdu.abbrev2}/${lu.abbrev2}' : null;
+    convToMKS = epdu.valueSI / lu.valueSI;
+    abbrev1 = epdu.abbrev1 != null && lu.abbrev1 != null
+        ? '${epdu.abbrev1} / ${lu.abbrev1}'
+        : null;
+    abbrev2 = epdu.abbrev2 != null && lu.abbrev2 != null
+        ? '${epdu.abbrev2} ${lu.abbrev2}\u{207b}\u{00b9}'
+        : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -69,12 +85,13 @@ class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
 
   /// Derive ElectricFieldStrengthUnits using this ElectricFieldStrengthUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => ElectricFieldStrengthUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      ElectricFieldStrengthUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

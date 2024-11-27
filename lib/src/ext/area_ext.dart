@@ -18,11 +18,13 @@ final AreaUnits barns = Area.barns;
 final AreaUnits hectares = Area.hectares;
 
 /// An acre is about three-quarters of the size of an American football field.
-final AreaUnits acres = AreaUnits('acres', null, null, null, 4.0468564224e3, false);
+final AreaUnits acres =
+    AreaUnits('acres', 'acres', 'acres', 'acre', 4.0468564224e3, false);
 
 /// Equal to the area of a circle with a diameter of one mil (one thousandth of an inch).
 /// It is often used for representing the area of a wire's circular cross section.
-final AreaUnits circularMils = AreaUnits('circular mils', null, null, null, 5.0670748e-10, false);
+final AreaUnits circularMils = AreaUnits('circular mils', 'circular mils',
+    'circular mils', 'circular mil', 5.0670748e-10, false);
 
 /// An area unit equivalent to a square with sides having a length of one foot.
 final AreaUnits squareFeet = AreaUnits.lengthSquared(feet);
@@ -40,7 +42,8 @@ final AreaUnits squareCentimeters = AreaUnits.lengthSquared(centimeters);
 final AreaUnits squareMiles = AreaUnits.lengthSquared(miles);
 
 /// An area unit used in US surveyors' measures equalling 36 square miles.
-final AreaUnits townships = AreaUnits('townships', null, null, null, 9.3239572e7, false);
+final AreaUnits townships = AreaUnits(
+    'townships', 'townships', 'townships', 'township', 9.3239572e7, false);
 
 /// An area unit equivalent to a square with sides having a length of one yard.
 final AreaUnits squareYards = AreaUnits.lengthSquared(yards);
@@ -63,7 +66,9 @@ final AreaUnits squarePerches = squareRods;
 
 /// Helpful for describing the scattering of photons when the energy of each individual photon is much smaller
 /// than the rest energy of the electron.
-const Area thomsonCrossSection = Area.constant(Double.constant(6.6524587321e-29), uncert: 9.019221676713751e-10);
+const Area thomsonCrossSection = Area.constant(
+    Double.constant(6.6524587321e-29),
+    uncert: 9.019221676713751e-10);
 
 /// A synonym for the [thomsonCrossSection].
 const Area sigma0 = thomsonCrossSection;

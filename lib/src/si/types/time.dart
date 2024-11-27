@@ -17,7 +17,14 @@ class Time extends Quantity {
   /// Constructs a Time with seconds ([s]), milliseconds ([ms]), nanoseconds ([ns]), mean solar days ([d]), mean solar hours ([h])
   /// or mean solar minutes ([min]).
   /// Optionally specify a relative standard uncertainty.
-  Time({dynamic s, dynamic ms, dynamic ns, dynamic d, dynamic h, dynamic min, double uncert = 0.0})
+  Time(
+      {dynamic s,
+      dynamic ms,
+      dynamic ns,
+      dynamic d,
+      dynamic h,
+      dynamic min,
+      double uncert = 0.0})
       : super(
             s ?? (ms ?? (ns ?? (d ?? (h ?? (min ?? 0.0))))),
             ms != null
@@ -26,41 +33,51 @@ class Time extends Quantity {
                     ? Time.nanoseconds
                     : (d != null
                         ? Time.daysMeanSolar
-                        : (h != null ? Time.hoursMeanSolar : (min != null ? Time.minutesMeanSolar : Time.seconds)))),
+                        : (h != null
+                            ? Time.hoursMeanSolar
+                            : (min != null
+                                ? Time.minutesMeanSolar
+                                : Time.seconds)))),
             uncert);
 
-  /// Constructs a instance without preferred units.
+  /// Constructs an instance without preferred units.
   Time.misc(dynamic conv) : super.misc(conv, Time.timeDimensions);
 
   /// Constructs a Time based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Time.inUnits(dynamic value, TimeUnits? units, [double uncert = 0.0]) : super(value, units ?? Time.seconds, uncert);
+  Time.inUnits(dynamic value, TimeUnits? units, [double uncert = 0.0])
+      : super(value, units ?? Time.seconds, uncert);
 
   /// Constructs a constant Time.
   const Time.constant(Number valueSI, {TimeUnits? units, double uncert = 0.0})
       : super.constant(valueSI, Time.timeDimensions, units, uncert);
 
   /// Constructs a Time object from an existing dart:core Duration object.
-  Time.fromDuration(Duration d) : super(d.inMicroseconds.toDouble() / 1.0e6, Time.seconds);
+  Time.fromDuration(Duration d)
+      : super(d.inMicroseconds.toDouble() / 1.0e6, Time.seconds);
 
   /// Dimensions for this type of quantity
-  static const Dimensions timeDimensions = Dimensions.constant(<String, int>{'Time': 1}, qType: Time);
+  static const Dimensions timeDimensions =
+      Dimensions.constant(<String, int>{'Time': 1}, qType: Time);
 
   // Units.
 
   /// The standard SI unit.
-  static final TimeUnits seconds = TimeUnits('seconds', 'sec', 's', null, Double.one, true);
+  static final TimeUnits seconds =
+      TimeUnits('seconds', 'sec', 's', 'second', Double.one, true);
 
   /// Accepted for use with the SI.
   // ignore: prefer_int_literals
-  static final TimeUnits daysMeanSolar = TimeUnits('days', 'days', 'd', null, const Double.constant(8.64e4), false);
+  static final TimeUnits daysMeanSolar = TimeUnits(
+      'days', 'days', 'd', 'day', const Double.constant(8.64e4), false);
 
   /// Accepted for use with the SI.
-  static final TimeUnits hoursMeanSolar = TimeUnits('hours', 'hrs', 'h', null, const Double.constant(3600), false);
+  static final TimeUnits hoursMeanSolar = TimeUnits(
+      'hours', 'hrs', 'h', 'hour', const Double.constant(3600), false);
 
   /// Accepted for use with the SI.
-  static final TimeUnits minutesMeanSolar =
-      TimeUnits('minutes', 'minutes', 'min', null, const Double.constant(60), false);
+  static final TimeUnits minutesMeanSolar = TimeUnits(
+      'minutes', 'min', 'min', 'minute', const Double.constant(60), false);
 
   // Common metric derivations.
 
@@ -87,13 +104,15 @@ class Time extends Quantity {
   /// Create a dart:core Duration object with the same time interval as this
   /// Time object, to microsecond precision (the maximum precision of the
   /// Duration object).
-  Duration toDuration() => Duration(microseconds: (valueSI.toDouble() * 1000000.0).round());
+  Duration toDuration() =>
+      Duration(microseconds: (valueSI.toDouble() * 1000000.0).round());
 }
 
 /// Units acceptable for use in describing [Time] quantities.
 class TimeUnits extends Time with Units {
-  /// Constructs a instance.
-  TimeUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  TimeUnits(String name, String? abbrev1, String? abbrev2, String singular,
+      dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -111,12 +130,13 @@ class TimeUnits extends Time with Units {
 
   /// Derive TimeUnits using this TimeUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => TimeUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      TimeUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

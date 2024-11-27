@@ -68,7 +68,8 @@ Map<String, Quantity> nistNameConstantMap = <String, Quantity>{
 void main() {
   group('constants', () {
     test('check against NIST values', () {
-      final lines = File('test/quantity_ext/txt/nist_constants.txt').readAsLinesSync();
+      final lines =
+          File('test/quantity_ext/txt/nist_constants.txt').readAsLinesSync();
       double value, uncert;
       for (final line in lines) {
         final name = line.substring(0, 60).trim();

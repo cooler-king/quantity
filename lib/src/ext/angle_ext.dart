@@ -54,7 +54,8 @@ final AngleUnits secondsArc = Angle.secondsArc;
 // Non-SI angle units.
 
 /// One grad is 0.9 of a degree, exactly.
-final AngleUnits grads = AngleUnits('grads', null, null, null, 0.9 * 1.7453292519943e-2, false);
+final AngleUnits grads = AngleUnits(
+    'grads', 'grads', 'grads', 'grad', 0.9 * 1.7453292519943e-2, false);
 
 /// Synonym for grads.
 final AngleUnits grades = grads;
@@ -63,10 +64,12 @@ final AngleUnits grades = grads;
 final AngleUnits gons = grads;
 
 /// One angular mil is 0.05625 of a degree, exactly.
-final AngleUnits angularMils = AngleUnits('mils', null, null, null, 0.05625 * 1.7453292519943e-2, false);
+final AngleUnits angularMils = AngleUnits(
+    'mils', 'mils', 'mils', 'mil', 0.05625 * 1.7453292519943e-2, false);
 
 /// Represents a full circle of two pi radians.
-final AngleUnits revolutions = AngleUnits('revolutions', null, 'revs', null, twoPi, false);
+final AngleUnits revolutions =
+    AngleUnits('revolutions', 'revs', 'revs', 'revolution', twoPi, false);
 
 /// Synonymous with [revolutions].
 final AngleUnits cycles = revolutions;
@@ -75,22 +78,28 @@ final AngleUnits cycles = revolutions;
 final AngleUnits circles = revolutions;
 
 /// Represents a half circle of one hundred eighty degrees (pi radians).
-final AngleUnits semicircles = AngleUnits('semicircles', null, null, null, pi, false);
+final AngleUnits semicircles = AngleUnits(
+    'semicircles', 'semicircles', 'semicircles', 'semicircle', pi, false);
 
 /// Represents a quarter circle of ninety degrees.
-final AngleUnits quadrants = AngleUnits('quadrants', null, null, null, pi / 2.0, false);
+final AngleUnits quadrants = AngleUnits(
+    'quadrants', 'quadrants', 'quadrants', 'quadrant', pi / 2.0, false);
 
 /// A sign unit is a little more than half a radian.
-final AngleUnits signs = AngleUnits('signs', null, null, null, 0.523599, false);
+final AngleUnits signs =
+    AngleUnits('signs', 'signs', 'signs', 'sign', 0.523599, false);
 
 /// Based on Earth's rotation (approximately 15 degrees).
-final AngleUnits hoursTime = AngleUnits('hours time', 'hrs time', 'hr', 'hour time', 2.6179939e-1, false);
+final AngleUnits hoursTime = AngleUnits(
+    'hours time', 'hrs time', 'hrs', 'hour time', 2.6179939e-1, false);
 
 /// Based on Earth's rotation.
-final AngleUnits minutesTime = AngleUnits('minutes time', 'min time', 'min (t)', 'minute time', 4.3633231e-3, false);
+final AngleUnits minutesTime = AngleUnits('minutes time', 'mins time',
+    'mins (t)', 'minute time', 4.3633231e-3, false);
 
 /// Based on Earth's rotation.
-final AngleUnits secondsTime = AngleUnits('seconds time', 'sec time', 'sec (t)', 'second time', 7.2722052e-5, false);
+final AngleUnits secondsTime = AngleUnits('seconds time', 'secs time',
+    'secs (t)', 'second time', 7.2722052e-5, false);
 
 // Commonly Used Angles.
 
@@ -171,8 +180,10 @@ final double tan60 = tangent(angle60);
 // Alternative construction.
 
 /// Constructs an angle from hours, minutes and seconds of time (as opposed to arc).
-Angle angleFromHourMinSec(int hour, int minute, double second, [double uncert = 0]) {
-  final mks =
-      hoursTime.toMks(hour).toDouble() + minutesTime.toMks(minute).toDouble() + secondsTime.toMks(second).toDouble();
+Angle angleFromHourMinSec(int hour, int minute, double second,
+    [double uncert = 0]) {
+  final mks = hoursTime.toMks(hour).toDouble() +
+      minutesTime.toMks(minute).toDouble() +
+      secondsTime.toMks(second).toDouble();
   return Angle.inUnits(mks, Angle.radians, uncert);
 }

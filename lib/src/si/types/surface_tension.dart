@@ -14,30 +14,37 @@ class SurfaceTension extends Quantity {
   SurfaceTension({dynamic newtonsPerMeter, double uncert = 0.0})
       : super(newtonsPerMeter ?? 0.0, SurfaceTension.newtonsPerMeter, uncert);
 
-  /// Constructs a instance without preferred units.
-  SurfaceTension.misc(dynamic conv) : super.misc(conv, SurfaceTension.surfaceTensionDimensions);
+  /// Constructs an instance without preferred units.
+  SurfaceTension.misc(dynamic conv)
+      : super.misc(conv, SurfaceTension.surfaceTensionDimensions);
 
   /// Constructs a SurfaceTension based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits? units, [double uncert = 0.0])
+  SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert);
 
   /// Constructs a constant SurfaceTension.
-  const SurfaceTension.constant(Number valueSI, {SurfaceTensionUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, SurfaceTension.surfaceTensionDimensions, units, uncert);
+  const SurfaceTension.constant(Number valueSI,
+      {SurfaceTensionUnits? units, double uncert = 0.0})
+      : super.constant(
+            valueSI, SurfaceTension.surfaceTensionDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions surfaceTensionDimensions =
-      Dimensions.constant(<String, int>{'Mass': 1, 'Time': -2}, qType: SurfaceTension);
+  static const Dimensions surfaceTensionDimensions = Dimensions.constant(
+      <String, int>{'Mass': 1, 'Time': -2},
+      qType: SurfaceTension);
 
   /// The standard SI unit.
-  static final SurfaceTensionUnits newtonsPerMeter = SurfaceTensionUnits.forcePerLength(Force.newtons, Length.meters);
+  static final SurfaceTensionUnits newtonsPerMeter =
+      SurfaceTensionUnits.forcePerLength(Force.newtons, Length.meters);
 }
 
 /// Units acceptable for use in describing SurfaceTension quantities.
 class SurfaceTensionUnits extends SurfaceTension with Units {
-  /// Constructs a instance.
-  SurfaceTensionUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  SurfaceTensionUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -49,13 +56,18 @@ class SurfaceTensionUnits extends SurfaceTension with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance based on force and length units.
-  SurfaceTensionUnits.forcePerLength(ForceUnits fu, LengthUnits lu) : super.misc(fu.valueSI / lu.valueSI) {
+  /// Constructs an instance based on force and length units.
+  SurfaceTensionUnits.forcePerLength(ForceUnits fu, LengthUnits lu)
+      : super.misc(fu.valueSI / lu.valueSI) {
     name = '${fu.name} per ${lu.singular}';
     singular = '${fu.singular} per ${lu.singular}';
     convToMKS = fu.valueSI / lu.valueSI;
-    abbrev1 = fu.abbrev1 != null && lu.abbrev1 != null ? '${fu.abbrev1} / ${lu.abbrev1}' : null;
-    abbrev2 = fu.abbrev2 != null && lu.abbrev2 != null ? '${fu.abbrev2}/${lu.abbrev2}' : null;
+    abbrev1 = fu.abbrev1 != null && lu.abbrev1 != null
+        ? '${fu.abbrev1} / ${lu.abbrev1}'
+        : null;
+    abbrev2 = fu.abbrev2 != null && lu.abbrev2 != null
+        ? '${fu.abbrev2} ${lu.abbrev2}\u{207b}\u{00b9}'
+        : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -66,12 +78,13 @@ class SurfaceTensionUnits extends SurfaceTension with Units {
 
   /// Derive SurfaceTensionUnits using this SurfaceTensionUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => SurfaceTensionUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      SurfaceTensionUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }

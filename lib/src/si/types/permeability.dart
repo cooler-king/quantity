@@ -13,41 +13,52 @@ import 'length.dart';
 class Permeability extends Quantity {
   /// Constructs a Permeability with henries per meter or newtons per ampere squared.
   /// Optionally specify a relative standard uncertainty.
-  Permeability({dynamic henriesPerMeter, dynamic newtonsPerAmpereSquared, double uncert = 0.0})
+  Permeability(
+      {dynamic henriesPerMeter,
+      dynamic newtonsPerAmpereSquared,
+      double uncert = 0.0})
       : super(
             henriesPerMeter ?? (newtonsPerAmpereSquared ?? 0.0),
-            newtonsPerAmpereSquared != null ? Permeability.newtonsPerAmpereSquared : Permeability.henriesPerMeter,
+            newtonsPerAmpereSquared != null
+                ? Permeability.newtonsPerAmpereSquared
+                : Permeability.henriesPerMeter,
             uncert);
 
-  /// Constructs a instance without preferred units.
-  Permeability.misc(dynamic conv) : super.misc(conv, Permeability.permeabilityDimensions);
+  /// Constructs an instance without preferred units.
+  Permeability.misc(dynamic conv)
+      : super.misc(conv, Permeability.permeabilityDimensions);
 
   /// Constructs a Permeability based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
-  Permeability.inUnits(dynamic value, PermeabilityUnits? units, [double uncert = 0.0])
+  Permeability.inUnits(dynamic value, PermeabilityUnits? units,
+      [double uncert = 0.0])
       : super(value, units ?? Permeability.henriesPerMeter, uncert);
 
   /// Constructs a constant Permeability.
-  const Permeability.constant(Number valueSI, {PermeabilityUnits? units, double uncert = 0.0})
-      : super.constant(valueSI, Permeability.permeabilityDimensions, units, uncert);
+  const Permeability.constant(Number valueSI,
+      {PermeabilityUnits? units, double uncert = 0.0})
+      : super.constant(
+            valueSI, Permeability.permeabilityDimensions, units, uncert);
 
   /// Dimensions for this type of quantity.
-  static const Dimensions permeabilityDimensions =
-      Dimensions.constant(<String, int>{'Length': 1, 'Mass': 1, 'Time': -2, 'Current': -2}, qType: Permeability);
+  static const Dimensions permeabilityDimensions = Dimensions.constant(
+      <String, int>{'Length': 1, 'Mass': 1, 'Time': -2, 'Current': -2},
+      qType: Permeability);
 
   /// The standard SI unit.
   static final PermeabilityUnits henriesPerMeter =
-      PermeabilityUnits.inductanceLength(Inductance.henries, Length.meters);
+      PermeabilityUnits.inductancePerLength(Inductance.henries, Length.meters);
 
   /// The standard SI unit (alternate form).
   static final PermeabilityUnits newtonsPerAmpereSquared =
-      PermeabilityUnits.forceCurrent(Force.newtons, Current.amperes);
+      PermeabilityUnits.forcePerCurrentSquared(Force.newtons, Current.amperes);
 }
 
 /// Units acceptable for use in describing Permeability quantities.
 class PermeabilityUnits extends Permeability with Units {
-  /// Constructs a instance.
-  PermeabilityUnits(String name, String? abbrev1, String? abbrev2, String? singular, dynamic conv,
+  /// Constructs an instance.
+  PermeabilityUnits(String name, String? abbrev1, String? abbrev2,
+      String singular, dynamic conv,
       [bool metricBase = false, num offset = 0.0])
       : super.misc(conv) {
     this.name = name;
@@ -59,24 +70,34 @@ class PermeabilityUnits extends Permeability with Units {
     this.offset = offset.toDouble();
   }
 
-  /// Constructs a instance based on inductance and length units.
-  PermeabilityUnits.inductanceLength(InductanceUnits iu, LengthUnits lu) : super.misc(iu.valueSI / lu.valueSI) {
+  /// Constructs an instance based on inductance and length units.
+  PermeabilityUnits.inductancePerLength(InductanceUnits iu, LengthUnits lu)
+      : super.misc(iu.valueSI / lu.valueSI) {
     name = '${iu.name} per ${lu.singular}';
     singular = '${iu.singular} per ${lu.singular}';
     convToMKS = iu.valueSI / lu.valueSI;
-    abbrev1 = iu.abbrev1 != null && lu.abbrev1 != null ? '${iu.abbrev1} / ${lu.abbrev1}' : null;
-    abbrev2 = iu.abbrev2 != null && lu.abbrev2 != null ? '${iu.abbrev2}/${lu.abbrev2}' : null;
+    abbrev1 = iu.abbrev1 != null && lu.abbrev1 != null
+        ? '${iu.abbrev1} / ${lu.abbrev1}'
+        : null;
+    abbrev2 = iu.abbrev2 != null && lu.abbrev2 != null
+        ? '${iu.abbrev2} ${lu.abbrev2}\u{207b}\u{00b9}'
+        : null;
     metricBase = false;
     offset = 0.0;
   }
 
-  /// Constructs a instance based on force and electric current units.
-  PermeabilityUnits.forceCurrent(ForceUnits fu, CurrentUnits ecu) : super.misc(fu.valueSI / (ecu.valueSI ^ 2)) {
-    name = '${fu.name} per ${ecu.singular} squared';
-    singular = '${fu.singular} per ${ecu.singular} squared';
-    convToMKS = fu.valueSI / (ecu.valueSI ^ 2);
-    abbrev1 = fu.abbrev1 != null && ecu.abbrev1 != null ? '${fu.abbrev1} / ${ecu.abbrev1}^2' : null;
-    abbrev2 = fu.abbrev2 != null && ecu.abbrev2 != null ? '${fu.abbrev2}/${ecu.abbrev2}2' : null;
+  /// Constructs an instance based on force and electric current units.
+  PermeabilityUnits.forcePerCurrentSquared(ForceUnits fu, CurrentUnits cu)
+      : super.misc(fu.valueSI / (cu.valueSI ^ 2)) {
+    name = '${fu.name} per ${cu.singular} squared';
+    singular = '${fu.singular} per ${cu.singular} squared';
+    convToMKS = fu.valueSI / (cu.valueSI ^ 2);
+    abbrev1 = fu.abbrev1 != null && cu.abbrev1 != null
+        ? '${fu.abbrev1} / ${cu.abbrev1}\u{00b2}'
+        : null;
+    abbrev2 = fu.abbrev2 != null && cu.abbrev2 != null
+        ? '${fu.abbrev2} ${cu.abbrev2}\u{207b}\u{00b2}'
+        : null;
     metricBase = false;
     offset = 0.0;
   }
@@ -87,12 +108,13 @@ class PermeabilityUnits extends Permeability with Units {
 
   /// Derive PermeabilityUnits using this PermeabilityUnits object as the base.
   @override
-  Units derive(String fullPrefix, String abbrevPrefix, double conv) => PermeabilityUnits(
-      '$fullPrefix$name',
-      abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
-      abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
-      '$fullPrefix$singular',
-      valueSI * conv,
-      false,
-      offset);
+  Units derive(String fullPrefix, String abbrevPrefix, double conv) =>
+      PermeabilityUnits(
+          '$fullPrefix$name',
+          abbrev1 != null ? '$abbrevPrefix$abbrev1' : null,
+          abbrev2 != null ? '$abbrevPrefix$abbrev2' : null,
+          '$fullPrefix$singular',
+          valueSI * conv,
+          false,
+          offset);
 }
