@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -18,17 +19,23 @@ base class TemperatureInterval extends Quantity {
             degC != null
                 ? TemperatureInterval.degreesCelsius
                 : TemperatureInterval.kelvins,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   TemperatureInterval.misc(dynamic conv)
-      : super.misc(conv, TemperatureInterval.temperatureIntervalDimensions);
+      : super.misc(conv, TemperatureInterval.temperatureIntervalDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a TemperatureInterval based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   TemperatureInterval.inUnits(dynamic value, TemperatureIntervalUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? TemperatureInterval.kelvins, uncert);
+      : super(value, units ?? TemperatureInterval.kelvins, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant TemperatureInterval.
   const TemperatureInterval.constant(Number valueSI,

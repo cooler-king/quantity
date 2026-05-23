@@ -2,6 +2,8 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 
 void main() {
+  final _ = siRegistered;
+
   group('Length', () {
     test('constructors -default', () {
       // default ctor, meters 0

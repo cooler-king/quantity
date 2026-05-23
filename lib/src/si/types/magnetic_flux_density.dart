@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -11,17 +12,23 @@ base class MagneticFluxDensity extends Quantity {
   /// Constructs a MagneticFluxDensity with teslas ([T]).
   /// Optionally specify a relative standard uncertainty.
   MagneticFluxDensity({dynamic T, double uncert = 0.0})
-      : super(T ?? 0.0, MagneticFluxDensity.teslas, uncert);
+      : super(T ?? 0.0, MagneticFluxDensity.teslas, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MagneticFluxDensity.misc(dynamic conv)
-      : super.misc(conv, MagneticFluxDensity.magneticFluxDensityDimensions);
+      : super.misc(conv, MagneticFluxDensity.magneticFluxDensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MagneticFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MagneticFluxDensity.inUnits(dynamic value, MagneticFluxDensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MagneticFluxDensity.teslas, uncert);
+      : super(value, units ?? MagneticFluxDensity.teslas, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MagneticFluxDensity.
   const MagneticFluxDensity.constant(Number valueSI,

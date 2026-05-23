@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -17,15 +18,21 @@ base class Mass extends Quantity {
             g != null
                 ? Mass.grams
                 : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Mass.misc(dynamic conv) : super.misc(conv, Mass.massDimensions);
+  Mass.misc(dynamic conv) : super.misc(conv, Mass.massDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Mass.inUnits(dynamic value, MassUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Mass.kilograms, uncert);
+      : super(value, units ?? Mass.kilograms, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Mass.
   const Mass.constant(Number valueSI, {MassUnits? units, double uncert = 0.0})

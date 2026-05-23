@@ -8,17 +8,23 @@ base class EnergyDensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   EnergyDensity({dynamic joulesPerCubicMeter, double uncert = 0.0})
       : super(joulesPerCubicMeter ?? 0.0, EnergyDensity.joulesPerCubicMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   EnergyDensity.misc(dynamic conv)
-      : super.misc(conv, EnergyDensity.energyDensityDimensions);
+      : super.misc(conv, EnergyDensity.energyDensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a EnergyDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   EnergyDensity.inUnits(dynamic value, EnergyDensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? EnergyDensity.joulesPerCubicMeter, uncert);
+      : super(value, units ?? EnergyDensity.joulesPerCubicMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant EnergyDensity.
   const EnergyDensity.constant(Number valueSI,

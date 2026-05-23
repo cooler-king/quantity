@@ -12,15 +12,21 @@ base class Pressure extends Quantity {
   // ignore: non_constant_identifier_names
   Pressure({dynamic Pa, dynamic bars, double uncert = 0.0})
       : super(Pa ?? (bars ?? 0.0),
-            bars != null ? Pressure.bars : Pressure.pascals, uncert);
+            bars != null ? Pressure.bars : Pressure.pascals, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Pressure.misc(dynamic conv) : super.misc(conv, Pressure.pressureDimensions);
+  Pressure.misc(dynamic conv) : super.misc(conv, Pressure.pressureDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Pressure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Pressure.inUnits(dynamic value, PressureUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Pressure.pascals, uncert);
+      : super(value, units ?? Pressure.pascals, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Pressure.
   const Pressure.constant(Number valueSI,

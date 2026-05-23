@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -44,10 +45,14 @@ base class Angle extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Angle({dynamic rad, dynamic deg, double uncert = 0.0})
       : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Angle.misc(dynamic conv) : super.misc(conv, Angle.angleDimensions);
+  Angle.misc(dynamic conv) : super.misc(conv, Angle.angleDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an Angle based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -62,7 +67,9 @@ base class Angle extends Quantity {
   /// The internal value is automatically bounded between -PI and PI
   /// radians (-180 to 180 degrees)
   Angle.inUnits(dynamic value, AngleUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Angle.radians, uncert);
+      : super(value, units ?? Angle.radians, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant angle.
   const Angle.constant(Number valueSI,
@@ -73,7 +80,9 @@ base class Angle extends Quantity {
   ///  passed in for degrees, minutes, and seconds of arc.
   Angle.fromDegMinSec(int d, int m, double s, [double uncert = 0.0])
       : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s),
-            Angle.radians, uncert);
+            Angle.radians, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Dimensions for this type of quantity.
   static const Dimensions angleDimensions =

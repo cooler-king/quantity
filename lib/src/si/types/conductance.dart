@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -10,17 +11,23 @@ base class Conductance extends Quantity {
   /// Constructs a Conductance with siemens ([S]).
   /// Optionally specify a relative standard uncertainty.
   Conductance({dynamic S, double uncert = 0.0})
-      : super(S ?? 0.0, Conductance.siemens, uncert);
+      : super(S ?? 0.0, Conductance.siemens, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Conductance.misc(dynamic conv)
-      : super.misc(conv, Conductance.electricConductanceDimensions);
+      : super.misc(conv, Conductance.electricConductanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Conductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Conductance.inUnits(dynamic value, ConductanceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Conductance.siemens, uncert);
+      : super(value, units ?? Conductance.siemens, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Conductance.
   const Conductance.constant(Number valueSI,

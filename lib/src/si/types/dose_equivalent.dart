@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -15,17 +16,23 @@ base class DoseEquivalent extends Quantity {
       : super(
             Sv ?? rems ?? 0.0,
             rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   DoseEquivalent.misc(dynamic conv)
-      : super.misc(conv, DoseEquivalent.doseEquivalentDimensions);
+      : super.misc(conv, DoseEquivalent.doseEquivalentDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a DoseEquivalent based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   DoseEquivalent.inUnits(dynamic value, DoseEquivalentUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? DoseEquivalent.seiverts, uncert);
+      : super(value, units ?? DoseEquivalent.seiverts, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant DoseEquivalent.
   const DoseEquivalent.constant(Number valueSI,

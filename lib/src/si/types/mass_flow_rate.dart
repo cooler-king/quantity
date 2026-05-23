@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -13,17 +14,23 @@ base class MassFlowRate extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   MassFlowRate({dynamic kilogramsPerSecond, double uncert = 0.0})
       : super(
-            kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert);
+            kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MassFlowRate.misc(dynamic conv)
-      : super.misc(conv, MassFlowRate.massFlowRateDimensions);
+      : super.misc(conv, MassFlowRate.massFlowRateDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MassFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MassFlowRate.inUnits(dynamic value, MassFlowRateUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert);
+      : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Construct a constant MassFlowRate.
   const MassFlowRate.constant(Number valueSI,

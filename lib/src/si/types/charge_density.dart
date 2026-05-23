@@ -8,17 +8,23 @@ base class ChargeDensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   ChargeDensity({dynamic coulombsPerCubicMeter, double uncert = 0.0})
       : super(coulombsPerCubicMeter ?? 0.0, ChargeDensity.coulombsPerCubicMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   ChargeDensity.misc(dynamic conv)
-      : super.misc(conv, ChargeDensity.electricChargeDensityDimensions);
+      : super.misc(conv, ChargeDensity.electricChargeDensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a ChargeDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ChargeDensity.inUnits(dynamic value, ChargeDensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? ChargeDensity.coulombsPerCubicMeter, uncert);
+      : super(value, units ?? ChargeDensity.coulombsPerCubicMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant ChargeDensity.
   const ChargeDensity.constant(Number valueSI,

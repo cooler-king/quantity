@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -13,18 +14,24 @@ base class MagneticFieldStrength extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
       : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MagneticFieldStrength.misc(dynamic conv)
-      : super.misc(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
+      : super.misc(conv, MagneticFieldStrength.magneticFieldStrengthDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MagneticFieldStrength.inUnits(
       dynamic value, MagneticFieldStrengthUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
+      : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MagneticFieldStrength.
   const MagneticFieldStrength.constant(Number valueSI,

@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -16,17 +17,23 @@ base class AmountOfSubstance extends Quantity {
             kmol != null
                 ? AmountOfSubstance.kilomoles
                 : AmountOfSubstance.moles,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AmountOfSubstance.misc(dynamic conv)
-      : super.misc(conv, AmountOfSubstance.amountOfSubstanceDimensions);
+      : super.misc(conv, AmountOfSubstance.amountOfSubstanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a AmountOfSubstance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? AmountOfSubstance.moles, uncert);
+      : super(value, units ?? AmountOfSubstance.moles, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AmountOfSubstance.
   const AmountOfSubstance.constant(Number valueSI,

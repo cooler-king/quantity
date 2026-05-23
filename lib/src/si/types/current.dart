@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -11,16 +12,22 @@ base class Current extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Current({dynamic A, dynamic mA, double uncert = 0.0})
       : super(A ?? (mA ?? 0.0),
-            mA != null ? Current.milliamperes : Current.amperes, uncert);
+            mA != null ? Current.milliamperes : Current.amperes, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Current.misc(dynamic conv)
-      : super.misc(conv, Current.electricCurrentDimensions);
+      : super.misc(conv, Current.electricCurrentDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Current based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Current.inUnits(dynamic value, CurrentUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Current.amperes, uncert);
+      : super(value, units ?? Current.amperes, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant electric Current.
   const Current.constant(Number valueSI,

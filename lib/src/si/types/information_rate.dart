@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -33,17 +34,23 @@ base class InformationRate extends Quantity {
                         : (Tbps != null
                             ? InformationRate.terabitsPerSecond
                             : InformationRate.bitsPerSecond))),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   InformationRate.misc(dynamic conv)
-      : super.misc(conv, InformationRate.informationRateDimensions);
+      : super.misc(conv, InformationRate.informationRateDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a InformationRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   InformationRate.inUnits(dynamic value, InformationRateUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? InformationRate.bitsPerSecond, uncert);
+      : super(value, units ?? InformationRate.bitsPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant InformationRate.
   const InformationRate.constant(Number valueSI,

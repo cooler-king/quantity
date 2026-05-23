@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -101,17 +102,23 @@ base class TimeInstant extends Quantity {
   // ignore: non_constant_identifier_names
   TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
       : super(TAI ?? (UTC ?? 0.0),
-            UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
+            UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   TimeInstant.misc(dynamic conv)
-      : super.misc(conv, TimeInstant.timeInstantDimensions);
+      : super.misc(conv, TimeInstant.timeInstantDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   TimeInstant.inUnits(dynamic value, TimeInstantUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? TimeInstant.TAI, uncert);
+      : super(value, units ?? TimeInstant.TAI, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant TimeInstant object.
   const TimeInstant.constant(Number valueSI,
@@ -121,7 +128,9 @@ base class TimeInstant extends Quantity {
 
   /// Constructs a TimeInstant from an existing [dateTime] object.
   TimeInstant.dateTime(DateTime dateTime, {double uncert = 0.0})
-      : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
+      : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Dimensions for this type of quantity
   static const Dimensions timeInstantDimensions =

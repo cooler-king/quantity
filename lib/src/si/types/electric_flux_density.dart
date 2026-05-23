@@ -9,18 +9,24 @@ base class ElectricFluxDensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   ElectricFluxDensity({dynamic coulombsPerSquareMeter, double uncert = 0.0})
       : super(coulombsPerSquareMeter ?? 0.0,
-            ElectricFluxDensity.coulombsPerSquareMeter, uncert);
+            ElectricFluxDensity.coulombsPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   ElectricFluxDensity.misc(dynamic conv)
-      : super.misc(conv, ElectricFluxDensity.electricFluxDensityDimensions);
+      : super.misc(conv, ElectricFluxDensity.electricFluxDensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a ElectricFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ElectricFluxDensity.inUnits(dynamic value, ElectricFluxDensityUnits? units,
       [double uncert = 0.0])
       : super(
-            value, units ?? ElectricFluxDensity.coulombsPerSquareMeter, uncert);
+            value, units ?? ElectricFluxDensity.coulombsPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant ElectricFluxDensity.
   const ElectricFluxDensity.constant(Number valueSI,

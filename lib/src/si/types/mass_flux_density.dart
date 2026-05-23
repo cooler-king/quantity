@@ -9,18 +9,24 @@ base class MassFluxDensity extends Quantity {
   MassFluxDensity(
       {dynamic kilogramsPerSecondPerSquareMeter, double uncert = 0.0})
       : super(kilogramsPerSecondPerSquareMeter ?? 0.0,
-            MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
+            MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MassFluxDensity.misc(dynamic conv)
-      : super.misc(conv, MassFluxDensity.massFluxDensityDimensions);
+      : super.misc(conv, MassFluxDensity.massFluxDensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MassFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MassFluxDensity.inUnits(dynamic value, MassFluxDensityUnits? units,
       [double uncert = 0.0])
       : super(value, units ?? MassFluxDensity.kilogramsPerSecondPerSquareMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MassFluxDensity.
   const MassFluxDensity.constant(Number valueSI,

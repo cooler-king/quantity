@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -11,17 +12,23 @@ base class SolidAngle extends Quantity {
   /// Constructs a SolidAngle with steradians ([sr]).
   /// Optionally specify a relative standard uncertainty.
   SolidAngle({dynamic sr, double uncert = 0.0})
-      : super(sr ?? 0.0, SolidAngle.steradians, uncert);
+      : super(sr ?? 0.0, SolidAngle.steradians, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SolidAngle.misc(dynamic conv)
-      : super.misc(conv, SolidAngle.solidAngleDimensions);
+      : super.misc(conv, SolidAngle.solidAngleDimensions) {
+    var _ = siRegistered;
+  }
 
   // CONSTRUCTORS.
 
   /// Constructs an instance in the specified [units].
   SolidAngle.inUnits(dynamic value, SolidAngleUnits? units, [double uncert = 0])
-      : super(value, units ?? SolidAngle.steradians, uncert);
+      : super(value, units ?? SolidAngle.steradians, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SolidAngle.
   const SolidAngle.constant(Number value, [SolidAngleUnits? units])

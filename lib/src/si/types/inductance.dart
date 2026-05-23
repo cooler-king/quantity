@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -12,17 +13,23 @@ base class Inductance extends Quantity {
   /// Constructs an Inductance with henries ([H]).
   /// Optionally specify a relative standard uncertainty.
   Inductance({dynamic H, double uncert = 0.0})
-      : super(H ?? 0.0, Inductance.henries, uncert);
+      : super(H ?? 0.0, Inductance.henries, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Inductance.misc(dynamic conv)
-      : super.misc(conv, Inductance.inductanceDimensions);
+      : super.misc(conv, Inductance.inductanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Inductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Inductance.inUnits(dynamic value, InductanceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Inductance.henries, uncert);
+      : super(value, units ?? Inductance.henries, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Inductance.
   const Inductance.constant(Number valueSI,

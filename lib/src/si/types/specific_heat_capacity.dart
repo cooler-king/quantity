@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -16,18 +17,24 @@ base class SpecificHeatCapacity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   SpecificHeatCapacity({dynamic joulesPerKilogramKelvin, double uncert = 0.0})
       : super(joulesPerKilogramKelvin ?? 0.0,
-            SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
+            SpecificHeatCapacity.joulesPerKilogramKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SpecificHeatCapacity.misc(dynamic conv)
-      : super.misc(conv, SpecificHeatCapacity.specificHeatCapacityDimensions);
+      : super.misc(conv, SpecificHeatCapacity.specificHeatCapacityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SpecificHeatCapacity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SpecificHeatCapacity.inUnits(dynamic value, SpecificHeatCapacityUnits? units,
       [double uncert = 0.0])
       : super(value, units ?? SpecificHeatCapacity.joulesPerKilogramKelvin,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SpecificHeatCapacity.
   const SpecificHeatCapacity.constant(Number valueSI,

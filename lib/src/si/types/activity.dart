@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -12,15 +13,21 @@ base class Activity extends Quantity {
   // ignore: non_constant_identifier_names
   Activity({dynamic Bq, dynamic Ci, double uncert = 0.0})
       : super(Bq ?? (Ci ?? 0.0),
-            Ci != null ? Activity.curies : Activity.becquerels, uncert);
+            Ci != null ? Activity.curies : Activity.becquerels, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Activity.misc(dynamic conv) : super.misc(conv, Activity.activityDimensions);
+  Activity.misc(dynamic conv) : super.misc(conv, Activity.activityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Activity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Activity.inUnits(dynamic value, ActivityUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Activity.becquerels, uncert);
+      : super(value, units ?? Activity.becquerels, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Activity.
   const Activity.constant(Number valueSI,

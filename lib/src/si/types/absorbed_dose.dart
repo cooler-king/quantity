@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -12,17 +13,23 @@ base class AbsorbedDose extends Quantity {
   // ignore: non_constant_identifier_names
   AbsorbedDose({dynamic Gy, dynamic rads, double uncert = 0.0})
       : super(Gy ?? (rads ?? 0.0),
-            rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert);
+            rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AbsorbedDose.misc(dynamic conv)
-      : super.misc(conv, AbsorbedDose.absorbedDoseDimensions);
+      : super.misc(conv, AbsorbedDose.absorbedDoseDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an AbsorbedDose based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AbsorbedDose.inUnits(dynamic value, AbsorbedDoseUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? AbsorbedDose.grays, uncert);
+      : super(value, units ?? AbsorbedDose.grays, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AbsorbedDose.
   const AbsorbedDose.constant(Number valueSI,

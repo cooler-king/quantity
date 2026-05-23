@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -15,15 +16,21 @@ base class Entropy extends Quantity {
   /// Constructs an Entropy with joules per kelvin.
   /// Optionally specify a relative standard uncertainty.
   Entropy({dynamic joulesPerKelvin, double uncert = 0.0})
-      : super(joulesPerKelvin ?? 0.0, Entropy.joulesPerKelvin, uncert);
+      : super(joulesPerKelvin ?? 0.0, Entropy.joulesPerKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Entropy.misc(dynamic conv) : super.misc(conv, Entropy.entropyDimensions);
+  Entropy.misc(dynamic conv) : super.misc(conv, Entropy.entropyDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Entropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Entropy.inUnits(dynamic value, EntropyUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Entropy.joulesPerKelvin, uncert);
+      : super(value, units ?? Entropy.joulesPerKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Entropy.
   const Entropy.constant(Number valueSI,

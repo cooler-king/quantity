@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -18,17 +19,23 @@ base class AngularSpeed extends Quantity {
             degreesPerSecond != null
                 ? AngularSpeed.degreesPerSecond
                 : AngularSpeed.radiansPerSecond,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AngularSpeed.misc(dynamic conv)
-      : super.misc(conv, AngularSpeed.angularSpeedDimensions);
+      : super.misc(conv, AngularSpeed.angularSpeedDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a AngularSpeed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AngularSpeed.inUnits(dynamic value, AngularSpeedUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
+      : super(value, units ?? AngularSpeed.radiansPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AngularSpeed.
   const AngularSpeed.constant(Number valueSI,

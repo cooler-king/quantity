@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -14,17 +15,23 @@ base class Temperature extends Quantity {
       : super(
             K ?? (C ?? 0.0),
             C != null ? Temperature.degreesCelsius : Temperature.kelvins,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Temperature.misc(dynamic conv)
-      : super.misc(conv, Temperature.temperatureDimensions);
+      : super.misc(conv, Temperature.temperatureDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Temperature based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Temperature.inUnits(dynamic value, TemperatureUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Temperature.kelvins, uncert);
+      : super(value, units ?? Temperature.kelvins, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Temperature.
   const Temperature.constant(Number valueSI,

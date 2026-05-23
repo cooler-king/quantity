@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -13,17 +14,23 @@ base class VolumeFlowRate extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   VolumeFlowRate({dynamic cubicMetersPerSecond, double uncert = 0.0})
       : super(cubicMetersPerSecond ?? 0.0, VolumeFlowRate.cubicMetersPerSecond,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   VolumeFlowRate.misc(dynamic conv)
-      : super.misc(conv, VolumeFlowRate.volumeFlowRateDimensions);
+      : super.misc(conv, VolumeFlowRate.volumeFlowRateDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a VolumeFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   VolumeFlowRate.inUnits(dynamic value, VolumeFlowRateUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? VolumeFlowRate.cubicMetersPerSecond, uncert);
+      : super(value, units ?? VolumeFlowRate.cubicMetersPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant VolumeFlowRate.
   const VolumeFlowRate.constant(Number valueSI,

@@ -8,17 +8,23 @@ base class EnergyFlux extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   EnergyFlux({dynamic wattsPerSquareMeter, double uncert = 0.0})
       : super(
-            wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert);
+            wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   EnergyFlux.misc(dynamic conv)
-      : super.misc(conv, EnergyFlux.energyFluxDimensions);
+      : super.misc(conv, EnergyFlux.energyFluxDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a EnergyFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   EnergyFlux.inUnits(dynamic value, EnergyFluxUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? EnergyFlux.wattsPerSquareMeter, uncert);
+      : super(value, units ?? EnergyFlux.wattsPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant EnergyFlux.
   const EnergyFlux.constant(Number valueSI,

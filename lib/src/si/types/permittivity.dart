@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -12,17 +13,23 @@ base class Permittivity extends Quantity {
   /// Constructs a Permittivity with farads per meter.
   /// Optionally specify a relative standard uncertainty.
   Permittivity({dynamic faradsPerMeter, double uncert = 0.0})
-      : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert);
+      : super(faradsPerMeter ?? 0.0, Permittivity.faradsPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Permittivity.misc(dynamic conv)
-      : super.misc(conv, Permittivity.permittivityDimensions);
+      : super.misc(conv, Permittivity.permittivityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Permittivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Permittivity.inUnits(dynamic value, PermittivityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Permittivity.faradsPerMeter, uncert);
+      : super(value, units ?? Permittivity.faradsPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Permittivity.
   const Permittivity.constant(Number valueSI,

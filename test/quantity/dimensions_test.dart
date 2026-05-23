@@ -2,6 +2,8 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 
 void main() {
+  final _ = siRegistered;
+
   group('Dimensions', () {
     test('base dimensions', () {
       expect(Dimensions.baseLengthKey, 'Length');
@@ -615,7 +617,7 @@ void main() {
 
       expect(
           Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': -3})),
+              Dimensions.fromMap(<String, int>{'Length': 3})),
           Volume);
       expect(
           Dimensions.determineQuantityType(

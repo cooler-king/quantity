@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -13,18 +14,24 @@ base class ElectricFieldStrength extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   ElectricFieldStrength({dynamic voltsPerMeter, double uncert = 0.0})
       : super(
-            voltsPerMeter ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert);
+            voltsPerMeter ?? 0.0, ElectricFieldStrength.voltsPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   ElectricFieldStrength.misc(dynamic conv)
-      : super.misc(conv, ElectricFieldStrength.electricFieldStrengthDimensions);
+      : super.misc(conv, ElectricFieldStrength.electricFieldStrengthDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an ElectricFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ElectricFieldStrength.inUnits(
       dynamic value, ElectricFieldStrengthUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? ElectricFieldStrength.voltsPerMeter, uncert);
+      : super(value, units ?? ElectricFieldStrength.voltsPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant ElectricFieldStrength.
   const ElectricFieldStrength.constant(Number valueSI,

@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import 'dart:math' as math;
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
@@ -31,16 +32,22 @@ abstract base class Level extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Level({dynamic Np, double uncert = 0.0})
-      : super(Np ?? 0.0, Level.nepers, uncert);
+      : super(Np ?? 0.0, Level.nepers, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Level.misc(dynamic conv) : super.misc(conv, Level.levelDimensions);
+  Level.misc(dynamic conv) : super.misc(conv, Level.levelDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Level based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ///
   Level.inUnits(dynamic value, LevelUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Level.nepers, uncert);
+      : super(value, units ?? Level.nepers, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Level.
   const Level.constant(Number valueSI, {LevelUnits? units, double uncert = 0.0})

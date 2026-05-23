@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -16,15 +17,21 @@ base class Energy extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Energy({dynamic J, dynamic eV, double uncert = 0.0})
       : super(J ?? (eV ?? 0.0),
-            eV != null ? Energy.electronVolts : Energy.joules, uncert);
+            eV != null ? Energy.electronVolts : Energy.joules, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Energy.misc(dynamic conv) : super.misc(conv, Energy.energyDimensions);
+  Energy.misc(dynamic conv) : super.misc(conv, Energy.energyDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Energy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Energy.inUnits(dynamic value, EnergyUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Energy.joules, uncert);
+      : super(value, units ?? Energy.joules, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Energy.
   const Energy.constant(Number valueSI,

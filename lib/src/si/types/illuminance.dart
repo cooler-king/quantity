@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -10,17 +11,23 @@ base class Illuminance extends Quantity {
   /// Constructs an Illuminance with [lux].
   /// Optionally specify a relative standard uncertainty.
   Illuminance({dynamic lux, double uncert = 0.0})
-      : super(lux ?? 0.0, Illuminance.lux, uncert);
+      : super(lux ?? 0.0, Illuminance.lux, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Illuminance.misc(dynamic conv)
-      : super.misc(conv, Illuminance.illuminanceDimensions);
+      : super.misc(conv, Illuminance.illuminanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Illuminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Illuminance.inUnits(dynamic value, IlluminanceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Illuminance.lux, uncert);
+      : super(value, units ?? Illuminance.lux, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Illuminance.
   const Illuminance.constant(Number valueSI,

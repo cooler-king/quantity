@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -13,15 +14,21 @@ base class Charge extends Quantity {
   /// Constructs a Charge with coulombs ([C]).
   /// Optionally specify a relative standard uncertainty.
   Charge({dynamic C, double uncert = 0.0})
-      : super(C ?? 0.0, Charge.coulombs, uncert);
+      : super(C ?? 0.0, Charge.coulombs, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Charge.misc(dynamic conv) : super.misc(conv, Charge.electricChargeDimensions);
+  Charge.misc(dynamic conv) : super.misc(conv, Charge.electricChargeDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Charge based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Charge.inUnits(dynamic value, ChargeUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Charge.coulombs, uncert);
+      : super(value, units ?? Charge.coulombs, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Charge.
   const Charge.constant(Number valueSI,

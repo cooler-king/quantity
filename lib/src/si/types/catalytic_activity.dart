@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -10,17 +11,23 @@ base class CatalyticActivity extends Quantity {
   /// Constructs a CatalyticActivity with katals ([kat]).
   /// Optionally specify a relative standard uncertainty.
   CatalyticActivity({dynamic kat, double uncert = 0.0})
-      : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
+      : super(kat ?? 0.0, CatalyticActivity.katals, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   CatalyticActivity.misc(dynamic conv)
-      : super.misc(conv, CatalyticActivity.catalyticActivityDimensions);
+      : super.misc(conv, CatalyticActivity.catalyticActivityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a CatalyticActivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? CatalyticActivity.katals, uncert);
+      : super(value, units ?? CatalyticActivity.katals, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant CatalyticActivity.
   const CatalyticActivity.constant(Number valueSI,

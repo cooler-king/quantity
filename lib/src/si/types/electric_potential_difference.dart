@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -12,19 +13,25 @@ base class ElectricPotentialDifference extends Quantity {
   /// Constructs an ElectricPotentialDifference with volts ([V]).
   /// Optionally specify a relative standard uncertainty.
   ElectricPotentialDifference({dynamic V, double uncert = 0.0})
-      : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert);
+      : super(V ?? 0.0, ElectricPotentialDifference.volts, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   ElectricPotentialDifference.misc(dynamic conv)
       : super.misc(conv,
-            ElectricPotentialDifference.electricPotentialDifferenceDimensions);
+            ElectricPotentialDifference.electricPotentialDifferenceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a ElectricPotentialDifference based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ElectricPotentialDifference.inUnits(
       dynamic value, ElectricPotentialDifferenceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? ElectricPotentialDifference.volts, uncert);
+      : super(value, units ?? ElectricPotentialDifference.volts, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant ElectricPotentialDifference.
   const ElectricPotentialDifference.constant(Number valueSI,

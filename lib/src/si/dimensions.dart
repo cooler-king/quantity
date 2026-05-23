@@ -1,72 +1,8 @@
-import '../../quantity_si.dart' show createTypedQuantityInstance;
-import '../../src/si/dimensions_exception.dart';
-import '../../src/si/misc_quantity.dart';
-import '../../src/si/quantity.dart';
-import '../../src/si/types/absorbed_dose_rate.dart';
-import '../../src/si/types/acceleration.dart';
-import '../../src/si/types/amount_of_substance.dart';
-import '../../src/si/types/angle.dart';
-import '../../src/si/types/angular_acceleration.dart';
-import '../../src/si/types/angular_momentum.dart';
-import '../../src/si/types/angular_speed.dart';
-import '../../src/si/types/area.dart';
-import '../../src/si/types/capacitance.dart';
-import '../../src/si/types/catalytic_activity.dart';
-import '../../src/si/types/charge.dart';
-import '../../src/si/types/charge_density.dart';
-import '../../src/si/types/concentration.dart';
-import '../../src/si/types/conductance.dart';
-import '../../src/si/types/current.dart';
-import '../../src/si/types/current_density.dart';
-import '../../src/si/types/dynamic_viscosity.dart';
-import '../../src/si/types/electric_field_strength.dart';
-import '../../src/si/types/electric_flux_density.dart';
-import '../../src/si/types/electric_potential_difference.dart';
-import '../../src/si/types/energy.dart';
-import '../../src/si/types/entropy.dart';
-import '../../src/si/types/exposure.dart';
-import '../../src/si/types/force.dart';
-import '../../src/si/types/frequency.dart';
-import '../../src/si/types/heat_flux_density.dart';
-import '../../src/si/types/illuminance.dart';
-import '../../src/si/types/inductance.dart';
-import '../../src/si/types/kinematic_viscosity.dart';
-import '../../src/si/types/length.dart';
-import '../../src/si/types/luminance.dart';
-import '../../src/si/types/luminous_flux.dart';
-import '../../src/si/types/luminous_intensity.dart';
-import '../../src/si/types/magnetic_field_strength.dart';
-import '../../src/si/types/magnetic_flux.dart';
-import '../../src/si/types/magnetic_flux_density.dart';
-import '../../src/si/types/mass.dart';
-import '../../src/si/types/mass_density.dart';
-import '../../src/si/types/mass_flow_rate.dart';
-import '../../src/si/types/mass_flux_density.dart';
-import '../../src/si/types/molar_energy.dart';
-import '../../src/si/types/molar_entropy.dart';
-import '../../src/si/types/permeability.dart';
-import '../../src/si/types/permittivity.dart';
-import '../../src/si/types/power.dart';
-import '../../src/si/types/pressure.dart';
-import '../../src/si/types/radiance.dart';
-import '../../src/si/types/radiant_intensity.dart';
-import '../../src/si/types/resistance.dart';
-import '../../src/si/types/scalar.dart';
-import '../../src/si/types/solid_angle.dart';
-import '../../src/si/types/specific_energy.dart';
-import '../../src/si/types/specific_heat_capacity.dart';
-import '../../src/si/types/specific_volume.dart';
-import '../../src/si/types/spectral_irradiance.dart';
-import '../../src/si/types/speed.dart';
-import '../../src/si/types/surface_tension.dart';
-import '../../src/si/types/temperature_interval.dart';
-import '../../src/si/types/thermal_conductivity.dart';
-import '../../src/si/types/time.dart';
-import '../../src/si/types/torque.dart';
-import '../../src/si/types/volume.dart';
-import '../../src/si/types/volume_flow_rate.dart';
-import '../../src/si/types/wave_number.dart';
-import '../../src/si/units.dart';
+import 'dimensions_exception.dart';
+import 'misc_quantity.dart';
+import 'quantity.dart';
+import 'units.dart';
+import 'utilities.dart';
 
 /// The Dimensions class represents the dimensions of a physical quantity.
 ///
@@ -95,7 +31,7 @@ final class Dimensions {
   /// No-arg constructor sets all dimensions to zero (that is, a scalar quantity).
   Dimensions()
       : _dimensionMap = <String, num>{},
-        qType = Scalar;
+        qType = null;
 
   /// Constructs a constant Dimensions object with a map of base dimension keys to exponents
   const Dimensions.constant(Map<String, num> dims, {this.qType})
@@ -396,92 +332,13 @@ final class Dimensions {
     if (dim == null) return MiscQuantity;
 
     final numDims = dim._dimensionMap.length;
-    if (numDims == 0) return Scalar;
     if (numDims > 5) return MiscQuantity;
 
     final cached = _typeCache[dim];
     if (cached != null) return cached;
 
-    final lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
-    if (lengthExp is! int) {
-      _typeCache[dim] = MiscQuantity;
-      return MiscQuantity;
-    }
-
-    final type = switch ((lengthExp, numDims)) {
-      (-3, 1) => Volume,
-      (-3, 2) when dim == MassDensity.massDensityDimensions => MassDensity,
-      (-3, 2) when dim == Concentration.concentrationDimensions => Concentration,
-      (-3, 3) when dim == ChargeDensity.electricChargeDensityDimensions => ChargeDensity,
-      (-3, 4) when dim == Permittivity.permittivityDimensions => Permittivity,
-
-      (-2, 2) when dim == CurrentDensity.electricCurrentDensityDimensions => CurrentDensity,
-      (-2, 2) when dim == Luminance.luminanceDimensions => Luminance,
-      (-2, 3) when dim == ElectricFluxDensity.electricFluxDensityDimensions => ElectricFluxDensity,
-      (-2, 3) when dim == Illuminance.illuminanceDimensions => Illuminance,
-      (-2, 3) when dim == MassFluxDensity.massFluxDensityDimensions => MassFluxDensity,
-      (-2, 4) when dim == Capacitance.electricCapacitanceDimensions => Capacitance,
-      (-2, 4) when dim == Conductance.electricConductanceDimensions => Conductance,
-
-      (-1, 1) => WaveNumber,
-      (-1, 2) when dim == MagneticFieldStrength.magneticFieldStrengthDimensions => MagneticFieldStrength,
-      (-1, 3) when dim == Pressure.pressureDimensions => Pressure,
-      (-1, 3) when dim == DynamicViscosity.dynamicViscosityDimensions => DynamicViscosity,
-
-      (0, 1) when dim == Mass.massDimensions => Mass,
-      (0, 1) when dim == Time.timeDimensions => Time,
-      (0, 1) when dim == Current.electricCurrentDimensions => Current,
-      (0, 1) when dim == TemperatureInterval.temperatureIntervalDimensions => TemperatureInterval,
-      (0, 1) when dim == AmountOfSubstance.amountOfSubstanceDimensions => AmountOfSubstance,
-      (0, 1) when dim == LuminousIntensity.luminousIntensityDimensions => LuminousIntensity,
-      (0, 1) when dim == Angle.angleDimensions => Angle,
-      (0, 1) when dim == SolidAngle.solidAngleDimensions => SolidAngle,
-      (0, 1) when dim == Frequency.frequencyDimensions => Frequency,
-      (0, 2) when dim == Charge.electricChargeDimensions => Charge,
-      (0, 2) when dim == LuminousFlux.luminousFluxDimensions => LuminousFlux,
-      (0, 2) when dim == SurfaceTension.surfaceTensionDimensions => SurfaceTension,
-      (0, 2) when dim == AngularSpeed.angularSpeedDimensions => AngularSpeed,
-      (0, 2) when dim == AngularAcceleration.angularAccelerationDimensions => AngularAcceleration,
-      (0, 2) when dim == HeatFluxDensity.heatFluxDensityDimensions => HeatFluxDensity,
-      (0, 2) when dim == CatalyticActivity.catalyticActivityDimensions => CatalyticActivity,
-      (0, 2) when dim == MassFlowRate.massFlowRateDimensions => MassFlowRate,
-      (0, 2) when dim == SpectralIrradiance.spectralIrradianceDimensions => SpectralIrradiance,
-      (0, 3) when dim == MagneticFluxDensity.magneticFluxDensityDimensions => MagneticFluxDensity,
-      (0, 3) when dim == Exposure.exposureDimensions => Exposure,
-      (0, 3) when dim == Radiance.radianceDimensions => Radiance,
-
-      (1, 1) => Length,
-      (1, 2) when dim == Speed.speedDimensions => Speed,
-      (1, 2) when dim == Acceleration.accelerationDimensions => Acceleration,
-      (1, 3) when dim == Force.forceDimensions => Force,
-      (1, 3) when dim == AngularMomentum.angularMomentumDimensions => AngularMomentum,
-      (1, 4) when dim == ThermalConductivity.thermalConductivityDimensions => ThermalConductivity,
-      (1, 4) when dim == ElectricFieldStrength.electricFieldStrengthDimensions => ElectricFieldStrength,
-      (1, 4) when dim == Permeability.permeabilityDimensions => Permeability,
-
-      (2, 1) => Area,
-      (2, 2) when dim == SpecificEnergy.specificEnergyDimensions => SpecificEnergy,
-      (2, 2) when dim == AbsorbedDoseRate.absorbedDoseRateDimensions => AbsorbedDoseRate,
-      (2, 2) when dim == KinematicViscosity.kinematicViscosityDimensions => KinematicViscosity,
-      (2, 3) when dim == Energy.energyDimensions => Energy,
-      (2, 3) when dim == Power.powerDimensions => Power,
-      (2, 3) when dim == SpecificHeatCapacity.specificHeatCapacityDimensions => SpecificHeatCapacity,
-      (2, 4) when dim == ElectricPotentialDifference.electricPotentialDifferenceDimensions => ElectricPotentialDifference,
-      (2, 4) when dim == Resistance.electricResistanceDimensions => Resistance,
-      (2, 4) when dim == MagneticFlux.magneticFluxDimensions => MagneticFlux,
-      (2, 4) when dim == Inductance.inductanceDimensions => Inductance,
-      (2, 4) when dim == Entropy.entropyDimensions => Entropy,
-      (2, 4) when dim == MolarEnergy.molarEnergyDimensions => MolarEnergy,
-      (2, 4) when dim == RadiantIntensity.radiantIntensityDimensions => RadiantIntensity,
-      (2, 4) when dim == Torque.torqueDimensions => Torque,
-      (2, 5) when dim == MolarEntropy.molarEntropyDimensions => MolarEntropy,
-
-      (3, 1) => Volume,
-      (3, 2) when dim == SpecificVolume.specificVolumeDimensions => SpecificVolume,
-      (3, 2) when dim == VolumeFlowRate.volumeFlowRateDimensions => VolumeFlowRate,
-
-      _ => MiscQuantity,
-    };
+    // Look up in the dynamic registry
+    final type = getRegisteredQuantityType(dim) ?? MiscQuantity;
 
     _typeCache[dim] = type;
     return type;

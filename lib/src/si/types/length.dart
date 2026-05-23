@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -27,15 +28,21 @@ base class Length extends Quantity {
                     : (ua != null
                         ? Length.astronomicalUnits
                         : (NM != null ? Length.nauticalMiles : Length.meters))),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Length.misc(dynamic conv) : super.misc(conv, Length.lengthDimensions);
+  Length.misc(dynamic conv) : super.misc(conv, Length.lengthDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Length based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Length.inUnits(dynamic value, LengthUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Length.meters, uncert);
+      : super(value, units ?? Length.meters, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs constant Length.
   const Length.constant(Number valueSI,

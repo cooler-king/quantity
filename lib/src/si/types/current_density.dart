@@ -8,17 +8,23 @@ base class CurrentDensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   CurrentDensity({dynamic amperesPerSquareMeter, double uncert = 0.0})
       : super(amperesPerSquareMeter ?? 0.0,
-            CurrentDensity.amperesPerSquareMeter, uncert);
+            CurrentDensity.amperesPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   CurrentDensity.misc(dynamic conv)
-      : super.misc(conv, CurrentDensity.electricCurrentDensityDimensions);
+      : super.misc(conv, CurrentDensity.electricCurrentDensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a CurrentDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   CurrentDensity.inUnits(dynamic value, CurrentDensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? CurrentDensity.amperesPerSquareMeter, uncert);
+      : super(value, units ?? CurrentDensity.amperesPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant CurrentDensity.
   const CurrentDensity.constant(Number valueSI,

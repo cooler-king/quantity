@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -10,17 +11,23 @@ base class Capacitance extends Quantity {
   /// Constructs a Capacitance with farads ([F]).
   /// Optionally specify a relative standard uncertainty.
   Capacitance({dynamic F, double uncert = 0.0})
-      : super(F ?? 0.0, Capacitance.farads, uncert);
+      : super(F ?? 0.0, Capacitance.farads, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Capacitance.misc(dynamic conv)
-      : super.misc(conv, Capacitance.electricCapacitanceDimensions);
+      : super.misc(conv, Capacitance.electricCapacitanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Capacitance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Capacitance.inUnits(dynamic value, CapacitanceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Capacitance.farads, uncert);
+      : super(value, units ?? Capacitance.farads, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Capacitance.
   const Capacitance.constant(Number valueSI,

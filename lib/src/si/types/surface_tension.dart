@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -12,17 +13,23 @@ base class SurfaceTension extends Quantity {
   /// Constructs a SurfaceTension with newtons per meter.
   /// Optionally specify a relative standard uncertainty.
   SurfaceTension({dynamic newtonsPerMeter, double uncert = 0.0})
-      : super(newtonsPerMeter ?? 0.0, SurfaceTension.newtonsPerMeter, uncert);
+      : super(newtonsPerMeter ?? 0.0, SurfaceTension.newtonsPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SurfaceTension.misc(dynamic conv)
-      : super.misc(conv, SurfaceTension.surfaceTensionDimensions);
+      : super.misc(conv, SurfaceTension.surfaceTensionDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SurfaceTension based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert);
+      : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SurfaceTension.
   const SurfaceTension.constant(Number valueSI,

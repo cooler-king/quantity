@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -16,15 +17,21 @@ base class Radiance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Radiance({dynamic wattsPerSquareMeterSteradian, double uncert = 0.0})
       : super(wattsPerSquareMeterSteradian ?? 0.0,
-            Radiance.wattsPerSquareMeterSteradian, uncert);
+            Radiance.wattsPerSquareMeterSteradian, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Radiance.misc(dynamic conv) : super.misc(conv, Radiance.radianceDimensions);
+  Radiance.misc(dynamic conv) : super.misc(conv, Radiance.radianceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Radiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Radiance.inUnits(dynamic value, RadianceUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert);
+      : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Radiance.
   const Radiance.constant(Number valueSI,

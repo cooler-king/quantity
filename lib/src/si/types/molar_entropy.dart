@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -14,17 +15,23 @@ base class MolarEntropy extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   MolarEntropy({dynamic joulesPerMoleKelvin, double uncert = 0.0})
       : super(joulesPerMoleKelvin ?? 0.0, MolarEntropy.joulesPerMoleKelvin,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MolarEntropy.misc(dynamic conv)
-      : super.misc(conv, MolarEntropy.molarEntropyDimensions);
+      : super.misc(conv, MolarEntropy.molarEntropyDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MolarEntropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MolarEntropy.inUnits(dynamic value, MolarEntropyUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert);
+      : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MolarEntropy.
   const MolarEntropy.constant(Number valueSI,

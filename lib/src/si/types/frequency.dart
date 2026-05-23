@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -26,16 +27,22 @@ base class Frequency extends Quantity {
                 : (MHz != null
                     ? Frequency.megahertz
                     : (GHz != null ? Frequency.gigahertz : Frequency.hertz)),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Frequency.misc(dynamic conv)
-      : super.misc(conv, Frequency.frequencyDimensions);
+      : super.misc(conv, Frequency.frequencyDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Frequency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Frequency.inUnits(dynamic value, FrequencyUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Frequency.hertz, uncert);
+      : super(value, units ?? Frequency.hertz, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Frequency.
   const Frequency.constant(Number valueSI,

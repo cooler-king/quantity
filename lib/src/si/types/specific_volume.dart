@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -13,17 +14,23 @@ base class SpecificVolume extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   SpecificVolume({dynamic cubicMetersPerKilogram, double uncert = 0.0})
       : super(cubicMetersPerKilogram ?? 0.0,
-            SpecificVolume.cubicMetersPerKilogram, uncert);
+            SpecificVolume.cubicMetersPerKilogram, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SpecificVolume.misc(dynamic conv)
-      : super.misc(conv, SpecificVolume.specificVolumeDimensions);
+      : super.misc(conv, SpecificVolume.specificVolumeDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SpecificVolume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SpecificVolume.inUnits(dynamic value, SpecificVolumeUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert);
+      : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SpecificVolume.
   const SpecificVolume.constant(Number valueSI,

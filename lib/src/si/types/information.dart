@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import 'dart:math' as math;
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
@@ -36,17 +37,23 @@ base class Information extends Quantity {
                             : (TiB != null
                                 ? Information.tebibytes
                                 : Information.bits)))),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Information.misc(dynamic conv)
-      : super.misc(conv, Information.informationDimensions);
+      : super.misc(conv, Information.informationDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an Information instance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Information.inUnits(dynamic value, InformationUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Information.bits, uncert);
+      : super(value, units ?? Information.bits, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Information.
   const Information.constant(Number valueSI,

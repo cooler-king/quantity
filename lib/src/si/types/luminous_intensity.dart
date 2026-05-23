@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -12,17 +13,23 @@ base class LuminousIntensity extends Quantity {
   /// Constructs a LuminousIntensity with candelas ([cd]).
   /// Optionally specify a relative standard uncertainty.
   LuminousIntensity({dynamic cd, double uncert = 0.0})
-      : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
+      : super(cd ?? 0.0, LuminousIntensity.candelas, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   LuminousIntensity.misc(dynamic conv)
-      : super.misc(conv, LuminousIntensity.luminousIntensityDimensions);
+      : super.misc(conv, LuminousIntensity.luminousIntensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a LuminousIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   LuminousIntensity.inUnits(dynamic value, LuminousIntensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? LuminousIntensity.candelas, uncert);
+      : super(value, units ?? LuminousIntensity.candelas, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant LuminousIntensity.
   const LuminousIntensity.constant(Number valueSI,

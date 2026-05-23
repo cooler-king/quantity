@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -14,17 +15,23 @@ base class LuminousFlux extends Quantity {
   /// Constructs a LuminousFlux with lumens ([lm]).
   /// Optionally specify a relative standard uncertainty.
   LuminousFlux({dynamic lm, double uncert = 0.0})
-      : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
+      : super(lm ?? 0.0, LuminousFlux.lumens, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   LuminousFlux.misc(dynamic conv)
-      : super.misc(conv, LuminousFlux.luminousFluxDimensions);
+      : super.misc(conv, LuminousFlux.luminousFluxDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a LuminousFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   LuminousFlux.inUnits(dynamic value, LuminousFluxUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? LuminousFlux.lumens, uncert);
+      : super(value, units ?? LuminousFlux.lumens, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant LuminousFlux.
   const LuminousFlux.constant(Number valueSI,

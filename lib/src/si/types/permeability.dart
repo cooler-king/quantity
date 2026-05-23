@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -22,17 +23,23 @@ base class Permeability extends Quantity {
             newtonsPerAmpereSquared != null
                 ? Permeability.newtonsPerAmpereSquared
                 : Permeability.henriesPerMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Permeability.misc(dynamic conv)
-      : super.misc(conv, Permeability.permeabilityDimensions);
+      : super.misc(conv, Permeability.permeabilityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Permeability based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Permeability.inUnits(dynamic value, PermeabilityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Permeability.henriesPerMeter, uncert);
+      : super(value, units ?? Permeability.henriesPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Permeability.
   const Permeability.constant(Number valueSI,

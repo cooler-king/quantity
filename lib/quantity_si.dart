@@ -91,3 +91,5 @@ export 'src/si/types/wave_number.dart';
 export 'src/si/uncertainty_format.dart';
 export 'src/si/units.dart';
 export 'src/si/utilities.dart';
+export 'src/si/register_si.dart';
+

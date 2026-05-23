@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -15,15 +16,21 @@ base class Exposure extends Quantity {
       : super(
             coulombsPerKilogram ?? (R ?? 0.0),
             R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Exposure.misc(dynamic conv) : super.misc(conv, Exposure.exposureDimensions);
+  Exposure.misc(dynamic conv) : super.misc(conv, Exposure.exposureDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Exposure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Exposure.inUnits(dynamic value, ExposureUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Exposure.coulombsPerKilogram, uncert);
+      : super(value, units ?? Exposure.coulombsPerKilogram, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Exposure.
   const Exposure.constant(Number valueSI,

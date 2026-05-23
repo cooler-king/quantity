@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -14,17 +15,23 @@ base class AngularMomentum extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   AngularMomentum({dynamic Js, double uncert = 0.0})
-      : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
+      : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AngularMomentum.misc(dynamic conv)
-      : super.misc(conv, AngularMomentum.angularMomentumDimensions);
+      : super.misc(conv, AngularMomentum.angularMomentumDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a AngularMomentum based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AngularMomentum.inUnits(dynamic value, AngularMomentumUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? AngularMomentum.jouleSecond, uncert);
+      : super(value, units ?? AngularMomentum.jouleSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AngularMomentum.
   const AngularMomentum.constant(Number valueSI,

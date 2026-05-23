@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -14,17 +15,23 @@ base class RadiantIntensity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   RadiantIntensity({dynamic wattsPerSteradian, double uncert = 0.0})
       : super(wattsPerSteradian ?? 0.0, RadiantIntensity.wattsPerSteradian,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   RadiantIntensity.misc(dynamic conv)
-      : super.misc(conv, RadiantIntensity.radiantIntensityDimensions);
+      : super.misc(conv, RadiantIntensity.radiantIntensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a RadiantIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   RadiantIntensity.inUnits(dynamic value, RadiantIntensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? RadiantIntensity.wattsPerSteradian, uncert);
+      : super(value, units ?? RadiantIntensity.wattsPerSteradian, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant RadiantIntensity.
   const RadiantIntensity.constant(Number valueSI,

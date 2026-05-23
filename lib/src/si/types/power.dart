@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -20,15 +21,21 @@ base class Power extends Quantity {
             kW != null
                 ? Power.kilowatts
                 : (MW != null ? Power.megawatts : Power.watts),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Power.misc(dynamic conv) : super.misc(conv, Power.powerDimensions);
+  Power.misc(dynamic conv) : super.misc(conv, Power.powerDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Power based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Power.inUnits(dynamic value, PowerUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Power.watts, uncert);
+      : super(value, units ?? Power.watts, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Power.
   const Power.constant(Number valueSI, {PowerUnits? units, double uncert = 0.0})

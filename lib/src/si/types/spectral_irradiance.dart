@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -11,18 +12,24 @@ base class SpectralIrradiance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   SpectralIrradiance({dynamic wattsPerSquareMeterPerHertz, double uncert = 0.0})
       : super(wattsPerSquareMeterPerHertz ?? 0.0,
-            SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
+            SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SpectralIrradiance.misc(dynamic conv)
-      : super.misc(conv, SpectralIrradiance.spectralIrradianceDimensions);
+      : super.misc(conv, SpectralIrradiance.spectralIrradianceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SpectralIrradiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SpectralIrradiance.inUnits(dynamic value, SpectralIrradianceUnits? units,
       [double uncert = 0.0])
       : super(value, units ?? SpectralIrradiance.wattsPerSquareMeterPerHertz,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SpectralIrradiance.
   const SpectralIrradiance.constant(Number valueSI,

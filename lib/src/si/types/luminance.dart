@@ -8,16 +8,22 @@ base class Luminance extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Luminance({dynamic candelasPerSquareMeter, double uncert = 0.0})
       : super(candelasPerSquareMeter ?? 0.0, Luminance.candelasPerSquareMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Luminance.misc(dynamic conv)
-      : super.misc(conv, Luminance.luminanceDimensions);
+      : super.misc(conv, Luminance.luminanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Luminance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Luminance.inUnits(dynamic value, LuminanceUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Luminance.candelasPerSquareMeter, uncert);
+      : super(value, units ?? Luminance.candelasPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Luminance.
   const Luminance.constant(Number valueSI,

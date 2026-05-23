@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -18,17 +19,23 @@ base class SpecificEnergy extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   SpecificEnergy({dynamic joulesPerKilogram, double uncert = 0.0})
       : super(
-            joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert);
+            joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SpecificEnergy.misc(dynamic conv)
-      : super.misc(conv, SpecificEnergy.specificEnergyDimensions);
+      : super.misc(conv, SpecificEnergy.specificEnergyDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SpecificEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SpecificEnergy.inUnits(dynamic value, SpecificEnergyUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert);
+      : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SpecificEnergy.
   const SpecificEnergy.constant(Number valueSI,

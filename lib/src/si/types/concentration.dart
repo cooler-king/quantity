@@ -8,17 +8,23 @@ base class Concentration extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Concentration({dynamic molesPerCubicMeter, double uncert = 0.0})
       : super(molesPerCubicMeter ?? 0.0, Concentration.molesPerCubicMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Concentration.misc(dynamic conv)
-      : super.misc(conv, Concentration.concentrationDimensions);
+      : super.misc(conv, Concentration.concentrationDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Concentration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Concentration.inUnits(dynamic value, ConcentrationUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Concentration.molesPerCubicMeter, uncert);
+      : super(value, units ?? Concentration.molesPerCubicMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Concentration.
   const Concentration.constant(Number valueSI,

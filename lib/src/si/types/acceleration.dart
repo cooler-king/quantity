@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import 'package:quantity/domain/astronomical.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
@@ -13,17 +14,23 @@ base class Acceleration extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   Acceleration({dynamic metersPerSecondSquared, double uncert = 0.0})
       : super(metersPerSecondSquared ?? 0.0,
-            Acceleration.metersPerSecondSquared, uncert);
+            Acceleration.metersPerSecondSquared, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Acceleration.misc(dynamic conv)
-      : super.misc(conv, Acceleration.accelerationDimensions);
+      : super.misc(conv, Acceleration.accelerationDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Acceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Acceleration.inUnits(dynamic value, AccelerationUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Acceleration.metersPerSecondSquared, uncert);
+      : super(value, units ?? Acceleration.metersPerSecondSquared, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Acceleration.
   const Acceleration.constant(Number valueSI,

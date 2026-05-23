@@ -2,6 +2,8 @@ import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 
 void main() {
+  final _ = siRegistered;
+
   test('Instantiate and verify all 75 quantity types', () {
     expect(allQuantityTypes, isNotEmpty);
     

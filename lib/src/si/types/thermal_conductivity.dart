@@ -1,3 +1,4 @@
+import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
@@ -14,17 +15,23 @@ base class ThermalConductivity extends Quantity {
   /// Optionally specify a relative standard uncertainty.
   ThermalConductivity({dynamic wattsPerMeterKelvin, double uncert = 0.0})
       : super(wattsPerMeterKelvin ?? 0.0,
-            ThermalConductivity.wattsPerMeterKelvin, uncert);
+            ThermalConductivity.wattsPerMeterKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   ThermalConductivity.misc(dynamic conv)
-      : super.misc(conv, ThermalConductivity.thermalConductivityDimensions);
+      : super.misc(conv, ThermalConductivity.thermalConductivityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a ThermalConductivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ThermalConductivity.inUnits(dynamic value, ThermalConductivityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert);
+      : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant ThermalConductivity.
   const ThermalConductivity.constant(Number valueSI,
