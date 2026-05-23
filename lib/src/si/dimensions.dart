@@ -377,6 +377,9 @@ final class Dimensions {
     return result;
   }
 
+  // Static cache for dimensions lookups.
+  static final Map<Dimensions, Type> _typeCache = <Dimensions, Type>{};
+
   /// Determines the Quantity type associated with the specified dimensions.
   ///
   /// * If no specific Quantity type is found that matches the dimensions
@@ -396,10 +399,16 @@ final class Dimensions {
     if (numDims == 0) return Scalar;
     if (numDims > 5) return MiscQuantity;
 
-    final lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
-    if (lengthExp is! int) return MiscQuantity;
+    final cached = _typeCache[dim];
+    if (cached != null) return cached;
 
-    return switch ((lengthExp, numDims)) {
+    final lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
+    if (lengthExp is! int) {
+      _typeCache[dim] = MiscQuantity;
+      return MiscQuantity;
+    }
+
+    final type = switch ((lengthExp, numDims)) {
       (-3, 1) => Volume,
       (-3, 2) when dim == MassDensity.massDensityDimensions => MassDensity,
       (-3, 2) when dim == Concentration.concentrationDimensions => Concentration,
@@ -473,6 +482,9 @@ final class Dimensions {
 
       _ => MiscQuantity,
     };
+
+    _typeCache[dim] = type;
+    return type;
   }
 
   /// Returns an instance of the Quantity type associated with these dimensions.

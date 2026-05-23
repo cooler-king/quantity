@@ -124,12 +124,25 @@ sealed class Number implements Comparable<dynamic> {
   /// Precise Numbers always remain Precise.
   static Number simplifyType(Number n) {
     if (n is Integer || n is Precise) return n;
-    if (n is Double) return n.isInteger ? Integer(n.toInt()) : n;
+    if (n is Double) {
+      if (n.isInteger) {
+        final val = n.toInt();
+        if (val == 0) return Integer.zero;
+        if (val == 1) return Integer.one;
+        if (val == -1) return Integer.negOne;
+        return Integer(val);
+      }
+      return n;
+    }
     if (n is Imaginary) {
       if (n.value is Precise) return n;
-      if (n.value.toDouble() == 0) return Integer(0);
+      if (n.value.toDouble() == 0) return Integer.zero;
       if (n.value.isInteger && n.value is Double) {
-        return Imaginary(Integer(n.value.toInt()));
+        final val = n.value.toInt();
+        if (val == 0) return Integer.zero;
+        if (val == 1) return Imaginary(Integer.one);
+        if (val == -1) return Imaginary(Integer.negOne);
+        return Imaginary(Integer(val));
       }
       return n;
     }
