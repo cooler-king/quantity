@@ -63,13 +63,20 @@ void main() {
       const q = MiscQuantity.constant(Double.constant(42.42),
           Dimensions.constant(<String, int>{'Amount': 2}));
       expect(q, isNotNull);
+    });
 
-      /*
-      /// const
-      const MiscQuantity cmq = const MiscQuantity.constant(
-          Double.THOUSAND, Angle.ANGLEdimensions, Angle.radians, 0.2);
-      expect(cmq, isNotNull);
-      */
+    test('getValue', () {
+      final mq = MiscQuantity(5.0, Length.lengthDimensions);
+      expect(mq.getValue(Length.meters).toDouble(), 5.0);
+
+      expect(() => mq.getValue(Time.seconds), throwsA(isA<DimensionsException>()));
+    });
+
+    test('toTypedQuantity', () {
+      final mq = MiscQuantity(10.0, Length.lengthDimensions);
+      final typed = mq.toTypedQuantity();
+      expect(typed is Length, true);
+      expect(typed.valueSI.toDouble(), 10.0);
     });
   });
 }
