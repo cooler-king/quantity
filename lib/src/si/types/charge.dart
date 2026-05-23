@@ -19,7 +19,8 @@ base class Charge extends Quantity {
   }
 
   /// Constructs an instance without preferred units.
-  Charge.misc(dynamic conv) : super.misc(conv, Charge.electricChargeDimensions) {
+  Charge.misc(dynamic conv)
+      : super.misc(conv, Charge.electricChargeDimensions) {
     var _ = siRegistered;
   }
 

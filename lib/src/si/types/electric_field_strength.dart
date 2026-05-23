@@ -20,7 +20,8 @@ base class ElectricFieldStrength extends Quantity {
 
   /// Constructs an instance without preferred units.
   ElectricFieldStrength.misc(dynamic conv)
-      : super.misc(conv, ElectricFieldStrength.electricFieldStrengthDimensions) {
+      : super.misc(
+            conv, ElectricFieldStrength.electricFieldStrengthDimensions) {
     var _ = siRegistered;
   }
 

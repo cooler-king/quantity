@@ -6,7 +6,7 @@ void main() {
 
   test('Instantiate and verify all 75 quantity types', () {
     expect(allQuantityTypes, isNotEmpty);
-    
+
     for (final type in allQuantityTypes) {
       final q = createTypedQuantityInstance(type, 42.0, null);
       expect(q, isNotNull);
@@ -14,7 +14,7 @@ void main() {
       expect(q.dimensions, isNotNull);
       expect(q.toJson(), isNotNull);
       expect(q.toString(), isNotNull);
-      
+
       // Basic math operations to cover operator overrides
       if (q is! Level) {
         final qDouble = q * 2.0;

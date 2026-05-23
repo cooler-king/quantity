@@ -7,8 +7,8 @@ base class EnergyFlux extends Quantity {
   /// Constructs an EnergyFlux with watts per square meter.
   /// Optionally specify a relative standard uncertainty.
   EnergyFlux({dynamic wattsPerSquareMeter, double uncert = 0.0})
-      : super(
-            wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter, uncert) {
+      : super(wattsPerSquareMeter ?? 0.0, EnergyFlux.wattsPerSquareMeter,
+            uncert) {
     var _ = siRegistered;
   }
 

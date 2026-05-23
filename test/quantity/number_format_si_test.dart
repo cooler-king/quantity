@@ -184,5 +184,23 @@ void main() {
         expect(f1.parse('1\u{2009}234\u{2009}567'), 1234567);
       });
     });
+
+    group('newly implemented methods', () {
+      test('simpleCurrencySymbol and symbols', () {
+        final formatter = NumberFormatSI();
+        expect(formatter.simpleCurrencySymbol('USD'), '\$');
+        expect(formatter.symbols, isNotNull);
+      });
+
+      test('turnOffGrouping', () {
+        final formatter = NumberFormatSI(unicode: false);
+        expect(formatter.format(12345), '12 345');
+        expect(formatter.insertSpaces('12345'), '12 345');
+
+        formatter.turnOffGrouping();
+        expect(formatter.format(12345), '12345');
+        expect(formatter.insertSpaces('12345'), '12345');
+      });
+    });
   });
 }

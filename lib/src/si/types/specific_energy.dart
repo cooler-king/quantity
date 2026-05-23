@@ -18,8 +18,8 @@ base class SpecificEnergy extends Quantity {
   /// Constructs a SpecificEnergy with joules per kilogram.
   /// Optionally specify a relative standard uncertainty.
   SpecificEnergy({dynamic joulesPerKilogram, double uncert = 0.0})
-      : super(
-            joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert) {
+      : super(joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram,
+            uncert) {
     var _ = siRegistered;
   }
 

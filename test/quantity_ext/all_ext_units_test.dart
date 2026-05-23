@@ -136,11 +136,13 @@ void main() {
     });
 
     test('permeability_ext', () {
-      expect(vacuumMagneticPermeability.valueSI.toDouble(), closeTo(1.256637e-6, 1e-11));
+      expect(vacuumMagneticPermeability.valueSI.toDouble(),
+          closeTo(1.256637e-6, 1e-11));
     });
 
     test('permittivity_ext', () {
-      expect(vacuumElectricPermittivity.valueSI.toDouble(), closeTo(8.8541878e-12, 1e-18));
+      expect(vacuumElectricPermittivity.valueSI.toDouble(),
+          closeTo(8.8541878e-12, 1e-18));
     });
 
     test('power_ext', () {

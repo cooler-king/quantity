@@ -13,8 +13,8 @@ base class MassFlowRate extends Quantity {
   /// Constructs a MassFlowRate with kilograms per second.
   /// Optionally specify a relative standard uncertainty.
   MassFlowRate({dynamic kilogramsPerSecond, double uncert = 0.0})
-      : super(
-            kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert) {
+      : super(kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond,
+            uncert) {
     var _ = siRegistered;
   }
 

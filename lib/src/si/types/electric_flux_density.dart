@@ -23,8 +23,8 @@ base class ElectricFluxDensity extends Quantity {
   /// and the conversion factor intrinsic to the passed [units].
   ElectricFluxDensity.inUnits(dynamic value, ElectricFluxDensityUnits? units,
       [double uncert = 0.0])
-      : super(
-            value, units ?? ElectricFluxDensity.coulombsPerSquareMeter, uncert) {
+      : super(value, units ?? ElectricFluxDensity.coulombsPerSquareMeter,
+            uncert) {
     var _ = siRegistered;
   }
 

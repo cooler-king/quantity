@@ -55,7 +55,8 @@ extension FluentNumExtension on num {
   Speed get milesPerHour => Speed.inUnits(this, sp_ext.milesPerHour);
 
   // Acceleration
-  Acceleration get metersPerSecondSquared => Acceleration(metersPerSecondSquared: this);
+  Acceleration get metersPerSecondSquared =>
+      Acceleration(metersPerSecondSquared: this);
 
   // Angle
   Angle get radians => Angle(rad: this);
@@ -118,7 +119,8 @@ extension FluentNumberExtension on Number {
   Speed get milesPerHour => Speed.inUnits(this, sp_ext.milesPerHour);
 
   // Acceleration
-  Acceleration get metersPerSecondSquared => Acceleration(metersPerSecondSquared: this);
+  Acceleration get metersPerSecondSquared =>
+      Acceleration(metersPerSecondSquared: this);
 
   // Angle
   Angle get radians => Angle(rad: this);
@@ -187,14 +189,17 @@ extension VolumeShortcuts on Volume {
 
 /// Unit shortcut conversions on [Speed].
 extension SpeedShortcuts on Speed {
-  double get inMetersPerSecond => valueInUnits(Speed.metersPerSecond).toDouble();
-  double get inKilometersPerHour => valueInUnits(sp_ext.kilometersPerHour).toDouble();
+  double get inMetersPerSecond =>
+      valueInUnits(Speed.metersPerSecond).toDouble();
+  double get inKilometersPerHour =>
+      valueInUnits(sp_ext.kilometersPerHour).toDouble();
   double get inMilesPerHour => valueInUnits(sp_ext.milesPerHour).toDouble();
 }
 
 /// Unit shortcut conversions on [Acceleration].
 extension AccelerationShortcuts on Acceleration {
-  double get inMetersPerSecondSquared => valueInUnits(Acceleration.metersPerSecondSquared).toDouble();
+  double get inMetersPerSecondSquared =>
+      valueInUnits(Acceleration.metersPerSecondSquared).toDouble();
 }
 
 /// Unit shortcut conversions on [Angle].

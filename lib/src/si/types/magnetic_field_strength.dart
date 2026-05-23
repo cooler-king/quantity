@@ -20,7 +20,8 @@ base class MagneticFieldStrength extends Quantity {
 
   /// Constructs an instance without preferred units.
   MagneticFieldStrength.misc(dynamic conv)
-      : super.misc(conv, MagneticFieldStrength.magneticFieldStrengthDimensions) {
+      : super.misc(
+            conv, MagneticFieldStrength.magneticFieldStrengthDimensions) {
     var _ = siRegistered;
   }
 

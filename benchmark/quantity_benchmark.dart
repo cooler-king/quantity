@@ -44,7 +44,8 @@ class DetermineQuantityTypeBenchmark extends BenchmarkBase {
   void setup() {
     dLength = Length.lengthDimensions;
     dSpeed = Speed.speedDimensions;
-    dMisc = Dimensions.fromMap(<String, num>{'Length': 2, 'Mass': 1, 'Time': -3, 'Current': -2});
+    dMisc = Dimensions.fromMap(
+        <String, num>{'Length': 2, 'Mass': 1, 'Time': -3, 'Current': -2});
   }
 
   @override

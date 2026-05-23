@@ -69,7 +69,8 @@ void main() {
       final mq = MiscQuantity(5.0, Length.lengthDimensions);
       expect(mq.getValue(Length.meters).toDouble(), 5.0);
 
-      expect(() => mq.getValue(Time.seconds), throwsA(isA<DimensionsException>()));
+      expect(
+          () => mq.getValue(Time.seconds), throwsA(isA<DimensionsException>()));
     });
 
     test('toTypedQuantity', () {

@@ -32,8 +32,10 @@ sealed class Number implements Comparable<dynamic> {
         {'i': int _} => Integer.fromMap(m.cast<String, int>()),
         {'precise': Object p} when p is String || p is Map<String, String> =>
           Precise.fromMap(m.cast<String, String>()),
-        {'real': Map _} => Complex.fromMap(m.cast<String, Map<String, dynamic>>()),
-        {'imag': Map _} => Imaginary.fromMap(m.cast<String, Map<String, dynamic>>()),
+        {'real': Map _} =>
+          Complex.fromMap(m.cast<String, Map<String, dynamic>>()),
+        {'imag': Map _} =>
+          Imaginary.fromMap(m.cast<String, Map<String, dynamic>>()),
         _ => Integer.zero,
       };
 

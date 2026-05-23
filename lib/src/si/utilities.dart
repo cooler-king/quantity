@@ -31,17 +31,67 @@ Map<Dimensions, Type> get dimensionsToTypeMap => _dimensionsToTypeMap;
 
 /// Set of physical quantity names that are preferred when resolving duplicate dimensions (e.g. Time vs TimeInstant).
 const Set<String> _preferredQuantityTypeNames = {
-  'Length', 'Mass', 'Time', 'TemperatureInterval', 'Current', 'LuminousIntensity', 'AmountOfSubstance',
-  'Angle', 'SolidAngle',
-  'AbsorbedDoseRate', 'Acceleration', 'AngularAcceleration', 'AngularMomentum', 'AngularSpeed',
-  'Area', 'CatalyticActivity', 'Concentration', 'DynamicViscosity', 'Capacitance', 'Charge',
-  'ChargeDensity', 'Conductance', 'CurrentDensity', 'ElectricFieldStrength', 'ElectricFluxDensity',
-  'ElectricPotentialDifference', 'Resistance', 'Energy', 'Entropy', 'Exposure', 'Force', 'Frequency',
-  'HeatFluxDensity', 'Illuminance', 'Inductance', 'KinematicViscosity', 'Luminance', 'LuminousFlux',
-  'MagneticFieldStrength', 'MagneticFlux', 'MagneticFluxDensity', 'MassDensity', 'MassFlowRate',
-  'MassFluxDensity', 'MolarEnergy', 'MolarEntropy', 'Permeability', 'Permittivity', 'Power', 'Pressure',
-  'Radiance', 'RadiantIntensity', 'Scalar', 'SpecificEnergy', 'SpecificHeatCapacity', 'SpecificVolume',
-  'Speed', 'SurfaceTension', 'Volume', 'VolumeFlowRate', 'WaveNumber'
+  'Length',
+  'Mass',
+  'Time',
+  'TemperatureInterval',
+  'Current',
+  'LuminousIntensity',
+  'AmountOfSubstance',
+  'Angle',
+  'SolidAngle',
+  'AbsorbedDoseRate',
+  'Acceleration',
+  'AngularAcceleration',
+  'AngularMomentum',
+  'AngularSpeed',
+  'Area',
+  'CatalyticActivity',
+  'Concentration',
+  'DynamicViscosity',
+  'Capacitance',
+  'Charge',
+  'ChargeDensity',
+  'Conductance',
+  'CurrentDensity',
+  'ElectricFieldStrength',
+  'ElectricFluxDensity',
+  'ElectricPotentialDifference',
+  'Resistance',
+  'Energy',
+  'Entropy',
+  'Exposure',
+  'Force',
+  'Frequency',
+  'HeatFluxDensity',
+  'Illuminance',
+  'Inductance',
+  'KinematicViscosity',
+  'Luminance',
+  'LuminousFlux',
+  'MagneticFieldStrength',
+  'MagneticFlux',
+  'MagneticFluxDensity',
+  'MassDensity',
+  'MassFlowRate',
+  'MassFluxDensity',
+  'MolarEnergy',
+  'MolarEntropy',
+  'Permeability',
+  'Permittivity',
+  'Power',
+  'Pressure',
+  'Radiance',
+  'RadiantIntensity',
+  'Scalar',
+  'SpecificEnergy',
+  'SpecificHeatCapacity',
+  'SpecificVolume',
+  'Speed',
+  'SurfaceTension',
+  'Volume',
+  'VolumeFlowRate',
+  'WaveNumber'
 };
 
 /// Trigger to initialize/register SI quantities. Populated by register_si.dart when loaded.
@@ -56,9 +106,10 @@ void _ensureRegistryInitialized() {
 }
 
 /// Registers a constructor function for a physical quantity type.
-void registerQuantityType(Type type, Dimensions dimensions, Function instantiator) {
+void registerQuantityType(
+    Type type, Dimensions dimensions, Function instantiator) {
   _typeInstantiatorMap[type] = instantiator;
-  
+
   final existingType = _dimensionsToTypeMap[dimensions];
   if (existingType == null) {
     _dimensionsToTypeMap[dimensions] = type;

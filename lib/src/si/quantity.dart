@@ -230,7 +230,8 @@ abstract base class Quantity implements Comparable<dynamic> {
   /// If the value of this Quantity is not negative it is returned directly.
   Quantity abs() {
     if (valueSI >= 0) return this;
-    return dimensions.toQuantity(valueSI.abs(), preferredUnits, relativeUncertainty);
+    return dimensions.toQuantity(
+        valueSI.abs(), preferredUnits, relativeUncertainty);
   }
 
   /// Returns the sum of this Quantity and [addend].
@@ -354,7 +355,8 @@ abstract base class Quantity implements Comparable<dynamic> {
       productDimensions = dimensions * q2.dimensions;
       productValue = valueSI * q2.valueSI;
       productUr = (relativeUncertainty != 0.0 || q2.relativeUncertainty != 0.0)
-          ? math.sqrt(relativeUncertainty * relativeUncertainty + q2.relativeUncertainty * q2.relativeUncertainty)
+          ? math.sqrt(relativeUncertainty * relativeUncertainty +
+              q2.relativeUncertainty * q2.relativeUncertainty)
           : 0.0;
     } else {
       throw const QuantityException(
@@ -408,11 +410,13 @@ abstract base class Quantity implements Comparable<dynamic> {
       return (dimensions ^ exponent)
           .toQuantity(valueSI ^ exponent, null, relativeUncertainty * exponent);
     } else if (exponent is Number) {
-      return (dimensions ^ exponent.toDouble())
-          .toQuantity(valueSI ^ exponent, null, relativeUncertainty * exponent.toDouble());
+      return (dimensions ^ exponent.toDouble()).toQuantity(
+          valueSI ^ exponent, null, relativeUncertainty * exponent.toDouble());
     } else if (exponent is Scalar) {
       return (dimensions ^ exponent.valueSI.toDouble()).toQuantity(
-          valueSI ^ exponent, null, relativeUncertainty * exponent.valueSI.toDouble());
+          valueSI ^ exponent,
+          null,
+          relativeUncertainty * exponent.valueSI.toDouble());
     }
 
     throw const QuantityException(
@@ -438,8 +442,9 @@ abstract base class Quantity implements Comparable<dynamic> {
   /// accomplished by simply inverting the dimensions and dividing the SI MKS value
   /// into 1.0.
   /// * The relative standard uncertainty is unchanged by inversion.
-  Quantity inverse() =>
-      dimensions.inverse().toQuantity(valueSI.reciprocal(), null, relativeUncertainty);
+  Quantity inverse() => dimensions
+      .inverse()
+      .toQuantity(valueSI.reciprocal(), null, relativeUncertainty);
 
   /// Determines whether on not this Quantity is less than a specified Quantity by
   /// comparing their MKS values.  The two Quantities need not be of the same

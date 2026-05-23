@@ -37,6 +37,8 @@ class NumberFormatSI implements NumberFormat {
   /// Output in unicode (unicode thin spaces instead of regular ascii spaces).
   bool unicode;
 
+  bool _grouping = true;
+
   /// [value] is expected to be a Quantity, Number or num object.
   @override
   String format(dynamic value) {
@@ -119,6 +121,8 @@ class NumberFormatSI implements NumberFormat {
 
   /// Returns a String with spaces added according to SI guidelines.
   String insertSpaces(String str) {
+    if (!_grouping) return str;
+
     // Remove any exponent piece and add it back in after spaces are added.
     final expIndex = _exponentIndex(str);
     final numStr = expIndex != -1 ? str.substring(0, expIndex) : str;
@@ -331,19 +335,16 @@ class NumberFormatSI implements NumberFormat {
   String get positiveSuffix => _scientific.positiveSuffix;
 
   @override
-  String simpleCurrencySymbol(String currencyCode) {
-    // TODO: implement simpleCurrencySymbol
-    throw UnimplementedError();
-  }
+  String simpleCurrencySymbol(String currencyCode) =>
+      _scientific.simpleCurrencySymbol(currencyCode);
 
   @override
-  // TODO: implement symbols
-  NumberSymbols get symbols => throw UnimplementedError();
+  NumberSymbols get symbols => _scientific.symbols;
 
   @override
   void turnOffGrouping() {
-    // TODO: implement turnOffGrouping
-    throw UnimplementedError();
+    _grouping = false;
+    _scientific.turnOffGrouping();
   }
 
   @override
