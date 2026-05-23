@@ -6,6 +6,7 @@ documentation: https://github.com/cooler-king/quantity/wiki
 environment:
   sdk: '>=3.0.0 <4.0.0'
 dependencies:
+  decimal: ^3.2.4
   intl: '>=0.19.0 <1.0.0'
   logging: ^1.0.0
 dev_dependencies:

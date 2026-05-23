@@ -52,6 +52,20 @@ final class Dimensions {
       : _dimensionMap = Map<String, num>.from(d2._dimensionMap),
         qType = includeTypeHint ? d2.qType : null;
 
+  /// Constructs a Dimensions object from a JSON map.
+  factory Dimensions.fromJson(Map<String, dynamic> json) {
+    final map = <String, num>{};
+    json.forEach((key, value) {
+      if (value is num) {
+        map[key] = value;
+      }
+    });
+    return Dimensions.fromMap(map);
+  }
+
+  /// Converts this Dimensions object to a JSON map.
+  Map<String, num> toJson() => Map<String, num>.unmodifiable(_dimensionMap);
+
   /// The dimensions (base dimension key -> base dimension exponent)
   final Map<String, num> _dimensionMap;
 

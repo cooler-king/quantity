@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:decimal/decimal.dart';
 import 'util/jenkins_hash.dart';
 import 'double.dart';
 import 'integer.dart';
@@ -32,12 +33,26 @@ sealed class Number implements Comparable<dynamic> {
         {'i': int _} => Integer.fromMap(m.cast<String, int>()),
         {'precise': Object p} when p is String || p is Map<String, String> =>
           Precise.fromMap(m.cast<String, String>()),
-        {'real': Map _} =>
-          Complex.fromMap(m.cast<String, Map<String, dynamic>>()),
-        {'imag': Map _} =>
-          Imaginary.fromMap(m.cast<String, Map<String, dynamic>>()),
+        {'real': Map _} => Complex.fromMap(m),
+        {'imag': Map _} => Imaginary.fromMap(m),
         _ => Integer.zero,
       };
+
+  /// Converts this Number to a Decimal.
+  /// Throws a StateError if the Number has an imaginary or complex component.
+  Decimal toDecimal() {
+    if (this is Imaginary || this is Complex) {
+      throw StateError(
+          'Cannot convert Imaginary or Complex numbers to Decimal');
+    }
+    return Decimal.parse(toString());
+  }
+
+  /// Constructs a Number from a Decimal.
+  factory Number.fromDecimal(Decimal decimal) => Precise(decimal.toString());
+
+  /// Constructs a Number from a JSON map.
+  factory Number.fromJson(Map<String, dynamic> json) => Number.fromMap(json);
 
   // Abstract operators
 

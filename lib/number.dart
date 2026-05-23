@@ -6,6 +6,7 @@
 /// used in a purely mathematical context.
 library number;
 
+export 'package:decimal/decimal.dart';
 export 'src/number/double.dart';
 export 'src/number/fraction.dart';
 export 'src/number/integer.dart';

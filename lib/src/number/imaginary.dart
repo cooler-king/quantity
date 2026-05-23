@@ -17,10 +17,19 @@ class Imaginary extends Number {
   const Imaginary.constant(this.value) : super.constant();
 
   /// Constructs an instance, applying the values in map [m].
-  factory Imaginary.fromMap(Map<String, Map<String, dynamic>>? m) =>
-      (m?.containsKey('imag') == true)
-          ? Imaginary.fromMap(m?['imag'] as Map<String, Map<String, dynamic>>)
-          : const Imaginary.constant(Integer.zero);
+  factory Imaginary.fromMap(Map<String, dynamic>? m) {
+    if (m == null) return const Imaginary.constant(Integer.zero);
+    if (m.containsKey('imag')) {
+      final imagVal = m['imag'];
+      if (imagVal is Map<String, dynamic>) {
+        return Imaginary(Real.fromMap(imagVal));
+      }
+    }
+    if (m.containsKey('d') || m.containsKey('i') || m.containsKey('precise')) {
+      return Imaginary(Real.fromMap(m));
+    }
+    return const Imaginary.constant(Integer.zero);
+  }
 
   /// The value of the imaginary component as a Real number.
   final Real value;

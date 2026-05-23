@@ -73,8 +73,7 @@ abstract base class Quantity implements Comparable<dynamic> {
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately 68%.
   Quantity(
       [dynamic value = Integer.zero, this.preferredUnits, double uncert = 0.0])
-      : valueSI = preferredUnits?.toMks(value ?? 0) ??
-            (value is Number ? value : numToNumber(value as num)),
+      : valueSI = preferredUnits?.toMks(value ?? 0) ?? objToNumber(value ?? 0),
         dimensions = (preferredUnits is Quantity)
             ? (preferredUnits as Quantity).dimensions
             : Scalar.scalarDimensions,
@@ -87,14 +86,36 @@ abstract base class Quantity implements Comparable<dynamic> {
   /// A constructor to support miscellaneous quantities:  dimensions are known, units are not.
   Quantity.misc(
       [dynamic value = 0.0, Dimensions? dimensions, double uncert = 0.0])
-      : valueSI = (value is num)
-            ? numToNumber(value)
-            : value is Number
-                ? value
-                : Integer.zero,
+      : valueSI = objToNumber(value ?? 0),
         dimensions = dimensions ?? Scalar.scalarDimensions,
         preferredUnits = null,
         _ur = uncert;
+
+  /// Constructs a Quantity from a JSON map.
+  factory Quantity.fromJson(Map<String, dynamic> json) {
+    final typeName = json['type'] as String;
+    final valueJson = json['value'] as Map<String, dynamic>;
+    final value = Number.fromJson(valueJson);
+    final dimsJson = json['dimensions'] as Map<String, dynamic>;
+    final dims = Dimensions.fromJson(dimsJson);
+    final uncertainty = (json['uncertainty'] as num?)?.toDouble() ?? 0.0;
+
+    if (typeName == 'MiscQuantity') {
+      return MiscQuantity(value, dims, uncertainty);
+    }
+
+    final type = getRegisteredTypeByName(typeName);
+    if (type != null) {
+      return createTypedQuantityInstance(type, value, null,
+          uncert: uncertainty, dimensions: dims);
+    }
+
+    return MiscQuantity(value, dims, uncertainty);
+  }
+
+  /// Returns the valueSI value as a Decimal (from package:decimal).
+  /// Throws a StateError if the valueSI cannot be converted (e.g. Complex/Imaginary).
+  Decimal get valueSIAsDecimal => valueSI.toDecimal();
 
   /// The value of the quantity in the [base units](http://physics.nist.gov/cuu/Units/current.html),
   /// of the International System of Units (SI).
@@ -610,18 +631,12 @@ abstract base class Quantity implements Comparable<dynamic> {
 
   /// Support [dart:convert] stringify.
   Map<String, dynamic> toJson() {
-    final m = <String, dynamic>{};
-
-    // Use value in preferred units, if available, for better readability.
-    if (preferredUnits != null) {
-      m['value'] = valueInUnits(preferredUnits).toJson();
-      m['prefUnits'] = preferredUnits!.name;
-    }
-
-    // Only include non-zero relative uncertainty
-    if (relativeUncertainty != 0.0) m['ur'] = relativeUncertainty;
-
-    return m;
+    return {
+      'type': runtimeType.toString(),
+      'value': valueSI.toJson(),
+      'dimensions': dimensions.toJson(),
+      'uncertainty': relativeUncertainty,
+    };
   }
 
   /// Calculates the relative combined uncertainty resulting from the addition or

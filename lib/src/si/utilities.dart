@@ -181,6 +181,17 @@ Iterable<Type> get allQuantityTypes {
   return _typeInstantiatorMap.keys;
 }
 
+/// Resolves a dynamic Type from its String typeName representation by searching the registered physical quantity subclasses.
+Type? getRegisteredTypeByName(String typeName) {
+  _ensureRegistryInitialized();
+  for (final type in _typeInstantiatorMap.keys) {
+    if (type.toString() == typeName) {
+      return type;
+    }
+  }
+  return null;
+}
+
 /// Creates an instance of a typed quantity of type [t] having the specified
 /// [value] in [units].
 ///

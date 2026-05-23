@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import '../double.dart';
 import '../integer.dart';
 import '../number.dart';
@@ -16,6 +17,7 @@ export '../util/jenkins_hash.dart';
 Number objToNumber(Object object) {
   if (object is num) return numToNumber(object);
   if (object is Number) return object;
+  if (object is Decimal) return Precise(object.toString());
   throw Exception('num or Number expected');
 }
 

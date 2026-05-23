@@ -85,6 +85,9 @@ mixin Units {
   /// The method expects [value] to be a num or Number object; any other type will
   /// cause a [QuantityException].
   Number toMks(dynamic value) {
+    if (value is Decimal) {
+      value = Precise(value.toString());
+    }
     if (value is num || value is Number) {
       Number term;
       if (value is Precise) {
@@ -110,6 +113,9 @@ mixin Units {
   /// The method accepts a num or Number object; any other type will
   /// cause a [QuantityException].
   Number fromMks(dynamic mks) {
+    if (mks is Decimal) {
+      mks = Precise(mks.toString());
+    }
     if (mks is num) {
       if (offset == 0) return Double(mks.toDouble()) / convToMKS;
       return (Double(mks.toDouble()) / convToMKS) - objToNumber(offset);

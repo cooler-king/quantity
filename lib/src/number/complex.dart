@@ -19,12 +19,12 @@ class Complex extends Number {
 
   /// Constructs an instance, applying the values in map [m].
   /// See `toJson` for the expected format.
-  Complex.fromMap(Map<String, Map<String, dynamic>>? m)
+  Complex.fromMap(Map<String, dynamic>? m)
       : real = (m?.containsKey('real') == true)
-            ? Real.fromMap(m?['real'])
+            ? Real.fromMap(m?['real'] as Map<String, dynamic>?)
             : Double.zero,
-        imaginary = m?.containsKey('real') ?? false
-            ? Imaginary.constant(Real.fromMap(m?['imag']))
+        imaginary = (m?.containsKey('imag') == true)
+            ? Imaginary.fromMap(m?['imag'] as Map<String, dynamic>?)
             : const Imaginary.constant(Integer.zero);
 
   /// The real number component of the complex number.

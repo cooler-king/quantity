@@ -10,7 +10,9 @@ abstract class Real extends Number {
 
   /// Constructs an instance using the value for property `d` (decimal) or `i` (integer) in Map [m].
   factory Real.fromMap(Map<String, dynamic>? m) =>
-      m?.containsKey('d') == true || m?.containsKey('i') == true
+      m?.containsKey('d') == true ||
+              m?.containsKey('i') == true ||
+              m?.containsKey('precise') == true
           ? Number.fromMap(m) as Real
           : Integer.zero;
 

@@ -2,6 +2,7 @@
 /// Does not export any of the 75+ physical quantity subclasses, allowing clean compiler tree-shaking.
 library quantity_core;
 
+export 'package:decimal/decimal.dart';
 export 'number.dart';
 export 'src/si/dimensions.dart';
 export 'src/si/dimensions_exception.dart';
