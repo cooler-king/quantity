@@ -13,7 +13,7 @@ import 'time.dart';
 /// Energy per unit mass.
 /// See the [Wikipedia entry for Specific energy](https://en.wikipedia.org/wiki/Specific_energy)
 /// for more information.
-class SpecificEnergy extends Quantity {
+base class SpecificEnergy extends Quantity {
   /// Constructs a SpecificEnergy with joules per kilogram.
   /// Optionally specify a relative standard uncertainty.
   SpecificEnergy({dynamic joulesPerKilogram, double uncert = 0.0})
@@ -47,7 +47,7 @@ class SpecificEnergy extends Quantity {
 }
 
 /// Units acceptable for use in describing SpecificEnergy quantities.
-class SpecificEnergyUnits extends SpecificEnergy with Units {
+base class SpecificEnergyUnits extends SpecificEnergy with Units {
   /// Constructs an instance.
   SpecificEnergyUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

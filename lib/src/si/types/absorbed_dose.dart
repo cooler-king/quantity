@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// The mean energy imparted to matter per unit mass by ionizing radiation.
 /// See the [Wikipedia entry for Absorbed Dose](https://en.wikipedia.org/wiki/Absorbed_dose)
 /// for more information.
-class AbsorbedDose extends Quantity {
+base class AbsorbedDose extends Quantity {
   /// Construct an AbsorbedDose with either grays ([Gy]) or rads ([rads]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -47,7 +47,7 @@ class AbsorbedDose extends Quantity {
 }
 
 /// Units acceptable for use in describing AbsorbedDose quantities.
-class AbsorbedDoseUnits extends AbsorbedDose with Units {
+base class AbsorbedDoseUnits extends AbsorbedDose with Units {
   /// Constructs an instance.
   AbsorbedDoseUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

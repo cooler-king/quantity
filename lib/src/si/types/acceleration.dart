@@ -8,7 +8,7 @@ import 'time.dart';
 /// The rate of change of speed of an object.
 /// See the [Wikipedia entry for Acceleration](https://en.wikipedia.org/wiki/Acceleration)
 /// for more information.
-class Acceleration extends Quantity {
+base class Acceleration extends Quantity {
   /// Construct an Acceleration with meters per second squared.
   /// Optionally specify a relative standard uncertainty.
   Acceleration({dynamic metersPerSecondSquared, double uncert = 0.0})
@@ -42,7 +42,7 @@ class Acceleration extends Quantity {
 }
 
 /// Units acceptable for use in describing Acceleration quantities.
-class AccelerationUnits extends Acceleration with Units {
+base class AccelerationUnits extends Acceleration with Units {
   /// Constructs an instance.
   AccelerationUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

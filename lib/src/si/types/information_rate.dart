@@ -8,7 +8,7 @@ import 'time.dart';
 /// The flow of information, per unit time.
 /// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)
 /// for more information.
-class InformationRate extends Quantity {
+base class InformationRate extends Quantity {
   /// Construct an InformationRate with bits per second ([bps]), kilobits per second ([kbps]),
   /// megabits per second ([Mbps]), gigabits per second ([Gbps]) or terabits per second ([Tbps]).
   /// Optionally specify a relative standard uncertainty.
@@ -83,7 +83,7 @@ class InformationRate extends Quantity {
 }
 
 /// Units acceptable for use in describing InformationRate quantities.
-class InformationRateUnits extends InformationRate with Units {
+base class InformationRateUnits extends InformationRate with Units {
   /// Constructs an instance.
   InformationRateUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

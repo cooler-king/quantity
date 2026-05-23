@@ -6,7 +6,7 @@ import 'package:quantity/quantity.dart';
 /// over which that force is distributed.
 /// See the [Wikipedia entry for Pressure](https://en.wikipedia.org/wiki/Pressure)
 /// for more information.
-class Pressure extends Quantity {
+base class Pressure extends Quantity {
   /// Constructs a pressure with pascals ([Pa]) or [bars].
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -42,7 +42,7 @@ class Pressure extends Quantity {
 }
 
 /// Units acceptable for use in describing Pressure quantities.
-class PressureUnits extends Pressure with Units {
+base class PressureUnits extends Pressure with Units {
   /// Constructs an instance.
   PressureUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

@@ -8,7 +8,7 @@ import '../../si/units.dart';
 /// in a particular direction per unit solid angle.
 /// See the [Wikipedia entry for Luminous intensity](https://en.wikipedia.org/wiki/Luminous_intensity)
 /// for more information.
-class LuminousIntensity extends Quantity {
+base class LuminousIntensity extends Quantity {
   /// Constructs a LuminousIntensity with candelas ([cd]).
   /// Optionally specify a relative standard uncertainty.
   LuminousIntensity({dynamic cd, double uncert = 0.0})
@@ -41,7 +41,7 @@ class LuminousIntensity extends Quantity {
 }
 
 /// Units acceptable for use in describing [LuminousIntensity] quantities.
-class LuminousIntensityUnits extends LuminousIntensity with Units {
+base class LuminousIntensityUnits extends LuminousIntensity with Units {
   /// Constructs an instance.
   LuminousIntensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

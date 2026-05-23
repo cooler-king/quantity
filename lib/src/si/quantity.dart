@@ -55,7 +55,7 @@ import 'package:quantity/quantity.dart';
 /// may be switched on or off as desired.  It is automatically on if the Quantity
 /// is constructed with any uncertainty and off otherwise.  The setCalcUncertainty
 /// method may be called at any point to enable/disable this capability.
-abstract class Quantity implements Comparable<dynamic> {
+abstract base class Quantity implements Comparable<dynamic> {
   /// This constructor sets the [value] (as expressed in the accompanying units)
   /// and the relative standard uncertainty.  The value is may be set using any
   /// `num` or `Number` object, including [Precise] for arbitrary precision.
@@ -168,7 +168,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// 3. 99% for k=2.576 and
   /// 4. 99.73% for k=3.
   Quantity calcExpandedUncertainty(double k) =>
-      dimensions.toQuantity(valueSI.abs() * _ur * k);
+      dimensions.toQuantity(valueSI.abs() * relativeUncertainty * k);
 
   /// Returns the standard uncertainty in this Quantity object's value as a typed
   /// Quantity object.
@@ -180,7 +180,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
   Quantity get standardUncertainty =>
-      dimensions.toQuantity(valueSI.abs() * _ur);
+      dimensions.toQuantity(valueSI.abs() * relativeUncertainty);
 
   /// Randomly generates a Quantity from this Quantity's value and uncertainty.
   /// The uncertainty is represented by a Normal (Gaussian) continuous
@@ -192,7 +192,7 @@ abstract class Quantity implements Comparable<dynamic> {
   ///
   /// If the relative uncertainty is zero, then this Quantity will be returned.
   Quantity randomSample() {
-    if (_ur == 0.0) return this;
+    if (relativeUncertainty == 0.0) return this;
 
     // Generate a random number btw 0.0 and 1.0
     final rand = math.Random().nextDouble();
@@ -230,7 +230,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// If the value of this Quantity is not negative it is returned directly.
   Quantity abs() {
     if (valueSI >= 0) return this;
-    return dimensions.toQuantity(valueSI.abs(), preferredUnits, _ur);
+    return dimensions.toQuantity(valueSI.abs(), preferredUnits, relativeUncertainty);
   }
 
   /// Returns the sum of this Quantity and [addend].
@@ -340,7 +340,7 @@ abstract class Quantity implements Comparable<dynamic> {
     }
 
     // Product uncertainty
-    var productUr = _ur;
+    var productUr = relativeUncertainty;
 
     // Product value
     Number productValue;
@@ -353,8 +353,8 @@ abstract class Quantity implements Comparable<dynamic> {
       final q2 = multiplier;
       productDimensions = dimensions * q2.dimensions;
       productValue = valueSI * q2.valueSI;
-      productUr = (_ur != 0.0 || q2._ur != 0.0)
-          ? math.sqrt(_ur * _ur + q2._ur * q2._ur)
+      productUr = (relativeUncertainty != 0.0 || q2.relativeUncertainty != 0.0)
+          ? math.sqrt(relativeUncertainty * relativeUncertainty + q2.relativeUncertainty * q2.relativeUncertainty)
           : 0.0;
     } else {
       throw const QuantityException(
@@ -406,13 +406,13 @@ abstract class Quantity implements Comparable<dynamic> {
 
     if (exponent is num) {
       return (dimensions ^ exponent)
-          .toQuantity(valueSI ^ exponent, null, _ur * exponent);
+          .toQuantity(valueSI ^ exponent, null, relativeUncertainty * exponent);
     } else if (exponent is Number) {
       return (dimensions ^ exponent.toDouble())
-          .toQuantity(valueSI ^ exponent, null, _ur * exponent.toDouble());
+          .toQuantity(valueSI ^ exponent, null, relativeUncertainty * exponent.toDouble());
     } else if (exponent is Scalar) {
       return (dimensions ^ exponent.valueSI.toDouble()).toQuantity(
-          valueSI ^ exponent, null, _ur * exponent.valueSI.toDouble());
+          valueSI ^ exponent, null, relativeUncertainty * exponent.valueSI.toDouble());
     }
 
     throw const QuantityException(
@@ -422,7 +422,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// The unary minus operator returns a Quantity whose value
   /// is the negative of this Quantity's value.
   Quantity operator -() =>
-      dimensions.toQuantity(valueSI * -1, preferredUnits, _ur);
+      dimensions.toQuantity(valueSI * -1, preferredUnits, relativeUncertainty);
 
   /// Returns a [Quantity] that represents the square root of this Quantity,
   /// in terms of both value and dimensions (for example, if this Quantity were an
@@ -439,7 +439,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// into 1.0.
   /// * The relative standard uncertainty is unchanged by inversion.
   Quantity inverse() =>
-      dimensions.inverse().toQuantity(valueSI.reciprocal(), null, _ur);
+      dimensions.inverse().toQuantity(valueSI.reciprocal(), null, relativeUncertainty);
 
   /// Determines whether on not this Quantity is less than a specified Quantity by
   /// comparing their MKS values.  The two Quantities need not be of the same
@@ -556,7 +556,7 @@ abstract class Quantity implements Comparable<dynamic> {
       buffer.write(nf.format(val));
 
       // Uncertainty.
-      if (_ur != 0 && uncertFormat != UncertaintyFormat.none) {
+      if (relativeUncertainty != 0 && uncertFormat != UncertaintyFormat.none) {
         final uncert = preferredUnits != null
             ? standardUncertainty.valueInUnits(preferredUnits).toDouble()
             : standardUncertainty.mks.toDouble();
@@ -614,7 +614,7 @@ abstract class Quantity implements Comparable<dynamic> {
     }
 
     // Only include non-zero relative uncertainty
-    if (_ur != 0.0) m['ur'] = _ur;
+    if (relativeUncertainty != 0.0) m['ur'] = relativeUncertainty;
 
     return m;
   }
@@ -623,10 +623,10 @@ abstract class Quantity implements Comparable<dynamic> {
   /// subtraction of two Quantities.
   static double calcRelativeCombinedUncertaintySumDiff(
       Quantity q1, Quantity q2, Number valueSI) {
-    if (q1._ur != 0.0 || q2._ur != 0.0) {
+    if (q1.relativeUncertainty != 0.0 || q2.relativeUncertainty != 0.0) {
       // Standard uncertainties (derived from relative standard uncertainties).
-      final u1 = q1._ur * q1.valueSI.abs().toDouble();
-      final u2 = q2._ur * q2.valueSI.abs().toDouble();
+      final u1 = q1.relativeUncertainty * q1.valueSI.abs().toDouble();
+      final u2 = q2.relativeUncertainty * q2.valueSI.abs().toDouble();
 
       // Combined standard uncertainty.
       final uc = math.sqrt(u1 * u1 + u2 * u2);

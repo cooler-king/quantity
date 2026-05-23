@@ -10,7 +10,7 @@ import 'time.dart';
 /// Amount of energy per unit time.
 /// See the [Wikipedia entry for Power (physics)](https://en.wikipedia.org/wiki/Power_(physics))
 /// for more information.
-class Power extends Quantity {
+base class Power extends Quantity {
   /// Constructs a Power with watts ([W]), kilowatts ([kW]) or megawatts ([MW]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -53,7 +53,7 @@ class Power extends Quantity {
 }
 
 /// Units acceptable for use in describing Power quantities.
-class PowerUnits extends Power with Units {
+base class PowerUnits extends Power with Units {
   /// Constructs an instance.
   PowerUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,
@@ -102,7 +102,7 @@ class PowerUnits extends Power with Units {
 }
 
 /// Radiant flux is another way to express power.
-class RadiantFlux extends Power {
+base class RadiantFlux extends Power {
   /// Constructs a constant RadiantFlux.
   const RadiantFlux.constant(super.valueSI, {super.units, super.uncert})
       : super.constant();

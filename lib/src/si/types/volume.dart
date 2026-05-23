@@ -7,7 +7,7 @@ import 'length.dart';
 /// The amount of three-dimensional space enclosed by some closed boundary.
 /// See the [Wikipedia entry for Volume](https://en.wikipedia.org/wiki/Volume)
 /// for more information.
-class Volume extends Quantity {
+base class Volume extends Quantity {
   /// Constructs a Volume with cubic meters ([m3]) or liters ([L]).
   /// Optionally specify a relative standard uncertainty.
   Volume({dynamic m3, dynamic L, double uncert = 0.0})
@@ -40,7 +40,7 @@ class Volume extends Quantity {
 }
 
 /// Units acceptable for use in describing Volume quantities.
-class VolumeUnits extends Volume with Units {
+base class VolumeUnits extends Volume with Units {
   /// Constructs an instance.
   VolumeUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

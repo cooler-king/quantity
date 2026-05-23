@@ -4,7 +4,6 @@ import 'double.dart';
 import 'integer.dart';
 import 'number.dart';
 import 'number_exception.dart';
-import 'real.dart';
 import 'util/jenkins_hash.dart';
 
 /// `Precise` represents an arbitrary precision number.

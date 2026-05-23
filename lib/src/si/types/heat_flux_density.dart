@@ -5,7 +5,7 @@ import 'package:quantity/quantity.dart';
 /// Heat rate per unit area.
 /// See the [Wikipedia entry for Heat flux](https://en.wikipedia.org/wiki/Heat_flux)
 /// for more information.
-class HeatFluxDensity extends Quantity {
+base class HeatFluxDensity extends Quantity {
   /// Constructs a HeatFluxDensity with watts per square meter.
   /// Optionally specify a relative standard uncertainty.
   HeatFluxDensity({dynamic wattsPerSquareMeter, double uncert = 0.0})
@@ -39,7 +39,7 @@ class HeatFluxDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing HeatFluxDensity quantities.
-class HeatFluxDensityUnits extends HeatFluxDensity with Units {
+base class HeatFluxDensityUnits extends HeatFluxDensity with Units {
   /// Constructs an instance.
   HeatFluxDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -11,7 +11,7 @@ import 'temperature_interval.dart';
 /// commonly understood as a measure of disorder.
 /// See the [Wikipedia entry for Entropy](https://en.wikipedia.org/wiki/Entropy)
 /// for more information.
-class Entropy extends Quantity {
+base class Entropy extends Quantity {
   /// Constructs an Entropy with joules per kelvin.
   /// Optionally specify a relative standard uncertainty.
   Entropy({dynamic joulesPerKelvin, double uncert = 0.0})
@@ -41,7 +41,7 @@ class Entropy extends Quantity {
 }
 
 /// Units acceptable for use in describing Entropy quantities.
-class EntropyUnits extends Entropy with Units {
+base class EntropyUnits extends Entropy with Units {
   /// Constructs an instance.
   EntropyUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

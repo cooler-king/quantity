@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// The ability of a body to store an electrical charge,
 /// See the [Wikipedia entry for Capacitance](https://en.wikipedia.org/wiki/Capacitance)
 /// for more information.
-class Capacitance extends Quantity {
+base class Capacitance extends Quantity {
   /// Constructs a Capacitance with farads ([F]).
   /// Optionally specify a relative standard uncertainty.
   Capacitance({dynamic F, double uncert = 0.0})
@@ -39,7 +39,7 @@ class Capacitance extends Quantity {
 }
 
 /// Units acceptable for use in describing Capacitance quantities.
-class CapacitanceUnits extends Capacitance with Units {
+base class CapacitanceUnits extends Capacitance with Units {
   /// Constructs an instance.
   CapacitanceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

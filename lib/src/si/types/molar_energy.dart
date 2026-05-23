@@ -8,7 +8,7 @@ import 'energy.dart';
 /// Energy per mole of a substance.
 /// See the [Wikipedia entry for Specific energy](https://en.wikipedia.org/wiki/Specific_energy)
 /// for more information.
-class MolarEnergy extends Quantity {
+base class MolarEnergy extends Quantity {
   /// Constructs a MolarEnergy with joules per mole.
   /// Optionally specify a relative standard uncertainty.
   MolarEnergy({dynamic joulesPerMole, double uncert = 0.0})
@@ -41,7 +41,7 @@ class MolarEnergy extends Quantity {
 }
 
 /// Units acceptable for use in describing MolarEnergy quantities.
-class MolarEnergyUnits extends MolarEnergy with Units {
+base class MolarEnergyUnits extends MolarEnergy with Units {
   /// Constructs an instance.
   MolarEnergyUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

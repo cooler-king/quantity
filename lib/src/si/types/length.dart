@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// Represents the _length_ physical quantity (one of the seven base SI quantities).
 /// See the [Wikipedia entry for Length](https://en.wikipedia.org/wiki/Length)
 /// for more information.
-class Length extends Quantity {
+base class Length extends Quantity {
   /// Constructs a Length with meters ([m]), kilometers ([km]), millimeters ([mm]), astronomical units ([ua])
   /// or nautical miles ([NM]).
   /// Optionally specify a relative standard uncertainty.
@@ -82,7 +82,7 @@ class Length extends Quantity {
 }
 
 /// Units acceptable for use in describing Length quantities.
-class LengthUnits extends Length with Units {
+base class LengthUnits extends Length with Units {
   /// Constructs an instance.
   LengthUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

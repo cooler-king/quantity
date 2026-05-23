@@ -1,12 +1,16 @@
-import 'complex.dart';
+import 'dart:math';
+import 'util/jenkins_hash.dart';
 import 'double.dart';
-import 'imaginary.dart';
 import 'integer.dart';
 import 'precise.dart';
-import 'real.dart';
+import 'number_exception.dart';
+
+part 'complex.dart';
+part 'imaginary.dart';
+part 'real.dart';
 
 /// The abstract base class for all Number types.
-abstract class Number implements Comparable<dynamic> {
+sealed class Number implements Comparable<dynamic> {
   /// The default constructor.
   Number();
 
@@ -22,25 +26,16 @@ abstract class Number implements Comparable<dynamic> {
   ///     {'imag': {i or d map}}
   ///
   /// If the map contents are not recognized [Integer.zero] will be returned.
-  factory Number.fromMap(Map<String, dynamic>? m) {
-    if (m == null) return Integer.zero;
-    if (m.containsKey('d') && m['d'] is num) {
-      return Double.fromMap(m as Map<String, num>);
-    }
-    if (m.containsKey('i') && m['i'] is int) {
-      return Integer.fromMap(m as Map<String, int>);
-    }
-    if (m.containsKey('precise') && m['precise'] is Map<String, String>) {
-      return Precise.fromMap(m as Map<String, String>);
-    }
-    if (m.containsKey('real') && m is Map<String, Map<String, dynamic>>) {
-      return Complex.fromMap(m);
-    }
-    if (m.containsKey('imag') && m is Map<String, Map<String, dynamic>>) {
-      return Imaginary.fromMap(m);
-    }
-    return Integer.zero;
-  }
+  factory Number.fromMap(Map<String, dynamic>? m) => switch (m) {
+        null => Integer.zero,
+        {'d': num _} => Double.fromMap(m.cast<String, num>()),
+        {'i': int _} => Integer.fromMap(m.cast<String, int>()),
+        {'precise': Object p} when p is String || p is Map<String, String> =>
+          Precise.fromMap(m.cast<String, String>()),
+        {'real': Map _} => Complex.fromMap(m.cast<String, Map<String, dynamic>>()),
+        {'imag': Map _} => Imaginary.fromMap(m.cast<String, Map<String, dynamic>>()),
+        _ => Integer.zero,
+      };
 
   // Abstract operators
 

@@ -3,7 +3,7 @@ import 'package:quantity/quantity.dart';
 /// The amount of energy stored in a given system or region of space per unit volume.
 /// See the [Wikipedia entry for Energy density](https://en.wikipedia.org/wiki/Energy_density)
 /// for more information.
-class EnergyDensity extends Quantity {
+base class EnergyDensity extends Quantity {
   /// Construct an EnergyDensity with joules per cubic meter.
   /// Optionally specify a relative standard uncertainty.
   EnergyDensity({dynamic joulesPerCubicMeter, double uncert = 0.0})
@@ -37,7 +37,7 @@ class EnergyDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing EnergyDensity quantities.
-class EnergyDensityUnits extends EnergyDensity with Units {
+base class EnergyDensityUnits extends EnergyDensity with Units {
   /// Constructs an instance.
   EnergyDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

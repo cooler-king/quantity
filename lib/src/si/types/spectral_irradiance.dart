@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// Irradiance of a surface per unit frequency.
 /// See the [Wikipedia entry for Radiometry](https://en.wikipedia.org/wiki/Radiometry)
 /// for more information.
-class SpectralIrradiance extends Quantity {
+base class SpectralIrradiance extends Quantity {
   /// Constructs a SpectralIrradiance with watts per square meter per hertz.
   /// Optionally specify a relative standard uncertainty.
   SpectralIrradiance({dynamic wattsPerSquareMeterPerHertz, double uncert = 0.0})
@@ -42,7 +42,7 @@ class SpectralIrradiance extends Quantity {
 }
 
 /// Units acceptable for use in describing SpectralIrradiance quantities.
-class SpectralIrradianceUnits extends SpectralIrradiance with Units {
+base class SpectralIrradianceUnits extends SpectralIrradiance with Units {
   /// Constructs an instance.
   SpectralIrradianceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

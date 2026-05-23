@@ -8,7 +8,7 @@ import 'time.dart';
 /// The rate of change of an angle.
 /// See the [Wikipedia entry for Angular_velocity](https://en.wikipedia.org/wiki/Angular_velocity)
 /// for more information.
-class AngularSpeed extends Quantity {
+base class AngularSpeed extends Quantity {
   /// Construct an AngularSpeed with either radians per second or degrees per second.
   /// Optionally specify a relative standard uncertainty.
   AngularSpeed(
@@ -51,7 +51,7 @@ class AngularSpeed extends Quantity {
 }
 
 /// Units acceptable for use in describing AngularSpeed quantities.
-class AngularSpeedUnits extends AngularSpeed with Units {
+base class AngularSpeedUnits extends AngularSpeed with Units {
   /// Constructs an instance.
   AngularSpeedUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

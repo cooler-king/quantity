@@ -3,7 +3,7 @@ import 'package:quantity/quantity.dart';
 /// The intensity of light emitted from a surface per unit area.
 /// See the [Wikipedia entry for Luminance](https://en.wikipedia.org/wiki/Luminance)
 /// for more information.
-class Luminance extends Quantity {
+base class Luminance extends Quantity {
   /// Constructs a Luminance with candelas per square meter.
   /// Optionally specify a relative standard uncertainty.
   Luminance({dynamic candelasPerSquareMeter, double uncert = 0.0})
@@ -36,7 +36,7 @@ class Luminance extends Quantity {
 }
 
 /// Units acceptable for use in describing Luminance quantities.
-class LuminanceUnits extends Luminance with Units {
+base class LuminanceUnits extends Luminance with Units {
   /// Constructs an instance.
   LuminanceUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

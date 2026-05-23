@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// The magnetic flux density passing through a closed surface.
 /// See the [Wikipedia entry for Magnetic flux](https://en.wikipedia.org/wiki/Magnetic_flux)
 /// for more information.
-class MagneticFlux extends Quantity {
+base class MagneticFlux extends Quantity {
   /// Constructs a MagneticFlux with webers ([Wb]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -40,7 +40,7 @@ class MagneticFlux extends Quantity {
 }
 
 /// Units acceptable for use in describing MagneticFlux quantities.
-class MagneticFluxUnits extends MagneticFlux with Units {
+base class MagneticFluxUnits extends MagneticFlux with Units {
   /// Constructs an instance.
   MagneticFluxUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

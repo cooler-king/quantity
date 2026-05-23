@@ -1,10 +1,4 @@
-import 'dart:math';
-import 'complex.dart';
-import 'double.dart';
-import 'imaginary.dart';
-import 'integer.dart';
-import 'number.dart';
-import 'precise.dart';
+part of 'number.dart';
 
 /// Provides a common handle for all Real Numbers.
 abstract class Real extends Number {

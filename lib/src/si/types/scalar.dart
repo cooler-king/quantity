@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// A one-dimensional physical quantity that can be described by a single real number.
 /// See the [Wikipedia entry for Scalar (physics)](https://en.wikipedia.org/wiki/Scalar_%28physics%29)
 /// for more information.
-class Scalar extends Quantity {
+base class Scalar extends Quantity {
   /// Constructs a Scalar with [value] or [percent].
   /// Optionally specify a relative standard uncertainty.
   Scalar({dynamic value, dynamic percent, double uncert = 0.0})
@@ -65,7 +65,7 @@ class Scalar extends Quantity {
 }
 
 /// Units acceptable for use in describing Scalar quantities.
-class ScalarUnits extends Scalar with Units {
+base class ScalarUnits extends Scalar with Units {
   /// Constructs an instance.
   ScalarUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

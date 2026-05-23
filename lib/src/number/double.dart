@@ -1,9 +1,6 @@
-import 'complex.dart';
-import 'imaginary.dart';
 import 'integer.dart';
 import 'number.dart';
 import 'precise.dart';
-import 'real.dart';
 
 /// Wraps Dart's core [double] type, so that it can share a common base type with other [Number]s.
 class Double extends Real {

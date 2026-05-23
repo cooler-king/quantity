@@ -9,7 +9,7 @@ import 'time.dart';
 /// tensile stress.
 /// See the [Wikipedia entry for Viscosity](https://en.wikipedia.org/wiki/Viscosity)
 /// for more information.
-class DynamicViscosity extends Quantity {
+base class DynamicViscosity extends Quantity {
   /// Constructs a DynamicViscosity with pascal seconds ([Pas]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -46,7 +46,7 @@ class DynamicViscosity extends Quantity {
 }
 
 /// Units acceptable for use in describing DynamicViscosity quantities.
-class DynamicViscosityUnits extends DynamicViscosity with Units {
+base class DynamicViscosityUnits extends DynamicViscosity with Units {
   /// Constructs an instance.
   DynamicViscosityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

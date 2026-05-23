@@ -11,7 +11,7 @@ import 'time.dart';
 /// The ability of a system to perform work; cannot be created or destroyed but can take many forms.
 /// See the [Wikipedia entry for Energy](https://en.wikipedia.org/wiki/Energy)
 /// for more information.
-class Energy extends Quantity {
+base class Energy extends Quantity {
   /// Constructs an Energy with joules ([J]) or electron volts ([eV]).
   /// Optionally specify a relative standard uncertainty.
   Energy({dynamic J, dynamic eV, double uncert = 0.0})
@@ -57,7 +57,7 @@ class Energy extends Quantity {
 }
 
 /// Units acceptable for use in describing Energy quantities.
-class EnergyUnits extends Energy with Units {
+base class EnergyUnits extends Energy with Units {
   /// Constructs an instance.
   EnergyUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

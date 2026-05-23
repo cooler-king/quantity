@@ -6,15 +6,12 @@
 /// used in a purely mathematical context.
 library number;
 
-export 'src/number/complex.dart';
 export 'src/number/double.dart';
 export 'src/number/fraction.dart';
-export 'src/number/imaginary.dart';
 export 'src/number/integer.dart';
 export 'src/number/number.dart';
 export 'src/number/number_exception.dart';
 export 'src/number/precise.dart';
-export 'src/number/real.dart';
 export 'src/number/util/converters.dart';
 export 'src/number/util/erf.dart';
 export 'src/number/util/jenkins_hash.dart';

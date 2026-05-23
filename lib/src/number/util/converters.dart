@@ -1,18 +1,13 @@
-import '../complex.dart';
 import '../double.dart';
-import '../imaginary.dart';
 import '../integer.dart';
 import '../number.dart';
 import '../precise.dart';
 
-export '../complex.dart';
 export '../double.dart';
 export '../fraction.dart';
-export '../imaginary.dart';
 export '../integer.dart';
 export '../number.dart';
 export '../precise.dart';
-export '../real.dart';
 export '../util/jenkins_hash.dart';
 
 /// Converts an [object] to a Number.  The [object]

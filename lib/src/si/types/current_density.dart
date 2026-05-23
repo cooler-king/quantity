@@ -3,7 +3,7 @@ import 'package:quantity/quantity.dart';
 /// The electric current per unit area of cross section.
 /// See the [Wikipedia entry for Current density](https://en.wikipedia.org/wiki/Current_density)
 /// for more information.
-class CurrentDensity extends Quantity {
+base class CurrentDensity extends Quantity {
   /// Constructs a CurrentDensity with amperes per square meter.
   /// Optionally specify a relative standard uncertainty.
   CurrentDensity({dynamic amperesPerSquareMeter, double uncert = 0.0})
@@ -37,7 +37,7 @@ class CurrentDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing CurrentDensity quantities.
-class CurrentDensityUnits extends CurrentDensity with Units {
+base class CurrentDensityUnits extends CurrentDensity with Units {
   /// Constructs an instance.
   CurrentDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

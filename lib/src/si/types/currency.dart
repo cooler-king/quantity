@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// Money in any form when in actual use or circulation as a medium of exchange.
 /// See the [Wikipedia entry for Currency](https://en.wikipedia.org/wiki/Currency)
 /// for more information.
-class Currency extends Quantity {
+base class Currency extends Quantity {
   /// Constructs a Currency with US dollars ([USD]).
   /// Optionally specify a relative standard uncertainty.
   // ignore:non_constant_identifier_names
@@ -40,7 +40,7 @@ class Currency extends Quantity {
 }
 
 /// Units acceptable for use in describing Currency quantities.
-class CurrencyUnits extends Currency with Units {
+base class CurrencyUnits extends Currency with Units {
   /// Constructs an instance.
   CurrencyUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

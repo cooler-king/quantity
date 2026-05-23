@@ -8,7 +8,7 @@ import 'length.dart';
 /// The resistance that is encountered when forming an electric field in a medium.
 /// See the [Wikipedia entry for Permittivity](https://en.wikipedia.org/wiki/Permittivity)
 /// for more information.
-class Permittivity extends Quantity {
+base class Permittivity extends Quantity {
   /// Constructs a Permittivity with farads per meter.
   /// Optionally specify a relative standard uncertainty.
   Permittivity({dynamic faradsPerMeter, double uncert = 0.0})
@@ -41,7 +41,7 @@ class Permittivity extends Quantity {
 }
 
 /// Units acceptable for use in describing Permittivity quantities.
-class PermittivityUnits extends Permittivity with Units {
+base class PermittivityUnits extends Permittivity with Units {
   /// Constructs an instance.
   PermittivityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

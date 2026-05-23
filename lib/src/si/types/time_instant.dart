@@ -95,7 +95,7 @@ import 'time.dart';
 /// Protocol (NTP).  For applications--especially distributed applications--that
 /// access the system clock and depend on its accuracy, such synchronization is
 /// recommended.  More information can be found at http://www.ntp.org.
-class TimeInstant extends Quantity {
+base class TimeInstant extends Quantity {
   /// Constructs a TimeInstant in either [TAI] or [UTC] units.
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -266,7 +266,7 @@ typedef FromMksOverride = Number Function(dynamic mks);
 typedef ToMksOverride = Number Function(dynamic val);
 
 /// Units acceptable for use in describing TimeInstant quantities.
-class TimeInstantUnits extends TimeInstant with Units {
+base class TimeInstantUnits extends TimeInstant with Units {
   /// Constructs an instance.
   TimeInstantUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -3,7 +3,7 @@ import 'package:quantity/quantity.dart';
 /// The rate of transfer of energy through a surface.
 /// See the [Wikipedia entry for Energy density](https://en.wikipedia.org/wiki/Energy_density)
 /// for more information.
-class EnergyFlux extends Quantity {
+base class EnergyFlux extends Quantity {
   /// Constructs an EnergyFlux with watts per square meter.
   /// Optionally specify a relative standard uncertainty.
   EnergyFlux({dynamic wattsPerSquareMeter, double uncert = 0.0})
@@ -36,7 +36,7 @@ class EnergyFlux extends Quantity {
 }
 
 /// Units acceptable for use in describing EnergyFlux quantities.
-class EnergyFluxUnits extends EnergyFlux with Units {
+base class EnergyFluxUnits extends EnergyFlux with Units {
   /// Constructs an instance.
   EnergyFluxUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

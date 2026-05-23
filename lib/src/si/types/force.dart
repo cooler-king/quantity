@@ -9,7 +9,7 @@ import 'mass.dart';
 /// Any interaction that, when unopposed, changes the motion of an object.
 /// See the [Wikipedia entry for Force](https://en.wikipedia.org/wiki/Force)
 /// for more information.
-class Force extends Quantity {
+base class Force extends Quantity {
   /// Constructs a Force with newtons ([N]).
   /// Optionally specify a relative standard uncertainty.
   Force({dynamic N, double uncert = 0.0})
@@ -46,7 +46,7 @@ class Force extends Quantity {
 }
 
 /// Units acceptable for use in describing Force quantities.
-class ForceUnits extends Force with Units {
+base class ForceUnits extends Force with Units {
   /// Constructs an instance.
   ForceUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

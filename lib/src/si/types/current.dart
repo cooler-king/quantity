@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// The flow of electric charge.
 /// See the [Wikipedia entry for Electric current](https://en.wikipedia.org/wiki/Electric_current)
 /// for more information.
-class Current extends Quantity {
+base class Current extends Quantity {
   /// Constructs a Current with amperes ([A]) or milliamperes ([mA]).
   /// Optionally specify a relative standard uncertainty.
   Current({dynamic A, dynamic mA, double uncert = 0.0})
@@ -41,7 +41,7 @@ class Current extends Quantity {
 }
 
 /// Units acceptable for use in describing [Current] quantities.
-class CurrentUnits extends Current with Units {
+base class CurrentUnits extends Current with Units {
   /// Constructs an instance.
   CurrentUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

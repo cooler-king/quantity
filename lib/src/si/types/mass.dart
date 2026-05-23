@@ -8,7 +8,7 @@ import 'energy.dart';
 /// that determines the strength of a body's mutual gravitational attraction to other bodies.
 /// See the [Wikipedia entry for Mass](https://en.wikipedia.org/wiki/Mass)
 /// for more information.
-class Mass extends Quantity {
+base class Mass extends Quantity {
   /// Constructs a Mass with kilograms ([kg]), grams ([g]) or unified atomic mass units ([u]).
   /// Optionally specify a relative standard uncertainty.
   Mass({dynamic kg, dynamic g, dynamic u, double uncert = 0.0})
@@ -74,7 +74,7 @@ class Mass extends Quantity {
 }
 
 /// Units acceptable for use in describing [Mass] quantities.
-class MassUnits extends Mass with Units {
+base class MassUnits extends Mass with Units {
   /// Constructs an instance.
   MassUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

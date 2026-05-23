@@ -9,7 +9,7 @@ import 'temperature_interval.dart';
 /// The ability of a material to conduct heat.
 /// See the [Wikipedia entry for Thermal conductivity](https://en.wikipedia.org/wiki/Thermal_conductivity)
 /// for more information.
-class ThermalConductivity extends Quantity {
+base class ThermalConductivity extends Quantity {
   /// Constructs a ThermalConductivity with watts per meter kelvin.
   /// Optionally specify a relative standard uncertainty.
   ThermalConductivity({dynamic wattsPerMeterKelvin, double uncert = 0.0})
@@ -44,7 +44,7 @@ class ThermalConductivity extends Quantity {
 }
 
 /// Units acceptable for use in describing ThermalConductivity quantities.
-class ThermalConductivityUnits extends ThermalConductivity with Units {
+base class ThermalConductivityUnits extends ThermalConductivity with Units {
   /// Constructs an instance.
   ThermalConductivityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

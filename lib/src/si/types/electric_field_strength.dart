@@ -8,7 +8,7 @@ import 'length.dart';
 /// The magnitude of the force per unit charge that an electric field exerts.
 /// See the [Wikipedia entry for Electric field](https://en.wikipedia.org/wiki/Electric_field)
 /// for more information.
-class ElectricFieldStrength extends Quantity {
+base class ElectricFieldStrength extends Quantity {
   /// Constructs an ElectricFieldStrength with volts per meter.
   /// Optionally specify a relative standard uncertainty.
   ElectricFieldStrength({dynamic voltsPerMeter, double uncert = 0.0})
@@ -47,7 +47,7 @@ class ElectricFieldStrength extends Quantity {
 }
 
 /// Units acceptable for use in describing ElectricFieldStrength quantities.
-class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
+base class ElectricFieldStrengthUnits extends ElectricFieldStrength with Units {
   /// Constructs an instance.
   ElectricFieldStrengthUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

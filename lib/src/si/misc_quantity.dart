@@ -16,7 +16,7 @@ import 'units.dart';
 /// object creation.  Other subclasses allow construction with any appropriate
 /// Units (and its implicit conversion factor to SI-MKS) and automatically
 /// initialize the Dimensions.
-class MiscQuantity extends Quantity {
+base class MiscQuantity extends Quantity {
   /// This constructor sets the [value], [dim]ensions and relative
   /// uncertainty.
   /// [value] may be a num or Number object.

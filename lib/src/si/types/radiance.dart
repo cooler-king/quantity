@@ -11,7 +11,7 @@ import 'solid_angle.dart';
 /// per unit solid angle per unit projected area.
 /// See the [Wikipedia entry for Radiance](https://en.wikipedia.org/wiki/Radiance)
 /// for more information.
-class Radiance extends Quantity {
+base class Radiance extends Quantity {
   /// Constructs a Radiance with watts per square meter steradian.
   /// Optionally specify a relative standard uncertainty.
   Radiance({dynamic wattsPerSquareMeterSteradian, double uncert = 0.0})
@@ -43,7 +43,7 @@ class Radiance extends Quantity {
 }
 
 /// Units acceptable for use in describing Radiance quantities.
-class RadianceUnits extends Radiance with Units {
+base class RadianceUnits extends Radiance with Units {
   /// Constructs an instance.
   RadianceUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

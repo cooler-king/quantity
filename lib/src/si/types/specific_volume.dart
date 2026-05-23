@@ -8,7 +8,7 @@ import 'mass.dart';
 /// The ratio of the substance's volume to its mass.
 /// See the [Wikipedia entry for Specific volume](https://en.wikipedia.org/wiki/Specific_volume)
 /// for more information.
-class SpecificVolume extends Quantity {
+base class SpecificVolume extends Quantity {
   /// Constructs a SpecificVolume with cubic meters per kilogram.
   /// Optionally specify a relative standard uncertainty.
   SpecificVolume({dynamic cubicMetersPerKilogram, double uncert = 0.0})
@@ -42,7 +42,7 @@ class SpecificVolume extends Quantity {
 }
 
 /// Units acceptable for use in describing SpecificVolume quantities.
-class SpecificVolumeUnits extends SpecificVolume with Units {
+base class SpecificVolumeUnits extends SpecificVolume with Units {
   /// Constructs an instance.
   SpecificVolumeUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

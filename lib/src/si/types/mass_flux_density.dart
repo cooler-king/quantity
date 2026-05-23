@@ -3,7 +3,7 @@ import 'package:quantity/quantity.dart';
 /// The mass of a substance which passes per unit of time.
 /// See the [Wikipedia entry for Mass flow rate](https://en.wikipedia.org/wiki/Mass_flow_rate)
 /// for more information.
-class MassFluxDensity extends Quantity {
+base class MassFluxDensity extends Quantity {
   /// Constructs a MassFluxDensity with kilograms per second per square meter.
   /// Optionally specify a relative standard uncertainty.
   MassFluxDensity(
@@ -40,7 +40,7 @@ class MassFluxDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing MassFluxDensity quantities.
-class MassFluxDensityUnits extends MassFluxDensity with Units {
+base class MassFluxDensityUnits extends MassFluxDensity with Units {
   /// Constructs an instance.
   MassFluxDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

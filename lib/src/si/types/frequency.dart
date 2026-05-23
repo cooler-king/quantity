@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// The number of occurrences of a repeating event per unit time.
 /// See the [Wikipedia entry for Frequency](https://en.wikipedia.org/wiki/Frequency)
 /// for more information.
-class Frequency extends Quantity {
+base class Frequency extends Quantity {
   /// Constructs a Frequency with hertz ([Hz]), kilohertz ([kHz]), megahertz ([MHz])
   /// or gigahertz ([GHz]).
   /// Optionally specify a relative standard uncertainty.
@@ -63,7 +63,7 @@ class Frequency extends Quantity {
 }
 
 /// Units acceptable for use in describing Frequency quantities.
-class FrequencyUnits extends Frequency with Units {
+base class FrequencyUnits extends Frequency with Units {
   /// Constructs an instance.
   FrequencyUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

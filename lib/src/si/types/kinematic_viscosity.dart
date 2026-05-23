@@ -8,7 +8,7 @@ import 'time.dart';
 /// The resistance to flow of a fluid, equal to its absolute viscosity divided by its density.
 /// See the [Wikipedia entry for Viscosity](https://en.wikipedia.org/wiki/Viscosity)
 /// for more information.
-class KinematicViscosity extends Quantity {
+base class KinematicViscosity extends Quantity {
   /// Constructs a KinematicViscosity with meters squared per second.
   /// Optionally specify a relative standard uncertainty.
   KinematicViscosity({dynamic metersSquaredPerSecond, double uncert = 0.0})
@@ -43,7 +43,7 @@ class KinematicViscosity extends Quantity {
 }
 
 /// Units acceptable for use in describing KinematicViscosity quantities.
-class KinematicViscosityUnits extends KinematicViscosity with Units {
+base class KinematicViscosityUnits extends KinematicViscosity with Units {
   /// Constructs an instance.
   KinematicViscosityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

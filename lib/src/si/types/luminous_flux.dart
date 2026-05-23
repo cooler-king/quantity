@@ -10,7 +10,7 @@ import '../../si/units.dart';
 /// wavelengths of light
 /// See the [Wikipedia entry for Luminance](https://en.wikipedia.org/wiki/Luminance)
 /// for more information.
-class LuminousFlux extends Quantity {
+base class LuminousFlux extends Quantity {
   /// Constructs a LuminousFlux with lumens ([lm]).
   /// Optionally specify a relative standard uncertainty.
   LuminousFlux({dynamic lm, double uncert = 0.0})
@@ -43,7 +43,7 @@ class LuminousFlux extends Quantity {
 }
 
 /// Units acceptable for use in describing LuminousFlux quantities.
-class LuminousFluxUnits extends LuminousFlux with Units {
+base class LuminousFluxUnits extends LuminousFlux with Units {
   /// Constructs an instance.
   LuminousFluxUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -8,7 +8,7 @@ import '../../si/units.dart';
 /// The difference in electric potential energy between two points per unit electric charge
 /// See the [Wikipedia entry for Voltage](https://en.wikipedia.org/wiki/Voltage)
 /// for more information.
-class ElectricPotentialDifference extends Quantity {
+base class ElectricPotentialDifference extends Quantity {
   /// Constructs an ElectricPotentialDifference with volts ([V]).
   /// Optionally specify a relative standard uncertainty.
   ElectricPotentialDifference({dynamic V, double uncert = 0.0})
@@ -47,7 +47,7 @@ class ElectricPotentialDifference extends Quantity {
 }
 
 /// Units acceptable for use in describing ElectricPotentialDifference quantities.
-class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference
+base class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference
     with Units {
   /// Constructs an instance.
   ElectricPotentialDifferenceUnits(String name, String? abbrev1,

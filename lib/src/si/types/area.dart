@@ -8,7 +8,7 @@ import 'length.dart';
 /// The extent of a two-dimensional figure or shape.
 /// See the [Wikipedia entry for Area](https://en.wikipedia.org/wiki/Area)
 /// for more information.
-class Area extends Quantity {
+base class Area extends Quantity {
   /// Construct an Area with either square meters ([m2]), hectares ([ha])
   /// or barns ([b]).
   /// Optionally specify a relative standard uncertainty.
@@ -63,7 +63,7 @@ class Area extends Quantity {
 }
 
 /// Units acceptable for use in describing Area quantities.
-class AreaUnits extends Area with Units {
+base class AreaUnits extends Area with Units {
   /// Constructs an instance.
   AreaUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

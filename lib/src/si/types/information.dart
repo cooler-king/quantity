@@ -7,7 +7,7 @@ import '../../si/units.dart';
 /// Amount of data.
 /// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)
 /// for more information.
-class Information extends Quantity {
+base class Information extends Quantity {
   /// Constructs an Information object with [bits], bytes ([B]), kibibytes ([KiB]), mebibytes ([MiB]),
   /// gibibytes ([GiB]), or tebibytes ([TiB]).
   /// Optionally specify a relative standard uncertainty.
@@ -136,7 +136,7 @@ class Information extends Quantity {
 }
 
 /// Units acceptable for use in describing Information quantities.
-class InformationUnits extends Information with Units {
+base class InformationUnits extends Information with Units {
   /// Constructs an instance.
   InformationUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

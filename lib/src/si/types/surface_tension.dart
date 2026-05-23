@@ -8,7 +8,7 @@ import 'length.dart';
 /// The elastic tendency of liquids which makes them acquire the least surface area possible.
 /// See the [Wikipedia entry for Surface tension](https://en.wikipedia.org/wiki/Surface_tension)
 /// for more information.
-class SurfaceTension extends Quantity {
+base class SurfaceTension extends Quantity {
   /// Constructs a SurfaceTension with newtons per meter.
   /// Optionally specify a relative standard uncertainty.
   SurfaceTension({dynamic newtonsPerMeter, double uncert = 0.0})
@@ -41,7 +41,7 @@ class SurfaceTension extends Quantity {
 }
 
 /// Units acceptable for use in describing SurfaceTension quantities.
-class SurfaceTensionUnits extends SurfaceTension with Units {
+base class SurfaceTensionUnits extends SurfaceTension with Units {
   /// Constructs an instance.
   SurfaceTensionUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

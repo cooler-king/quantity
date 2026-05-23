@@ -1,10 +1,4 @@
-import 'dart:math';
-import 'complex.dart';
-import 'double.dart';
-import 'integer.dart';
-import 'number.dart';
-import 'real.dart';
-import 'util/jenkins_hash.dart';
+part of 'number.dart';
 
 /// Represents an imaginary number, defined as a number whose square is negative one.
 ///

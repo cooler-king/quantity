@@ -8,7 +8,7 @@ import 'mass.dart';
 /// The radiant energy received by a surface per unit area.
 /// See the [Wikipedia entry for Radiant exposure](https://en.wikipedia.org/wiki/Radiant_exposure)
 /// for more information.
-class Exposure extends Quantity {
+base class Exposure extends Quantity {
   /// Construct an Exposure with coulombs per kilogram or roentgens ([R]).
   /// Optionally specify a relative standard uncertainty.
   Exposure({dynamic coulombsPerKilogram, dynamic R, double uncert = 0.0})
@@ -45,7 +45,7 @@ class Exposure extends Quantity {
 }
 
 /// Units acceptable for use in describing Exposure quantities.
-class ExposureUnits extends Exposure with Units {
+base class ExposureUnits extends Exposure with Units {
   /// Constructs an instance.
   ExposureUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

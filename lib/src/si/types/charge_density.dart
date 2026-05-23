@@ -3,7 +3,7 @@ import 'package:quantity/quantity.dart';
 /// Electric charge per unit volume of space.
 /// See the [Wikipedia entry for Charge density](https://en.wikipedia.org/wiki/Charge_density)
 /// for more information.
-class ChargeDensity extends Quantity {
+base class ChargeDensity extends Quantity {
   /// Constructs a ChargeDensity with coulombs per cubic meter.
   /// Optionally specify a relative standard uncertainty.
   ChargeDensity({dynamic coulombsPerCubicMeter, double uncert = 0.0})
@@ -37,7 +37,7 @@ class ChargeDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing ChargeDensity quantities.
-class ChargeDensityUnits extends ChargeDensity with Units {
+base class ChargeDensityUnits extends ChargeDensity with Units {
   /// Constructs an instance.
   ChargeDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

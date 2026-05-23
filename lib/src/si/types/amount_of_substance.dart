@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// The size of an ensemble of elementary entities, such as atoms, molecules, electrons, and other particles.
 /// See the [Wikipedia entry for Amount of substance](https://en.wikipedia.org/wiki/Amount_of_substance)
 /// for more information.
-class AmountOfSubstance extends Quantity {
+base class AmountOfSubstance extends Quantity {
   /// Construct an AmountOfSubstance with moles ([mol])
   /// or kilomoles ([kmol]).
   /// Optionally specify a relative standard uncertainty.
@@ -48,7 +48,7 @@ class AmountOfSubstance extends Quantity {
 }
 
 /// Units acceptable for use in describing [AmountOfSubstance] quantities.
-class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
+base class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
   /// Constructs an instance.
   AmountOfSubstanceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

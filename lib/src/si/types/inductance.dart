@@ -8,7 +8,7 @@ import '../../si/units.dart';
 /// conductors by mutual inductance.
 /// See the [Wikipedia entry for Inductance](https://en.wikipedia.org/wiki/Inductance)
 /// for more information.
-class Inductance extends Quantity {
+base class Inductance extends Quantity {
   /// Constructs an Inductance with henries ([H]).
   /// Optionally specify a relative standard uncertainty.
   Inductance({dynamic H, double uncert = 0.0})
@@ -40,7 +40,7 @@ class Inductance extends Quantity {
 }
 
 /// Units acceptable for use in describing Inductance quantities.
-class InductanceUnits extends Inductance with Units {
+base class InductanceUnits extends Inductance with Units {
   /// Constructs an instance.
   InductanceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

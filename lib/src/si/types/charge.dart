@@ -9,7 +9,7 @@ import 'time.dart';
 /// electromagnetic field
 /// See the [Wikipedia entry for Electric charge](https://en.wikipedia.org/wiki/Electric_charge)
 /// for more information.
-class Charge extends Quantity {
+base class Charge extends Quantity {
   /// Constructs a Charge with coulombs ([C]).
   /// Optionally specify a relative standard uncertainty.
   Charge({dynamic C, double uncert = 0.0})
@@ -39,7 +39,7 @@ class Charge extends Quantity {
 }
 
 /// Units acceptable for use in describing Charge quantities.
-class ChargeUnits extends Charge with Units {
+base class ChargeUnits extends Charge with Units {
   /// Constructs an instance.
   ChargeUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

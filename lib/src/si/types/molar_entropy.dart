@@ -9,7 +9,7 @@ import 'temperature_interval.dart';
 /// Entropy content per mole of substance.
 /// See the [Wikipedia entry for Standard molar entropy](https://en.wikipedia.org/wiki/Standard_molar_entropy)
 /// for more information.
-class MolarEntropy extends Quantity {
+base class MolarEntropy extends Quantity {
   /// Constructs a MolarEntropy with joules per mole kelvin.
   /// Optionally specify a relative standard uncertainty.
   MolarEntropy({dynamic joulesPerMoleKelvin, double uncert = 0.0})
@@ -49,7 +49,7 @@ class MolarEntropy extends Quantity {
 }
 
 /// Units acceptable for use in describing MolarEntropy quantities.
-class MolarEntropyUnits extends MolarEntropy with Units {
+base class MolarEntropyUnits extends MolarEntropy with Units {
   /// Constructs an instance.
   MolarEntropyUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// A measure of the _effective concentration_ of a species in a mixture.
 /// See the [Wikipedia entry for Thermodynamic activity](https://en.wikipedia.org/wiki/Thermodynamic_activity)
 /// for more information.
-class Activity extends Quantity {
+base class Activity extends Quantity {
   /// Construct an Activity with either becquerels ([Bq]) or curies ([Ci]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -41,7 +41,7 @@ class Activity extends Quantity {
 }
 
 /// Units acceptable for use in describing Activity quantities.
-class ActivityUnits extends Activity with Units {
+base class ActivityUnits extends Activity with Units {
   /// Constructs an instance.
   ActivityUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

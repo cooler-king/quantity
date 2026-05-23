@@ -26,7 +26,7 @@ import 'power.dart';
 ///
 /// See the [Wikipedia entry for Level (logarithmic_quantity)](https://en.wikipedia.org/wiki/Level_%28logarithmic_quantity%29)
 /// for more information.
-abstract class Level extends Quantity {
+abstract base class Level extends Quantity {
   /// Constructs a Level with nepers ([Np]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -68,7 +68,7 @@ abstract class Level extends Quantity {
 }
 
 /// Units acceptable for use in describing Level quantities.
-class LevelUnits extends Level with Units {
+base class LevelUnits extends Level with Units {
   /// Constructs an instance.
   LevelUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,
@@ -105,7 +105,7 @@ class LevelUnits extends Level with Units {
 /// Represents a level of a power quantity,  a _logarithmic_ quantity.
 /// Level of a power quantity is defined as 0.5*ln(P/P0), where P/P0 is the ratio
 /// of two powers and P0 is a reference power.
-class PowerLevel extends Level {
+base class PowerLevel extends Level {
   /// Constructs an instance.
   PowerLevel(Power p, Power refP)
       : super(Np: 0.5 * math.log((p.mks / refP.mks).toDouble()));
@@ -143,7 +143,7 @@ class PowerLevel extends Level {
 /// Represents a level of a field quantity,  a _logarithmic_ quantity.
 /// Level of a field quantity is defined as ln(F/F0), where F/F0 is the ratio
 /// of two field quantities and F0 is a reference amplitude of the appropriate type.
-class FieldLevel extends Level {
+base class FieldLevel extends Level {
   /// Constructs an instance.
   FieldLevel(Quantity q1, Quantity refQ)
       : super(Np: 0.5 * math.log((q1.mks / refQ.mks).toDouble()));

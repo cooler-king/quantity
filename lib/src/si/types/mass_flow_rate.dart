@@ -8,7 +8,7 @@ import 'time.dart';
 /// The mass of a substance which passes per unit of time.
 /// See the [Wikipedia entry for Mass flow rate](https://en.wikipedia.org/wiki/Mass_flow_rate)
 /// for more information.
-class MassFlowRate extends Quantity {
+base class MassFlowRate extends Quantity {
   /// Constructs a MassFlowRate with kilograms per second.
   /// Optionally specify a relative standard uncertainty.
   MassFlowRate({dynamic kilogramsPerSecond, double uncert = 0.0})
@@ -42,7 +42,7 @@ class MassFlowRate extends Quantity {
 }
 
 /// Units acceptable for use in describing MassFlowRate quantities.
-class MassFlowRateUnits extends MassFlowRate with Units {
+base class MassFlowRateUnits extends MassFlowRate with Units {
   /// Constructs an instance.
   MassFlowRateUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

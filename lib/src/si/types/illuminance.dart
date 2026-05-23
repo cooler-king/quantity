@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// The total luminous flux incident on a surface, per unit area.
 /// See the [Wikipedia entry for Illuminance](https://en.wikipedia.org/wiki/Illuminance)
 /// for more information.
-class Illuminance extends Quantity {
+base class Illuminance extends Quantity {
   /// Constructs an Illuminance with [lux].
   /// Optionally specify a relative standard uncertainty.
   Illuminance({dynamic lux, double uncert = 0.0})
@@ -40,7 +40,7 @@ class Illuminance extends Quantity {
 }
 
 /// Units acceptable for use in describing Illuminance quantities.
-class IlluminanceUnits extends Illuminance with Units {
+base class IlluminanceUnits extends Illuminance with Units {
   /// Constructs an instance.
   IlluminanceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

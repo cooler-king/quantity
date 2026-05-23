@@ -23,20 +23,26 @@ MutableQuantity toMutable(Quantity q) => MutableQuantity()..setEqualTo(q);
 /// `invert` method, which inverts the MiscQuantity in place without
 /// returning a object.  This is possible because a MiscQuantity may have
 /// any Dimensions, whereas other Quantity subclasses have fixed Dimensions.
-// ignore: avoid_implementing_value_types
-class MutableQuantity implements Quantity {
+base class MutableQuantity extends Quantity {
   /// Constructs an instance, with optional SI-MKS value, dimensions and/or relative uncertainty.
   MutableQuantity(
-      [this._valueSI = Double.zero,
-      this._dimensions = Scalar.scalarDimensions,
-      this._ur = 0.0]);
+      [Number valueSI = Double.zero,
+      Dimensions dimensions = Scalar.scalarDimensions,
+      double ur = 0.0,
+      Units? preferredUnits])
+      : _valueSI = valueSI,
+        _dimensions = dimensions,
+        _ur = ur,
+        _preferredUnits = preferredUnits,
+        super(valueSI, preferredUnits, ur);
 
   /// Constructs an instance from an existing Quantity.
   MutableQuantity.from(Quantity q)
       : _valueSI = q.valueSI,
         _dimensions = q.dimensions,
         _ur = q.relativeUncertainty,
-        preferredUnits = q.preferredUnits;
+        _preferredUnits = q.preferredUnits,
+        super(q.valueSI, q.preferredUnits, q.relativeUncertainty);
 
   // Value.
   @override
@@ -60,7 +66,7 @@ class MutableQuantity implements Quantity {
       _dimensions = dim;
 
       // Any preferred units will no longer be valid.
-      preferredUnits = null;
+      _preferredUnits = null;
 
       _onChange.add(snapshot);
     }
@@ -89,9 +95,19 @@ class MutableQuantity implements Quantity {
     }
   }
 
+  Units? _preferredUnits;
+
   /// Preferred units for display.
   @override
-  Units? preferredUnits;
+  Units? get preferredUnits => _preferredUnits;
+
+  set preferredUnits(Units? units) {
+    if (units != _preferredUnits) {
+      if (!mutable) throw ImmutableQuantityException(q: this);
+      _preferredUnits = units;
+      _onChange.add(snapshot);
+    }
+  }
 
   /// Mutability can be turned on and off (defaults to true).
   bool mutable = true;
@@ -148,7 +164,7 @@ class MutableQuantity implements Quantity {
   Quantity setEqualTo(Quantity q2) {
     if (!mutable) throw ImmutableQuantityException(q: this);
 
-    preferredUnits = q2.preferredUnits;
+    _preferredUnits = q2.preferredUnits;
 
     if (valueSI != q2.valueSI ||
         _dimensions != q2.dimensions ||
@@ -232,7 +248,7 @@ class MutableQuantity implements Quantity {
   int get hashCode => hashObjects(<Object>[this]);
 
   @override
-  bool operator ==(Object other) => hashCode == other.hashCode;
+  bool operator ==(Object obj) => hashCode == obj.hashCode;
 
   /// Inverts this MutableQuantity, both value and dimensions, in place.
   void invert() {
@@ -241,7 +257,7 @@ class MutableQuantity implements Quantity {
     _dimensions = dimensions.inverse();
 
     // Any preferred units will no longer be valid (except for Scalar).
-    if (dimensions != Scalar.scalarDimensions) preferredUnits = null;
+    if (dimensions != Scalar.scalarDimensions) _preferredUnits = null;
 
     _onChange.add(snapshot);
   }
@@ -302,7 +318,7 @@ class MutableQuantity implements Quantity {
   bool operator >=(Quantity other) => snapshot.compareTo(other) >= 0;
 
   @override
-  Quantity operator ^(dynamic exp) => snapshot ^ exp;
+  Quantity operator ^(dynamic exponent) => snapshot ^ exponent;
 
   /// Whether or not this Quantity has scalar dimensions, including having no angle or
   /// solid angle dimensions.

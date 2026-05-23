@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// The increase in rate of a chemical reaction caused by the presence of a catalyst.
 /// See the [Wikipedia entry for Catalysis](https://en.wikipedia.org/wiki/Catalysis)
 /// for more information.
-class CatalyticActivity extends Quantity {
+base class CatalyticActivity extends Quantity {
   /// Constructs a CatalyticActivity with katals ([kat]).
   /// Optionally specify a relative standard uncertainty.
   CatalyticActivity({dynamic kat, double uncert = 0.0})
@@ -39,7 +39,7 @@ class CatalyticActivity extends Quantity {
 }
 
 /// Units acceptable for use in describing CatalyticActivity quantities.
-class CatalyticActivityUnits extends CatalyticActivity with Units {
+base class CatalyticActivityUnits extends CatalyticActivity with Units {
   /// Constructs an instance.
   CatalyticActivityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -7,7 +7,7 @@ import '../../si/units.dart';
 /// of ionizing radiation on the human body.
 /// See the [Wikipedia entry for Equivalent dose](https://en.wikipedia.org/wiki/Equivalent_dose)
 /// for more information.
-class DoseEquivalent extends Quantity {
+base class DoseEquivalent extends Quantity {
   /// Constructs a DoseEquivalent with seiverts ([Sv]) or [rems].
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -48,7 +48,7 @@ class DoseEquivalent extends Quantity {
 }
 
 /// Units acceptable for use in describing DoseEquivalent quantities.
-class DoseEquivalentUnits extends DoseEquivalent with Units {
+base class DoseEquivalentUnits extends DoseEquivalent with Units {
   /// Constructs an instance.
   DoseEquivalentUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

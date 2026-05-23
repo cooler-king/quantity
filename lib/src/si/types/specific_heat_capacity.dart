@@ -11,7 +11,7 @@ import 'temperature_interval.dart';
 /// The heat capacity per unit mass of a material.
 /// See the [Wikipedia entry for Heat capacity](https://en.wikipedia.org/wiki/Heat_capacity)
 /// for more information.
-class SpecificHeatCapacity extends Quantity {
+base class SpecificHeatCapacity extends Quantity {
   /// Constructs a SpecificHeatCapacity with joules per kilogram kelvin.
   /// Optionally specify a relative standard uncertainty.
   SpecificHeatCapacity({dynamic joulesPerKilogramKelvin, double uncert = 0.0})
@@ -47,7 +47,7 @@ class SpecificHeatCapacity extends Quantity {
 }
 
 /// Units acceptable for use in describing SpecificHeatCapacity quantities.
-class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
+base class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
   /// Constructs an instance.
   SpecificHeatCapacityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

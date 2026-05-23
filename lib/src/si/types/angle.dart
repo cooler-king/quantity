@@ -39,7 +39,7 @@ const double twoPi = 2.0 * math.pi;
 ///
 /// See the [Wikipedia entry for Angle](https://en.wikipedia.org/wiki/Angle)
 /// for more information.
-class Angle extends Quantity {
+base class Angle extends Quantity {
   /// Constructs an Angle with either radians ([rad]) or degrees ([deg]).
   /// Optionally specify a relative standard uncertainty.
   Angle({dynamic rad, dynamic deg, double uncert = 0.0})
@@ -199,7 +199,7 @@ class Angle extends Quantity {
 }
 
 /// Units acceptable for use in describing Angle quantities.
-class AngleUnits extends Angle with Units {
+base class AngleUnits extends Angle with Units {
   /// Constructs an instance.
   AngleUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

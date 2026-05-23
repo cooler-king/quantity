@@ -8,7 +8,7 @@ import 'time.dart';
 /// The rate of change of position.
 /// See the [Wikipedia entry for Speed](https://en.wikipedia.org/wiki/Speed)
 /// for more information.
-class Speed extends Quantity {
+base class Speed extends Quantity {
   /// Constructs a Speed with meters per second or [knots].
   /// Optionally specify a relative standard uncertainty.
   Speed({dynamic metersPerSecond, dynamic knots, double uncert = 0.0})
@@ -41,7 +41,7 @@ class Speed extends Quantity {
 }
 
 /// Units acceptable for use in describing Speed quantities.
-class SpeedUnits extends Speed with Units {
+base class SpeedUnits extends Speed with Units {
   /// Constructs an instance.
   SpeedUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

@@ -8,7 +8,7 @@ import 'volume.dart';
 /// The volume of fluid which passes per unit time.
 /// See the [Wikipedia entry for Volumetric flow rate](https://en.wikipedia.org/wiki/Volumetric_flow_rate)
 /// for more information.
-class VolumeFlowRate extends Quantity {
+base class VolumeFlowRate extends Quantity {
   /// Constructs a VolumeFlowRate with cubic meters per second.
   /// Optionally specify a relative standard uncertainty.
   VolumeFlowRate({dynamic cubicMetersPerSecond, double uncert = 0.0})
@@ -42,7 +42,7 @@ class VolumeFlowRate extends Quantity {
 }
 
 /// Units acceptable for use in describing VolumeFlowRate quantities.
-class VolumeFlowRateUnits extends VolumeFlowRate with Units {
+base class VolumeFlowRateUnits extends VolumeFlowRate with Units {
   /// Constructs an instance.
   VolumeFlowRateUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -7,7 +7,7 @@ import 'length.dart';
 /// The spatial frequency of a wave.
 /// See the [Wikipedia entry for Wavenumber](https://en.wikipedia.org/wiki/Wavenumber)
 /// for more information.
-class WaveNumber extends Quantity {
+base class WaveNumber extends Quantity {
   /// Constructs a WaveNumber with reciprocal meters.
   /// Optionally specify a relative standard uncertainty.
   WaveNumber({dynamic reciprocalMeters, double uncert = 0.0})
@@ -38,7 +38,7 @@ class WaveNumber extends Quantity {
 }
 
 /// Units acceptable for use in describing WaveNumber quantities.
-class WaveNumberUnits extends WaveNumber with Units {
+base class WaveNumberUnits extends WaveNumber with Units {
   /// Constructs an instance.
   WaveNumberUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

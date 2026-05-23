@@ -91,7 +91,7 @@ import '../../src/si/units.dart';
 /// dimensions and determine quantity types.  To test whether two Dimensions
 /// objects are equal strictly in terms of the base SI dimensions, the
 /// equalsSI method may be used.
-class Dimensions {
+final class Dimensions {
   /// No-arg constructor sets all dimensions to zero (that is, a scalar quantity).
   Dimensions()
       : _dimensionMap = <String, num>{},
@@ -392,191 +392,87 @@ class Dimensions {
   static Type determineQuantityType(Dimensions? dim) {
     if (dim == null) return MiscQuantity;
 
-    // Get the number of dimension components
     final numDims = dim._dimensionMap.length;
-
-    // Check Scalar first for all 0's case
     if (numDims == 0) return Scalar;
-
-    // Check for more components exist in any named Quantity
     if (numDims > 5) return MiscQuantity;
 
-    // Bin Possibilities By Length Dimension and number of components
     final lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
-    if (lengthExp is! int) {
-      return MiscQuantity; // non-integer exponents means MiscQuantity
-    }
+    if (lengthExp is! int) return MiscQuantity;
 
-    if (lengthExp == -3) {
-      if (numDims == 1) {
-        return Volume;
-      } else if (numDims == 2) {
-        if (dim == MassDensity.massDensityDimensions) return MassDensity;
-        if (dim == Concentration.concentrationDimensions) return Concentration;
-      } else if (numDims == 3) {
-        if (dim == ChargeDensity.electricChargeDensityDimensions) {
-          return ChargeDensity;
-        }
-      } else if (numDims == 4) {
-        if (dim == Permittivity.permittivityDimensions) return Permittivity;
-      }
-    } else if (lengthExp == -2) {
-      if (numDims == 2) {
-        if (dim == CurrentDensity.electricCurrentDensityDimensions) {
-          return CurrentDensity;
-        }
-        if (dim == Luminance.luminanceDimensions) return Luminance;
-      } else if (numDims == 3) {
-        if (dim == ElectricFluxDensity.electricFluxDensityDimensions) {
-          return ElectricFluxDensity;
-        }
-        if (dim == Illuminance.illuminanceDimensions) return Illuminance;
-        if (dim == MassFluxDensity.massFluxDensityDimensions) {
-          return MassFluxDensity;
-        }
-      } else if (numDims == 4) {
-        if (dim == Capacitance.electricCapacitanceDimensions) {
-          return Capacitance;
-        }
-        if (dim == Conductance.electricConductanceDimensions) {
-          return Conductance;
-        }
-      }
-    } else if (lengthExp == -1) {
-      if (numDims == 1) {
-        return WaveNumber;
-      } else if (numDims == 2) {
-        if (dim == MagneticFieldStrength.magneticFieldStrengthDimensions) {
-          return MagneticFieldStrength;
-        }
-      } else if (numDims == 3) {
-        if (dim == Pressure.pressureDimensions) return Pressure;
-        if (dim == DynamicViscosity.dynamicViscosityDimensions) {
-          return DynamicViscosity;
-        }
-      }
-    } else if (lengthExp == 0) {
-      if (numDims == 1) {
-        if (dim == Mass.massDimensions) return Mass;
-        if (dim == Time.timeDimensions) return Time;
-        if (dim == Current.electricCurrentDimensions) return Current;
-        if (dim == TemperatureInterval.temperatureIntervalDimensions) {
-          return TemperatureInterval;
-        }
-        if (dim == AmountOfSubstance.amountOfSubstanceDimensions) {
-          return AmountOfSubstance;
-        }
-        if (dim == LuminousIntensity.luminousIntensityDimensions) {
-          return LuminousIntensity;
-        }
-        if (dim == Angle.angleDimensions) return Angle;
-        if (dim == SolidAngle.solidAngleDimensions) return SolidAngle;
+    return switch ((lengthExp, numDims)) {
+      (-3, 1) => Volume,
+      (-3, 2) when dim == MassDensity.massDensityDimensions => MassDensity,
+      (-3, 2) when dim == Concentration.concentrationDimensions => Concentration,
+      (-3, 3) when dim == ChargeDensity.electricChargeDensityDimensions => ChargeDensity,
+      (-3, 4) when dim == Permittivity.permittivityDimensions => Permittivity,
 
-        if (dim == Frequency.frequencyDimensions) return Frequency;
-      } else if (numDims == 2) {
-        if (dim == Charge.electricChargeDimensions) return Charge;
-        if (dim == LuminousFlux.luminousFluxDimensions) return LuminousFlux;
-        if (dim == SurfaceTension.surfaceTensionDimensions) {
-          return SurfaceTension;
-        }
-        if (dim == AngularSpeed.angularSpeedDimensions) return AngularSpeed;
-        if (dim == AngularAcceleration.angularAccelerationDimensions) {
-          return AngularAcceleration;
-        }
-        if (dim == HeatFluxDensity.heatFluxDensityDimensions) {
-          return HeatFluxDensity;
-        }
-        if (dim == CatalyticActivity.catalyticActivityDimensions) {
-          return CatalyticActivity;
-        }
-        if (dim == MassFlowRate.massFlowRateDimensions) return MassFlowRate;
-        if (dim == SpectralIrradiance.spectralIrradianceDimensions) {
-          return SpectralIrradiance;
-        }
-      } else if (numDims == 3) {
-        if (dim == MagneticFluxDensity.magneticFluxDensityDimensions) {
-          return MagneticFluxDensity;
-        }
-        if (dim == Exposure.exposureDimensions) return Exposure;
-        if (dim == Radiance.radianceDimensions) return Radiance;
-      }
-    } else if (lengthExp == 1) {
-      if (numDims == 1) {
-        return Length;
-      } else if (numDims == 2) {
-        if (dim == Speed.speedDimensions) return Speed;
-        if (dim == Acceleration.accelerationDimensions) return Acceleration;
-      } else if (numDims == 3) {
-        if (dim == Force.forceDimensions) return Force;
-        if (dim == AngularMomentum.angularMomentumDimensions) {
-          return AngularMomentum;
-        }
-      } else if (numDims == 4) {
-        if (dim == ThermalConductivity.thermalConductivityDimensions) {
-          return ThermalConductivity;
-        }
-        if (dim == ElectricFieldStrength.electricFieldStrengthDimensions) {
-          return ElectricFieldStrength;
-        }
-        if (dim == Permeability.permeabilityDimensions) return Permeability;
-      }
-    } else if (lengthExp == 2) {
-      if (numDims == 1) {
-        return Area;
-      } else if (numDims == 2) {
-        if (dim == SpecificEnergy.specificEnergyDimensions) {
-          return SpecificEnergy;
-        }
-        if (dim == AbsorbedDoseRate.absorbedDoseRateDimensions) {
-          return AbsorbedDoseRate;
-        }
-        if (dim == KinematicViscosity.kinematicViscosityDimensions) {
-          return KinematicViscosity;
-        }
-      } else if (numDims == 3) {
-        if (dim == Energy.energyDimensions) return Energy;
-        if (dim == Power.powerDimensions) return Power;
-        if (dim == SpecificHeatCapacity.specificHeatCapacityDimensions) {
-          return SpecificHeatCapacity; // or specific entropy
-        }
-      } else if (numDims == 4) {
-        if (dim ==
-            ElectricPotentialDifference.electricPotentialDifferenceDimensions) {
-          return ElectricPotentialDifference;
-        }
-        if (dim == Resistance.electricResistanceDimensions) return Resistance;
-        if (dim == MagneticFlux.magneticFluxDimensions) return MagneticFlux;
-        if (dim == Inductance.inductanceDimensions) return Inductance;
-        if (dim == Entropy.entropyDimensions) {
-          return Entropy; // also heat capacity
-        }
-        if (dim == MolarEnergy.molarEnergyDimensions) return MolarEnergy;
-        if (dim == RadiantIntensity.radiantIntensityDimensions) {
-          return RadiantIntensity;
-        }
-        if (dim == Torque.torqueDimensions) return Torque;
-      } else if (numDims == 5) {
-        if (dim == MolarEntropy.molarEntropyDimensions) {
-          return MolarEntropy; // also molar heat capacity
-        }
-      }
-    } else if (lengthExp == 3) {
-      if (numDims == 1) {
-        return Volume;
-      } else if (numDims == 2) {
-        if (dim == SpecificVolume.specificVolumeDimensions) {
-          return SpecificVolume;
-        }
-        if (dim == VolumeFlowRate.volumeFlowRateDimensions) {
-          return VolumeFlowRate;
-        }
-      }
-    } else {
-      return MiscQuantity;
-    }
+      (-2, 2) when dim == CurrentDensity.electricCurrentDensityDimensions => CurrentDensity,
+      (-2, 2) when dim == Luminance.luminanceDimensions => Luminance,
+      (-2, 3) when dim == ElectricFluxDensity.electricFluxDensityDimensions => ElectricFluxDensity,
+      (-2, 3) when dim == Illuminance.illuminanceDimensions => Illuminance,
+      (-2, 3) when dim == MassFluxDensity.massFluxDensityDimensions => MassFluxDensity,
+      (-2, 4) when dim == Capacitance.electricCapacitanceDimensions => Capacitance,
+      (-2, 4) when dim == Conductance.electricConductanceDimensions => Conductance,
 
-    // Couldn't find any... return MiscQuantity
-    return MiscQuantity;
+      (-1, 1) => WaveNumber,
+      (-1, 2) when dim == MagneticFieldStrength.magneticFieldStrengthDimensions => MagneticFieldStrength,
+      (-1, 3) when dim == Pressure.pressureDimensions => Pressure,
+      (-1, 3) when dim == DynamicViscosity.dynamicViscosityDimensions => DynamicViscosity,
+
+      (0, 1) when dim == Mass.massDimensions => Mass,
+      (0, 1) when dim == Time.timeDimensions => Time,
+      (0, 1) when dim == Current.electricCurrentDimensions => Current,
+      (0, 1) when dim == TemperatureInterval.temperatureIntervalDimensions => TemperatureInterval,
+      (0, 1) when dim == AmountOfSubstance.amountOfSubstanceDimensions => AmountOfSubstance,
+      (0, 1) when dim == LuminousIntensity.luminousIntensityDimensions => LuminousIntensity,
+      (0, 1) when dim == Angle.angleDimensions => Angle,
+      (0, 1) when dim == SolidAngle.solidAngleDimensions => SolidAngle,
+      (0, 1) when dim == Frequency.frequencyDimensions => Frequency,
+      (0, 2) when dim == Charge.electricChargeDimensions => Charge,
+      (0, 2) when dim == LuminousFlux.luminousFluxDimensions => LuminousFlux,
+      (0, 2) when dim == SurfaceTension.surfaceTensionDimensions => SurfaceTension,
+      (0, 2) when dim == AngularSpeed.angularSpeedDimensions => AngularSpeed,
+      (0, 2) when dim == AngularAcceleration.angularAccelerationDimensions => AngularAcceleration,
+      (0, 2) when dim == HeatFluxDensity.heatFluxDensityDimensions => HeatFluxDensity,
+      (0, 2) when dim == CatalyticActivity.catalyticActivityDimensions => CatalyticActivity,
+      (0, 2) when dim == MassFlowRate.massFlowRateDimensions => MassFlowRate,
+      (0, 2) when dim == SpectralIrradiance.spectralIrradianceDimensions => SpectralIrradiance,
+      (0, 3) when dim == MagneticFluxDensity.magneticFluxDensityDimensions => MagneticFluxDensity,
+      (0, 3) when dim == Exposure.exposureDimensions => Exposure,
+      (0, 3) when dim == Radiance.radianceDimensions => Radiance,
+
+      (1, 1) => Length,
+      (1, 2) when dim == Speed.speedDimensions => Speed,
+      (1, 2) when dim == Acceleration.accelerationDimensions => Acceleration,
+      (1, 3) when dim == Force.forceDimensions => Force,
+      (1, 3) when dim == AngularMomentum.angularMomentumDimensions => AngularMomentum,
+      (1, 4) when dim == ThermalConductivity.thermalConductivityDimensions => ThermalConductivity,
+      (1, 4) when dim == ElectricFieldStrength.electricFieldStrengthDimensions => ElectricFieldStrength,
+      (1, 4) when dim == Permeability.permeabilityDimensions => Permeability,
+
+      (2, 1) => Area,
+      (2, 2) when dim == SpecificEnergy.specificEnergyDimensions => SpecificEnergy,
+      (2, 2) when dim == AbsorbedDoseRate.absorbedDoseRateDimensions => AbsorbedDoseRate,
+      (2, 2) when dim == KinematicViscosity.kinematicViscosityDimensions => KinematicViscosity,
+      (2, 3) when dim == Energy.energyDimensions => Energy,
+      (2, 3) when dim == Power.powerDimensions => Power,
+      (2, 3) when dim == SpecificHeatCapacity.specificHeatCapacityDimensions => SpecificHeatCapacity,
+      (2, 4) when dim == ElectricPotentialDifference.electricPotentialDifferenceDimensions => ElectricPotentialDifference,
+      (2, 4) when dim == Resistance.electricResistanceDimensions => Resistance,
+      (2, 4) when dim == MagneticFlux.magneticFluxDimensions => MagneticFlux,
+      (2, 4) when dim == Inductance.inductanceDimensions => Inductance,
+      (2, 4) when dim == Entropy.entropyDimensions => Entropy,
+      (2, 4) when dim == MolarEnergy.molarEnergyDimensions => MolarEnergy,
+      (2, 4) when dim == RadiantIntensity.radiantIntensityDimensions => RadiantIntensity,
+      (2, 4) when dim == Torque.torqueDimensions => Torque,
+      (2, 5) when dim == MolarEntropy.molarEntropyDimensions => MolarEntropy,
+
+      (3, 1) => Volume,
+      (3, 2) when dim == SpecificVolume.specificVolumeDimensions => SpecificVolume,
+      (3, 2) when dim == VolumeFlowRate.volumeFlowRateDimensions => VolumeFlowRate,
+
+      _ => MiscQuantity,
+    };
   }
 
   /// Returns an instance of the Quantity type associated with these dimensions.

@@ -13,7 +13,7 @@ import '../../si/units.dart';
 ///
 /// See the [Wikipedia entry for Time](https://en.wikipedia.org/wiki/Time)
 /// for more information.
-class Time extends Quantity {
+base class Time extends Quantity {
   /// Constructs a Time with seconds ([s]), milliseconds ([ms]), nanoseconds ([ns]), mean solar days ([d]), mean solar hours ([h])
   /// or mean solar minutes ([min]).
   /// Optionally specify a relative standard uncertainty.
@@ -109,7 +109,7 @@ class Time extends Quantity {
 }
 
 /// Units acceptable for use in describing [Time] quantities.
-class TimeUnits extends Time with Units {
+base class TimeUnits extends Time with Units {
   /// Constructs an instance.
   TimeUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

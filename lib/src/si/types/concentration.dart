@@ -3,7 +3,7 @@ import 'package:quantity/quantity.dart';
 /// The abundance of a constituent divided by the total volume of a mixture.
 /// See the [Wikipedia entry for Concentration](https://en.wikipedia.org/wiki/Concentration)
 /// for more information.
-class Concentration extends Quantity {
+base class Concentration extends Quantity {
   /// Constructs a Concentration with moles per cubic meter.
   /// Optionally specify a relative standard uncertainty.
   Concentration({dynamic molesPerCubicMeter, double uncert = 0.0})
@@ -38,7 +38,7 @@ class Concentration extends Quantity {
 }
 
 /// Units acceptable for use in describing Concentration quantities.
-class ConcentrationUnits extends Concentration with Units {
+base class ConcentrationUnits extends Concentration with Units {
   /// Constructs an instance.
   ConcentrationUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

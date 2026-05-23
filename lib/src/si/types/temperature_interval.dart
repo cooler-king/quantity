@@ -9,7 +9,7 @@ import 'temperature.dart';
 /// measure of hot or cold.
 /// See the [Wikipedia entry for Thermodynamic temperature](https://en.wikipedia.org/wiki/Thermodynamic_temperature)
 /// for more information.
-class TemperatureInterval extends Quantity {
+base class TemperatureInterval extends Quantity {
   /// Constructs a TemperatureInterval with kelvin ([K]) or degrees Celsius ([degC]).
   /// Optionally specify a relative standard uncertainty.
   TemperatureInterval({dynamic K, dynamic degC, double uncert = 0.0})
@@ -95,7 +95,7 @@ class TemperatureInterval extends Quantity {
 }
 
 /// Units acceptable for use in describing TemperatureInterval quantities.
-class TemperatureIntervalUnits extends TemperatureInterval with Units {
+base class TemperatureIntervalUnits extends TemperatureInterval with Units {
   /// Constructs an instance.
   TemperatureIntervalUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

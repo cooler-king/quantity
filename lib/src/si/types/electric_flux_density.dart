@@ -4,7 +4,7 @@ import 'package:quantity/quantity.dart';
 /// corresponding to the number of electric field lines passing through a given area.
 /// See the [Wikipedia entry for Electric_flux](https://en.wikipedia.org/wiki/Electric_flux)
 /// for more information.
-class ElectricFluxDensity extends Quantity {
+base class ElectricFluxDensity extends Quantity {
   /// Construct an ElectricFluxDensity with coulombs per square meter.
   /// Optionally specify a relative standard uncertainty.
   ElectricFluxDensity({dynamic coulombsPerSquareMeter, double uncert = 0.0})
@@ -40,7 +40,7 @@ class ElectricFluxDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing ElectricFluxDensity quantities.
-class ElectricFluxDensityUnits extends ElectricFluxDensity with Units {
+base class ElectricFluxDensityUnits extends ElectricFluxDensity with Units {
   /// Constructs an instance.
   ElectricFluxDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

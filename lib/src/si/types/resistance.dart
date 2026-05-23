@@ -6,7 +6,7 @@ import '../../si/units.dart';
 /// A measure of the difficulty passing an electric current through a conductor.
 /// See the [Wikipedia entry for Electrical resistance and conductance](https://en.wikipedia.org/wiki/Electrical_resistance_and_conductance)
 /// for more information.
-class Resistance extends Quantity {
+base class Resistance extends Quantity {
   /// Constructs a Resistance with [ohms].
   /// Optionally specify a relative standard uncertainty.
   Resistance({dynamic ohms, double uncert = 0.0})
@@ -39,7 +39,7 @@ class Resistance extends Quantity {
 }
 
 /// Units acceptable for use in describing Resistance quantities.
-class ResistanceUnits extends Resistance with Units {
+base class ResistanceUnits extends Resistance with Units {
   /// Constructs an instance.
   ResistanceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

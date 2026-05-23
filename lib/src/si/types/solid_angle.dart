@@ -7,7 +7,7 @@ import 'angle.dart';
 /// A two-dimensional angle in three-dimensional space that an object subtends at a point.
 /// See the [Wikipedia entry for Solid angle](https://en.wikipedia.org/wiki/Solid_angle)
 /// for more information.
-class SolidAngle extends Quantity {
+base class SolidAngle extends Quantity {
   /// Constructs a SolidAngle with steradians ([sr]).
   /// Optionally specify a relative standard uncertainty.
   SolidAngle({dynamic sr, double uncert = 0.0})
@@ -37,7 +37,7 @@ class SolidAngle extends Quantity {
 }
 
 /// Units acceptable for use in describing SolidAngle quantities.
-class SolidAngleUnits extends SolidAngle with Units {
+base class SolidAngleUnits extends SolidAngle with Units {
   /// Constructs an instance.
   SolidAngleUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

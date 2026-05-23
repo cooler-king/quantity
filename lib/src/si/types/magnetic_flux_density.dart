@@ -7,7 +7,7 @@ import '../../si/units.dart';
 /// magnetic flux's direction
 /// See the [Wikipedia entry for Magnetic flux](https://en.wikipedia.org/wiki/Magnetic_flux)
 /// for more information.
-class MagneticFluxDensity extends Quantity {
+base class MagneticFluxDensity extends Quantity {
   /// Constructs a MagneticFluxDensity with teslas ([T]).
   /// Optionally specify a relative standard uncertainty.
   MagneticFluxDensity({dynamic T, double uncert = 0.0})
@@ -40,7 +40,7 @@ class MagneticFluxDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing MagneticFluxDensity quantities.
-class MagneticFluxDensityUnits extends MagneticFluxDensity with Units {
+base class MagneticFluxDensityUnits extends MagneticFluxDensity with Units {
   /// Constructs an instance.
   MagneticFluxDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -10,7 +10,7 @@ import 'length.dart';
 /// The tendency of a force to rotate an object about an axis, fulcrum, or pivot.
 /// See the [Wikipedia entry for Torque](https://en.wikipedia.org/wiki/Torque)
 /// for more information.
-class Torque extends Quantity {
+base class Torque extends Quantity {
   /// Constructs a Torque with newton meters ([Nm]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -41,7 +41,7 @@ class Torque extends Quantity {
 }
 
 /// Units acceptable for use in describing Torque quantities.
-class TorqueUnits extends Torque with Units {
+base class TorqueUnits extends Torque with Units {
   /// Constructs an instance.
   TorqueUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

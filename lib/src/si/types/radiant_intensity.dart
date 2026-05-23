@@ -9,7 +9,7 @@ import 'solid_angle.dart';
 /// The radiant flux emitted, reflected, transmitted or received, per unit solid angle.
 /// See the [Wikipedia entry for Radiant intensity](https://en.wikipedia.org/wiki/Radiant_intensity)
 /// for more information.
-class RadiantIntensity extends Quantity {
+base class RadiantIntensity extends Quantity {
   /// Constructs a RadiantIntensity with watts per steradian.
   /// Optionally specify a relative standard uncertainty.
   RadiantIntensity({dynamic wattsPerSteradian, double uncert = 0.0})
@@ -44,7 +44,7 @@ class RadiantIntensity extends Quantity {
 }
 
 /// Units acceptable for use in describing RadiantIntensity quantities.
-class RadiantIntensityUnits extends RadiantIntensity with Units {
+base class RadiantIntensityUnits extends RadiantIntensity with Units {
   /// Constructs an instance.
   RadiantIntensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,
