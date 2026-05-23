@@ -24,20 +24,18 @@ common mistakes and offering improved readability.
 
 ## Quick start
 
-    // Import the core library.
-    import 'package:quantity/quantity_si.dart';
+    // Import the package.
+    import 'package:quantity/quantity.dart';
 
-    // Construct an Angle in radians.
-    var ang = new Angle(rad: 1.1);
-
-    // Construct an Angle in degrees.
-    var ang2 = new Angle(deg: 270);
+    // Construct an Angle using fluent extension (e.g., 1.1.radians or 270.degrees).
+    var ang = 1.1.radians;
+    var ang2 = 270.degrees;
 
     // Find the difference.
-    var diff = ang2 - ang;
+    var diff = ang2 - ang as Angle;
 
-    // Display the result in degrees.
-    print(diff.valueInUnits(Angle.degrees);
+    // Display the result in degrees using the shortcut getter.
+    print(diff.inDegrees);
 
 ## Key Features
 
