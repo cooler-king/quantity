@@ -12,6 +12,11 @@ void main() {
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
+      
+      expect(Angle.minutes, isNotNull);
+      expect(Angle.seconds, isNotNull);
+      expect(Angle.minutes, Angle.minutesArc);
+      expect(Angle.seconds, Angle.secondsArc);
 
       // Default ctor: rad +
       a = Angle(rad: 2.4);
@@ -182,7 +187,8 @@ void main() {
 
       // fromDegMinSec constructor
       final adms = Angle.fromDegMinSec(10, 30, 36.0);
-      expect(adms.valueInUnits(Angle.degrees).toDouble(), closeTo(10.51, 0.0001));
+      expect(
+          adms.valueInUnits(Angle.degrees).toDouble(), closeTo(10.51, 0.0001));
 
       // degMinSec getter
       final dms = adms.degMinSec;
@@ -197,7 +203,8 @@ void main() {
       expect(hms[2], 0.0);
 
       // derive units
-      final derivedUnits = Angle.radians.derive('kilo', 'k', 1000.0) as AngleUnits;
+      final derivedUnits =
+          Angle.radians.derive('kilo', 'k', 1000.0) as AngleUnits;
       expect(derivedUnits.name, 'kiloradians');
       expect(derivedUnits.abbrev1, 'krad');
       expect(derivedUnits.quantityType, Angle);

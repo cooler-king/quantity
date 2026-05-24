@@ -4,6 +4,7 @@ import 'package:quantity/quantity.dart';
 base class MockLevel extends Level {
   // ignore: non_constant_identifier_names
   MockLevel({super.Np, super.uncert});
+  MockLevel.constant(super.valueSI) : super.constant();
   MockLevel.inUnits(super.value, super.units, [super.uncert]) : super.inUnits();
   MockLevel.misc(super.conv) : super.misc();
 }
@@ -24,6 +25,9 @@ void main() {
       expect(Level.nepers.name, 'nepers');
       expect(Level.bels.name, 'bels');
       expect(Level.decibels.name, 'decibels');
+
+      var lConst = MockLevel.constant(Double(5.0));
+      expect(lConst.valueSI.toDouble(), 5.0);
 
       // derive Units
       var derived = Level.nepers.derive('testPrefix', 'tp', 2.0);
@@ -69,6 +73,8 @@ void main() {
       // Fallback behavior
       expect(() => fl1 + Length(m: 5.0), throwsA(isA<DimensionsException>()));
       expect(() => fl1 + 'invalid', throwsA(isA<QuantityException>()));
+      expect(() => fl1 - Length(m: 5.0), throwsA(isA<DimensionsException>()));
+      expect(() => fl1 - 'invalid', throwsA(isA<QuantityException>()));
     });
   });
 
@@ -106,6 +112,8 @@ void main() {
       // Fallback behavior
       expect(() => pl1 + Length(m: 5.0), throwsA(isA<DimensionsException>()));
       expect(() => pl1 + 'invalid', throwsA(isA<QuantityException>()));
+      expect(() => pl1 - Length(m: 5.0), throwsA(isA<DimensionsException>()));
+      expect(() => pl1 - 'invalid', throwsA(isA<QuantityException>()));
     });
   });
 

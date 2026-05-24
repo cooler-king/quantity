@@ -635,9 +635,8 @@ abstract base class Quantity implements Comparable<dynamic> {
 
       // Uncertainty.
       if (relativeUncertainty != 0 && uncertFormat != UncertaintyFormat.none) {
-        final uncert = preferredUnits != null
-            ? standardUncertainty.valueInUnits(preferredUnits).toDouble()
-            : standardUncertainty.mks.toDouble();
+        final uncert =
+            standardUncertainty.valueInUnits(preferredUnits).toDouble();
 
         if (uncertFormat == UncertaintyFormat.parens) {
           buffer.write('(${nf.format(uncert)})');

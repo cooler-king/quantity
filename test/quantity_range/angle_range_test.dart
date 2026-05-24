@@ -159,5 +159,14 @@ void main() {
       expect(a2.hashCode == a3.hashCode, false);
       expect(a1.hashCode == a3.hashCode, true);
     });
+
+    test('overlaps360', () {
+      final r1 = AngleRange(Angle(deg: 10), Angle(deg: 40));
+      final r2 = AngleRange(Angle(deg: 350), Angle(deg: 20));
+      final r3 = AngleRange(Angle(deg: 100), Angle(deg: 120));
+
+      expect(r1.overlaps360(r2), true);
+      expect(r1.overlaps360(r3), false);
+    });
   });
 }

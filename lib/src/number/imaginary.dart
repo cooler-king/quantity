@@ -199,7 +199,7 @@ class Imaginary extends Number {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
       final bOverc2d2 =
-          value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
+          value / ((divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0));
       return Number.simplifyType(Complex(
           (bOverc2d2 * divisor.real).truncate() as Real,
           Imaginary((bOverc2d2 * divisor.imaginary.value * -1.0).truncate())));

@@ -24,9 +24,11 @@ void main() {
       expect(fc.valueSI.toDouble(), 5.0);
 
       // Force.ma constructor
-      final fma = Force.ma(Mass(kg: 10, uncert: 0.01), Acceleration(metersPerSecondSquared: 9.8, uncert: 0.02));
+      final fma = Force.ma(Mass(kg: 10, uncert: 0.01),
+          Acceleration(metersPerSecondSquared: 9.8, uncert: 0.02));
       expect(fma.valueSI.toDouble(), 98.0);
-      expect(fma.relativeUncertainty, closeTo(sqrt(0.01 * 0.01 + 0.02 * 0.02), 0.0001));
+      expect(fma.relativeUncertainty,
+          closeTo(sqrt(0.01 * 0.01 + 0.02 * 0.02), 0.0001));
     });
   });
 }

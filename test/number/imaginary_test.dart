@@ -756,11 +756,11 @@ void main() {
     });
 
     test('remainder()', () {
-      expect(Imaginary(0).round(), Integer(0));
-      expect(Imaginary(1).round(), Integer(0));
-      expect(Imaginary(-1).round(), Integer(0));
-      expect(Imaginary(12.345).round(), Integer(0));
-      expect(Imaginary(-12.345).round(), Integer(0));
+      expect(Imaginary(0).remainder(5), Integer.zero);
+      expect(Imaginary(1).remainder(2), Integer.zero);
+      expect(Imaginary(-1).remainder(3), Integer.zero);
+      expect(Imaginary(12.345).remainder(5.5), Integer.zero);
+      expect(Imaginary(-12.345).remainder(Integer(2)), Integer.zero);
     });
 
     test('round()', () {
@@ -856,6 +856,53 @@ void main() {
       expect(-(Imaginary(5)), Imaginary(-5));
       expect(-(Imaginary(-5)), Imaginary(5));
       expect(-(Imaginary(0)), Imaginary(0));
+    });
+
+    test('fromMap fallbacks', () {
+      expect(Imaginary.fromMap(null), Imaginary(0));
+      expect(Imaginary.fromMap({'d': 5.5}), Imaginary(5.5));
+      expect(Imaginary.fromMap({'i': 5}), Imaginary(5));
+      expect(Imaginary.fromMap({'precise': '1.5'}), Imaginary(Precise('1.5')));
+      expect(
+          Imaginary.fromMap({
+            'imag': {'d': 4.2}
+          }),
+          Imaginary(4.2));
+      expect(Imaginary.fromMap({}), Imaginary(0));
+    });
+
+    test('operator * fallback', () {
+      expect(Imaginary(5) * 'string', Imaginary(0));
+    });
+
+    test('operator / complex/zero edge cases', () {
+      final i = Imaginary(5);
+      expect(i / Complex(Double.NaN, Imaginary(Double.NaN)),
+          Complex(Double.NaN, Imaginary(Double.NaN)));
+      expect(i / Complex(Integer.zero, Imaginary(Integer.zero)),
+          Complex(Double.infinity, Imaginary(Double.infinity)));
+      expect(Imaginary(-5) / Complex(Integer.zero, Imaginary(Integer.zero)),
+          Complex(Double.negInfinity, Imaginary(Double.negInfinity)));
+      expect(Imaginary(0) / Complex(Integer.zero, Imaginary(Integer.zero)),
+          Complex(Double.NaN, Imaginary(Double.NaN)));
+      expect(i / 'string', Imaginary(Double.infinity));
+      expect(Imaginary(-5) / 'string', Imaginary(Double.negInfinity));
+    });
+
+    test('operator ~/ complex/zero edge cases', () {
+      final i = Imaginary(5);
+      expect(i ~/ 0, Imaginary(Double.infinity));
+      expect(Imaginary(-5) ~/ 0, Imaginary(Double.negInfinity));
+      expect(i ~/ Complex(Double(2), Imaginary(3)), Imaginary(-1));
+      expect(i ~/ 'string', Imaginary(Double.infinity));
+      expect(Imaginary(-5) ~/ 'string', Imaginary(Double.negInfinity));
+    });
+
+    test('operator ^ power', () {
+      final res = Imaginary(2) ^ 2;
+      expect(res, isA<Complex>());
+      expect((res as Complex).real.toDouble(), closeTo(-4, 1e-9));
+      expect(res.imag.value.toDouble(), closeTo(0, 1e-9));
     });
   });
 }

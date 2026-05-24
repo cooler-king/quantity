@@ -97,5 +97,9 @@ void main() {
       expect(prod is Currency, true);
       expect(prod.valueSI.toDouble(), closeTo(12.34 / 8.1, 0.00001));
     });
+
+    test('centsUS unit', () {
+      expect(Currency.centsUS, isNotNull);
+    });
   });
 }

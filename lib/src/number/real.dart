@@ -208,7 +208,8 @@ abstract class Real extends Number {
       // a^(b+ic) = a^b * ( cos(c * ln(a)) + i * sin(c * ln(a)) )
       final coeff = this ^ exponent.real;
       final clna = (exponent.imaginary.value * log(value)).toDouble();
-      return Complex(Double((coeff * cos(clna)).toDouble()), Imaginary((coeff * sin(clna)).toDouble()));
+      return Complex(Double((coeff * cos(clna)).toDouble()),
+          Imaginary((coeff * sin(clna)).toDouble()));
     }
     if (exponent is Imaginary) {
       // a^(ic) = cos(c * ln(a)) + i * sin(c * ln(a))
@@ -238,11 +239,7 @@ abstract class Real extends Number {
   bool operator <=(dynamic obj) => !(this > obj);
 
   @override
-  Number abs() => value >= 0
-      ? this
-      : value is int
-          ? Integer(value.abs().toInt())
-          : Double(value.abs().toDouble());
+  Number abs() => value >= 0 ? this : Double(value.abs().toDouble());
 
   @override
   Number ceil() => Integer(value.ceil());

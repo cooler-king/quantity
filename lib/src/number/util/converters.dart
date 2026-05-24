@@ -36,10 +36,6 @@ num numberToNum(Number number) {
   if (number is Integer) return number.value;
   if (number is Imaginary) return 0;
   if (number is Complex) return number.real.toDouble();
-  if (number is Precise) {
-    if (number.isInteger) return number.toInt();
-    return number.toDouble();
-  } else {
-    return number.toDouble();
-  }
+  if (number.isInteger) return number.toInt();
+  return number.toDouble();
 }

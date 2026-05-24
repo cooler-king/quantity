@@ -35,6 +35,10 @@ void main() {
       e = Energy(J: 2.2);
       m = e.toMass();
       expect(m.valueSI.toDouble(), 2.447830123317961e-17);
+
+      e = Energy(J: Precise('1.5'));
+      m = e.toMass();
+      expect(m.valueSI, isA<Precise>());
     });
 
     test('units', () {

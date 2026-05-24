@@ -305,6 +305,22 @@ void main() {
       // Invert
       mq.invert();
       expect(mq.dimensions.getComponentExponent('Length'), -2);
+
+      // toMutable
+      final mqT = toMutable(Length(m: 5));
+      expect(mqT.mks.toDouble(), 5);
+
+      // setEqualTo same values (changes is false)
+      final qSame = Length(m: 5);
+      mqT.setEqualTo(qSame);
+      mqT.setEqualTo(qSame); // second time, no change
+
+      // isScalar and isScalarSI
+      expect(mqT.isScalar, false);
+      expect(mqT.isScalarSI, false);
+      final mqS = MutableQuantity(Double(1));
+      expect(mqS.isScalar, true);
+      expect(mqS.isScalarSI, true);
     });
   });
 }

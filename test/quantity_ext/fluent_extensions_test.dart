@@ -112,7 +112,8 @@ void main() {
       expect(Double(1).gallons.inLiters, closeTo(3.78541, 0.0001));
 
       expect(Integer(10).metersPerSecond.inMetersPerSecond, 10.0);
-      expect(Double(36).kilometersPerHour.inMetersPerSecond, closeTo(10.0, 0.0001));
+      expect(Double(36).kilometersPerHour.inMetersPerSecond,
+          closeTo(10.0, 0.0001));
       expect(Integer(60).milesPerHour.inMilesPerHour, 60.0);
       expect(Double(9.8).metersPerSecondSquared.inMetersPerSecondSquared, 9.8);
 
@@ -133,6 +134,27 @@ void main() {
       expect(Integer(1920).pixels.inPixels, 1920.0);
       expect(Double(96).ppi.inPpi, 96.0);
       expect(Double(10).dpcm.inDpcm, 10.0);
+    });
+
+    test('missing conversion getters', () {
+      expect(5.yards, isA<Length>());
+      expect(Length(m: 1).inCentimeters, 100.0);
+      expect(Length(m: 1).inMillimeters, 1000.0);
+      expect(Length(m: 1609.344).inMiles, closeTo(1.0, 0.001));
+      expect(Time(s: 1).inMilliseconds, 1000.0);
+      expect(Time(s: 1).inMicroseconds, 1000000.0);
+      expect(Time(s: 1).inNanoseconds, closeTo(1000000000.0, 0.001));
+      expect(Time(s: 86400).inDays, 1.0);
+      expect(Mass(kg: 0.45359237).inPounds, closeTo(1.0, 0.0001));
+      expect(Temperature(K: 273.15).inFahrenheit, closeTo(32.0, 0.0001));
+      expect(Area(m2: 10000).inHectares, 1.0);
+      expect(Area(m2: 4046.8564224).inAcres, closeTo(1.0, 0.0001));
+      expect(Volume(L: 3.785411784).inGallons, closeTo(1.0, 0.0001));
+      expect(Speed(metersPerSecond: 10).inKilometersPerHour, 36.0);
+      expect(Angle(rad: 3.141592653589793).inDegrees, closeTo(180.0, 0.0001));
+      expect(Energy(J: 4.184).inCalories, closeTo(1.0, 0.0001));
+      expect(Power(W: 1000).inKilowatts, 1.0);
+      expect(Power(W: 745.69987158227022).inHorsepower, closeTo(1.0, 0.0001));
     });
   });
 }

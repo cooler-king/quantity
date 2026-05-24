@@ -155,6 +155,10 @@ void main() {
       expect(TCB.toMks('invalid').toDouble(), isNotNull);
       expect(TCB.fromMks('invalid').toDouble(), isNotNull);
 
+      expect(JD_UT1.fromMks(0.0).toDouble(), isNotNull);
+      expect(JD_TDB.fromMks(0.0).toDouble(), isNotNull);
+      expect(JD_TCG.fromMks(0.0).toDouble(), isNotNull);
+
       // Test derive method on TimeInstantUnits
       final derivedTime = TAI.derive('testPrefix', 'tp', 2.0);
       expect(derivedTime.name, 'testPrefixInternational Atomic Time');

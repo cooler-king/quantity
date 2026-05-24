@@ -66,7 +66,8 @@ void main() {
       expect(infUnits.valueSI.toDouble(), 16.0);
 
       // constant ctor
-      const infConst = Information.constant(Double.constant(128.0), units: null);
+      const infConst =
+          Information.constant(Double.constant(128.0), units: null);
       expect(infConst.valueSI.toDouble(), 128.0);
 
       // Convenience units
@@ -83,7 +84,8 @@ void main() {
       expect(Information.yobibytes.valueSI.toDouble(), 8.0 * pow(2, 80));
 
       // derive units
-      final derived = Information.bits.derive('kilo', 'k', 1000.0) as InformationUnits;
+      final derived =
+          Information.bits.derive('kilo', 'k', 1000.0) as InformationUnits;
       expect(derived.name, 'kilobits');
       expect(derived.abbrev1, 'kbit');
       expect(derived.quantityType, Information);

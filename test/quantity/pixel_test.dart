@@ -48,6 +48,11 @@ void main() {
       final res = 480.pixels / length;
       expect(res, isA<Resolution>());
       expect((res as Resolution).inPpi, closeTo(96.0, 0.0001));
+
+      // Pixel / num fallback
+      final divResult = 480.pixels / 2;
+      expect(divResult, isA<Pixel>());
+      expect(divResult.valueSI.toDouble(), equals(240.0));
     });
 
     test('Layout arithmetic (2D spatial density math)', () {

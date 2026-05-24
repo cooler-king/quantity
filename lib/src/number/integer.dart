@@ -66,11 +66,6 @@ class Integer extends Real {
   @override
   bool operator ==(Object obj) {
     if (obj is Number || obj is num) return obj == value;
-    if (obj is Complex) {
-      return obj.real.value == value && obj.imaginary.value.value == 0.0;
-    }
-    if (obj is Imaginary) return value == 0.0 && obj.value.value == 0.0;
-
     return false;
   }
 

@@ -12,7 +12,8 @@ void main() {
 
     test('toMks and fromMks with offset and Precise/Decimal', () {
       // Create a unit with an offset
-      final customUnit = LengthUnits('custom', 'c', 'c2', 'custom', 5.0, false, 1.5);
+      final customUnit =
+          LengthUnits('custom', 'c', 'c2', 'custom', 5.0, false, 1.5);
 
       // value is Precise (which triggers the preciseConv branch)
       final pVal = Precise('10.0');

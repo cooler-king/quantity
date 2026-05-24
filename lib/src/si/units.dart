@@ -118,10 +118,18 @@ mixin Units {
     }
     if (mks is num) {
       if (offset == 0) return Double(mks.toDouble()) / convToMKS;
-      return (Double(mks.toDouble()) / convToMKS) - objToNumber(offset);
+      if (quantityType.toString() == 'Temperature') {
+        return (Double(mks.toDouble()) - objToNumber(offset)) / convToMKS;
+      } else {
+        return (Double(mks.toDouble()) / convToMKS) - objToNumber(offset);
+      }
     } else if (mks is Number) {
       if (offset == 0) return mks / convToMKS;
-      return (mks / convToMKS) - objToNumber(offset);
+      if (quantityType.toString() == 'Temperature') {
+        return (mks - objToNumber(offset)) / convToMKS;
+      } else {
+        return (mks / convToMKS) - objToNumber(offset);
+      }
     } else {
       throw const QuantityException('num or Number expected');
     }

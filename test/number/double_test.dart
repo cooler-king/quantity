@@ -15,6 +15,9 @@ void main() {
       expect(Double.infinity.value, double.infinity);
       expect(Double.negInfinity.value, double.negativeInfinity);
       expect(identical(Double.NaN.value, double.nan), true);
+      
+      final dFromInt = Double.fromInt(123);
+      expect(dFromInt.value, 123.0);
     });
 
     test('operator ==', () {
@@ -699,8 +702,10 @@ void main() {
       expect((Double(2.0) ^ Precise('3.0')).toDouble(), 8.0);
       // this ^ Real
       expect((Double(4.0) ^ Double(2.5)).toDouble(), 32.0);
-      expect((Double(4.0) ^ Double(2.0)), isA<Integer>()); // returns Integer if whole number
-      expect((Double(2.0) ^ Double(2.5)), isA<Double>()); // returns Double otherwise
+      expect((Double(4.0) ^ Double(2.0)),
+          isA<Integer>()); // returns Integer if whole number
+      expect((Double(2.0) ^ Double(2.5)),
+          isA<Double>()); // returns Double otherwise
 
       // this ^ Complex
       final compExp = Complex(Double(2.0), Imaginary(1.0));

@@ -11,6 +11,10 @@ void main() {
       final q2 = Quantity.parse('-2.5 s');
       expect(q2, isA<Time>());
       expect(q2.valueSI.toDouble(), equals(-2.5));
+
+      final q3 = Quantity.parse('42');
+      expect(q3, isA<Scalar>());
+      expect(q3.valueSI.toDouble(), equals(42.0));
     });
 
     test('Quantity.parse - Prefixes', () {
@@ -39,11 +43,20 @@ void main() {
       final q4 = Quantity.parse('15 N*m');
       expect(q4, isA<Torque>());
       expect(q4.valueSI.toDouble(), equals(15.0));
+
+      final q5 = Quantity.parse('15 N·m');
+      expect(q5, isA<Torque>());
+      expect(q5.valueSI.toDouble(), equals(15.0));
+
+      final q6 = Quantity.parse('5 m^5');
+      expect(q6, isA<MiscQuantity>());
+      expect(q6.valueSI.toDouble(), equals(5.0));
     });
 
     test('Quantity.parse - Invalid inputs', () {
       expect(() => Quantity.parse('abc'), throwsFormatException);
       expect(() => Quantity.parse('10 invalidUnit'), throwsFormatException);
+      expect(() => Quantity.parse('5 m^abc'), throwsFormatException);
     });
 
     test('Quantity.getUnitSymbols', () {
@@ -56,6 +69,9 @@ void main() {
       expect(lengthSymbols, contains('m'));
       expect(lengthSymbols, contains('ft'));
       expect(lengthSymbols, contains('in'));
+
+      final accelSymbols = Quantity.getUnitSymbols(Acceleration);
+      expect(accelSymbols, contains('m/s^2'));
     });
 
     test('Dimensions.describe', () {
@@ -100,10 +116,12 @@ void main() {
       expect(Quantity.checkDimensionalConsistency(vars, 'u = s / t'), isTrue);
 
       // negative exponent '^-1' (e.g. u = s * t^-1)
-      expect(Quantity.checkDimensionalConsistency(vars, 'u = s * t^-1'), isTrue);
+      expect(
+          Quantity.checkDimensionalConsistency(vars, 'u = s * t^-1'), isTrue);
 
       // negative exponent '^-1' alternative representation
-      expect(Quantity.checkDimensionalConsistency(vars, 'u = s * t^-1.0'), isTrue);
+      expect(
+          Quantity.checkDimensionalConsistency(vars, 'u = s * t^-1.0'), isTrue);
 
       // unary minus and plus
       expect(Quantity.checkDimensionalConsistency(vars, 's = -u * +t'), isTrue);
@@ -113,6 +131,9 @@ void main() {
 
       // parenthesis error (unclosed)
       expect(Quantity.checkDimensionalConsistency(vars, 's = (u * t'), isFalse);
+
+      // parenthesis error (extra closed parenthesis / trailing tokens)
+      expect(Quantity.checkDimensionalConsistency(vars, 's = u * t )'), isFalse);
 
       // exponent syntax error (missing exponent after ^)
       expect(Quantity.checkDimensionalConsistency(vars, 's = u * t^'), isFalse);

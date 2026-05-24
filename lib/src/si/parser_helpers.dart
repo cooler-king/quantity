@@ -159,8 +159,7 @@ class ParserHelpers {
     var type = getRegisteredQuantityType(dims);
     if (type == Energy &&
         (unitStr.contains('Nm') ||
-            unitStr.contains('N*m') ||
-            unitStr.contains('N·m'))) {
+            unitStr.contains('N*m'))) {
       type = Torque;
       dims = Torque.torqueDimensions;
     } else if (unitStr.contains('tok') ||

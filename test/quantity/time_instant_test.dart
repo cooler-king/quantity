@@ -50,11 +50,11 @@ void main() {
     test('comparisons and subtraction', () {
       final t1 = TimeInstant(TAI: 100);
       final t2 = TimeInstant(TAI: 50);
-      
+
       // comparisons
       expect(t2.isBefore(t1), true);
       expect(t1.isAfter(t2), true);
-      
+
       // subtraction of Time
       final tMinusTime = t1 - Time(s: 30);
       expect(tMinusTime, isA<TimeInstant>());
@@ -95,7 +95,22 @@ void main() {
         final ti = TimeInstant(TAI: taiVal);
         final utcVal = ti.valueInUnits(TimeInstant.UTC);
         expect(utcVal, isNotNull);
+
+        // Call getLeapSeconds directly with pre1972LeapSeconds enabled to cover historical equations
+        final ls = getLeapSeconds(taiVal, pre1972LeapSeconds: true);
+        expect(ls, isNotNull);
       }
+    });
+
+    test('UTC conversion fallbacks', () {
+      // Test the closures in UTC conversion for different parameter types
+      expect(TimeInstant.UTC.toMks(1900000000.0), isA<Number>());
+      expect(TimeInstant.UTC.toMks(Integer(1900000000)), isA<Number>());
+      expect(TimeInstant.UTC.toMks('not a number'), Integer(0));
+
+      expect(TimeInstant.UTC.fromMks(1900000000.0), isA<Number>());
+      expect(TimeInstant.UTC.fromMks(Integer(1900000000)), isA<Number>());
+      expect(TimeInstant.UTC.fromMks('not a number'), Integer(0));
     });
   });
 }

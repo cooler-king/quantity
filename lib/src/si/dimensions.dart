@@ -271,7 +271,7 @@ final class Dimensions {
     num newValue = 0;
     for (final key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key] as num;
-      myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
+      myValue = result._dimensionMap[key];
       if (myValue == null) {
         result._dimensionMap[key] = otherValue * -1;
       } else {

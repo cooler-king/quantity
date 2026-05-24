@@ -39,6 +39,10 @@ void main() {
       final totalTokens = rate2 * duration2;
       expect(totalTokens, isA<Token>());
       expect((totalTokens as Token).inTokens, equals(750.0));
+
+      final divResult = tokenCount / 2;
+      expect(divResult, isA<Token>());
+      expect(divResult.valueSI.toDouble(), equals(500.0));
     });
 
     test('Natural Language Unit Parsing (Quantity.parse)', () {

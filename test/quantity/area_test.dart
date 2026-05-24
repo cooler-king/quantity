@@ -52,5 +52,19 @@ void main() {
       var q2 = Area.inUnits(1.0, u2);
       expect(q1 == q2, true);
     });
+
+    test('additional constructors', () {
+      const constArea = Area.constant(Double.constant(5));
+      expect(constArea.valueSI.toDouble(), 5.0);
+
+      final runArea = Area.constant(Double(5));
+      expect(runArea.valueSI.toDouble(), 5.0);
+
+      final l1 = Length(m: 2, uncert: 0.1);
+      final l2 = Length(m: 3, uncert: 0.2);
+      final derivedArea = Area.fromLengths(l1, l2);
+      expect(derivedArea.valueSI.toDouble(), 6.0);
+      expect(derivedArea.relativeUncertainty, closeTo(0.223606797749979, 1e-9));
+    });
   });
 }

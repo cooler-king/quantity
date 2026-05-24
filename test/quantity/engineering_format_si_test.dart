@@ -95,6 +95,13 @@ void main() {
         expect(f1.format(-0.00010020034), '-100.200 34 x 10^-6');
       });
 
+      test('adjustForExponent edge cases', () {
+        final f = EngineeringFormatSI();
+        expect(f.adjustForExponent('+1234'), '1.234 x 10^3');
+        expect(f.adjustForExponent(''), '');
+        expect(f.adjustForExponent('5e2.'), '5.0 x 10^3');
+      });
+
       group('format', () {
         test('real only; num; unicode', () {
           final f1 = EngineeringFormatSI(unicode: true);

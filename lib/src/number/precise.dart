@@ -451,12 +451,7 @@ class Precise extends Real {
         final p = Precise.raw(temp);
         if (p >= preciseDivisor) {
           // Find the highest multiple of the divisor that is less than p
-          for (var i = 9; i > -1; i--) {
-            if (i == 0) {
-              result.insert(0, 0);
-              break;
-            }
-
+          for (var i = 9; i > 0; i--) {
             final prod = preciseDivisor * i;
             if (prod <= p) {
               result.insert(0, i);

@@ -8,6 +8,7 @@ void main() {
       expect(centistokes, isA<KinematicViscosityUnits>());
       expect(stokes.valueSI.toDouble(), 1e-4);
       expect(centistokes.valueSI.toDouble(), 1e-6);
+      expect(DynamicViscosity.poiseuille, isNotNull);
     });
 
     test('classes availability', () {

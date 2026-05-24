@@ -191,6 +191,8 @@ void main() {
 
       final pInt = Precise('42');
       expect(numberToNum(pInt), 42);
+
+      expect(numberToNum(Fraction(3, 4)), 0.75);
     });
   });
 
@@ -238,7 +240,8 @@ void main() {
       expect(areWithin(l1, l2, tolerance2), false);
 
       // Mismatched dimensions must throw DimensionsException
-      expect(() => areWithin(l1, Speed(metersPerSecond: 10), tolerance1), throwsA(isA<DimensionsException>()));
+      expect(() => areWithin(l1, Speed(metersPerSecond: 10), tolerance1),
+          throwsA(isA<DimensionsException>()));
     });
 
     test('logger record listener', () {

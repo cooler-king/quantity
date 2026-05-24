@@ -60,7 +60,7 @@ void main() {
       expect(mq.dimensions, isNotNull);
       expect(mq.dimensions, Angle.angleDimensions);
 
-      const q = MiscQuantity.constant(Double.constant(42.42),
+      final q = MiscQuantity.constant(Double(42.42),
           Dimensions.constant(<String, int>{'Amount': 2}));
       expect(q, isNotNull);
     });
@@ -110,7 +110,7 @@ void main() {
       final mq = MiscQuantity(10.0, Length.lengthDimensions, 0.02);
       final mqString = mq.toString();
       expect(mqString, contains('MKS'));
-      
+
       // Formatting without symbols (singular vs plural names)
       final buffer1 = StringBuffer();
       Length(m: 1.0).outputText(buffer1, symbols: false);
@@ -119,6 +119,36 @@ void main() {
       final buffer2 = StringBuffer();
       Length(m: 5.0).outputText(buffer2, symbols: false);
       expect(buffer2.toString(), '5 meters');
+
+      // valueInUnits tests
+      expect(l.valueInUnits(null), l.mks);
+      expect(() => l.valueInUnits(Time.seconds),
+          throwsA(isA<DimensionsException>()));
+
+      // dynamicQuantityTyping = false math operations
+      dynamicQuantityTyping = false;
+      final sum = l + l;
+      expect(sum is MiscQuantity, true);
+      expect(sum.valueSI.toDouble(), 20.0);
+
+      final diff = l - l;
+      expect(diff is MiscQuantity, true);
+      expect(diff.valueSI.toDouble(), 0.0);
+
+      final prod = l * 2.0;
+      expect(prod is MiscQuantity, true);
+      expect(prod.valueSI.toDouble(), 20.0);
+      dynamicQuantityTyping = true; // reset
+
+      // fromJson fallback
+      final mqFallback = Quantity.fromJson({
+        'type': 'NonExistentQuantityType',
+        'value': {'d': 42.0},
+        'dimensions': {'Length': 1},
+        'uncertainty': 0.0
+      });
+      expect(mqFallback is MiscQuantity, true);
+      expect(mqFallback.valueSI.toDouble(), 42.0);
     });
   });
 }

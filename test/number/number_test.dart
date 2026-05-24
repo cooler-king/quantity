@@ -52,5 +52,41 @@ void main() {
       expect(mixed.denominator, 2);
       expect(mixed.toDouble(), 2.5);
     });
+
+    test('isFinite and sign', () {
+      final c1 = Complex(Double(1.2), Imaginary(3.4));
+      expect(c1.isFinite, true);
+
+      expect(Integer(5).sign, 1);
+      expect(Double(-5.5).sign, -1.0);
+      expect(Double(0.0).sign, 0.0);
+      expect(Double(double.nan).sign.isNaN, true);
+    });
+
+    test('compareTo fallback', () {
+      final i1 = Imaginary(5);
+      final i2 = Imaginary(10);
+      expect(i1.compareTo(i2), 0);
+      expect(i1.compareTo(5.0), -1);
+      expect(i1.compareTo('string'), 0);
+    });
+
+    test('Real arithmetic and comparisons', () {
+      expect(Integer(-5).abs(), Integer(5));
+      expect(Double(-5.5).abs(), Double(5.5));
+
+      expect(Double(-5.0) / 0, Double.negInfinity);
+      expect(Double(-5.0) / 'string', Double.negInfinity);
+
+      expect(Double(5) > Complex.coeff(3, 4), true);
+      expect(Double(2) > Complex.coeff(3, 4), false);
+
+      expect(Double(5) > 'string', true);
+      expect(Double(-5) > 'string', false);
+
+      expect(Double(5.5).remainder(Double(2.0)), Double(1.5));
+      expect(Integer(5).remainder(Integer(2)), Integer(1));
+      expect(() => Integer(5).remainder('string'), throwsA(anything));
+    });
   });
 }

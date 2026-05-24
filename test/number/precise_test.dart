@@ -73,6 +73,23 @@ void main() {
       expect(d3 < Digit.two, false);
       expect(d3 < Digit.three, true);
     });
+
+    test('operators and other methods', () {
+      final d3 = Digit(3);
+      final d4 = Digit(4);
+      final d7 = Digit(7);
+
+      // ignore: unrelated_type_equality_checks
+      expect(d3 == 3, true);
+      // ignore: unrelated_type_equality_checks
+      expect(d3 == Integer(3), true);
+      expect(d3 == d4, false);
+      expect(d3.hashCode, 3);
+      expect(d3 + d4, 7);
+      expect(d3 - d4, -1);
+      expect(d7 > d4, true);
+      expect(d7.toString(), '7');
+    });
   });
 
   group('Precise', () {
@@ -1158,6 +1175,23 @@ void main() {
       p1 = Precise.toPrecise('1234.5678', desiredPrecision: 99);
       expect(p1, Precise('1234.5678'));
       expect(p1.precision, 99);
+    });
+
+    test('uncovered edge cases', () {
+      expect(() => Precise('1.2.3'), throwsException);
+      expect(() => Precise.num(double.nan), throwsException);
+      expect(() => Precise.num(double.infinity), throwsException);
+      expect(Precise.fromMap(null), Precise.zero);
+      expect(() => Precise.raw([3, 'invalid']), throwsArgumentError);
+      final pDigit = Precise('12.3');
+      expect(pDigit.digitAtPlace(1), Digit.one);
+      expect(pDigit.digitAtPlace(0), Digit.two);
+      expect(pDigit.digitAtPlace(-1), Digit.three);
+      expect(pDigit.digitValueAtPlace(1), 1);
+      expect(pDigit.digitValueAtPlace(0), 2);
+      expect(pDigit.digitValueAtPlace(-1), 3);
+      expect(Precise('12.3').digitAtPlace(10), Digit.zero);
+      expect(() => Precise('2.0') ^ 1.5, throwsA(isA<NumberException>()));
     });
   });
 }

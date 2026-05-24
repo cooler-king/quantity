@@ -71,6 +71,7 @@ void main() {
       final rRev = QuantityRange<Length>(Length(m: 20.0), Length(m: 10.0));
       expect(rRev.contains(Length(m: 15.0)), true);
       expect(rRev.contains(Length(m: 10.0), false, 0.0), false);
+      expect(rRev.contains(Length(m: 15.0), false, 0.1), true);
     });
 
     test('equality and hashcode', () {
@@ -129,6 +130,12 @@ void main() {
       final ar3 = AngleRange.degrees(350, 20); // starts at 350, ends at 20
       final ar4 = AngleRange.degrees(10, 30);
       expect(ar3.overlaps360(ar4), true);
+      expect(ar4.overlaps360(ar3), true);
+
+      // cross 0 projection where direct overlaps is false but list2 splits
+      final ar9 = AngleRange.degrees(10, 30);
+      final ar10 = AngleRange.degrees(350, 380);
+      expect(ar9.overlaps360(ar10), true);
 
       // test where direct overlap is false but projection overlap is true
       final ar5 = AngleRange.degrees(350, 370);

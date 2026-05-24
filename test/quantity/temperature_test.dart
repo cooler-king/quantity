@@ -92,5 +92,21 @@ void main() {
       expect(a.valueSI.toDouble(), 100.0);
       expect(b.toDouble(), closeTo(-173.15, 0.000001));
     });
+
+    test('operator fallbacks and interval conversion', () {
+      final temp = Temperature(K: 100, uncert: 0.05);
+      final len = Length(m: 5);
+
+      expect(() => temp + len, throwsA(isA<DimensionsException>()));
+      expect(() => temp - len, throwsA(isA<DimensionsException>()));
+
+      final converted = Temperature.degreesCelsius.fromMks(100.0);
+      expect(converted.toDouble(), closeTo(-173.15, 0.000001));
+
+      final interval = temp.toInterval();
+      expect(interval, isA<TemperatureInterval>());
+      expect(interval.valueSI.toDouble(), 100.0);
+      expect(interval.relativeUncertainty, 0.05);
+    });
   });
 }

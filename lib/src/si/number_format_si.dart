@@ -6,7 +6,7 @@ import '../number/integer.dart';
 import '../number/number.dart';
 import '../number/precise.dart';
 import 'quantity.dart';
-import 'utilities.dart' show expUnicodeMap, logger;
+import 'utilities.dart' show expUnicodeMap;
 
 /// NumberFormatSI implements the International System of Units (SI) style
 /// conventions for displaying values of quantities.  Specifically:
@@ -180,26 +180,21 @@ class NumberFormatSI implements NumberFormat {
   /// Removes any zeros at the end of a number string that follow a decimal
   /// point (except for one that immediately follows the decimal point).
   static String removeInsignificantZeros(String str) {
-    try {
-      if (str.isNotEmpty != true) return str;
-      final dotIndex = str.indexOf('.');
-      if (dotIndex == -1) return str;
-      final eIndex = str.toLowerCase().indexOf('e');
-      final decimalCount =
-          eIndex == -1 ? str.length - dotIndex - 1 : eIndex - dotIndex - 1;
-      if (decimalCount < 2) return str;
-      final lastDigitIndex = eIndex == -1 ? str.length - 1 : eIndex - 1;
-      int endIndex;
-      for (endIndex = lastDigitIndex; endIndex > dotIndex + 1; endIndex--) {
-        if (str.substring(endIndex, endIndex + 1) != '0') break;
-      }
-      return eIndex == -1
-          ? str.substring(0, endIndex + 1)
-          : '${str.substring(0, endIndex + 1)}${str.substring(eIndex)}';
-    } catch (e, s) {
-      logger.severe('Problem removing insignificant zeros', e, s);
-      return str;
+    if (str.isNotEmpty != true) return str;
+    final dotIndex = str.indexOf('.');
+    if (dotIndex == -1) return str;
+    final eIndex = str.toLowerCase().indexOf('e');
+    final decimalCount =
+        eIndex == -1 ? str.length - dotIndex - 1 : eIndex - dotIndex - 1;
+    if (decimalCount < 2) return str;
+    final lastDigitIndex = eIndex == -1 ? str.length - 1 : eIndex - 1;
+    int endIndex;
+    for (endIndex = lastDigitIndex; endIndex > dotIndex + 1; endIndex--) {
+      if (str.substring(endIndex, endIndex + 1) != '0') break;
     }
+    return eIndex == -1
+        ? str.substring(0, endIndex + 1)
+        : '${str.substring(0, endIndex + 1)}${str.substring(eIndex)}';
   }
 
   String _normalizeText(String text) {

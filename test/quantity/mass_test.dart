@@ -46,6 +46,12 @@ void main() {
       m = Mass(kg: 2.2);
       e = m.toEnergy();
       expect(e.valueSI.toDouble(), 1.97726139322099870e17);
+
+      m = Mass(kg: Precise('1.5'));
+      e = m.toEnergy();
+      expect(e.valueSI, isA<Precise>());
+      
+      expect(Mass.tonnes, isNotNull);
     });
   });
 }

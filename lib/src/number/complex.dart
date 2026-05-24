@@ -210,7 +210,7 @@ class Complex extends Number {
     // Treat divisor as 0
     return Number.simplifyType(Complex(
         real < 0 ? Double.negInfinity : Double.infinity,
-        imaginary < 0
+        imaginary.value < 0
             ? Imaginary(Double.negInfinity)
             : Imaginary(Double.infinity)));
   }
@@ -247,7 +247,7 @@ class Complex extends Number {
     // Treat divisor as 0
     return Number.simplifyType(Complex(
         real < 0 ? Double.negInfinity : Double.infinity,
-        imaginary < 0
+        imaginary.value < 0
             ? Imaginary(Double.negInfinity)
             : Imaginary(Double.infinity)));
   }

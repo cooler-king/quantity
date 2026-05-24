@@ -340,5 +340,9 @@ void main() {
       a.outputText(buf);
       expect(buf.toString(), '75.3 m');
     });
+
+    test('angstroms unit', () {
+      expect(Length.angstroms, isNotNull);
+    });
   });
 }
