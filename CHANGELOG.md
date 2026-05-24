@@ -16,6 +16,7 @@
   * **Synonym Quantity Types**: Added compile-time typedef aliases and dynamic runtime name registry mapping for 19 physical quantity synonyms across 12 distinct classes (e.g. `Irradiance` / `EnergyFluxDensity` / `PowerFluxDensity` synonymizing `HeatFluxDensity`, `Stress` synonymizing `Pressure`, `Work` synonymizing `Energy`, etc.).
   * **Domain Collections**: Added six domain library collections under `lib/domain/` to group quantity types, units, and constants commonly encountered in specific fields: `radiometry`, `atomic_nuclear`, `computing`, `chemistry`, `acoustics`, and `fluid_dynamics`. Added corresponding unit tests for each domain.
   * **Algebraic Property Verification**: Established property-based testing for `Dimensions` algebra.
+  * **Test Coverage Boost**: Significantly expanded unit test coverage across the package. Wrote comprehensive tests for previously untested parts including the `Fraction` number representation class, trig functions and constants in `angle_ext`, fluent utility extensions on `num` and `Number`, and verified variable mappings across all 40+ extension libraries. Raised overall repository code coverage to **75.4%** (surpassing the target of 70%).
 
 ### 4.0.0
   * Breaking changes:

@@ -40,5 +40,17 @@ void main() {
               is Precise,
           true);
     });
+
+    test('Fraction', () {
+      final f = Fraction(3, 4);
+      expect(f.numerator, 3);
+      expect(f.denominator, 4);
+      expect(f.toDouble(), 0.75);
+
+      final mixed = Fraction.mixed(2, 1, 2);
+      expect(mixed.numerator, 5);
+      expect(mixed.denominator, 2);
+      expect(mixed.toDouble(), 2.5);
+    });
   });
 }

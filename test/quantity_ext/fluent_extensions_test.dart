@@ -57,6 +57,21 @@ void main() {
       expect(5.watts.inWatts, 5.0);
       expect(2.kilowatts.inWatts, 2000.0);
       expect(1.horsepower.inWatts, closeTo(745.7, 0.1));
+
+      // Token and TokenRate
+      expect(100.tokens, isA<Token>());
+      expect(100.tokens.inTokens, 100.0);
+      expect(50.tps, isA<TokenRate>());
+      expect(50.tps.inTps, 50.0);
+      expect(50.tokensPerSecond.inTokensPerSecond, 50.0);
+
+      // Pixel and Resolution
+      expect(1920.pixels, isA<Pixel>());
+      expect(1920.pixels.inPixels, 1920.0);
+      expect(96.ppi, isA<Resolution>());
+      expect(96.ppi.inPpi, 96.0);
+      expect(10.dpcm, isA<Resolution>());
+      expect(10.dpcm.inDpcm, 10.0);
     });
 
     test('Number extensions', () {
@@ -69,6 +84,11 @@ void main() {
       expect(Integer(1).kilograms.inGrams, 1000.0);
       expect(Double(0).celsius.inKelvins, 273.15);
       expect(Integer(10).metersPerSecond.inMetersPerSecond, 10.0);
+
+      expect(Integer(100).tokens.inTokens, 100.0);
+      expect(Double(50).tps.inTps, 50.0);
+      expect(Integer(1920).pixels.inPixels, 1920.0);
+      expect(Double(96).ppi.inPpi, 96.0);
     });
   });
 }
