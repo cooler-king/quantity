@@ -208,12 +208,12 @@ abstract class Real extends Number {
       // a^(b+ic) = a^b * ( cos(c * ln(a)) + i * sin(c * ln(a)) )
       final coeff = this ^ exponent.real;
       final clna = (exponent.imaginary.value * log(value)).toDouble();
-      return Complex(coeff * cos(clna) as Real, Imaginary(coeff * sin(clna)));
+      return Complex(Double((coeff * cos(clna)).toDouble()), Imaginary((coeff * sin(clna)).toDouble()));
     }
     if (exponent is Imaginary) {
       // a^(ic) = cos(c * ln(a)) + i * sin(c * ln(a))
       final clna = (exponent.value * log(value)).toDouble();
-      return Complex(cos(clna) as Real, Imaginary(sin(clna)));
+      return Complex(Double(cos(clna)), Imaginary(sin(clna)));
     }
     return Double.one;
   }

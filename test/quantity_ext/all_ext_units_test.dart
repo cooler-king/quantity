@@ -93,6 +93,7 @@ void main() {
     });
 
     test('current_ext', () {
+      expect(amperes.name, 'amperes');
       expect(abamperes.name, 'abamperes');
       expect(statamperes.name, 'statamperes');
       expect(gilberts.name, 'gilberts');

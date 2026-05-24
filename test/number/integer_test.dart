@@ -873,4 +873,61 @@ void main() {
       expect(Hexadecimal('1117abc0').toString(), '1117abc0');
     });
   });
+
+  group('Extra Integer operators and edge cases', () {
+    test('comparisons with Complex and Imaginary', () {
+      final i = Integer(5);
+      final cMatch = Complex(Double(5), Imaginary(0));
+      final cDiff = Complex(Double(5), Imaginary(2));
+      final imagMatch = Imaginary(0);
+      final imagDiff = Imaginary(3);
+
+      // ignore: unrelated_type_equality_checks
+      expect(i == cMatch, true);
+      // ignore: unrelated_type_equality_checks
+      expect(i == cDiff, false);
+      // ignore: unrelated_type_equality_checks
+      expect(Integer(0) == imagMatch, true);
+      // ignore: unrelated_type_equality_checks
+      expect(i == imagDiff, false);
+      // ignore: unrelated_type_equality_checks
+      expect(i == 'not a number', false);
+    });
+
+    test('modulo and bitwise', () {
+      final i = Integer(5);
+      expect(i % Integer(2), Integer(1));
+      expect(i % Double(2.5), Double(0.0));
+
+      expect(i & 3, Integer(1));
+      expect(i & Integer(3), Integer(1));
+      expect(() => i & 'invalid', throwsUnsupportedError);
+
+      expect(i | 2, Integer(7));
+      expect(i | Integer(2), Integer(7));
+      expect(() => i | 'invalid', throwsUnsupportedError);
+
+      expect(i << 1, Integer(10));
+      expect(i << Integer(1), Integer(10));
+      expect(() => i << 'invalid', throwsUnsupportedError);
+
+      expect(i >> 1, Integer(2));
+      expect(i >> Integer(1), Integer(2));
+      expect(() => i >> 'invalid', throwsUnsupportedError);
+
+      expect(i.bitwiseXor(3), Integer(6));
+      expect(i.bitwiseXor(Integer(3)), Integer(6));
+      expect(() => i.bitwiseXor('invalid'), throwsUnsupportedError);
+
+      expect(~i, Integer(-6));
+    });
+
+    test('clamp with Number limits', () {
+      final i = Integer(10);
+      // clamp with general Number limits
+      expect(i.clamp(Integer(12), Integer(15)), Integer(12));
+      expect(i.clamp(Integer(2), Integer(8)), Integer(8));
+      expect(i.clamp(Double(3.5), Double(7.5)), Double(7.5));
+    });
+  });
 }
