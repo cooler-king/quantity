@@ -990,3 +990,5 @@ double secondsInUtcDay(double utc) {
   // Return number of seconds on this UTC day
   return (tai2 - tai1).toDouble();
 }
+
+typedef Epoch = TimeInstant;

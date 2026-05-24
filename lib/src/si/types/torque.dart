@@ -95,3 +95,5 @@ base class TorqueUnits extends Torque with Units {
           false,
           offset);
 }
+
+typedef MomentOfForce = Torque;

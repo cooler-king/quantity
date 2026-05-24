@@ -95,3 +95,5 @@ base class PressureUnits extends Pressure with Units {
           false,
           offset);
 }
+
+typedef Stress = Pressure;

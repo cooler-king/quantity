@@ -487,6 +487,36 @@ void registerStandardSIQuantities() {
       PixelDensity.pixelDensityDimensions,
       (dynamic value, PixelDensityUnits? units, double uncert) =>
           PixelDensity.inUnits(value, units, uncert));
+
+  registerQuantitySynonym('ElectromotiveForce', ElectricPotentialDifference);
+  registerQuantitySynonym('EMF', ElectricPotentialDifference);
+  registerQuantitySynonym('Potential', ElectricPotentialDifference);
+
+  registerQuantitySynonym('QuantityOfHeat', Energy);
+  registerQuantitySynonym('Work', Energy);
+
+  registerQuantitySynonym('HeatCapacity', Entropy);
+
+  registerQuantitySynonym('EnergyFluxDensity', HeatFluxDensity);
+  registerQuantitySynonym('Irradiance', HeatFluxDensity);
+  registerQuantitySynonym('PowerFluxDensity', HeatFluxDensity);
+
+  registerQuantitySynonym('SoundIntensityLevel', PowerLevel);
+  registerQuantitySynonym('SoundPressureLevel', FieldLevel);
+
+  registerQuantitySynonym('HeatFlowRate', Power);
+  registerQuantitySynonym('RadiantFlux', Power);
+
+  registerQuantitySynonym('Stress', Pressure);
+
+  registerQuantitySynonym('ImpartedSpecificEnergy', SpecificEnergy);
+  registerQuantitySynonym('Kerma', SpecificEnergy);
+
+  registerQuantitySynonym('SpecificEntropy', SpecificHeatCapacity);
+
+  registerQuantitySynonym('Epoch', TimeInstant);
+
+  registerQuantitySynonym('MomentOfForce', Torque);
 }
 
 bool _siRegistered = false;

@@ -92,3 +92,7 @@ base class HeatFluxDensityUnits extends HeatFluxDensity with Units {
           false,
           offset);
 }
+
+typedef EnergyFluxDensity = HeatFluxDensity;
+typedef Irradiance = HeatFluxDensity;
+typedef PowerFluxDensity = HeatFluxDensity;

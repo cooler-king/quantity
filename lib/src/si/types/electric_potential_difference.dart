@@ -86,3 +86,7 @@ base class ElectricPotentialDifferenceUnits extends ElectricPotentialDifference
           false,
           offset);
 }
+
+typedef ElectromotiveForce = ElectricPotentialDifference;
+typedef EMF = ElectricPotentialDifference;
+typedef Potential = ElectricPotentialDifference;

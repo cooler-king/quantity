@@ -102,3 +102,5 @@ base class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
           false,
           offset);
 }
+
+typedef SpecificEntropy = SpecificHeatCapacity;

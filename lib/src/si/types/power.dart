@@ -108,9 +108,5 @@ base class PowerUnits extends Power with Units {
           offset);
 }
 
-/// Radiant flux is another way to express power.
-base class RadiantFlux extends Power {
-  /// Constructs a constant RadiantFlux.
-  const RadiantFlux.constant(super.valueSI, {super.units, super.uncert})
-      : super.constant();
-}
+typedef HeatFlowRate = Power;
+typedef RadiantFlux = Power;

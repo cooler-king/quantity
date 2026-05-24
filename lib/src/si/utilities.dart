@@ -29,6 +29,9 @@ final Map<Dimensions, Type> _dimensionsToTypeMap = <Dimensions, Type>{};
 
 Map<Dimensions, Type> get dimensionsToTypeMap => _dimensionsToTypeMap;
 
+/// Maps synonym string names to their target physical quantity type.
+final Map<String, Type> _synonymNameToTypeMap = <String, Type>{};
+
 /// Set of physical quantity names that are preferred when resolving duplicate dimensions (e.g. Time vs TimeInstant).
 const Set<String> _preferredQuantityTypeNames = {
   'Length',
@@ -181,15 +184,35 @@ Iterable<Type> get allQuantityTypes {
   return _typeInstantiatorMap.keys;
 }
 
-/// Resolves a dynamic Type from its String typeName representation by searching the registered physical quantity subclasses.
+/// Resolves a dynamic Type from its String typeName representation by searching the registered physical quantity subclasses and synonyms.
 Type? getRegisteredTypeByName(String typeName) {
   _ensureRegistryInitialized();
+  final synonym = _synonymNameToTypeMap[typeName];
+  if (synonym != null) return synonym;
+
   for (final type in _typeInstantiatorMap.keys) {
     if (type.toString() == typeName) {
       return type;
     }
   }
   return null;
+}
+
+/// Registers a synonym name for a target physical quantity type.
+void registerQuantitySynonym(String synonymName, Type targetType) {
+  _synonymNameToTypeMap[synonymName] = targetType;
+}
+
+/// Returns all registered synonym names for a given quantity type.
+List<String> getQuantitySynonyms(Type type) {
+  _ensureRegistryInitialized();
+  final list = <String>[];
+  _synonymNameToTypeMap.forEach((name, targetType) {
+    if (targetType == type) {
+      list.add(name);
+    }
+  });
+  return list;
 }
 
 /// Creates an instance of a typed quantity of type [t] having the specified

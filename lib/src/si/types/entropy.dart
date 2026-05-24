@@ -95,3 +95,5 @@ base class EntropyUnits extends Entropy with Units {
           false,
           offset);
 }
+
+typedef HeatCapacity = Entropy;

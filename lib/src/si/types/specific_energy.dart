@@ -137,3 +137,6 @@ base class SpecificEnergyUnits extends SpecificEnergy with Units {
           false,
           offset);
 }
+
+typedef ImpartedSpecificEnergy = SpecificEnergy;
+typedef Kerma = SpecificEnergy;

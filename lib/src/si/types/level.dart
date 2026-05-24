@@ -181,3 +181,6 @@ base class FieldLevel extends Level {
     }
   }
 }
+
+typedef SoundIntensityLevel = PowerLevel;
+typedef SoundPressureLevel = FieldLevel;

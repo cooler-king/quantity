@@ -111,3 +111,6 @@ base class EnergyUnits extends Energy with Units {
           false,
           offset);
 }
+
+typedef QuantityOfHeat = Energy;
+typedef Work = Energy;

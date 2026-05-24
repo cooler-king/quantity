@@ -13,6 +13,7 @@
   * **Computational & Digital Layout Quantities**:
     * Introduced `Token` and `TokenRate` classes to support modeling, parsing, and arithmetic for NLP/LLM context tracking and throughput metrics.
     * Introduced `Pixel`, `Resolution` (pixels per length), and `PixelDensity` (pixels per area) classes to support spatial layout scaling, screen resolution calibration (PPI/DPI/DPCM), and graphics calculations with type-safe arithmetic operators.
+  * **Synonym Quantity Types**: Added compile-time typedef aliases and dynamic runtime name registry mapping for 19 physical quantity synonyms across 12 distinct classes (e.g. `Irradiance` / `EnergyFluxDensity` / `PowerFluxDensity` synonymizing `HeatFluxDensity`, `Stress` synonymizing `Pressure`, `Work` synonymizing `Energy`, etc.).
   * **Algebraic Property Verification**: Established property-based testing for `Dimensions` algebra.
 
 ### 4.0.0
