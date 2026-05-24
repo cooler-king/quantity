@@ -50,3 +50,8 @@ common mistakes and offering improved readability.
 * Models quantity ranges, including special support for angle ranges and time spans.
 * Includes a mutable quantity with streams.
 * Metric prefixes for any unit. 
+
+## Contributing & Verification
+
+We enforce **100% test coverage** for all changes. Before submitting changes, please refer to the [Contributing Guidelines](file:///c:/dev/github/quantity/CONTRIBUTING.md) for instructions on running and verifying tests, static analysis, and coverage.
+
