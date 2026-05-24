@@ -8,5 +8,5 @@ PermittivityUnits faradsPerMeter = Permittivity.faradsPerMeter;
 
 /// A constant of proportionality that exists between electric displacement and electric field intensity.
 const Permittivity vacuumElectricPermittivity = Permittivity.constant(
-    Double.constant(8.8541878128e-12),
-    uncert: 1.468231787584925e-10);
+    Double.constant(8.8541878188e-12),
+    uncert: 1.5811726932507522e-10);

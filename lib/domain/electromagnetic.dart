@@ -25,7 +25,7 @@ const Conductance G0 = conductanceQuantum;
 
 /// The inverse of the magnetic flux quantum.
 const MiscQuantity josephsonConstant = MiscQuantity.constant(
-    Double.constant(483597848444444.44),
+    Double.constant(483597848400000.0),
     Dimensions.constant(
         <String, int>{'Length': -2, 'Mass': -1, 'Current': 1, 'Time': 2}));
 
@@ -39,18 +39,18 @@ const Resistance RK = vonKlitzingConstant;
 
 /// Useful for expressing the magnetic moment of an electron caused by either its orbital or spin angular momentum.
 const MiscQuantity bohrMagneton = MiscQuantity.constant(
-    Double.constant(9.2740100783e-24),
+    Double.constant(9.2740100657e-24),
     Dimensions.constant(<String, int>{'Length': 2, 'Current': 1}),
-    uncert: 3.019190163003642e-10);
+    uncert: 3.127018387359394e-10);
 
 /// The common symbol for the Bohr Magneton constant.
 const MiscQuantity muB = bohrMagneton;
 
 /// Useful for expressing magnetic dipole moments of heavy particles.
 const MiscQuantity nuclearMagneton = MiscQuantity.constant(
-    Double.constant(5.0507837461e-27),
+    Double.constant(5.0507837393e-27),
     Dimensions.constant(<String, int>{'Length': 2, 'Current': 1}),
-    uncert: 2.9698361193116537e-10);
+    uncert: 3.167825198197355e-10);
 
 /// The common symbol for the Nuclear Magneton constant.
 const MiscQuantity muN = nuclearMagneton;

@@ -158,36 +158,36 @@ const Mass planckMass =
     Mass.constant(Double.constant(2.176434e-8), uncert: 0.00001102721240340851);
 
 /// The rest mass of a helium nucleus.
-const Mass alphaParticleMass = Mass.constant(Double.constant(6.6446573357e-27),
-    uncert: 3.009937004959646e-10);
+const Mass alphaParticleMass = Mass.constant(Double.constant(6.644657345e-27),
+    uncert: 3.1604338507842195e-10);
 
 /// One twelfth of the mass of a carbon-12 atom in its nuclear and electronic ground state.
-const Mass atomicMass = Mass.constant(Double.constant(1.66053906660e-27),
-    uncert: 3.0110703810405613e-10);
+const Mass atomicMass = Mass.constant(Double.constant(1.66053906892e-27),
+    uncert: 3.1315131919070317e-10);
 
 /// The mass of a stationary electron.
-const Mass electronMass = Mass.constant(Double.constant(9.1093837015e-31),
-    uncert: 3.0737534961217373e-10);
+const Mass electronMass = Mass.constant(Double.constant(9.1093837139e-31),
+    uncert: 3.0737534919376406e-10);
 
 /// The mass of a stationary proton.
-const Mass protonMass = Mass.constant(Double.constant(1.67262192369e-27),
-    uncert: 3.0491050773439597e-10);
+const Mass protonMass = Mass.constant(Double.constant(1.67262192595e-27),
+    uncert: 3.1088914472088803e-10);
 
 /// The mass of a stationary neutron.
-const Mass neutronMass = Mass.constant(Double.constant(1.67492749804e-27),
-    uncert: 5.671887297281165e-10);
+const Mass neutronMass = Mass.constant(Double.constant(1.67492750056e-27),
+    uncert: 5.074846521510982e-10);
 
 /// The mass of a stationary tau particle.
 const Mass tauMass =
     Mass.constant(Double.constant(3.16754e-27), uncert: 0.00006629750531958555);
 
 /// The mass of a stationary deuteron.
-const Mass deuteronMass = Mass.constant(Double.constant(3.3435837724e-27),
-    uncert: 2.9908028871733855e-10);
+const Mass deuteronMass = Mass.constant(Double.constant(3.3435837768e-27),
+    uncert: 2.9908028832376286e-10);
 
 /// The mass of a stationary helion.
-const Mass helionMass = Mass.constant(Double.constant(5.0064127796e-27),
-    uncert: 2.996157260767951e-10);
+const Mass helionMass = Mass.constant(Double.constant(5.0064127862e-27),
+    uncert: 3.1959010739392954e-10);
 
 /// The mass of a stationary muon particle.
 const Mass muonMass = Mass.constant(Double.constant(1.883531627e-28),

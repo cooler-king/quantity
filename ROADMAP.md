@@ -62,21 +62,21 @@ To support seamless transitions for users migrating to 5.0.0, we have updated do
 ---
 
 ## 6. Phase 6: Code Quality & CI Tooling (Pana & CI)
-- [ ] **Pana Lint Checklist:** Audit the package against `pana` rules (proper markdown formatting, example files, documentation of all public members) to guarantee a perfect 160/160 score on pub.dev.
-- [ ] **Resolve Unimplemented `NumberFormatSI` API Methods:** Forward `simpleCurrencySymbol`, `symbols`, and `turnOffGrouping` calls to the underlying `_scientific` formatter to prevent runtime `UnimplementedError` crashes.
-- [ ] **GitHub Actions CI Setup:** Create `.github/workflows/dart.yml` to automatically run `dart analyze` and `dart test` on every push/PR.
+- [x] **Pana Lint Checklist:** Audit the package against `pana` rules (proper markdown formatting, example files, documentation of all public members) to guarantee a perfect 160/160 score on pub.dev.
+- [x] **Resolve Unimplemented `NumberFormatSI` API Methods:** Forward `simpleCurrencySymbol`, `symbols`, and `turnOffGrouping` calls to the underlying `_scientific` formatter to prevent runtime `UnimplementedError` crashes.
+- [x] **GitHub Actions CI Setup:** Create `.github/workflows/dart.yml` to automatically run `dart analyze` and `dart test` on every push/PR.
 
 ---
 
 ## 7. Phase 7: Serialization & Interoperability (JSON & Decimal)
-- [ ] **JSON Serialization:** Implement `toJson()` and `fromJson()` for `Quantity`, `Dimensions`, and the `Number` type hierarchy.
-- [ ] **`package:decimal` Interoperability:** Add utility converters or constructors to translate between high-precision `Quantity` values and `package:decimal` instances.
-- [ ] **Serialization & Interop Tests:** Write thorough unit tests validating JSON round-trip cycles and decimal conversions.
+- [x] **JSON Serialization:** Implement `toJson()` and `fromJson()` for `Quantity`, `Dimensions`, and the `Number` type hierarchy.
+- [x] **`package:decimal` Interoperability:** Add utility converters or constructors to translate between high-precision `Quantity` values and `package:decimal` instances.
+- [x] **Serialization & Interop Tests:** Write thorough unit tests validating JSON round-trip cycles and decimal conversions.
 
 ---
 
 ## 8. Phase 8: Advanced Verification & Automation (Property Testing & NIST)
-- [ ] **Property-Based Testing:** Implement randomized round-trip algebraic tests for `Dimensions` arithmetic (`*`, `/`, `inverse`) to verify that invariants like `(A * B) / B == A` always hold.
-- [ ] **Automated NIST Constant Updater:** Build a helper script to fetch, parse, and automatically sync physical constants in the library directly from the latest official NIST CODATA data files.
+- [x] **Property-Based Testing:** Implement randomized round-trip algebraic tests for `Dimensions` arithmetic (`*`, `/`, `inverse`) to verify that invariants like `(A * B) / B == A` always hold.
+- [x] **Automated NIST Constant Updater:** Build a helper script to fetch, parse, and automatically sync physical constants in the library directly from the latest official NIST CODATA data files.
 
 

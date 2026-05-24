@@ -12,5 +12,5 @@ PermeabilityUnits newtonsPerAmpereSquared =
 
 /// The magnetic permeability in a classical vacuum.
 const Permeability vacuumMagneticPermeability = Permeability.constant(
-    Double.constant(1.25663706212e-6),
-    uncert: 1.511971958549925e-10);
+    Double.constant(0.00000125663706127),
+    uncert: 1.59154943112909e-10);

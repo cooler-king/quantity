@@ -55,5 +55,5 @@ final TemperatureIntervalUnits degR = degreesRankine;
 
 /// Contemporary models of physical cosmology postulate that the highest possible temperature is the Planck temperature.
 const Temperature planckTemperature = Temperature.constant(
-    Double.constant(1.416784e32),
+    Double.constant(1.416784e+32),
     uncert: 0.000011293182305841964);

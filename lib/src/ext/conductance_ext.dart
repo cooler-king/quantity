@@ -20,4 +20,4 @@ final ConductanceUnits abmho = Conductance.siemens.giga() as ConductanceUnits;
 /// is a key component of Landauer formula which relates the electrical conductance of a quantum
 /// conductor to its quantum properties.
 const Conductance conductanceQuantum =
-    Conductance.constant(Double.constant(7.7480917299999999e-5));
+    Conductance.constant(Double.constant(0.00007748091729));
