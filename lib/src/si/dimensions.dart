@@ -135,17 +135,22 @@ final class Dimensions {
   int get hashCode {
     if (_dimensionMap.isEmpty) return 0;
 
+    String fmt(String key) {
+      final val = getComponentExponent(key);
+      return val == val.toInt() ? '${val.toInt()}' : '$val';
+    }
+
     // Construct a unique string key and take its hashcode
     final buffer = (StringBuffer())
-      ..write('L${getComponentExponent(Dimensions.baseLengthKey)}')
-      ..write('M${getComponentExponent(Dimensions.baseMassKey)}')
-      ..write('T${getComponentExponent(Dimensions.baseTimeKey)}')
-      ..write('C${getComponentExponent(Dimensions.baseCurrentKey)}')
-      ..write('I${getComponentExponent(Dimensions.baseIntensityKey)}')
-      ..write('TP${getComponentExponent(Dimensions.baseTemperatureKey)}')
-      ..write('AM${getComponentExponent(Dimensions.baseAmountKey)}')
-      ..write('A${getComponentExponent(Dimensions.baseAngleKey)}')
-      ..write('S${getComponentExponent(Dimensions.baseSolidAngleKey)}');
+      ..write('L${fmt(Dimensions.baseLengthKey)}')
+      ..write('M${fmt(Dimensions.baseMassKey)}')
+      ..write('T${fmt(Dimensions.baseTimeKey)}')
+      ..write('C${fmt(Dimensions.baseCurrentKey)}')
+      ..write('I${fmt(Dimensions.baseIntensityKey)}')
+      ..write('TP${fmt(Dimensions.baseTemperatureKey)}')
+      ..write('AM${fmt(Dimensions.baseAmountKey)}')
+      ..write('A${fmt(Dimensions.baseAngleKey)}')
+      ..write('S${fmt(Dimensions.baseSolidAngleKey)}');
 
     return buffer.toString().hashCode;
   }
@@ -406,5 +411,25 @@ final class Dimensions {
 
     buffer.write(']');
     return buffer.toString();
+  }
+
+  /// Returns a human-readable description of base dimensions (e.g. `"Length^1 / Time^2"`).
+  static String describe(Dimensions dimensions) {
+    if (dimensions.isScalar) return 'dimensionless';
+    final numParts = <String>[];
+    final denParts = <String>[];
+    for (final key in dimensions.toJson().keys) {
+      final exp = dimensions.getComponentExponent(key);
+      if (exp > 0) {
+        numParts.add('$key^$exp');
+      } else if (exp < 0) {
+        denParts.add('$key^${-exp}');
+      }
+    }
+    final numStr = numParts.isEmpty ? '1' : numParts.join(' * ');
+    if (denParts.isEmpty) return numStr;
+    final denStr =
+        denParts.length == 1 ? denParts[0] : '(${denParts.join(' * ')})';
+    return '$numStr / $denStr';
   }
 }

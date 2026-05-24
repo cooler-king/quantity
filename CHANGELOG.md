@@ -1,3 +1,20 @@
+### 5.0.0
+  * **Dart 3+ Modernization**: Applied `sealed`, `base`, and `final` modifiers to `Number`, `Quantity`, and `Dimensions` classes. Refactored map parsing and type determination using modern pattern matching and switch expressions.
+  * **Fluent DX & Unit Shortcuts**: Added extension getters on `num` and `Number` (e.g., `5.meters`, `75.tps`) and unit shortcuts (`inKilometers`, `inTps`, `inCelsius`).
+  * **Registry Decoupling & Tree-Shaking**: Decoupled the physical quantity registry by registering subclasses dynamically, allowing for clean tree-shaking. Added a lightweight core entrypoint `lib/quantity_core.dart`.
+  * **JSON Serialization**: Added full `toJson()` and `fromJson()` support to `Quantity`, `Number`, and `Dimensions` hierarchies.
+  * **Decimal Interoperability**: Integrated the `decimal` package directly, introducing `valueSIAsDecimal`, `toDecimal()`, and `fromDecimal(Decimal)` to allow high-precision decimal operations.
+  * **NIST Constants Sync**: Added an automated script `bin/update_nist_constants.dart` to synchronize physical constants and uncertainties with the official NIST CODATA table.
+  * **AI Readiness & Natural Language Processing**: 
+    * Added `Quantity.parse(String text)` for parsing natural language physical measurements (e.g., `'120 km/h'`, `'9.8 m/s^2'`).
+    * Added `Quantity.checkDimensionalConsistency` to symbolically check math formula consistency (e.g., `s = u * t + 0.5 * a * t^2`).
+    * Added `Dimensions.describe` returning human-readable dimensions (e.g. `'Length^1 / Time^2'`).
+    * Exposed structured JSON schemas (`Quantity.jsonSchema`) for structured LLM function calling.
+  * **Computational & Digital Layout Quantities**:
+    * Introduced `Token` and `TokenRate` classes to support modeling, parsing, and arithmetic for NLP/LLM context tracking and throughput metrics.
+    * Introduced `Pixel`, `Resolution` (pixels per length), and `PixelDensity` (pixels per area) classes to support spatial layout scaling, screen resolution calibration (PPI/DPI/DPCM), and graphics calculations with type-safe arithmetic operators.
+  * **Algebraic Property Verification**: Established property-based testing for `Dimensions` algebra.
+
 ### 4.0.0
   * Breaking changes:
     * Changed some compound unit constructor names to be more descriptive.

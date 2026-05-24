@@ -1,0 +1,36 @@
+# quantity
+
+A comprehensive, mathematically rigorous, and high-performance physical quantity and dimensions library for Dart. Ideal for scientific computing, engineering, unit safety, and AI integration.
+
+## Key APIs
+- **Quantity** (`lib/src/si/quantity.dart`): Base class for all 75+ physical quantity subclasses (e.g. `Length`, `Mass`, `Speed`, `Energy`).
+  - Use `Quantity.parse(String text)` to parse strings like `'120 km/h'` or `'9.8 m/s^2'` directly into the correct typed subclass.
+  - Use `Quantity.getUnitSymbols(Type quantityType)` to retrieve standard symbols for any type.
+  - Use `Quantity.checkDimensionalConsistency(Map<String, Dimensions> variables, String equation)` to check formula dimensional safety (e.g. `'s = u*t + 0.5*a*t^2'`).
+  - Use `Quantity.jsonSchema` to get structured output JSON Schema definitions for tool calling constraints.
+- **Dimensions** (`lib/src/si/dimensions.dart`): Tracks base dimensions (Length, Mass, Time, etc.). Supports algebraic operations (`*`, `/`, `inverse`).
+  - Use `Dimensions.describe(Dimensions d)` to get human-readable formats like `"Length^1 / Time^2"`.
+- **Number** (`lib/src/number/number.dart`): Abstract sealed hierarchy supporting `Integer`, `Double`, arbitrary-precision `Precise`, `Imaginary`, and `Complex` numbers.
+- **package:decimal Interoperability**: Instantiate quantities directly with `Decimal` values. Convert quantity values using `Quantity.valueSIAsDecimal`.
+- **Fluent Extensions** (`lib/quantity_ext.dart`): Call getters like `5.meters`, `250.milliliters`, `2.hours`, or conversion getters like `distance.inKilometers`.
+
+## Quick Example
+```dart
+import 'package:quantity/quantity.dart';
+
+void main() {
+  // 1. Natural Language Parse
+  final velocity = Quantity.parse('120 km/h') as Speed;
+  print(velocity.valueSI); // 33.333333333333336 m/s
+  
+  // 2. Fluent Construction
+  final duration = 2.5.hours;
+  
+  // 3. Dimensional Math
+  final distance = velocity * duration;
+  print(distance.runtimeType); // Length
+  
+  // 4. Conversion
+  print(distance.valueInUnits(Length.kilometers)); // 300.0 km
+}
+```

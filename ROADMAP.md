@@ -79,4 +79,13 @@ To support seamless transitions for users migrating to 5.0.0, we have updated do
 - [x] **Property-Based Testing:** Implement randomized round-trip algebraic tests for `Dimensions` arithmetic (`*`, `/`, `inverse`) to verify that invariants like `(A * B) / B == A` always hold.
 - [x] **Automated NIST Constant Updater:** Build a helper script to fetch, parse, and automatically sync physical constants in the library directly from the latest official NIST CODATA data files.
 
+---
+
+## 9. Phase 9: AI Readiness & Natural Language Processing (AI Gaps)
+- [ ] **Natural Language Quantity Parser (`Quantity.parse`):** Implement parsing of quantity strings with values and compound unit expressions (supporting prefix parsing and dynamic dimension matching).
+- [ ] **AI-Friendly Self-Discovery & Metadata APIs:** Provide APIs to query standard symbols, units, dimensions, and type mappings programmatically.
+- [ ] **JSON Schema & LLM Tool Schema Generators:** Expose structured schemas and stateless helpers optimized for tool usage and structured output definitions.
+- [ ] **Symbolic Dimensional Solver/Validator:** Add support for checking dimensional consistency in formulas.
+
+
 

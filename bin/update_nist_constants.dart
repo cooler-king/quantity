@@ -65,7 +65,8 @@ Future<void> main() async {
   String content;
   try {
     final client = HttpClient();
-    final request = await client.getUrl(Uri.parse('https://physics.nist.gov/cuu/Constants/Table/allascii.txt'));
+    final request = await client.getUrl(
+        Uri.parse('https://physics.nist.gov/cuu/Constants/Table/allascii.txt'));
     final response = await request.close();
     if (response.statusCode == 200) {
       content = await response.transform(utf8.decoder).join();
@@ -74,7 +75,8 @@ Future<void> main() async {
       throw HttpException('HTTP status ${response.statusCode}');
     }
   } catch (e) {
-    print('Failed to fetch from NIST: $e. Falling back to local nist_constants.txt.');
+    print(
+        'Failed to fetch from NIST: $e. Falling back to local nist_constants.txt.');
     final localFile = File('test/quantity_ext/txt/nist_constants.txt');
     if (!localFile.existsSync()) {
       print('Error: Local nist_constants.txt not found.');
@@ -89,7 +91,8 @@ Future<void> main() async {
 
   var started = false;
   for (final line in lines) {
-    if (line.contains('-----------------------------------------------------------------------------------------------------------------------------')) {
+    if (line.contains(
+        '-----------------------------------------------------------------------------------------------------------------------------')) {
       started = true;
       continue;
     }
@@ -109,7 +112,8 @@ Future<void> main() async {
       valueStr = valueStr.replaceAll('...', '');
       uncert = 0.0;
     } else {
-      var uncertStr = line.substring(85, min(line.length, 110)).replaceAll(' ', '').trim();
+      var uncertStr =
+          line.substring(85, min(line.length, 110)).replaceAll(' ', '').trim();
       if (uncertStr.contains('exact')) {
         uncert = 0.0;
       } else if (uncertStr.isNotEmpty) {
@@ -149,13 +153,15 @@ Future<void> main() async {
 
     final nistData = nistValues[nistName];
     if (nistData == null) {
-      print('Warning: constant "$nistName" not found in fetched CODATA values.');
+      print(
+          'Warning: constant "$nistName" not found in fetched CODATA values.');
       continue;
     }
 
     final file = varFileMap[varName];
     if (file == null) {
-      print('Warning: could not locate declaration of variable "$varName" in lib/.');
+      print(
+          'Warning: could not locate declaration of variable "$varName" in lib/.');
       continue;
     }
 
@@ -164,7 +170,9 @@ Future<void> main() async {
     final relativeUncert = newValue == 0.0 ? 0.0 : (newUncert / newValue).abs();
 
     var fileContent = file.readAsStringSync();
-    final regex = RegExp('const\\s+([A-Za-z0-9_<>]+)\\s+$varName\\s*=\\s*([^;]+);', multiLine: true);
+    final regex = RegExp(
+        'const\\s+([A-Za-z0-9_<>]+)\\s+$varName\\s*=\\s*([^;]+);',
+        multiLine: true);
 
     final match = regex.firstMatch(fileContent);
     if (match == null) {
@@ -189,7 +197,8 @@ Future<void> main() async {
     } else if (relativeUncert > 0.0) {
       final lastIndex = expr.lastIndexOf(')');
       if (lastIndex != -1) {
-        expr = '${expr.substring(0, lastIndex)}, uncert: $relativeUncert${expr.substring(lastIndex)}';
+        expr =
+            '${expr.substring(0, lastIndex)}, uncert: $relativeUncert${expr.substring(lastIndex)}';
       }
     }
 
@@ -200,7 +209,8 @@ Future<void> main() async {
       fileContent = fileContent.replaceFirst(originalFull, updatedFull);
       file.writeAsStringSync(fileContent);
       modifiedFiles.add(file);
-      print('Updated $varName in ${file.path}: value = $newValue, relative uncert = $relativeUncert');
+      print(
+          'Updated $varName in ${file.path}: value = $newValue, relative uncert = $relativeUncert');
     }
   }
 
@@ -211,12 +221,14 @@ Future<void> main() async {
     testFileDir.createSync(recursive: true);
   }
   localTestFile.writeAsStringSync('${nistTableLines.join('\n')}\n');
-  print('Updated local verification file test/quantity_ext/txt/nist_constants.txt');
+  print(
+      'Updated local verification file test/quantity_ext/txt/nist_constants.txt');
 
   // Scan and update the tests under test/
   print('Scanning and updating hardcoded expected values in test/ files...');
   final testDir = Directory('test');
-  final testFiles = testDir.listSync(recursive: true).whereType<File>().toList();
+  final testFiles =
+      testDir.listSync(recursive: true).whereType<File>().toList();
 
   for (final file in testFiles) {
     if (!file.path.endsWith('.dart')) continue;
@@ -232,7 +244,8 @@ Future<void> main() async {
       final newValue = nistData['value']!;
 
       // Pattern: expect(varName.valueSI.toDouble(), old_value)
-      final expectRegex = RegExp('expect\\(\\s*$varName\\.valueSI\\.toDouble\\(\\),\\s*(-?[0-9.eE+-]+)\\s*\\)');
+      final expectRegex = RegExp(
+          'expect\\(\\s*$varName\\.valueSI\\.toDouble\\(\\),\\s*(-?[0-9.eE+-]+)\\s*\\)');
       if (expectRegex.hasMatch(fileContent)) {
         fileContent = fileContent.replaceAllMapped(expectRegex, (m) {
           modified = true;

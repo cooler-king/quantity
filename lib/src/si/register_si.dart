@@ -36,6 +36,11 @@ import 'types/inductance.dart';
 import 'types/information.dart';
 import 'types/information_rate.dart';
 import 'types/kinematic_viscosity.dart';
+import 'types/token.dart';
+import 'types/token_rate.dart';
+import 'types/pixel.dart';
+import 'types/resolution.dart';
+import 'types/pixel_density.dart';
 import 'types/length.dart';
 import 'types/level.dart';
 import 'types/luminance.dart';
@@ -457,6 +462,31 @@ void registerStandardSIQuantities() {
       WaveNumber.waveNumberDimensions,
       (dynamic value, WaveNumberUnits? units, double uncert) =>
           WaveNumber.inUnits(value, units, uncert));
+  registerQuantityType(
+      Token,
+      Token.tokenDimensions,
+      (dynamic value, TokenUnits? units, double uncert) =>
+          Token.inUnits(value, units, uncert));
+  registerQuantityType(
+      TokenRate,
+      TokenRate.tokenRateDimensions,
+      (dynamic value, TokenRateUnits? units, double uncert) =>
+          TokenRate.inUnits(value, units, uncert));
+  registerQuantityType(
+      Pixel,
+      Pixel.pixelDimensions,
+      (dynamic value, PixelUnits? units, double uncert) =>
+          Pixel.inUnits(value, units, uncert));
+  registerQuantityType(
+      Resolution,
+      Resolution.resolutionDimensions,
+      (dynamic value, ResolutionUnits? units, double uncert) =>
+          Resolution.inUnits(value, units, uncert));
+  registerQuantityType(
+      PixelDensity,
+      PixelDensity.pixelDensityDimensions,
+      (dynamic value, PixelDensityUnits? units, double uncert) =>
+          PixelDensity.inUnits(value, units, uncert));
 }
 
 bool _siRegistered = false;

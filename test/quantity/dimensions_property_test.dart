@@ -20,7 +20,21 @@ void main() {
     ];
 
     // Allowed exponents that are integers or half-integers (which are represented exactly in binary float)
-    final allowedExponents = <num>[-3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3];
+    final allowedExponents = <num>[
+      -3,
+      -2.5,
+      -2,
+      -1.5,
+      -1,
+      -0.5,
+      0,
+      0.5,
+      1,
+      1.5,
+      2,
+      2.5,
+      3
+    ];
 
     // Generates a random Dimensions object
     Dimensions nextRandomDimensions() {
@@ -31,7 +45,8 @@ void main() {
 
       for (var i = 0; i < numNonZero; i++) {
         final key = keys[i];
-        final exponent = allowedExponents[rand.nextInt(allowedExponents.length)];
+        final exponent =
+            allowedExponents[rand.nextInt(allowedExponents.length)];
         if (exponent != 0) {
           map[key] = exponent;
         }
@@ -40,7 +55,8 @@ void main() {
     }
 
     test('Algebraic Properties', () {
-      final scalar = Dimensions(); // No-arg constructor makes scalar (empty map)
+      final scalar =
+          Dimensions(); // No-arg constructor makes scalar (empty map)
 
       for (var i = 0; i < 1000; i++) {
         final a = nextRandomDimensions();

@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
 import 'package:quantity/quantity.dart';
+import 'parser_helpers.dart';
+import 'consistency_helpers.dart';
 
 /// The abstract base class for all quantities.  The Quantity class represents
 /// the value of a physical quantity and its
@@ -112,6 +114,56 @@ abstract base class Quantity implements Comparable<dynamic> {
 
     return MiscQuantity(value, dims, uncertainty);
   }
+
+  /// Parses a string representing a value and its unit (e.g. `'120 km/h'`)
+  /// into a concrete Quantity subtype.
+  static Quantity parse(String text) => ParserHelpers.parse(text);
+
+  /// Returns all standard abbreviation symbols for a registered quantity type.
+  static List<String> getUnitSymbols(Type quantityType) =>
+      ParserHelpers.getUnitSymbols(quantityType);
+
+  /// Checks if a mathematical formula (e.g. `'s = u*t + 0.5*a*t^2'`) is dimensionally consistent.
+  static bool checkDimensionalConsistency(
+          Map<String, Dimensions> variableDimensions, String expression) =>
+      ConsistencyHelpers.checkDimensionalConsistency(
+          variableDimensions, expression);
+
+  /// Returns the JSON Schema representing a serialized Quantity.
+  static Map<String, dynamic> get jsonSchema => const {
+        'type': 'object',
+        'properties': {
+          'type': {
+            'type': 'string',
+            'description': 'The typed subclass name, e.g. Speed, Mass, Energy'
+          },
+          'value': {
+            'type': 'object',
+            'properties': {
+              'type': {
+                'type': 'string',
+                'enum': ['Integer', 'Double', 'Precise', 'Complex', 'Imaginary']
+              },
+              'value': {
+                'type': 'string',
+                'description': 'The numeric value as string or number'
+              }
+            },
+            'required': ['type', 'value']
+          },
+          'dimensions': {
+            'type': 'object',
+            'additionalProperties': {'type': 'number'},
+            'description':
+                "Base dimension name to exponent, e.g. {'Length': 1, 'Time': -1}"
+          },
+          'uncertainty': {
+            'type': 'number',
+            'description': 'Relative standard uncertainty'
+          }
+        },
+        'required': ['type', 'value', 'dimensions']
+      };
 
   /// Returns the valueSI value as a Decimal (from package:decimal).
   /// Throws a StateError if the valueSI cannot be converted (e.g. Complex/Imaginary).

@@ -70,6 +70,16 @@ extension FluentNumExtension on num {
   Power get watts => Power(W: this);
   Power get kilowatts => Power(kW: this);
   Power get horsepower => Power.inUnits(this, pow_ext.horsepower550);
+
+  // Token
+  Token get tokens => Token(tokens: this);
+  TokenRate get tps => TokenRate(tps: this);
+  TokenRate get tokensPerSecond => TokenRate(tps: this);
+
+  // Pixel & Resolution
+  Pixel get pixels => Pixel(pixels: this);
+  Resolution get ppi => Resolution(ppi: this);
+  Resolution get dpcm => Resolution(dpcm: this);
 }
 
 /// Extension getters on [Number] to fluently construct physical quantities.
@@ -134,6 +144,16 @@ extension FluentNumberExtension on Number {
   Power get watts => Power(W: this);
   Power get kilowatts => Power(kW: this);
   Power get horsepower => Power.inUnits(this, pow_ext.horsepower550);
+
+  // Token
+  Token get tokens => Token(tokens: this);
+  TokenRate get tps => TokenRate(tps: this);
+  TokenRate get tokensPerSecond => TokenRate(tps: this);
+
+  // Pixel & Resolution
+  Pixel get pixels => Pixel(pixels: this);
+  Resolution get ppi => Resolution(ppi: this);
+  Resolution get dpcm => Resolution(dpcm: this);
 }
 
 /// Unit shortcut conversions on [Length].
@@ -219,4 +239,27 @@ extension PowerShortcuts on Power {
   double get inWatts => valueInUnits(Power.watts).toDouble();
   double get inKilowatts => valueInUnits(Power.kilowatts).toDouble();
   double get inHorsepower => valueInUnits(pow_ext.horsepower550).toDouble();
+}
+
+/// Unit shortcut conversions on [Token].
+extension TokenShortcuts on Token {
+  double get inTokens => valueInUnits(Token.tokens).toDouble();
+}
+
+/// Unit shortcut conversions on [TokenRate].
+extension TokenRateShortcuts on TokenRate {
+  double get inTokensPerSecond =>
+      valueInUnits(TokenRate.tokensPerSecond).toDouble();
+  double get inTps => valueInUnits(TokenRate.tokensPerSecond).toDouble();
+}
+
+/// Unit shortcut conversions on [Pixel].
+extension PixelShortcuts on Pixel {
+  double get inPixels => valueInUnits(Pixel.pixels).toDouble();
+}
+
+/// Unit shortcut conversions on [Resolution].
+extension ResolutionShortcuts on Resolution {
+  double get inPpi => valueInUnits(Resolution.pixelsPerInch).toDouble();
+  double get inDpcm => valueInUnits(Resolution.pixelsPerCentimeter).toDouble();
 }
