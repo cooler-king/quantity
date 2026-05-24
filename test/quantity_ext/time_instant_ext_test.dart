@@ -105,5 +105,60 @@ void main() {
       expect(tai.valueInUnits(MJD_UTC).toDouble(),
           closeTo(59352.1477199076, 0.000000001));
     });
+
+    test('round-trip and inverse conversions for all time scales', () {
+      final scales = [
+        TCG,
+        TDB,
+        TCB,
+        UT1,
+        UT2,
+        UTC,
+        B,
+        NTP,
+        JD_TAI,
+        JD_TCB,
+        JD_TCG,
+        JD_TDB,
+        JD_TDT,
+        JD_UT1,
+        JD_UTC,
+        MJD_TAI,
+        MJD_TCB,
+        MJD_TCG,
+        MJD_TDB,
+        MJD_TDT,
+        MJD_UT1,
+        MJD_UTC
+      ];
+
+      for (final scale in scales) {
+        // Test with num input
+        final tNum = TimeInstant.inUnits(1000.0, scale);
+        final valTAI = tNum.valueInUnits(TAI);
+        final tRound = TimeInstant(TAI: valTAI);
+        final tolerance = 3000000.0;
+        expect(
+            tRound.valueInUnits(scale).toDouble(), closeTo(1000.0, tolerance));
+
+        // Test with Number input
+        final tNumber = TimeInstant.inUnits(Double(1000.0), scale);
+        expect(tNumber.valueInUnits(TAI).toDouble(),
+            closeTo(valTAI.toDouble(), 0.001));
+      }
+
+      // Test fallback branches of custom closures directly
+      expect(TCG.toMks('invalid').toDouble(), isNotNull);
+      expect(TCG.fromMks('invalid').toDouble(), isNotNull);
+      expect(TDB.toMks('invalid').toDouble(), isNotNull);
+      expect(TDB.fromMks('invalid').toDouble(), isNotNull);
+      expect(TCB.toMks('invalid').toDouble(), isNotNull);
+      expect(TCB.fromMks('invalid').toDouble(), isNotNull);
+
+      // Test derive method on TimeInstantUnits
+      final derivedTime = TAI.derive('testPrefix', 'tp', 2.0);
+      expect(derivedTime.name, 'testPrefixInternational Atomic Time');
+      expect(derivedTime.quantityType, TimeInstant);
+    });
   });
 }

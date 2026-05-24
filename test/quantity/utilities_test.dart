@@ -172,4 +172,25 @@ void main() {
       });
     });
   });
+
+  group('exceptions and converters', () {
+    test('NumberException and QuantityException toString', () {
+      expect(
+          NumberException('test msg').toString(), 'NumberException: test msg');
+      expect(QuantityException('test msg').toString(),
+          'QuantityException: test msg');
+    });
+
+    test('converters edge cases', () {
+      expect(() => objToNumber('invalid'), throwsA(anything));
+      expect(numberToNum(Imaginary(5)), 0);
+      expect(numberToNum(Complex(Double(3.5), Imaginary(2.0))), 3.5);
+
+      final pDec = Precise('10.5');
+      expect(numberToNum(pDec), 10.5);
+
+      final pInt = Precise('42');
+      expect(numberToNum(pInt), 42);
+    });
+  });
 }

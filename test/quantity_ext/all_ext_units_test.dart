@@ -7,6 +7,11 @@ void main() {
     test('acceleration_ext', () {
       expect(standardAccelerationOfGravity.valueSI.toDouble(), 9.80665);
       expect(gees.name, 'gees');
+      expect(meterPerSecondSquared.name, 'meters per second squared');
+      expect(footPerSecondSquared.name, 'feet per second squared');
+      expect(inchPerSecondSquared.name, 'inches per second squared');
+      expect(galileos.name, 'galileos');
+      expect(gals, galileos);
     });
 
     test('amount_of_substance_ext', () {
@@ -33,9 +38,12 @@ void main() {
     test('angular_speed_ext', () {
       expect(revolutionsPerMinute.name, 'revolutions per minute');
       expect(rpm.name, 'revolutions per minute');
+      expect(radiansPerSecond.name, 'radians per second');
+      expect(degreesPerSecond.name, 'degrees per second');
     });
 
     test('area_ext', () {
+      expect(squareMeters.name, 'square meters');
       expect(ares.name, 'ares');
       expect(hectares.name, 'hectares');
       expect(acres.name, 'acres');
@@ -66,6 +74,7 @@ void main() {
     });
 
     test('charge_ext', () {
+      expect(coulombs.name, 'coulombs');
       expect(ampereHours.name, 'ampere hours');
       expect(abcoulombs.name, 'dekacoulombs');
       expect(statcoulombs.name, 'statcoulombs');
@@ -170,6 +179,10 @@ void main() {
       expect(bytes.name, 'bytes');
       expect(kilobytes.name, 'kilobytes');
       expect(megabytes.name, 'megabytes');
+      expect(gigabytes.name, 'gigabytes');
+      expect(terabytes.name, 'terabytes');
+      expect(petabytes.name, 'petabytes');
+      expect(exabytes.name, 'exabytes');
     });
 
     test('kinematic_viscosity_ext', () {
@@ -269,7 +282,11 @@ void main() {
     });
 
     test('mass_density_ext', () {
+      expect(kilogramsPerCubicMeter.name, 'kilograms per cubic meter');
       expect(gramsPerCubicCentimeter.name, 'grams per cubic centimeter');
+      expect(poundsPerCubicInch.name, 'pounds (avoirdupois) per cubic inch');
+      expect(poundsPerCubicFoot.name, 'pounds (avoirdupois) per cubic foot');
+      expect(slugsPerCubicFoot.name, 'slugs per cubic foot');
     });
 
     test('mass_ext', () {
@@ -301,6 +318,17 @@ void main() {
       expect(tonsShort.name, 'tons (short)');
       expect(tonsAssay.name, 'tons (assay)');
       expect(kgfSecondSquaredMeter.name, 'kgf second squared meter');
+      expect(planckMass.valueSI.toDouble(), closeTo(2.176434e-8, 1e-13));
+      expect(alphaParticleMass.valueSI.toDouble(),
+          closeTo(6.644657345e-27, 1e-33));
+      expect(atomicMass.valueSI.toDouble(), closeTo(1.660539066e-27, 1e-35));
+      expect(electronMass.valueSI.toDouble(), closeTo(9.1093837e-31, 1e-37));
+      expect(protonMass.valueSI.toDouble(), closeTo(1.67262192e-27, 1e-34));
+      expect(neutronMass.valueSI.toDouble(), closeTo(1.67492749e-27, 1e-34));
+      expect(tauMass.valueSI.toDouble(), closeTo(3.16754e-27, 1e-31));
+      expect(deuteronMass.valueSI.toDouble(), closeTo(3.3435837e-27, 1e-33));
+      expect(helionMass.valueSI.toDouble(), closeTo(5.0064127e-27, 1e-33));
+      expect(muonMass.valueSI.toDouble(), closeTo(1.8835316e-28, 1e-34));
     });
 
     test('permeability_ext', () {
@@ -331,6 +359,7 @@ void main() {
       expect(horsepowerWater.name, 'horsepower (water)');
       expect(referenceSound.name, 'reference (sound)');
       expect(kilowatts.name, 'kilowatts');
+      expect(solarLuminosity.valueSI.toDouble(), closeTo(3.846e26, 1e20));
     });
 
     test('pressure_ext', () {
@@ -354,6 +383,10 @@ void main() {
 
     test('resistance_ext', () {
       expect(ohms.name, 'ohms');
+      expect(characteristicImpedanceOfVacuum.valueSI.toDouble(),
+          closeTo(376.7303, 1e-3));
+      expect(Z0, characteristicImpedanceOfVacuum);
+      expect(vonKlitzingConstant.valueSI.toDouble(), closeTo(25812.807, 1e-2));
     });
 
     test('scalar_ext', () {
@@ -456,7 +489,16 @@ void main() {
     });
 
     test('temperature_ext', () {
-      expect(Fahrenheit.name, 'degrees Fahrenheit');
+      expect(kelvins.name, 'kelvins');
+      expect(degK, kelvins);
+      expect(degreesCelsius.name, 'degrees Celsius');
+      expect(fiveNinths.toDouble(), 5.0 / 9.0);
+      expect(Rankine.name, 'degrees Rankine');
+      expect(degreesFahrenheit, Fahrenheit);
+      expect(degF, Fahrenheit);
+      expect(degreesRankine, Rankine);
+      expect(degR, Rankine);
+      expect(planckTemperature.valueSI.toDouble(), closeTo(1.416784e32, 1e27));
     });
 
     test('time_ext', () {

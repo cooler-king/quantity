@@ -119,7 +119,7 @@ class AngleRange extends QuantityRange<Angle> {
       end = centerValue + delta as Angle;
     }
     if (rotate != null) {
-      final newCenter = centerValue + rotate as Angle;
+      final newCenter = centerValue + Angle(deg: rotate) as Angle;
       final delta = (end - start) / 2.0 as Angle;
       start = newCenter - delta as Angle;
       end = newCenter + delta as Angle;

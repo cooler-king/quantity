@@ -15,6 +15,18 @@ void main() {
       expect(q.toJson(), isNotNull);
       expect(q.toString(), isNotNull);
 
+      final units = q.preferredUnits;
+      if (units != null) {
+        final derived = units.derive('testPrefix', 'tp', 2.0);
+        expect(derived, isNotNull);
+        expect(derived.name, startsWith('testPrefix'));
+        if (derived.quantityType != type) {
+          expect(derived.quantityType, Level);
+        } else {
+          expect(derived.quantityType, type);
+        }
+      }
+
       // Basic math operations to cover operator overrides
       if (q is! Level) {
         final qDouble = q * 2.0;
