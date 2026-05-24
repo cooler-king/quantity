@@ -27,5 +27,14 @@ jobs:
       - name: Analyze project source
         run: dart analyze --fatal-infos
 
-      - name: Run tests
-        run: dart test
+      - name: Run tests with coverage
+        run: dart test --coverage=coverage
+
+      - name: Install coverage package
+        run: dart pub global activate coverage
+
+      - name: Format coverage report
+        run: dart pub global run coverage:format_coverage --packages=.dart_tool/package_config.json --report-on=lib --lcov -i coverage -o coverage/coverage.lcov
+
+      - name: Verify 100% test coverage
+        run: dart run tool/verify_coverage.dart
