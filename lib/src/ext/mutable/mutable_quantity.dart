@@ -245,7 +245,7 @@ base class MutableQuantity extends Quantity {
   /// Therefore MutableQuantity instances with the same value and dimensions as
   /// another quantity will not have the same hash code.
   @override
-  int get hashCode => hashObjects(<Object>[this]);
+  int get hashCode => identityHashCode(this);
 
   @override
   bool operator ==(Object obj) => hashCode == obj.hashCode;

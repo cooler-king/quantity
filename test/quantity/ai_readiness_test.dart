@@ -92,6 +92,33 @@ void main() {
       // Invalid syntax (Inconsistent/Unparseable)
       expect(
           Quantity.checkDimensionalConsistency(vars, 's = u * * t'), isFalse);
+
+      // single expression evaluation (no '=')
+      expect(Quantity.checkDimensionalConsistency(vars, 'u * t'), isTrue);
+
+      // division '/' (e.g. u = s / t)
+      expect(Quantity.checkDimensionalConsistency(vars, 'u = s / t'), isTrue);
+
+      // negative exponent '^-1' (e.g. u = s * t^-1)
+      expect(Quantity.checkDimensionalConsistency(vars, 'u = s * t^-1'), isTrue);
+
+      // negative exponent '^-1' alternative representation
+      expect(Quantity.checkDimensionalConsistency(vars, 'u = s * t^-1.0'), isTrue);
+
+      // unary minus and plus
+      expect(Quantity.checkDimensionalConsistency(vars, 's = -u * +t'), isTrue);
+
+      // parenthesis handling
+      expect(Quantity.checkDimensionalConsistency(vars, 's = (u * t)'), isTrue);
+
+      // parenthesis error (unclosed)
+      expect(Quantity.checkDimensionalConsistency(vars, 's = (u * t'), isFalse);
+
+      // exponent syntax error (missing exponent after ^)
+      expect(Quantity.checkDimensionalConsistency(vars, 's = u * t^'), isFalse);
+
+      // empty expression error
+      expect(Quantity.checkDimensionalConsistency(vars, ''), isFalse);
     });
 
     test('Quantity.jsonSchema', () {

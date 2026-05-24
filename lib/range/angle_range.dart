@@ -69,7 +69,6 @@ class AngleRange extends QuantityRange<Angle> {
     final min360 = minValue.angle360;
     var max360 = maxValue.angle360;
     if (max360 < min360) {
-      max360 = max360 + Angle(rad: twoPi) as Angle;
       list1
         ..add(AngleRange(min360, Angle(rad: twoPi)))
         ..add(AngleRange(Angle(rad: 0), max360));
@@ -79,9 +78,8 @@ class AngleRange extends QuantityRange<Angle> {
 
     final list2 = <AngleRange>[];
     final min360two = range2.minValue.angle360;
-    var max360two = range2.maxValue.angle360;
+    final max360two = range2.maxValue.angle360;
     if (max360two < min360two) {
-      max360two = max360two + Angle(rad: twoPi) as Angle;
       list2
         ..add(AngleRange(min360two, Angle(rad: twoPi)))
         ..add(AngleRange(Angle(rad: 0), max360two));

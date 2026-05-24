@@ -129,6 +129,16 @@ void main() {
       final ar3 = AngleRange.degrees(350, 20); // starts at 350, ends at 20
       final ar4 = AngleRange.degrees(10, 30);
       expect(ar3.overlaps360(ar4), true);
+
+      // test where direct overlap is false but projection overlap is true
+      final ar5 = AngleRange.degrees(350, 370);
+      final ar6 = AngleRange.degrees(5, 15);
+      expect(ar5.overlaps360(ar6), true);
+
+      // test where they do not overlap at all (neither direct nor projection)
+      final ar7 = AngleRange.degrees(350, 370);
+      final ar8 = AngleRange.degrees(20, 40);
+      expect(ar7.overlaps360(ar8), false);
     });
 
     test('deriveRange', () {
@@ -216,6 +226,14 @@ void main() {
               .valueInUnits(Angle.radians)
               .toDouble(),
           closeTo(5.93412, 0.0001));
+
+      // test where deltaEndRad is closer than deltaStartRad (strict = true)
+      expect(
+          arStrict
+              .angleClosestTo(Angle(deg: 420), true)
+              .valueInUnits(Angle.degrees)
+              .toDouble(),
+          closeTo(30.0, 0.0001));
     });
   });
 }

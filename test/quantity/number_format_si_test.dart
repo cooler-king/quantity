@@ -201,6 +201,49 @@ void main() {
         expect(formatter.format(12345), '12345');
         expect(formatter.insertSpaces('12345'), '12345');
       });
+
+      test('format Quantity and Precise', () {
+        final formatter = NumberFormatSI(unicode: false);
+        expect(formatter.format(Length(m: 12345)), '12 345');
+        expect(formatter.format(Precise('12345')), '12 345');
+      });
+
+      test('all delegation properties', () {
+        final f = NumberFormatSI();
+        expect(f.tryParse('123'), 123);
+        expect(f.currencyName, isNotNull);
+        f.maximumFractionDigits = 5;
+        expect(f.maximumFractionDigits, 5);
+        f.maximumIntegerDigits = 5;
+        expect(f.maximumIntegerDigits, 5);
+        f.minimumExponentDigits = 5;
+        expect(f.minimumExponentDigits, 5);
+        f.minimumFractionDigits = 5;
+        expect(f.minimumFractionDigits, 5);
+        f.minimumIntegerDigits = 5;
+        expect(f.minimumIntegerDigits, 5);
+        // ignore: deprecated_member_use_from_same_package
+        f.significantDigits = 5;
+        // ignore: deprecated_member_use_from_same_package
+        expect(f.significantDigits, 5);
+        f.significantDigitsInUse = true;
+        expect(f.significantDigitsInUse, true);
+        f.maximumSignificantDigits = 5;
+        expect(f.maximumSignificantDigits, 5);
+        f.minimumSignificantDigits = 5;
+        expect(f.minimumSignificantDigits, 5);
+        f.minimumSignificantDigitsStrict = true;
+        expect(f.minimumSignificantDigitsStrict, true);
+        expect(f.currencySymbol, isNotNull);
+        expect(f.decimalDigits, isNull);
+        expect(f.locale, isNotNull);
+        expect(f.localeZero, isNotNull);
+        expect(f.multiplier, isNotNull);
+        expect(f.negativePrefix, isNotNull);
+        expect(f.negativeSuffix, isNotNull);
+        expect(f.positivePrefix, isNotNull);
+        expect(f.positiveSuffix, isNotNull);
+      });
     });
   });
 }

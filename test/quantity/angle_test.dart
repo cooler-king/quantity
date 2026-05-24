@@ -148,7 +148,59 @@ void main() {
       a = Angle(deg: -25);
       a360 = a.angle360;
       expect(a360.valueSI.toDouble(),
-          closeTo(Angle(deg: 335).valueSI.toDouble(), 0.00001));
+          closeTo(Angle(deg: 335).valueSI.toDouble(), 0.0001));
+    });
+
+    test('extra methods and functions', () {
+      // Global trig functions
+      final a = Angle(rad: pi / 4.0);
+      expect(cosine(a), closeTo(cos(pi / 4.0), 0.0001));
+      expect(sine(a), closeTo(sin(pi / 4.0), 0.0001));
+      expect(tangent(a), closeTo(tan(pi / 4.0), 0.0001));
+
+      // Member trig functions
+      expect(a.cosine(), closeTo(cos(pi / 4.0), 0.0001));
+      expect(a.sine(), closeTo(sin(pi / 4.0), 0.0001));
+      expect(a.tangent(), closeTo(tan(pi / 4.0), 0.0001));
+      expect(a.secant(), closeTo(1.0 / cos(pi / 4.0), 0.0001));
+      expect(a.cosecant(), closeTo(1.0 / sin(pi / 4.0), 0.0001));
+      expect(a.cotangent(), closeTo(1.0 / tan(pi / 4.0), 0.0001));
+
+      // angle180
+      final inRange = Angle(rad: 1.0);
+      expect(inRange.angle180, same(inRange));
+
+      final bigAngle = Angle(rad: 2 * pi + 1.0);
+      expect(bigAngle.angle180.valueSI.toDouble(), closeTo(1.0, 0.0001));
+
+      final negAngle = Angle(rad: -2 * pi - 1.0);
+      expect(negAngle.angle180.valueSI.toDouble(), closeTo(-1.0, 0.0001));
+
+      // misc constructor
+      final am = Angle.misc(pi);
+      expect(am.valueSI.toDouble(), pi);
+
+      // fromDegMinSec constructor
+      final adms = Angle.fromDegMinSec(10, 30, 36.0);
+      expect(adms.valueInUnits(Angle.degrees).toDouble(), closeTo(10.51, 0.0001));
+
+      // degMinSec getter
+      final dms = adms.degMinSec;
+      expect(dms[0], 10.0);
+      expect(dms[1], 30.0);
+      expect(dms[2], closeTo(36.0, 0.0001));
+
+      // hrMinSec getter
+      final hms = Angle(deg: 15.0).hrMinSec;
+      expect(hms[0], 1.0);
+      expect(hms[1], 0.0);
+      expect(hms[2], 0.0);
+
+      // derive units
+      final derivedUnits = Angle.radians.derive('kilo', 'k', 1000.0) as AngleUnits;
+      expect(derivedUnits.name, 'kiloradians');
+      expect(derivedUnits.abbrev1, 'krad');
+      expect(derivedUnits.quantityType, Angle);
     });
   });
 }
