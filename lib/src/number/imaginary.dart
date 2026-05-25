@@ -69,15 +69,15 @@ class Imaginary extends Number {
   bool get isInteger => true;
 
   @override
-  bool operator ==(Object obj) {
-    if (obj is Imaginary) {
-      return value == obj.value;
+  bool operator ==(Object other) {
+    if (other is Imaginary) {
+      return value == other.value;
     }
-    if (obj is Complex) {
-      return obj.real.value == 0.0 && this == obj.imaginary;
+    if (other is Complex) {
+      return other.real.value == 0.0 && this == other.imaginary;
     }
-    if (obj is Real || obj is num) {
-      return value.toDouble() == 0.0 && obj == 0.0;
+    if (other is Real || other is num) {
+      return value.toDouble() == 0.0 && other == 0.0;
     }
     return false;
   }

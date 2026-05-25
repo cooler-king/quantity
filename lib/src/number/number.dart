@@ -61,7 +61,7 @@ sealed class Number implements Comparable<dynamic> {
   /// Two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
   @override
-  bool operator ==(Object obj);
+  bool operator ==(Object other);
 
   /// The hash codes for two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
