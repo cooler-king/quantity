@@ -485,7 +485,7 @@ void main() {
       expect(kilometersPerHour.name, 'kilometers per hour');
       expect(milesPerMinute.name, 'miles per minute');
       expect(milesPerSecond.name, 'miles per second');
-      expect(speedOfLightVacuum.valueSI.toDouble(), 2.99792458e8);
+      expect(speedOfLightVacuum.valueSI.toDouble(), 299792458.0);
       expect(speedOfSoundAir0C.valueSI.toDouble(), 331.6);
     });
 
