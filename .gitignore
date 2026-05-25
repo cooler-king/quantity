@@ -19,3 +19,8 @@ pubspec.lock
 doc
 .idea/
 *.iml
+
+# Coverage reports
+coverage/
+*.lcov
+
