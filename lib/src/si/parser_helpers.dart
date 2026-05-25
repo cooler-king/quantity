@@ -122,7 +122,7 @@ class ParserHelpers {
       final exponentStr = tokenMatch.group(2);
       final exponent = exponentStr != null ? double.parse(exponentStr) : 1.0;
 
-      final resolved = _resolveUnit(unitName);
+      final resolved = resolveUnit(unitName);
       final unit = resolved.unit;
       final prefMult = resolved.prefixMultiplier;
 
@@ -196,9 +196,9 @@ class ParserHelpers {
     return MiscQuantity(finalValueSI, dims);
   }
 
-  static _ResolvedUnit _resolveUnit(String name) {
+  static ResolvedUnit resolveUnit(String name) {
     if (baseUnits.containsKey(name)) {
-      return _ResolvedUnit(baseUnits[name]!, 1.0);
+      return ResolvedUnit(baseUnits[name]!, 1.0);
     }
 
     // Check prefixes (longest first)
@@ -208,7 +208,7 @@ class ParserHelpers {
       if (name.startsWith(pref)) {
         final rest = name.substring(pref.length);
         if (baseUnits.containsKey(rest)) {
-          return _ResolvedUnit(baseUnits[rest]!, prefixes[pref]!);
+          return ResolvedUnit(baseUnits[rest]!, prefixes[pref]!);
         }
       }
     }
@@ -243,8 +243,8 @@ class ParserHelpers {
   }
 }
 
-class _ResolvedUnit {
+class ResolvedUnit {
   final Units unit;
   final double prefixMultiplier;
-  _ResolvedUnit(this.unit, this.prefixMultiplier);
+  ResolvedUnit(this.unit, this.prefixMultiplier);
 }

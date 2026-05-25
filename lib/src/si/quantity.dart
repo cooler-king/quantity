@@ -619,6 +619,60 @@ abstract base class Quantity implements Comparable<dynamic> {
     }
   }
 
+  /// Returns a new instance of this Quantity type with the [preferredUnits]
+  /// set to [targetUnit]. The [targetUnit] can be either a [Units] object
+  /// or a unit symbol [String] (e.g., `'km'`, `'m/s'`, or `'tps'`).
+  Quantity to(dynamic targetUnit) {
+    Units? resolvedUnit;
+    if (targetUnit is Units) {
+      resolvedUnit = targetUnit;
+    } else if (targetUnit is String) {
+      try {
+        final resolved = ParserHelpers.resolveUnit(targetUnit);
+        if (resolved.prefixMultiplier == 1.0) {
+          resolvedUnit = resolved.unit;
+        } else {
+          String? pref;
+          for (final key in ParserHelpers.prefixes.keys) {
+            if (targetUnit.startsWith(key) && targetUnit.endsWith(resolved.unit.abbrev1 ?? '')) {
+              pref = key;
+              break;
+            }
+          }
+          if (pref != null) {
+            const prefixNames = {
+              'Y': 'yotta', 'Z': 'zetta', 'E': 'exa', 'P': 'peta',
+              'T': 'tera', 'G': 'giga', 'M': 'mega', 'k': 'kilo',
+              'h': 'hecto', 'da': 'deka', 'd': 'deci', 'c': 'centi',
+              'm': 'milli', 'u': 'micro', 'n': 'nano', 'p': 'pico',
+              'f': 'femto', 'a': 'atto', 'z': 'zepto', 'y': 'yocto',
+            };
+            final fullPrefix = prefixNames[pref] ?? '';
+            resolvedUnit = resolved.unit.derive(fullPrefix, pref, resolved.prefixMultiplier);
+          } else {
+            resolvedUnit = resolved.unit;
+          }
+        }
+      } catch (_) {
+        // Keep it null
+      }
+    } else {
+      throw ArgumentError('Expected a Units object or a unit symbol String');
+    }
+
+    if (resolvedUnit == null) {
+      throw QuantityException('Could not resolve target unit: $targetUnit');
+    }
+
+    if (!(resolvedUnit is Quantity && (resolvedUnit as Quantity).dimensions == dimensions)) {
+      throw DimensionsException(
+          'Cannot convert to units with incompatible dimensions: $targetUnit');
+    }
+
+    final convertedValue = resolvedUnit.fromMks(valueSI);
+    return dimensions.toQuantity(convertedValue, resolvedUnit, relativeUncertainty);
+  }
+
   /// Appends a String representation of this [Quantity] to the [buffer]
   /// using the preferred units and number format.  If no preferred units have
   /// been specified, then MKS units are used.  Uncertainty in the value of the

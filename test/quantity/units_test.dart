@@ -33,5 +33,42 @@ void main() {
       // fromMks: (51.5 / 5.0) - 1.5 = 10.3 - 1.5 = 8.8
       expect(valFromDec.toDouble(), closeTo(8.8, 0.0001));
     });
+
+    test('Quantity.to method conversions', () {
+      final len = Length(m: 5000);
+      
+      // 1. Convert using Units object
+      final km = len.to(Length.kilometers);
+      expect(km.preferredUnits, Length.kilometers);
+      expect(km.toString(), '5 km');
+
+      // 2. Convert using baseUnits String symbol
+      final meters = len.to('m');
+      expect(meters.preferredUnits, Length.meters);
+      expect(meters.toString(), '5000 m');
+
+      // 3. Convert using prefixed resolveUnit String symbol
+      final kmStr = len.to('km');
+      expect(kmStr.preferredUnits, Length.kilometers);
+      expect(kmStr.toString(), '5 km');
+
+      // 3.5. Convert using prefixed symbol with unmatched abbrev suffix (fallback to resolved.unit)
+      final res = Resistance(ohms: 5000);
+      final kohm = res.to('kohm');
+      expect(kohm.preferredUnits, Resistance.ohms);
+      expect(kohm.toString(), '5000 \u03a9');
+
+      // 4. Exception: Unknown symbol
+      expect(() => len.to('xyz'), throwsA(isA<QuantityException>()));
+
+      // 5. Exception: Incompatible dimensions (Units object)
+      expect(() => len.to(Time.seconds), throwsA(isA<DimensionsException>()));
+
+      // 6. Exception: Incompatible dimensions (String symbol)
+      expect(() => len.to('s'), throwsA(isA<DimensionsException>()));
+
+      // 7. Exception: Invalid argument type
+      expect(() => len.to(123), throwsA(isA<ArgumentError>()));
+    });
   });
 }
