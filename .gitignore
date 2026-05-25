@@ -24,3 +24,7 @@ doc
 coverage/
 *.lcov
 
+# Local Roadmap
+ROADMAP.md
+
+
