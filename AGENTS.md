@@ -15,6 +15,7 @@ CI enforces all four steps and will fail if any is skipped.
 
 ## Other Useful Commands
 - **Sync NIST CODATA constants**: `dart run bin/update_nist_constants.dart`
+- **Check pub.dev score (160/160 target)**: `dart pub global activate pana && dart pub global run pana --no-warning .`
 
 ## Architecture & Constraints
 - **Code Coverage**: The codebase is at **100.0% code coverage**. Any and all code changes, additions, or refactorings MUST include corresponding unit tests to guarantee that overall project coverage remains at exactly **100.0%**.
