@@ -2,13 +2,19 @@
 
 This file provides rules, constraints, and commands for AI agents developing or modifying the `quantity` codebase.
 
-## Verification Commands
-- **Run tests**: `dart test`
-- **Run static analysis**: `dart analyze`
-- **Run code formatter**: `dart format .`
+## Pre-Commit Checklist
+
+Run these commands in order before every commit. All must pass cleanly.
+
+1. **Format**: `dart format .`
+2. **Analyze**: `dart analyze --fatal-infos`
+3. **Test**: `dart test`
+4. **Verify 100% coverage**: `dart test --coverage=coverage && dart run coverage:format_coverage --packages=.dart_tool/package_config.json --report-on=lib --lcov -i coverage -o coverage/coverage.lcov && dart run tool/verify_coverage.dart`
+
+CI enforces all four steps and will fail if any is skipped.
+
+## Other Useful Commands
 - **Sync NIST CODATA constants**: `dart run bin/update_nist_constants.dart`
-- **Generate coverage report**: `dart test --coverage=coverage && dart run coverage:format_coverage --packages=.dart_tool/package_config.json --report-on=lib --lcov -i coverage -o coverage/coverage.lcov`
-- **Verify 100% coverage**: `dart run scratch/analyze_coverage.dart`
 
 ## Architecture & Constraints
 - **Code Coverage**: The codebase is at **100.0% code coverage**. Any and all code changes, additions, or refactorings MUST include corresponding unit tests to guarantee that overall project coverage remains at exactly **100.0%**.
