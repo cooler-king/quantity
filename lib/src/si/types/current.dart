@@ -1,8 +1,8 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The flow of electric charge.
 /// See the [Wikipedia entry for Electric current](https://en.wikipedia.org/wiki/Electric_current)

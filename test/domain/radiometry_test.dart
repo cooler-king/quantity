@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/domain/radiometry.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Radiometry Domain', () {

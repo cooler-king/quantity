@@ -1,8 +1,10 @@
 import 'dart:math' as math;
+
 import 'package:intl/intl.dart';
 import 'package:quantity/quantity.dart';
-import 'parser_helpers.dart';
+
 import 'consistency_helpers.dart';
+import 'parser_helpers.dart';
 
 /// The abstract base class for all quantities.  The Quantity class represents
 /// the value of a physical quantity and its

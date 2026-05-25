@@ -1,8 +1,8 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The property of an electrical conductor by which a change in current flowing through
 /// it induces an electromotive force in both the conductor itself and in any nearby

@@ -1,8 +1,8 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The increase in rate of a chemical reaction caused by the presence of a catalyst.
 /// See the [Wikipedia entry for Catalysis](https://en.wikipedia.org/wiki/Catalysis)

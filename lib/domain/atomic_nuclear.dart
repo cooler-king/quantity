@@ -1,6 +1,9 @@
 /// Quantity types, units and constants commonly encountered in the fields of atomic, molecular, and nuclear physics.
 library atomic_nuclear;
 
+export 'package:quantity/domain/thermodynamic.dart'
+    show avogadro, faradayConstant, loschmidtStdAtm;
+export 'package:quantity/domain/universal.dart' show rydberg;
 export 'package:quantity/quantity.dart'
     show
         // Quantity classes and units
@@ -45,8 +48,3 @@ export 'package:quantity/quantity.dart'
         // Units
         barns,
         electronVolts;
-
-export 'package:quantity/domain/universal.dart' show rydberg;
-
-export 'package:quantity/domain/thermodynamic.dart'
-    show avogadro, faradayConstant, loschmidtStdAtm;

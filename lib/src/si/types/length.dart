@@ -1,8 +1,8 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Represents the _length_ physical quantity (one of the seven base SI quantities).
 /// See the [Wikipedia entry for Length](https://en.wikipedia.org/wiki/Length)

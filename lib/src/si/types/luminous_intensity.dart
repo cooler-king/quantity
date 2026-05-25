@@ -1,8 +1,8 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Represents the *luminous intensity* physical quantity (one of the seven
 /// base SI quantities), the wavelength-weighted power emitted by a light source

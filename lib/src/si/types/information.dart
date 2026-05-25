@@ -1,9 +1,10 @@
-import '../register_si.dart';
 import 'dart:math' as math;
+
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Amount of data.
 /// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)

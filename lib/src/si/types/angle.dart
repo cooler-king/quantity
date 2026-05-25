@@ -1,9 +1,10 @@
 import 'dart:math' as math;
-import '../register_si.dart';
+
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 // Common trig functions.
 

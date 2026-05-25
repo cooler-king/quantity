@@ -17,6 +17,7 @@ export 'src/ext/electric_potential_difference_ext.dart';
 export 'src/ext/energy_ext.dart';
 export 'src/ext/energy_flux_ext.dart';
 export 'src/ext/entropy_ext.dart';
+export 'src/ext/fluent_extensions.dart';
 export 'src/ext/force_ext.dart';
 export 'src/ext/illuminance_ext.dart';
 export 'src/ext/inductance_ext.dart';
@@ -28,10 +29,8 @@ export 'src/ext/magnetic_flux_density_ext.dart';
 export 'src/ext/magnetic_flux_ext.dart';
 export 'src/ext/mass_density_ext.dart';
 export 'src/ext/mass_ext.dart';
-
 // mutable quantity type extensions
 export 'src/ext/mutable/mutable_quantity.dart';
-
 export 'src/ext/permeability_ext.dart';
 export 'src/ext/permittivity_ext.dart';
 export 'src/ext/power_ext.dart';
@@ -47,4 +46,3 @@ export 'src/ext/time_ext.dart';
 export 'src/ext/time_instant_ext.dart';
 export 'src/ext/volume_ext.dart';
 export 'src/ext/volume_flow_rate_ext.dart';
-export 'src/ext/fluent_extensions.dart';

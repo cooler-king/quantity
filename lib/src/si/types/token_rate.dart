@@ -1,10 +1,10 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
-import 'token.dart';
+import '../register_si.dart';
 import 'time.dart';
+import 'token.dart';
 
 /// The flow of tokens, per unit time.
 base class TokenRate extends Quantity {

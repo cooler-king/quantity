@@ -1,9 +1,9 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/quantity_exception.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'temperature.dart';
 
 /// The difference between two temperatures, where temperature is an objective comparative

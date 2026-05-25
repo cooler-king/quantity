@@ -1,12 +1,12 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
-import 'length.dart';
-import 'resolution.dart';
+import '../register_si.dart';
 import 'area.dart';
+import 'length.dart';
 import 'pixel_density.dart';
+import 'resolution.dart';
 
 /// Represents a count of picture elements (pixels).
 base class Pixel extends Quantity {

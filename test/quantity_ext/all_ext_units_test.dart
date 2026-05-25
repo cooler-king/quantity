@@ -1,6 +1,6 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
 import 'package:quantity/quantity_ext.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Extension Units and Constants', () {

@@ -1,4 +1,3 @@
-import 'utilities.dart';
 import 'types/absorbed_dose.dart';
 import 'types/absorbed_dose_rate.dart';
 import 'types/acceleration.dart';
@@ -36,11 +35,6 @@ import 'types/inductance.dart';
 import 'types/information.dart';
 import 'types/information_rate.dart';
 import 'types/kinematic_viscosity.dart';
-import 'types/token.dart';
-import 'types/token_rate.dart';
-import 'types/pixel.dart';
-import 'types/resolution.dart';
-import 'types/pixel_density.dart';
 import 'types/length.dart';
 import 'types/level.dart';
 import 'types/luminance.dart';
@@ -57,11 +51,14 @@ import 'types/molar_energy.dart';
 import 'types/molar_entropy.dart';
 import 'types/permeability.dart';
 import 'types/permittivity.dart';
+import 'types/pixel.dart';
+import 'types/pixel_density.dart';
 import 'types/power.dart';
 import 'types/pressure.dart';
 import 'types/radiance.dart';
 import 'types/radiant_intensity.dart';
 import 'types/resistance.dart';
+import 'types/resolution.dart';
 import 'types/scalar.dart';
 import 'types/solid_angle.dart';
 import 'types/specific_energy.dart';
@@ -75,10 +72,13 @@ import 'types/temperature_interval.dart';
 import 'types/thermal_conductivity.dart';
 import 'types/time.dart';
 import 'types/time_instant.dart';
+import 'types/token.dart';
+import 'types/token_rate.dart';
 import 'types/torque.dart';
 import 'types/volume.dart';
 import 'types/volume_flow_rate.dart';
 import 'types/wave_number.dart';
+import 'utilities.dart';
 
 /// Registers all the standard SI quantity types and their constructor functions in the registry.
 void registerStandardSIQuantities() {

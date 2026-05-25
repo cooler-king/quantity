@@ -1,8 +1,8 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The number of occurrences of a repeating event per unit time.
 /// See the [Wikipedia entry for Frequency](https://en.wikipedia.org/wiki/Frequency)

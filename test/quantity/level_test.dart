@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 base class MockLevel extends Level {
   // ignore: non_constant_identifier_names

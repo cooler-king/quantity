@@ -1,6 +1,7 @@
 import 'dart:math' show pi;
-import 'package:test/test.dart';
+
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('AngleRange', () {

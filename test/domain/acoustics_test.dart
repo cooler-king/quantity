@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/domain/acoustics.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Acoustics Domain', () {

@@ -1,6 +1,7 @@
 import 'dart:math';
-import 'package:test/test.dart';
+
 import 'package:quantity/number.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Complex', () {

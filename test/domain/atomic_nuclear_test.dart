@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/domain/atomic_nuclear.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Atomic/Nuclear Domain', () {

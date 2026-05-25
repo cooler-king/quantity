@@ -1,6 +1,8 @@
 /// Quantity types, units and constants commonly encountered in the field of chemistry.
 library chemistry;
 
+export 'package:quantity/domain/thermodynamic.dart'
+    show avogadro, gasConstantMolar, faradayConstant, loschmidtStdAtm;
 export 'package:quantity/quantity.dart'
     show
         // Quantity classes and units
@@ -22,6 +24,3 @@ export 'package:quantity/quantity.dart'
 
         // Units
         moles;
-
-export 'package:quantity/domain/thermodynamic.dart'
-    show avogadro, gasConstantMolar, faradayConstant, loschmidtStdAtm;

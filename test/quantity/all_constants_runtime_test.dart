@@ -1,4 +1,3 @@
-import 'package:test/test.dart';
 import 'package:quantity/number.dart';
 import 'package:quantity/src/si/types/absorbed_dose.dart';
 import 'package:quantity/src/si/types/absorbed_dose_rate.dart';
@@ -79,6 +78,7 @@ import 'package:quantity/src/si/types/torque.dart';
 import 'package:quantity/src/si/types/volume.dart';
 import 'package:quantity/src/si/types/volume_flow_rate.dart';
 import 'package:quantity/src/si/types/wave_number.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('All Quantity Types Constant Constructors Runtime Execution', () {

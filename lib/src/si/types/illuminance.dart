@@ -1,8 +1,8 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The total luminous flux incident on a surface, per unit area.
 /// See the [Wikipedia entry for Illuminance](https://en.wikipedia.org/wiki/Illuminance)

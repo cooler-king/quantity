@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/domain/chemistry.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Chemistry Domain', () {

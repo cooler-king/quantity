@@ -1,8 +1,8 @@
-import '../register_si.dart';
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Money in any form when in actual use or circulation as a medium of exchange.
 /// See the [Wikipedia entry for Currency](https://en.wikipedia.org/wiki/Currency)

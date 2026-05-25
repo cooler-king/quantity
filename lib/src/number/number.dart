@@ -1,10 +1,12 @@
 import 'dart:math';
+
 import 'package:decimal/decimal.dart';
-import 'util/jenkins_hash.dart';
+
 import 'double.dart';
 import 'integer.dart';
-import 'precise.dart';
 import 'number_exception.dart';
+import 'precise.dart';
+import 'util/jenkins_hash.dart';
 
 part 'complex.dart';
 part 'imaginary.dart';
