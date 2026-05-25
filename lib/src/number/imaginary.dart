@@ -70,10 +70,15 @@ class Imaginary extends Number {
 
   @override
   bool operator ==(Object obj) {
-    if (obj is Imaginary) return value == obj.value;
-    if (obj is Complex) return obj.real.value == 0.0 && this == obj.imaginary;
-    if (obj is Real || obj is num) return value.toDouble() == 0.0 && obj == 0.0;
-
+    if (obj is Imaginary) {
+      return value == obj.value;
+    }
+    if (obj is Complex) {
+      return obj.real.value == 0.0 && this == obj.imaginary;
+    }
+    if (obj is Real || obj is num) {
+      return value.toDouble() == 0.0 && obj == 0.0;
+    }
     return false;
   }
 

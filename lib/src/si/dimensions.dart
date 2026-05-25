@@ -121,7 +121,9 @@ final class Dimensions {
       // Check Values
       for (final key in _dimensionMap.keys) {
         if (!d2._dimensionMap.containsKey(key) ||
-            (_dimensionMap[key] != d2._dimensionMap[key])) return false;
+            (_dimensionMap[key] != d2._dimensionMap[key])) {
+          return false;
+        }
       }
 
       return true;
@@ -172,7 +174,9 @@ final class Dimensions {
       return false;
     }
     if (_dimensionMap[baseTemperatureKey] !=
-        d2._dimensionMap[baseTemperatureKey]) return false;
+        d2._dimensionMap[baseTemperatureKey]) {
+      return false;
+    }
     if (_dimensionMap[baseTimeKey] != d2._dimensionMap[baseTimeKey]) {
       return false;
     }

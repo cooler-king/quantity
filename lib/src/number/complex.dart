@@ -100,10 +100,18 @@ class Complex extends Number {
 
   @override
   bool operator ==(Object obj) {
-    if (obj is num) return real.value == obj && imaginary.value.value == 0.0;
-    if (obj is Complex) return real == obj.real && imaginary == obj.imaginary;
-    if (obj is Imaginary) return real.value == 0.0 && imaginary == obj;
-    if (obj is Real) return obj == real && imaginary.value.value == 0.0;
+    if (obj is num) {
+      return real.value == obj && imaginary.value.value == 0.0;
+    }
+    if (obj is Complex) {
+      return real == obj.real && imaginary == obj.imaginary;
+    }
+    if (obj is Imaginary) {
+      return real.value == 0.0 && imaginary == obj;
+    }
+    if (obj is Real) {
+      return obj == real && imaginary.value.value == 0.0;
+    }
     return false;
   }
 

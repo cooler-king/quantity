@@ -179,7 +179,9 @@ sealed class Number implements Comparable<dynamic> {
         final simpleReal = simplifyType(n.real) as Real;
         final simpleImag = simplifyType(n.imag.value);
         if (identical(simpleReal, n.real) &&
-            identical(simpleImag, n.imag.value)) return n;
+            identical(simpleImag, n.imag.value)) {
+          return n;
+        }
         return Complex(simpleReal, Imaginary(simpleImag));
       }
     }

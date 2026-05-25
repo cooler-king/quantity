@@ -70,13 +70,18 @@ class Double extends Real {
 
   @override
   bool operator ==(Object obj) {
-    if (obj is num && obj.isNaN) return value.isNaN;
-    if (obj is Real || obj is num) return obj == value;
-    if (obj is Imaginary) return value == 0.0 && obj.value.toDouble() == 0.0;
+    if (obj is num && obj.isNaN) {
+      return value.isNaN;
+    }
+    if (obj is Real || obj is num) {
+      return obj == value;
+    }
+    if (obj is Imaginary) {
+      return value == 0.0 && obj.value.toDouble() == 0.0;
+    }
     if (obj is Complex) {
       return obj.real.toDouble() == value && obj.imaginary.toDouble() == 0.0;
     }
-
     return false;
   }
 
