@@ -60,8 +60,8 @@ void main() {
       expect(mq.dimensions, isNotNull);
       expect(mq.dimensions, Angle.angleDimensions);
 
-      final q = MiscQuantity.constant(Double(42.42),
-          Dimensions.constant(<String, int>{'Amount': 2}));
+      final q = MiscQuantity.constant(
+          Double(42.42), Dimensions.constant(<String, int>{'Amount': 2}));
       expect(q, isNotNull);
     });
 

@@ -82,7 +82,8 @@ void main() {
 
   final totalPercent = grandTotal > 0 ? (grandCovered / grandTotal) * 100 : 0.0;
   print('=============================');
-  print('Total Project Coverage: ${totalPercent.toStringAsFixed(2)}% ($grandCovered/$grandTotal)');
+  print(
+      'Total Project Coverage: ${totalPercent.toStringAsFixed(2)}% ($grandCovered/$grandTotal)');
 
   if (missingCoverage || totalPercent < 100.0) {
     print('Error: Project coverage is below 100.0%!');

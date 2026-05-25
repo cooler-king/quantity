@@ -36,7 +36,7 @@ void main() {
 
     test('Quantity.to method conversions', () {
       final len = Length(m: 5000);
-      
+
       // 1. Convert using Units object
       final km = len.to(Length.kilometers);
       expect(km.preferredUnits, Length.kilometers);

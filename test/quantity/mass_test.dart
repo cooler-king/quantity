@@ -50,7 +50,7 @@ void main() {
       m = Mass(kg: Precise('1.5'));
       e = m.toEnergy();
       expect(e.valueSI, isA<Precise>());
-      
+
       expect(Mass.tonnes, isNotNull);
     });
   });

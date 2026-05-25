@@ -634,21 +634,38 @@ abstract base class Quantity implements Comparable<dynamic> {
         } else {
           String? pref;
           for (final key in ParserHelpers.prefixes.keys) {
-            if (targetUnit.startsWith(key) && targetUnit.endsWith(resolved.unit.abbrev1 ?? '')) {
+            if (targetUnit.startsWith(key) &&
+                targetUnit.endsWith(resolved.unit.abbrev1 ?? '')) {
               pref = key;
               break;
             }
           }
           if (pref != null) {
             const prefixNames = {
-              'Y': 'yotta', 'Z': 'zetta', 'E': 'exa', 'P': 'peta',
-              'T': 'tera', 'G': 'giga', 'M': 'mega', 'k': 'kilo',
-              'h': 'hecto', 'da': 'deka', 'd': 'deci', 'c': 'centi',
-              'm': 'milli', 'u': 'micro', 'n': 'nano', 'p': 'pico',
-              'f': 'femto', 'a': 'atto', 'z': 'zepto', 'y': 'yocto',
+              'Y': 'yotta',
+              'Z': 'zetta',
+              'E': 'exa',
+              'P': 'peta',
+              'T': 'tera',
+              'G': 'giga',
+              'M': 'mega',
+              'k': 'kilo',
+              'h': 'hecto',
+              'da': 'deka',
+              'd': 'deci',
+              'c': 'centi',
+              'm': 'milli',
+              'u': 'micro',
+              'n': 'nano',
+              'p': 'pico',
+              'f': 'femto',
+              'a': 'atto',
+              'z': 'zepto',
+              'y': 'yocto',
             };
             final fullPrefix = prefixNames[pref] ?? '';
-            resolvedUnit = resolved.unit.derive(fullPrefix, pref, resolved.prefixMultiplier);
+            resolvedUnit = resolved.unit
+                .derive(fullPrefix, pref, resolved.prefixMultiplier);
           } else {
             resolvedUnit = resolved.unit;
           }
@@ -664,13 +681,15 @@ abstract base class Quantity implements Comparable<dynamic> {
       throw QuantityException('Could not resolve target unit: $targetUnit');
     }
 
-    if (!(resolvedUnit is Quantity && (resolvedUnit as Quantity).dimensions == dimensions)) {
+    if (!(resolvedUnit is Quantity &&
+        (resolvedUnit as Quantity).dimensions == dimensions)) {
       throw DimensionsException(
           'Cannot convert to units with incompatible dimensions: $targetUnit');
     }
 
     final convertedValue = resolvedUnit.fromMks(valueSI);
-    return dimensions.toQuantity(convertedValue, resolvedUnit, relativeUncertainty);
+    return dimensions.toQuantity(
+        convertedValue, resolvedUnit, relativeUncertainty);
   }
 
   /// Appends a String representation of this [Quantity] to the [buffer]

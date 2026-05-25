@@ -15,7 +15,7 @@ void main() {
       expect(Double.infinity.value, double.infinity);
       expect(Double.negInfinity.value, double.negativeInfinity);
       expect(identical(Double.NaN.value, double.nan), true);
-      
+
       final dFromInt = Double.fromInt(123);
       expect(dFromInt.value, 123.0);
     });

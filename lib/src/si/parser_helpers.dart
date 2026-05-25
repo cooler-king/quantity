@@ -157,9 +157,7 @@ class ParserHelpers {
     final Number finalValueSI = valueSI * scaleFactor;
 
     var type = getRegisteredQuantityType(dims);
-    if (type == Energy &&
-        (unitStr.contains('Nm') ||
-            unitStr.contains('N*m'))) {
+    if (type == Energy && (unitStr.contains('Nm') || unitStr.contains('N*m'))) {
       type = Torque;
       dims = Torque.torqueDimensions;
     } else if (unitStr.contains('tok') ||

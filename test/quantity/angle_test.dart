@@ -13,7 +13,7 @@ void main() {
       expect(a.valueSI is Integer, true);
       expect(a.dimensions, Angle.angleDimensions);
       expect(a.preferredUnits, Angle.radians);
-      
+
       expect(Angle.minutes, isNotNull);
       expect(Angle.seconds, isNotNull);
       expect(Angle.minutes, Angle.minutesArc);

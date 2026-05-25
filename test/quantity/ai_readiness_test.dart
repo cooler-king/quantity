@@ -133,7 +133,8 @@ void main() {
       expect(Quantity.checkDimensionalConsistency(vars, 's = (u * t'), isFalse);
 
       // parenthesis error (extra closed parenthesis / trailing tokens)
-      expect(Quantity.checkDimensionalConsistency(vars, 's = u * t )'), isFalse);
+      expect(
+          Quantity.checkDimensionalConsistency(vars, 's = u * t )'), isFalse);
 
       // exponent syntax error (missing exponent after ^)
       expect(Quantity.checkDimensionalConsistency(vars, 's = u * t^'), isFalse);
