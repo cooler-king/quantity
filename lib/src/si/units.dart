@@ -205,7 +205,7 @@ mixin Units {
 
   /// Returns a String representation of the Units in the following format:
   ///
-  ///    full name [MKS value]
+  ///    full name `[MKS value]`
   @override
   String toString() => '$name [$convToMKS]';
 }

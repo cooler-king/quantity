@@ -605,7 +605,7 @@ class Precise extends Real {
   @override
   bool operator >=(dynamic other) => !(this < other);
 
-  /// Support [dart:json] stringify.
+  /// Support JSON stringify.
   ///
   /// Map Contents:
   ///     'precise' : string representation of the number

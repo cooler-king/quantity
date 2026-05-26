@@ -361,7 +361,7 @@ class Complex extends Number {
     return Complex(real / a2b2 as Real, Imaginary(imaginary.value / -a2b2));
   }
 
-  /// Support [dart:json] stringify.
+  /// Support JSON stringify.
   ///
   /// Map Contents:
   ///     'real' : toJson map of real number
