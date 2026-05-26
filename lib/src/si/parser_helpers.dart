@@ -97,7 +97,7 @@ class ParserHelpers {
     }
 
     final valueStr = match.group(1)!;
-    final unitStr = match.group(2)!.trim();
+    final unitStr = match.group(2)!.trim().replaceAll(RegExp(r'\s*\^\s*'), '^');
 
     final numVal = num.parse(valueStr);
     final valueSI = numVal is int ? Integer(numVal) : Double(numVal.toDouble());
