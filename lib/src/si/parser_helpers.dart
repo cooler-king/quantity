@@ -54,6 +54,13 @@ class ParserHelpers {
     'pixels': Pixel.pixels,
     'ppi': Resolution.pixelsPerInch,
     'dpcm': Resolution.pixelsPerCentimeter,
+    'm/s': Speed.metersPerSecond,
+    'km/h': kilometersPerHour,
+    'm/s2': Acceleration.metersPerSecondSquared,
+    'm/s^2': Acceleration.metersPerSecondSquared,
+    'N*m': Torque.newtonMeters,
+    'N·m': Torque.newtonMeters,
+    'Nm': Torque.newtonMeters,
   };
 
   static const Map<String, double> prefixes = {

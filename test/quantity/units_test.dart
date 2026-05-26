@@ -58,6 +58,16 @@ void main() {
       expect(kohm.preferredUnits, Resistance.ohms);
       expect(kohm.toString(), '5000 \u03a9');
 
+      // 3.7. Convert using compound unit symbols
+      final speed = Speed(metersPerSecond: 10);
+      final kmh = speed.to('km/h');
+      expect(kmh.preferredUnits, kilometersPerHour);
+      expect(kmh.toString(), '36 km h⁻¹');
+
+      final torque = Torque(Nm: 15);
+      final nm = torque.to('N*m');
+      expect(nm.preferredUnits, Torque.newtonMeters);
+
       // 4. Exception: Unknown symbol
       expect(() => len.to('xyz'), throwsA(isA<QuantityException>()));
 
