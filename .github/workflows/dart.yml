@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v4
 
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@v1.7.2
@@ -38,3 +38,9 @@ jobs:
 
       - name: Verify 100% test coverage
         run: dart run tool/verify_coverage.dart
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage/coverage.lcov
+          fail_ci_if_error: false
