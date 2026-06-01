@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('TimePeriod', () {
@@ -9,6 +9,18 @@ void main() {
       expect(period, isNotNull);
       expect(period.q1 == TimeInstant.dateTime(DateTime(1999)), true);
       expect(period.q2 == TimeInstant.dateTime(DateTime(2007, 3)), true);
+
+      final cy = CalendarYear(2020);
+      expect(cy.toString(), '2020');
+
+      final fy75 = FiscalYear(75);
+      expect(fy75.toString(), 'FY75');
+
+      final fy15 = FiscalYear(15);
+      expect(fy15.toString(), 'FY15');
+
+      final fy2020 = FiscalYear(2020);
+      expect(fy2020.toString(), 'FY20');
     });
 
     test('operator ==', () {

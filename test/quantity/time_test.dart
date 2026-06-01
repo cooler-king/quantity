@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Time', () {
@@ -52,6 +52,21 @@ void main() {
       expect(q.dimensions, Time.timeDimensions);
       expect(q.preferredUnits, Time.days);
       expect(q.relativeUncertainty, 0);
+    });
+
+    test('duration and constant conversions', () {
+      const constTime = Time.constant(Double.constant(5));
+      expect(constTime.valueSI.toDouble(), 5.0);
+
+      final runTime = Time.constant(Double(5));
+      expect(runTime.valueSI.toDouble(), 5.0);
+
+      final tFromDuration =
+          Time.fromDuration(const Duration(seconds: 12, microseconds: 345));
+      expect(tFromDuration.valueSI.toDouble(), 12.000345);
+
+      final durationBack = tFromDuration.toDuration();
+      expect(durationBack.inMicroseconds, 12000345);
     });
   });
 }

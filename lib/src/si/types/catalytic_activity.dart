@@ -2,25 +2,32 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The increase in rate of a chemical reaction caused by the presence of a catalyst.
 /// See the [Wikipedia entry for Catalysis](https://en.wikipedia.org/wiki/Catalysis)
 /// for more information.
-class CatalyticActivity extends Quantity {
+base class CatalyticActivity extends Quantity {
   /// Constructs a CatalyticActivity with katals ([kat]).
   /// Optionally specify a relative standard uncertainty.
   CatalyticActivity({dynamic kat, double uncert = 0.0})
-      : super(kat ?? 0.0, CatalyticActivity.katals, uncert);
+      : super(kat ?? 0.0, CatalyticActivity.katals, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   CatalyticActivity.misc(dynamic conv)
-      : super.misc(conv, CatalyticActivity.catalyticActivityDimensions);
+      : super.misc(conv, CatalyticActivity.catalyticActivityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a CatalyticActivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   CatalyticActivity.inUnits(dynamic value, CatalyticActivityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? CatalyticActivity.katals, uncert);
+      : super(value, units ?? CatalyticActivity.katals, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant CatalyticActivity.
   const CatalyticActivity.constant(Number valueSI,
@@ -39,7 +46,7 @@ class CatalyticActivity extends Quantity {
 }
 
 /// Units acceptable for use in describing CatalyticActivity quantities.
-class CatalyticActivityUnits extends CatalyticActivity with Units {
+base class CatalyticActivityUnits extends CatalyticActivity with Units {
   /// Constructs an instance.
   CatalyticActivityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

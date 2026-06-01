@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'amount_of_substance.dart';
 import 'energy.dart';
 import 'temperature_interval.dart';
@@ -9,22 +10,28 @@ import 'temperature_interval.dart';
 /// Entropy content per mole of substance.
 /// See the [Wikipedia entry for Standard molar entropy](https://en.wikipedia.org/wiki/Standard_molar_entropy)
 /// for more information.
-class MolarEntropy extends Quantity {
+base class MolarEntropy extends Quantity {
   /// Constructs a MolarEntropy with joules per mole kelvin.
   /// Optionally specify a relative standard uncertainty.
   MolarEntropy({dynamic joulesPerMoleKelvin, double uncert = 0.0})
       : super(joulesPerMoleKelvin ?? 0.0, MolarEntropy.joulesPerMoleKelvin,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MolarEntropy.misc(dynamic conv)
-      : super.misc(conv, MolarEntropy.molarEntropyDimensions);
+      : super.misc(conv, MolarEntropy.molarEntropyDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MolarEntropy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MolarEntropy.inUnits(dynamic value, MolarEntropyUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert);
+      : super(value, units ?? MolarEntropy.joulesPerMoleKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MolarEntropy.
   const MolarEntropy.constant(Number valueSI,
@@ -49,7 +56,7 @@ class MolarEntropy extends Quantity {
 }
 
 /// Units acceptable for use in describing MolarEntropy quantities.
-class MolarEntropyUnits extends MolarEntropy with Units {
+base class MolarEntropyUnits extends MolarEntropy with Units {
   /// Constructs an instance.
   MolarEntropyUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

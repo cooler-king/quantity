@@ -2,26 +2,33 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The magnetic flux density passing through a closed surface.
 /// See the [Wikipedia entry for Magnetic flux](https://en.wikipedia.org/wiki/Magnetic_flux)
 /// for more information.
-class MagneticFlux extends Quantity {
+base class MagneticFlux extends Quantity {
   /// Constructs a MagneticFlux with webers ([Wb]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   MagneticFlux({dynamic Wb, double uncert = 0.0})
-      : super(Wb ?? 0.0, MagneticFlux.webers, uncert);
+      : super(Wb ?? 0.0, MagneticFlux.webers, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MagneticFlux.misc(dynamic conv)
-      : super.misc(conv, MagneticFlux.magneticFluxDimensions);
+      : super.misc(conv, MagneticFlux.magneticFluxDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MagneticFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MagneticFlux.inUnits(dynamic value, MagneticFluxUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MagneticFlux.webers, uncert);
+      : super(value, units ?? MagneticFlux.webers, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MagneticFlux.
   const MagneticFlux.constant(Number valueSI,
@@ -40,7 +47,7 @@ class MagneticFlux extends Quantity {
 }
 
 /// Units acceptable for use in describing MagneticFlux quantities.
-class MagneticFluxUnits extends MagneticFlux with Units {
+base class MagneticFluxUnits extends MagneticFlux with Units {
   /// Constructs an instance.
   MagneticFluxUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

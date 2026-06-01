@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import '../utilities.dart';
 import 'area.dart';
 import 'power.dart';
@@ -11,20 +12,26 @@ import 'solid_angle.dart';
 /// per unit solid angle per unit projected area.
 /// See the [Wikipedia entry for Radiance](https://en.wikipedia.org/wiki/Radiance)
 /// for more information.
-class Radiance extends Quantity {
+base class Radiance extends Quantity {
   /// Constructs a Radiance with watts per square meter steradian.
   /// Optionally specify a relative standard uncertainty.
   Radiance({dynamic wattsPerSquareMeterSteradian, double uncert = 0.0})
       : super(wattsPerSquareMeterSteradian ?? 0.0,
-            Radiance.wattsPerSquareMeterSteradian, uncert);
+            Radiance.wattsPerSquareMeterSteradian, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Radiance.misc(dynamic conv) : super.misc(conv, Radiance.radianceDimensions);
+  Radiance.misc(dynamic conv) : super.misc(conv, Radiance.radianceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Radiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Radiance.inUnits(dynamic value, RadianceUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert);
+      : super(value, units ?? Radiance.wattsPerSquareMeterSteradian, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Radiance.
   const Radiance.constant(Number valueSI,
@@ -43,7 +50,7 @@ class Radiance extends Quantity {
 }
 
 /// Units acceptable for use in describing Radiance quantities.
-class RadianceUnits extends Radiance with Units {
+base class RadianceUnits extends Radiance with Units {
   /// Constructs an instance.
   RadianceUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

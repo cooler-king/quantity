@@ -67,8 +67,8 @@ final AreaUnits squarePerches = squareRods;
 /// Helpful for describing the scattering of photons when the energy of each individual photon is much smaller
 /// than the rest energy of the electron.
 const Area thomsonCrossSection = Area.constant(
-    Double.constant(6.6524587321e-29),
-    uncert: 9.019221676713751e-10);
+    Double.constant(6.6524587051e-29),
+    uncert: 9.319862437096933e-10);
 
 /// A synonym for the [thomsonCrossSection].
 const Area sigma0 = thomsonCrossSection;

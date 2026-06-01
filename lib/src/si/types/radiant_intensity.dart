@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import '../utilities.dart';
 import 'power.dart';
 import 'solid_angle.dart';
@@ -9,22 +10,28 @@ import 'solid_angle.dart';
 /// The radiant flux emitted, reflected, transmitted or received, per unit solid angle.
 /// See the [Wikipedia entry for Radiant intensity](https://en.wikipedia.org/wiki/Radiant_intensity)
 /// for more information.
-class RadiantIntensity extends Quantity {
+base class RadiantIntensity extends Quantity {
   /// Constructs a RadiantIntensity with watts per steradian.
   /// Optionally specify a relative standard uncertainty.
   RadiantIntensity({dynamic wattsPerSteradian, double uncert = 0.0})
       : super(wattsPerSteradian ?? 0.0, RadiantIntensity.wattsPerSteradian,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   RadiantIntensity.misc(dynamic conv)
-      : super.misc(conv, RadiantIntensity.radiantIntensityDimensions);
+      : super.misc(conv, RadiantIntensity.radiantIntensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a RadiantIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   RadiantIntensity.inUnits(dynamic value, RadiantIntensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? RadiantIntensity.wattsPerSteradian, uncert);
+      : super(value, units ?? RadiantIntensity.wattsPerSteradian, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant RadiantIntensity.
   const RadiantIntensity.constant(Number valueSI,
@@ -44,7 +51,7 @@ class RadiantIntensity extends Quantity {
 }
 
 /// Units acceptable for use in describing RadiantIntensity quantities.
-class RadiantIntensityUnits extends RadiantIntensity with Units {
+base class RadiantIntensityUnits extends RadiantIntensity with Units {
   /// Constructs an instance.
   RadiantIntensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

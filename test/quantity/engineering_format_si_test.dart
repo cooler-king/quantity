@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('EngineeringFormatSI', () {
@@ -93,6 +93,13 @@ void main() {
         expect(f1.format(-0.0100002), '-10.0002 x 10^-3');
         expect(f1.format(-0.01000023), '-10.000 23 x 10^-3');
         expect(f1.format(-0.00010020034), '-100.200 34 x 10^-6');
+      });
+
+      test('adjustForExponent edge cases', () {
+        final f = EngineeringFormatSI();
+        expect(f.adjustForExponent('+1234'), '1.234 x 10^3');
+        expect(f.adjustForExponent(''), '');
+        expect(f.adjustForExponent('5e2.'), '5.0 x 10^3');
       });
 
       group('format', () {

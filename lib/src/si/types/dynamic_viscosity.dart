@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'pressure.dart';
 import 'time.dart';
 
@@ -9,22 +10,28 @@ import 'time.dart';
 /// tensile stress.
 /// See the [Wikipedia entry for Viscosity](https://en.wikipedia.org/wiki/Viscosity)
 /// for more information.
-class DynamicViscosity extends Quantity {
+base class DynamicViscosity extends Quantity {
   /// Constructs a DynamicViscosity with pascal seconds ([Pas]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   DynamicViscosity({dynamic Pas, double uncert = 0.0})
-      : super(Pas ?? 0.0, DynamicViscosity.pascalSeconds, uncert);
+      : super(Pas ?? 0.0, DynamicViscosity.pascalSeconds, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   DynamicViscosity.misc(dynamic conv)
-      : super.misc(conv, DynamicViscosity.dynamicViscosityDimensions);
+      : super.misc(conv, DynamicViscosity.dynamicViscosityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a DynamicViscosity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   DynamicViscosity.inUnits(dynamic value, DynamicViscosityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? DynamicViscosity.pascalSeconds, uncert);
+      : super(value, units ?? DynamicViscosity.pascalSeconds, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant DynamicViscosity.
   const DynamicViscosity.constant(Number valueSI,
@@ -46,7 +53,7 @@ class DynamicViscosity extends Quantity {
 }
 
 /// Units acceptable for use in describing DynamicViscosity quantities.
-class DynamicViscosityUnits extends DynamicViscosity with Units {
+base class DynamicViscosityUnits extends DynamicViscosity with Units {
   /// Constructs an instance.
   DynamicViscosityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

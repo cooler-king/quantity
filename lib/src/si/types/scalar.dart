@@ -2,25 +2,32 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// A one-dimensional physical quantity that can be described by a single real number.
 /// See the [Wikipedia entry for Scalar (physics)](https://en.wikipedia.org/wiki/Scalar_%28physics%29)
 /// for more information.
-class Scalar extends Quantity {
+base class Scalar extends Quantity {
   /// Constructs a Scalar with [value] or [percent].
   /// Optionally specify a relative standard uncertainty.
   Scalar({dynamic value, dynamic percent, double uncert = 0.0})
       : super(percent ?? (value ?? 0.0),
-            percent != null ? Scalar.percent : Scalar.one, uncert);
+            percent != null ? Scalar.percent : Scalar.one, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Scalar.misc(dynamic conv) : super.misc(conv, Scalar.scalarDimensions);
+  Scalar.misc(dynamic conv) : super.misc(conv, Scalar.scalarDimensions) {
+    var _ = siRegistered;
+  }
 
   // CONSTRUCTORS.
 
   /// Constructs an instance in specified [units].
   Scalar.inUnits(dynamic value, ScalarUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Scalar.one, uncert);
+      : super(value, units ?? Scalar.one, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Scalar.
   const Scalar.constant(Number value, {ScalarUnits? units, double uncert = 0.0})
@@ -65,7 +72,7 @@ class Scalar extends Quantity {
 }
 
 /// Units acceptable for use in describing Scalar quantities.
-class ScalarUnits extends Scalar with Units {
+base class ScalarUnits extends Scalar with Units {
   /// Constructs an instance.
   ScalarUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

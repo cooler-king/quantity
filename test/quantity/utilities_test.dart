@@ -172,4 +172,80 @@ void main() {
       });
     });
   });
+
+  group('exceptions and converters', () {
+    test('NumberException and QuantityException toString', () {
+      expect(
+          NumberException('test msg').toString(), 'NumberException: test msg');
+      expect(QuantityException('test msg').toString(),
+          'QuantityException: test msg');
+    });
+
+    test('converters edge cases', () {
+      expect(() => objToNumber('invalid'), throwsA(anything));
+      expect(numberToNum(Imaginary(5)), 0);
+      expect(numberToNum(Complex(Double(3.5), Imaginary(2.0))), 3.5);
+
+      final pDec = Precise('10.5');
+      expect(numberToNum(pDec), 10.5);
+
+      final pInt = Precise('42');
+      expect(numberToNum(pInt), 42);
+
+      expect(numberToNum(Fraction(3, 4)), 0.75);
+    });
+  });
+
+  group('si utilities methods', () {
+    test('dimensionsToTypeMap getter', () {
+      // Force initialization of the real registry first
+      final _ = Length(m: 5);
+      final map = dimensionsToTypeMap;
+      expect(map, isNotEmpty);
+      expect(map[Length.lengthDimensions], Length);
+    });
+
+    test('siRegistryTrigger', () {
+      var triggered = false;
+      siRegistryTrigger = () {
+        triggered = true;
+      };
+      // Trigger it via a registry-dependent function
+      getRegisteredQuantityType(Length.lengthDimensions);
+      expect(triggered, true);
+    });
+
+    test('siBaseQuantity and siDerivedQuantity', () {
+      expect(siBaseQuantity(Length(m: 5)), true);
+      expect(siBaseQuantity(Mass(kg: 10)), true);
+      expect(siBaseQuantity(Time(s: 2)), true);
+      expect(siBaseQuantity(Current(A: 1)), true);
+      expect(siBaseQuantity(TemperatureInterval(K: 1)), true);
+      expect(siBaseQuantity(Temperature(K: 300)), true);
+      expect(siBaseQuantity(AmountOfSubstance(mol: 1)), true);
+      expect(siBaseQuantity(LuminousIntensity(cd: 1)), true);
+
+      expect(siBaseQuantity(Speed(metersPerSecond: 10)), false);
+      expect(siDerivedQuantity(Speed(metersPerSecond: 10)), true);
+      expect(siDerivedQuantity(Length(m: 5)), false);
+    });
+
+    test('areWithin', () {
+      final l1 = Length(m: 10);
+      final l2 = Length(m: 10.1);
+      final tolerance1 = Length(m: 0.2);
+      final tolerance2 = Length(m: 0.05);
+
+      expect(areWithin(l1, l2, tolerance1), true);
+      expect(areWithin(l1, l2, tolerance2), false);
+
+      // Mismatched dimensions must throw DimensionsException
+      expect(() => areWithin(l1, Speed(metersPerSecond: 10), tolerance1),
+          throwsA(isA<DimensionsException>()));
+    });
+
+    test('logger record listener', () {
+      logger.warning('Test warning log', 'MOCK_ERROR', StackTrace.current);
+    });
+  });
 }

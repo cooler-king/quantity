@@ -3,6 +3,7 @@ library astronomical;
 
 import 'package:quantity/quantity.dart';
 
+export 'package:quantity/domain/thermodynamic.dart' show wienDisplacement;
 export 'package:quantity/quantity.dart'
     show
         gees,
@@ -25,8 +26,6 @@ export 'package:quantity/quantity.dart'
         SpectralIrradianceUnits,
         TimeUnits,
         LengthUnits;
-
-export 'package:quantity/domain/thermodynamic.dart' show wienDisplacement;
 
 /// One millionth of a Jansky.
 SpectralIrradianceUnits microjanskys =

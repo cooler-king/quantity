@@ -1,14 +1,14 @@
-import 'package:quantity/quantity_si.dart';
+// Import the quantity library.
+import 'package:quantity/quantity.dart';
 
 void main() {
-  /// Construct a Temperature in degrees Celsius.
-  final temp = Temperature(C: 100);
-  print('Temperature1: $temp  (${temp.valueInUnits(Temperature.kelvins)} K)');
+  /// Construct a Temperature using fluent celsius extension.
+  final temp = 100.celsius;
+  print('Temperature1: $temp  (${temp.inKelvins} K)');
 
-  /// Construct a second Temperature in degrees Kelvin.
-  final temp2 = Temperature(K: 100);
-  print(
-      'Temperature2: $temp2  (${temp2.valueInUnits(Temperature.degreesCelsius)} C)');
+  /// Construct a second Temperature using fluent kelvins extension.
+  final temp2 = 100.kelvins;
+  print('Temperature2: $temp2  (${temp2.inCelsius} C)');
 
   /// Calculate the difference in temperatures.
   final diff = temp - temp2 as TemperatureInterval;
@@ -16,6 +16,5 @@ void main() {
 
   /// Add 5 times the difference to the first temperature.
   final hot = temp + (diff * 5) as Temperature;
-  print(
-      'Hot Temperature: $hot  (${hot.valueInUnits(Temperature.degreesCelsius)} C)');
+  print('Hot Temperature: $hot  (${hot.inCelsius} C)');
 }

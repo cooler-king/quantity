@@ -2,25 +2,32 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'length.dart';
 
 /// The amount of three-dimensional space enclosed by some closed boundary.
 /// See the [Wikipedia entry for Volume](https://en.wikipedia.org/wiki/Volume)
 /// for more information.
-class Volume extends Quantity {
+base class Volume extends Quantity {
   /// Constructs a Volume with cubic meters ([m3]) or liters ([L]).
   /// Optionally specify a relative standard uncertainty.
   Volume({dynamic m3, dynamic L, double uncert = 0.0})
       : super(m3 ?? (L ?? 0.0), L != null ? Volume.liters : Volume.cubicMeters,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Volume.misc(dynamic conv) : super.misc(conv, Volume.volumeDimensions);
+  Volume.misc(dynamic conv) : super.misc(conv, Volume.volumeDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Volume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Volume.inUnits(dynamic value, VolumeUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Volume.cubicMeters, uncert);
+      : super(value, units ?? Volume.cubicMeters, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Volume.
   const Volume.constant(Number valueSI,
@@ -29,7 +36,7 @@ class Volume extends Quantity {
 
   /// Dimensions for this type of quantity.
   static const Dimensions volumeDimensions =
-      Dimensions.constant(<String, int>{'Length': -3}, qType: Volume);
+      Dimensions.constant(<String, int>{'Length': 3}, qType: Volume);
 
   /// The standard SI unit.
   static final VolumeUnits cubicMeters = VolumeUnits.lengthCubed(Length.meters);
@@ -40,7 +47,7 @@ class Volume extends Quantity {
 }
 
 /// Units acceptable for use in describing Volume quantities.
-class VolumeUnits extends Volume with Units {
+base class VolumeUnits extends Volume with Units {
   /// Constructs an instance.
   VolumeUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

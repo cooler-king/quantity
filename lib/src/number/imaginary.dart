@@ -1,10 +1,4 @@
-import 'dart:math';
-import 'complex.dart';
-import 'double.dart';
-import 'integer.dart';
-import 'number.dart';
-import 'real.dart';
-import 'util/jenkins_hash.dart';
+part of 'number.dart';
 
 /// Represents an imaginary number, defined as a number whose square is negative one.
 ///
@@ -23,10 +17,19 @@ class Imaginary extends Number {
   const Imaginary.constant(this.value) : super.constant();
 
   /// Constructs an instance, applying the values in map [m].
-  factory Imaginary.fromMap(Map<String, Map<String, dynamic>>? m) =>
-      (m?.containsKey('imag') == true)
-          ? Imaginary.fromMap(m?['imag'] as Map<String, Map<String, dynamic>>)
-          : const Imaginary.constant(Integer.zero);
+  factory Imaginary.fromMap(Map<String, dynamic>? m) {
+    if (m == null) return const Imaginary.constant(Integer.zero);
+    if (m.containsKey('imag')) {
+      final imagVal = m['imag'];
+      if (imagVal is Map<String, dynamic>) {
+        return Imaginary(Real.fromMap(imagVal));
+      }
+    }
+    if (m.containsKey('d') || m.containsKey('i') || m.containsKey('precise')) {
+      return Imaginary(Real.fromMap(m));
+    }
+    return const Imaginary.constant(Integer.zero);
+  }
 
   /// The value of the imaginary component as a Real number.
   final Real value;
@@ -66,11 +69,16 @@ class Imaginary extends Number {
   bool get isInteger => true;
 
   @override
-  bool operator ==(Object obj) {
-    if (obj is Imaginary) return value == obj.value;
-    if (obj is Complex) return obj.real.value == 0.0 && this == obj.imaginary;
-    if (obj is Real || obj is num) return value.toDouble() == 0.0 && obj == 0.0;
-
+  bool operator ==(Object other) {
+    if (other is Imaginary) {
+      return value == other.value;
+    }
+    if (other is Complex) {
+      return other.real.value == 0.0 && this == other.imaginary;
+    }
+    if (other is Real || other is num) {
+      return value.toDouble() == 0.0 && other == 0.0;
+    }
     return false;
   }
 
@@ -196,7 +204,7 @@ class Imaginary extends Number {
       // (a + bi) / (c + di) = (ac + bd) / (c^2 + d^2) + i * (bc - ad) / (c^2 + d^2)
       // for a = 0 => bi / (c + di) = bd / (c^2 + d^2) + i * bc / (c^2 + d^2)
       final bOverc2d2 =
-          value / (divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0);
+          value / ((divisor.real ^ 2.0) + (divisor.imaginary.value ^ 2.0));
       return Number.simplifyType(Complex(
           (bOverc2d2 * divisor.real).truncate() as Real,
           Imaginary((bOverc2d2 * divisor.imaginary.value * -1.0).truncate())));

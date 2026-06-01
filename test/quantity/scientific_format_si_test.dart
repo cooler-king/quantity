@@ -1,5 +1,6 @@
-import 'package:test/test.dart';
+import 'package:intl/intl.dart' show NumberParserBase;
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('ScientificFormatSI', () {
@@ -81,6 +82,8 @@ void main() {
         expect(f1.format(-0.010002), '-1.0002 x 10^-2');
         expect(f1.format(-0.0100002), '-1.000 02 x 10^-2');
         expect(f1.format(-0.00010020034), '-1.002 003 4 x 10^-4');
+
+        expect(f1.adjustForExponent('+123'), '1.23 x 10^2');
       });
 
       group('format', () {
@@ -353,5 +356,25 @@ void main() {
             f1.parse('1\u{2009}2345 x 10\u{207b}\u{00b3}\u{2076}'), 1.2345E-32);
       });
     });
+
+    test('parseWith and tryParseWith', () {
+      final f = ScientificFormatSI();
+      final res1 = f.parseWith((f, t) => DummyParser(f, t), '123');
+      final res2 = f.tryParseWith((f, t) => DummyParser(f, t), '123');
+      expect(res1, 42);
+      expect(res2, 42);
+    });
+
+    test('removeInsignificantZeros exception fallback', () {
+      expect(() => NumberFormatSI.removeInsignificantZeros(null as dynamic),
+          throwsA(isA<TypeError>()));
+    });
   });
+}
+
+class DummyParser extends NumberParserBase<int> {
+  DummyParser(super.format, super.text);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => 42;
 }

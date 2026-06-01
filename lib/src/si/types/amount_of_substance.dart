@@ -2,11 +2,12 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The size of an ensemble of elementary entities, such as atoms, molecules, electrons, and other particles.
 /// See the [Wikipedia entry for Amount of substance](https://en.wikipedia.org/wiki/Amount_of_substance)
 /// for more information.
-class AmountOfSubstance extends Quantity {
+base class AmountOfSubstance extends Quantity {
   /// Construct an AmountOfSubstance with moles ([mol])
   /// or kilomoles ([kmol]).
   /// Optionally specify a relative standard uncertainty.
@@ -16,17 +17,23 @@ class AmountOfSubstance extends Quantity {
             kmol != null
                 ? AmountOfSubstance.kilomoles
                 : AmountOfSubstance.moles,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AmountOfSubstance.misc(dynamic conv)
-      : super.misc(conv, AmountOfSubstance.amountOfSubstanceDimensions);
+      : super.misc(conv, AmountOfSubstance.amountOfSubstanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a AmountOfSubstance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AmountOfSubstance.inUnits(dynamic value, AmountOfSubstanceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? AmountOfSubstance.moles, uncert);
+      : super(value, units ?? AmountOfSubstance.moles, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AmountOfSubstance.
   const AmountOfSubstance.constant(Number valueSI,
@@ -48,7 +55,7 @@ class AmountOfSubstance extends Quantity {
 }
 
 /// Units acceptable for use in describing [AmountOfSubstance] quantities.
-class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
+base class AmountOfSubstanceUnits extends AmountOfSubstance with Units {
   /// Constructs an instance.
   AmountOfSubstanceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

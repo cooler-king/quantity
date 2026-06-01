@@ -2,26 +2,33 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'length.dart';
 import 'time.dart';
 
 /// The rate of change of position.
 /// See the [Wikipedia entry for Speed](https://en.wikipedia.org/wiki/Speed)
 /// for more information.
-class Speed extends Quantity {
+base class Speed extends Quantity {
   /// Constructs a Speed with meters per second or [knots].
   /// Optionally specify a relative standard uncertainty.
   Speed({dynamic metersPerSecond, dynamic knots, double uncert = 0.0})
       : super(metersPerSecond ?? (knots ?? 0.0),
-            knots != null ? Speed.knots : Speed.metersPerSecond, uncert);
+            knots != null ? Speed.knots : Speed.metersPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Speed.misc(dynamic conv) : super.misc(conv, Speed.speedDimensions);
+  Speed.misc(dynamic conv) : super.misc(conv, Speed.speedDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Speed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Speed.inUnits(dynamic value, SpeedUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Speed.metersPerSecond, uncert);
+      : super(value, units ?? Speed.metersPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Speed.
   const Speed.constant(Number valueSI, {SpeedUnits? units, double uncert = 0.0})
@@ -41,7 +48,7 @@ class Speed extends Quantity {
 }
 
 /// Units acceptable for use in describing Speed quantities.
-class SpeedUnits extends Speed with Units {
+base class SpeedUnits extends Speed with Units {
   /// Constructs an instance.
   SpeedUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

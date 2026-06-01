@@ -1,18 +1,14 @@
-import '../complex.dart';
+import 'package:decimal/decimal.dart';
 import '../double.dart';
-import '../imaginary.dart';
 import '../integer.dart';
 import '../number.dart';
 import '../precise.dart';
 
-export '../complex.dart';
 export '../double.dart';
 export '../fraction.dart';
-export '../imaginary.dart';
 export '../integer.dart';
 export '../number.dart';
 export '../precise.dart';
-export '../real.dart';
 export '../util/jenkins_hash.dart';
 
 /// Converts an [object] to a Number.  The [object]
@@ -21,6 +17,7 @@ export '../util/jenkins_hash.dart';
 Number objToNumber(Object object) {
   if (object is num) return numToNumber(object);
   if (object is Number) return object;
+  if (object is Decimal) return Precise(object.toString());
   throw Exception('num or Number expected');
 }
 
@@ -39,10 +36,6 @@ num numberToNum(Number number) {
   if (number is Integer) return number.value;
   if (number is Imaginary) return 0;
   if (number is Complex) return number.real.toDouble();
-  if (number is Precise) {
-    if (number.isInteger) return number.toInt();
-    return number.toDouble();
-  } else {
-    return number.toDouble();
-  }
+  if (number.isInteger) return number.toInt();
+  return number.toDouble();
 }

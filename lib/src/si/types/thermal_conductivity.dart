@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'length.dart';
 import 'power.dart';
 import 'temperature_interval.dart';
@@ -9,22 +10,28 @@ import 'temperature_interval.dart';
 /// The ability of a material to conduct heat.
 /// See the [Wikipedia entry for Thermal conductivity](https://en.wikipedia.org/wiki/Thermal_conductivity)
 /// for more information.
-class ThermalConductivity extends Quantity {
+base class ThermalConductivity extends Quantity {
   /// Constructs a ThermalConductivity with watts per meter kelvin.
   /// Optionally specify a relative standard uncertainty.
   ThermalConductivity({dynamic wattsPerMeterKelvin, double uncert = 0.0})
       : super(wattsPerMeterKelvin ?? 0.0,
-            ThermalConductivity.wattsPerMeterKelvin, uncert);
+            ThermalConductivity.wattsPerMeterKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   ThermalConductivity.misc(dynamic conv)
-      : super.misc(conv, ThermalConductivity.thermalConductivityDimensions);
+      : super.misc(conv, ThermalConductivity.thermalConductivityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a ThermalConductivity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   ThermalConductivity.inUnits(dynamic value, ThermalConductivityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert);
+      : super(value, units ?? ThermalConductivity.wattsPerMeterKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant ThermalConductivity.
   const ThermalConductivity.constant(Number valueSI,
@@ -44,7 +51,7 @@ class ThermalConductivity extends Quantity {
 }
 
 /// Units acceptable for use in describing ThermalConductivity quantities.
-class ThermalConductivityUnits extends ThermalConductivity with Units {
+base class ThermalConductivityUnits extends ThermalConductivity with Units {
   /// Constructs an instance.
   ThermalConductivityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

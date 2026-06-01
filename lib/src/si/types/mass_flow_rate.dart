@@ -2,28 +2,35 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'mass.dart';
 import 'time.dart';
 
 /// The mass of a substance which passes per unit of time.
 /// See the [Wikipedia entry for Mass flow rate](https://en.wikipedia.org/wiki/Mass_flow_rate)
 /// for more information.
-class MassFlowRate extends Quantity {
+base class MassFlowRate extends Quantity {
   /// Constructs a MassFlowRate with kilograms per second.
   /// Optionally specify a relative standard uncertainty.
   MassFlowRate({dynamic kilogramsPerSecond, double uncert = 0.0})
-      : super(
-            kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond, uncert);
+      : super(kilogramsPerSecond ?? 0.0, MassFlowRate.kilogramsPerSecond,
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MassFlowRate.misc(dynamic conv)
-      : super.misc(conv, MassFlowRate.massFlowRateDimensions);
+      : super.misc(conv, MassFlowRate.massFlowRateDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MassFlowRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MassFlowRate.inUnits(dynamic value, MassFlowRateUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert);
+      : super(value, units ?? MassFlowRate.kilogramsPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Construct a constant MassFlowRate.
   const MassFlowRate.constant(Number valueSI,
@@ -42,7 +49,7 @@ class MassFlowRate extends Quantity {
 }
 
 /// Units acceptable for use in describing MassFlowRate quantities.
-class MassFlowRateUnits extends MassFlowRate with Units {
+base class MassFlowRateUnits extends MassFlowRate with Units {
   /// Constructs an instance.
   MassFlowRateUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

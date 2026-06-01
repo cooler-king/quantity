@@ -2,27 +2,34 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'amount_of_substance.dart';
 import 'energy.dart';
 
 /// Energy per mole of a substance.
 /// See the [Wikipedia entry for Specific energy](https://en.wikipedia.org/wiki/Specific_energy)
 /// for more information.
-class MolarEnergy extends Quantity {
+base class MolarEnergy extends Quantity {
   /// Constructs a MolarEnergy with joules per mole.
   /// Optionally specify a relative standard uncertainty.
   MolarEnergy({dynamic joulesPerMole, double uncert = 0.0})
-      : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert);
+      : super(joulesPerMole ?? 0.0, MolarEnergy.joulesPerMole, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MolarEnergy.misc(dynamic conv)
-      : super.misc(conv, MolarEnergy.molarEnergyDimensions);
+      : super.misc(conv, MolarEnergy.molarEnergyDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MolarEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MolarEnergy.inUnits(dynamic value, MolarEnergyUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MolarEnergy.joulesPerMole, uncert);
+      : super(value, units ?? MolarEnergy.joulesPerMole, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MolarEnergy.
   const MolarEnergy.constant(Number valueSI,
@@ -41,7 +48,7 @@ class MolarEnergy extends Quantity {
 }
 
 /// Units acceptable for use in describing MolarEnergy quantities.
-class MolarEnergyUnits extends MolarEnergy with Units {
+base class MolarEnergyUnits extends MolarEnergy with Units {
   /// Constructs an instance.
   MolarEnergyUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

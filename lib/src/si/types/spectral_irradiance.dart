@@ -2,27 +2,34 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Irradiance of a surface per unit frequency.
 /// See the [Wikipedia entry for Radiometry](https://en.wikipedia.org/wiki/Radiometry)
 /// for more information.
-class SpectralIrradiance extends Quantity {
+base class SpectralIrradiance extends Quantity {
   /// Constructs a SpectralIrradiance with watts per square meter per hertz.
   /// Optionally specify a relative standard uncertainty.
   SpectralIrradiance({dynamic wattsPerSquareMeterPerHertz, double uncert = 0.0})
       : super(wattsPerSquareMeterPerHertz ?? 0.0,
-            SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert);
+            SpectralIrradiance.wattsPerSquareMeterPerHertz, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SpectralIrradiance.misc(dynamic conv)
-      : super.misc(conv, SpectralIrradiance.spectralIrradianceDimensions);
+      : super.misc(conv, SpectralIrradiance.spectralIrradianceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SpectralIrradiance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SpectralIrradiance.inUnits(dynamic value, SpectralIrradianceUnits? units,
       [double uncert = 0.0])
       : super(value, units ?? SpectralIrradiance.wattsPerSquareMeterPerHertz,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SpectralIrradiance.
   const SpectralIrradiance.constant(Number valueSI,
@@ -42,7 +49,7 @@ class SpectralIrradiance extends Quantity {
 }
 
 /// Units acceptable for use in describing SpectralIrradiance quantities.
-class SpectralIrradianceUnits extends SpectralIrradiance with Units {
+base class SpectralIrradianceUnits extends SpectralIrradiance with Units {
   /// Constructs an instance.
   SpectralIrradianceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

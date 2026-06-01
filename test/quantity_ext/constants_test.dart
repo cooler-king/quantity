@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'dart:math' show min;
-import 'package:test/test.dart';
-import 'package:quantity/quantity.dart';
+
 import 'package:quantity/domain/electromagnetic.dart';
 import 'package:quantity/domain/thermodynamic.dart';
 import 'package:quantity/domain/universal.dart';
+import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 /// Maps the name used by NIST in its published constants file to the constant in the quantity package.
 Map<String, Quantity> nistNameConstantMap = <String, Quantity>{

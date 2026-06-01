@@ -40,7 +40,7 @@ SpeedUnits knots = Speed.knots;
 // CONSTANTS.
 
 /// Speed of light in a vacuum.
-const Speed speedOfLightVacuum = Speed.constant(Double.constant(299792458));
+const Speed speedOfLightVacuum = Speed.constant(Double.constant(299792458.0));
 
 /// Speed of sound in air at 0 deg C.
 const Speed speedOfSoundAir0C = Speed.constant(Double.constant(331.6));

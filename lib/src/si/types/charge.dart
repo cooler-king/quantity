@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'current.dart';
 import 'time.dart';
 
@@ -9,19 +10,26 @@ import 'time.dart';
 /// electromagnetic field
 /// See the [Wikipedia entry for Electric charge](https://en.wikipedia.org/wiki/Electric_charge)
 /// for more information.
-class Charge extends Quantity {
+base class Charge extends Quantity {
   /// Constructs a Charge with coulombs ([C]).
   /// Optionally specify a relative standard uncertainty.
   Charge({dynamic C, double uncert = 0.0})
-      : super(C ?? 0.0, Charge.coulombs, uncert);
+      : super(C ?? 0.0, Charge.coulombs, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Charge.misc(dynamic conv) : super.misc(conv, Charge.electricChargeDimensions);
+  Charge.misc(dynamic conv)
+      : super.misc(conv, Charge.electricChargeDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Charge based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Charge.inUnits(dynamic value, ChargeUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Charge.coulombs, uncert);
+      : super(value, units ?? Charge.coulombs, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Charge.
   const Charge.constant(Number valueSI,
@@ -39,7 +47,7 @@ class Charge extends Quantity {
 }
 
 /// Units acceptable for use in describing Charge quantities.
-class ChargeUnits extends Charge with Units {
+base class ChargeUnits extends Charge with Units {
   /// Constructs an instance.
   ChargeUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

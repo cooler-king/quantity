@@ -2,26 +2,33 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'length.dart';
 
 /// The spatial frequency of a wave.
 /// See the [Wikipedia entry for Wavenumber](https://en.wikipedia.org/wiki/Wavenumber)
 /// for more information.
-class WaveNumber extends Quantity {
+base class WaveNumber extends Quantity {
   /// Constructs a WaveNumber with reciprocal meters.
   /// Optionally specify a relative standard uncertainty.
   WaveNumber({dynamic reciprocalMeters, double uncert = 0.0})
-      : super(reciprocalMeters ?? 0.0, WaveNumber.reciprocalMeters, uncert);
+      : super(reciprocalMeters ?? 0.0, WaveNumber.reciprocalMeters, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   WaveNumber.misc(dynamic conv)
-      : super.misc(conv, WaveNumber.waveNumberDimensions);
+      : super.misc(conv, WaveNumber.waveNumberDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a WaveNumber based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   WaveNumber.inUnits(dynamic value, WaveNumberUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? WaveNumber.reciprocalMeters, uncert);
+      : super(value, units ?? WaveNumber.reciprocalMeters, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant WaveNumber.
   const WaveNumber.constant(Number valueSI,
@@ -38,7 +45,7 @@ class WaveNumber extends Quantity {
 }
 
 /// Units acceptable for use in describing WaveNumber quantities.
-class WaveNumberUnits extends WaveNumber with Units {
+base class WaveNumberUnits extends WaveNumber with Units {
   /// Constructs an instance.
   WaveNumberUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

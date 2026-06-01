@@ -2,25 +2,32 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// A measure of the difficulty passing an electric current through a conductor.
 /// See the [Wikipedia entry for Electrical resistance and conductance](https://en.wikipedia.org/wiki/Electrical_resistance_and_conductance)
 /// for more information.
-class Resistance extends Quantity {
+base class Resistance extends Quantity {
   /// Constructs a Resistance with [ohms].
   /// Optionally specify a relative standard uncertainty.
   Resistance({dynamic ohms, double uncert = 0.0})
-      : super(ohms ?? 0.0, Resistance.ohms, uncert);
+      : super(ohms ?? 0.0, Resistance.ohms, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Resistance.misc(dynamic conv)
-      : super.misc(conv, Resistance.electricResistanceDimensions);
+      : super.misc(conv, Resistance.electricResistanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Resistance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Resistance.inUnits(dynamic value, ResistanceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Resistance.ohms, uncert);
+      : super(value, units ?? Resistance.ohms, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant electrical Resistance.
   const Resistance.constant(Number valueSI,
@@ -39,7 +46,7 @@ class Resistance extends Quantity {
 }
 
 /// Units acceptable for use in describing Resistance quantities.
-class ResistanceUnits extends Resistance with Units {
+base class ResistanceUnits extends Resistance with Units {
   /// Constructs an instance.
   ResistanceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

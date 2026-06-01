@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('TemperatureInterval', () {
@@ -84,6 +84,27 @@ void main() {
         exception = e;
       }
       expect(exception is QuantityException, true);
+    });
+
+    test('additional constructors and methods', () {
+      const constTI = TemperatureInterval.constant(Double.constant(5));
+      expect(constTI.valueSI.toDouble(), 5.0);
+
+      final runTI = TemperatureInterval.constant(Double(5));
+      expect(runTI.valueSI.toDouble(), 5.0);
+
+      final ti = TemperatureInterval(K: 45.6, uncert: 0.01);
+      final temp = ti.toTemperature();
+      expect(temp.valueSI.toDouble(), 45.6);
+      expect(temp.relativeUncertainty, 0.01);
+    });
+
+    test('fallback operators', () {
+      final ti = TemperatureInterval(K: 10);
+      final len = Length(m: 5);
+
+      expect(() => ti + len, throwsA(isA<DimensionsException>()));
+      expect(() => ti - len, throwsA(isA<DimensionsException>()));
     });
   });
 }

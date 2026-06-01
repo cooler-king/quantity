@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'energy.dart';
 import 'mass.dart';
 import 'temperature_interval.dart';
@@ -11,23 +12,29 @@ import 'temperature_interval.dart';
 /// The heat capacity per unit mass of a material.
 /// See the [Wikipedia entry for Heat capacity](https://en.wikipedia.org/wiki/Heat_capacity)
 /// for more information.
-class SpecificHeatCapacity extends Quantity {
+base class SpecificHeatCapacity extends Quantity {
   /// Constructs a SpecificHeatCapacity with joules per kilogram kelvin.
   /// Optionally specify a relative standard uncertainty.
   SpecificHeatCapacity({dynamic joulesPerKilogramKelvin, double uncert = 0.0})
       : super(joulesPerKilogramKelvin ?? 0.0,
-            SpecificHeatCapacity.joulesPerKilogramKelvin, uncert);
+            SpecificHeatCapacity.joulesPerKilogramKelvin, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SpecificHeatCapacity.misc(dynamic conv)
-      : super.misc(conv, SpecificHeatCapacity.specificHeatCapacityDimensions);
+      : super.misc(conv, SpecificHeatCapacity.specificHeatCapacityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SpecificHeatCapacity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SpecificHeatCapacity.inUnits(dynamic value, SpecificHeatCapacityUnits? units,
       [double uncert = 0.0])
       : super(value, units ?? SpecificHeatCapacity.joulesPerKilogramKelvin,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SpecificHeatCapacity.
   const SpecificHeatCapacity.constant(Number valueSI,
@@ -47,7 +54,7 @@ class SpecificHeatCapacity extends Quantity {
 }
 
 /// Units acceptable for use in describing SpecificHeatCapacity quantities.
-class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
+base class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
   /// Constructs an instance.
   SpecificHeatCapacityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,
@@ -95,3 +102,5 @@ class SpecificHeatCapacityUnits extends SpecificHeatCapacity with Units {
           false,
           offset);
 }
+
+typedef SpecificEntropy = SpecificHeatCapacity;

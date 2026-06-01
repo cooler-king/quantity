@@ -1,0 +1,40 @@
+name: Dart CI
+
+on:
+  push:
+    branches: [ main, master, ai ]
+  pull_request:
+    branches: [ main, master, ai ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1.7.2
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze project source
+        run: dart analyze --fatal-infos
+
+      - name: Run tests with coverage
+        run: dart test --coverage=coverage
+
+      - name: Install coverage package
+        run: dart pub global activate coverage
+
+      - name: Format coverage report
+        run: dart pub global run coverage:format_coverage --packages=.dart_tool/package_config.json --report-on=lib --lcov -i coverage -o coverage/coverage.lcov
+
+      - name: Verify 100% test coverage
+        run: dart run tool/verify_coverage.dart

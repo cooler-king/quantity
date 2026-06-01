@@ -2,29 +2,36 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'area.dart';
 import 'time.dart';
 
 /// The resistance to flow of a fluid, equal to its absolute viscosity divided by its density.
 /// See the [Wikipedia entry for Viscosity](https://en.wikipedia.org/wiki/Viscosity)
 /// for more information.
-class KinematicViscosity extends Quantity {
+base class KinematicViscosity extends Quantity {
   /// Constructs a KinematicViscosity with meters squared per second.
   /// Optionally specify a relative standard uncertainty.
   KinematicViscosity({dynamic metersSquaredPerSecond, double uncert = 0.0})
       : super(metersSquaredPerSecond ?? 0.0,
-            KinematicViscosity.metersSquaredPerSecond, uncert);
+            KinematicViscosity.metersSquaredPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   KinematicViscosity.misc(dynamic conv)
-      : super.misc(conv, KinematicViscosity.kinematicViscosityDimensions);
+      : super.misc(conv, KinematicViscosity.kinematicViscosityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a KinematicViscosity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   KinematicViscosity.inUnits(dynamic value, KinematicViscosityUnits? units,
       [double uncert = 0.0])
       : super(
-            value, units ?? KinematicViscosity.metersSquaredPerSecond, uncert);
+            value, units ?? KinematicViscosity.metersSquaredPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant KinematicViscosity.
   const KinematicViscosity.constant(Number valueSI,
@@ -43,7 +50,7 @@ class KinematicViscosity extends Quantity {
 }
 
 /// Units acceptable for use in describing KinematicViscosity quantities.
-class KinematicViscosityUnits extends KinematicViscosity with Units {
+base class KinematicViscosityUnits extends KinematicViscosity with Units {
   /// Constructs an instance.
   KinematicViscosityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

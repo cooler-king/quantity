@@ -3,24 +3,30 @@ import 'package:quantity/quantity.dart';
 /// The mass of a substance which passes per unit of time.
 /// See the [Wikipedia entry for Mass flow rate](https://en.wikipedia.org/wiki/Mass_flow_rate)
 /// for more information.
-class MassFluxDensity extends Quantity {
+base class MassFluxDensity extends Quantity {
   /// Constructs a MassFluxDensity with kilograms per second per square meter.
   /// Optionally specify a relative standard uncertainty.
   MassFluxDensity(
       {dynamic kilogramsPerSecondPerSquareMeter, double uncert = 0.0})
       : super(kilogramsPerSecondPerSquareMeter ?? 0.0,
-            MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert);
+            MassFluxDensity.kilogramsPerSecondPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MassFluxDensity.misc(dynamic conv)
-      : super.misc(conv, MassFluxDensity.massFluxDensityDimensions);
+      : super.misc(conv, MassFluxDensity.massFluxDensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MassFluxDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MassFluxDensity.inUnits(dynamic value, MassFluxDensityUnits? units,
       [double uncert = 0.0])
       : super(value, units ?? MassFluxDensity.kilogramsPerSecondPerSquareMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MassFluxDensity.
   const MassFluxDensity.constant(Number valueSI,
@@ -40,7 +46,7 @@ class MassFluxDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing MassFluxDensity quantities.
-class MassFluxDensityUnits extends MassFluxDensity with Units {
+base class MassFluxDensityUnits extends MassFluxDensity with Units {
   /// Constructs an instance.
   MassFluxDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -17,4 +17,4 @@ MagneticFluxUnits unitPoles = MagneticFluxUnits(
 /// The magnetic flux quantum constant is a combination of two other physical constants:
 /// the Planck constant h and the electron charge e. Its value is, therefore, the same for any superconductor.
 const MagneticFlux magneticFluxQuantum =
-    MagneticFlux.constant(Double.constant(2.0678338488888888e-15));
+    MagneticFlux.constant(Double.constant(2.067833848e-15));

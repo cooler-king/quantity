@@ -2,24 +2,31 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Money in any form when in actual use or circulation as a medium of exchange.
 /// See the [Wikipedia entry for Currency](https://en.wikipedia.org/wiki/Currency)
 /// for more information.
-class Currency extends Quantity {
+base class Currency extends Quantity {
   /// Constructs a Currency with US dollars ([USD]).
   /// Optionally specify a relative standard uncertainty.
   // ignore:non_constant_identifier_names
   Currency({dynamic USD, double uncert = 0.0})
-      : super(USD ?? 0.0, Currency.dollarsUS, uncert);
+      : super(USD ?? 0.0, Currency.dollarsUS, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Currency.misc(dynamic conv) : super.misc(conv, Currency.currencyDimensions);
+  Currency.misc(dynamic conv) : super.misc(conv, Currency.currencyDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Currency based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Currency.inUnits(dynamic value, CurrencyUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Currency.dollarsUS, uncert);
+      : super(value, units ?? Currency.dollarsUS, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Currency.
   const Currency.constant(Number valueSI,
@@ -40,7 +47,7 @@ class Currency extends Quantity {
 }
 
 /// Units acceptable for use in describing Currency quantities.
-class CurrencyUnits extends Currency with Units {
+base class CurrencyUnits extends Currency with Units {
   /// Constructs an instance.
   CurrencyUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

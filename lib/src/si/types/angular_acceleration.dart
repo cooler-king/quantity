@@ -2,13 +2,14 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'angle.dart';
 import 'time.dart';
 
 /// The rate of change of angular speed.
 /// See the [Wikipedia entry for Angular acceleration](https://en.wikipedia.org/wiki/Angular_acceleration)
 /// for more information.
-class AngularAcceleration extends Quantity {
+base class AngularAcceleration extends Quantity {
   /// Construct an AngularAcceleration with either radians per second squared
   /// or degrees per second squared).
   /// Optionally specify a relative standard uncertainty.
@@ -21,18 +22,24 @@ class AngularAcceleration extends Quantity {
             degreesPerSecondSquared != null
                 ? AngularAcceleration.degreesPerSecondSquared
                 : AngularAcceleration.radiansPerSecondSquared,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AngularAcceleration.misc(dynamic conv)
-      : super.misc(conv, AngularAcceleration.angularAccelerationDimensions);
+      : super.misc(conv, AngularAcceleration.angularAccelerationDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a AngularAcceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AngularAcceleration.inUnits(dynamic value, AngularAccelerationUnits? units,
       [double uncert = 0.0])
       : super(value, units ?? AngularAcceleration.radiansPerSecondSquared,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AngularAcceleration.
   const AngularAcceleration.constant(Number valueSI,
@@ -55,7 +62,7 @@ class AngularAcceleration extends Quantity {
 }
 
 /// Units acceptable for use in describing AngularAcceleration quantities.
-class AngularAccelerationUnits extends AngularAcceleration with Units {
+base class AngularAccelerationUnits extends AngularAcceleration with Units {
   /// Constructs an instance.
   AngularAccelerationUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

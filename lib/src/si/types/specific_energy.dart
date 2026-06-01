@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'energy.dart';
 import 'length.dart';
 import 'mass.dart';
@@ -13,22 +14,28 @@ import 'time.dart';
 /// Energy per unit mass.
 /// See the [Wikipedia entry for Specific energy](https://en.wikipedia.org/wiki/Specific_energy)
 /// for more information.
-class SpecificEnergy extends Quantity {
+base class SpecificEnergy extends Quantity {
   /// Constructs a SpecificEnergy with joules per kilogram.
   /// Optionally specify a relative standard uncertainty.
   SpecificEnergy({dynamic joulesPerKilogram, double uncert = 0.0})
-      : super(
-            joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram, uncert);
+      : super(joulesPerKilogram ?? 0.0, SpecificEnergy.joulesPerKilogram,
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SpecificEnergy.misc(dynamic conv)
-      : super.misc(conv, SpecificEnergy.specificEnergyDimensions);
+      : super.misc(conv, SpecificEnergy.specificEnergyDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SpecificEnergy based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SpecificEnergy.inUnits(dynamic value, SpecificEnergyUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert);
+      : super(value, units ?? SpecificEnergy.joulesPerKilogram, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SpecificEnergy.
   const SpecificEnergy.constant(Number valueSI,
@@ -47,7 +54,7 @@ class SpecificEnergy extends Quantity {
 }
 
 /// Units acceptable for use in describing SpecificEnergy quantities.
-class SpecificEnergyUnits extends SpecificEnergy with Units {
+base class SpecificEnergyUnits extends SpecificEnergy with Units {
   /// Constructs an instance.
   SpecificEnergyUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,
@@ -130,3 +137,6 @@ class SpecificEnergyUnits extends SpecificEnergy with Units {
           false,
           offset);
 }
+
+typedef ImpartedSpecificEnergy = SpecificEnergy;
+typedef Kerma = SpecificEnergy;

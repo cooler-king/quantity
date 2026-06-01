@@ -2,25 +2,32 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The ability of a body to store an electrical charge,
 /// See the [Wikipedia entry for Capacitance](https://en.wikipedia.org/wiki/Capacitance)
 /// for more information.
-class Capacitance extends Quantity {
+base class Capacitance extends Quantity {
   /// Constructs a Capacitance with farads ([F]).
   /// Optionally specify a relative standard uncertainty.
   Capacitance({dynamic F, double uncert = 0.0})
-      : super(F ?? 0.0, Capacitance.farads, uncert);
+      : super(F ?? 0.0, Capacitance.farads, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Capacitance.misc(dynamic conv)
-      : super.misc(conv, Capacitance.electricCapacitanceDimensions);
+      : super.misc(conv, Capacitance.electricCapacitanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Capacitance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Capacitance.inUnits(dynamic value, CapacitanceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Capacitance.farads, uncert);
+      : super(value, units ?? Capacitance.farads, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Capacitance.
   const Capacitance.constant(Number valueSI,
@@ -39,7 +46,7 @@ class Capacitance extends Quantity {
 }
 
 /// Units acceptable for use in describing Capacitance quantities.
-class CapacitanceUnits extends Capacitance with Units {
+base class CapacitanceUnits extends Capacitance with Units {
   /// Constructs an instance.
   CapacitanceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

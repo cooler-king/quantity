@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Scalar', () {
@@ -219,6 +219,23 @@ void main() {
       c = s6 * s1;
       expect(c.valueSI is Imaginary, true);
       expect((c.valueSI as Imaginary).value.toDouble() == 18, true);
+    });
+
+    test('additional features', () {
+      const constScalar = Scalar.constant(Double.constant(5));
+      expect(constScalar.valueSI.toDouble(), 5.0);
+
+      final runScalar = Scalar.constant(Double(5));
+      expect(runScalar.valueSI.toDouble(), 5.0);
+
+      final s1 = Scalar(value: 10);
+      expect(s1.compareTo(5), 1);
+      expect(s1.compareTo(15), -1);
+      expect(s1.compareTo(Integer(10)), 0);
+
+      final s2 = Scalar(value: 5);
+      final len = Length(m: 10);
+      expect(s2.compareTo(len), -1);
     });
   });
 }

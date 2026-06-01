@@ -3,13 +3,14 @@ import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/quantity_exception.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'temperature.dart';
 
 /// The difference between two temperatures, where temperature is an objective comparative
 /// measure of hot or cold.
 /// See the [Wikipedia entry for Thermodynamic temperature](https://en.wikipedia.org/wiki/Thermodynamic_temperature)
 /// for more information.
-class TemperatureInterval extends Quantity {
+base class TemperatureInterval extends Quantity {
   /// Constructs a TemperatureInterval with kelvin ([K]) or degrees Celsius ([degC]).
   /// Optionally specify a relative standard uncertainty.
   TemperatureInterval({dynamic K, dynamic degC, double uncert = 0.0})
@@ -18,17 +19,23 @@ class TemperatureInterval extends Quantity {
             degC != null
                 ? TemperatureInterval.degreesCelsius
                 : TemperatureInterval.kelvins,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   TemperatureInterval.misc(dynamic conv)
-      : super.misc(conv, TemperatureInterval.temperatureIntervalDimensions);
+      : super.misc(conv, TemperatureInterval.temperatureIntervalDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a TemperatureInterval based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   TemperatureInterval.inUnits(dynamic value, TemperatureIntervalUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? TemperatureInterval.kelvins, uncert);
+      : super(value, units ?? TemperatureInterval.kelvins, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant TemperatureInterval.
   const TemperatureInterval.constant(Number valueSI,
@@ -95,7 +102,7 @@ class TemperatureInterval extends Quantity {
 }
 
 /// Units acceptable for use in describing TemperatureInterval quantities.
-class TemperatureIntervalUnits extends TemperatureInterval with Units {
+base class TemperatureIntervalUnits extends TemperatureInterval with Units {
   /// Constructs an instance.
   TemperatureIntervalUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

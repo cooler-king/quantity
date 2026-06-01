@@ -19,3 +19,12 @@ pubspec.lock
 doc
 .idea/
 *.iml
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Local Roadmap
+ROADMAP.md
+
+

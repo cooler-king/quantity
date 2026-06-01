@@ -75,9 +75,13 @@ class QuantityRange<Q extends Quantity> {
         }
       } else {
         if (q1.mks - epsilon <= quantity.mks &&
-            q2.mks + epsilon >= quantity.mks) return true;
+            q2.mks + epsilon >= quantity.mks) {
+          return true;
+        }
         if (q1.mks + epsilon >= quantity.mks &&
-            q2.mks - epsilon <= quantity.mks) return true;
+            q2.mks - epsilon <= quantity.mks) {
+          return true;
+        }
       }
     }
     return false;

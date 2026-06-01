@@ -2,13 +2,14 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'information.dart';
 import 'time.dart';
 
 /// The flow of information, per unit time.
 /// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)
 /// for more information.
-class InformationRate extends Quantity {
+base class InformationRate extends Quantity {
   /// Construct an InformationRate with bits per second ([bps]), kilobits per second ([kbps]),
   /// megabits per second ([Mbps]), gigabits per second ([Gbps]) or terabits per second ([Tbps]).
   /// Optionally specify a relative standard uncertainty.
@@ -33,17 +34,23 @@ class InformationRate extends Quantity {
                         : (Tbps != null
                             ? InformationRate.terabitsPerSecond
                             : InformationRate.bitsPerSecond))),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   InformationRate.misc(dynamic conv)
-      : super.misc(conv, InformationRate.informationRateDimensions);
+      : super.misc(conv, InformationRate.informationRateDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a InformationRate based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   InformationRate.inUnits(dynamic value, InformationRateUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? InformationRate.bitsPerSecond, uncert);
+      : super(value, units ?? InformationRate.bitsPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant InformationRate.
   const InformationRate.constant(Number valueSI,
@@ -83,7 +90,7 @@ class InformationRate extends Quantity {
 }
 
 /// Units acceptable for use in describing InformationRate quantities.
-class InformationRateUnits extends InformationRate with Units {
+base class InformationRateUnits extends InformationRate with Units {
   /// Constructs an instance.
   InformationRateUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -2,28 +2,35 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
-import 'volume.dart';
+import '../register_si.dart';
 import 'mass.dart';
+import 'volume.dart';
 
 /// The ratio of the substance's volume to its mass.
 /// See the [Wikipedia entry for Specific volume](https://en.wikipedia.org/wiki/Specific_volume)
 /// for more information.
-class SpecificVolume extends Quantity {
+base class SpecificVolume extends Quantity {
   /// Constructs a SpecificVolume with cubic meters per kilogram.
   /// Optionally specify a relative standard uncertainty.
   SpecificVolume({dynamic cubicMetersPerKilogram, double uncert = 0.0})
       : super(cubicMetersPerKilogram ?? 0.0,
-            SpecificVolume.cubicMetersPerKilogram, uncert);
+            SpecificVolume.cubicMetersPerKilogram, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SpecificVolume.misc(dynamic conv)
-      : super.misc(conv, SpecificVolume.specificVolumeDimensions);
+      : super.misc(conv, SpecificVolume.specificVolumeDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SpecificVolume based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SpecificVolume.inUnits(dynamic value, SpecificVolumeUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert);
+      : super(value, units ?? SpecificVolume.cubicMetersPerKilogram, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SpecificVolume.
   const SpecificVolume.constant(Number valueSI,
@@ -42,7 +49,7 @@ class SpecificVolume extends Quantity {
 }
 
 /// Units acceptable for use in describing SpecificVolume quantities.
-class SpecificVolumeUnits extends SpecificVolume with Units {
+base class SpecificVolumeUnits extends SpecificVolume with Units {
   /// Constructs an instance.
   SpecificVolumeUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

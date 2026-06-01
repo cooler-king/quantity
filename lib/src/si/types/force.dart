@@ -1,27 +1,35 @@
 import 'dart:math' as math;
+
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'acceleration.dart';
 import 'mass.dart';
 
 /// Any interaction that, when unopposed, changes the motion of an object.
 /// See the [Wikipedia entry for Force](https://en.wikipedia.org/wiki/Force)
 /// for more information.
-class Force extends Quantity {
+base class Force extends Quantity {
   /// Constructs a Force with newtons ([N]).
   /// Optionally specify a relative standard uncertainty.
   Force({dynamic N, double uncert = 0.0})
-      : super(N ?? 0.0, Force.newtons, uncert);
+      : super(N ?? 0.0, Force.newtons, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Force.misc(dynamic conv) : super.misc(conv, Force.forceDimensions);
+  Force.misc(dynamic conv) : super.misc(conv, Force.forceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Force based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Force.inUnits(dynamic value, ForceUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Force.newtons, uncert);
+      : super(value, units ?? Force.newtons, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Force.
   const Force.constant(Number valueSI, {ForceUnits? units, double uncert = 0.0})
@@ -33,7 +41,9 @@ class Force extends Quantity {
             m.valueSI * a.valueSI,
             Force.newtons,
             math.sqrt(m.relativeUncertainty * m.relativeUncertainty +
-                a.relativeUncertainty * a.relativeUncertainty));
+                a.relativeUncertainty * a.relativeUncertainty)) {
+    var _ = siRegistered;
+  }
 
   /// Dimensions for this type of quantity.
   static const Dimensions forceDimensions = Dimensions.constant(
@@ -46,7 +56,7 @@ class Force extends Quantity {
 }
 
 /// Units acceptable for use in describing Force quantities.
-class ForceUnits extends Force with Units {
+base class ForceUnits extends Force with Units {
   /// Constructs an instance.
   ForceUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

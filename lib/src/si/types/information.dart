@@ -1,13 +1,15 @@
 import 'dart:math' as math;
+
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Amount of data.
 /// See the [Wikipedia entry for Information](https://en.wikipedia.org/wiki/Information)
 /// for more information.
-class Information extends Quantity {
+base class Information extends Quantity {
   /// Constructs an Information object with [bits], bytes ([B]), kibibytes ([KiB]), mebibytes ([MiB]),
   /// gibibytes ([GiB]), or tebibytes ([TiB]).
   /// Optionally specify a relative standard uncertainty.
@@ -36,17 +38,23 @@ class Information extends Quantity {
                             : (TiB != null
                                 ? Information.tebibytes
                                 : Information.bits)))),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Information.misc(dynamic conv)
-      : super.misc(conv, Information.informationDimensions);
+      : super.misc(conv, Information.informationDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an Information instance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Information.inUnits(dynamic value, InformationUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Information.bits, uncert);
+      : super(value, units ?? Information.bits, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Information.
   const Information.constant(Number valueSI,
@@ -136,7 +144,7 @@ class Information extends Quantity {
 }
 
 /// Units acceptable for use in describing Information quantities.
-class InformationUnits extends Information with Units {
+base class InformationUnits extends Information with Units {
   /// Constructs an instance.
   InformationUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -1,7 +1,9 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
+  final _ = siRegistered;
+
   group('Dimensions', () {
     test('base dimensions', () {
       expect(Dimensions.baseLengthKey, 'Length');
@@ -615,7 +617,7 @@ void main() {
 
       expect(
           Dimensions.determineQuantityType(
-              Dimensions.fromMap(<String, int>{'Length': -3})),
+              Dimensions.fromMap(<String, int>{'Length': 3})),
           Volume);
       expect(
           Dimensions.determineQuantityType(
@@ -672,6 +674,20 @@ void main() {
       expect(AngularSpeed.angularSpeedDimensions.isScalarSI, false);
       expect(Currency.currencyDimensions.isScalarSI, true);
       expect(Information.informationDimensions.isScalarSI, true);
+    });
+
+    test('uncovered dimensions edge cases', () {
+      // ^ power with zero value exponent
+      final dZero = Dimensions.fromMap(<String, int>{'Length': 0});
+      final dZeroSquared = dZero ^ 2;
+      expect(dZeroSquared.isScalar, true);
+
+      // toQuantity with mismatched units dimensions
+      expect(() => Length.lengthDimensions.toQuantity(5.0, Time.seconds),
+          throwsA(isA<DimensionsException>()));
+
+      // toString on dimensions with multiple components
+      expect(Speed.speedDimensions.toString(), contains('; '));
     });
   });
 }

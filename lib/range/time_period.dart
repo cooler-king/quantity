@@ -24,7 +24,7 @@ class FiscalYear extends TimePeriod {
   final int _year;
 
   @override
-  String toString() => 'FY${'$_year'.substring(2)}';
+  String toString() => 'FY${yr4(_year).toString().substring(2)}';
 }
 
 /// The period of 365 days (or 366 days in leap years) starting from the first of January;

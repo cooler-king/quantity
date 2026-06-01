@@ -2,27 +2,34 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The mean energy imparted to matter per unit mass by ionizing radiation.
 /// See the [Wikipedia entry for Absorbed Dose](https://en.wikipedia.org/wiki/Absorbed_dose)
 /// for more information.
-class AbsorbedDose extends Quantity {
+base class AbsorbedDose extends Quantity {
   /// Construct an AbsorbedDose with either grays ([Gy]) or rads ([rads]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   AbsorbedDose({dynamic Gy, dynamic rads, double uncert = 0.0})
       : super(Gy ?? (rads ?? 0.0),
-            rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert);
+            rads != null ? AbsorbedDose.rads : AbsorbedDose.grays, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AbsorbedDose.misc(dynamic conv)
-      : super.misc(conv, AbsorbedDose.absorbedDoseDimensions);
+      : super.misc(conv, AbsorbedDose.absorbedDoseDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an AbsorbedDose based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AbsorbedDose.inUnits(dynamic value, AbsorbedDoseUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? AbsorbedDose.grays, uncert);
+      : super(value, units ?? AbsorbedDose.grays, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AbsorbedDose.
   const AbsorbedDose.constant(Number valueSI,
@@ -47,7 +54,7 @@ class AbsorbedDose extends Quantity {
 }
 
 /// Units acceptable for use in describing AbsorbedDose quantities.
-class AbsorbedDoseUnits extends AbsorbedDose with Units {
+base class AbsorbedDoseUnits extends AbsorbedDose with Units {
   /// Constructs an instance.
   AbsorbedDoseUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -3,22 +3,28 @@ import 'package:quantity/quantity.dart';
 /// The abundance of a constituent divided by the total volume of a mixture.
 /// See the [Wikipedia entry for Concentration](https://en.wikipedia.org/wiki/Concentration)
 /// for more information.
-class Concentration extends Quantity {
+base class Concentration extends Quantity {
   /// Constructs a Concentration with moles per cubic meter.
   /// Optionally specify a relative standard uncertainty.
   Concentration({dynamic molesPerCubicMeter, double uncert = 0.0})
       : super(molesPerCubicMeter ?? 0.0, Concentration.molesPerCubicMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Concentration.misc(dynamic conv)
-      : super.misc(conv, Concentration.concentrationDimensions);
+      : super.misc(conv, Concentration.concentrationDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Concentration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Concentration.inUnits(dynamic value, ConcentrationUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Concentration.molesPerCubicMeter, uncert);
+      : super(value, units ?? Concentration.molesPerCubicMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Concentration.
   const Concentration.constant(Number valueSI,
@@ -38,7 +44,7 @@ class Concentration extends Quantity {
 }
 
 /// Units acceptable for use in describing Concentration quantities.
-class ConcentrationUnits extends Concentration with Units {
+base class ConcentrationUnits extends Concentration with Units {
   /// Constructs an instance.
   ConcentrationUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

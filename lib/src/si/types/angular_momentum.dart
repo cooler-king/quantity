@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'energy.dart';
 import 'time.dart';
 
@@ -9,22 +10,28 @@ import 'time.dart';
 /// rotations, motions and shape.
 /// See the [Wikipedia entry for Angular momentum](https://en.wikipedia.org/wiki/Angular_momentum)
 /// for more information.
-class AngularMomentum extends Quantity {
+base class AngularMomentum extends Quantity {
   /// Construct an AngularMomentum with joule seconds ([Js]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   AngularMomentum({dynamic Js, double uncert = 0.0})
-      : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert);
+      : super(Js ?? 0.0, AngularMomentum.jouleSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AngularMomentum.misc(dynamic conv)
-      : super.misc(conv, AngularMomentum.angularMomentumDimensions);
+      : super.misc(conv, AngularMomentum.angularMomentumDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a AngularMomentum based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AngularMomentum.inUnits(dynamic value, AngularMomentumUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? AngularMomentum.jouleSecond, uncert);
+      : super(value, units ?? AngularMomentum.jouleSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AngularMomentum.
   const AngularMomentum.constant(Number valueSI,
@@ -43,7 +50,7 @@ class AngularMomentum extends Quantity {
 }
 
 /// Units acceptable for use in describing AngularMomentum quantities.
-class AngularMomentumUnits extends AngularMomentum with Units {
+base class AngularMomentumUnits extends AngularMomentum with Units {
   /// Constructs an instance.
   AngularMomentumUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

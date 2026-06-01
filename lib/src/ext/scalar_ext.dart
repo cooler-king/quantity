@@ -181,8 +181,8 @@ const Scalar zilch = scalarZero;
 
 /// Fine structure constant (alpha).
 const Scalar fineStructureConstant = Scalar.constant(
-    Double.constant(7.2973525693e-3),
-    uncert: 1.5073959899206537e-10);
+    Double.constant(0.0072973525643),
+    uncert: 1.5073959909534913e-10);
 
 /// Proton g factor (gp).
 const Scalar protonGFactor = Scalar.constant(Double.constant(5.5856946893),
@@ -190,16 +190,16 @@ const Scalar protonGFactor = Scalar.constant(Double.constant(5.5856946893),
 
 /// Electron g factor (ge).
 const Scalar electronGFactor = Scalar.constant(
-    Double.constant(-2.00231930436256),
-    uncert: 1.7479729593448774e-13);
+    Double.constant(-2.00231930436092),
+    uncert: 1.7979150438990604e-13);
 
 /// Neutron g factor (gn).
-const Scalar neutronGFactor = Scalar.constant(Double.constant(-3.82608545),
-    uncert: 2.3522736534804782e-7);
+const Scalar neutronGFactor = Scalar.constant(Double.constant(-3.82608552),
+    uncert: 2.3522736104445465e-7);
 
 /// Muon g factor (gn).
-const Scalar muonGFactor = Scalar.constant(Double.constant(-2.0023318418),
-    uncert: 6.492430339775063e-10);
+const Scalar muonGFactor = Scalar.constant(Double.constant(-2.00233184123),
+    uncert: 4.095225292408511e-10);
 
 /// googol (10^100), arbitrary precision.
 Scalar googol =
@@ -207,14 +207,14 @@ Scalar googol =
 
 /// Sackur-Tetrode constant at 1 K and 100 kPa ('S0/R').
 const Scalar sackurTetrode100kPa = Scalar.constant(
-    Double.constant(-1.15170753706),
-    uncert: 3.9072419474542043e-10);
+    Double.constant(-1.15170753496),
+    uncert: 4.080897152559861e-10);
 
 /// Sackur-Tetrode constant at 1 K and 101.325 kPa ('S0/R').
 const Scalar sackurTetrodeStdAtm = Scalar.constant(
-    Double.constant(-1.16487052358),
-    uncert: 3.863090282489196e-10);
+    Double.constant(-1.16487052149),
+    uncert: 4.034783191172332e-10);
 
 /// Weak mixing angle.
 const Scalar weakMixingAngle =
-    Scalar.constant(Double.constant(0.22290), uncert: 0.0013458950201884253);
+    Scalar.constant(Double.constant(0.22305), uncert: 0.0010311589329746694);

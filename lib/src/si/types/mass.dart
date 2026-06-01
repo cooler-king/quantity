@@ -2,13 +2,14 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'energy.dart';
 
 /// Represents the *mass* physical quantity (one of the seven base SI quantities),
 /// that determines the strength of a body's mutual gravitational attraction to other bodies.
 /// See the [Wikipedia entry for Mass](https://en.wikipedia.org/wiki/Mass)
 /// for more information.
-class Mass extends Quantity {
+base class Mass extends Quantity {
   /// Constructs a Mass with kilograms ([kg]), grams ([g]) or unified atomic mass units ([u]).
   /// Optionally specify a relative standard uncertainty.
   Mass({dynamic kg, dynamic g, dynamic u, double uncert = 0.0})
@@ -17,15 +18,21 @@ class Mass extends Quantity {
             g != null
                 ? Mass.grams
                 : (u != null ? Mass.unifiedAtomicMassUnits : Mass.kilograms),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Mass.misc(dynamic conv) : super.misc(conv, Mass.massDimensions);
+  Mass.misc(dynamic conv) : super.misc(conv, Mass.massDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Mass based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Mass.inUnits(dynamic value, MassUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Mass.kilograms, uncert);
+      : super(value, units ?? Mass.kilograms, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Mass.
   const Mass.constant(Number valueSI, {MassUnits? units, double uncert = 0.0})
@@ -74,7 +81,7 @@ class Mass extends Quantity {
 }
 
 /// Units acceptable for use in describing [Mass] quantities.
-class MassUnits extends Mass with Units {
+base class MassUnits extends Mass with Units {
   /// Constructs an instance.
   MassUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

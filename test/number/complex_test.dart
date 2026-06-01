@@ -1,6 +1,7 @@
 import 'dart:math';
-import 'package:test/test.dart';
+
 import 'package:quantity/number.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Complex', () {
@@ -920,6 +921,66 @@ void main() {
     test('remainder', () {
       expect(Complex.coeff(2.8, 4.3).toString(), '2.8 + 4.3i');
       expect(Complex.coeff(-2.8, -4.3).toString(), '-2.8 - 4.3i');
+    });
+
+    test('constant constructor, conjugate, and truncating division', () {
+      // constant constructor
+      const cc = Complex.constant(
+          Double.constant(1.0), Imaginary.constant(Double.constant(2.0)));
+      expect(cc.real.value, 1.0);
+
+      // conjugate
+      final c = Complex.coeff(3.0, 4.0);
+      expect(c.conjugate, Complex.coeff(3.0, -4.0));
+
+      // ~/ truncation division with Complex divisor
+      final cForDiv = Complex.coeff(5.0, 10.0);
+      final divisor = Complex.coeff(2.0, 1.0);
+      final Integer truncatedResult = (cForDiv ~/ divisor) as Integer;
+      expect(truncatedResult.value, 0);
+
+      // division returning infinity/negative infinity (real < 0 or imag < 0)
+      final cNeg = Complex.coeff(-3.0, -4.0);
+      final Complex cInf = (cNeg / 0.0) as Complex;
+      expect(cInf.real.isInfinite, true);
+      expect(cInf.imaginary.value.isInfinite, true);
+
+      final Complex cTruncInf = (cNeg ~/ 0.0) as Complex;
+      expect(cTruncInf.real.isInfinite, true);
+
+      // unrecognized types operations
+      final c1 = Complex.coeff(1.0, 2.0);
+      expect(c1 + 'invalid', c1);
+      expect(c1 - 'invalid', c1);
+      expect(c1 * 'invalid', Integer.zero);
+
+      // division and truncating division with real < 0 and imaginary < 0 by 0 or invalid
+      final Complex cDivUnrecognized = (c1 / 'invalid') as Complex;
+      expect(cDivUnrecognized.real.isInfinite, true);
+
+      final Complex cTruncUnrecognized = (c1 ~/ 'invalid') as Complex;
+      expect(cTruncUnrecognized.real.isInfinite, true);
+
+      final cNegBoth = Complex.coeff(-1.0, -2.0);
+      final Complex cNegDiv = (cNegBoth / 0) as Complex;
+      expect(cNegDiv.real, Double.negInfinity);
+      expect(cNegDiv.imaginary.value, Double.negInfinity);
+
+      final Complex cNegTrunc = (cNegBoth ~/ 0) as Complex;
+      expect(cNegTrunc.real, Double.negInfinity);
+      expect(cNegTrunc.imaginary.value, Double.negInfinity);
+
+      final Complex cNegDivUnrecognized = (cNegBoth / 'invalid') as Complex;
+      expect(cNegDivUnrecognized.real, Double.negInfinity);
+      expect(cNegDivUnrecognized.imaginary.value, Double.negInfinity);
+
+      final Complex cNegTruncUnrecognized = (cNegBoth ~/ 'invalid') as Complex;
+      expect(cNegTruncUnrecognized.real, Double.negInfinity);
+      expect(cNegTruncUnrecognized.imaginary.value, Double.negInfinity);
+
+      // fromMap fallbacks
+      final cMapEmpty = Complex.fromMap(<String, dynamic>{});
+      expect(cMapEmpty.real.value, 0.0);
     });
   });
 }

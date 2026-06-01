@@ -3,6 +3,7 @@ import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/quantity_exception.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'time.dart';
 
 // Also Epoch
@@ -95,23 +96,29 @@ import 'time.dart';
 /// Protocol (NTP).  For applications--especially distributed applications--that
 /// access the system clock and depend on its accuracy, such synchronization is
 /// recommended.  More information can be found at http://www.ntp.org.
-class TimeInstant extends Quantity {
+base class TimeInstant extends Quantity {
   /// Constructs a TimeInstant in either [TAI] or [UTC] units.
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   TimeInstant({dynamic TAI, dynamic UTC, double uncert = 0.0})
       : super(TAI ?? (UTC ?? 0.0),
-            UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert);
+            UTC != null ? TimeInstant.UTC : TimeInstant.TAI, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   TimeInstant.misc(dynamic conv)
-      : super.misc(conv, TimeInstant.timeInstantDimensions);
+      : super.misc(conv, TimeInstant.timeInstantDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a TimeInstant based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   TimeInstant.inUnits(dynamic value, TimeInstantUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? TimeInstant.TAI, uncert);
+      : super(value, units ?? TimeInstant.TAI, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant TimeInstant object.
   const TimeInstant.constant(Number valueSI,
@@ -121,7 +128,9 @@ class TimeInstant extends Quantity {
 
   /// Constructs a TimeInstant from an existing [dateTime] object.
   TimeInstant.dateTime(DateTime dateTime, {double uncert = 0.0})
-      : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert);
+      : super(dateTime.millisecondsSinceEpoch, TimeInstant.system, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Dimensions for this type of quantity
   static const Dimensions timeInstantDimensions =
@@ -266,7 +275,7 @@ typedef FromMksOverride = Number Function(dynamic mks);
 typedef ToMksOverride = Number Function(dynamic val);
 
 /// Units acceptable for use in describing TimeInstant quantities.
-class TimeInstantUnits extends TimeInstant with Units {
+base class TimeInstantUnits extends TimeInstant with Units {
   /// Constructs an instance.
   TimeInstantUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,
@@ -500,7 +509,7 @@ num getLeapSeconds(double tai, {bool pre1972LeapSeconds = false}) {
 /// For 1620-present, Delta T is calculated using a table of delta T values
 /// determined from historical observations (and published in the Astronomical
 /// Almanac.  For dates prior to 1620, approximate polynomial algorithms are
-/// used [Chapront, Chapront-Touze & Francou (1997)].
+/// used (Chapront, Chapront-Touze & Francou, 1997).
 ///
 /// Because Delta T depends on measured values of the Earth's rotation that
 /// result from irregular and complex tidal forces for which accurate predictive
@@ -981,3 +990,5 @@ double secondsInUtcDay(double utc) {
   // Return number of seconds on this UTC day
   return (tai2 - tai1).toDouble();
 }
+
+typedef Epoch = TimeInstant;

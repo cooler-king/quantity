@@ -1,14 +1,12 @@
 import 'dart:math';
 import 'package:intl/intl.dart' show NumberFormat, NumberParserBase;
 import 'package:intl/number_symbols.dart';
-import '../number/complex.dart';
 import '../number/double.dart';
-import '../number/imaginary.dart';
 import '../number/integer.dart';
 import '../number/number.dart';
 import '../number/precise.dart';
 import 'quantity.dart';
-import 'utilities.dart' show expUnicodeMap, logger;
+import 'utilities.dart' show expUnicodeMap;
 
 /// NumberFormatSI implements the International System of Units (SI) style
 /// conventions for displaying values of quantities.  Specifically:
@@ -38,6 +36,8 @@ class NumberFormatSI implements NumberFormat {
 
   /// Output in unicode (unicode thin spaces instead of regular ascii spaces).
   bool unicode;
+
+  bool _grouping = true;
 
   /// [value] is expected to be a Quantity, Number or num object.
   @override
@@ -121,6 +121,8 @@ class NumberFormatSI implements NumberFormat {
 
   /// Returns a String with spaces added according to SI guidelines.
   String insertSpaces(String str) {
+    if (!_grouping) return str;
+
     // Remove any exponent piece and add it back in after spaces are added.
     final expIndex = _exponentIndex(str);
     final numStr = expIndex != -1 ? str.substring(0, expIndex) : str;
@@ -178,26 +180,21 @@ class NumberFormatSI implements NumberFormat {
   /// Removes any zeros at the end of a number string that follow a decimal
   /// point (except for one that immediately follows the decimal point).
   static String removeInsignificantZeros(String str) {
-    try {
-      if (str.isNotEmpty != true) return str;
-      final dotIndex = str.indexOf('.');
-      if (dotIndex == -1) return str;
-      final eIndex = str.toLowerCase().indexOf('e');
-      final decimalCount =
-          eIndex == -1 ? str.length - dotIndex - 1 : eIndex - dotIndex - 1;
-      if (decimalCount < 2) return str;
-      final lastDigitIndex = eIndex == -1 ? str.length - 1 : eIndex - 1;
-      int endIndex;
-      for (endIndex = lastDigitIndex; endIndex > dotIndex + 1; endIndex--) {
-        if (str.substring(endIndex, endIndex + 1) != '0') break;
-      }
-      return eIndex == -1
-          ? str.substring(0, endIndex + 1)
-          : '${str.substring(0, endIndex + 1)}${str.substring(eIndex)}';
-    } catch (e, s) {
-      logger.severe('Problem removing insignificant zeros', e, s);
-      return str;
+    if (str.isNotEmpty != true) return str;
+    final dotIndex = str.indexOf('.');
+    if (dotIndex == -1) return str;
+    final eIndex = str.toLowerCase().indexOf('e');
+    final decimalCount =
+        eIndex == -1 ? str.length - dotIndex - 1 : eIndex - dotIndex - 1;
+    if (decimalCount < 2) return str;
+    final lastDigitIndex = eIndex == -1 ? str.length - 1 : eIndex - 1;
+    int endIndex;
+    for (endIndex = lastDigitIndex; endIndex > dotIndex + 1; endIndex--) {
+      if (str.substring(endIndex, endIndex + 1) != '0') break;
     }
+    return eIndex == -1
+        ? str.substring(0, endIndex + 1)
+        : '${str.substring(0, endIndex + 1)}${str.substring(eIndex)}';
   }
 
   String _normalizeText(String text) {
@@ -333,19 +330,16 @@ class NumberFormatSI implements NumberFormat {
   String get positiveSuffix => _scientific.positiveSuffix;
 
   @override
-  String simpleCurrencySymbol(String currencyCode) {
-    // TODO: implement simpleCurrencySymbol
-    throw UnimplementedError();
-  }
+  String simpleCurrencySymbol(String currencyCode) =>
+      _scientific.simpleCurrencySymbol(currencyCode);
 
   @override
-  // TODO: implement symbols
-  NumberSymbols get symbols => throw UnimplementedError();
+  NumberSymbols get symbols => _scientific.symbols;
 
   @override
   void turnOffGrouping() {
-    // TODO: implement turnOffGrouping
-    throw UnimplementedError();
+    _grouping = false;
+    _scientific.turnOffGrouping();
   }
 
   @override

@@ -1,6 +1,6 @@
-import 'package:test/test.dart';
-import 'package:quantity/quantity.dart';
 import 'package:quantity/number.dart';
+import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Double', () {
@@ -15,6 +15,9 @@ void main() {
       expect(Double.infinity.value, double.infinity);
       expect(Double.negInfinity.value, double.negativeInfinity);
       expect(identical(Double.NaN.value, double.nan), true);
+
+      final dFromInt = Double.fromInt(123);
+      expect(dFromInt.value, 123.0);
     });
 
     test('operator ==', () {
@@ -678,6 +681,45 @@ void main() {
       expect(Double.negInfinity.isInteger, false);
       expect(Double.NaN.isInteger, false);
       expect(Double.zero.isInteger, true);
+    });
+
+    test('Real.fromMap, remainder with complex divisors, and exponent raising',
+        () {
+      // Real.fromMap with precise
+      final rPrecise = Real.fromMap(<String, dynamic>{'precise': '10.5'});
+      expect(rPrecise, isA<Precise>());
+      expect(rPrecise.toDouble(), 10.5);
+
+      // remainder with Complex or Imaginary divisor throws exception
+      final rVal = Double(10.0);
+      expect(() => rVal % Complex(Double(2), Imaginary(1)), throwsException);
+      expect(() => rVal % Imaginary(2), throwsException);
+
+      // remainder with Real divisor
+      expect(rVal % Double(3.0), Double(1.0));
+
+      // Exponent raising
+      // this ^ Precise
+      expect((Double(2.0) ^ Precise('3.0')).toDouble(), 8.0);
+      // this ^ Real
+      expect((Double(4.0) ^ Double(2.5)).toDouble(), 32.0);
+      expect((Double(4.0) ^ Double(2.0)),
+          isA<Integer>()); // returns Integer if whole number
+      expect((Double(2.0) ^ Double(2.5)),
+          isA<Double>()); // returns Double otherwise
+
+      // this ^ Complex
+      final compExp = Complex(Double(2.0), Imaginary(1.0));
+      final raisedComp = Double(2.0) ^ compExp;
+      expect(raisedComp, isA<Complex>());
+
+      // this ^ Imaginary
+      final imagExp = Imaginary(2.0);
+      final raisedImag = Double(2.0) ^ imagExp;
+      expect(raisedImag, isA<Complex>());
+
+      // clamp where upper/lower limit is general Number
+      expect(Double(10.0).clamp(Integer(12), Integer(15)), Integer(12));
     });
   });
 }

@@ -2,11 +2,12 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Represents the _length_ physical quantity (one of the seven base SI quantities).
 /// See the [Wikipedia entry for Length](https://en.wikipedia.org/wiki/Length)
 /// for more information.
-class Length extends Quantity {
+base class Length extends Quantity {
   /// Constructs a Length with meters ([m]), kilometers ([km]), millimeters ([mm]), astronomical units ([ua])
   /// or nautical miles ([NM]).
   /// Optionally specify a relative standard uncertainty.
@@ -27,15 +28,21 @@ class Length extends Quantity {
                     : (ua != null
                         ? Length.astronomicalUnits
                         : (NM != null ? Length.nauticalMiles : Length.meters))),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Length.misc(dynamic conv) : super.misc(conv, Length.lengthDimensions);
+  Length.misc(dynamic conv) : super.misc(conv, Length.lengthDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Length based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Length.inUnits(dynamic value, LengthUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Length.meters, uncert);
+      : super(value, units ?? Length.meters, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs constant Length.
   const Length.constant(Number valueSI,
@@ -82,7 +89,7 @@ class Length extends Quantity {
 }
 
 /// Units acceptable for use in describing Length quantities.
-class LengthUnits extends Length with Units {
+base class LengthUnits extends Length with Units {
   /// Constructs an instance.
   LengthUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

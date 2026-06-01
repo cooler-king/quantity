@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Represents the _time interval_ physical quantity (one of the seven
 /// base SI quantities).
@@ -13,7 +14,7 @@ import '../../si/units.dart';
 ///
 /// See the [Wikipedia entry for Time](https://en.wikipedia.org/wiki/Time)
 /// for more information.
-class Time extends Quantity {
+base class Time extends Quantity {
   /// Constructs a Time with seconds ([s]), milliseconds ([ms]), nanoseconds ([ns]), mean solar days ([d]), mean solar hours ([h])
   /// or mean solar minutes ([min]).
   /// Optionally specify a relative standard uncertainty.
@@ -38,15 +39,21 @@ class Time extends Quantity {
                             : (min != null
                                 ? Time.minutesMeanSolar
                                 : Time.seconds)))),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Time.misc(dynamic conv) : super.misc(conv, Time.timeDimensions);
+  Time.misc(dynamic conv) : super.misc(conv, Time.timeDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Time based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Time.inUnits(dynamic value, TimeUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Time.seconds, uncert);
+      : super(value, units ?? Time.seconds, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Time.
   const Time.constant(Number valueSI, {TimeUnits? units, double uncert = 0.0})
@@ -54,7 +61,9 @@ class Time extends Quantity {
 
   /// Constructs a Time object from an existing dart:core Duration object.
   Time.fromDuration(Duration d)
-      : super(d.inMicroseconds.toDouble() / 1.0e6, Time.seconds);
+      : super(d.inMicroseconds.toDouble() / 1.0e6, Time.seconds) {
+    var _ = siRegistered;
+  }
 
   /// Dimensions for this type of quantity
   static const Dimensions timeDimensions =
@@ -109,7 +118,7 @@ class Time extends Quantity {
 }
 
 /// Units acceptable for use in describing [Time] quantities.
-class TimeUnits extends Time with Units {
+base class TimeUnits extends Time with Units {
   /// Constructs an instance.
   TimeUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

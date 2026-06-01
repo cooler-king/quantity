@@ -1,6 +1,7 @@
 import 'dart:math';
-import 'package:test/test.dart';
+
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Information', () {
@@ -54,6 +55,43 @@ void main() {
       info = Information(TiB: 1);
       expect(info.valueSI.toDouble(), 8 * pow(2, 40));
       expect(info.preferredUnits, Information.tebibytes);
+    });
+
+    test(
+        'misc, inUnits, and constant constructors plus binary unit values and derive',
+        () {
+      // misc ctor
+      final infMisc = Information.misc(1024.0);
+      expect(infMisc.valueSI.toDouble(), 1024.0);
+
+      // inUnits ctor
+      final infUnits = Information.inUnits(4.0, Information.nibbles);
+      expect(infUnits.valueSI.toDouble(), 16.0);
+
+      // constant ctor
+      const infConst =
+          Information.constant(Double.constant(128.0), units: null);
+      expect(infConst.valueSI.toDouble(), 128.0);
+
+      // Convenience units
+      expect(Information.nibbles.valueSI.toDouble(), 4.0);
+      expect(Information.kilobits.valueSI.toDouble(), 1000.0);
+      expect(Information.megabits.valueSI.toDouble(), 1e6);
+      expect(Information.gigabits.valueSI.toDouble(), 1e9);
+      expect(Information.terabits.valueSI.toDouble(), 1e12);
+
+      // Binary units
+      expect(Information.pebibytes.valueSI.toDouble(), 8.0 * pow(2, 50));
+      expect(Information.exbibytes.valueSI.toDouble(), 8.0 * pow(2, 60));
+      expect(Information.zebibytes.valueSI.toDouble(), 8.0 * pow(2, 70));
+      expect(Information.yobibytes.valueSI.toDouble(), 8.0 * pow(2, 80));
+
+      // derive units
+      final derived =
+          Information.bits.derive('kilo', 'k', 1000.0) as InformationUnits;
+      expect(derived.name, 'kilobits');
+      expect(derived.abbrev1, 'kbit');
+      expect(derived.quantityType, Information);
     });
   });
 }

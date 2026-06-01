@@ -2,13 +2,14 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'absorbed_dose.dart';
 import 'time.dart';
 
 /// The rate of mean energy imparted to matter per unit mass by ionizing radiation.
 /// See the [Wikipedia entry for Absorbed Dose](https://en.wikipedia.org/wiki/Absorbed_dose)
 /// for more information.
-class AbsorbedDoseRate extends Quantity {
+base class AbsorbedDoseRate extends Quantity {
   /// Construct an AbsorbedDoseRate with either grays per second or rads per second.
   /// Optionally specify a relative standard uncertainty.
   AbsorbedDoseRate(
@@ -18,17 +19,23 @@ class AbsorbedDoseRate extends Quantity {
             radsPerSecond != null
                 ? AbsorbedDoseRate.radsPerSecond
                 : AbsorbedDoseRate.graysPerSecond,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AbsorbedDoseRate.misc(dynamic conv)
-      : super.misc(conv, AbsorbedDoseRate.absorbedDoseRateDimensions);
+      : super.misc(conv, AbsorbedDoseRate.absorbedDoseRateDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an AbsorbedDoseRate based on the [value]
   /// and the conversion factor intrinsic to the provided [units].
   AbsorbedDoseRate.inUnits(dynamic value, AbsorbedDoseRateUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert);
+      : super(value, units ?? AbsorbedDoseRate.graysPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AbsorbedDoseRate with its SI value.
   const AbsorbedDoseRate.constant(Number valueSI,
@@ -53,7 +60,7 @@ class AbsorbedDoseRate extends Quantity {
 }
 
 /// Units acceptable for use in describing AbsorbedDoseRate quantities.
-class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
+base class AbsorbedDoseRateUnits extends AbsorbedDoseRate with Units {
   /// Constructs an instance.
   AbsorbedDoseRateUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

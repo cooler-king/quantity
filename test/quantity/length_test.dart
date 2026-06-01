@@ -1,7 +1,9 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
+  final _ = siRegistered;
+
   group('Length', () {
     test('constructors -default', () {
       // default ctor, meters 0
@@ -337,6 +339,10 @@ void main() {
       final buf = StringBuffer();
       a.outputText(buf);
       expect(buf.toString(), '75.3 m');
+    });
+
+    test('angstroms unit', () {
+      expect(Length.angstroms, isNotNull);
     });
   });
 }

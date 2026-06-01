@@ -2,27 +2,34 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'force.dart';
 import 'length.dart';
 
 /// The elastic tendency of liquids which makes them acquire the least surface area possible.
 /// See the [Wikipedia entry for Surface tension](https://en.wikipedia.org/wiki/Surface_tension)
 /// for more information.
-class SurfaceTension extends Quantity {
+base class SurfaceTension extends Quantity {
   /// Constructs a SurfaceTension with newtons per meter.
   /// Optionally specify a relative standard uncertainty.
   SurfaceTension({dynamic newtonsPerMeter, double uncert = 0.0})
-      : super(newtonsPerMeter ?? 0.0, SurfaceTension.newtonsPerMeter, uncert);
+      : super(newtonsPerMeter ?? 0.0, SurfaceTension.newtonsPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   SurfaceTension.misc(dynamic conv)
-      : super.misc(conv, SurfaceTension.surfaceTensionDimensions);
+      : super.misc(conv, SurfaceTension.surfaceTensionDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a SurfaceTension based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   SurfaceTension.inUnits(dynamic value, SurfaceTensionUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert);
+      : super(value, units ?? SurfaceTension.newtonsPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant SurfaceTension.
   const SurfaceTension.constant(Number valueSI,
@@ -41,7 +48,7 @@ class SurfaceTension extends Quantity {
 }
 
 /// Units acceptable for use in describing SurfaceTension quantities.
-class SurfaceTensionUnits extends SurfaceTension with Units {
+base class SurfaceTensionUnits extends SurfaceTension with Units {
   /// Constructs an instance.
   SurfaceTensionUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

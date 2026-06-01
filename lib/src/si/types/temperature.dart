@@ -2,29 +2,36 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'temperature_interval.dart';
 
 /// An objective comparative measure of hot or cold.
 /// See the [Wikipedia entry for Thermodynamic temperature](https://en.wikipedia.org/wiki/Thermodynamic_temperature)
 /// for more information.
-class Temperature extends Quantity {
+base class Temperature extends Quantity {
   /// Constructs a Temperature with kelvins ([K]) or degrees Celsius ([C]).
   /// Optionally specify a relative standard uncertainty.
   Temperature({dynamic K, dynamic C, double uncert = 0.0})
       : super(
             K ?? (C ?? 0.0),
             C != null ? Temperature.degreesCelsius : Temperature.kelvins,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Temperature.misc(dynamic conv)
-      : super.misc(conv, Temperature.temperatureDimensions);
+      : super.misc(conv, Temperature.temperatureDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Temperature based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Temperature.inUnits(dynamic value, TemperatureUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Temperature.kelvins, uncert);
+      : super(value, units ?? Temperature.kelvins, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Temperature.
   const Temperature.constant(Number valueSI,
@@ -95,7 +102,7 @@ class Temperature extends Quantity {
 }
 
 /// Units acceptable for use in describing [Temperature] quantities.
-class TemperatureUnits extends Temperature with Units {
+base class TemperatureUnits extends Temperature with Units {
   /// Constructs an instance.
   TemperatureUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

@@ -3,22 +3,28 @@ import 'package:quantity/quantity.dart';
 /// The electric current per unit area of cross section.
 /// See the [Wikipedia entry for Current density](https://en.wikipedia.org/wiki/Current_density)
 /// for more information.
-class CurrentDensity extends Quantity {
+base class CurrentDensity extends Quantity {
   /// Constructs a CurrentDensity with amperes per square meter.
   /// Optionally specify a relative standard uncertainty.
   CurrentDensity({dynamic amperesPerSquareMeter, double uncert = 0.0})
       : super(amperesPerSquareMeter ?? 0.0,
-            CurrentDensity.amperesPerSquareMeter, uncert);
+            CurrentDensity.amperesPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   CurrentDensity.misc(dynamic conv)
-      : super.misc(conv, CurrentDensity.electricCurrentDensityDimensions);
+      : super.misc(conv, CurrentDensity.electricCurrentDensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a CurrentDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   CurrentDensity.inUnits(dynamic value, CurrentDensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? CurrentDensity.amperesPerSquareMeter, uncert);
+      : super(value, units ?? CurrentDensity.amperesPerSquareMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant CurrentDensity.
   const CurrentDensity.constant(Number valueSI,
@@ -37,7 +43,7 @@ class CurrentDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing CurrentDensity quantities.
-class CurrentDensityUnits extends CurrentDensity with Units {
+base class CurrentDensityUnits extends CurrentDensity with Units {
   /// Constructs an instance.
   CurrentDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

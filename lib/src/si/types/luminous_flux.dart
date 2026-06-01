@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The perceived power of light.
 /// It differs from radiant flux, the measure of the total power of electromagnetic
@@ -10,21 +11,27 @@ import '../../si/units.dart';
 /// wavelengths of light
 /// See the [Wikipedia entry for Luminance](https://en.wikipedia.org/wiki/Luminance)
 /// for more information.
-class LuminousFlux extends Quantity {
+base class LuminousFlux extends Quantity {
   /// Constructs a LuminousFlux with lumens ([lm]).
   /// Optionally specify a relative standard uncertainty.
   LuminousFlux({dynamic lm, double uncert = 0.0})
-      : super(lm ?? 0.0, LuminousFlux.lumens, uncert);
+      : super(lm ?? 0.0, LuminousFlux.lumens, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   LuminousFlux.misc(dynamic conv)
-      : super.misc(conv, LuminousFlux.luminousFluxDimensions);
+      : super.misc(conv, LuminousFlux.luminousFluxDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a LuminousFlux based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   LuminousFlux.inUnits(dynamic value, LuminousFluxUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? LuminousFlux.lumens, uncert);
+      : super(value, units ?? LuminousFlux.lumens, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant LuminousFlux.
   const LuminousFlux.constant(Number valueSI,
@@ -43,7 +50,7 @@ class LuminousFlux extends Quantity {
 }
 
 /// Units acceptable for use in describing LuminousFlux quantities.
-class LuminousFluxUnits extends LuminousFlux with Units {
+base class LuminousFluxUnits extends LuminousFlux with Units {
   /// Constructs an instance.
   LuminousFluxUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

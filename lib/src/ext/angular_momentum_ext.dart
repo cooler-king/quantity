@@ -20,4 +20,4 @@ const AngularMomentum planckConstant =
 
 /// The Planck constant divided by 2 PI (a.k.a., 'h-bar' or 'reduced Planck constant').
 const AngularMomentum hBar =
-    AngularMomentum.constant(Double.constant(1.0545718177777777e-34));
+    AngularMomentum.constant(Double.constant(1.054571817e-34));

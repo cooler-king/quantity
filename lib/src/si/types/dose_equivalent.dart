@@ -2,12 +2,13 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Represents the stochastic health effects (probability of cancer induction and genetic damage)
 /// of ionizing radiation on the human body.
 /// See the [Wikipedia entry for Equivalent dose](https://en.wikipedia.org/wiki/Equivalent_dose)
 /// for more information.
-class DoseEquivalent extends Quantity {
+base class DoseEquivalent extends Quantity {
   /// Constructs a DoseEquivalent with seiverts ([Sv]) or [rems].
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -15,17 +16,23 @@ class DoseEquivalent extends Quantity {
       : super(
             Sv ?? rems ?? 0.0,
             rems != null ? DoseEquivalent.rems : DoseEquivalent.seiverts,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   DoseEquivalent.misc(dynamic conv)
-      : super.misc(conv, DoseEquivalent.doseEquivalentDimensions);
+      : super.misc(conv, DoseEquivalent.doseEquivalentDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a DoseEquivalent based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   DoseEquivalent.inUnits(dynamic value, DoseEquivalentUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? DoseEquivalent.seiverts, uncert);
+      : super(value, units ?? DoseEquivalent.seiverts, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant DoseEquivalent.
   const DoseEquivalent.constant(Number valueSI,
@@ -48,7 +55,7 @@ class DoseEquivalent extends Quantity {
 }
 
 /// Units acceptable for use in describing DoseEquivalent quantities.
-class DoseEquivalentUnits extends DoseEquivalent with Units {
+base class DoseEquivalentUnits extends DoseEquivalent with Units {
   /// Constructs an instance.
   DoseEquivalentUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

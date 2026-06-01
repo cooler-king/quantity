@@ -1,8 +1,10 @@
 import 'dart:math' as math;
+
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 // Common trig functions.
 
@@ -39,15 +41,19 @@ const double twoPi = 2.0 * math.pi;
 ///
 /// See the [Wikipedia entry for Angle](https://en.wikipedia.org/wiki/Angle)
 /// for more information.
-class Angle extends Quantity {
+base class Angle extends Quantity {
   /// Constructs an Angle with either radians ([rad]) or degrees ([deg]).
   /// Optionally specify a relative standard uncertainty.
   Angle({dynamic rad, dynamic deg, double uncert = 0.0})
       : super(deg ?? (rad ?? 0.0), deg != null ? Angle.degrees : Angle.radians,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Angle.misc(dynamic conv) : super.misc(conv, Angle.angleDimensions);
+  Angle.misc(dynamic conv) : super.misc(conv, Angle.angleDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an Angle based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
@@ -62,7 +68,9 @@ class Angle extends Quantity {
   /// The internal value is automatically bounded between -PI and PI
   /// radians (-180 to 180 degrees)
   Angle.inUnits(dynamic value, AngleUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Angle.radians, uncert);
+      : super(value, units ?? Angle.radians, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant angle.
   const Angle.constant(Number valueSI,
@@ -73,7 +81,9 @@ class Angle extends Quantity {
   ///  passed in for degrees, minutes, and seconds of arc.
   Angle.fromDegMinSec(int d, int m, double s, [double uncert = 0.0])
       : super(degrees.toMks(d) + minutesArc.toMks(m) + secondsArc.toMks(s),
-            Angle.radians, uncert);
+            Angle.radians, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Dimensions for this type of quantity.
   static const Dimensions angleDimensions =
@@ -199,7 +209,7 @@ class Angle extends Quantity {
 }
 
 /// Units acceptable for use in describing Angle quantities.
-class AngleUnits extends Angle with Units {
+base class AngleUnits extends Angle with Units {
   /// Constructs an instance.
   AngleUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

@@ -1,6 +1,10 @@
 import 'dart:math' as math;
+
 import 'package:intl/intl.dart';
 import 'package:quantity/quantity.dart';
+
+import 'consistency_helpers.dart';
+import 'parser_helpers.dart';
 
 /// The abstract base class for all quantities.  The Quantity class represents
 /// the value of a physical quantity and its
@@ -55,7 +59,7 @@ import 'package:quantity/quantity.dart';
 /// may be switched on or off as desired.  It is automatically on if the Quantity
 /// is constructed with any uncertainty and off otherwise.  The setCalcUncertainty
 /// method may be called at any point to enable/disable this capability.
-abstract class Quantity implements Comparable<dynamic> {
+abstract base class Quantity implements Comparable<dynamic> {
   /// This constructor sets the [value] (as expressed in the accompanying units)
   /// and the relative standard uncertainty.  The value is may be set using any
   /// `num` or `Number` object, including [Precise] for arbitrary precision.
@@ -73,8 +77,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately 68%.
   Quantity(
       [dynamic value = Integer.zero, this.preferredUnits, double uncert = 0.0])
-      : valueSI = preferredUnits?.toMks(value ?? 0) ??
-            (value is Number ? value : numToNumber(value as num)),
+      : valueSI = preferredUnits?.toMks(value ?? 0) ?? objToNumber(value ?? 0),
         dimensions = (preferredUnits is Quantity)
             ? (preferredUnits as Quantity).dimensions
             : Scalar.scalarDimensions,
@@ -87,14 +90,86 @@ abstract class Quantity implements Comparable<dynamic> {
   /// A constructor to support miscellaneous quantities:  dimensions are known, units are not.
   Quantity.misc(
       [dynamic value = 0.0, Dimensions? dimensions, double uncert = 0.0])
-      : valueSI = (value is num)
-            ? numToNumber(value)
-            : value is Number
-                ? value
-                : Integer.zero,
+      : valueSI = objToNumber(value ?? 0),
         dimensions = dimensions ?? Scalar.scalarDimensions,
         preferredUnits = null,
         _ur = uncert;
+
+  /// Constructs a Quantity from a JSON map.
+  factory Quantity.fromJson(Map<String, dynamic> json) {
+    final typeName = json['type'] as String;
+    final valueJson = json['value'] as Map<String, dynamic>;
+    final value = Number.fromJson(valueJson);
+    final dimsJson = json['dimensions'] as Map<String, dynamic>;
+    final dims = Dimensions.fromJson(dimsJson);
+    final uncertainty = (json['uncertainty'] as num?)?.toDouble() ?? 0.0;
+
+    if (typeName == 'MiscQuantity') {
+      return MiscQuantity(value, dims, uncertainty);
+    }
+
+    final type = getRegisteredTypeByName(typeName);
+    if (type != null) {
+      return createTypedQuantityInstance(type, value, null,
+          uncert: uncertainty, dimensions: dims);
+    }
+
+    return MiscQuantity(value, dims, uncertainty);
+  }
+
+  /// Parses a string representing a value and its unit (e.g. `'120 km/h'`)
+  /// into a concrete Quantity subtype.
+  static Quantity parse(String text) => ParserHelpers.parse(text);
+
+  /// Returns all standard abbreviation symbols for a registered quantity type.
+  static List<String> getUnitSymbols(Type quantityType) =>
+      ParserHelpers.getUnitSymbols(quantityType);
+
+  /// Checks if a mathematical formula (e.g. `'s = u*t + 0.5*a*t^2'`) is dimensionally consistent.
+  static bool checkDimensionalConsistency(
+          Map<String, Dimensions> variableDimensions, String expression) =>
+      ConsistencyHelpers.checkDimensionalConsistency(
+          variableDimensions, expression);
+
+  /// Returns the JSON Schema representing a serialized Quantity.
+  static Map<String, dynamic> get jsonSchema => const {
+        'type': 'object',
+        'properties': {
+          'type': {
+            'type': 'string',
+            'description': 'The typed subclass name, e.g. Speed, Mass, Energy'
+          },
+          'value': {
+            'type': 'object',
+            'properties': {
+              'type': {
+                'type': 'string',
+                'enum': ['Integer', 'Double', 'Precise', 'Complex', 'Imaginary']
+              },
+              'value': {
+                'type': 'string',
+                'description': 'The numeric value as string or number'
+              }
+            },
+            'required': ['type', 'value']
+          },
+          'dimensions': {
+            'type': 'object',
+            'additionalProperties': {'type': 'number'},
+            'description':
+                "Base dimension name to exponent, e.g. {'Length': 1, 'Time': -1}"
+          },
+          'uncertainty': {
+            'type': 'number',
+            'description': 'Relative standard uncertainty'
+          }
+        },
+        'required': ['type', 'value', 'dimensions']
+      };
+
+  /// Returns the valueSI value as a Decimal (from package:decimal).
+  /// Throws a StateError if the valueSI cannot be converted (e.g. Complex/Imaginary).
+  Decimal get valueSIAsDecimal => valueSI.toDecimal();
 
   /// The value of the quantity in the [base units](http://physics.nist.gov/cuu/Units/current.html),
   /// of the International System of Units (SI).
@@ -168,7 +243,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// 3. 99% for k=2.576 and
   /// 4. 99.73% for k=3.
   Quantity calcExpandedUncertainty(double k) =>
-      dimensions.toQuantity(valueSI.abs() * _ur * k);
+      dimensions.toQuantity(valueSI.abs() * relativeUncertainty * k);
 
   /// Returns the standard uncertainty in this Quantity object's value as a typed
   /// Quantity object.
@@ -180,7 +255,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// corresponds to a coverage factor of 1 (k=1) and a confidence of approximately
   /// 68%.
   Quantity get standardUncertainty =>
-      dimensions.toQuantity(valueSI.abs() * _ur);
+      dimensions.toQuantity(valueSI.abs() * relativeUncertainty);
 
   /// Randomly generates a Quantity from this Quantity's value and uncertainty.
   /// The uncertainty is represented by a Normal (Gaussian) continuous
@@ -192,7 +267,7 @@ abstract class Quantity implements Comparable<dynamic> {
   ///
   /// If the relative uncertainty is zero, then this Quantity will be returned.
   Quantity randomSample() {
-    if (_ur == 0.0) return this;
+    if (relativeUncertainty == 0.0) return this;
 
     // Generate a random number btw 0.0 and 1.0
     final rand = math.Random().nextDouble();
@@ -230,7 +305,8 @@ abstract class Quantity implements Comparable<dynamic> {
   /// If the value of this Quantity is not negative it is returned directly.
   Quantity abs() {
     if (valueSI >= 0) return this;
-    return dimensions.toQuantity(valueSI.abs(), preferredUnits, _ur);
+    return dimensions.toQuantity(
+        valueSI.abs(), preferredUnits, relativeUncertainty);
   }
 
   /// Returns the sum of this Quantity and [addend].
@@ -340,7 +416,7 @@ abstract class Quantity implements Comparable<dynamic> {
     }
 
     // Product uncertainty
-    var productUr = _ur;
+    var productUr = relativeUncertainty;
 
     // Product value
     Number productValue;
@@ -353,8 +429,9 @@ abstract class Quantity implements Comparable<dynamic> {
       final q2 = multiplier;
       productDimensions = dimensions * q2.dimensions;
       productValue = valueSI * q2.valueSI;
-      productUr = (_ur != 0.0 || q2._ur != 0.0)
-          ? math.sqrt(_ur * _ur + q2._ur * q2._ur)
+      productUr = (relativeUncertainty != 0.0 || q2.relativeUncertainty != 0.0)
+          ? math.sqrt(relativeUncertainty * relativeUncertainty +
+              q2.relativeUncertainty * q2.relativeUncertainty)
           : 0.0;
     } else {
       throw const QuantityException(
@@ -406,13 +483,15 @@ abstract class Quantity implements Comparable<dynamic> {
 
     if (exponent is num) {
       return (dimensions ^ exponent)
-          .toQuantity(valueSI ^ exponent, null, _ur * exponent);
+          .toQuantity(valueSI ^ exponent, null, relativeUncertainty * exponent);
     } else if (exponent is Number) {
-      return (dimensions ^ exponent.toDouble())
-          .toQuantity(valueSI ^ exponent, null, _ur * exponent.toDouble());
+      return (dimensions ^ exponent.toDouble()).toQuantity(
+          valueSI ^ exponent, null, relativeUncertainty * exponent.toDouble());
     } else if (exponent is Scalar) {
       return (dimensions ^ exponent.valueSI.toDouble()).toQuantity(
-          valueSI ^ exponent, null, _ur * exponent.valueSI.toDouble());
+          valueSI ^ exponent,
+          null,
+          relativeUncertainty * exponent.valueSI.toDouble());
     }
 
     throw const QuantityException(
@@ -422,7 +501,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// The unary minus operator returns a Quantity whose value
   /// is the negative of this Quantity's value.
   Quantity operator -() =>
-      dimensions.toQuantity(valueSI * -1, preferredUnits, _ur);
+      dimensions.toQuantity(valueSI * -1, preferredUnits, relativeUncertainty);
 
   /// Returns a [Quantity] that represents the square root of this Quantity,
   /// in terms of both value and dimensions (for example, if this Quantity were an
@@ -438,8 +517,9 @@ abstract class Quantity implements Comparable<dynamic> {
   /// accomplished by simply inverting the dimensions and dividing the SI MKS value
   /// into 1.0.
   /// * The relative standard uncertainty is unchanged by inversion.
-  Quantity inverse() =>
-      dimensions.inverse().toQuantity(valueSI.reciprocal(), null, _ur);
+  Quantity inverse() => dimensions
+      .inverse()
+      .toQuantity(valueSI.reciprocal(), null, relativeUncertainty);
 
   /// Determines whether on not this Quantity is less than a specified Quantity by
   /// comparing their MKS values.  The two Quantities need not be of the same
@@ -509,7 +589,7 @@ abstract class Quantity implements Comparable<dynamic> {
   /// of standard units, their use is now discouraged in favor of the adopted
   /// standard MKS (or meter-kilogram-second) units.
   ///
-  /// See [get mks].
+  /// See [mks].
   Number get cgs {
     var value = valueSI;
 
@@ -539,6 +619,79 @@ abstract class Quantity implements Comparable<dynamic> {
     }
   }
 
+  /// Returns a new instance of this Quantity type with the [preferredUnits]
+  /// set to [targetUnit]. The [targetUnit] can be either a [Units] object
+  /// or a unit symbol [String] (e.g., `'km'`, `'m/s'`, or `'tps'`).
+  Quantity to(dynamic targetUnit) {
+    Units? resolvedUnit;
+    if (targetUnit is Units) {
+      resolvedUnit = targetUnit;
+    } else if (targetUnit is String) {
+      try {
+        final resolved = ParserHelpers.resolveUnit(targetUnit);
+        if (resolved.prefixMultiplier == 1.0) {
+          resolvedUnit = resolved.unit;
+        } else {
+          String? pref;
+          for (final key in ParserHelpers.prefixes.keys) {
+            if (targetUnit.startsWith(key) &&
+                targetUnit.endsWith(resolved.unit.abbrev1 ?? '')) {
+              pref = key;
+              break;
+            }
+          }
+          if (pref != null) {
+            const prefixNames = {
+              'Y': 'yotta',
+              'Z': 'zetta',
+              'E': 'exa',
+              'P': 'peta',
+              'T': 'tera',
+              'G': 'giga',
+              'M': 'mega',
+              'k': 'kilo',
+              'h': 'hecto',
+              'da': 'deka',
+              'd': 'deci',
+              'c': 'centi',
+              'm': 'milli',
+              'u': 'micro',
+              'n': 'nano',
+              'p': 'pico',
+              'f': 'femto',
+              'a': 'atto',
+              'z': 'zepto',
+              'y': 'yocto',
+            };
+            final fullPrefix = prefixNames[pref] ?? '';
+            resolvedUnit = resolved.unit
+                .derive(fullPrefix, pref, resolved.prefixMultiplier);
+          } else {
+            resolvedUnit = resolved.unit;
+          }
+        }
+      } catch (_) {
+        // Keep it null
+      }
+    } else {
+      throw ArgumentError('Expected a Units object or a unit symbol String');
+    }
+
+    if (resolvedUnit == null) {
+      throw QuantityException('Could not resolve target unit: $targetUnit');
+    }
+
+    if (!(resolvedUnit is Quantity &&
+        (resolvedUnit as Quantity).dimensions == dimensions)) {
+      throw DimensionsException(
+          'Cannot convert to units with incompatible dimensions: $targetUnit');
+    }
+
+    final convertedValue = resolvedUnit.fromMks(valueSI);
+    return dimensions.toQuantity(
+        convertedValue, resolvedUnit, relativeUncertainty);
+  }
+
   /// Appends a String representation of this [Quantity] to the [buffer]
   /// using the preferred units and number format.  If no preferred units have
   /// been specified, then MKS units are used.  Uncertainty in the value of the
@@ -556,10 +709,9 @@ abstract class Quantity implements Comparable<dynamic> {
       buffer.write(nf.format(val));
 
       // Uncertainty.
-      if (_ur != 0 && uncertFormat != UncertaintyFormat.none) {
-        final uncert = preferredUnits != null
-            ? standardUncertainty.valueInUnits(preferredUnits).toDouble()
-            : standardUncertainty.mks.toDouble();
+      if (relativeUncertainty != 0 && uncertFormat != UncertaintyFormat.none) {
+        final uncert =
+            standardUncertainty.valueInUnits(preferredUnits).toDouble();
 
         if (uncertFormat == UncertaintyFormat.parens) {
           buffer.write('(${nf.format(uncert)})');
@@ -605,28 +757,22 @@ abstract class Quantity implements Comparable<dynamic> {
 
   /// Support [dart:convert] stringify.
   Map<String, dynamic> toJson() {
-    final m = <String, dynamic>{};
-
-    // Use value in preferred units, if available, for better readability.
-    if (preferredUnits != null) {
-      m['value'] = valueInUnits(preferredUnits).toJson();
-      m['prefUnits'] = preferredUnits!.name;
-    }
-
-    // Only include non-zero relative uncertainty
-    if (_ur != 0.0) m['ur'] = _ur;
-
-    return m;
+    return {
+      'type': runtimeType.toString(),
+      'value': valueSI.toJson(),
+      'dimensions': dimensions.toJson(),
+      'uncertainty': relativeUncertainty,
+    };
   }
 
   /// Calculates the relative combined uncertainty resulting from the addition or
   /// subtraction of two Quantities.
   static double calcRelativeCombinedUncertaintySumDiff(
       Quantity q1, Quantity q2, Number valueSI) {
-    if (q1._ur != 0.0 || q2._ur != 0.0) {
+    if (q1.relativeUncertainty != 0.0 || q2.relativeUncertainty != 0.0) {
       // Standard uncertainties (derived from relative standard uncertainties).
-      final u1 = q1._ur * q1.valueSI.abs().toDouble();
-      final u2 = q2._ur * q2.valueSI.abs().toDouble();
+      final u1 = q1.relativeUncertainty * q1.valueSI.abs().toDouble();
+      final u2 = q2.relativeUncertainty * q2.valueSI.abs().toDouble();
 
       // Combined standard uncertainty.
       final uc = math.sqrt(u1 * u1 + u2 * u2);

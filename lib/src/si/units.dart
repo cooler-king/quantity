@@ -85,6 +85,9 @@ mixin Units {
   /// The method expects [value] to be a num or Number object; any other type will
   /// cause a [QuantityException].
   Number toMks(dynamic value) {
+    if (value is Decimal) {
+      value = Precise(value.toString());
+    }
     if (value is num || value is Number) {
       Number term;
       if (value is Precise) {
@@ -110,12 +113,23 @@ mixin Units {
   /// The method accepts a num or Number object; any other type will
   /// cause a [QuantityException].
   Number fromMks(dynamic mks) {
+    if (mks is Decimal) {
+      mks = Precise(mks.toString());
+    }
     if (mks is num) {
       if (offset == 0) return Double(mks.toDouble()) / convToMKS;
-      return (Double(mks.toDouble()) / convToMKS) - objToNumber(offset);
+      if (quantityType.toString() == 'Temperature') {
+        return (Double(mks.toDouble()) - objToNumber(offset)) / convToMKS;
+      } else {
+        return (Double(mks.toDouble()) / convToMKS) - objToNumber(offset);
+      }
     } else if (mks is Number) {
       if (offset == 0) return mks / convToMKS;
-      return (mks / convToMKS) - objToNumber(offset);
+      if (quantityType.toString() == 'Temperature') {
+        return (mks - objToNumber(offset)) / convToMKS;
+      } else {
+        return (mks / convToMKS) - objToNumber(offset);
+      }
     } else {
       throw const QuantityException('num or Number expected');
     }
@@ -191,7 +205,7 @@ mixin Units {
 
   /// Returns a String representation of the Units in the following format:
   ///
-  ///    full name [MKS value]
+  ///    full name `[MKS value]`
   @override
   String toString() => '$name [$convToMKS]';
 }

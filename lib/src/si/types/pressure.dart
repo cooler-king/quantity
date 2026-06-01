@@ -6,21 +6,27 @@ import 'package:quantity/quantity.dart';
 /// over which that force is distributed.
 /// See the [Wikipedia entry for Pressure](https://en.wikipedia.org/wiki/Pressure)
 /// for more information.
-class Pressure extends Quantity {
+base class Pressure extends Quantity {
   /// Constructs a pressure with pascals ([Pa]) or [bars].
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Pressure({dynamic Pa, dynamic bars, double uncert = 0.0})
       : super(Pa ?? (bars ?? 0.0),
-            bars != null ? Pressure.bars : Pressure.pascals, uncert);
+            bars != null ? Pressure.bars : Pressure.pascals, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Pressure.misc(dynamic conv) : super.misc(conv, Pressure.pressureDimensions);
+  Pressure.misc(dynamic conv) : super.misc(conv, Pressure.pressureDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Pressure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Pressure.inUnits(dynamic value, PressureUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Pressure.pascals, uncert);
+      : super(value, units ?? Pressure.pascals, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Pressure.
   const Pressure.constant(Number valueSI,
@@ -42,7 +48,7 @@ class Pressure extends Quantity {
 }
 
 /// Units acceptable for use in describing Pressure quantities.
-class PressureUnits extends Pressure with Units {
+base class PressureUnits extends Pressure with Units {
   /// Constructs an instance.
   PressureUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,
@@ -89,3 +95,5 @@ class PressureUnits extends Pressure with Units {
           false,
           offset);
 }
+
+typedef Stress = Pressure;

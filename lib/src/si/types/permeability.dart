@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'current.dart';
 import 'force.dart';
 import 'inductance.dart';
@@ -10,7 +11,7 @@ import 'length.dart';
 /// The ability of a material to support the formation of a magnetic field within itself.
 /// See the [Wikipedia entry for Permeability (electromagnetism)](https://en.wikipedia.org/wiki/Permeability_%28electromagnetism%29)
 /// for more information.
-class Permeability extends Quantity {
+base class Permeability extends Quantity {
   /// Constructs a Permeability with henries per meter or newtons per ampere squared.
   /// Optionally specify a relative standard uncertainty.
   Permeability(
@@ -22,17 +23,23 @@ class Permeability extends Quantity {
             newtonsPerAmpereSquared != null
                 ? Permeability.newtonsPerAmpereSquared
                 : Permeability.henriesPerMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Permeability.misc(dynamic conv)
-      : super.misc(conv, Permeability.permeabilityDimensions);
+      : super.misc(conv, Permeability.permeabilityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Permeability based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Permeability.inUnits(dynamic value, PermeabilityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Permeability.henriesPerMeter, uncert);
+      : super(value, units ?? Permeability.henriesPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Permeability.
   const Permeability.constant(Number valueSI,
@@ -55,7 +62,7 @@ class Permeability extends Quantity {
 }
 
 /// Units acceptable for use in describing Permeability quantities.
-class PermeabilityUnits extends Permeability with Units {
+base class PermeabilityUnits extends Permeability with Units {
   /// Constructs an instance.
   PermeabilityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

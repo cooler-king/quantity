@@ -1,12 +1,19 @@
-import 'complex.dart';
+import 'dart:math';
+
+import 'package:decimal/decimal.dart';
+
 import 'double.dart';
-import 'imaginary.dart';
 import 'integer.dart';
+import 'number_exception.dart';
 import 'precise.dart';
-import 'real.dart';
+import 'util/jenkins_hash.dart';
+
+part 'complex.dart';
+part 'imaginary.dart';
+part 'real.dart';
 
 /// The abstract base class for all Number types.
-abstract class Number implements Comparable<dynamic> {
+sealed class Number implements Comparable<dynamic> {
   /// The default constructor.
   Number();
 
@@ -22,32 +29,39 @@ abstract class Number implements Comparable<dynamic> {
   ///     {'imag': {i or d map}}
   ///
   /// If the map contents are not recognized [Integer.zero] will be returned.
-  factory Number.fromMap(Map<String, dynamic>? m) {
-    if (m == null) return Integer.zero;
-    if (m.containsKey('d') && m['d'] is num) {
-      return Double.fromMap(m as Map<String, num>);
+  factory Number.fromMap(Map<String, dynamic>? m) => switch (m) {
+        null => Integer.zero,
+        {'d': num _} => Double.fromMap(m.cast<String, num>()),
+        {'i': int _} => Integer.fromMap(m.cast<String, int>()),
+        {'precise': Object p} when p is String || p is Map<String, String> =>
+          Precise.fromMap(m.cast<String, String>()),
+        {'real': Map _} => Complex.fromMap(m),
+        {'imag': Map _} => Imaginary.fromMap(m),
+        _ => Integer.zero,
+      };
+
+  /// Converts this Number to a Decimal.
+  /// Throws a StateError if the Number has an imaginary or complex component.
+  Decimal toDecimal() {
+    if (this is Imaginary || this is Complex) {
+      throw StateError(
+          'Cannot convert Imaginary or Complex numbers to Decimal');
     }
-    if (m.containsKey('i') && m['i'] is int) {
-      return Integer.fromMap(m as Map<String, int>);
-    }
-    if (m.containsKey('precise') && m['precise'] is Map<String, String>) {
-      return Precise.fromMap(m as Map<String, String>);
-    }
-    if (m.containsKey('real') && m is Map<String, Map<String, dynamic>>) {
-      return Complex.fromMap(m);
-    }
-    if (m.containsKey('imag') && m is Map<String, Map<String, dynamic>>) {
-      return Imaginary.fromMap(m);
-    }
-    return Integer.zero;
+    return Decimal.parse(toString());
   }
+
+  /// Constructs a Number from a Decimal.
+  factory Number.fromDecimal(Decimal decimal) => Precise(decimal.toString());
+
+  /// Constructs a Number from a JSON map.
+  factory Number.fromJson(Map<String, dynamic> json) => Number.fromMap(json);
 
   // Abstract operators
 
   /// Two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
   @override
-  bool operator ==(Object obj);
+  bool operator ==(Object other);
 
   /// The hash codes for two Numbers will be equal when the represented values are equal,
   /// even if the Number subtypes are different.
@@ -129,12 +143,25 @@ abstract class Number implements Comparable<dynamic> {
   /// Precise Numbers always remain Precise.
   static Number simplifyType(Number n) {
     if (n is Integer || n is Precise) return n;
-    if (n is Double) return n.isInteger ? Integer(n.toInt()) : n;
+    if (n is Double) {
+      if (n.isInteger) {
+        final val = n.toInt();
+        if (val == 0) return Integer.zero;
+        if (val == 1) return Integer.one;
+        if (val == -1) return Integer.negOne;
+        return Integer(val);
+      }
+      return n;
+    }
     if (n is Imaginary) {
       if (n.value is Precise) return n;
-      if (n.value.toDouble() == 0) return Integer(0);
+      if (n.value.toDouble() == 0) return Integer.zero;
       if (n.value.isInteger && n.value is Double) {
-        return Imaginary(Integer(n.value.toInt()));
+        final val = n.value.toInt();
+        if (val == 0) return Integer.zero;
+        if (val == 1) return Imaginary(Integer.one);
+        if (val == -1) return Imaginary(Integer.negOne);
+        return Imaginary(Integer(val));
       }
       return n;
     }
@@ -152,7 +179,9 @@ abstract class Number implements Comparable<dynamic> {
         final simpleReal = simplifyType(n.real) as Real;
         final simpleImag = simplifyType(n.imag.value);
         if (identical(simpleReal, n.real) &&
-            identical(simpleImag, n.imag.value)) return n;
+            identical(simpleImag, n.imag.value)) {
+          return n;
+        }
         return Complex(simpleReal, Imaginary(simpleImag));
       }
     }

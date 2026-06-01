@@ -2,27 +2,34 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// The property of an electrical conductor by which a change in current flowing through
 /// it induces an electromotive force in both the conductor itself and in any nearby
 /// conductors by mutual inductance.
 /// See the [Wikipedia entry for Inductance](https://en.wikipedia.org/wiki/Inductance)
 /// for more information.
-class Inductance extends Quantity {
+base class Inductance extends Quantity {
   /// Constructs an Inductance with henries ([H]).
   /// Optionally specify a relative standard uncertainty.
   Inductance({dynamic H, double uncert = 0.0})
-      : super(H ?? 0.0, Inductance.henries, uncert);
+      : super(H ?? 0.0, Inductance.henries, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Inductance.misc(dynamic conv)
-      : super.misc(conv, Inductance.inductanceDimensions);
+      : super.misc(conv, Inductance.inductanceDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Inductance based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Inductance.inUnits(dynamic value, InductanceUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Inductance.henries, uncert);
+      : super(value, units ?? Inductance.henries, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Inductance.
   const Inductance.constant(Number valueSI,
@@ -40,7 +47,7 @@ class Inductance extends Quantity {
 }
 
 /// Units acceptable for use in describing Inductance quantities.
-class InductanceUnits extends Inductance with Units {
+base class InductanceUnits extends Inductance with Units {
   /// Constructs an instance.
   InductanceUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

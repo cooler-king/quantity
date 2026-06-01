@@ -1,72 +1,8 @@
-import '../../quantity_si.dart' show createTypedQuantityInstance;
-import '../../src/si/dimensions_exception.dart';
-import '../../src/si/misc_quantity.dart';
-import '../../src/si/quantity.dart';
-import '../../src/si/types/absorbed_dose_rate.dart';
-import '../../src/si/types/acceleration.dart';
-import '../../src/si/types/amount_of_substance.dart';
-import '../../src/si/types/angle.dart';
-import '../../src/si/types/angular_acceleration.dart';
-import '../../src/si/types/angular_momentum.dart';
-import '../../src/si/types/angular_speed.dart';
-import '../../src/si/types/area.dart';
-import '../../src/si/types/capacitance.dart';
-import '../../src/si/types/catalytic_activity.dart';
-import '../../src/si/types/charge.dart';
-import '../../src/si/types/charge_density.dart';
-import '../../src/si/types/concentration.dart';
-import '../../src/si/types/conductance.dart';
-import '../../src/si/types/current.dart';
-import '../../src/si/types/current_density.dart';
-import '../../src/si/types/dynamic_viscosity.dart';
-import '../../src/si/types/electric_field_strength.dart';
-import '../../src/si/types/electric_flux_density.dart';
-import '../../src/si/types/electric_potential_difference.dart';
-import '../../src/si/types/energy.dart';
-import '../../src/si/types/entropy.dart';
-import '../../src/si/types/exposure.dart';
-import '../../src/si/types/force.dart';
-import '../../src/si/types/frequency.dart';
-import '../../src/si/types/heat_flux_density.dart';
-import '../../src/si/types/illuminance.dart';
-import '../../src/si/types/inductance.dart';
-import '../../src/si/types/kinematic_viscosity.dart';
-import '../../src/si/types/length.dart';
-import '../../src/si/types/luminance.dart';
-import '../../src/si/types/luminous_flux.dart';
-import '../../src/si/types/luminous_intensity.dart';
-import '../../src/si/types/magnetic_field_strength.dart';
-import '../../src/si/types/magnetic_flux.dart';
-import '../../src/si/types/magnetic_flux_density.dart';
-import '../../src/si/types/mass.dart';
-import '../../src/si/types/mass_density.dart';
-import '../../src/si/types/mass_flow_rate.dart';
-import '../../src/si/types/mass_flux_density.dart';
-import '../../src/si/types/molar_energy.dart';
-import '../../src/si/types/molar_entropy.dart';
-import '../../src/si/types/permeability.dart';
-import '../../src/si/types/permittivity.dart';
-import '../../src/si/types/power.dart';
-import '../../src/si/types/pressure.dart';
-import '../../src/si/types/radiance.dart';
-import '../../src/si/types/radiant_intensity.dart';
-import '../../src/si/types/resistance.dart';
-import '../../src/si/types/scalar.dart';
-import '../../src/si/types/solid_angle.dart';
-import '../../src/si/types/specific_energy.dart';
-import '../../src/si/types/specific_heat_capacity.dart';
-import '../../src/si/types/specific_volume.dart';
-import '../../src/si/types/spectral_irradiance.dart';
-import '../../src/si/types/speed.dart';
-import '../../src/si/types/surface_tension.dart';
-import '../../src/si/types/temperature_interval.dart';
-import '../../src/si/types/thermal_conductivity.dart';
-import '../../src/si/types/time.dart';
-import '../../src/si/types/torque.dart';
-import '../../src/si/types/volume.dart';
-import '../../src/si/types/volume_flow_rate.dart';
-import '../../src/si/types/wave_number.dart';
-import '../../src/si/units.dart';
+import 'dimensions_exception.dart';
+import 'misc_quantity.dart';
+import 'quantity.dart';
+import 'units.dart';
+import 'utilities.dart';
 
 /// The Dimensions class represents the dimensions of a physical quantity.
 ///
@@ -91,11 +27,11 @@ import '../../src/si/units.dart';
 /// dimensions and determine quantity types.  To test whether two Dimensions
 /// objects are equal strictly in terms of the base SI dimensions, the
 /// equalsSI method may be used.
-class Dimensions {
+final class Dimensions {
   /// No-arg constructor sets all dimensions to zero (that is, a scalar quantity).
   Dimensions()
       : _dimensionMap = <String, num>{},
-        qType = Scalar;
+        qType = null;
 
   /// Constructs a constant Dimensions object with a map of base dimension keys to exponents
   const Dimensions.constant(Map<String, num> dims, {this.qType})
@@ -115,6 +51,20 @@ class Dimensions {
   Dimensions.copy(Dimensions d2, {bool includeTypeHint = true})
       : _dimensionMap = Map<String, num>.from(d2._dimensionMap),
         qType = includeTypeHint ? d2.qType : null;
+
+  /// Constructs a Dimensions object from a JSON map.
+  factory Dimensions.fromJson(Map<String, dynamic> json) {
+    final map = <String, num>{};
+    json.forEach((key, value) {
+      if (value is num) {
+        map[key] = value;
+      }
+    });
+    return Dimensions.fromMap(map);
+  }
+
+  /// Converts this Dimensions object to a JSON map.
+  Map<String, num> toJson() => Map<String, num>.unmodifiable(_dimensionMap);
 
   /// The dimensions (base dimension key -> base dimension exponent)
   final Map<String, num> _dimensionMap;
@@ -171,7 +121,9 @@ class Dimensions {
       // Check Values
       for (final key in _dimensionMap.keys) {
         if (!d2._dimensionMap.containsKey(key) ||
-            (_dimensionMap[key] != d2._dimensionMap[key])) return false;
+            (_dimensionMap[key] != d2._dimensionMap[key])) {
+          return false;
+        }
       }
 
       return true;
@@ -185,17 +137,22 @@ class Dimensions {
   int get hashCode {
     if (_dimensionMap.isEmpty) return 0;
 
+    String fmt(String key) {
+      final val = getComponentExponent(key);
+      return val == val.toInt() ? '${val.toInt()}' : '$val';
+    }
+
     // Construct a unique string key and take its hashcode
     final buffer = (StringBuffer())
-      ..write('L${getComponentExponent(Dimensions.baseLengthKey)}')
-      ..write('M${getComponentExponent(Dimensions.baseMassKey)}')
-      ..write('T${getComponentExponent(Dimensions.baseTimeKey)}')
-      ..write('C${getComponentExponent(Dimensions.baseCurrentKey)}')
-      ..write('I${getComponentExponent(Dimensions.baseIntensityKey)}')
-      ..write('TP${getComponentExponent(Dimensions.baseTemperatureKey)}')
-      ..write('AM${getComponentExponent(Dimensions.baseAmountKey)}')
-      ..write('A${getComponentExponent(Dimensions.baseAngleKey)}')
-      ..write('S${getComponentExponent(Dimensions.baseSolidAngleKey)}');
+      ..write('L${fmt(Dimensions.baseLengthKey)}')
+      ..write('M${fmt(Dimensions.baseMassKey)}')
+      ..write('T${fmt(Dimensions.baseTimeKey)}')
+      ..write('C${fmt(Dimensions.baseCurrentKey)}')
+      ..write('I${fmt(Dimensions.baseIntensityKey)}')
+      ..write('TP${fmt(Dimensions.baseTemperatureKey)}')
+      ..write('AM${fmt(Dimensions.baseAmountKey)}')
+      ..write('A${fmt(Dimensions.baseAngleKey)}')
+      ..write('S${fmt(Dimensions.baseSolidAngleKey)}');
 
     return buffer.toString().hashCode;
   }
@@ -217,7 +174,9 @@ class Dimensions {
       return false;
     }
     if (_dimensionMap[baseTemperatureKey] !=
-        d2._dimensionMap[baseTemperatureKey]) return false;
+        d2._dimensionMap[baseTemperatureKey]) {
+      return false;
+    }
     if (_dimensionMap[baseTimeKey] != d2._dimensionMap[baseTimeKey]) {
       return false;
     }
@@ -316,7 +275,7 @@ class Dimensions {
     num newValue = 0;
     for (final key in other._dimensionMap.keys) {
       otherValue = other._dimensionMap[key] as num;
-      myValue = _dimensionMap.containsKey(key) ? result._dimensionMap[key] : 0;
+      myValue = result._dimensionMap[key];
       if (myValue == null) {
         result._dimensionMap[key] = otherValue * -1;
       } else {
@@ -377,6 +336,9 @@ class Dimensions {
     return result;
   }
 
+  // Static cache for dimensions lookups.
+  static final Map<Dimensions, Type> _typeCache = <Dimensions, Type>{};
+
   /// Determines the Quantity type associated with the specified dimensions.
   ///
   /// * If no specific Quantity type is found that matches the dimensions
@@ -392,191 +354,17 @@ class Dimensions {
   static Type determineQuantityType(Dimensions? dim) {
     if (dim == null) return MiscQuantity;
 
-    // Get the number of dimension components
     final numDims = dim._dimensionMap.length;
-
-    // Check Scalar first for all 0's case
-    if (numDims == 0) return Scalar;
-
-    // Check for more components exist in any named Quantity
     if (numDims > 5) return MiscQuantity;
 
-    // Bin Possibilities By Length Dimension and number of components
-    final lengthExp = dim.getComponentExponent(Dimensions.baseLengthKey);
-    if (lengthExp is! int) {
-      return MiscQuantity; // non-integer exponents means MiscQuantity
-    }
+    final cached = _typeCache[dim];
+    if (cached != null) return cached;
 
-    if (lengthExp == -3) {
-      if (numDims == 1) {
-        return Volume;
-      } else if (numDims == 2) {
-        if (dim == MassDensity.massDensityDimensions) return MassDensity;
-        if (dim == Concentration.concentrationDimensions) return Concentration;
-      } else if (numDims == 3) {
-        if (dim == ChargeDensity.electricChargeDensityDimensions) {
-          return ChargeDensity;
-        }
-      } else if (numDims == 4) {
-        if (dim == Permittivity.permittivityDimensions) return Permittivity;
-      }
-    } else if (lengthExp == -2) {
-      if (numDims == 2) {
-        if (dim == CurrentDensity.electricCurrentDensityDimensions) {
-          return CurrentDensity;
-        }
-        if (dim == Luminance.luminanceDimensions) return Luminance;
-      } else if (numDims == 3) {
-        if (dim == ElectricFluxDensity.electricFluxDensityDimensions) {
-          return ElectricFluxDensity;
-        }
-        if (dim == Illuminance.illuminanceDimensions) return Illuminance;
-        if (dim == MassFluxDensity.massFluxDensityDimensions) {
-          return MassFluxDensity;
-        }
-      } else if (numDims == 4) {
-        if (dim == Capacitance.electricCapacitanceDimensions) {
-          return Capacitance;
-        }
-        if (dim == Conductance.electricConductanceDimensions) {
-          return Conductance;
-        }
-      }
-    } else if (lengthExp == -1) {
-      if (numDims == 1) {
-        return WaveNumber;
-      } else if (numDims == 2) {
-        if (dim == MagneticFieldStrength.magneticFieldStrengthDimensions) {
-          return MagneticFieldStrength;
-        }
-      } else if (numDims == 3) {
-        if (dim == Pressure.pressureDimensions) return Pressure;
-        if (dim == DynamicViscosity.dynamicViscosityDimensions) {
-          return DynamicViscosity;
-        }
-      }
-    } else if (lengthExp == 0) {
-      if (numDims == 1) {
-        if (dim == Mass.massDimensions) return Mass;
-        if (dim == Time.timeDimensions) return Time;
-        if (dim == Current.electricCurrentDimensions) return Current;
-        if (dim == TemperatureInterval.temperatureIntervalDimensions) {
-          return TemperatureInterval;
-        }
-        if (dim == AmountOfSubstance.amountOfSubstanceDimensions) {
-          return AmountOfSubstance;
-        }
-        if (dim == LuminousIntensity.luminousIntensityDimensions) {
-          return LuminousIntensity;
-        }
-        if (dim == Angle.angleDimensions) return Angle;
-        if (dim == SolidAngle.solidAngleDimensions) return SolidAngle;
+    // Look up in the dynamic registry
+    final type = getRegisteredQuantityType(dim) ?? MiscQuantity;
 
-        if (dim == Frequency.frequencyDimensions) return Frequency;
-      } else if (numDims == 2) {
-        if (dim == Charge.electricChargeDimensions) return Charge;
-        if (dim == LuminousFlux.luminousFluxDimensions) return LuminousFlux;
-        if (dim == SurfaceTension.surfaceTensionDimensions) {
-          return SurfaceTension;
-        }
-        if (dim == AngularSpeed.angularSpeedDimensions) return AngularSpeed;
-        if (dim == AngularAcceleration.angularAccelerationDimensions) {
-          return AngularAcceleration;
-        }
-        if (dim == HeatFluxDensity.heatFluxDensityDimensions) {
-          return HeatFluxDensity;
-        }
-        if (dim == CatalyticActivity.catalyticActivityDimensions) {
-          return CatalyticActivity;
-        }
-        if (dim == MassFlowRate.massFlowRateDimensions) return MassFlowRate;
-        if (dim == SpectralIrradiance.spectralIrradianceDimensions) {
-          return SpectralIrradiance;
-        }
-      } else if (numDims == 3) {
-        if (dim == MagneticFluxDensity.magneticFluxDensityDimensions) {
-          return MagneticFluxDensity;
-        }
-        if (dim == Exposure.exposureDimensions) return Exposure;
-        if (dim == Radiance.radianceDimensions) return Radiance;
-      }
-    } else if (lengthExp == 1) {
-      if (numDims == 1) {
-        return Length;
-      } else if (numDims == 2) {
-        if (dim == Speed.speedDimensions) return Speed;
-        if (dim == Acceleration.accelerationDimensions) return Acceleration;
-      } else if (numDims == 3) {
-        if (dim == Force.forceDimensions) return Force;
-        if (dim == AngularMomentum.angularMomentumDimensions) {
-          return AngularMomentum;
-        }
-      } else if (numDims == 4) {
-        if (dim == ThermalConductivity.thermalConductivityDimensions) {
-          return ThermalConductivity;
-        }
-        if (dim == ElectricFieldStrength.electricFieldStrengthDimensions) {
-          return ElectricFieldStrength;
-        }
-        if (dim == Permeability.permeabilityDimensions) return Permeability;
-      }
-    } else if (lengthExp == 2) {
-      if (numDims == 1) {
-        return Area;
-      } else if (numDims == 2) {
-        if (dim == SpecificEnergy.specificEnergyDimensions) {
-          return SpecificEnergy;
-        }
-        if (dim == AbsorbedDoseRate.absorbedDoseRateDimensions) {
-          return AbsorbedDoseRate;
-        }
-        if (dim == KinematicViscosity.kinematicViscosityDimensions) {
-          return KinematicViscosity;
-        }
-      } else if (numDims == 3) {
-        if (dim == Energy.energyDimensions) return Energy;
-        if (dim == Power.powerDimensions) return Power;
-        if (dim == SpecificHeatCapacity.specificHeatCapacityDimensions) {
-          return SpecificHeatCapacity; // or specific entropy
-        }
-      } else if (numDims == 4) {
-        if (dim ==
-            ElectricPotentialDifference.electricPotentialDifferenceDimensions) {
-          return ElectricPotentialDifference;
-        }
-        if (dim == Resistance.electricResistanceDimensions) return Resistance;
-        if (dim == MagneticFlux.magneticFluxDimensions) return MagneticFlux;
-        if (dim == Inductance.inductanceDimensions) return Inductance;
-        if (dim == Entropy.entropyDimensions) {
-          return Entropy; // also heat capacity
-        }
-        if (dim == MolarEnergy.molarEnergyDimensions) return MolarEnergy;
-        if (dim == RadiantIntensity.radiantIntensityDimensions) {
-          return RadiantIntensity;
-        }
-        if (dim == Torque.torqueDimensions) return Torque;
-      } else if (numDims == 5) {
-        if (dim == MolarEntropy.molarEntropyDimensions) {
-          return MolarEntropy; // also molar heat capacity
-        }
-      }
-    } else if (lengthExp == 3) {
-      if (numDims == 1) {
-        return Volume;
-      } else if (numDims == 2) {
-        if (dim == SpecificVolume.specificVolumeDimensions) {
-          return SpecificVolume;
-        }
-        if (dim == VolumeFlowRate.volumeFlowRateDimensions) {
-          return VolumeFlowRate;
-        }
-      }
-    } else {
-      return MiscQuantity;
-    }
-
-    // Couldn't find any... return MiscQuantity
-    return MiscQuantity;
+    _typeCache[dim] = type;
+    return type;
   }
 
   /// Returns an instance of the Quantity type associated with these dimensions.
@@ -627,5 +415,25 @@ class Dimensions {
 
     buffer.write(']');
     return buffer.toString();
+  }
+
+  /// Returns a human-readable description of base dimensions (e.g. `"Length^1 / Time^2"`).
+  static String describe(Dimensions dimensions) {
+    if (dimensions.isScalar) return 'dimensionless';
+    final numParts = <String>[];
+    final denParts = <String>[];
+    for (final key in dimensions.toJson().keys) {
+      final exp = dimensions.getComponentExponent(key);
+      if (exp > 0) {
+        numParts.add('$key^$exp');
+      } else if (exp < 0) {
+        denParts.add('$key^${-exp}');
+      }
+    }
+    final numStr = numParts.isEmpty ? '1' : numParts.join(' * ');
+    if (denParts.isEmpty) return numStr;
+    final denStr =
+        denParts.length == 1 ? denParts[0] : '(${denParts.join(' * ')})';
+    return '$numStr / $denStr';
   }
 }

@@ -1,12 +1,4 @@
-import 'dart:math';
-import 'double.dart';
-import 'imaginary.dart';
-import 'integer.dart';
-import 'number.dart';
-import 'number_exception.dart';
-import 'precise.dart';
-import 'real.dart';
-import 'util/jenkins_hash.dart';
+part of 'number.dart';
 
 /// Complex numbers have both a real and an imaginary part.
 class Complex extends Number {
@@ -27,12 +19,12 @@ class Complex extends Number {
 
   /// Constructs an instance, applying the values in map [m].
   /// See `toJson` for the expected format.
-  Complex.fromMap(Map<String, Map<String, dynamic>>? m)
+  Complex.fromMap(Map<String, dynamic>? m)
       : real = (m?.containsKey('real') == true)
-            ? Real.fromMap(m?['real'])
+            ? Real.fromMap(m?['real'] as Map<String, dynamic>?)
             : Double.zero,
-        imaginary = m?.containsKey('real') ?? false
-            ? Imaginary.constant(Real.fromMap(m?['imag']))
+        imaginary = (m?.containsKey('imag') == true)
+            ? Imaginary.fromMap(m?['imag'] as Map<String, dynamic>?)
             : const Imaginary.constant(Integer.zero);
 
   /// The real number component of the complex number.
@@ -107,11 +99,19 @@ class Complex extends Number {
   }
 
   @override
-  bool operator ==(Object obj) {
-    if (obj is num) return real.value == obj && imaginary.value.value == 0.0;
-    if (obj is Complex) return real == obj.real && imaginary == obj.imaginary;
-    if (obj is Imaginary) return real.value == 0.0 && imaginary == obj;
-    if (obj is Real) return obj == real && imaginary.value.value == 0.0;
+  bool operator ==(Object other) {
+    if (other is num) {
+      return real.value == other && imaginary.value.value == 0.0;
+    }
+    if (other is Complex) {
+      return real == other.real && imaginary == other.imaginary;
+    }
+    if (other is Imaginary) {
+      return real.value == 0.0 && imaginary == other;
+    }
+    if (other is Real) {
+      return other == real && imaginary.value.value == 0.0;
+    }
     return false;
   }
 
@@ -218,7 +218,7 @@ class Complex extends Number {
     // Treat divisor as 0
     return Number.simplifyType(Complex(
         real < 0 ? Double.negInfinity : Double.infinity,
-        imaginary < 0
+        imaginary.value < 0
             ? Imaginary(Double.negInfinity)
             : Imaginary(Double.infinity)));
   }
@@ -255,7 +255,7 @@ class Complex extends Number {
     // Treat divisor as 0
     return Number.simplifyType(Complex(
         real < 0 ? Double.negInfinity : Double.infinity,
-        imaginary < 0
+        imaginary.value < 0
             ? Imaginary(Double.negInfinity)
             : Imaginary(Double.infinity)));
   }
@@ -361,7 +361,7 @@ class Complex extends Number {
     return Complex(real / a2b2 as Real, Imaginary(imaginary.value / -a2b2));
   }
 
-  /// Support [dart:json] stringify.
+  /// Support JSON stringify.
   ///
   /// Map Contents:
   ///     'real' : toJson map of real number

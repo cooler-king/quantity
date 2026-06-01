@@ -1,9 +1,6 @@
-import 'complex.dart';
-import 'imaginary.dart';
 import 'integer.dart';
 import 'number.dart';
 import 'precise.dart';
-import 'real.dart';
 
 /// Wraps Dart's core [double] type, so that it can share a common base type with other [Number]s.
 class Double extends Real {
@@ -72,14 +69,20 @@ class Double extends Real {
   }
 
   @override
-  bool operator ==(Object obj) {
-    if (obj is num && obj.isNaN) return value.isNaN;
-    if (obj is Real || obj is num) return obj == value;
-    if (obj is Imaginary) return value == 0.0 && obj.value.toDouble() == 0.0;
-    if (obj is Complex) {
-      return obj.real.toDouble() == value && obj.imaginary.toDouble() == 0.0;
+  bool operator ==(Object other) {
+    if (other is num && other.isNaN) {
+      return value.isNaN;
     }
-
+    if (other is Real || other is num) {
+      return other == value;
+    }
+    if (other is Imaginary) {
+      return value == 0.0 && other.value.toDouble() == 0.0;
+    }
+    if (other is Complex) {
+      return other.real.toDouble() == value &&
+          other.imaginary.toDouble() == 0.0;
+    }
     return false;
   }
 
@@ -108,7 +111,7 @@ class Double extends Real {
   bool get isInteger =>
       !value.isNaN && value.isFinite && value.toInt() == value;
 
-  /// Support [dart:json] stringify.
+  /// Support JSON stringify.
   ///
   /// Map Contents:
   ///     'd' : double value

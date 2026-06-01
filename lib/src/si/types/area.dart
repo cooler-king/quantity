@@ -1,14 +1,16 @@
 import 'dart:math' as math;
+
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'length.dart';
 
 /// The extent of a two-dimensional figure or shape.
 /// See the [Wikipedia entry for Area](https://en.wikipedia.org/wiki/Area)
 /// for more information.
-class Area extends Quantity {
+base class Area extends Quantity {
   /// Construct an Area with either square meters ([m2]), hectares ([ha])
   /// or barns ([b]).
   /// Optionally specify a relative standard uncertainty.
@@ -18,15 +20,21 @@ class Area extends Quantity {
             ha != null
                 ? Area.hectares
                 : (b != null ? Area.barns : Area.squareMeters),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Area.misc(dynamic conv) : super.misc(conv, Area.areaDimensions);
+  Area.misc(dynamic conv) : super.misc(conv, Area.areaDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Area based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Area.inUnits(dynamic value, AreaUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Area.squareMeters, uncert);
+      : super(value, units ?? Area.squareMeters, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Area.
   const Area.constant(Number valueSI, {AreaUnits? units, double uncert = 0.0})
@@ -38,7 +46,9 @@ class Area extends Quantity {
             l1.valueSI * l2.valueSI,
             Area.squareMeters,
             math.sqrt(l1.relativeUncertainty * l1.relativeUncertainty +
-                l2.relativeUncertainty * l2.relativeUncertainty));
+                l2.relativeUncertainty * l2.relativeUncertainty)) {
+    var _ = siRegistered;
+  }
 
   /// Dimensions for this type of quantity.
   static const Dimensions areaDimensions =
@@ -63,7 +73,7 @@ class Area extends Quantity {
 }
 
 /// Units acceptable for use in describing Area quantities.
-class AreaUnits extends Area with Units {
+base class AreaUnits extends Area with Units {
   /// Constructs an instance.
   AreaUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

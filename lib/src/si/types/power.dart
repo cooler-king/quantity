@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'energy.dart';
 import 'time.dart';
 
@@ -10,7 +11,7 @@ import 'time.dart';
 /// Amount of energy per unit time.
 /// See the [Wikipedia entry for Power (physics)](https://en.wikipedia.org/wiki/Power_(physics))
 /// for more information.
-class Power extends Quantity {
+base class Power extends Quantity {
   /// Constructs a Power with watts ([W]), kilowatts ([kW]) or megawatts ([MW]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
@@ -20,15 +21,21 @@ class Power extends Quantity {
             kW != null
                 ? Power.kilowatts
                 : (MW != null ? Power.megawatts : Power.watts),
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Power.misc(dynamic conv) : super.misc(conv, Power.powerDimensions);
+  Power.misc(dynamic conv) : super.misc(conv, Power.powerDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Power based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Power.inUnits(dynamic value, PowerUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Power.watts, uncert);
+      : super(value, units ?? Power.watts, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Power.
   const Power.constant(Number valueSI, {PowerUnits? units, double uncert = 0.0})
@@ -53,7 +60,7 @@ class Power extends Quantity {
 }
 
 /// Units acceptable for use in describing Power quantities.
-class PowerUnits extends Power with Units {
+base class PowerUnits extends Power with Units {
   /// Constructs an instance.
   PowerUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,
@@ -101,9 +108,5 @@ class PowerUnits extends Power with Units {
           offset);
 }
 
-/// Radiant flux is another way to express power.
-class RadiantFlux extends Power {
-  /// Constructs a constant RadiantFlux.
-  const RadiantFlux.constant(super.valueSI, {super.units, super.uncert})
-      : super.constant();
-}
+typedef HeatFlowRate = Power;
+typedef RadiantFlux = Power;

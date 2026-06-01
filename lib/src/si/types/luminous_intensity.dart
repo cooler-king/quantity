@@ -2,27 +2,34 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// Represents the *luminous intensity* physical quantity (one of the seven
 /// base SI quantities), the wavelength-weighted power emitted by a light source
 /// in a particular direction per unit solid angle.
 /// See the [Wikipedia entry for Luminous intensity](https://en.wikipedia.org/wiki/Luminous_intensity)
 /// for more information.
-class LuminousIntensity extends Quantity {
+base class LuminousIntensity extends Quantity {
   /// Constructs a LuminousIntensity with candelas ([cd]).
   /// Optionally specify a relative standard uncertainty.
   LuminousIntensity({dynamic cd, double uncert = 0.0})
-      : super(cd ?? 0.0, LuminousIntensity.candelas, uncert);
+      : super(cd ?? 0.0, LuminousIntensity.candelas, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   LuminousIntensity.misc(dynamic conv)
-      : super.misc(conv, LuminousIntensity.luminousIntensityDimensions);
+      : super.misc(conv, LuminousIntensity.luminousIntensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a LuminousIntensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   LuminousIntensity.inUnits(dynamic value, LuminousIntensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? LuminousIntensity.candelas, uncert);
+      : super(value, units ?? LuminousIntensity.candelas, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant LuminousIntensity.
   const LuminousIntensity.constant(Number valueSI,
@@ -41,7 +48,7 @@ class LuminousIntensity extends Quantity {
 }
 
 /// Units acceptable for use in describing [LuminousIntensity] quantities.
-class LuminousIntensityUnits extends LuminousIntensity with Units {
+base class LuminousIntensityUnits extends LuminousIntensity with Units {
   /// Constructs an instance.
   LuminousIntensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

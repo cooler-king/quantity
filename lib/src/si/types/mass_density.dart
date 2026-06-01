@@ -3,22 +3,28 @@ import 'package:quantity/quantity.dart';
 /// Mass per unit volume.
 /// See the [Wikipedia entry for Density](https://en.wikipedia.org/wiki/Density)
 /// for more information.
-class MassDensity extends Quantity {
+base class MassDensity extends Quantity {
   /// Constructs a MassDensity with kilograms per cubic meter.
   /// Optionally specify a relative standard uncertainty.
   MassDensity({dynamic kilogramsPerCubicMeter, double uncert = 0.0})
       : super(kilogramsPerCubicMeter ?? 0.0, MassDensity.kilogramsPerCubicMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MassDensity.misc(dynamic conv)
-      : super.misc(conv, MassDensity.massDensityDimensions);
+      : super.misc(conv, MassDensity.massDensityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MassDensity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MassDensity.inUnits(dynamic value, MassDensityUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MassDensity.kilogramsPerCubicMeter, uncert);
+      : super(value, units ?? MassDensity.kilogramsPerCubicMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MassDensity.
   const MassDensity.constant(Number valueSI,
@@ -37,7 +43,7 @@ class MassDensity extends Quantity {
 }
 
 /// Units acceptable for use in describing MassDensity quantities.
-class MassDensityUnits extends MassDensity with Units {
+base class MassDensityUnits extends MassDensity with Units {
   /// Constructs an instance.
   MassDensityUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

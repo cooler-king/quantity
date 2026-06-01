@@ -2,6 +2,7 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'force.dart';
 import 'length.dart';
 
@@ -10,20 +11,26 @@ import 'length.dart';
 /// The tendency of a force to rotate an object about an axis, fulcrum, or pivot.
 /// See the [Wikipedia entry for Torque](https://en.wikipedia.org/wiki/Torque)
 /// for more information.
-class Torque extends Quantity {
+base class Torque extends Quantity {
   /// Constructs a Torque with newton meters ([Nm]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Torque({dynamic Nm, double uncert = 0.0})
-      : super(Nm ?? 0.0, Torque.newtonMeters, uncert);
+      : super(Nm ?? 0.0, Torque.newtonMeters, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Torque.misc(dynamic conv) : super.misc(conv, Torque.torqueDimensions);
+  Torque.misc(dynamic conv) : super.misc(conv, Torque.torqueDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Torque based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Torque.inUnits(dynamic value, TorqueUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Torque.newtonMeters, uncert);
+      : super(value, units ?? Torque.newtonMeters, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Torque.
   const Torque.constant(Number valueSI,
@@ -41,7 +48,7 @@ class Torque extends Quantity {
 }
 
 /// Units acceptable for use in describing Torque quantities.
-class TorqueUnits extends Torque with Units {
+base class TorqueUnits extends Torque with Units {
   /// Constructs an instance.
   TorqueUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,
@@ -88,3 +95,5 @@ class TorqueUnits extends Torque with Units {
           false,
           offset);
 }
+
+typedef MomentOfForce = Torque;

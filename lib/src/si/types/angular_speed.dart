@@ -2,13 +2,14 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'angle.dart';
 import 'time.dart';
 
 /// The rate of change of an angle.
 /// See the [Wikipedia entry for Angular_velocity](https://en.wikipedia.org/wiki/Angular_velocity)
 /// for more information.
-class AngularSpeed extends Quantity {
+base class AngularSpeed extends Quantity {
   /// Construct an AngularSpeed with either radians per second or degrees per second.
   /// Optionally specify a relative standard uncertainty.
   AngularSpeed(
@@ -18,17 +19,23 @@ class AngularSpeed extends Quantity {
             degreesPerSecond != null
                 ? AngularSpeed.degreesPerSecond
                 : AngularSpeed.radiansPerSecond,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   AngularSpeed.misc(dynamic conv)
-      : super.misc(conv, AngularSpeed.angularSpeedDimensions);
+      : super.misc(conv, AngularSpeed.angularSpeedDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a AngularSpeed based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   AngularSpeed.inUnits(dynamic value, AngularSpeedUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? AngularSpeed.radiansPerSecond, uncert);
+      : super(value, units ?? AngularSpeed.radiansPerSecond, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant AngularSpeed.
   const AngularSpeed.constant(Number valueSI,
@@ -51,7 +58,7 @@ class AngularSpeed extends Quantity {
 }
 
 /// Units acceptable for use in describing AngularSpeed quantities.
-class AngularSpeedUnits extends AngularSpeed with Units {
+base class AngularSpeedUnits extends AngularSpeed with Units {
   /// Constructs an instance.
   AngularSpeedUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

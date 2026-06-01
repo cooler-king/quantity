@@ -1,7 +1,9 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
+  final _ = siRegistered;
+
   group('mutable quantity', () {
     test('construct', () {
       final mq = MutableQuantity();
@@ -260,6 +262,65 @@ void main() {
           throwsA(const TypeMatcher<DimensionsException>()));
       expect(() => mq.setValueInUnits(34, Time.days),
           throwsA(const TypeMatcher<DimensionsException>()));
+    });
+
+    test('delegates, operators and properties', () {
+      final mq = MutableQuantity(Double(16), Area.areaDimensions);
+      expect(mq.cgs.toDouble(), 160000.0);
+      expect(mq.arbitraryPrecision, false);
+      expect(mq.standardUncertainty.valueSI.toDouble(), 0);
+      expect(mq.calcExpandedUncertainty(2.0).valueSI.toDouble(), 0);
+      expect(mq.hashCode, isNotNull);
+      expect(mq == mq, true);
+      expect(mq == MutableQuantity(), false);
+      expect(mq.valueInUnits(Area.squareMeters).toDouble(), 16.0);
+      expect(mq.randomSample(), isNotNull);
+      expect(mq.toJson(), isNotNull);
+
+      final buf = StringBuffer();
+      mq.outputText(buf);
+      expect(buf.toString(), isNotEmpty);
+
+      // Preferred units setter
+      mq.preferredUnits = Area.squareMeters;
+      expect(mq.preferredUnits, Area.squareMeters);
+
+      // Arithmetic
+      expect((mq + mq).valueSI.toDouble(), 32.0);
+      expect((mq - mq).valueSI.toDouble(), 0.0);
+      expect((mq * 2.0).valueSI.toDouble(), 32.0);
+      expect((mq / 2.0).valueSI.toDouble(), 8.0);
+      expect((mq ^ 2.0).valueSI.toDouble(), 256.0);
+
+      // Comparisons
+      expect(mq < mq, false);
+      expect(mq <= mq, true);
+      expect(mq > mq, false);
+      expect(mq >= mq, true);
+      expect(mq.compareTo(mq), 0);
+
+      // Sqrt
+      expect(mq.sqrt().valueSI.toDouble(), 4.0);
+
+      // Invert
+      mq.invert();
+      expect(mq.dimensions.getComponentExponent('Length'), -2);
+
+      // toMutable
+      final mqT = toMutable(Length(m: 5));
+      expect(mqT.mks.toDouble(), 5);
+
+      // setEqualTo same values (changes is false)
+      final qSame = Length(m: 5);
+      mqT.setEqualTo(qSame);
+      mqT.setEqualTo(qSame); // second time, no change
+
+      // isScalar and isScalarSI
+      expect(mqT.isScalar, false);
+      expect(mqT.isScalarSI, false);
+      final mqS = MutableQuantity(Double(1));
+      expect(mqS.isScalar, true);
+      expect(mqS.isScalarSI, true);
     });
   });
 }

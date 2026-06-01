@@ -2,25 +2,32 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 
 /// A measure of the _effective concentration_ of a species in a mixture.
 /// See the [Wikipedia entry for Thermodynamic activity](https://en.wikipedia.org/wiki/Thermodynamic_activity)
 /// for more information.
-class Activity extends Quantity {
+base class Activity extends Quantity {
   /// Construct an Activity with either becquerels ([Bq]) or curies ([Ci]).
   /// Optionally specify a relative standard uncertainty.
   // ignore: non_constant_identifier_names
   Activity({dynamic Bq, dynamic Ci, double uncert = 0.0})
       : super(Bq ?? (Ci ?? 0.0),
-            Ci != null ? Activity.curies : Activity.becquerels, uncert);
+            Ci != null ? Activity.curies : Activity.becquerels, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Activity.misc(dynamic conv) : super.misc(conv, Activity.activityDimensions);
+  Activity.misc(dynamic conv) : super.misc(conv, Activity.activityDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Activity based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Activity.inUnits(dynamic value, ActivityUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Activity.becquerels, uncert);
+      : super(value, units ?? Activity.becquerels, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Activity.
   const Activity.constant(Number valueSI,
@@ -41,7 +48,7 @@ class Activity extends Quantity {
 }
 
 /// Units acceptable for use in describing Activity quantities.
-class ActivityUnits extends Activity with Units {
+base class ActivityUnits extends Activity with Units {
   /// Constructs an instance.
   ActivityUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,

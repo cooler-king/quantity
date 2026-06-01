@@ -1,29 +1,37 @@
 import 'package:quantity/domain/astronomical.dart';
+
 import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'time.dart';
 
 /// The rate of change of speed of an object.
 /// See the [Wikipedia entry for Acceleration](https://en.wikipedia.org/wiki/Acceleration)
 /// for more information.
-class Acceleration extends Quantity {
+base class Acceleration extends Quantity {
   /// Construct an Acceleration with meters per second squared.
   /// Optionally specify a relative standard uncertainty.
   Acceleration({dynamic metersPerSecondSquared, double uncert = 0.0})
       : super(metersPerSecondSquared ?? 0.0,
-            Acceleration.metersPerSecondSquared, uncert);
+            Acceleration.metersPerSecondSquared, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   Acceleration.misc(dynamic conv)
-      : super.misc(conv, Acceleration.accelerationDimensions);
+      : super.misc(conv, Acceleration.accelerationDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Acceleration based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Acceleration.inUnits(dynamic value, AccelerationUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? Acceleration.metersPerSecondSquared, uncert);
+      : super(value, units ?? Acceleration.metersPerSecondSquared, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Acceleration.
   const Acceleration.constant(Number valueSI,
@@ -42,7 +50,7 @@ class Acceleration extends Quantity {
 }
 
 /// Units acceptable for use in describing Acceleration quantities.
-class AccelerationUnits extends Acceleration with Units {
+base class AccelerationUnits extends Acceleration with Units {
   /// Constructs an instance.
   AccelerationUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

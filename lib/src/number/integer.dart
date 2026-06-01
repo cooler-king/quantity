@@ -1,8 +1,5 @@
-import 'complex.dart';
 import 'double.dart';
-import 'imaginary.dart';
 import 'number.dart';
-import 'real.dart';
 
 /// Wraps Dart's core [int] type, so that it can share a common base type with other [Number]s.
 class Integer extends Real {
@@ -69,11 +66,6 @@ class Integer extends Real {
   @override
   bool operator ==(Object obj) {
     if (obj is Number || obj is num) return obj == value;
-    if (obj is Complex) {
-      return obj.real.value == value && obj.imaginary.value.value == 0.0;
-    }
-    if (obj is Imaginary) return value == 0.0 && obj.value.value == 0.0;
-
     return false;
   }
 
@@ -195,7 +187,7 @@ class Integer extends Real {
   @override
   Number truncate() => this;
 
-  /// Support [dart:json] stringify.
+  /// Support JSON stringify.
   ///
   /// Map Contents:
   ///     'i' : int value

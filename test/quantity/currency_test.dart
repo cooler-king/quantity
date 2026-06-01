@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:quantity/quantity.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('Currency', () {
@@ -96,6 +96,10 @@ void main() {
       prod = c1 / Scalar(value: 8.1);
       expect(prod is Currency, true);
       expect(prod.valueSI.toDouble(), closeTo(12.34 / 8.1, 0.00001));
+    });
+
+    test('centsUS unit', () {
+      expect(Currency.centsUS, isNotNull);
     });
   });
 }

@@ -2,29 +2,37 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'current.dart';
 import 'length.dart';
 
 /// The intensity of a magnetic field.
 /// See the [Wikipedia entry for Magnetic field](https://en.wikipedia.org/wiki/Magnetic_field)
 /// for more information.
-class MagneticFieldStrength extends Quantity {
+base class MagneticFieldStrength extends Quantity {
   /// Constructs a MagneticFieldStrength with amperes per meter.
   /// Optionally specify a relative standard uncertainty.
   MagneticFieldStrength({dynamic amperesPerMeter, double uncert = 0.0})
       : super(amperesPerMeter ?? 0.0, MagneticFieldStrength.amperesPerMeter,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
   MagneticFieldStrength.misc(dynamic conv)
-      : super.misc(conv, MagneticFieldStrength.magneticFieldStrengthDimensions);
+      : super.misc(
+            conv, MagneticFieldStrength.magneticFieldStrengthDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a MagneticFieldStrength based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   MagneticFieldStrength.inUnits(
       dynamic value, MagneticFieldStrengthUnits? units,
       [double uncert = 0.0])
-      : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert);
+      : super(value, units ?? MagneticFieldStrength.amperesPerMeter, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant MagneticFieldStrength.
   const MagneticFieldStrength.constant(Number valueSI,
@@ -47,7 +55,7 @@ class MagneticFieldStrength extends Quantity {
 }
 
 /// Units acceptable for use in describing MagneticFieldStrength quantities.
-class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
+base class MagneticFieldStrengthUnits extends MagneticFieldStrength with Units {
   /// Constructs an instance.
   MagneticFieldStrengthUnits(String name, String? abbrev1, String? abbrev2,
       String singular, dynamic conv,

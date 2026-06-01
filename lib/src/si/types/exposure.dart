@@ -2,28 +2,35 @@ import '../../number/util/converters.dart';
 import '../../si/dimensions.dart';
 import '../../si/quantity.dart';
 import '../../si/units.dart';
+import '../register_si.dart';
 import 'charge.dart';
 import 'mass.dart';
 
 /// The radiant energy received by a surface per unit area.
 /// See the [Wikipedia entry for Radiant exposure](https://en.wikipedia.org/wiki/Radiant_exposure)
 /// for more information.
-class Exposure extends Quantity {
+base class Exposure extends Quantity {
   /// Construct an Exposure with coulombs per kilogram or roentgens ([R]).
   /// Optionally specify a relative standard uncertainty.
   Exposure({dynamic coulombsPerKilogram, dynamic R, double uncert = 0.0})
       : super(
             coulombsPerKilogram ?? (R ?? 0.0),
             R != null ? Exposure.roentgens : Exposure.coulombsPerKilogram,
-            uncert);
+            uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs an instance without preferred units.
-  Exposure.misc(dynamic conv) : super.misc(conv, Exposure.exposureDimensions);
+  Exposure.misc(dynamic conv) : super.misc(conv, Exposure.exposureDimensions) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a Exposure based on the [value]
   /// and the conversion factor intrinsic to the passed [units].
   Exposure.inUnits(dynamic value, ExposureUnits? units, [double uncert = 0.0])
-      : super(value, units ?? Exposure.coulombsPerKilogram, uncert);
+      : super(value, units ?? Exposure.coulombsPerKilogram, uncert) {
+    var _ = siRegistered;
+  }
 
   /// Constructs a constant Exposure.
   const Exposure.constant(Number valueSI,
@@ -45,7 +52,7 @@ class Exposure extends Quantity {
 }
 
 /// Units acceptable for use in describing Exposure quantities.
-class ExposureUnits extends Exposure with Units {
+base class ExposureUnits extends Exposure with Units {
   /// Constructs an instance.
   ExposureUnits(String name, String? abbrev1, String? abbrev2, String singular,
       dynamic conv,
