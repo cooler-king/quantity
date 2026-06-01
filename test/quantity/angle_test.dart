@@ -157,7 +157,7 @@ void main() {
           closeTo(Angle(deg: 335).valueSI.toDouble(), 0.0001));
     });
 
-    test('extra methods and functions', () {
+    test('trig functions, angle180, and angle360 normalization', () {
       // Global trig functions
       final a = Angle(rad: pi / 4.0);
       expect(cosine(a), closeTo(cos(pi / 4.0), 0.0001));

@@ -136,7 +136,7 @@ void main() {
       expect(Double(10).dpcm.inDpcm, 10.0);
     });
 
-    test('missing conversion getters', () {
+    test('convenience in* conversion getters for common units', () {
       expect(5.yards, isA<Length>());
       expect(Length(m: 1).inCentimeters, 100.0);
       expect(Length(m: 1).inMillimeters, 1000.0);

@@ -59,16 +59,36 @@ class AngleRange extends QuantityRange<Angle> {
   /// Returns true if this angle range overlaps [range2]'s angle range
   /// (exclusive of the endpoints).
   ///
-  /// The ranges are projected onto the 0-360 degree range.
+  /// Both ranges are projected onto the 0–360 degree circle before comparison,
+  /// so ranges that are numerically far apart (e.g. 350–20 and 720–740) are
+  /// still recognised as overlapping if their arcs share common ground.
+  ///
+  /// **How the wrap-around split works**
+  ///
+  /// When a projected range crosses 0° (i.e. `max360 < min360` after
+  /// normalisation), the arc is split into two contiguous sub-ranges that
+  /// together cover the same arc without crossing the 0°/360° boundary:
+  ///
+  /// ```
+  ///   sub-range 1:  [min360, 360°]   — the tail end of the circle
+  ///   sub-range 2:  [0°,     max360] — the head end of the circle
+  /// ```
+  ///
+  /// `max360` is kept at its normalised value (< min360); adding 2π to it
+  /// would produce a value > 360°, which is geometrically wrong for a range
+  /// that is supposed to live within the 0–360° circle.
   ///
   bool overlaps360(AngleRange range2) {
     if (overlaps(range2)) return true;
 
-    // No direct overlap... check if the projections overlap
+    // No direct overlap — check whether the 0–360 projections overlap.
+    // If a projected range crosses 0° (max360 < min360), split it into two
+    // sub-ranges that together tile the same arc within [0°, 360°].
     final list1 = <AngleRange>[];
     final min360 = minValue.angle360;
-    var max360 = maxValue.angle360;
+    final max360 = maxValue.angle360;
     if (max360 < min360) {
+      // Arc crosses 0°: split into [min360, 360°] ∪ [0°, max360].
       list1
         ..add(AngleRange(min360, Angle(rad: twoPi)))
         ..add(AngleRange(Angle(rad: 0), max360));
@@ -80,6 +100,7 @@ class AngleRange extends QuantityRange<Angle> {
     final min360two = range2.minValue.angle360;
     final max360two = range2.maxValue.angle360;
     if (max360two < min360two) {
+      // Arc crosses 0°: split into [min360two, 360°] ∪ [0°, max360two].
       list2
         ..add(AngleRange(min360two, Angle(rad: twoPi)))
         ..add(AngleRange(Angle(rad: 0), max360two));
@@ -87,6 +108,7 @@ class AngleRange extends QuantityRange<Angle> {
       list2.add(AngleRange(min360two, max360two));
     }
 
+    // Check every pair of sub-ranges for overlap.
     for (final range1 in list1) {
       for (final range2 in list2) {
         if (range1.overlaps(range2)) return true;

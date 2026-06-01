@@ -683,7 +683,8 @@ void main() {
       expect(Double.zero.isInteger, true);
     });
 
-    test('Real base class extra features', () {
+    test('Real.fromMap, remainder with complex divisors, and exponent raising',
+        () {
       // Real.fromMap with precise
       final rPrecise = Real.fromMap(<String, dynamic>{'precise': '10.5'});
       expect(rPrecise, isA<Precise>());

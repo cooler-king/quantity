@@ -923,7 +923,7 @@ void main() {
       expect(Complex.coeff(-2.8, -4.3).toString(), '-2.8 - 4.3i');
     });
 
-    test('extra complex methods and exceptions', () {
+    test('constant constructor, conjugate, and truncating division', () {
       // constant constructor
       const cc = Complex.constant(
           Double.constant(1.0), Imaginary.constant(Double.constant(2.0)));
