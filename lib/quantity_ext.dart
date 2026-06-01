@@ -1,6 +1,7 @@
 /// Extends the core library with non-SI units, constants, unit synonyms to enable terse
+library;
+
 /// constructors and expressions, and auxiliary functions.
-library quantity_ext;
 
 // quantity type extensions
 export 'src/ext/acceleration_ext.dart';

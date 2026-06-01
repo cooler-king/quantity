@@ -1,6 +1,7 @@
 /// Core library containing only core dimensions, units, numbers and quantity engine classes.
+library;
+
 /// Does not export any of the 75+ physical quantity subclasses, allowing clean compiler tree-shaking.
-library quantity_core;
 
 export 'package:decimal/decimal.dart';
 export 'number.dart';

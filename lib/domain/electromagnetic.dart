@@ -1,6 +1,7 @@
 /// Quantity types, units and constants commonly encountered in the fields dealing with
+library;
+
 /// electromagnetics.
-library electromagnetic;
 
 import 'package:quantity/quantity.dart';
 

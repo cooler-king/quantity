@@ -1,10 +1,11 @@
 /// The _quantity package_ accepts both Dart's `num` types and the `Number`s defined by this
+library;
+
 /// _number library_ as quantity values and for quantity operations.
 ///
 /// The classes in this library can be used to model quantities having values with arbitrary precision
 /// as well as imaginary or complex numbers.  It is independent of the quantity classes and can be
 /// used in a purely mathematical context.
-library number;
 
 export 'package:decimal/decimal.dart';
 export 'src/number/double.dart';

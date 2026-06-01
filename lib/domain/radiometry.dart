@@ -1,5 +1,5 @@
 /// Quantity types, units and constants commonly encountered in the fields of radiometry and photometry.
-library radiometry;
+library;
 
 export 'package:quantity/domain/astronomical.dart'
     show solarConstant, solarLuminosity;
