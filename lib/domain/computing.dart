@@ -1,5 +1,5 @@
 /// Quantity types, units and constants commonly encountered in computing, information theory, and digital layouts.
-library computing;
+library;
 
 export 'package:quantity/quantity.dart'
     show

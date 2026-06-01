@@ -1,8 +1,9 @@
 /// The core library containing the fundamental
+library;
+
 /// quantity classes and types consistent with the
 /// [International System of Units](http://physics.nist.gov/cuu/Units/introduction.html)
 /// (SI, in the French acronym).
-library quantity_si;
 
 export 'src/si/dimensions.dart';
 export 'src/si/dimensions_exception.dart';

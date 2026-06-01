@@ -1,5 +1,5 @@
 /// Quantity types and constants with universal application.
-library universal;
+library;
 
 import 'package:quantity/quantity.dart';
 

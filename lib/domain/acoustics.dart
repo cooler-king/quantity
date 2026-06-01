@@ -1,5 +1,5 @@
 /// Quantity types, units and constants commonly encountered in acoustics.
-library acoustics;
+library;
 
 export 'package:quantity/quantity.dart'
     show

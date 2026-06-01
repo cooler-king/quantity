@@ -1,5 +1,5 @@
 /// Quantity types, units and constants commonly encountered in the fields of atomic, molecular, and nuclear physics.
-library atomic_nuclear;
+library;
 
 export 'package:quantity/domain/thermodynamic.dart'
     show avogadro, faradayConstant, loschmidtStdAtm;

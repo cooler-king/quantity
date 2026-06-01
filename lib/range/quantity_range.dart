@@ -91,7 +91,7 @@ class QuantityRange<Q extends Quantity> {
   bool encompasses(QuantityRange<Q> range2) =>
       (minValue <= range2.minValue) && (maxValue >= range2.maxValue);
 
-  /// Returns a String representation of this range in the form '<Q1> to <Q2>'.
+  /// Returns a String representation of this range in the form `'<Q1> to <Q2>'`.
   @override
   String toString() => '$q1 to $q2';
 

@@ -1,6 +1,7 @@
 /// Quantity types, units and constants commonly encountered in the field of
+library;
+
 /// thermodynamics and related sciences.
-library thermodynamic;
 
 import 'package:quantity/quantity.dart';
 

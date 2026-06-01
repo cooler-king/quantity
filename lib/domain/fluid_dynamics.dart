@@ -1,5 +1,5 @@
 /// Quantity types, units and constants commonly encountered in fluid dynamics and hydraulics.
-library fluid_dynamics;
+library;
 
 export 'package:quantity/quantity.dart'
     show
