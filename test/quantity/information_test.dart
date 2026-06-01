@@ -57,7 +57,9 @@ void main() {
       expect(info.preferredUnits, Information.tebibytes);
     });
 
-    test('misc, inUnits, and constant constructors plus binary unit values and derive', () {
+    test(
+        'misc, inUnits, and constant constructors plus binary unit values and derive',
+        () {
       // misc ctor
       final infMisc = Information.misc(1024.0);
       expect(infMisc.valueSI.toDouble(), 1024.0);
